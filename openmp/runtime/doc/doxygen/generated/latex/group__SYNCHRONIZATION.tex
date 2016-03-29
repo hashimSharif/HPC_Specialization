@@ -1,0 +1,246 @@
+\hypertarget{group__SYNCHRONIZATION}{\section{Synchronization}
+\label{group__SYNCHRONIZATION}\index{Synchronization@{Synchronization}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__SYNCHRONIZATION_ga90f0e4bf417a06cff2a4f895daa4ff37}{\-\_\-\-\_\-kmpc\-\_\-flush} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+void \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\-\_\-\-\_\-kmpc\-\_\-barrier} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_gacea2959cabb92c4a941087e524c5f3d5}{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+void \hyperlink{group__SYNCHRONIZATION_ga35415691dad1e3430caa78c9d4b34cb3}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_ga5a51fa2c8f61d807895e377d6c732b16}{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_gafc5438d4c4f01dcd347d9bfde27f68e1}{\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 num\-\_\-vars, size\-\_\-t reduce\-\_\-size, void $\ast$reduce\-\_\-data, void($\ast$reduce\-\_\-func)(void $\ast$lhs\-\_\-data, void $\ast$rhs\-\_\-data), kmp\-\_\-critical\-\_\-name $\ast$lck)
+\item 
+void \hyperlink{group__SYNCHRONIZATION_ga5c40184c6babbe35c50d43a47573c5c5}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-critical\-\_\-name $\ast$lck)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_ga6a08af1c559012315e7e5be69f7fe608}{\-\_\-\-\_\-kmpc\-\_\-reduce} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 num\-\_\-vars, size\-\_\-t reduce\-\_\-size, void $\ast$reduce\-\_\-data, void($\ast$reduce\-\_\-func)(void $\ast$lhs\-\_\-data, void $\ast$rhs\-\_\-data), kmp\-\_\-critical\-\_\-name $\ast$lck)
+\item 
+void \hyperlink{group__SYNCHRONIZATION_ga2ead7ca8fe9886581c216ca8006ae3c9}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-critical\-\_\-name $\ast$lck)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+These functions are used for implementing barriers. 
+
+\subsection{Function Documentation}
+\hypertarget{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-barrier@{\-\_\-\-\_\-kmpc\-\_\-barrier}}
+\index{\-\_\-\-\_\-kmpc\-\_\-barrier@{\-\_\-\-\_\-kmpc\-\_\-barrier}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-barrier}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-barrier (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & thread id.\\
+\hline
+\end{DoxyParams}
+Execute a barrier. 
+
+Definition at line 697 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_gacea2959cabb92c4a941087e524c5f3d5}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master@{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master}}
+\index{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master@{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_gacea2959cabb92c4a941087e524c5f3d5}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & thread id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one if the thread should execute the master block, zero otherwise
+\end{DoxyReturn}
+Start execution of a combined barrier and master. The barrier is executed inside this function. 
+
+Definition at line 1377 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_ga5a51fa2c8f61d807895e377d6c732b16}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait@{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait}}
+\index{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait@{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga5a51fa2c8f61d807895e377d6c732b16}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & thread id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+one if the thread should execute the master block, zero otherwise
+\end{DoxyReturn}
+Start execution of a combined barrier and master(nowait) construct. The barrier is executed inside this function. There is no equivalent \char`\"{}end\char`\"{} function, since the 
+
+Definition at line 1425 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_ga35415691dad1e3430caa78c9d4b34cb3}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master}}
+\index{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga35415691dad1e3430caa78c9d4b34cb3}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & thread id.\\
+\hline
+\end{DoxyParams}
+Complete the execution of a combined barrier and master. This function should only be called at the completion of the {\ttfamily master} code. Other threads will still be waiting at the barrier and this call releases them. 
+
+Definition at line 1407 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_ga2ead7ca8fe9886581c216ca8006ae3c9}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce}}
+\index{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{kmp\-\_\-critical\-\_\-name $\ast$}]{lck}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga2ead7ca8fe9886581c216ca8006ae3c9}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & global thread id. \\
+\hline
+{\em lck} & pointer to the unique lock data structure\\
+\hline
+\end{DoxyParams}
+Finish the execution of a blocking reduce. The {\ttfamily lck} pointer must be the same as that used in the corresponding start function. 
+
+Definition at line 2947 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_ga5c40184c6babbe35c50d43a47573c5c5}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait}}
+\index{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{kmp\-\_\-critical\-\_\-name $\ast$}]{lck}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga5c40184c6babbe35c50d43a47573c5c5}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & global thread id. \\
+\hline
+{\em lck} & pointer to the unique lock data structure\\
+\hline
+\end{DoxyParams}
+Finish the execution of a reduce nowait. 
+
+Definition at line 2802 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_ga90f0e4bf417a06cff2a4f895daa4ff37}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-flush@{\-\_\-\-\_\-kmpc\-\_\-flush}}
+\index{\-\_\-\-\_\-kmpc\-\_\-flush@{\-\_\-\-\_\-kmpc\-\_\-flush}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-flush}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-flush (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga90f0e4bf417a06cff2a4f895daa4ff37}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information.\\
+\hline
+\end{DoxyParams}
+Execute {\ttfamily flush}. This is implemented as a full memory fence. (Though depending on the memory ordering convention obeyed by the compiler even that may not be necessary). 
+
+Definition at line 631 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_ga6a08af1c559012315e7e5be69f7fe608}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-reduce@{\-\_\-\-\_\-kmpc\-\_\-reduce}}
+\index{\-\_\-\-\_\-kmpc\-\_\-reduce@{\-\_\-\-\_\-kmpc\-\_\-reduce}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-reduce}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-reduce (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{kmp\-\_\-int32}]{num\-\_\-vars, }
+\item[{size\-\_\-t}]{reduce\-\_\-size, }
+\item[{void $\ast$}]{reduce\-\_\-data, }
+\item[{void($\ast$)(void $\ast$lhs\-\_\-data, void $\ast$rhs\-\_\-data)}]{reduce\-\_\-func, }
+\item[{kmp\-\_\-critical\-\_\-name $\ast$}]{lck}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_ga6a08af1c559012315e7e5be69f7fe608}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & global thread number \\
+\hline
+{\em num\-\_\-vars} & number of items (variables) to be reduced \\
+\hline
+{\em reduce\-\_\-size} & size of data in bytes to be reduced \\
+\hline
+{\em reduce\-\_\-data} & pointer to data to be reduced \\
+\hline
+{\em reduce\-\_\-func} & callback function providing reduction operation on two operands and returning result of reduction in lhs\-\_\-data \\
+\hline
+{\em lck} & pointer to the unique lock data structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 for the master thread, 0 for all other team threads, 2 for all team threads if atomic reduction needed
+\end{DoxyReturn}
+A blocking reduce that includes an implicit barrier. 
+
+Definition at line 2860 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__SYNCHRONIZATION_gafc5438d4c4f01dcd347d9bfde27f68e1}{\index{Synchronization@{Synchronization}!\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait@{\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait}}
+\index{\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait@{\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait}!Synchronization@{Synchronization}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{kmp\-\_\-int32}]{num\-\_\-vars, }
+\item[{size\-\_\-t}]{reduce\-\_\-size, }
+\item[{void $\ast$}]{reduce\-\_\-data, }
+\item[{void($\ast$)(void $\ast$lhs\-\_\-data, void $\ast$rhs\-\_\-data)}]{reduce\-\_\-func, }
+\item[{kmp\-\_\-critical\-\_\-name $\ast$}]{lck}
+\end{DoxyParamCaption}
+)}}\label{group__SYNCHRONIZATION_gafc5438d4c4f01dcd347d9bfde27f68e1}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information \\
+\hline
+{\em global\-\_\-tid} & global thread number \\
+\hline
+{\em num\-\_\-vars} & number of items (variables) to be reduced \\
+\hline
+{\em reduce\-\_\-size} & size of data in bytes to be reduced \\
+\hline
+{\em reduce\-\_\-data} & pointer to data to be reduced \\
+\hline
+{\em reduce\-\_\-func} & callback function providing reduction operation on two operands and returning result of reduction in lhs\-\_\-data \\
+\hline
+{\em lck} & pointer to the unique lock data structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 for the master thread, 0 for all other team threads, 2 for all team threads if atomic reduction needed
+\end{DoxyReturn}
+The nowait version is used for a reduce clause with the nowait argument. 
+
+Definition at line 2663 of file kmp\-\_\-csupport.\-c.
+

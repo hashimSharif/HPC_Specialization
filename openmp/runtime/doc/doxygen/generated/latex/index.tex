@@ -1,0 +1,192 @@
+\hypertarget{index_sec_intro}{}\section{Introduction}\label{index_sec_intro}
+This document describes the interface provided by the L\-L\-V\-M ~Open\-M\-P$^{\mbox{$\ast$}}$  runtime library to the compiler. Routines that are directly called as simple functions by user code are not currently described here, since their definition is in the Open\-M\-P specification available from \href{http://openmp.org}{\tt http\-://openmp.\-org}
+
+The aim here is to explain the interface from the compiler to the runtime.
+
+The overall design is described, and each function in the interface has its own description. (At least, that's the ambition, we may not be there yet).\hypertarget{index_sec_building}{}\section{Quickly Building the Runtime}\label{index_sec_building}
+For the impatient, we cover building the runtime as the first topic here.
+
+C\-Make is used to build the Open\-M\-P runtime. For details and a full list of options for the C\-Make build system, see {\ttfamily Build\-\_\-\-With\-\_\-\-C\-Make.\-txt} inside the {\ttfamily runtime/} subdirectory. These instructions will provide the most typical build.
+
+In-\/\-L\-L\-V\-M-\/tree build\-:. 
+\begin{DoxyCode}
+$ cd where-you-want-to-live
+Check out openmp into llvm/projects
+$ cd where-you-want-to-build
+$ mkdir build && cd build
+$ cmake path/to/llvm -DCMAKE\_C\_COMPILER=<C compiler> -DCMAKE\_CXX\_COMPILER=<C++ compiler>
+$ make omp
+\end{DoxyCode}
+ Out-\/of-\/\-L\-L\-V\-M-\/tree build\-: 
+\begin{DoxyCode}
+$ cd where-you-want-to-live
+Check out openmp
+$ cd where-you-want-to-live/openmp/runtime
+$ mkdir build && cd build
+$ cmake path/to/openmp -DCMAKE\_C\_COMPILER=<C compiler> -DCMAKE\_CXX\_COMPILER=<C++ compiler>
+$ make
+\end{DoxyCode}
+\hypertarget{index_sec_supported}{}\section{Supported R\-T\-L Build Configurations}\label{index_sec_supported}
+The architectures supported are I\-A-\/32 architecture, Intel\textregistered{}~ 64, and Intel\textregistered{}~ Many Integrated Core Architecture. The build configurations supported are shown in the table below.
+
+\begin{TabularC}{4}
+\hline
+\rowcolor{lightgray}{\bf }&{\bf icc/icl}&{\bf gcc}&{\bf clang }\\\cline{1-4}
+Linux$^{\mbox{$\ast$}}$  O\-S&Yes(1,5)&Yes(2,4)&Yes(4,6,7) \\\cline{1-4}
+Free\-B\-S\-D$^{\mbox{$\ast$}}$ &Yes(1,5)&Yes(2,4)&Yes(4,6,7,8) \\\cline{1-4}
+O\-S X$^{\mbox{$\ast$}}$ &Yes(1,3,4)&No&Yes(4,6,7) \\\cline{1-4}
+Windows$^{\mbox{$\ast$}}$  O\-S&Yes(1,4)&No&No \\\cline{1-4}
+\end{TabularC}
+(1) On I\-A-\/32 architecture and Intel\textregistered{}~ 64, icc/icl versions 12.\-x are supported (12.\-1 is recommended).\par
+ (2) gcc version 4.\-7 is supported.\par
+ (3) For icc on O\-S X$^{\mbox{$\ast$}}$ , O\-S X$^{\mbox{$\ast$}}$  version 10.\-5.\-8 is supported.\par
+ (4) Intel\textregistered{}~ Many Integrated Core Architecture not supported.\par
+ (5) On Intel\textregistered{}~ Many Integrated Core Architecture, icc/icl versions 13.\-0 or later are required.\par
+ (6) Clang$^{\mbox{$\ast$}}$  version 3.\-3 is supported.\par
+ (7) Clang$^{\mbox{$\ast$}}$  currently does not offer a software-\/implemented 128 bit extended precision type. Thus, all entry points reliant on this type are removed from the library and cannot be called in the user program. The following functions are not available\-: 
+\begin{DoxyCode}
+\_\_kmpc\_atomic\_cmplx16\_*
+\_\_kmpc\_atomic\_float16\_*
+\_\_kmpc\_atomic\_*\_fp
+\end{DoxyCode}
+ (8) Community contribution provided A\-S I\-S, not tested by Intel.
+
+Supported Architectures\-: I\-B\-M(\-R) Power 7 and Power 8 \begin{TabularC}{3}
+\hline
+\rowcolor{lightgray}{\bf }&{\bf gcc}&{\bf clang }\\\cline{1-3}
+Linux$^{\mbox{$\ast$}}$  O\-S&Yes(1,2)&Yes(3,4) \\\cline{1-3}
+\end{TabularC}
+(1) On Power 7, gcc version 4.\-8.\-2 is supported.\par
+ (2) On Power 8, gcc version 4.\-8.\-2 is supported.\par
+ (3) On Power 7, clang version 3.\-7 is supported.\par
+ (4) On Power 8, clang version 3.\-7 is supported.\par
+\hypertarget{index_sec_frontend}{}\section{Front-\/end Compilers that work with this R\-T\-L}\label{index_sec_frontend}
+The following compilers are known to do compatible code generation for this R\-T\-L\-: icc/icl, gcc. Code generation is discussed in more detail later in this document.\hypertarget{index_sec_outlining}{}\section{Outlining}\label{index_sec_outlining}
+The runtime interface is based on the idea that the compiler \char`\"{}outlines\char`\"{} sections of code that are to run in parallel into separate functions that can then be invoked in multiple threads. For instance, simple code like this
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} foo()
+\{
+\textcolor{preprocessor}{#pragma omp parallel}
+\textcolor{preprocessor}{}    \{
+        ... \textcolor{keywordflow}{do} something ...
+    \}
+\}
+\end{DoxyCode}
+ is converted into something that looks conceptually like this (where the names used are merely illustrative; the real library function names will be used later after we've discussed some more issues...)
+
+
+\begin{DoxyCode}
+\textcolor{keyword}{static} \textcolor{keywordtype}{void} outlinedFooBody()
+\{
+    ... \textcolor{keywordflow}{do} something ...
+\}
+
+\textcolor{keywordtype}{void} foo()
+\{
+    \_\_OMP\_runtime\_fork(outlinedFooBody, (\textcolor{keywordtype}{void}*)0);   \textcolor{comment}{// Not the real function name!}
+\}
+\end{DoxyCode}
+\hypertarget{index_SEC_SHAREDVARS}{}\subsection{Addressing shared variables}\label{index_SEC_SHAREDVARS}
+In real uses of the Open\-M\-P$^{\mbox{$\ast$}}$  A\-P\-I there are normally references from the outlined code to shared variables that are in scope in the containing function. Therefore the containing function must be able to address these variables. The runtime supports two alternate ways of doing this.\hypertarget{index_SEC_SEC_OT}{}\subsubsection{Current Technique}\label{index_SEC_SEC_OT}
+The technique currently supported by the runtime library is to receive a separate pointer to each shared variable that can be accessed from the outlined function. This is what is shown in the example below.
+
+We hope soon to provide an alternative interface to support the alternate implementation described in the next section. The alternative implementation has performance advantages for small parallel regions that have many shared variables.\hypertarget{index_SEC_SEC_PT}{}\subsubsection{Future Technique}\label{index_SEC_SEC_PT}
+The idea is to treat the outlined function as though it were a lexically nested function, and pass it a single argument which is the pointer to the parent's stack frame. Provided that the compiler knows the layout of the parent frame when it is generating the outlined function it can then access the up-\/level variables at appropriate offsets from the parent frame. This is a classical compiler technique from the 1960s to support languages like Algol (and its descendants) that support lexically nested functions.
+
+The main benefit of this technique is that there is no code required at the fork point to marshal the arguments to the outlined function. Since the runtime knows statically how many arguments must be passed to the outlined function, it can easily copy them to the thread's stack frame. Therefore the performance of the fork code is independent of the number of shared variables that are accessed by the outlined function.
+
+If it is hard to determine the stack layout of the parent while generating the outlined code, it is still possible to use this approach by collecting all of the variables in the parent that are accessed from outlined functions into a single {\ttfamily struct} which is placed on the stack, and whose address is passed to the outlined functions. In this way the offsets of the shared variables are known (since they are inside the struct) without needing to know the complete layout of the parent stack-\/frame. From the point of view of the runtime either of these techniques is equivalent, since in either case it only has to pass a single argument to the outlined function to allow it to access shared variables.
+
+A scheme like this is how gcc$^{\mbox{$\ast$}}$  generates outlined functions.\hypertarget{index_SEC_INTERFACES}{}\section{Library Interfaces}\label{index_SEC_INTERFACES}
+The library functions used for specific parts of the Open\-M\-P$^{\mbox{$\ast$}}$  language implementation are documented in different modules.
+
+
+\begin{DoxyItemize}
+\item \hyperlink{group__BASIC__TYPES}{Basic Types} fundamental types used by the runtime in many places
+\item \hyperlink{group__DEPRECATED}{Deprecated Functions} functions that are in the library but are no longer required
+\item \hyperlink{group__STARTUP__SHUTDOWN}{Startup and Shutdown} functions for initializing and finalizing the runtime
+\item \hyperlink{group__PARALLEL}{Parallel (fork/join)} functions for implementing {\ttfamily omp parallel}
+\item \hyperlink{group__THREAD__STATES}{Thread Information} functions for supporting thread state inquiries
+\item \hyperlink{group__WORK__SHARING}{Work Sharing} functions for work sharing constructs such as {\ttfamily omp for}, {\ttfamily omp sections}
+\item \hyperlink{group__THREADPRIVATE}{Thread private data support} functions to support thread private data, copyin etc
+\item \hyperlink{group__SYNCHRONIZATION}{Synchronization} functions to support {\ttfamily omp critical}, {\ttfamily omp barrier}, {\ttfamily omp master}, reductions etc
+\item \hyperlink{group__ATOMIC__OPS}{Atomic Operations} functions to support atomic operations
+\item \hyperlink{group__STATS__GATHERING}{Statistics Gathering from O\-M\-P\-T\-B} macros to support developer profiling of libomp
+\item Documentation on tasking has still to be written...
+\end{DoxyItemize}\hypertarget{index_SEC_EXAMPLES}{}\section{Examples}\label{index_SEC_EXAMPLES}
+\hypertarget{index_SEC_WORKSHARING_EXAMPLE}{}\subsection{Work Sharing Example}\label{index_SEC_WORKSHARING_EXAMPLE}
+This example shows the code generated for a parallel for with reduction and dynamic scheduling.
+
+
+\begin{DoxyCode}
+\textcolor{keyword}{extern} \textcolor{keywordtype}{float} foo( \textcolor{keywordtype}{void} );
+
+\textcolor{keywordtype}{int} main () \{
+    \textcolor{keywordtype}{int} i; 
+    \textcolor{keywordtype}{float} r = 0.0; 
+\textcolor{preprocessor}{    #pragma omp parallel for schedule(dynamic) reduction(+:r) }
+\textcolor{preprocessor}{}    \textcolor{keywordflow}{for} ( i = 0; i < 10; i ++ ) \{
+        r += foo(); 
+    \}
+\}
+\end{DoxyCode}
+
+
+The transformed code looks like this. 
+\begin{DoxyCode}
+\textcolor{keyword}{extern} \textcolor{keywordtype}{float} foo( \textcolor{keywordtype}{void} ); 
+
+\textcolor{keywordtype}{int} main () \{
+    \textcolor{keyword}{static} \textcolor{keywordtype}{int} zero = 0; 
+    \textcolor{keyword}{auto} \textcolor{keywordtype}{int} gtid; 
+    \textcolor{keyword}{auto} \textcolor{keywordtype}{float} r = 0.0; 
+    \hyperlink{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\_\_kmpc\_begin}( & loc3, 0 ); 
+    \textcolor{comment}{// The gtid is not actually required in this example so could be omitted;}
+    \textcolor{comment}{// We show its initialization here because it is often required for calls into}
+    \textcolor{comment}{// the runtime and should be locally cached like this.}
+    gtid = \_\_kmpc\_global thread num( & loc3 ); 
+    \_\_kmpc\_fork call( & loc7, 1, main\_7\_parallel\_3, & r ); 
+    \hyperlink{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\_\_kmpc\_end}( & loc0 ); 
+    \textcolor{keywordflow}{return} 0; 
+\}
+
+\textcolor{keyword}{struct }main\_10\_reduction\_t\_5 \{ \textcolor{keywordtype}{float} r\_10\_rpr; \}; 
+
+\textcolor{keyword}{static} kmp\_critical\_name lck = \{ 0 \};
+\textcolor{keyword}{static} \hyperlink{structident}{ident\_t} loc10; \textcolor{comment}{// loc10.flags should contain KMP\_IDENT\_ATOMIC\_REDUCE bit set }
+                      \textcolor{comment}{// if compiler has generated an atomic reduction.}
+
+\textcolor{keywordtype}{void} main\_7\_parallel\_3( \textcolor{keywordtype}{int} *gtid, \textcolor{keywordtype}{int} *btid, \textcolor{keywordtype}{float} *r\_7\_shp ) \{
+    \textcolor{keyword}{auto} \textcolor{keywordtype}{int} i\_7\_pr; 
+    \textcolor{keyword}{auto} \textcolor{keywordtype}{int} lower, upper, liter, incr; 
+    \textcolor{keyword}{auto} \textcolor{keyword}{struct }main\_10\_reduction\_t\_5 reduce; 
+    reduce.r\_10\_rpr = 0.F; 
+    liter = 0; 
+    \hyperlink{group__WORK__SHARING_gae991c61cbe8e2942fe1f757a65442b26}{\_\_kmpc\_dispatch\_init\_4}( & loc7,*gtid, 35, 0, 9, 1, 1 ); 
+    \textcolor{keywordflow}{while} ( \hyperlink{group__WORK__SHARING_ga5671ff45051907f76cc3d214e1de854b}{\_\_kmpc\_dispatch\_next\_4}( & loc7, *gtid, & liter, & lower, & upper, & incr 
+      ) ) \{
+        \textcolor{keywordflow}{for}( i\_7\_pr = lower; upper >= i\_7\_pr; i\_7\_pr ++ ) 
+          reduce.r\_10\_rpr += foo(); 
+    \}
+    \textcolor{keywordflow}{switch}( \hyperlink{group__SYNCHRONIZATION_gafc5438d4c4f01dcd347d9bfde27f68e1}{\_\_kmpc\_reduce\_nowait}( & loc10, *gtid, 1, 4, & reduce, main\_10\_reduce\_5, & 
+      lck ) ) \{
+        \textcolor{keywordflow}{case} 1:
+            r\_7\_shp += reduce.r\_10\_rpr;
+           \hyperlink{group__SYNCHRONIZATION_ga5c40184c6babbe35c50d43a47573c5c5}{\_\_kmpc\_end\_reduce\_nowait}( & loc10, *gtid, & lck );
+           \textcolor{keywordflow}{break};
+        \textcolor{keywordflow}{case} 2:
+           \_\_kmpc\_atomic\_float4\_add( & loc10, *gtid, r\_7\_shp, reduce.r\_10\_rpr );
+           \textcolor{keywordflow}{break};
+        \textcolor{keywordflow}{default}:;
+    \}
+\} 
+
+\textcolor{keywordtype}{void} main\_10\_reduce\_5( \textcolor{keyword}{struct} main\_10\_reduction\_t\_5 *reduce\_lhs, 
+                       \textcolor{keyword}{struct} main\_10\_reduction\_t\_5 *reduce\_rhs ) 
+\{ 
+    reduce\_lhs->r\_10\_rpr += reduce\_rhs->r\_10\_rpr; 
+\}
+\end{DoxyCode}
+ 

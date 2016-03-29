@@ -1,0 +1,41 @@
+FILE(REMOVE_RECURSE
+  "CMakeFiles/omp.dir/kmp_alloc.c.o"
+  "CMakeFiles/omp.dir/kmp_atomic.c.o"
+  "CMakeFiles/omp.dir/kmp_csupport.c.o"
+  "CMakeFiles/omp.dir/kmp_debug.c.o"
+  "CMakeFiles/omp.dir/kmp_itt.c.o"
+  "CMakeFiles/omp.dir/kmp_environment.c.o"
+  "CMakeFiles/omp.dir/kmp_error.c.o"
+  "CMakeFiles/omp.dir/kmp_global.c.o"
+  "CMakeFiles/omp.dir/kmp_i18n.c.o"
+  "CMakeFiles/omp.dir/kmp_io.c.o"
+  "CMakeFiles/omp.dir/kmp_runtime.c.o"
+  "CMakeFiles/omp.dir/kmp_settings.c.o"
+  "CMakeFiles/omp.dir/kmp_str.c.o"
+  "CMakeFiles/omp.dir/kmp_tasking.c.o"
+  "CMakeFiles/omp.dir/kmp_taskq.c.o"
+  "CMakeFiles/omp.dir/kmp_threadprivate.c.o"
+  "CMakeFiles/omp.dir/kmp_utility.c.o"
+  "CMakeFiles/omp.dir/z_Linux_util.c.o"
+  "CMakeFiles/omp.dir/kmp_gsupport.c.o"
+  "CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.o"
+  "CMakeFiles/omp.dir/kmp_ftn_cdecl.c.o"
+  "CMakeFiles/omp.dir/kmp_ftn_extra.c.o"
+  "CMakeFiles/omp.dir/kmp_version.c.o"
+  "CMakeFiles/omp.dir/kmp_barrier.cpp.o"
+  "CMakeFiles/omp.dir/kmp_wait_release.cpp.o"
+  "CMakeFiles/omp.dir/kmp_affinity.cpp.o"
+  "CMakeFiles/omp.dir/kmp_dispatch.cpp.o"
+  "CMakeFiles/omp.dir/kmp_lock.cpp.o"
+  "CMakeFiles/omp.dir/kmp_sched.cpp.o"
+  "CMakeFiles/omp.dir/kmp_taskdeps.cpp.o"
+  "CMakeFiles/omp.dir/kmp_cancel.cpp.o"
+  "CMakeFiles/omp.dir/z_Linux_asm.s.o"
+  "libomp.so.pdb"
+  "libomp.so"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang C CXX)
+  INCLUDE(CMakeFiles/omp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

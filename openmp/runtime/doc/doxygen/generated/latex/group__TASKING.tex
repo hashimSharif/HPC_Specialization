@@ -1,0 +1,88 @@
+\hypertarget{group__TASKING}{\section{Tasking support}
+\label{group__TASKING}\index{Tasking support@{Tasking support}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+kmp\-\_\-int32 \hyperlink{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-task\-\_\-t $\ast$new\-\_\-task, kmp\-\_\-int32 ndeps, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$noalias\-\_\-dep\-\_\-list)
+\item 
+void \hyperlink{group__TASKING_gab53273918f995639450c4dcbed02df88}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-int32 ndeps, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$noalias\-\_\-dep\-\_\-list)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+These functions support tasking constructs. 
+
+\subsection{Function Documentation}
+\hypertarget{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}{\index{Tasking support@{Tasking support}!\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps@{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps}}
+\index{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps@{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps}!Tasking support@{Tasking support}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{kmp\-\_\-task\-\_\-t $\ast$}]{new\-\_\-task, }
+\item[{kmp\-\_\-int32}]{ndeps, }
+\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{dep\-\_\-list, }
+\item[{kmp\-\_\-int32}]{ndeps\-\_\-noalias, }
+\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{noalias\-\_\-dep\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}
+
+\begin{DoxyParams}{Parameters}
+{\em loc\-\_\-ref} & location of the original task directive \\
+\hline
+{\em gtid} & Global Thread I\-D of encountering thread \\
+\hline
+{\em new\-\_\-task} & task thunk allocated by \-\_\-\-\_\-kmp\-\_\-omp\-\_\-task\-\_\-alloc() for the ''new task'' \\
+\hline
+{\em ndeps} & Number of depend items with possible aliasing \\
+\hline
+{\em dep\-\_\-list} & List of depend items with possible aliasing \\
+\hline
+{\em ndeps\-\_\-noalias} & Number of depend items with no aliasing \\
+\hline
+{\em noalias\-\_\-dep\-\_\-list} & List of depend items with no aliasing\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns either T\-A\-S\-K\-\_\-\-C\-U\-R\-R\-E\-N\-T\-\_\-\-N\-O\-T\-\_\-\-Q\-U\-E\-U\-E\-D if the current task was not suspendend and queued, or T\-A\-S\-K\-\_\-\-C\-U\-R\-R\-E\-N\-T\-\_\-\-Q\-U\-E\-U\-E\-D if it was suspended and queued
+\end{DoxyReturn}
+Schedule a non-\/thread-\/switchable task with dependences for execution 
+
+Definition at line 424 of file kmp\-\_\-taskdeps.\-cpp.
+
+\hypertarget{group__TASKING_gab53273918f995639450c4dcbed02df88}{\index{Tasking support@{Tasking support}!\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps@{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}}
+\index{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps@{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}!Tasking support@{Tasking support}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{kmp\-\_\-int32}]{ndeps, }
+\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{dep\-\_\-list, }
+\item[{kmp\-\_\-int32}]{ndeps\-\_\-noalias, }
+\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{noalias\-\_\-dep\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{group__TASKING_gab53273918f995639450c4dcbed02df88}
+
+\begin{DoxyParams}{Parameters}
+{\em loc\-\_\-ref} & location of the original task directive \\
+\hline
+{\em gtid} & Global Thread I\-D of encountering thread \\
+\hline
+{\em ndeps} & Number of depend items with possible aliasing \\
+\hline
+{\em dep\-\_\-list} & List of depend items with possible aliasing \\
+\hline
+{\em ndeps\-\_\-noalias} & Number of depend items with no aliasing \\
+\hline
+{\em noalias\-\_\-dep\-\_\-list} & List of depend items with no aliasing\\
+\hline
+\end{DoxyParams}
+Blocks the current task until all specifies dependencies have been fulfilled. 
+
+Definition at line 537 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps().
+

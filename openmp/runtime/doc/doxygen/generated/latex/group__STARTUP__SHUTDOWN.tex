@@ -1,0 +1,51 @@
+\hypertarget{group__STARTUP__SHUTDOWN}{\section{Startup and Shutdown}
+\label{group__STARTUP__SHUTDOWN}\index{Startup and Shutdown@{Startup and Shutdown}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\-\_\-\-\_\-kmpc\-\_\-begin} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 flags)
+\item 
+void \hyperlink{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\-\_\-\-\_\-kmpc\-\_\-end} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+These functions are for library initialization and shutdown. 
+
+\subsection{Function Documentation}
+\hypertarget{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\index{Startup and Shutdown@{Startup and Shutdown}!\-\_\-\-\_\-kmpc\-\_\-begin@{\-\_\-\-\_\-kmpc\-\_\-begin}}
+\index{\-\_\-\-\_\-kmpc\-\_\-begin@{\-\_\-\-\_\-kmpc\-\_\-begin}!Startup and Shutdown@{Startup and Shutdown}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-begin}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-begin (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{flags}
+\end{DoxyParamCaption}
+)}}\label{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & in source location information \\
+\hline
+{\em flags} & in for future use (currently ignored)\\
+\hline
+\end{DoxyParams}
+Initialize the runtime library. This call is optional; if it is not made then it will be implicitly called by attempts to use other library functions. 
+
+Definition at line 46 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\index{Startup and Shutdown@{Startup and Shutdown}!\-\_\-\-\_\-kmpc\-\_\-end@{\-\_\-\-\_\-kmpc\-\_\-end}}
+\index{\-\_\-\-\_\-kmpc\-\_\-end@{\-\_\-\-\_\-kmpc\-\_\-end}!Startup and Shutdown@{Startup and Shutdown}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-end (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & source location information\\
+\hline
+\end{DoxyParams}
+Shutdown the runtime library. This is also optional, and even if called will not do anything unless the {\ttfamily K\-M\-P\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-M\-P\-P\-E\-N\-D} environment variable is set to zero. 
+
+Definition at line 64 of file kmp\-\_\-csupport.\-c.
+
