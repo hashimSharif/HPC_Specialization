@@ -50,6 +50,7 @@ typedef struct RtnCount
     RTN _rtn;
     UINT64 _rtnCount;
     UINT64 _icount;
+    UINT64 _atomic;
     struct RtnCount * _next;
 } RTN_COUNT;
 
@@ -85,6 +86,7 @@ VOID Routine(RTN rtn, VOID *v)
     rc->_address = RTN_Address(rtn);
     rc->_icount = 0;
     rc->_rtnCount = 0;
+    rc->_atomic = 0;
 
     // Add to list of routines
     rc->_next = RtnList;
@@ -100,6 +102,9 @@ VOID Routine(RTN rtn, VOID *v)
     {
         // Insert a call to docount to increment the instruction counter for this rtn
         INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_icount), IARG_END);
+        if(INS_IsAtomicUpdate(ins)){
+            rc->_atomic++;
+        }
     }
 
     
@@ -114,7 +119,8 @@ VOID Fini(INT32 code, VOID *v)
           << setw(15) << "Image" << " "
           << setw(18) << "Address" << " "
           << setw(12) << "Calls" << " "
-          << setw(12) << "Instructions" << endl;
+          << setw(12) << "Instructions" << " "
+          << setw(12) << "Atomic" << endl;  
 
     for (RTN_COUNT * rc = RtnList; rc; rc = rc->_next)
     {
@@ -123,7 +129,8 @@ VOID Fini(INT32 code, VOID *v)
                   << setw(15) << rc->_image << " "
                   << setw(18) << hex << rc->_address << dec <<" "
                   << setw(12) << rc->_rtnCount << " "
-                  << setw(12) << rc->_icount << endl;
+                  << setw(12) << rc->_icount << " "
+                  << setw(12) << rc->_atomic << endl;
     }
 
 }
