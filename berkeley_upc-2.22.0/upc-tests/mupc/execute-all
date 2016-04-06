@@ -1,0 +1,85 @@
+#!/bin/sh
+
+upcrun="upcrun -n "
+#upcrun="myupcrun -n "
+#upcrun="myupcrun64 -n "
+dynthreads="2"
+
+List="int long float double"
+List2="2"
+
+supposedtofail=" \
+test_barrier2    \
+test_memory4     \
+"
+
+tests="\
+test_app_matmult    \
+test_app_prime    \
+test_app_wave1    \
+test_app_wave2    \
+test_barrier1    \
+test_barrier3    \
+test_barrier4    \
+test_getput1    \
+test_getput2    \
+test_getput3    \
+test_getput4    \
+test_globalexit    \
+test_int_allfunc    \
+test_int_alltype    \
+test_int_barlocks    \
+test_int_memlocks    \
+test_int_memstring    \
+test_int_multilocks    \
+test_int_precision    \
+test_locks1    \
+test_locks2    \
+test_locks3    \
+test_locks4    \
+test_locks5    \
+test_memory1    \
+test_memory2    \
+test_memory3    \
+test_memory5    \
+test_memory6    \
+test_memory7    \
+test_memory8    \
+test_stress_01    \
+test_stress_02    \
+test_stress_03    \
+test_stress_04    \
+test_stress_05    \
+test_stress_06    \
+test_stress_07    \
+test_stress_08    \
+test_stress_09    \
+test_stress_10    \
+test_stress_11    \
+test_stress_12    \
+test_stress_13    \
+test_stress_14    \
+test_string1    \
+test_string2    \
+test_string3    \
+test_string4    \
+"
+
+for pg in $tests ; do
+   for i in ${List} ; do
+      if test -x ${pg}-dynamic-$i ; then
+        echo "--- $pg, dynamic threads, datatype=$i ---"
+        ${upcrun}${dynthreads} ${pg}-dynamic-$i 
+      else
+        echo "--- $pg, dynamic threads, datatype=$i --- (test skipped)"
+      fi
+      for j in ${List2} ; do
+	if test -x ${pg}-static${j}-$i ; then
+	  echo "--- $pg, $j static threads, datatype=$i ---"
+	  ${upcrun}${j} ${pg}-static${j}-$i 
+	else
+	   echo "--- $pg, $j static threads, datatype=$i --- (test skipped)"
+	fi
+      done 
+   done  
+done

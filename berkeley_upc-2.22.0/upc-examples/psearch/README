@@ -1,0 +1,50 @@
+=====================================================================
+
+This is the unbalanced tree search benchmark in upc.
+
+To compile:
+  <upc-compiler> -o psearch psearch.upc sha1.c
+
+It may be necessary to change the extension of psearch.upc to .c,
+depending on the compiler.
+
+To execute:
+  psearch <way to specify number of threads> 
+
+This will search 3200 trees using the specified number of threads and
+should report a total size of 50,045 nodes if everything is working
+correctly.  These trees are relatively well balanced, and the test
+is primarily to insure that everything is working correctly.  If you 
+want to generate a larger amount of work, increase the number of trees:
+
+  psearch <numthreads> -n 10000
+
+will search 10000 trees.
+
+
+The benchmark goal is to get good performance on highly unbalanced 
+trees.  The canonical benchmark run for this case is:
+
+  psearch <numthreads> -m 8 -q 0.124999
+
+This will search 3200 unbalanced trees and should report a total
+size of 5,529,089 nodes.  This is the setting that I'm using to
+test various machines.  
+
+It may be worthwhile to vary the steal chunk size, since that is the
+main way to deal with variations in the ratio of processor speed to
+communication speed.  By default it is set to 20, but try it at a very
+fine grain setting, say 4, and at a course grain setting, say 100:
+
+  psearch <numthreads> -m 8 -q 0.124999 -c 4
+  psearch <numthreads> -m 8 -q 0.124999 -c 100
+
+When using a large number of processors it is likely that the
+chunksize should go up slightly for maximum performance.
+
+Additional description of the problem can be found in the file
+uts.pdf
+
+Jan Prins
+prins@cs.unc.edu
+May 2003

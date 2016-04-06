@@ -1,0 +1,5 @@
+#!/bin/tcsh
+
+sgiupc -save-temps -S -keep  -fupc-threads-4  -I../../../libupc/include -I../../../libupc -Yf,$HOME/compilers/open64/osprey1.0/targia32_ia64_nodebug/gccfe -Yb,$HOME/compilers/open64/osprey1.0/targia32_ia64_nodebug/be -Wb,-trlow $1.c
+../../whirl2c/whirl2c -lang=upc $1.c -fB,$1.N
+#gcc -I../../../include -I../../../libupc -I. $1.w2c.c -c

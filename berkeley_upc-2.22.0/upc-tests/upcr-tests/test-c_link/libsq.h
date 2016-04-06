@@ -1,0 +1,2 @@
+
+double sq(double x);

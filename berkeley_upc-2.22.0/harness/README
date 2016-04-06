@@ -1,0 +1,291 @@
+NOTE: This document has NOT been kept up-to-date as new features
+have been added.  It should still be mostly correct, but is incomplete.
+
+The UPC test harness scripts
+============================
+
+Files:
+  * harness.pl    = the main test harness PERL script
+  * runjobs.pl    = the script that runs the test applications
+  * sysconf       = template for a harness system configuration
+  * alvarez       = sample system configuration file for alvarez.nersc.gov
+  * seaborg       = sample system configuration file for seaborg.nersc.gov
+  * flyer         = sample system configuration file for flyer.cse.mtu.edu
+
+
+The intent of the harness is to automate the compilation and
+execution of the test codes in the UPC test suites.  Of the
+various test suites in the bupc-testsuite directory, currently
+only "gwu" and "mupc" have been configured to work with this harness.
+
+The harness requires a certain amount of system configuration in
+order to work.  Template configuration files are provided alvarez
+and seaborg.  In addition, various command line options can be
+specified to over-ride configuration file values.
+
+In particular, the harness gets the following info from the 
+system configuration file:
+
+harness_dir:        where does the test harness live?
+testsuite_dir:      where is the bupc-testsuite?
+testsuites:         which suites (subdirs) of bupc-testsuite to use?
+logroot:            where to place the logs, reports, batch scripts, etc.
+network:            which network (e.g. GASNet conduit) to use?
+batch_sys:          which batch system to use (pbs, loadleveler or interactive)
+queues:             which batch queues to use, what are their properties
+                    and in what order of preference?
+repository:         which repository to charge when running in the batch
+                    system?  (may be ignored on systems that don't charge
+                    for time).
+nthread_default:    Number of UPC threads to use when running a test.
+                    Individual tests can over-ride this default.
+max_proc_per_node:  The maximum number of processes per node that 
+                    will be used when running the test.
+
+Note: read the header in the system configuration file to understand
+      the format.  Basically, you can construct structures similar
+      to PERL data structures.  Note also that strings of the form
+      %NAME% will be replaced by ENV{NAME} when the file is read.
+
+Command line options:
+   -nocompile         Do not compile the test suite.
+   -norun             Generate the run scripts, but do not submit them to run.
+   -sysconf=file      [REQUIRED] Specify the system configuration file.
+   -threads=N         Specify default number of UPC threads.
+   -pthreads=N        Specify number of pthreads per process.
+   -ppn=N             Specify max number of processes per node.
+   -network=s         Specify the network [e.g. GASNet conduit].
+   -suite=name        Specify name of test suite(s) to run.
+                      [NOTE: May be a comma seperated list or this option
+			     may be specified multiple times]
+   -repo=name         Specify name accounting repository.
+   -filepat=string    Specify a filename pattern.  Only tests in the
+                         suite(s) that match this pattern will be compiled/run.
+   -runlimit=N        Default runtime limit (in seconds) for each test 
+   -features=str      Comma-separated list of features supported by compilation environment
+                      Set automatically when running within upcr
+
+   
+Note that some of these values (threads, ppn, network, suite, repo, upccdir)
+will over-ride the values in the system configuration file.
+
+What does harness.pl do?
+=======================
+(1) reads the system configuration file and parses the command line
+    options.
+(2) constructs a date and timestamped subdirectory of logroot.  The
+    directory name will be of the form YYYYMMDD_HHMMSS.  This directory
+    will contain files named:
+      log          = harness log file.  Look here if problems occur.
+      compile.rpt  = status of each test_app compliation
+      run.rpt      = status of each test_app execution
+      qscript_XXX  = automatically generated batch queue script used to
+                     run a set of test_apps.
+      runlist_XXX  = list of test_apps that have yet to be run by
+                     qscript_XXX.
+(2) for each specified test suite, the harness will:
+    (a) read the harness configuration file (harness.conf).  This file
+        specifies what compilation/run tests to perform and how to 
+        determine success/failure of each test.
+    (b) for each test in the harness:
+        * compile the test (unless the -nocompile command line
+          flag was specified) and search for the strings
+          "error" and "warning" coming back to stdout/stderr.
+        * record the success/failure in the compile.rpt file.
+        * if the test was supposed to pass compilation and did, then
+          submit the test to a runlist.  The harness will select a
+          list based on the total number of processes required to 
+          run the application.  The harness computes the number
+          of processes required by dividing the number of UPC threads
+          by the number of pthreads (if specified) then selects a batch
+          queue to use, and decides on the number of processes that
+          will run on each node, and the number of nodes to use.
+          All the jobs requiring the same number of processes will be
+          put on the same runlist.  A self-submitting queue script
+          will be generated for each runlist.
+(3) After all suites have been processes, the harness will submit
+    each of the queue scripts to the batch system, unless the
+    -norun command line option was specified.
+(4) At some point, the job is run.  The queue script executes the
+    "runjobs.pl" PERL script with the runlist as one of its arguments.
+    It also informs the runjobs.pl the total number of seconds allowed
+    by this queue.  The runjobs.pl script selects applications from the
+    runlist that are expected to complete before the queue limits expire.
+    The applications are executed under a watchdog, that will kill the
+    job if it exceeds its specified time limit.  After the application 
+    completes, runjobs.pl determine the success or failure of the run
+    and writes an entry into the "run.rpt" file.
+    If the runjobs.pl script is running out of time, without running
+    all the jobs in the queue, it terminates with a special error code.
+    The queue script captures this error code and re-submits itself
+    to be run again if not all the apps were processed.
+
+The Testsuite configuration files:
+=================================
+Each testsuite requires a configuration file named "harness.conf".
+As an example, here is part of harness.conf for the gwu suite:
+
+   BEGIN_DEFAULT_CONFIG
+   Flags:
+   Files:          $TESTNAME$.upc
+   DynamicThreads: $DEFAULT$
+   StaticThreads:  $DEFAULT$
+   CompileResult:  pass
+   PassExpr:       ^Success:
+   FailExpr:       ^Failure:
+   ExitCode:       0
+   BuildCmd:       upcc
+   AppArgs:
+   TimeLimit:      $DEFAULT$
+
+   END_DEFAULT_CONFIG
+
+   # ------------------------------------------------------------
+   WildCard:  <*>.upc
+
+   # ------------------------------------------------------------
+   TestName:       I_case_i
+   CompileResult:  fail
+
+   # ------------------------------------------------------------
+   TestName:       I_case1_ii
+   CompileResult:  fail
+
+Each test is defined by a series of stanzas beginning with the
+name "TestName".  All subsequent stanzas define the attributes
+for this test.  A special set of stanzas, between the
+BEGIN_DEFAULT_CONFIG and END_DEFAULT_CONFIG markers will
+apply to all tests, unless specifically re-defined by the 
+test.
+In the above example, test I_case_i will inherit all the 
+attributes from the default section, except that the 
+value of CompileResult will be replaced with 'fail'.
+
+Note the "WildCard" stanza is special, and allows 
+file globing to auto-generate test configurations rather
+than having to list them all.  In this case, all files
+in the directory with of the form *.upc will generate
+a test configuration.  The test configuration name
+will be generated by stripping the '.upc' from the 
+name.  For example, the file 'foo.upc' will generate a config
+named 'foo'.  Note that the angle brackets in the wildcard
+expression determine which portion of the name to keep.
+
+Stanza definitions:
+  * BuildCmd:       specify whether to use 'make' or 'upcc'
+  * Flags:          additional flags to be passed to upcc or make
+  * Files:          list of files that need to be compiled in order
+                    to build the app.  This is only needed if using
+                    upcc directly.
+  * CompileResults: Is the test supposed to compile (pass) or is
+                    it a negative test, and supposed to generate
+                    a compiler error (fail).
+  * DynamicThreads: list of UPC thread counts.  The application will
+                    be run once for each thread number.  Note that
+                    a dynamic-thread binary will not be built if
+                    the only number in the list is zero.
+  * StaticThreads:  list of UPC thread counts.  A static-thread
+                    binary will be compiled for each value.  No
+                    static binaries will be built if the only 
+                    number in the list is zero.
+  * PassExpr:       A PERL regular expression.  0 => ignore. See below.
+  * FailExpr:       A PERL regular expression.  0 => ignore. See below.
+  * ExitCode:       The expected exit code when running the application
+                    or the string 'ignore'.
+  * RunCmd:         command to use for running application, defaults to upcrun
+  * RunCmdArgs:     additional arguments to pass to RunCmd
+  * AppArgs:        run-time arguments needed by the application
+  * AppEnv:         run-time environment variables needed by the application, 
+                    in format suitable for env, ie: VAR="val" VAR2="val2"
+  * BenchmarkResult: marks harness tests which should report performance
+		    information, and is a perl regex that is used to extract
+		    the performance metric and units from the program output.
+                    BenchmarkResult also implies SaveOutput.
+  * RequireFeature: Marks a test as relying on a comma-separated list of features 
+                    that must all be provided by the compilation environment
+                    (otherwise the test is skipped)
+	            Interesting feature values include: 
+                     trans_bupc,upc_io,upc_collective,upc_memcpy_async,upc_memcpy_vis,
+                     [no]debug,[no]trace,[no]stats,packedsptr,structsptr,
+                     [no]pthreads,network_[networktype] - see harness log for complete list
+  * ProhibitFeature: Marks a test as not supporting a comma-separated list of features 
+                    If the compilation environment includes any of these features, the
+                    test is skipped
+  * KnownFailure: Marks a test which is known to fail in a particular way (see below)
+
+Special strings:
+  * $TESTNAME$      will be replaced with the name of the test.
+  * $DEFAULT$       will be replaced with the default number value
+                    specified in the harness.pl script.
+
+Runtime pass/fail:
+Three status values are recorded in the run.rpt file 
+for each application.  Timeout, ExitCode and Match.  
+The most useful is the MATCH results.  The harness scans the
+starndard output of the test run looking for strings that
+match the FailExpr and PassExpr.  If FailExpr is defined (non-zero)
+and a match is found, the test fails.  If no FailExpr is found
+and a PassExpr is defined and found, the test passes.  If PassExpr
+is defined but not found, the test fails.
+Definitions:
+
+   Timeout
+   ========
+      ok           The test ran within the allowed limit
+    FAILED         The watchdog killed the job because it ran for too long
+   
+   ExitCode
+   ========
+      na           The watchdof killed the job, no exit code
+    ignore         Told to ignore the exit code
+      ok           The exit code matched ExitCode.
+    FAILED         The exit code differed from ExitCode
+
+   Match
+   ========
+    ignore         no regular expressions to match
+      ok           no FailExpr is found, and PassExpr is found
+    FAILED         FailExpr is found, or no PassExpr is found
+
+KnownFailure
+============
+The KnownFailure syntax is very expressive to allow for precise definitions of
+known problems:
+
+  KnownFailure: [mode[,mode...]]; featur-expression; bug desc...
+
+Any given test may have multiple KnownFailure lines, and they are processed in
+order - the first matching KnownFailure line (if any) will be the one whose
+description is reported for a failure.
+
+The mode list and feature-expression are optional, and default to a match, but
+the semicolons must be present. One exception: for backwards-compatibility
+this: 
+
+  KnownFailure: desc... 
+
+is accepted as a shorthand for this:
+
+  KnownFailure: ; ; desc...
+
+mode: 
+  comma-delimited list of failure modes to which this known failure applies.
+This should be set as specific as possible while still capturing all the known
+failure modes for the known bug described in the description. Legal values are:
+
+  all - all failures
+  compile-all - all compile-time failures
+  compile-warning - compilation succeeds as expected, with an unexpected warning
+  compile-failure - all other forms of compilation failures (errors, unexpected success, etc)
+  run-all - all runtime failures
+  run-match - output match failure at runtime
+  run-crash - crash at runtime
+  run-time - timeout at runtime
+  run-mem - memory exhaustion at runtime
+  run-exit - bad exit code at runtime
+
+feature-expression:
+  boolean expression of compiler features (eg "network_lapi && (cpu_64 ||
+os_aix) && nodebug") that must return true for a configuration known to exhibit
+the bug described in the description. Consult upcc -version to see the list of
+features active for a given configuration.

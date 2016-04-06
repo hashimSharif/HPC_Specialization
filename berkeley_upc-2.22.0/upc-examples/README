@@ -1,0 +1,42 @@
+UPC examples:
+
+Note that most of the code in this subdirectory tree was contributed by
+outside sources, and the Berkeley UPC group makes no claims of
+correctness, optimality or suitability of this code for any purposes.
+
+In particular, be aware that the Makefiles provided may not be
+setup appropriately for Berkeley UPC.
+
+--
+cpi:
+Two different methods for approximating pi.
+cpi.upc uses the midpoint rule to integrate 4/(1+x^2) in the interval
+[0,1].  This program takes one optional argument, the number of
+intervals each thread should use for the integration.
+
+mcpi.upc fires darts at the unit circle in an attempt to compute its
+area. It also takes an optional argument, the total number of trials
+to use.
+--
+doublereduce:
+doublereduce.upc shows how one can implement a tree-based reduction in
+UPC.  Of particular interest is the use of polling to wait for message
+arrivals.  It takes no arguments, but the number of threads must be a power
+of 2.
+--
+laplace:
+stencil.upc illustrates different methods of computing a simple 1-d
+stencil operation using shared arrays.  Takes no arguments.
+--
+mg:
+The NAS MG code, class B, written in UPC style.  Takes no arguments.
+The number of threads is recommended to be a power of 2.
+--
+
+To run these examples in each individual directory
+cd <dir>
+gmake run THREADS=<no of threads>
+
+To run all examples
+gmake runall THREADS=<no of threads>
+in this directory.

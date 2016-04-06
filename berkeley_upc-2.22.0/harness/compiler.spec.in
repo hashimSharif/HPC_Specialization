@@ -1,0 +1,61 @@
+# Berkeley UPC + UPCR compiler spec file - most values configure-detected
+# directory used in upc_compiler and upcrun_command, with command-line override
+upc_home = @TOP_BUILDDIR@
+
+# upc compiler command
+@BUILDCONFIG_GASP_FALSE@upc_compiler = $upc_home$/upcc
+@BUILDCONFIG_GASP_TRUE@upc_compiler = @TOP_BUILDDIR@/profile/dump/upcc-dump
+
+# upc run command
+# Following replacements are performed:
+# %N - number of UPC threads
+# %P - program executable
+# %A - arguments to program
+# %B - berkeley-specific upcrun arguments (should appear if and only if this is Berkeley upcrun)
+upcrun_command = $upc_home$/upcrun -q -n %N %B %P %A
+
+# list of supported compiler features
+feature_list = @BUILDCONFIG@
+
+# default sysconf file to use
+default_sysconf = smp-interactive
+
+# option to pass upc compiler to get %T static threads
+upc_static_threads_option = -T %T
+
+# option for performing just the source-to-source compile step
+# or empty if not supported by the compiler
+upc_trans_option = -trans
+
+# colon-delimited path where to find harness.conf files
+suite_path = @TOP_SRCDIR@/upc-tests:@TOP_SRCDIR@/upc-examples
+
+# GNU make
+gmake = @GMAKE@
+
+# misc system tools
+ar = @AR@
+ranlib = @RANLIB@
+
+# C compiler & flags (should be empty on upcr/GASNet to auto-detect)
+cc =
+cflags =
+ldflags = 
+libs =
+
+# host C compiler (or empty for same as cc)
+host_cc = @HOST_CC@
+host_cflags = @HOST_CFLAGS@
+host_ldflags = @HOST_LDFLAGS@
+host_libs = @HOST_LIBS@
+
+# OS suffix for exxcutables, or empty for none
+exe_suffix = @EXESUFFIX@
+
+# known failures, in the format: test-path/test-name[failure comment] | test-name[failure comment]
+# lines may be broken using backslash
+# known failures may also include more specific failure/platform selectors, eg:
+# mupc/test_stress_05-int [compile-all ; (cpu_ia64 || cpu_i686) && os_linux ; Compile failure on Itanium+x86 Linux... ] 
+# known_failures may be empty to use the ones in the harness.conf files
+known_failures = 
+

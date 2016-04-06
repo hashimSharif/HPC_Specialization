@@ -1,0 +1,4541 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 18 36 594 756
+%%Title: Enscript Output
+%%Creator: GNU Enscript 1.6.5.90
+%%CreationDate: Thu Feb  5 16:21:26 2015
+%%Orientation: Portrait
+%%Pages: (atend)
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6.5 90
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6.5 90
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 8 8 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [612 792] 
+  >> setpagedevice
+} if
+/d_page_w 576 def
+/d_page_h 720 def
+/d_header_x 0 def
+/d_header_y 720 def
+/d_header_w 576 def
+/d_header_h 0 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 576 def
+/d_footer_h 0 def
+/d_output_w 576 def
+/d_output_h 720 def
+/cols 1 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 1 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(/* The Berkeley UPC Runtime Specification) s
+5 700 M
+( * Version: 3.12) s
+5 691 M
+( * Copyright 2002-4, Dan Bonachea <bonachea@cs.berkeley.edu>) s
+5 682 M
+( * Portions Copyright 2002-15, E. O. Lawrence Berekely National Laboratory) s
+5 673 M
+( */) s
+5 655 M
+(/* This file describes the interface between the platform-independent code) s
+5 646 M
+(   generated by a UPC-to-C translating compiler, and the hand-written UPC) s
+5 637 M
+(   runtime layer that implements the language on a given architecture) s
+5 619 M
+(  Many/most of the operations below will be implemented using macros or inline functions in an actual ) s
+5 610 M
+(    implementation \(a number of design decisions in the interface were based on the expected optimizations ) s
+5 601 M
+(     that will occur in such an implementation\)) s
+5 592 M
+(  They are specified using function declaration syntax below to make the types clear) s
+5 583 M
+(  All correct generated code must type check using the definitions below) s
+5 574 M
+(  In no case should client code assume it can create a "function pointer" to any of these operations) s
+5 556 M
+(  Note this interface is meant primarily as a compilation target for a code generator, ) s
+5 547 M
+(   not a library for hand-written code - as such, the goals of expressiveness and performance) s
+5 538 M
+(   generally take precedence over readability and minimality) s
+5 529 M
+(   ) s
+5 520 M
+(  Implementation-specific values in declarations are indicated using "???") s
+5 511 M
+(  Sections marked "Implementor's note" are recommendations to implementors and are ) s
+5 502 M
+(    not part of the specification) s
+5 493 M
+( */) s
+5 475 M
+(#include <inttypes.h>) s
+5 448 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 439 M
+(/* UPC Runtime Types) s
+5 430 M
+(   =================) s
+5 421 M
+(  ) s
+5 412 M
+(   For more information on a particular type, see the relevant section of the) s
+5 403 M
+(   specification below.) s
+5 394 M
+(  ) s
+5 385 M
+(    upcr_thread_t               // UPC thread number) s
+5 376 M
+(    upcr_shared_ptr_t           // pointer-to-shared ) s
+5 367 M
+(    upcr_pshared_ptr_t          // phaseless pointer-to-shared \(indefinitely blocked or blocksize=1\)) s
+5 358 M
+(    upcr_phase_t                // phase of pointer-to-shared) s
+5 349 M
+(    upcr_register_value_t       // largest unsigned integer type that will fit in a CPU register) s
+5 340 M
+(    upcr_handle_t               // handle for nonblocking operations) s
+5 331 M
+(    upcr_valget_handle_t        // handle for nonblocking value get operations) s
+5 322 M
+(    upcr_startup_shalloc_t      // Information struct for statically allocated shared data) s
+5 313 M
+(    upcr_startup_pshalloc_t     // Information struct for statically allocated, phaseless shared data) s
+5 304 M
+(    upcr_startup_arrayinit_diminfo_t // Initialization info for each dimension of a statically ) s
+5 295 M
+(                                     // allocated shared array) s
+5 286 M
+( */) s
+5 259 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 250 M
+(/* Control Interface) s
+5 241 M
+(   =================) s
+5 232 M
+( */) s
+5 214 M
+(/*****************************************************************************) s
+5 205 M
+( * Runtime initialization functions.) s
+5 196 M
+( *) s
+5 187 M
+( * There are two sets of initialization functions for the Berkeley UPC) s
+5 178 M
+( * runtime:  one low-level set targeted at compiler developers, who want the) s
+5 169 M
+( * largest amount of control over behavior, and one 'simpler' interface,) s
+5 160 M
+( * targeted at application/library developers who wish to use UPC within a) s
+5 151 M
+( * larger, non-UPC C/C++ program \(though it can also be used by UPC) s
+5 142 M
+( * compilers\).  The simpler interface \(bupc_init\(\) andi bupc_init_reentrant\(\)\)) s
+5 133 M
+( * uses the lower-level API, plus a set of 'magic' global variables provided) s
+5 124 M
+( * by the UPC linker, to provide the full set of information needed, while the) s
+5 115 M
+( * low-level API takes all needed information in the function parameters.) s
+5 106 M
+( */) s
+5 79 M
+( /*****************************************************************************) s
+5 70 M
+( * Low-level API: ) s
+5 61 M
+( *) s
+5 52 M
+( * If used, the low-level initialization functions must be called in the) s
+5 43 M
+( * following order:) s
+5 34 M
+( *) s
+5 25 M
+( *      upcr_startup_init\(\)) s
+5 16 M
+( *      upcr_startup_attach\(\)) s
+5 7 M
+( *      upcr_startup_spawn\(\)) s
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 2 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( *      upcr_exit\(\)             // not always needed: see description) s
+5 700 M
+( */) s
+5 682 M
+(/*) s
+5 673 M
+( * Bootstraps a UPC job and performs any system-specific setup required.) s
+5 664 M
+( *) s
+5 655 M
+( * Called by all applications that use the UPC runtime at startup to bootstrap) s
+5 646 M
+( * the job before any other processing takes place.  Must be called before) s
+5 637 M
+( * any calls to any other functions in this specification, with the) s
+5 628 M
+( * command-line parameters passed to main \(argc/argv\), which may be modified) s
+5 619 M
+( * or augmented by this call \(and are thus not safe to use before this call\).) s
+5 610 M
+( * The semantics of any code executing before the call to) s
+5 601 M
+( * `upcr_startup_init\(\)' is implementation-specific \(for example, it is) s
+5 592 M
+( * undefined whether `stdin/stdout/stderr' are functional, or even how many) s
+5 583 M
+( * nodes will run that code\).) s
+5 574 M
+( *) s
+5 565 M
+( * If the application using the runtime requires that it be run with a) s
+5 556 M
+( * fixed number of UPC threads, pass the thread count in the) s
+5 547 M
+( * 'static_threadcnt' parameter, and the program will abort with a error) s
+5 538 M
+( * message if the provided value does not match the execution environment that) s
+5 529 M
+( * will be provided.  Pass <= 0 for applications that can run with a dynamic) s
+5 520 M
+( * number of UPC threads.  If pthreads are used, a positive integer must be) s
+5 511 M
+( * supplied for 'default_pthreads_per_proc';  otherwise, pass 0.) s
+5 502 M
+( *) s
+5 493 M
+( * The 'main_name' parameter should be passed the name of the user's main\(\)) s
+5 484 M
+( * UPC function: it is used to help users find that symbol name when debugging.) s
+5 475 M
+( * You may pass NULL if this is not needed.) s
+5 466 M
+( *) s
+5 457 M
+( * Upon return from `upcr_startup_init\(\)', all the nodes of the job will be) s
+5 448 M
+( * running, stdout/stderr will be functional, and the basic job environment) s
+5 439 M
+( * will be established, however the primary network resources may not yet have) s
+5 430 M
+( * been initialized.  The following runtime functions are the only ones that) s
+5 421 M
+( * may be called between `upcr_startup_init\(\)' and `upcr_startup_attach\(\)':) s
+5 412 M
+( *) s
+5 403 M
+( *         `upcr_mynode\(\)') s
+5 394 M
+( *         `upcr_nodes\(\)') s
+5 385 M
+( *         `gasnet_getMaxLocalSegmentSize\(\)') s
+5 376 M
+( *         `gasnet_getMaxGlobalSegmentSize\(\)') s
+5 367 M
+( *         `upcr_getenv\(\)') s
+5 358 M
+( *         `upcr_global_exit\(\)') s
+5 349 M
+( *) s
+5 340 M
+( * All other runtime calls are prohibited until after a successful) s
+5 331 M
+( * `upcr_startup_attach\(\)'.) s
+5 322 M
+( *) s
+5 313 M
+( * `upcr_startup_init\(\)' may fail with a fatal error and) s
+5 304 M
+( * implementation-defined message if the nodes of the job cannot be) s
+5 295 M
+( * successfully bootstrapped.) s
+5 286 M
+( *) s
+5 277 M
+( * This function may be called repeatedly, but only the first invocation will) s
+5 268 M
+( * have any effect.) s
+5 259 M
+( */) s
+5 250 M
+(void upcr_startup_init\(int *pargc, char ***pargv, ) s
+5 241 M
+(                       upcr_thread_t static_threadcnt, ) s
+5 232 M
+(                       upcr_thread_t default_pthreads_per_proc, ) s
+5 223 M
+(                       const char * main_name\);) s
+5 196 M
+(#define UPCR_ATTACH_ENV_OVERRIDE        1) s
+5 187 M
+(#define UPCR_ATTACH_REQUIRE_SIZE        2) s
+5 178 M
+(#define UPCR_ATTACH_SIZE_WARN           4) s
+5 160 M
+(/*) s
+5 151 M
+( * Initializes the UPC runtime's network system, including shared memory) s
+5 142 M
+( * regions.  This function must be called after upcr_startup_init\(\), but) s
+5 133 M
+( * before any of the other upcr_startup_ functions.) s
+5 124 M
+( *) s
+5 115 M
+( * The 'default_shared_size' parameter gives the default size to request for) s
+5 106 M
+( * each UPC thread's shared memory region.  ) s
+5 97 M
+( *) s
+5 88 M
+( * The 'default_shared_offset' parameter specifies the minimum distance \(in) s
+5 79 M
+( * bytes\) to provide between the current end of the regular C heap \(commonly) s
+5 70 M
+( * provided by sbrk\(0\)\) and the beginning of the shared memory region.  On) s
+5 61 M
+( * some platforms this offset becomes the growth limit for the regular C heap) s
+5 52 M
+( * \(and thus determines how much more memory malloc\(\), calloc\(\), etc. can) s
+5 43 M
+( * return before failing\).  On most systems, it is irrelevant, and 0 should be) s
+5 34 M
+( * passed, since using a large offset may limit the size of the shared memory) s
+5 25 M
+( * region.) s
+5 16 M
+( *) s
+5 7 M
+( * Values for 'default_shared_size' and 'default_shared_offset' must be) s
+_R
+S
+%%Page: (3) 3
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 3 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( * multiples of UPCR_PAGESIZE.  Both parameters may each be overridden at run) s
+5 700 M
+( * time if the 'flags' parameter allows it \(see below\).  ) s
+5 691 M
+( * ) s
+5 682 M
+( * The size and address of the shared region that is created for each node in) s
+5 673 M
+( * the application can be determined after this call with the) s
+5 664 M
+( * gasnet_getSegmentInfo\(\) function.  The size of the shared segment is) s
+5 655 M
+( * guaranteed to be be no larger than the requested size times the number of) s
+5 646 M
+( * pthreads on the node \(with pthreads==1 if pthreads are not being used\).) s
+5 637 M
+( * The region can be smaller than the requested amount, unless) s
+5 628 M
+( * UPCR_ATTACH_REQUIRE_SIZE is passed in the 'flags' parameter or the) s
+5 619 M
+( * UPC_REQUIRE_SHARED_SIZE environment variable is set to a nonempty value.  ) s
+5 610 M
+( *) s
+5 601 M
+( * The 'flags' parameter can contain one or more of the following values \(OR) s
+5 592 M
+( * them together if multiple flags are used\):) s
+5 583 M
+( *   ) s
+5 574 M
+( *   UPCR_ATTACH_ENV_OVERRIDE) s
+5 565 M
+( *      - if passed, the function checks the process' environment for ) s
+5 556 M
+( *        UPC_SHARED_HEAP_SIZE and/or UPC_SHARED_HEAP_OFFSET.  If these are) s
+5 547 M
+( *        set to valid values \(a number immediately followed by a 'MB' or) s
+5 538 M
+( *        'GB', for example '32MB' for 32 megabytes, or '4GB' for 4) s
+5 529 M
+( *        gigabytes\), they override the default_shared_size and) s
+5 520 M
+( *        default_shared_offset values, respectively.) s
+5 511 M
+( *) s
+5 502 M
+( *   UPCR_ATTACH_REQUIRE_SIZE) s
+5 493 M
+( *      - if this flag is passed, the function will die with an error message) s
+5 484 M
+( *        printed to stderr if the allocated shared region on any node is) s
+5 475 M
+( *        smaller than the amount that was asked for times the number of) s
+5 466 M
+( *        pthreads.  Can be overridden at startup by setting the) s
+5 457 M
+( *        UPC_REQUIRE_SHARED_SIZE environment variable to 'yes' or 'no'.) s
+5 448 M
+( *) s
+5 439 M
+( *   UPCR_ATTACH_SIZE_WARN) s
+5 430 M
+( *      - if this flag is passed, the runtime will issue a warning to stderr) s
+5 421 M
+( *        if a smaller shared memory segment than requested will be used.) s
+5 412 M
+( *        Can be overridden at startup by setting the UPC_SIZE_WARN) s
+5 403 M
+( *        environment variable to 'yes' or 'no'.) s
+5 394 M
+( *) s
+5 385 M
+( * If any errors are encountered during upcr_startup_attach, an error message) s
+5 376 M
+( * is printed and the job is aborted.) s
+5 367 M
+( */) s
+5 349 M
+(void upcr_startup_attach\(uintptr_t default_shared_size, ) s
+5 340 M
+(                         uintptr_t default_shared_offset, ) s
+5 331 M
+(                         int flags\);) s
+5 313 M
+(/*) s
+5 304 M
+( * Struct argument to upcr_startup_spawn.) s
+5 295 M
+( */) s
+5 286 M
+(struct upcr_startup_spawnfuncs {) s
+5 277 M
+(    void \(*pre_spawn_init\)\(\);) s
+5 268 M
+(    void \(*per_pthread_init\)\(\);) s
+5 259 M
+(    void \(*cache_init\)\(void *start, uintptr_t len\);) s
+5 250 M
+(    void \(*heap_init\)\(void * start, uintptr_t len\);) s
+5 241 M
+(    void \(*static_init\)\(void *start, uintptr_t len\);) s
+5 232 M
+(    int  \(*main_function\)\(int argc, char **argv\);) s
+5 223 M
+(};) s
+5 205 M
+(/*) s
+5 196 M
+( * Completes runtime initialization, including launching of any additional) s
+5 187 M
+( * pthreads \(if a pthreaded runtime is used\), and running of the user's main\(\)) s
+5 178 M
+( * function \(if any\).) s
+5 169 M
+( *) s
+5 160 M
+( * '*pargc' and '*pargv' will be passed to the 'main_function' in the) s
+5 151 M
+( * 'spawnfuncs' argument \(if it is non-NULL\).  The 'static_data_size') s
+5 142 M
+( * parameter should have a nonzero value if and only if static shared data get) s
+5 133 M
+( * their own section of the shared memory segment, separate from the shared) s
+5 124 M
+( * heaps \(in Berkeley upc static data are allocated off of the heap; GCCUPC) s
+5 115 M
+( * uses a separate segment\), and this should be the size of the static data) s
+5 106 M
+( * for each UPC thread.  The 'default_cache_size' indicates how much shared) s
+5 97 M
+( * memory to reserve for caching \(by default\):  since caching is not yet) s
+5 88 M
+( * implemented, pass 0.) s
+5 79 M
+( *) s
+5 70 M
+( * The 'spawnfuncs' parameter is a struct containing pointers to six) s
+5 61 M
+( * functions.) s
+5 52 M
+( *) s
+5 43 M
+( * The 'pre_spawn_init' function, if not NULL, is called first, before any) s
+5 34 M
+( * pthreads are launched.  It can contain any arbitrary initializations that) s
+5 25 M
+( * should happen only once per-process.) s
+5 16 M
+( *) s
+5 7 M
+( * Each of the remaining function pointers is called once on each UPC thread.  ) s
+_R
+S
+%%Page: (4) 4
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 4 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( *) s
+5 700 M
+( * The 'per_pthread_init' function, if not NULL, is called by each pthread,) s
+5 691 M
+( * and can contain arbitrary initializations that need to happen on a) s
+5 682 M
+( * per-pthread basis.) s
+5 673 M
+( *) s
+5 664 M
+( * The 'cache_init' function is called next, but only if caching is being) s
+5 655 M
+( * used \(i.e. if UPCR_USING_CACHING is defined\).  It may be set to NULL) s
+5 646 M
+( * otherwise.  It must initialize the cache within the given region.  ) s
+5 637 M
+( *) s
+5 628 M
+( * The 'heap_init' function is called next, and must initialize the runtime) s
+5 619 M
+( * shared heaps.  It is passed parameters indicating the starting address and) s
+5 610 M
+( * length of the region to use for the heap.  ) s
+5 601 M
+( *) s
+5 592 M
+( * The 'static_init' function is then called.  It must set up all static data) s
+5 583 M
+( * for the UPC thread, and is passed the address and length of the segment to be) s
+5 574 M
+( * used. The length passed is guaranteed to be at least as large as provided in the) s
+5 565 M
+( * 'static_data_size' parameter, and the locations in the region are guaranteed to) s
+5 556 M
+( * have lower virtual addresses than the local addresses for any shared data) s
+5 547 M
+( * with affinity to this thread allocated using the dynamic shared memory) s
+5 538 M
+( * allocation functions. ) s
+5 529 M
+( *) s
+5 520 M
+( * Next, a barrier is performed.  Finally, if the 'main_function' parameter is) s
+5 511 M
+( * NULL, the function returns \(and upcr_exit\(\) should be used for any program) s
+5 502 M
+( * exit path, including the end of 'main'\).  Otherwise 'main_function' is) s
+5 493 M
+( * called with the command line arguments passed in 'argv' and 'argc' \(with a) s
+5 484 M
+( * new copy made for each pthread if pthreads are used\).  Again, upcr_exit\(\)) s
+5 475 M
+( * should be used for any exit paths, except that returns from 'main_function') s
+5 466 M
+( * are handled automatically, with the return value used as the program's exit) s
+5 457 M
+( * code.) s
+5 448 M
+( *) s
+5 439 M
+( * If 'main_function' != NULL, this function never returns.) s
+5 430 M
+( *) s
+5 421 M
+( * If any errors occur during this function, an error message is printed to) s
+5 412 M
+( * stderr and the job is terminated.) s
+5 403 M
+( *) s
+5 394 M
+( */) s
+5 385 M
+(void upcr_startup_spawn\(int *pargc, char ***pargv,) s
+5 376 M
+(                        uintptr_t static_data_size, ) s
+5 367 M
+(                        uintptr_t default_cache_size, ) s
+5 358 M
+(                        struct upcr_startup_spawnfuncs *spawnfuncs\);) s
+5 331 M
+(/* Runtime shutdown/exit function.) s
+5 322 M
+( *) s
+5 313 M
+( * This function should be called as the last program statement for all exit) s
+5 304 M
+( * paths from a UPC application, with the single exception that the) s
+5 295 M
+( * 'main_function' used by upcr_startup_spawn\(\) may simply return an integer,) s
+5 286 M
+( * in which case the behavior is the same as if a call to this function had) s
+5 277 M
+( * been made with that value.) s
+5 268 M
+( *) s
+5 259 M
+( * The behavior of any code called after this function is undefined \(i.e. it) s
+5 250 M
+( * may not execute\).) s
+5 241 M
+( */) s
+5 232 M
+(void upcr_exit\(int exitcode\);) s
+5 205 M
+(/*****************************************************************************) s
+5 196 M
+( * Framework for external bootstrapping of the UPC runtime.) s
+5 187 M
+( *) s
+5 178 M
+( * The 'bupc_init\(\) and 'bupc_init_reentrant\(\)' functions allow 'external') s
+5 169 M
+( * bootstrapping of the UPC runtime, i.e., initialization of the runtime by) s
+5 160 M
+( * programs which are not written entirely in UPC, and whose main\(\) does not) s
+5 151 M
+( * appear in a UPC file. ) s
+5 142 M
+( *) s
+5 133 M
+( * To provide the full amount of needed data to the runtime, these functions) s
+5 124 M
+( * require a set of 'magic' global variables to be set by the Berkeley UPC) s
+5 115 M
+( * linker \(upcc\).  ) s
+5 106 M
+( *****************************************************************************/) s
+5 88 M
+(/*) s
+5 79 M
+( * Public, user-accessible function for bootstrapping the Berkeley UPC runtime) s
+5 70 M
+( * from a non-UPC C or C++ program that does not use pthreads. ) s
+5 61 M
+( *) s
+5 52 M
+( * A call to this function should be the first statement in main\(\). The) s
+5 43 M
+( * semantics of any code appearing before it is implementation-defined \(for) s
+5 34 M
+( * example, it is undefined how many threads of control will run that code, or) s
+5 25 M
+( * whether stdin/stdout/stderr are functional\).  The presence of environment) s
+5 16 M
+( * variables is also not guaranteed, but after this call returns bupc_getenv\(\)) s
+5 7 M
+( * can be used to retrieve them \(regular getenv\(\) is not guaranteed to provide) s
+_R
+S
+%%Page: (5) 5
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 5 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( * them\).) s
+5 700 M
+( *) s
+5 691 M
+( * The addresses of the command-line parameters must be passed, and it is not) s
+5 682 M
+( * safe to otherwise refer to them until after this function returns, as it) s
+5 673 M
+( * may supplement or modify them.) s
+5 664 M
+( *) s
+5 655 M
+( * Once bupc_init\(\) has returned, the application may safely call into UPC) s
+5 646 M
+( * routines.  All exit paths from the program should call bupc_exit\(\) as) s
+5 637 M
+( * their last program statement.  ) s
+5 628 M
+( *) s
+5 619 M
+( * If any errors are encountered during this function's execution, an error) s
+5 610 M
+( * message is printed to stderr and the job will be aborted.) s
+5 601 M
+( *) s
+5 592 M
+( * This call may register UNIX signal handlers.  Client code should not) s
+5 583 M
+( * register signal handlers or rely on the correct propagation of signals.) s
+5 574 M
+( *) s
+5 565 M
+( * This function cannot be used with a pthreaded application.  Use) s
+5 556 M
+( * bupc_init_reentrant\(\) instead.) s
+5 547 M
+( *) s
+5 538 M
+( * This function may be called repeatedly, but only the first invocation will) s
+5 529 M
+( * have any effect.) s
+5 520 M
+( *) s
+5 511 M
+( * If used within a hybrid MPI/UPC program, this function also ensures that) s
+5 502 M
+( * MPI_Init\(\) is called, if needed.  MPI_Init\(\) should NOT be called by user) s
+5 493 M
+( * code if this function is used.) s
+5 484 M
+( */) s
+5 475 M
+(void bupc_init\(int *argc, char ***argv\); ) s
+5 457 M
+(/*) s
+5 448 M
+( * A portable version of bupc_init\(\). A call to the bupc_init_reentrant\(\)) s
+5 439 M
+( * function will initialize the Berkeley UPC runtime, regardless of whether) s
+5 430 M
+( * pthreads are used or not.) s
+5 421 M
+( *) s
+5 412 M
+( * In addition to the addresses of the regular main\(\) command-line) s
+5 403 M
+( * parameters, this function takes a function pointer.  Calling) s
+5 394 M
+( * bupc_init_reentrant\(\) will cause all the pthreads known to the UPC runtime) s
+5 385 M
+( * to be launched, and each of them will then call the 'pmain_func\(\)' with) s
+5 376 M
+( * their own copy of the command-line parameters.  'pmain_func' may not be) s
+5 367 M
+( * NULL.) s
+5 358 M
+( *) s
+5 349 M
+( * Like with bupc_init\(\), bupc_exit\(\) should be called at the end of all) s
+5 340 M
+( * program exit paths, except for returns from 'pmain_func'.  If) s
+5 331 M
+( * 'pmain_func' returns, its return value is used to indicate the exit code) s
+5 322 M
+( * of the program, and the UPC runtime will exit correctly without an explicit) s
+5 313 M
+( * call to bupc_exit\(\) being required.) s
+5 304 M
+( *) s
+5 295 M
+( * No meaningful code should follow this function call, as it exits before) s
+5 286 M
+( * returning.) s
+5 277 M
+( *) s
+5 268 M
+( * Within pmain_func\(\), user code may call into UPC routines.  It is only safe) s
+5 259 M
+( * to access UPC routines from the original pthread\(s\) whose pmain_func\(\) is) s
+5 250 M
+( * called, however.  If additional pthreads are launched by the user) s
+5 241 M
+( * application, they must not call UPC routines, or behavior is undefined.) s
+5 232 M
+( *) s
+5 223 M
+( * Within pmain_func, bupc_getenv\(\) can be used to retrieve values of) s
+5 214 M
+( * environment variables \(regular getenv\(\) is not guranteed to provide them\).) s
+5 205 M
+( *) s
+5 196 M
+( * If any errors are encountered during this function's execution, an error) s
+5 187 M
+( * message is printed to stderr and the job will be aborted.) s
+5 178 M
+( *) s
+5 169 M
+( * This call may register UNIX signal handlers.  Client code should not) s
+5 160 M
+( * register signal handlers or rely on the correct propagation of signals.) s
+5 151 M
+( *) s
+5 142 M
+( * This function may be called repeatedly, but only the first invocation will) s
+5 133 M
+( * have any effect.) s
+5 124 M
+( *) s
+5 115 M
+( * If used within a hybrid MPI/UPC program, this function also ensures that) s
+5 106 M
+( * MPI_Init\(\) is called, if needed.  MPI_Init\(\) should NOT be called by user) s
+5 97 M
+( * code if this function is used.) s
+5 88 M
+( *) s
+5 79 M
+( * This function can also be used by UPC compilers to bootstrap a UPC job, if) s
+5 70 M
+( * the user's 'main' function is renamed and passed in as the 'pmain_func') s
+5 61 M
+( * parameter.) s
+5 52 M
+( */) s
+5 43 M
+(void bupc_init_reentrant\(int *argc, char ***argv, ) s
+5 34 M
+(                         int \(*pmain_func\)\(int, char **\) \); ) s
+5 7 M
+(/* Retrieve value of an environment variable.  This function should be used) s
+_R
+S
+%%Page: (6) 6
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 6 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( * instead of getenv\(\), which is not guaranteed to return correct) s
+5 700 M
+( * results.  It can only be called by threads launched by the UPC runtime) s
+5 691 M
+( * \(i.e., not pthreads that have been launched by the user's own) s
+5 682 M
+( * pthread_create\(\) calls\), and cannot be called until either bupc_init\(\) or) s
+5 673 M
+( * bupc_init_reentrant\(\) has been called first.) s
+5 664 M
+( *) s
+5 655 M
+( * At present this function is only guaranteed to retrieve values) s
+5 646 M
+( * for environment variables with names beginning with 'UPC_' or) s
+5 637 M
+( * 'GASNET_'.) s
+5 628 M
+( *) s
+5 619 M
+( * The 'setenv\(\)' and 'unsetenv' functions are not guaranteed to work in a) s
+5 610 M
+( * Berkeley UPC runtime environment, and should be avoided.) s
+5 601 M
+( */) s
+5 592 M
+(char * bupc_getenv\(const char *env_name\);) s
+5 574 M
+(/*) s
+5 565 M
+( * Runtime shutdown/exit routine.) s
+5 556 M
+( *) s
+5 547 M
+( * This function should be called as the last program statement by any program) s
+5 538 M
+( * that uses bupc_init\(\) to bootstrap the UPC runtime.  It does not need to be) s
+5 529 M
+( * used when bupc_init_reentrant\(\) is used.  The 'exitcode' provided will be) s
+5 520 M
+( * returned to the console that invoked the job, assuming all of the threads) s
+5 511 M
+( * terminate with this function, and use the same exitcode.  If different) s
+5 502 M
+( * threads of the program exit with different values, one of the values will) s
+5 493 M
+( * be chosen arbitrarily.  The behavior of any program statements after a call) s
+5 484 M
+( * to bupc_exit\(\) is undefined.) s
+5 475 M
+( *) s
+5 466 M
+( * If used within a hybrid MPI/UPC program, bupc_exit\(\) ensures that) s
+5 457 M
+( * MPI_Finalize\(\) is called, if needed.  MPI_Finalize should NOT be called) s
+5 448 M
+( * by user code if this function is used.) s
+5 439 M
+( */) s
+5 430 M
+(void bupc_exit\(int exitcode\);) s
+5 403 M
+(/*) s
+5 394 M
+( * "Magic" variables that must appear in the linked executable to support use) s
+5 385 M
+( * of the bupc_init\(\) and/or bupc_init_reentrant\(\) functions. ) s
+5 376 M
+( *) s
+5 367 M
+( * Definitions of all variables with the 'UPCRL_' prefix must be provided by) s
+5 358 M
+( * client code.  NULL/zero values can be used if system does not support) s
+5 349 M
+( * creating executables that call UPC functions from within a non-UPC C or C++) s
+5 340 M
+( * program.  ) s
+5 331 M
+( */) s
+5 313 M
+(/* Set to 0 if dynamic threads used, else to the static UPC thread count */) s
+5 304 M
+(extern upcr_thread_t    UPCRL_static_thread_count; ) s
+5 286 M
+(/* Default size of shared memory segment and offset */) s
+5 277 M
+(extern uintptr_t        UPCRL_default_shared_size;) s
+5 268 M
+(extern uintptr_t        UPCRL_default_shared_offset;) s
+5 250 M
+(/* Support for systems which store shared variables in a separate linker) s
+5 241 M
+( * section. ) s
+5 232 M
+( *) s
+5 223 M
+( * Some systems \(ex: GNU UPC\) convert 'shared' static data into a separate) s
+5 214 M
+( * linker section.  In this case, the values stored in pointers-to-shared are) s
+5 205 M
+( * within that linker section \(since they are assigned by the linker\).  ) s
+5 196 M
+( *) s
+5 187 M
+( * To work with Berkeley UPC, the linker section must be mapped into a portion) s
+5 178 M
+( * of the shared region provided by gasnet.  Also, if pthreads are used, a) s
+5 169 M
+( * separate copy of the linker section must exist for each pthread.   ) s
+5 160 M
+( *) s
+5 151 M
+( * These requirements are handled by the runtime so long as) s
+5 142 M
+( * UPCR_USING_LINKADDRS is defined, and the beginning/ending addresses of the) s
+5 133 M
+( * linker section are provided in 'UPCRL_shared_begin' and 'UPCRL_shared_end'.) s
+5 124 M
+( * The runtime uses these addresses to make a copy for each pthread of the) s
+5 115 M
+( * linker section.  Then, during each shared <=> local address conversion, an) s
+5 106 M
+( * offset is used to convert between the linker-assigned address for a given) s
+5 97 M
+( * pointer-to-shared and its the address within a pthread's copy of the static) s
+5 88 M
+( * data region.) s
+5 79 M
+( * ) s
+5 70 M
+( * On ELF-based systems, the beginning and ending addresses are typically) s
+5 61 M
+( * provided by arranging for the UPCRL_shared_begin/end to be the first and) s
+5 52 M
+( * last variables in the linker section that the linker sees \(on most linker) s
+5 43 M
+( * this can be achieved by putting the symbols in separate 'first.o' and) s
+5 34 M
+( * 'last.o' object files that are then passed to the linker as the first and) s
+5 25 M
+( * last objects on the linker command line\).) s
+5 16 M
+( */) s
+5 7 M
+(#ifdef UPCR_USING_LINKADDRS) s
+_R
+S
+%%Page: (7) 7
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 7 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(  extern char UPCRL_shared_begin[1];) s
+5 700 M
+(  extern char UPCRL_shared_end[1];) s
+5 691 M
+(#endif) s
+5 673 M
+(/* Nonzero to launch an extra progress thread.  Primarily useful for parallel) s
+5 664 M
+( * debugger support.  Redundant on some networks, and likely to slow down) s
+5 655 M
+( * performance on the others */) s
+5 646 M
+(extern int              UPCRL_progress_thread;) s
+5 628 M
+(/* Default size of runtime cache, if used. */) s
+5 619 M
+(extern uintptr_t        UPCRL_default_cache_size;) s
+5 601 M
+(/* default flags to pass to upcr_attach, if upcr_startup_init\(\) is used to) s
+5 592 M
+( * bootstrap the runtime */) s
+5 583 M
+(extern int              UPCRL_attach_flags;) s
+5 565 M
+(/* default pthreads per process: pass 0 if not using pthreads */) s
+5 556 M
+(extern upcr_thread_t    UPCRL_default_pthreads_per_node;) s
+5 538 M
+(/* Name used to rename user's main\(\) function) s
+5 529 M
+( * - optional: may be set to null. */) s
+5 520 M
+(extern const char *     UPCRL_main_name;) s
+5 502 M
+(/* Hook for arbitrary per-process initializations */) s
+5 493 M
+(extern void           \(*UPCRL_pre_spawn_init\)\(\);) s
+5 475 M
+(/* Hook for arbitrary per-pthread initializations */) s
+5 466 M
+(extern void           \(*UPCRL_per_pthread_init\)\(\);) s
+5 448 M
+(/* Cache initialization function to pass to upcr_startup_attach\(\)) s
+5 439 M
+( * - Implementation note: upcc uses 'upcri_init_cache', and this can be used) s
+5 430 M
+( *   by other systems. */) s
+5 421 M
+(extern void \(*UPCRL_cache_init\)\(void *start, uintptr_t len\);) s
+5 403 M
+(/* Heap initialization function to pass to upcr_startup_attach\(\):) s
+5 394 M
+( * - Implementation note: upcc uses 'upcri_init_heaps', and this can be used) s
+5 385 M
+( *   other systems. */) s
+5 376 M
+(extern void \(*UPCRL_heap_init\)\(void * start, uintptr_t len\);) s
+5 358 M
+(/* Static data initialization function to pass to upcr_startup_attach\(\)) s
+5 349 M
+( * - Implementation note: upcc uses a function generated at link time for) s
+5 340 M
+( *   this. */) s
+5 331 M
+(extern void \(*UPCRL_static_init\)\(void *start, uintptr_t len\);) s
+5 313 M
+(/* Function to ensure MPI has been initialized.  Use only if both MPI and a) s
+5 304 M
+( * gasnet conduit are being used, else set to NULL. This function must not) s
+5 295 M
+( * call MPI_Init is it has already been called by gasnet \(use) s
+5 286 M
+( * MPI_Initialized\(\) to check\).  No other code in the application should call) s
+5 277 M
+( * MPI_Init\(\), else behavior is undefined. */) s
+5 268 M
+(extern void \(*UPCRL_mpi_init\)\(int *pargc, char ***pargv\);) s
+5 250 M
+(/* Function to ensure MPI is shut down at program completion. Use only if both) s
+5 241 M
+( * MPI and a gasnet conduit are being used, else set to NULL.  MPI_Finalize) s
+5 232 M
+( * should only be called if the UPCRL_mpi_init function called) s
+5 223 M
+( * MPI_Initialize\(\).  No other code in the application should call) s
+5 214 M
+( * MPI_Finalize\(\), else behavior is undefined. */) s
+5 205 M
+(extern void \(*UPCRL_mpi_finalize\)\(\);) s
+5 178 M
+(/* terminate the current job with a given exit code - non-collective operation) s
+5 169 M
+(   this function may be called by any thread at any time after initialization and will cause the ) s
+5 160 M
+(     system to flush all I/O, release all resources and terminate the job for all active threads) s
+5 151 M
+(   this function is called automatically by the runtime system in the event of any) s
+5 142 M
+(     fatal error or catchable terminate-the-program signals \(e.g. segmentation fault\)) s
+5 133 M
+(   this function must be called at the end of main\(\) after a barrier to ensure proper system exit) s
+5 124 M
+(   the console which initiated the current job will receive the provided exitcode ) s
+5 115 M
+(     as a program return value in a system-specific way) s
+5 106 M
+(   if more than one thread calls upcr_global_exit\(\) within a given synchronization phase) s
+5 97 M
+(     with different exitcode values, the value returned to the console will be one of the ) s
+5 88 M
+(     provided exit codes \(chosen arbitrarily\)) s
+5 79 M
+(   Implementation notes:) s
+5 70 M
+(     gasnet may send a fatal signal to indicate a remote node exited or crashed) s
+5 61 M
+(     calls gasnet_exit to terminate the job on remote nodes) s
+5 52 M
+(*/) s
+5 43 M
+(void upcr_global_exit\(int exitcode\);) s
+5 25 M
+(/* UPCR_BEGIN_FUNCTION\(\) - this declaration must appear at the very beginning of every function) s
+5 16 M
+(   \(before any declarations\) in generated code that intends to call any of the entry points  ) s
+5 7 M
+(   provided by this API. It provides the runtime system with a place for minimal per-function ) s
+_R
+S
+%%Page: (8) 8
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 8 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(   initialization that may be necessary on some platforms, particularly when pthreads are used) s
+5 700 M
+(*/) s
+5 691 M
+(#define UPCR_BEGIN_FUNCTION\(\) ???) s
+5 673 M
+(/* UPCR_EXIT_FUNCTION\(\) - this declaration must appear immediately before every) s
+5 664 M
+(   exit point from any function that intends to call any of the entry points  ) s
+5 655 M
+(   provided by this API. It provides the runtime system with information for) s
+5 646 M
+(   hooking events \(temporary object cleanup, profiling\) that need to occur at function) s
+5 637 M
+(   exit.) s
+5 628 M
+(*/) s
+5 619 M
+(#define UPCR_EXIT_FUNCTION\(\) ???) s
+5 601 M
+(/* UPC thread number:  this is an unsigned integral type used to represent the) s
+5 592 M
+(   0-to-\(N-1\) thread numbers of UPC threads within an application.  The size of this type may ) s
+5 583 M
+(   vary depending on the pointer-to-shared representation used.) s
+5 574 M
+( */) s
+5 565 M
+(typedef ??? upcr_thread_t;) s
+5 547 M
+(/* Job Layout Queries - Interrogate thread information) s
+5 538 M
+(*/) s
+5 529 M
+(upcr_thread_t upcr_mythread\(\); /* returns a 0-based UPC thread index */) s
+5 520 M
+(upcr_thread_t upcr_threads\(\);  /* returns the number of UPC threads in the system */) s
+5 502 M
+(/* When pthreads are used, UPC threads may be >= gasnet nodes. */) s
+5 493 M
+(upcr_thread_t upcr_mynode\(\);   /* returns a 0-based GASNet node index */) s
+5 484 M
+(upcr_thread_t upcr_nodes\(\);    /* returns the number of GASNet nodes in the system */) s
+5 466 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 457 M
+(/*) s
+5 448 M
+(  System parameters) s
+5 439 M
+(  =================) s
+5 430 M
+(  Provided by the runtime system implementation to describe the runtime environment) s
+5 421 M
+(  Most of this information is probably also made available to the UPC translator) s
+5 412 M
+(  at UPC-to-C compile-time \(by some mechanism not specified here\), ) s
+5 403 M
+(  but some compilers may simply wish to generate generic code that compiles to have the ) s
+5 394 M
+(  correct behavior at C compile time using these preprocessor symbols) s
+5 385 M
+(*/) s
+5 376 M
+(#define UPCR_MAX_BLOCKSIZE   ???) s
+5 367 M
+(#define UPCR_MAX_THREADS     ???) s
+5 349 M
+(/* Implementors note: ) s
+5 340 M
+(  all code should be written such that UPCR_MAX_THREADS can simply be changed \(up to 2^31-1\) and ) s
+5 331 M
+(    the system recompiled to increase the thread limit) s
+5 322 M
+(  all code should be written such that UPCR_MAX_BLOCKSIZE can simply be changed ) s
+5 313 M
+(    \(along with a possible change to the type used to represent phase in upcr_shared_t\) ) s
+5 304 M
+(    and the system recompiled to increase the block size limit) s
+5 295 M
+(*/) s
+5 277 M
+(/* UPCR_PLATFORM_ENVIRONMENT provides the platform-independent UPC compiler with) s
+5 268 M
+( *  some clues about the memory layout of the current platform to aid optimization) s
+5 259 M
+( *  trade-offs. ) s
+5 250 M
+( * The possible configuration values are:) s
+5 241 M
+( * UPCR_PURE_SHARED - purely shared memory, remote memory accesses are handled entirely ) s
+5 232 M
+( *  by hardware with no software interpretation overhead) s
+5 223 M
+( * UPCR_PURE_DISTRIBUTED - purely distributed memory, remote memory accesses are handled by some ) s
+5 214 M
+( *  software networking layer) s
+5 205 M
+( * UPCR_SHARED_DISTRIBUTED - a mixture of the above - some remote memory accesses are handled ) s
+5 196 M
+( *  by hardware, others by a software networking layer) s
+5 187 M
+( * UPCR_OTHER - any configuration not captured by the above options) s
+5 178 M
+( */) s
+5 169 M
+(#define UPCR_PLATFORM_ENVIRONMENT ???) s
+5 151 M
+(/* size of memory page on operating system, in bytes */) s
+5 142 M
+(#define UPCR_PAGESIZE ???) s
+5 124 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 115 M
+(/*) s
+5 106 M
+(  Pointer-to-Shared Representation) s
+5 97 M
+(  ================================) s
+5 79 M
+(  *** upcr_shared_ptr_t - general pointer-to-shared) s
+5 70 M
+(  *** upcr_pshared_ptr_t - "phase-less" pointer-to-shared, blocksize == 1 or blocksize indef) s
+5 52 M
+(  opaque types representing a generic \(i.e. untyped\) pointer-to-shared defined by upcr ) s
+5 43 M
+(  and used by generated code. In general, generated code NEVER looks inside ) s
+5 34 M
+(  this opaque type, but there may be cases where we want to expose some ) s
+5 25 M
+(  information to the UPC optimizer.) s
+5 7 M
+(  Note these two pointer-to-shared categories are NOT interchangeable - the generated code) s
+_R
+S
+%%Page: (9) 9
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 9 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(  must explicitly select the correct category pointer for the current static blocksize and ) s
+5 700 M
+(  call the correct version of the appropriate entry points below) s
+5 691 M
+(*/) s
+5 682 M
+(typedef ??? upcr_shared_ptr_t;) s
+5 673 M
+(typedef ??? upcr_pshared_ptr_t;) s
+5 655 M
+(/*  ) s
+5 646 M
+(  Pointer-to-shared phase:  represents the phase of a pointer-to-shared, i.e., the index of the current ) s
+5 637 M
+(  element in the current block of shared memory.  This is an unsigned integral type, whose size ) s
+5 628 M
+(  may vary depending on the pointer-to-shared implementation.  ) s
+5 619 M
+( */) s
+5 610 M
+(typedef ??? upcr_phase_t;) s
+5 583 M
+(/* Implementation Notes:) s
+5 574 M
+(    The contents of these typedefs is NOT part of the specification and will) s
+5 565 M
+(    vary with implementation. Therefore, the fields shown should NOT be accessed ) s
+5 556 M
+(    by the generated code or compiler ) s
+5 547 M
+(      typedef struct {) s
+5 538 M
+(        uintptr_t _localaddr;      // make this the first field to speed pointer use) s
+5 529 M
+(        unsigned short _threadid;  // use shorts so the entire struct fits in 2 words ) s
+5 520 M
+(        unsigned short _phase;) s
+5 511 M
+(      } upcr_shared_ptr_t) s
+5 493 M
+(      typedef struct {) s
+5 484 M
+(        uintptr_t _localaddr;      // make this the first field to speed pointer use) s
+5 475 M
+(        short _threadid;           // use shorts so the entire struct fits in 2 words) s
+5 466 M
+(      } upcr_pshared_ptr_t) s
+5 457 M
+(*/) s
+5 448 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 439 M
+(/*) s
+5 430 M
+(  Pointer-to-Shared Manipulation) s
+5 421 M
+(  ==============================) s
+5 412 M
+(*/) s
+5 394 M
+(/* Convert a pointer-to-shared with affinity to the current thread ) s
+5 385 M
+(     into a local pointer. ) s
+5 376 M
+(   If sptr does not have affinity to the calling thread the ) s
+5 367 M
+(     result is implementation-specific) s
+5 358 M
+(*/) s
+5 349 M
+(void *upcr_shared_to_local\(upcr_shared_ptr_t sptr\);) s
+5 340 M
+(void *upcr_pshared_to_local\(upcr_pshared_ptr_t sptr\);) s
+5 322 M
+(/* Convert a pointer-to-shared into a virtual address usable by the calling thread) s
+5 313 M
+(   The pointer target must refer to shared memory with affinity to the calling thread, ) s
+5 304 M
+(   or otherwise to shared memory which the calling thread has the ability to access ) s
+5 295 M
+(   directly via load/store to virtual memory, otherwise the call is erroneous.) s
+5 286 M
+(   The extent of memory which falls into the latter category is implementation-dependent) s
+5 277 M
+(   and may be empty. Furthermore, the virtual addresses returned by this function) s
+5 268 M
+(   are only guaranteed to be valid on the calling thread.) s
+5 259 M
+(*/) s
+5 250 M
+(void *upcr_shared_to_processlocal\(upcr_shared_ptr_t sptr\);) s
+5 241 M
+(void *upcr_pshared_to_processlocal\(upcr_pshared_ptr_t sptr\);) s
+5 223 M
+(/* Convert a local ptr into the current thread's shared memory space into ) s
+5 214 M
+(   a pointer-to-shared appropriate for use in remote operations from other threads. ) s
+5 205 M
+(   The phase field is set to zero. Some implementations may issue an error if lptr ) s
+5 196 M
+(   does not point into the shared region for the current thread. ) s
+5 187 M
+(   Note this operation is not accessible from the UPC source level, but may be useful ) s
+5 178 M
+(    for generated code nonetheless \(e.g. to support a debugger\)) s
+5 169 M
+(   The _ref versions modify a pointer-to-shared in place rather than returning a ) s
+5 160 M
+(    pointer-to-shared value, which may be more efficient in some implementations) s
+5 151 M
+(*/) s
+5 142 M
+(upcr_shared_ptr_t upcr_local_to_shared\(void *lptr\);) s
+5 133 M
+(void upcr_local_to_shared_ref\(void *lptr, upcr_shared_ptr_t *result\);) s
+5 115 M
+(upcr_pshared_ptr_t upcr_local_to_pshared\(void *lptr\);) s
+5 106 M
+(void upcr_local_to_pshared_ref\(void *lptr, upcr_pshared_ptr_t *result\);) s
+5 88 M
+(/* Same as above, but sets the phase and thread to a particular value. ) s
+5 79 M
+(   phase is expressed in number of elements) s
+5 70 M
+( */) s
+5 52 M
+(upcr_shared_ptr_t upcr_local_to_shared_withphase\(void *lptr, upcr_phase_t phase, upcr_thread_t threadid\);) s
+5 34 M
+(void upcr_local_to_shared_ref_withphase\(void *lptr, upcr_phase_t phase, upcr_thread_t threadid, ) s
+5 25 M
+(                                        upcr_shared_ptr_t *result\);) s
+5 7 M
+(/* Convert back and forth between shared and pshared representations) s
+_R
+S
+%%Page: (10) 10
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 10 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(    upcr_pshared_to_shared sets phase to zero) s
+5 700 M
+(   The _ref versions modify a pointer-to-shared in place rather than returning a ) s
+5 691 M
+(    pointer-to-shared value, which may be more efficient in some implementations) s
+5 682 M
+(*/) s
+5 664 M
+(upcr_pshared_ptr_t upcr_shared_to_pshared\(upcr_shared_ptr_t sptr\);) s
+5 655 M
+(void upcr_shared_to_pshared_ref\(upcr_shared_ptr_t sptr, upcr_pshared_ptr_t *result\);) s
+5 637 M
+(upcr_shared_ptr_t upcr_pshared_to_shared\(upcr_pshared_ptr_t sptr\);) s
+5 628 M
+(void upcr_pshared_to_shared_ref\(upcr_pshared_ptr_t sptr, upcr_shared_ptr_t *result\);) s
+5 601 M
+(/* Same as above, but sets the phase to a particular value. ) s
+5 592 M
+(   phase is expressed in number of elements) s
+5 583 M
+(*/) s
+5 565 M
+(upcr_shared_ptr_t upcr_pshared_to_shared_withphase\(upcr_pshared_ptr_t sptr, upcr_phase_t phase\);) s
+5 547 M
+(void upcr_pshared_to_shared_ref_withphase\(upcr_pshared_ptr_t sptr, upcr_phase_t phase, ) s
+5 538 M
+(                                          upcr_shared_ptr_t *result\);) s
+5 520 M
+(/* reset the phase field of a given pointer-to-shared to zero) s
+5 511 M
+(   \(used for casting between block sizes\)) s
+5 502 M
+( */) s
+5 484 M
+(upcr_shared_ptr_t upcr_shared_resetphase\(upcr_shared_ptr_t sptr\);) s
+5 475 M
+(void upcr_shared_resetphase_ref\(upcr_shared_ptr_t *sptr\);) s
+5 457 M
+(/* Returns the thread number that has affinity to the given pointer-to-shared, ) s
+5 448 M
+(   or 0 for a NULL pointer-to-shared. If sptr is not a valid pointer-to-shared, ) s
+5 439 M
+(   the results are undefined.) s
+5 430 M
+(*/) s
+5 412 M
+(upcr_thread_t upcr_threadof_shared\(upcr_shared_ptr_t sptr\);) s
+5 403 M
+(upcr_thread_t upcr_threadof_pshared\(upcr_pshared_ptr_t sptr\);) s
+5 385 M
+(/* Returns the phase field of the given pointer-to-shared, ) s
+5 376 M
+(   Returns 0 for a NULL pointer-to-shared or any phaseless pointer-to-shared) s
+5 367 M
+(   phase is expressed in number of elements) s
+5 358 M
+( */) s
+5 340 M
+(upcr_phase_t upcr_phaseof_shared\(upcr_shared_ptr_t sptr\);) s
+5 331 M
+(upcr_phase_t upcr_phaseof_pshared\(upcr_pshared_ptr_t sptr\); /* always returns zero */) s
+5 313 M
+(/* Returns an implementation-defined value reflecting the local address ) s
+5 304 M
+(   of the object pointed to. This may or may not be the actual virtual address ) s
+5 295 M
+(   where the object is stored - use upcr_to_local\(\) when casting pointers-to-shared ) s
+5 286 M
+(   to local pointers.) s
+5 277 M
+(*/) s
+5 268 M
+(uintptr_t upcr_addrfield_shared\(upcr_shared_ptr_t sptr\);) s
+5 259 M
+(uintptr_t upcr_addrfield_pshared\(upcr_pshared_ptr_t sptr\);) s
+5 241 M
+(/* upcr_affinitysize calculates the exact size of the local portion of the data) s
+5 232 M
+(   in a shared object with affinity to a given thread, specified by threadid.) s
+5 223 M
+(   totalsize should be the total number of bytes in the shared object.) s
+5 214 M
+(   nbytes is the block size in BYTES.) s
+5 205 M
+(*/) s
+5 196 M
+(size_t upcr_affinitysize\(size_t totalsize, size_t nbytes, upcr_thread_t threadid\);) s
+5 178 M
+(/* return non-zero iff the given pointer-to-shared is a null reference */) s
+5 160 M
+(int upcr_isnull_shared\(upcr_shared_ptr_t sptr\);) s
+5 151 M
+(int upcr_isnull_pshared\(upcr_pshared_ptr_t sptr\);) s
+5 133 M
+(/* Return non-zero iff the given pointer is not valid, i.e., is not NULL, and) s
+5 124 M
+( * does not point to a valid shared memory address on some thread */) s
+5 115 M
+(int upcr_isvalid_shared\(upcr_shared_ptr_t *p\);) s
+5 106 M
+(int upcr_isvalid_pshared\(upcr_pshared_ptr_t *p\);) s
+5 88 M
+(/* Set a pointer-to-shared to NULL. */) s
+5 70 M
+(int upcr_setnull_shared\(upcr_shared_ptr_t *p\);) s
+5 61 M
+(int upcr_setnull_pshared\(upcr_pshared_ptr_t *p\);) s
+5 43 M
+(/* Pointer-to-shared increments/decrements - ) s
+5 34 M
+(  add a positive or negative displacement to a pointer-to-shared. ) s
+5 25 M
+(  Both the inc and blockelems arguments should be expressed in number of elements) s
+5 16 M
+(  elemsz is the target element size in bytes) s
+5 7 M
+(  The "add" versions return an updated pointer-to-shared, ) s
+_R
+S
+%%Page: (11) 11
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 11 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(  the "inc" versions modify the input pointer-to-shared in place. ) s
+5 691 M
+(  Pointers with a definite static blocksize > 1 should use the "shared" version, ) s
+5 682 M
+(  pointers-to-shared with indef blocksize use the "psharedI" version) s
+5 673 M
+(  pointers-to-shared with blocksize == 1 use the "pshared1" version) s
+5 664 M
+(*/) s
+5 655 M
+(upcr_shared_ptr_t upcr_add_shared\(upcr_shared_ptr_t sptr,   size_t elemsz, ptrdiff_t inc, size_t blockelems\);) s
+5 646 M
+(void              upcr_inc_shared\(upcr_shared_ptr_t *psptr, size_t elemsz, ptrdiff_t inc, size_t blockelems\);) s
+5 628 M
+(upcr_pshared_ptr_t upcr_add_psharedI\(upcr_pshared_ptr_t sptr,   size_t elemsz, ptrdiff_t inc\);) s
+5 619 M
+(void               upcr_inc_psharedI\(upcr_pshared_ptr_t *psptr, size_t elemsz, ptrdiff_t inc\);) s
+5 601 M
+(upcr_pshared_ptr_t upcr_add_pshared1\(upcr_pshared_ptr_t sptr,   size_t elemsz, ptrdiff_t inc\);) s
+5 592 M
+(void               upcr_inc_pshared1\(upcr_pshared_ptr_t *psptr, size_t elemsz, ptrdiff_t inc\);) s
+5 574 M
+(/* return non-zero iff ptr1 and ptr2 are both null, ) s
+5 565 M
+(   or if they currently reference the same memory location) s
+5 556 M
+( */) s
+5 547 M
+(int upcr_isequal_shared_shared\(upcr_shared_ptr_t ptr1, upcr_shared_ptr_t ptr2\);) s
+5 538 M
+(int upcr_isequal_shared_pshared\(upcr_shared_ptr_t ptr1, upcr_pshared_ptr_t ptr2\);) s
+5 529 M
+(int upcr_isequal_pshared_pshared\(upcr_pshared_ptr_t ptr1, upcr_pshared_ptr_t ptr2\);) s
+5 520 M
+(int upcr_isequal_shared_local\(upcr_shared_ptr_t ptr1, void *ptr2\);) s
+5 511 M
+(int upcr_isequal_pshared_local\(upcr_pshared_ptr_t ptr1, void *ptr2\);) s
+5 493 M
+(/* Comparison and subtraction of pointers-to-shared -) s
+5 484 M
+(  Compare pointers-to-shared sptr1 and sptr2 and calculate sptr1 - sptr2.) s
+5 475 M
+(    blockelems is the block size for both ptrs, expressed in num elements) s
+5 466 M
+(      \(UPC type compatibility semantics require both pointers have the same blocksize\)) s
+5 457 M
+(    elemsz is the target element size in bytes) s
+5 439 M
+(  Pointers with a definite static blocksize > 1 should use the "shared" version, ) s
+5 430 M
+(  pointers-to-shared with indef blocksize use the "psharedI" version) s
+5 421 M
+(  pointers-to-shared with blocksize == 1 use the "pshared1" version) s
+5 412 M
+(  ) s
+5 403 M
+( There are three possible cases:) s
+5 394 M
+(  returns 0 if sptr1 and sptr2 currently reference the same memory cell \(i.e. upcr_isequal\(\) would return true\)) s
+5 385 M
+(  returns a positive or negative value N \(an element count\) to indicate that ) s
+5 376 M
+(    upcr_add_shared\(sptr2, elemsz, N, blockelems2\) would yield a pointer-to-shared that is upcr_isequal\(\) to sptr1) s
+5 367 M
+(    \(if N > 0, we say that sptr1 is "greater than" sptr2, and if N < 0 we say that sptr1 is "less than" sptr2\)) s
+5 358 M
+(  otherwise, fatal error if there is no value which can be added to sptr1 to make it equal sptr2) s
+5 349 M
+(   \(e.g. sptr1 and sptr2 are indef blocksize pointers with different affinities\)) s
+5 340 M
+(*/) s
+5 322 M
+(ptrdiff_t upcr_sub_shared  \(upcr_shared_ptr_t  sptr1, upcr_shared_ptr_t  sptr2, size_t elemsz, size_t blockelems\);) s
+5 313 M
+(ptrdiff_t upcr_sub_psharedI\(upcr_pshared_ptr_t sptr1, upcr_pshared_ptr_t sptr2, size_t elemsz\);) s
+5 304 M
+(ptrdiff_t upcr_sub_pshared1\(upcr_pshared_ptr_t sptr1, upcr_pshared_ptr_t sptr2, size_t elemsz\);) s
+5 277 M
+(/* Affinity checks - return non-zero iff the given pointer-to-shared currently) s
+5 268 M
+(    has affinity to the calling thread \(or indicated thread, respectively\)) s
+5 259 M
+( */) s
+5 250 M
+(int upcr_hasMyAffinity_shared \(upcr_shared_ptr_t sptr\);) s
+5 241 M
+(int upcr_hasMyAffinity_pshared\(upcr_pshared_ptr_t sptr\);) s
+5 223 M
+(int upcr_hasAffinity_shared \(upcr_shared_ptr_t sptr,  upcr_thread_t threadid\);) s
+5 214 M
+(int upcr_hasAffinity_pshared\(upcr_pshared_ptr_t sptr, upcr_thread_t threadid\);) s
+5 196 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 187 M
+(/*) s
+5 178 M
+(  Shared Memory Accesses) s
+5 169 M
+(  ======================) s
+5 160 M
+(  Transfer scalar values to/from shared memory which may or may not be remote) s
+5 142 M
+(  These comments apply to all put/get functions:) s
+5 124 M
+(    Only functions suffixed with '_strict' can be used to implement a strict) s
+5 115 M
+(     operation: all other data movement functions in this specification are) s
+5 106 M
+(     implicitly relaxed.) s
+5 97 M
+(    nbytes should be a compile-time constant whenever possible) s
+5 88 M
+(    nbytes must be >= 0 and has no maximum size, but implementations) s
+5 79 M
+(     will likely optimize for small powers of 2) s
+5 70 M
+(    source and target addresses \(both local and shared\) are assumed to be properly ) s
+5 61 M
+(     aligned for accessing objects of size nbytes ) s
+5 52 M
+(    if nbytes extends beyond the current block the results are undefined) s
+5 43 M
+(    destoffset\(srcoffset\) is an optional positive or negative BYTE offset, which is added to ) s
+5 34 M
+(      the address indicated by dest\(src\) to determine the target\(source\) address for the put\(get\) operation ) s
+5 25 M
+(      \(Useful for puts\(gets\) with shared structures\)) s
+5 16 M
+(    if adding the number of bytes indicated by destoffset\(srcoffset\) to dest\(src\) would cause) s
+5 7 M
+(      dest\(src\) to pass the end of the current block, the result is undefined) s
+_R
+S
+%%Page: (12) 12
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 12 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(    If the source and target memory areas overlap \(for memory-to-memory transfers\) but do not exactly coincide, ) s
+5 700 M
+(      the resulting target memory contents are undefined) s
+5 691 M
+(    Implementations are likely to optimize for the important special case of zero destoffset\(srcoffset\)) s
+5 682 M
+(*/) s
+5 664 M
+(/* UPCR_ATOMIC_MEMSIZE\(\) is a macro describing the datatype sizes at which memory accesses) s
+5 655 M
+(     will be done atomically. Given a datatype width sz \(in bytes\) it will return non-zero at compile time) s
+5 646 M
+(     iff a local or shared memory access of exactly sz bytes, to an address aligned by sz bytes, will happen ) s
+5 637 M
+(     atomically with respect to accesses from other threads to the same location.) s
+5 628 M
+(   A non-zero return value for a given size does not guarantee atomicity for smaller sizes) s
+5 619 M
+(     or unaligned accesses of the given size) s
+5 610 M
+(   Some architectures may provide no atomic sizes) s
+5 601 M
+(   UPCR_ATOMIC_MEMSIZE\(0\) will return the largest atomic size available, or zero if none exists) s
+5 592 M
+(*/) s
+5 583 M
+(#define UPCR_ATOMIC_MEMSIZE\(sz\) ???) s
+5 565 M
+(/* --- Blocking memory-to-memory puts and gets ---) s
+5 556 M
+(  A call to these functions will block until the transfer is complete, ) s
+5 547 M
+(    and the contents of the destination memory are undefined until it completes. ) s
+5 538 M
+(  If the contents of the source memory change while the operation is in progress ) s
+5 529 M
+(    the result will be implementation-specific.) s
+5 520 M
+(  The '_strict' versions implement strict UPC puts/gets.  It is an error for any) s
+5 511 M
+(    nonblocking \(relaxed or strict\) operation to overlap a strict put/get.) s
+5 502 M
+(*/) s
+5 493 M
+(void upcr_put_shared \(upcr_shared_ptr_t dest,  ptrdiff_t destoffset, const void *src, size_t nbytes\);) s
+5 484 M
+(void upcr_put_pshared\(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, const void *src, size_t nbytes\);) s
+5 475 M
+(void upcr_put_shared_strict \(upcr_shared_ptr_t dest,  ptrdiff_t destoffset, const void *src, size_t nbytes\);) s
+5 466 M
+(void upcr_put_pshared_strict\(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, const void *src, size_t nbytes\);) s
+5 448 M
+(void upcr_get_shared \(void *dest, upcr_shared_ptr_t  src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 439 M
+(void upcr_get_pshared\(void *dest, upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 430 M
+(void upcr_get_shared_strict \(void *dest, upcr_shared_ptr_t  src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 421 M
+(void upcr_get_pshared_strict\(void *dest, upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 403 M
+(/* --- Non-blocking operations --- ) s
+5 394 M
+(  The following functions provide non-blocking, split-phase memory access to shared data.) s
+5 385 M
+(  All such non-blocking operations require an initiation \(put or get\) and a subsequent) s
+5 376 M
+(    synchronization on the completion of that operation before the result is guaranteed.) s
+5 367 M
+(  Synchronization of a get operation means the local result is ready to be examined, and) s
+5 358 M
+(    will contain a value held by the shared location at some time in the interval between) s
+5 349 M
+(    the call to the initiation function and the successful completion of the synchronization) s
+5 340 M
+(    \(note this specifically allows implementations to delay the underlying read ) s
+5 331 M
+(     until the synchronization operation is called, provided they preserve the blocking) s
+5 322 M
+(     semantics of the synchronization function\)) s
+5 313 M
+(  Synchronization of a put operation means the source data has been written to the shared location) s
+5 304 M
+(    and get operations issued subsequently by any thread will receive the new value or a ) s
+5 295 M
+(    subsequently written value \(assuming no other threads are writing the location\)) s
+5 286 M
+(  There are two categories of non-blocking operations:) s
+5 277 M
+(    "explicit handle" \(nb\) - return a specific handle to caller which is used for synchronization) s
+5 268 M
+(      this handle can be used to synchronize a specific subset of the nb operations in-flight) s
+5 259 M
+(    "implicit handle" \(nbi\) - don't return a handle - synchronization is accomplished) s
+5 250 M
+(      by calling a synchronization routine that synchronizes all outstanding nbi operations) s
+5 232 M
+(  Note that the order in which non-blocking operations complete is intentionally unspecified - ) s
+5 223 M
+(    the system is free to coalesce and/or reorder non-blocking operations with respect to other ) s
+5 214 M
+(    blocking or non-blocking operations, or operations initiated from a separate thread - ) s
+5 205 M
+(    the only ordering constraints that must be satisfied are those explicitly enforced using ) s
+5 196 M
+(    the synchronization functions \(i.e. the non-blocking operation is only guaranteed to occur ) s
+5 187 M
+(    somewhere in the interval between initiation and successful synchronization on that operation\).) s
+5 169 M
+(  The compiler bears full responsibility for maintaining the memory consistency semantics) s
+5 160 M
+(    presented to the UPC user when using non-blocking operations - the compiler must generate) s
+5 151 M
+(    synchronizations at the appropriate points \(e.g. before calling upcr_unlock\(\) or upcr_notify\(\)\)) s
+5 133 M
+(  Implementors should attempt to make the non-blocking operations return as quickly as possible - ) s
+5 124 M
+(    however in some cases \(e.g. when a large number of non-blocking operations have been issued ) s
+5 115 M
+(    or the network is otherwise busy\) it may be necessary to block temporarily while waiting ) s
+5 106 M
+(    for the network to become available. In any case, all implementations must support an ) s
+5 97 M
+(    unlimited number of non-blocking operations in-progress - that is, the client is free ) s
+5 88 M
+(    to issue an unlimited number of non-blocking operations before issuing a sync operation, ) s
+5 79 M
+(    and implementations must handle this correctly without deadlock. ) s
+5 61 M
+(  The '_strict' versions of these functions implement strict nonblocking UPC puts/gets.  ) s
+5 52 M
+(    It is an error for any nonblocking \(relaxed or strict\) operation to overlap a strict put/get.  ) s
+5 43 M
+(    Only one strict nonblocking operation may be pending at any time, and no other operation ) s
+5 34 M
+(    \(relaxed or strict\) may be initiated or completed in between that strict operation's) s
+5 25 M
+(    initiation and its completion.) s
+5 16 M
+(*/) s
+_R
+S
+%%Page: (13) 13
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 13 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(/* upcr_handle_t is a datatype used for representing a non-blocking) s
+5 700 M
+(     operation currently in-flight that was initiated with an "explicit handle" ) s
+5 691 M
+(     non-blocking operation. The contents are implementation-defined.) s
+5 682 M
+(   UPCR_INVALID_HANDLE is a compile-time constant which can be used as a "dummy") s
+5 673 M
+(     handle value, which is ignored by all the operations that take upcr_handle_t's) s
+5 664 M
+(     furthermore this value must be the result of setting all the bits in the ) s
+5 655 M
+(     upcr_handle_t datatype to zero.) s
+5 646 M
+(   Implementations are free to define the upcr_handle_t type to be any ) s
+5 637 M
+(     reasonable and appropriate size, although they are recommended to use a ) s
+5 628 M
+(     type which fits within a single standard register on the target architecture. ) s
+5 619 M
+(     In any case, the datatype should be wide enough to express at least 2^16-1 ) s
+5 610 M
+(     different handle values, to prevent limiting the number of non-blocking operations ) s
+5 601 M
+(     in progress due to the number of handles available.) s
+5 592 M
+(   upcr_handle_t values are thread-specific. ) s
+5 583 M
+(     In other words, it is an error to obtain a handle value by initiating a non-blocking ) s
+5 574 M
+(     operation on one thread, and later pass that handle into a synchronization function ) s
+5 565 M
+(     from a different thread \(results are undefined\).) s
+5 556 M
+(   Similarly, synchronization functions for "implicit handle" non-blocking operations) s
+5 547 M
+(     only synchronize on "implicit handle" operations initiated from the calling thread.) s
+5 538 M
+(   It _is_ legal to pass upcr_handle_t values into function callees or back to function callers) s
+5 529 M
+(*/) s
+5 520 M
+(typedef ??? upcr_handle_t;) s
+5 511 M
+(#define UPCR_INVALID_HANDLE ???) s
+5 493 M
+(/* --- Non-blocking memory-to-memory, explicit handle \(nb\) ---) s
+5 484 M
+(  These calls initiate a non-blocking operation and return "immediately" with a ) s
+5 475 M
+(    non-blocking handle that can be used to later synchronize the operation, ) s
+5 466 M
+(    using one of the explicit sync operations) s
+5 457 M
+(  Once the put version returns, the source memory may safely be overwritten) s
+5 448 M
+(  For the get version, if the contents of the source memory change while the ) s
+5 439 M
+(    operation is in progress the result will be implementation-specific.) s
+5 430 M
+(  The contents of the destination memory address are undefined until a ) s
+5 421 M
+(    synchronization completes successfully for the non-blocking operation. ) s
+5 412 M
+(  The operations may return UPCR_INVALID_HANDLE to indicate it was possible to complete) s
+5 403 M
+(    the operation immediately without blocking \(e.g. operations on shared memory ) s
+5 394 M
+(    with affinity to this thread\)) s
+5 385 M
+(  It is an error to discard the upcr_handle_t value for an operation in-flight - ) s
+5 376 M
+(    i.e. to initiate an operation and never synchronize on its completion) s
+5 367 M
+(*/) s
+5 358 M
+(upcr_handle_t upcr_put_nb_shared \(upcr_shared_ptr_t dest,  ptrdiff_t destoffset, ) s
+5 349 M
+(                                  const void *src, size_t nbytes\);) s
+5 340 M
+(upcr_handle_t upcr_get_nb_shared \(void *dest, upcr_shared_ptr_t  src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 322 M
+(upcr_handle_t upcr_put_nb_pshared\(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 313 M
+(                                  const void *src, size_t nbytes\);) s
+5 304 M
+(upcr_handle_t upcr_get_nb_pshared\(void *dest, upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 286 M
+(upcr_handle_t upcr_put_nb_shared_strict \(upcr_shared_ptr_t dest,  ptrdiff_t destoffset, ) s
+5 277 M
+(                                         const void *src, size_t nbytes\);) s
+5 268 M
+(upcr_handle_t upcr_get_nb_shared_strict \(void *dest, upcr_shared_ptr_t  src, ptrdiff_t srcoffset, ) s
+5 259 M
+(                                         size_t nbytes\);) s
+5 250 M
+(upcr_handle_t upcr_put_nb_pshared_strict \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 241 M
+(                                          const void *src, size_t nbytes\);) s
+5 232 M
+(upcr_handle_t upcr_get_nb_pshared_strict\(void *dest, upcr_pshared_ptr_t src, ) s
+5 223 M
+(                                         ptrdiff_t srcoffset, size_t nbytes\);) s
+5 205 M
+(/* --- Explicit handle synchronization \(for get_nb and put_nb\) ---) s
+5 196 M
+(  upcr supports two basic variants of synchronization for non-blocking operations - ) s
+5 187 M
+(    trying \(polling\) and waiting \(blocking\). ) s
+5 178 M
+(  All explicit synchronization functions take one or more upcr_handle_t values ) s
+5 169 M
+(    as input and either return an indication of whether the operation has completed ) s
+5 160 M
+(    or block until it completes. ) s
+5 151 M
+(*/) s
+5 133 M
+(/* Single operation explicit synchronization) s
+5 124 M
+(  Synchronize on the completion of a single, particular non-blocking operation ) s
+5 115 M
+(    that was initiated by this thread. ) s
+5 106 M
+(  upcr_wait_syncnb\(\) blocks until the specified operation has completed ) s
+5 97 M
+(    \(or returns immediately if it has already completed\). ) s
+5 88 M
+(    In any case, the handle value is "dead" after upcr_wait_syncnb\(\) returns and ) s
+5 79 M
+(    may not be passed to future synchronization operations ) s
+5 70 M
+(  upcr_try_syncnb\(\) always returns immediately, with the value 1 if the ) s
+5 61 M
+(    operation is complete \(at which point the handle value is "dead", and may ) s
+5 52 M
+(    not be used in future synchronization operations\), or 0 if the operation is ) s
+5 43 M
+(    not yet complete and future synchronization is necessary to complete this operation.) s
+5 25 M
+(  upcr_{try,wait}_syncnb_strict\(\) operate just as upcr_{try.wait}_syncnb\(\) do,) s
+5 16 M
+(  but must be used for strict operations \(and only for strict operations\).) s
+5 7 M
+( ) s
+_R
+S
+%%Page: (14) 14
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 14 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(  It is legal to pass UPCR_INVALID_HANDLE as input to these functions:) s
+5 700 M
+(  upcr_wait_syncnb{,_strict}\(UPCR_INVALID_HANDLE\) return immediately and) s
+5 691 M
+(  upcr_try_syncnb{,_strict}\(UPCR_INVALID_HANDLE\) return 1.) s
+5 673 M
+(  It is an error to pass a upcr_handle_t value for an operation which has already ) s
+5 664 M
+(    been successfully synchronized using one of the explicit synchronization functions) s
+5 655 M
+(    and doing so has undefined results) s
+5 646 M
+(*/) s
+5 637 M
+(void upcr_wait_syncnb\(upcr_handle_t handle\);) s
+5 628 M
+(int  upcr_try_syncnb\(upcr_handle_t handle\);) s
+5 619 M
+(void upcr_wait_syncnb_strict\(upcr_handle_t handle\);) s
+5 610 M
+(int  upcr_try_syncnb_strict\(upcr_handle_t handle\);) s
+5 592 M
+(/* Multiple operation explicit synchronization ) s
+5 583 M
+(  Synchronize on the completion of an array of non-blocking operation handles ) s
+5 574 M
+(    \(all of which were initiated by this thread\). ) s
+5 565 M
+(  numhandles specifies the number of handles in the provided array of handles. ) s
+5 556 M
+(    requires numhandles >= 0) s
+5 547 M
+(  upcr_wait_syncnb_all\(\) blocks until all the specified operations have completed ) s
+5 538 M
+(    \(or returns immediately if they have all already completed\). ) s
+5 529 M
+(  upcr_try_syncnb_all\(\) always returns immediately, with the value 1 if all ) s
+5 520 M
+(    the specified operations have completed, or 0 if one or more of the operations ) s
+5 511 M
+(    is not yet complete and future synchronization is necessary to complete some ) s
+5 502 M
+(    of the operations.) s
+5 484 M
+(  upcr_try_syncnb_all\(\) will modify the provided array to reflect completions - ) s
+5 475 M
+(    handles whose operations have completed are overwritten with the value UPCR_INVALID_HANDLE, ) s
+5 466 M
+(    and the client may test against this value when upcr_try_syncnb_all\(\) returns 0 ) s
+5 457 M
+(    to determine which operations are complete and which are still pending.) s
+5 439 M
+(  implementations of upcr_wait_syncnb_all\(\) _may_ modify the provided array to reflect completions, ) s
+5 430 M
+(    but this is not required \(and not necessarily for the client since it always blocks until all ) s
+5 421 M
+(    operations in the list are complete\)) s
+5 403 M
+(  It is legal to pass the value UPCR_INVALID_HANDLE in some or all of the array entries, ) s
+5 394 M
+(    and both functions will ignore them so those values have no effect on behavior. ) s
+5 385 M
+(  If all entries in the array are UPCR_INVALID_HANDLE \(or numhandles==0\), then ) s
+5 376 M
+(    upcr_try_syncnb_all\(\) will return 1.) s
+5 367 M
+(  Note that there are no strict variants, since the UPC memory consistency) s
+5 358 M
+(    model prohibits multiple outstanding strict operations.) s
+5 349 M
+(*/) s
+5 331 M
+(void upcr_wait_syncnb_all\(upcr_handle_t *, size_t numhandles\);) s
+5 322 M
+(int  upcr_try_syncnb_all\(upcr_handle_t *, size_t numhandles\);) s
+5 304 M
+(/* ) s
+5 295 M
+(  These operate analogously to the syncnb_all variants, except they only ) s
+5 286 M
+(    wait/test for at least one operation corresponding to a _valid_ handle in the ) s
+5 277 M
+(    provided list to be complete \(the valid handles values are all those which are not ) s
+5 268 M
+(    UPCR_INVALID_HANDLE\). ) s
+5 259 M
+(  Specifically, upcr_wait_syncnb_some\(\) will block until at least one of the ) s
+5 250 M
+(    valid handles in the list has completed, and indicate the operations that have ) s
+5 241 M
+(    completed by setting the corresponding handles to the value UPCR_INVALID_HANDLE. ) s
+5 232 M
+(  Similarly, upcr_try_syncnb_some will check if at least one valid handle in the ) s
+5 223 M
+(    list has completed \(setting all completed handles to UPCR_INVALID_HANDLE\) and ) s
+5 214 M
+(    return 1 if it detected at least one completion or 0 otherwise \(except as below\)) s
+5 196 M
+(  Both functions ignore UPCR_INVALID_HANDLE values. If the input list is empty or ) s
+5 187 M
+(    consists only of UPCR_INVALID_HANDLE values, upcr_wait_syncnb_some will ) s
+5 178 M
+(    return immediately and upcr_try_sync_some will return 1.) s
+5 169 M
+(*/) s
+5 151 M
+(void upcr_wait_syncnb_some\(upcr_handle_t *, size_t numhandles\);) s
+5 142 M
+(int  upcr_try_syncnb_some\(upcr_handle_t *, size_t numhandles\);) s
+5 115 M
+(/* --- Non-blocking memory-to-memory, implicit handle \(nbi\) ---) s
+5 106 M
+(  These calls initiate a non-blocking operation and return "immediately" ) s
+5 97 M
+(    the operation must later be completed using a call to one of the implicit sync functions) s
+5 88 M
+(  Once the put version returns, the source memory may safely be overwritten) s
+5 79 M
+(  For a get operation, if the contents of the source memory change while the operation is in progress ) s
+5 70 M
+(    the result will be implementation-specific.) s
+5 61 M
+(  The contents of the destination memory address are undefined until a ) s
+5 52 M
+(    synchronization completes successfully for the non-blocking operation. ) s
+5 43 M
+(  There are no strict nbi operations, as the UPC memory consistency model prohibits multiple ) s
+5 34 M
+(    outstanding strict operations.) s
+5 25 M
+(*/) s
+5 16 M
+(void upcr_put_nbi_shared \(upcr_shared_ptr_t dest,  ptrdiff_t destoffset, ) s
+5 7 M
+(                          const void *src, size_t nbytes\);) s
+_R
+S
+%%Page: (15) 15
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 15 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(void upcr_get_nbi_shared \(void *dest, upcr_shared_ptr_t  src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 691 M
+(void upcr_put_nbi_pshared\(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 682 M
+(                          const void *src, size_t nbytes\);) s
+5 673 M
+(void upcr_get_nbi_pshared\(void *dest, upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 655 M
+(/* --- Implicit handle synchronization \(for get_nbi and put_nbi\) --- */) s
+5 646 M
+(/* Synchronize on an implicit list of outstanding non-blocking operations.) s
+5 637 M
+(  These functions implicitly specify a set of non-blocking operations on which to synchronize - ) s
+5 628 M
+(    either all outstanding implicit-handle gets initiated by this thread, ) s
+5 619 M
+(    all outstanding implicit-handle puts initiated by this thread, ) s
+5 610 M
+(    or all outstanding implicit-handle operations \(both puts and gets\) initiated by this thread ) s
+5 601 M
+(    \(where outstanding is defined as all those operations which have been initiated ) s
+5 592 M
+(    but not yet completed through a successful implicit-handle synchronization\). ) s
+5 583 M
+(  The wait variants block until all operations in this implicit set have completed ) s
+5 574 M
+(  The try variants test whether all operations in the implicit set have completed, ) s
+5 565 M
+(    and return 1 if so \(or if there are no outstanding implicit-handle operations\)) s
+5 556 M
+(    or 0 otherwise ) s
+5 547 M
+(  Implicit synchronization functions will synchronize operations initiated within) s
+5 538 M
+(    other function frames by this thread) s
+5 529 M
+(  As with the initiation functions, there are no strict variants here.) s
+5 520 M
+(*/) s
+5 502 M
+(void upcr_wait_syncnbi_gets\(\);) s
+5 493 M
+(void upcr_wait_syncnbi_puts\(\);) s
+5 484 M
+(void upcr_wait_syncnbi_all\(\);) s
+5 475 M
+(int  upcr_try_syncnbi_gets\(\);) s
+5 466 M
+(int  upcr_try_syncnbi_puts\(\);) s
+5 457 M
+(int  upcr_try_syncnbi_all\(\);) s
+5 439 M
+(/* --- Implicit region synchronization --- */) s
+5 430 M
+(/* In some cases, it may be useful or desirable to initiate a number of non-blocking ) s
+5 421 M
+(     shared-memory operations \(possibly without knowing how many at compile-time\) and) s
+5 412 M
+(     synchronize them at a later time using a single, fast synchronization.) s
+5 403 M
+(   Simple implicit handle synchronization may not be appropriate for this situation if) s
+5 394 M
+(     there are intervening implicit accesses which are not to be synchronized.) s
+5 385 M
+(   This situation could be handled using explicit-handle non-blocking operations and a) s
+5 376 M
+(     list synchronization \(e.g. upcr_wait_syncnb_all\(\)\), but this may not be desirable) s
+5 367 M
+(     because it requires managing an array of handles \(which could have negative cache) s
+5 358 M
+(     effects on performance, or could be expensive to allocate when the size is not known) s
+5 349 M
+(     until runtime\).) s
+5 340 M
+(   To handle these cases, we provide "implicit access region" synchronization, described below.) s
+5 331 M
+(*/) s
+5 313 M
+(/* upcr_begin_nbi_accessregion\(\) and upcr_end_nbi_accessregion\(\) are used to define an ) s
+5 304 M
+(     implicit access region \(any code which dynamically executes between the begin and) s
+5 295 M
+(     end calls is said to be "inside" the region\)) s
+5 286 M
+(   The begin and end calls must be paired, and may not be nested recursively or the results) s
+5 277 M
+(     are undefined.) s
+5 268 M
+(   It is erroneous to call any implicit-handle synchronization function within the region.) s
+5 259 M
+(   All implicit-handle non-blocking operations initiated inside the region become "associated") s
+5 250 M
+(     with the abstract region handle being constructed. upcr_end_nbi_accessregion\(\) returns an ) s
+5 241 M
+(     explicit handle which collectively represents all the associated implicit-handle operations ) s
+5 232 M
+(     \(those initiated within the region\). ) s
+5 223 M
+(   This handle can then be passed to the regular explicit-handle synchronization functions, ) s
+5 214 M
+(     and will be successfully synchronized when all of the associated non-blocking ) s
+5 205 M
+(     operations initiated in the region have completed. ) s
+5 196 M
+(   The associated operations cease to be implicit-handle operations, and are _not_ synchronized) s
+5 187 M
+(     by subsequent calls to the implicit-handle synchronization functions \(e.g. upcr_wait_syncnbi_all\(\)\)) s
+5 178 M
+(   Explicit-handle operations initiated within the region operate as usual and do _not_ become) s
+5 169 M
+(     associated with the region.) s
+5 160 M
+(*/) s
+5 151 M
+(void          upcr_begin_nbi_accessregion\(\);) s
+5 142 M
+(upcr_handle_t upcr_end_nbi_accessregion\(\);) s
+5 133 M
+(/* sample code:) s
+5 115 M
+(  upcr_begin_nbi_accessregion\(\); // begin the region) s
+5 97 M
+(  upcr_put_nbi_shared\(...\); // becomes associated with this region) s
+5 88 M
+(  while \(...\) {) s
+5 79 M
+(    upcr_put_nbi_shared\(...\); // becomes associated with this region) s
+5 70 M
+(  }) s
+5 52 M
+(  h2 = upcr_get_nb_shared\(...\); // unrelated explicit-handle operation not associated with region) s
+5 43 M
+(  upcr_wait_syncnb\(h2\);) s
+5 25 M
+(  handle = upcr_end_nbi_accessregion\(\); // end the region and get the handle) s
+5 7 M
+(  .... // other code, which may include unrelated implicit-handle operations+syncs, or other regions, etc) s
+_R
+S
+%%Page: (16) 16
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 16 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 700 M
+(  upcr_wait_syncnb\(handle\); // wait for all the operations associated with the region to complete) s
+5 691 M
+(  */) s
+5 673 M
+(/* --- Register-memory operations --- */) s
+5 655 M
+(/* upcr_register_value_t represents the largest unsigned integer type that can fit entirely) s
+5 646 M
+(     in a single CPU register for the current architecture and ABI. ) s
+5 637 M
+(   SIZEOF_UPCR_REGISTER_T is a preprocess-time literal integer constant \(i.e. not "sizeof\(\)"\)) s
+5 628 M
+(     indicating the size of this type in bytes) s
+5 619 M
+( */) s
+5 610 M
+(typedef unsigned ??? upcr_register_value_t;) s
+5 601 M
+(#define SIZEOF_UPCR_REGISTER_VALUE_T ???) s
+5 583 M
+(/* the value forms of put - these take the value to be put as input parameter to avoid) s
+5 574 M
+(     forcing outgoing values to local memory in generated code. ) s
+5 565 M
+(   Otherwise, the behavior is identical to the memory-to-memory versions of put above) s
+5 556 M
+(   requires: nbytes > 0 && nbytes <= SIZEOF_UPCR_REGISTER_VALUE_T) s
+5 547 M
+(   The value written to the target address is a direct byte copy of the 8*nbytes low-order bits of value,) s
+5 538 M
+(     written with the endianness appropriate for an nbyte integral value on the current architecture) s
+5 529 M
+(   The non-blocking forms of value put must be synchronized using the explicit or implicit) s
+5 520 M
+(     synchronization functions defined above, as appropriate) s
+5 511 M
+(   The semantics of the _strict versions are the same as for the regular, non-value put/get functions) s
+5 502 M
+(*/) s
+5 493 M
+(void upcr_put_shared_val \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 484 M
+(                          upcr_register_value_t value, size_t nbytes\);) s
+5 475 M
+(void upcr_put_shared_val_strict \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 466 M
+(                                 upcr_register_value_t value, size_t nbytes\);) s
+5 457 M
+(upcr_handle_t upcr_put_nb_shared_val \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 448 M
+(                                      upcr_register_value_t value, size_t nbytes\);) s
+5 439 M
+(upcr_handle_t upcr_put_nb_shared_val_strict \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 430 M
+(                                             upcr_register_value_t value, size_t nbytes\);) s
+5 421 M
+(void upcr_put_nbi_shared_val\(upcr_shared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 412 M
+(                             upcr_register_value_t value, size_t nbytes\);) s
+5 394 M
+(void upcr_put_pshared_val \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 385 M
+(                           upcr_register_value_t value, size_t nbytes\);) s
+5 376 M
+(void upcr_put_pshared_val_strict \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 367 M
+(                                  upcr_register_value_t value, size_t nbytes\);) s
+5 358 M
+(upcr_handle_t upcr_put_nb_pshared_val \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 349 M
+(                                       upcr_register_value_t value, size_t nbytes\);) s
+5 340 M
+(upcr_handle_t upcr_put_nb_pshared_val_strict \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 331 M
+(                                              upcr_register_value_t value, size_t nbytes\);) s
+5 322 M
+(void upcr_put_nbi_pshared_val\(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, ) s
+5 313 M
+(                              upcr_register_value_t value, size_t nbytes\);) s
+5 286 M
+(/* blocking value get - these return the fetched value to avoid) s
+5 277 M
+(     forcing incoming values to local memory in generated code. ) s
+5 268 M
+(   Otherwise, the behavior is identical to the memory-to-memory blocking get) s
+5 259 M
+(   requires: nbytes > 0 && nbytes <= SIZEOF_UPCR_REGISTER_VALUE_T) s
+5 250 M
+(   The value returned is the one obtained by reading the nbytes bytes starting at the source address) s
+5 241 M
+(     with the endianness appropriate for an nbyte integral value on the current architecture) s
+5 232 M
+(     and setting the high-order bits \(if any\) to zero \(i.e. no sign-extension\)) s
+5 223 M
+(   The semantics of the _strict versions are the same as for the regular,) s
+5 214 M
+(     non-value put/get functions) s
+5 205 M
+(*/) s
+5 196 M
+(upcr_register_value_t upcr_get_shared_val \(upcr_shared_ptr_t  src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 187 M
+(upcr_register_value_t upcr_get_shared_val_strict \(upcr_shared_ptr_t  src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 178 M
+(upcr_register_value_t upcr_get_pshared_val\(upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 169 M
+(upcr_register_value_t upcr_get_pshared_val_strict\(upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 151 M
+(/* non-blocking value get - useful for NIC's that can target register-like ) s
+5 142 M
+(     storage such as T3E's eregisters or Quadric's memory-mapped NIC FIFO's) s
+5 133 M
+(   these operate similarly to the blocking form of value get, but are split-phase) s
+5 124 M
+(   upcr_get_nb_\(p\)shared_val initiates a non-blocking value get and ) s
+5 115 M
+(     returns an explicit handle which MUST be synchronized using upcr_wait_syncnb_valget\(\)) s
+5 106 M
+(   upcr_wait_syncnb_valget\(\) synchronizes an outstanding get_nb_val operation and ) s
+5 97 M
+(     returns the retrieved value as described for the blocking version) s
+5 88 M
+(   Note that upcr_valget_handle_t and upcr_handle_t are completely different datatypes) s
+5 79 M
+(     and may not be intermixed \(i.e. upcr_valget_handle_t's cannot be used with other explicit) s
+5 70 M
+(     synchronization functions, and upcr_handle_t's cannot be passed to upcr_wait_syncnb_valget\(\)) s
+5 61 M
+(   There is no try variant of value get synchronization, and no "nbi" variant) s
+5 52 M
+(   Implementors are recommended to make sizeof\(upcr_valget_handle_t\) <= sizeof\(upcr_register_value_t\)) s
+5 43 M
+(     to facilitate register reuse) s
+5 34 M
+(*/) s
+5 25 M
+(typedef ??? upcr_valget_handle_t;) s
+5 7 M
+(upcr_valget_handle_t upcr_get_nb_shared_val\(upcr_shared_ptr_t   src, ptrdiff_t srcoffset, size_t nbytes\);) s
+_R
+S
+%%Page: (17) 17
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 17 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(upcr_valget_handle_t upcr_get_nb_shared_val_strict\(upcr_shared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 700 M
+(upcr_valget_handle_t upcr_get_nb_pshared_val\(upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 691 M
+(upcr_valget_handle_t upcr_get_nb_pshared_val_strict\(upcr_pshared_ptr_t src, ptrdiff_t srcoffset, size_t nbytes\);) s
+5 673 M
+(upcr_register_value_t upcr_wait_syncnb_valget\(upcr_valget_handle_t handle\);) s
+5 655 M
+(/* Blocking value puts/gets for floating-point quantities \(float, double\)) s
+5 646 M
+(   these operate similarly to the blocking value puts/get for integral types, except are specialized) s
+5 637 M
+(     for the float and double types on the current platform) s
+5 628 M
+(   the source/target address is assumed to be correctly aligned for accessing the given FP type) s
+5 619 M
+(   the primary motivation is to permit puts/gets directly between local shared memory locations) s
+5 610 M
+(     and the floating point registers, without forcing the use of an integer register ) s
+5 601 M
+(     or stack temporary as an intermediary \(which would be otherwise necessary without these functions\)) s
+5 592 M
+(   there are no non-blocking variants for these functions because they are meant primarily for ) s
+5 583 M
+(     optimizing low-latency local memory accesses) s
+5 574 M
+(*/) s
+5 565 M
+(void   upcr_put_shared_floatval \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, float  value\);) s
+5 556 M
+(void   upcr_put_shared_floatval_strict \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, float  value\);) s
+5 547 M
+(void   upcr_put_shared_doubleval   \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, double value\);) s
+5 538 M
+(void   upcr_put_shared_doubleval_strict \(upcr_shared_ptr_t dest, ptrdiff_t destoffset, double value\);) s
+5 529 M
+(float  upcr_get_shared_floatval  \(upcr_shared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 520 M
+(float  upcr_get_shared_floatval_strict \(upcr_shared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 511 M
+(double upcr_get_shared_doubleval \(upcr_shared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 502 M
+(double upcr_get_shared_doubleval_strict \(upcr_shared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 484 M
+(void   upcr_put_pshared_floatval \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, float  value\);) s
+5 475 M
+(void   upcr_put_pshared_floatval_strict \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, float  value\);) s
+5 466 M
+(void   upcr_put_pshared_doubleval \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, double value\);) s
+5 457 M
+(void   upcr_put_pshared_doubleval_strict \(upcr_pshared_ptr_t dest, ptrdiff_t destoffset, double value\);) s
+5 448 M
+(float  upcr_get_pshared_floatval \(upcr_pshared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 439 M
+(float  upcr_get_pshared_floatval_strict \(upcr_pshared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 430 M
+(double upcr_get_pshared_doubleval \(upcr_pshared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 421 M
+(double upcr_get_pshared_doubleval_strict \(upcr_pshared_ptr_t src, ptrdiff_t srcoffset\);) s
+5 403 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 394 M
+(/*) s
+5 385 M
+(  Shared Memory Bulk Memory Operations) s
+5 376 M
+(  ====================================) s
+5 367 M
+(  Transfer bulk data to/from shared memory which may be remote) s
+5 358 M
+(  Note these operations all take upcr_shared_ptr_t's \(not phaseless ptrs\)) s
+5 349 M
+(  All sizes are specified in BYTES, nbytes >= 0) s
+5 340 M
+(  Semantics are the same as those specified in the UPC spec) s
+5 331 M
+(  Implementations will likely optimize for larger values of nbytes) s
+5 322 M
+(  If the source and target memory areas overlap \(but do not exactly coincide\), ) s
+5 313 M
+(    the resulting target memory contents are undefined) s
+5 295 M
+(  The motivation for having memget and memput, separately from the memory ops above:) s
+5 286 M
+(    - well defined semantics for crossing block boundaries) s
+5 277 M
+(    - no alignment constraints on the pointers) s
+5 268 M
+(    - non-blocking memput constrains source memory from changing while operation is ) s
+5 259 M
+(      in progress to avoid a potential buffering copy) s
+5 250 M
+(    - optimize for large sizes) s
+5 232 M
+(  Implementor's notes: ) s
+5 223 M
+(    upcr_memset\(\) can be implemented on GASNet using a single small active message, which makes) s
+5 214 M
+(      it very efficient in terms of network communication) s
+5 205 M
+(*/) s
+5 187 M
+(void upcr_memget\(void *dst, upcr_shared_ptr_t src, size_t nbytes\);) s
+5 178 M
+(void upcr_memput\(upcr_shared_ptr_t dst, const void *src, size_t nbytes\);) s
+5 169 M
+(void upcr_memcpy\(upcr_shared_ptr_t dst, upcr_shared_ptr_t src, size_t nbytes\);) s
+5 160 M
+(void upcr_memset\(upcr_shared_ptr_t dst, int c, size_t nbytes\);) s
+5 142 M
+(/* non-blocking versions of the bulk memory operations ) s
+5 133 M
+(   must be synchronized using explicit or implicit synchronization as with ) s
+5 124 M
+(     non-blocking scalar memory access operations) s
+5 115 M
+(   The contents of the memory referenced by src must NOT change between ) s
+5 106 M
+(     initiation and successful synchronization, or the result is undefined) s
+5 97 M
+(   upcr_nbi_memset is synchronized as if it were an implicit-handle put operation) s
+5 88 M
+(*/) s
+5 70 M
+(upcr_handle_t upcr_nb_memget\(void *dst, upcr_shared_ptr_t src, size_t nbytes\);) s
+5 61 M
+(upcr_handle_t upcr_nb_memput\(upcr_shared_ptr_t dst, const void *src, size_t nbytes\);) s
+5 52 M
+(upcr_handle_t upcr_nb_memcpy\(upcr_shared_ptr_t dst, upcr_shared_ptr_t src, size_t nbytes\);) s
+5 43 M
+(upcr_handle_t upcr_nb_memset\(upcr_shared_ptr_t dst, int c, size_t nbytes\);) s
+5 25 M
+(void upcr_nbi_memget\(void *dst, upcr_shared_ptr_t src, size_t nbytes\);) s
+5 16 M
+(void upcr_nbi_memput\(upcr_shared_ptr_t dst, const void *src, size_t nbytes\);) s
+5 7 M
+(void upcr_nbi_memcpy\(upcr_shared_ptr_t dst, upcr_shared_ptr_t src, size_t nbytes\);) s
+_R
+S
+%%Page: (18) 18
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 18 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(void upcr_nbi_memset\(upcr_shared_ptr_t dst, int c, size_t nbytes\);) s
+5 682 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 673 M
+(/*) s
+5 664 M
+(  Dynamic Memory Allocation:) s
+5 655 M
+(  =========================) s
+5 646 M
+(  UPC runtime interface to generated code for memory allocation) s
+5 637 M
+(*/) s
+5 619 M
+(/* Non-collective operation that allocates nbytes in the shared memory area) s
+5 610 M
+(     with affinity to this thread, and returns a pointer to the new data, ) s
+5 601 M
+(     which is suitably aligned for any kind of variable. ) s
+5 592 M
+(   Requires nbytes >= 0) s
+5 583 M
+(   The phase of the returned pointer is set to zero) s
+5 574 M
+(   The memory is not cleared or initialized in any way, although it has been properly ) s
+5 565 M
+(     registered with the network system in a way appropriate for the current platform such ) s
+5 556 M
+(     that remote threads can read and write to the memory using upcr shared data transfer operations. ) s
+5 547 M
+(   If insufficient memory is available, the function will print an implementation-defined ) s
+5 538 M
+(     error message and terminate the job.) s
+5 520 M
+(   NOTE: this replaces upcr_local_alloc\(\) which existed in previous versions of this spec.) s
+5 511 M
+(*/) s
+5 493 M
+(upcr_shared_ptr_t upcr_alloc\(size_t nbytes\);) s
+5 475 M
+(/* Non-collective operation that allocates nblocks * blocksz bytes spread across the shared memory area ) s
+5 466 M
+(     of 1 or more threads, and returns a pointer to the new data, ) s
+5 457 M
+(     which is suitably aligned for any kind of variable. ) s
+5 448 M
+(   Requires nblocks >= 0 and blocksz >= 0) s
+5 430 M
+(   The memory is blocked across all the threads as if it had been created by the UPC declaration: ) s
+5 412 M
+(      shared [blocksz] char[nblocks * blocksz] \(i.e. both sizes are expressed in bytes\).) s
+5 394 M
+(   Specifically, thread i allocates \(at least\): ) s
+5 376 M
+(      Max\({0} union {0 < n <= nblocks * blocksz | \(floor\(n-1/blocksz\) % THREADS\) == i}\)  bytes.) s
+5 358 M
+(   More specifically, thread i allocates \(at least\) this many bytes:) s
+5 340 M
+(      blocksz *  ceil\(nblocks/THREADS\)  if i <= \(nblocks % THREADS\)) s
+5 331 M
+(      blocksz * floor\(nblocks/THREADS\)  if i >  \(nblocks % THREADS\)) s
+5 313 M
+(   Implementor's note: Some implementations may allocate the full \(blocksz * ceil\(nblocks/THREADS\)\) ) s
+5 304 M
+(     memory on each thread for simplicity, even though less may be required on some threads.) s
+5 286 M
+(   Note if nblocks == 1, then all the memory will be allocated in the shared memory space ) s
+5 277 M
+(     of thread 0 \(and implementations should attempt not to waste space on other threads in this ) s
+5 268 M
+(     common special case\).) s
+5 250 M
+(   In all cases the returned pointer will point to a memory location in the shared memory space ) s
+5 241 M
+(     of thread 0, and any subsequent chunks in the shared space of other threads will be logically ) s
+5 232 M
+(     aligned with this pointer \(such that incrementing a pointer-to-shared of the appropriate blocksz ) s
+5 223 M
+(     past the end of a block on one thread will bring it to the start of the next block on the next thread\).) s
+5 205 M
+(   The phase of the returned pointer is set to zero) s
+5 187 M
+(   The memory is not cleared or initialized in any way, although it has been properly registered ) s
+5 178 M
+(     with the network system in a way appropriate for the current platform such that remote threads ) s
+5 169 M
+(     can read and write to the memory using the upcr shared data transfer operations. ) s
+5 160 M
+(   If insufficient memory is available, the function will print an implementation-defined error ) s
+5 151 M
+(     message and terminate the job.) s
+5 142 M
+(*/) s
+5 124 M
+(upcr_shared_ptr_t upcr_global_alloc\(size_t nblocks, size_t blocksz\);) s
+5 97 M
+(/* Collective version of upcr_global_alloc\(\) - the semantics are identical to upcr_global_alloc\(\) ) s
+5 88 M
+(    with the following exceptions:) s
+5 79 M
+(     * the function must be called by all threads during the same synchronization phase, ) s
+5 70 M
+(       and all threads must provide the same arguments) s
+5 61 M
+(     * may act as a barrier for all threads, but might not in some implementations) s
+5 52 M
+(     * all threads receive a copy of the result, and the pointer-to-shared values will ) s
+5 43 M
+(       compare equal \(according to upcr_isequal_shared_shared\(\)\) on all threads) s
+5 34 M
+(*/) s
+5 16 M
+(upcr_shared_ptr_t upcr_all_alloc\(size_t nblocks, size_t blocksz\);) s
+_R
+S
+%%Page: (19) 19
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 19 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(/* Non-collective operation used to deallocate a shared memory region previously allocated ) s
+5 700 M
+(     \(but not deallocated\) using one of: upcr_alloc\(\), upcr_global_alloc\(\) or upcr_all_alloc\(\).) s
+5 691 M
+(   If sptr is a null pointer the operation is ignored. ) s
+5 682 M
+(   The pointer-to-shared value passed to upcr_free\(\) must be the same value returned by the ) s
+5 673 M
+(     allocation function that created the region \(i.e. it must point to the beginning of the object, ) s
+5 664 M
+(     and for upcr_global_alloc\(\) and upcr_all_alloc\(\) the thread field must indicate thread 0\). ) s
+5 655 M
+(   If sptr has been freed by a previous call to upcr_free\(\) or upcr_all_free\(\), or does not point) s
+5 646 M
+(     to the beginning of a live object in shared memory, the behavior is undefined.) s
+5 628 M
+(   Note that any thread may call upcr_free\(\) to free a given dynamically-allocated shared object, ) s
+5 619 M
+(     even if that object was created by a call to upcr_alloc\(\) from a different thread.) s
+5 601 M
+(   Also note that memory allocated using upcr_all_alloc\(\) should only be freed by a call to upcr_free\(\) ) s
+5 592 M
+(     from a _single_ thread.   See upcr_all_free\(\), below, for a collective free call.) s
+5 583 M
+(*/) s
+5 565 M
+(void upcr_free\(upcr_shared_ptr_t sptr\);) s
+5 547 M
+(/* Collective operation used to deallocate a shared memory region previously allocated) s
+5 538 M
+(     \(but not deallocated\) using one of: upcr_alloc\(\), upcr_global_alloc\(\) or upcr_all_alloc\(\).) s
+5 529 M
+(   If sptr is a null pointer the operation is ignored.) s
+5 520 M
+(   The pointer-to-shared value passed to upcr_free\(\) must be the same value returned by the) s
+5 511 M
+(     allocation function that created the region \(i.e. it must point to the beginning of the object,) s
+5 502 M
+(     and for upcr_global_alloc\(\) and upcr_all_alloc\(\) the thread field must indicate thread 0\).) s
+5 493 M
+(   If sptr has been freed by a previous call to upcr_free\(\) or upcr_all_free\(\), or does not point to) s
+5 484 M
+(     the beginning of a live object in shared memory, the behavior is undefined.) s
+5 466 M
+(   This call must be called collectively by all threads with a single-valued argument.) s
+5 448 M
+(   The memory remains valid until all threads have entered, but barrier synchronization is) s
+5 439 M
+(     neither guaranteed nor prohibited.) s
+5 430 M
+(*/) s
+5 412 M
+(void upcr_all_free\(upcr_shared_ptr_t sptr\);) s
+5 394 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 385 M
+(/*) s
+5 376 M
+(  Barrier) s
+5 367 M
+(  =======) s
+5 358 M
+(  The runtime provides split-phase barrier support) s
+5 349 M
+(*/) s
+5 331 M
+(#define UPCR_BARRIERFLAG_ANONYMOUS ???) s
+5 313 M
+(/* Execute the notification for a split-phase barrier, with a barrier value) s
+5 304 M
+(   This is a non-blocking operation that completes immediately after noting the barrier value) s
+5 295 M
+(   No synchronization is performed on outstanding memory accesses \(i.e. the ) s
+5 286 M
+(     compiler is responsible for inserting the appropriate syncs to implement) s
+5 277 M
+(     the null strict reference implied by upc_notify before calling upcr_notify\(\)\)) s
+5 268 M
+(   Generates a fatal error if this is the second call to upcr_notify\(\) on this thread ) s
+5 259 M
+(     since the last call to upcr_wait\(\) or the beginning of the program) s
+5 250 M
+(   flags should be 0 to indicate a normal barrier \(which carries the value barrierval\)) s
+5 241 M
+(     or UPCR_BARRIERFLAG_ANONYMOUS to indicate an "anonymous" barrier, where the ) s
+5 232 M
+(     barrierval argument is ignored and the notify automatically "matches" with any ) s
+5 223 M
+(     anonymous or non-anonymous value provided by the notify called on other threads) s
+5 214 M
+(   Implementation notes:) s
+5 205 M
+(     check value of thread's notify/wait toggle which records current state of synchronization) s
+5 196 M
+(     save this thread's barrier value and flags) s
+5 187 M
+(     increment a counter of local threads that called notify this epoch & return) s
+5 178 M
+(     last thread on this node to call upcr_notify\(\)) s
+5 169 M
+(       checks the barrier values calls gasnet_notify\(\) with appropriate flags then resets the counter) s
+5 160 M
+(*/) s
+5 151 M
+(void upcr_notify\(int barrierval, int flags\);) s
+5 133 M
+(/* Execute the wait for a split-phase barrier, with a barrier value) s
+5 124 M
+(   This is a blocking operation that returns only after all threads have called upcr_notify\(\)) s
+5 115 M
+(   No synchronization is performed on outstanding memory accesses \(i.e. the ) s
+5 106 M
+(    compiler is responsible for inserting the appropriate syncs to implement) s
+5 97 M
+(    the null strict reference implied by upc_wait after calling upcr_wait\(\)\)) s
+5 88 M
+(   Generates a fatal error if there were no preceding calls to upcr_notify\(\) from this thread,) s
+5 79 M
+(     or if this is the second call to upcr_wait\(\) since the last call to upcr_notify\(\) on this thread) s
+5 70 M
+(   Generates a fatal error if flags is not equal to the flags value passed in the preceding ) s
+5 61 M
+(     upcr_notify\(\) call made by this thread ) s
+5 52 M
+(   Generates a fatal error if flags==0 and the supplied barrierval doesn't match the value provided ) s
+5 43 M
+(     in the preceding upcr_notify\(\) call made by this thread ) s
+5 34 M
+(   Generates a fatal error if any two threads passed non-anonymous barrier values which didn't match) s
+5 25 M
+(     during the notify calls which began this barrier phase) s
+5 16 M
+(     ) s
+5 7 M
+(   Implementation notes:) s
+_R
+S
+%%Page: (20) 20
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 20 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(     check and toggle value of thread's notify/wait status which records current state of synchronization) s
+5 700 M
+(     check that i matches previous value provided by thread in this barrier epoch   ) s
+5 691 M
+(     first thread to enter grabs a lock, spin waits until all threads have called notify \(counter reset\)) s
+5 682 M
+(       calls gasnet_wait with appropriate flags, \(aborts if there is a mismatch reported\)) s
+5 673 M
+(       and signals that wait is complete by writing a barrier_done flag) s
+5 664 M
+(     all other threads either block on the lock \(if they arrive during gasnet_wait\) or merely ) s
+5 655 M
+(       see that wait is complete and return the mismatch value) s
+5 646 M
+(     increment a counter of local threads that called wait this epoch & block \(sleep or spin-wait\)) s
+5 637 M
+(     last thread on this node to call upcr_wait calls gasnet_wait\(i\), then releases the other threads ) s
+5 628 M
+(     when it returns) s
+5 619 M
+(*/) s
+5 610 M
+(void upcr_wait\(int barrierval, int flags\);) s
+5 592 M
+(/* upcr_try_wait\(\) functions similarly to upcr_wait\(\), except that it always returns immediately. ) s
+5 583 M
+(   If the barrier has been notified by all threads, the call behaves as a call to upcr_wait\(\)) s
+5 574 M
+(     with the same barrierval and flags, and returns the value 1) s
+5 565 M
+(   If the barrier has not yet been notified by some thread, ) s
+5 556 M
+(     the call is a no-op and returns  the value 0) s
+5 547 M
+(   Note this call is not mandated by the UPC spec, but may be useful for performing purely local) s
+5 538 M
+(    computation in optimized code or performing system housekeeping duties) s
+5 529 M
+(*/) s
+5 520 M
+(int upcr_try_wait\(int barrierval, int flags\);) s
+5 502 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 493 M
+(/*) s
+5 484 M
+( * Network polling) s
+5 475 M
+( * ===============) s
+5 466 M
+( *) s
+5 457 M
+( * The upcr_poll\(\) function explicitly causes the runtime to attempt to make) s
+5 448 M
+( * progress on any network requests that may be pending.  While many other) s
+5 439 M
+( * runtime functions implicitly do this as well \(i.e. most of those which call) s
+5 430 M
+( * the network layer\) this function may be useful in cases where a large amount) s
+5 421 M
+( * of time has elapsed since the last runtime call \(e.g. if a great deal of) s
+5 412 M
+( * application-level calculation is taking place\).  This function may also be) s
+5 403 M
+( * indirectly when a upc_fence is used.) s
+5 394 M
+( */) s
+5 385 M
+(void upcr_poll\(\);) s
+5 367 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 358 M
+(/*) s
+5 349 M
+(  UPC locks) s
+5 340 M
+(  =========) s
+5 331 M
+(  The following assumes the updates in the UPC spec 1.1 regarding upc locks,) s
+5 322 M
+(  namely:) s
+5 313 M
+(    - upc_lock_t is an opaque shared datatype with incomplete type \(prohibits ) s
+5 304 M
+(      statically-allocated upc_lock_t objects\)) s
+5 295 M
+(    - upc_lock_init\(\) is no longer necessary or useful and is removed) s
+5 286 M
+(    - upc_lock_free\(\) is added to allow users to free dynamically-allocated locks) s
+5 277 M
+(    - UPC locks are _not_ recursive \(a thread must not attempt to re-acquire a lock it already owns\)) s
+5 259 M
+(  similar to upc_lock_t, the runtime lock datatype is totally opaque and) s
+5 250 M
+(   always manipulated through upcr_shared_ptr_t pointers, which must NEVER be) s
+5 241 M
+(   dereferenced by generated code) s
+5 232 M
+(  this spec intentionally doesn't even provide a name or size for the lock datatype) s
+5 223 M
+(  the pointer-to-shared returned by the lock allocation routines has reference semantics,) s
+5 214 M
+(    \(i.e. copying the pointer yields a reference to the same lock\)) s
+5 205 M
+(    but otherwise need not even be a real pointer. In other words, the thread affinity ) s
+5 196 M
+(    and addrfield components of these pointers-to-shared is completely undefined,) s
+5 187 M
+(    so casting them to a local pointer on _any_ thread may yield a pointer value which ) s
+5 178 M
+(    doesn't point to a valid memory address \(or points to a random object\)) s
+5 169 M
+(    this allows implementations which \(for example\) store an integer lock identifier ) s
+5 160 M
+(     in the address field rather than a true pointer) s
+5 151 M
+( */) s
+5 133 M
+(/* non-collective operation \(intended to be called by a single thread\)) s
+5 124 M
+(     which dynamically allocates and initializes a lock,) s
+5 115 M
+(     and returns a upcr_shared_ptr_t which references that lock.) s
+5 106 M
+(   If insufficient resources are available, the function will print an implementation-defined ) s
+5 97 M
+(     error message and terminate the job.) s
+5 88 M
+( */) s
+5 79 M
+(upcr_shared_ptr_t upcr_global_lock_alloc\(\);) s
+5 61 M
+(/* collective operation which dynamically allocates and initializes a lock,) s
+5 52 M
+(   and returns a upcr_shared_ptr_t which references that lock.) s
+5 43 M
+(     * the function must be called by all threads during the same synchronization phase, ) s
+5 34 M
+(     * may act as a barrier for all threads, but might not in some implementations) s
+5 25 M
+(     * all threads receive a copy of the result, and the pointer-to-shared values will ) s
+5 16 M
+(       compare equal \(according to upcr_isequal_shared_shared\(\)\) on all threads) s
+5 7 M
+(   If insufficient resources are available, the function will print an implementation-defined ) s
+_R
+S
+%%Page: (21) 21
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 21 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(     error message and terminate the job.) s
+5 700 M
+( */) s
+5 691 M
+(upcr_shared_ptr_t upcr_all_lock_alloc\(\);) s
+5 673 M
+(/* block until the referenced lock can be acquired by this thread) s
+5 664 M
+(   if no other thread is currently holding or contending for the referenced lock, ) s
+5 655 M
+(     this operation must return within a bounded amount of time) s
+5 646 M
+(   implementations should attempt to provide fairness in the presence of ) s
+5 637 M
+(     contention for this lock, but this property is not required) s
+5 628 M
+(   if lockptr does not reference a valid lock object \(i.e. one previously allocated by) s
+5 619 M
+(     upcr_global_lock_alloc\(\) or upcr_all_lock_alloc\(\) and not deallocated using) s
+5 610 M
+(     upcr_lock_free\(\)\) then the results are undefined) s
+5 601 M
+(   if the current thread is already holding the referenced lock, the result is undefined) s
+5 592 M
+(     \(although implementations are recommended to print a useful error message and abort\)) s
+5 583 M
+( */) s
+5 574 M
+(void upcr_lock\(upcr_shared_ptr_t lockptr\);) s
+5 556 M
+(/* attempt to acquire the referenced lock without blocking) s
+5 547 M
+(   the operation always returns immediately, with the value 1 if the lock was) s
+5 538 M
+(     successfully acquired, or with the value 0 if the lock could not be acquired at this time) s
+5 529 M
+(   if no other thread is currently holding or contending for the referenced lock, ) s
+5 520 M
+(     repeated calls to this operation will eventually succeed within a bounded amount of time) s
+5 511 M
+(   if lockptr does not reference a valid lock object then the results are undefined) s
+5 502 M
+(   if the current thread is already holding the referenced lock, the result is undefined) s
+5 493 M
+(     \(although implementations are encouraged to print a useful error message and abort\)) s
+5 484 M
+( */) s
+5 475 M
+(int upcr_lock_attempt\(upcr_shared_ptr_t lockptr\);) s
+5 457 M
+(/* unlock the referenced lock ) s
+5 448 M
+(   this operation releases the referenced lock, which must have been previously locked ) s
+5 439 M
+(     by this thread using upcr_lock\(\), or a successful call to upcr_lock_attempt\(\) ) s
+5 430 M
+(     \(otherwise the results are undefined\)) s
+5 421 M
+(   if lockptr does not reference a valid lock object then the results are undefined) s
+5 412 M
+(   this operation always completes within a bounded amount of time) s
+5 403 M
+(   implementations are encouraged to detect violations to the locking semantics) s
+5 394 M
+(     \(e.g. unlock with no matching lock\) but this is not required) s
+5 385 M
+( */) s
+5 376 M
+(void upcr_unlock\(upcr_shared_ptr_t lockptr\);) s
+5 358 M
+(/* free a lock - non-collective operation) s
+5 349 M
+(   this call \(always made from a single thread\) releases any system resources ) s
+5 340 M
+(     associated with the referenced lock and makes the lock object "invalid" for all threads) s
+5 331 M
+(   the lock need not have been explicitly created by the current thread \(i.e. it may have) s
+5 322 M
+(     been created by a call to upcr_global_lock_alloc\(\) on a separate thread and passed to this one\)) s
+5 313 M
+(   any subsequent calls from any thread using this invalidated lock object have undefined effects ) s
+5 304 M
+(   if lockptr does not reference a valid lock object then the results are undefined   ) s
+5 295 M
+(   this operation always completes within a bounded amount of time) s
+5 286 M
+(   repeated calls to upcr_lock_free\(upcr_global_lock_alloc\(\)\) must succeed indefinitely) s
+5 277 M
+(     \(i.e. it must actually reclaim any associated resources\)) s
+5 268 M
+(   the call will succeed immediately regardless of whether the referenced lock is currently ) s
+5 259 M
+(     unlocked or currently locked \(by any thread\)) s
+5 250 M
+( */) s
+5 241 M
+(void upcr_lock_free\(upcr_shared_ptr_t lockptr\);) s
+5 223 M
+(/* free a lock - collective operation) s
+5 214 M
+(   this call \(made collectively by all threads\) releases any system resources) s
+5 205 M
+(     associated with the referenced lock and makes the lock object "invalid" for all threads) s
+5 196 M
+(   the lock need not have been created collectively by a call to upcr_all_lock_alloc\(\) \(i.e. it) s
+5 187 M
+(     may have been created by a call to upcr_global_lock_alloc\(\) on a single thread\)) s
+5 178 M
+(   any subsequent calls from any thread using this invalidated lock object have undefined effects) s
+5 169 M
+(   if lockptr does not reference a valid lock object then the results are undefined) s
+5 160 M
+(   this operation always completes within a bounded amount of time) s
+5 151 M
+(   the call will succeed immediately regardless of whether the referenced lock is currently) s
+5 142 M
+(     unlocked or currently locked \(by any thread\)) s
+5 133 M
+(   this call must be called collectively by all threads with a single-valued argument) s
+5 124 M
+(   the lock remains valid until all threads have entered, but barrier synchronization is) s
+5 115 M
+(     neither guaranteed nor prohibited.) s
+5 106 M
+( */) s
+5 97 M
+(void upcr_all_lock_free\(upcr_shared_ptr_t lockptr\);) s
+5 79 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 70 M
+(/* Statically-allocated user variables ) s
+5 61 M
+( * ===================================) s
+5 52 M
+( * The following interfaces provide portable support for statically-allocated user variables) s
+5 43 M
+( * \(shared and unshared, scalar and array\) ) s
+5 34 M
+( */) s
+5 16 M
+(/*) s
+5 7 M
+( * Thread-Local Data \(TLD\)) s
+_R
+S
+%%Page: (22) 22
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 22 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( * =======================) s
+5 700 M
+( * Thread-local data \(TLD\) is defined to be any NON-shared, statically-allocated ) s
+5 691 M
+( * \(i.e. not automatic lifetime\) objects declared in UPC source files, namely non-shared ) s
+5 682 M
+( * file-scope \(global\) objects or static local variables \(block-scope TLD\).) s
+5 673 M
+( * TLD must be declared and accessed specially by generated code to ensure correct operation ) s
+5 664 M
+( * across the variety of platforms implementing the UPC runtime.) s
+5 655 M
+( *) s
+5 646 M
+( * The macros below must be used to declare all TLD - global or static user unshared) s
+5 637 M
+( * variables \(unless they are declared with 'extern', or are located in a) s
+5 628 M
+( * regular C file \(such as a header file with a name ending in '.h'\), since if) s
+5 619 M
+( * pthreads are used, these variables will need to be made thread-specific.) s
+5 610 M
+( * Static variables need to be transform into global variables before this) s
+5 601 M
+( * macro can be used \(and their names should be mangled to avoid name) s
+5 592 M
+( * collisions\).) s
+5 583 M
+( *) s
+5 574 M
+( * Since uses of these macros are intended to be filterable by tools like) s
+5 565 M
+( * grep, they must be used at the start of a new line, and their contents) s
+5 556 M
+( * cannot contain line breaks.) s
+5 547 M
+( */) s
+5 529 M
+(/* UPCR_TLD_DEFINE\(name, size, align\) must be used when declaring) s
+5 520 M
+( * unshared global/static variables that the user has initialized.  The) s
+5 511 M
+( * macro takes the variable name of the value, and the size and required) s
+5 502 M
+( * structure alignment of that type \(in bytes, as a) s
+5 493 M
+( * single literal number--'sizeof', expressions like '3 + 4', etc., are not) s
+5 484 M
+( * allowed\).  So the UPC compiler should transform ) s
+5 475 M
+( *) s
+5 466 M
+( *      int foo = 5;) s
+5 457 M
+( *) s
+5 448 M
+( * on a platform with 4 byte integers and 4-byte integer structure alignment into) s
+5 439 M
+( *) s
+5 430 M
+( *      int) s
+5 421 M
+( *      UPCR_TLD_DEFINE\(foo, 4, 4\) = 5;) s
+5 412 M
+( *) s
+5 403 M
+( * Unshared pointers-to-shared types \(i.e. thread local variables) s
+5 394 M
+( * with type upcr_shared_ptr_t or upcr_pshared_ptr_t\) should be initialized) s
+5 385 M
+( * with UPCR_INITIALIZED_{P}SHARED rather than the value the user specified.) s
+5 376 M
+( *) s
+5 367 M
+( * The full type of the variable must precede the macro, and so arrays and) s
+5 358 M
+( * function pointers must use a typedef.  For instance,) s
+5 349 M
+( *) s
+5 340 M
+( *     int natural_nums[3] = { 1, 2, 3};) s
+5 331 M
+( *     void \(*int_taker\)\(int\) = &print_int;) s
+5 322 M
+( *) s
+5 313 M
+( * Would become) s
+5 304 M
+( *) s
+5 295 M
+( *     typedef int _type_natural_nums[3];) s
+5 286 M
+( *     _type_natural_nums) s
+5 277 M
+( *     UPCR_TLD_DEFINE\(natural_nums, 12, 4\) = { 1, 2, 3 };) s
+5 268 M
+( *) s
+5 259 M
+( *     typedef void \(*_type_int_taker\)\(int\);) s
+5 250 M
+( *     _type_int_taker) s
+5 241 M
+( *     UPCR_TLD_DEFINE\(int_taker, 4, 4\) = &print_int;) s
+5 232 M
+( *) s
+5 223 M
+( * For variables that are not explictly initialized by the user,) s
+5 214 M
+( * UPCR_TLD_DEFINE_TENTATIVE\(name, size, align\) must be used.  The macro) s
+5 205 M
+( * works the same way as UPCR_TLD_DEFINE, except that it should not be) s
+5 196 M
+( * followed by "= initializer_expr.") s
+5 187 M
+( *) s
+5 178 M
+( * For more information on the uses of these macros, and the treatment of) s
+5 169 M
+( * thread-local data generally, see the web page on "static user data" in the) s
+5 160 M
+( * Runtime documentation on the Berkeley UPC web site.) s
+5 151 M
+( */) s
+5 133 M
+(#define UPCR_TLD_DEFINE\(name, size, align\)) s
+5 124 M
+(#define UPCR_TLD_DEFINE_TENTATIVE\(name, size, align\)) s
+5 106 M
+(/* UPCR_TLD_ADDR: retrieve the address of the current thread's representative) s
+5 97 M
+(   of the TLD variable with the given name \(name must be a simple identifier\)) s
+5 88 M
+(   address is returned as a \(void *\) and should be cast to the proper type before use) s
+5 79 M
+( */) s
+5 70 M
+(#define UPCR_TLD_ADDR\(name\) ???) s
+5 52 M
+(/* Example usage: ) s
+5 43 M
+(      int x = *\(int*\)UPCR_TLD_ADDR\(foo\);) s
+5 34 M
+(      *\(int*\)UPCR_TLD_ADDR\(foo\) = 100;) s
+5 25 M
+(      \(\(int*\)UPCR_TLD_ADDR\(natural\)\)[2] = 27;) s
+5 16 M
+(  Implementors note:) s
+5 7 M
+(    UPCR_TLD_ADDR\(\) returns an address rather than an l-value because some planned ) s
+_R
+S
+%%Page: (23) 23
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 23 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+(    implementations of TLD may not have the TLD type information available) s
+5 700 M
+(    \(TLD will just be opaque bytes in a special data segment\)) s
+5 691 M
+(*/) s
+5 673 M
+(/*) s
+5 664 M
+(  Statically-allocated Shared Data \(SSD\)) s
+5 655 M
+(  ======================================) s
+5 646 M
+(  Statically-allocated Shared Data \(SSD\) is defined to be any shared,) s
+5 637 M
+(  statically-allocated \(i.e. not automatic lifetime\) objects declared in UPC) s
+5 628 M
+(  source files, namely any shared file-scope \(global\) objects or static local) s
+5 619 M
+(  variables \(block-scope SSD\).) s
+5 601 M
+(  All SSD is allocated and initialized dynamically at runtime, instead of being) s
+5 592 M
+(  truly statically allocated \(since on most platforms network-addressable memory) s
+5 583 M
+(  can not be assigned at compile time, and must be dynamically allocated\).  The) s
+5 574 M
+(  basic idea is the compiler replaces each SSD declaration with a) s
+5 565 M
+(  upcr_shared_ptr or upcr_pshared_ptr that will point to the relevant data item) s
+5 556 M
+(  at runtime \(all SSD access operations must be modified appropriately to) s
+5 547 M
+(  traverse the extra level of indirection\).  The compiler also adds an) s
+5 538 M
+(  allocation and an initialization function for each UPC file it compiles, in) s
+5 529 M
+(  which all SSD declared in the file is allocated and inititalized \(some) s
+5 520 M
+(  thread-local data initializations may also be performed there\).) s
+5 511 M
+(  ) s
+5 502 M
+(  The functions listed below should only be used in these per-file startup) s
+5 493 M
+(  allocation/initialization routines.  For more information on the naming) s
+5 484 M
+(  conventions for these functions, the content that should go in them, and the) s
+5 475 M
+(  framework that calls them, refer to the "Handling Static Data in the UPC) s
+5 466 M
+(  Runtime" document \(available in the documentation section of the Berkeley UPC) s
+5 457 M
+(  website at http://upc.lbl.gov\).) s
+5 448 M
+( */) s
+5 421 M
+(/*) s
+5 412 M
+( * These values are guaranteed to be defined by every pointer-to-shared) s
+5 403 M
+( * representation.  UPCR_INITIALIZED_{P}SHARED should be used by the compiler) s
+5 394 M
+( * to initialize all upcr_shared_ptr_t and upcr_pshared_ptr_t's that represent) s
+5 385 M
+( * shared variables the user defines with an initial value \(if the user does) s
+5 376 M
+( * not provide a value, do not provide any value for the upcr_{p}shared_ptr,) s
+5 367 M
+( * either\).  UPCR_NULL_{P}SHARED should be used to initialize) s
+5 358 M
+( * upcr_{p}shared_ptr's that represent  unshared pointers-to-shared data that) s
+5 349 M
+( * the user explicitly initialized to NULL. ) s
+5 340 M
+( * Note these values are only guaranteed to work as variable initializer expressions,) s
+5 331 M
+( * and may not safely be used as the rhs for a general assignment statement) s
+5 322 M
+( * \(upcr_setnull_\(p\)shared must be used for such applications\)) s
+5 313 M
+( */) s
+5 304 M
+(#define UPCR_INITIALIZED_SHARED     { ??? }) s
+5 295 M
+(#define UPCR_NULL_SHARED            { ??? }) s
+5 286 M
+(#define UPCR_INITIALIZED_PSHARED    { ??? }) s
+5 277 M
+(#define UPCR_NULL_PSHARED           { ??? }) s
+5 259 M
+(/* Pointer-to-shared variables that contain NULL values.) s
+5 250 M
+( * Note that these can resolve to either a basic type or a struct \(depending) s
+5 241 M
+( * on the pointer-to-shared representation\), so code that uses them must work in) s
+5 232 M
+( * either case \(eg. it would be illegal to use them in a context requiring a) s
+5 223 M
+( * scalar value, such as passing it to == operator.\)) s
+5 214 M
+( */) s
+5 205 M
+(const upcr_shared_ptr_t upcr_null_shared;) s
+5 196 M
+(const upcr_pshared_ptr_t upcr_null_pshared;) s
+5 178 M
+(/* ) s
+5 169 M
+( * This function will be provided by each pointer-to-shared representation,) s
+5 160 M
+( * and returns nonzero if the passed pointer is initialized to) s
+5 151 M
+( * UPCR_INITIALIZED_{P}SHARED.) s
+5 142 M
+( */) s
+5 133 M
+(int upcr_is_init_shared\(upcr_shared_ptr_t p\);) s
+5 124 M
+(int upcr_is_init_pshared\(upcr_pshared_ptr_t p\);) s
+5 106 M
+(/* ) s
+5 97 M
+( * Allocation information struct for shared arrays that will be striped across) s
+5 88 M
+( * the UPC threads \(with blocking size != 1 element\): ) s
+5 79 M
+( *) s
+5 70 M
+( *  sptr_addr       The address of the proxy upcr_shared_ptr_t for the memory) s
+5 61 M
+( *  blockbytes      Size of each block in bytes) s
+5 52 M
+( *  numblocks       Number of blocks to allocate) s
+5 43 M
+( *  mult_by_threads Pass nonzero if numblocks should be multiplied by THREADS) s
+5 34 M
+( *) s
+5 25 M
+( *  Optional elements, used for instrumentation purposes only: \(zero values permitted\)) s
+5 16 M
+( *) s
+5 7 M
+( *  elemsz          Value of upc_elemsizeof for this object) s
+_R
+S
+%%Page: (24) 24
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 24 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( *  namestr         Shared object identifier name) s
+5 700 M
+( *  typestr         String encoding of type information for shared object) s
+5 691 M
+( *) s
+5 682 M
+( */) s
+5 673 M
+(typedef struct {) s
+5 664 M
+(   upcr_shared_ptr_t *sptr_addr;) s
+5 655 M
+(   size_t blockbytes;) s
+5 646 M
+(   size_t numblocks;) s
+5 637 M
+(   int    mult_by_threads;) s
+5 619 M
+(   size_t elemsz;) s
+5 610 M
+(   const char *namestr;) s
+5 601 M
+(   const char *typestr;) s
+5 592 M
+(} upcr_startup_shalloc_t;) s
+5 574 M
+(/* ) s
+5 565 M
+( * Allocation information struct for indefinitely blocked \(or blocksize == 1) s
+5 556 M
+( * element\) shared arrays.) s
+5 547 M
+( *) s
+5 538 M
+( *  psptr_addr  The address of the proxy upcr_pshared_ptr_t for the memory) s
+5 529 M
+( *  blockbytes  Size of each block in bytes) s
+5 520 M
+( *  numblocks   Number of blocks to allocate) s
+5 511 M
+( *  mult_by_threads Pass nonzero if numblocks should be multiplied by THREADS) s
+5 502 M
+( *) s
+5 493 M
+( *  Optional elements, used for instrumentation purposes only: \(zero values permitted\)) s
+5 484 M
+( *) s
+5 475 M
+( *  elemsz          Value of upc_elemsizeof for this object) s
+5 466 M
+( *  namestr         Shared object identifier name) s
+5 457 M
+( *  typestr         String encoding of type information for shared object) s
+5 448 M
+( *) s
+5 439 M
+( */) s
+5 430 M
+(typedef struct {) s
+5 421 M
+(   upcr_pshared_ptr_t *psptr_addr;) s
+5 412 M
+(   size_t blockbytes;) s
+5 403 M
+(   size_t numblocks;) s
+5 394 M
+(   int    mult_by_threads;) s
+5 376 M
+(   size_t elemsz;) s
+5 367 M
+(   const char *namestr;) s
+5 358 M
+(   const char *typestr;) s
+5 349 M
+(} upcr_startup_pshalloc_t;) s
+5 331 M
+(/*) s
+5 322 M
+( * Allocates the specified amount of memory for each pointer-to-shared in the) s
+5 313 M
+( * array of info structs.) s
+5 304 M
+( *) s
+5 295 M
+( * Only performs a given allocation if the memory has not already been allocated) s
+5 286 M
+( * for the pointer.  If the pointer was not initialized \(i.e., is equal to 0) s
+5 277 M
+( * instead of UPCR_INITIALIZED_SHARED\), any memory allocated is also memset) s
+5 268 M
+( * to 0.) s
+5 259 M
+( *) s
+5 250 M
+( * This function must be called by all threads collectively \(like) s
+5 241 M
+( * upc_all_alloc, etc.\).  The function does not guarantee that all threads) s
+5 232 M
+( * will have received the data when any particular thread) s
+5 223 M
+( * returns from the call \(i.e. it does not guarantee a barrier is performed) s
+5 214 M
+( * after initialization\).  The function does guarantee that it may be called) s
+5 205 M
+( * repeatedly without the need for client barrier calls to be placed in) s
+5 196 M
+( * between the calls. ) s
+5 187 M
+( *) s
+5 178 M
+( * See the upcr_startup_shalloc_t struct definition for options affecting how) s
+5 169 M
+( * memory is allocated.) s
+5 160 M
+( *) s
+5 151 M
+( */) s
+5 142 M
+(void upcr_startup_shalloc\(upcr_startup_shalloc_t *infos, size_t count\);) s
+5 124 M
+(/*) s
+5 115 M
+( * Allocates the specified amount of memory for each phaseless pointer-to-shared) s
+5 106 M
+( * in the array of info structs.) s
+5 97 M
+( *) s
+5 88 M
+( * Only performs a given allocation if the memory has not already been allocated) s
+5 79 M
+( * for the pointer.  If the pointer was not initialized \(i.e., is equal to 0) s
+5 70 M
+( * instead of UPCR_INITIALIZED_PSHARED\), any memory allocated is also memset) s
+5 61 M
+( * to 0.) s
+5 52 M
+( *) s
+5 43 M
+( * This function must be called by all threads collectively \(like) s
+5 34 M
+( * upc_all_alloc, etc.\).  When the function returns, the pointer-to-shared) s
+5 25 M
+( * pointed to by 'infos' will be initialized to the correct shared memory) s
+5 16 M
+( * location on all UPC threads.) s
+5 7 M
+( *) s
+_R
+S
+%%Page: (25) 25
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 25 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( * See the upcr_startup_shalloc_t struct definition for options affecting how) s
+5 700 M
+( * memory is allocated.) s
+5 691 M
+( */) s
+5 682 M
+(void upcr_startup_pshalloc\(upcr_startup_pshalloc_t *infos, size_t count\);) s
+5 655 M
+(/*) s
+5 646 M
+( * Information for a single dimension of a shared array initialization.) s
+5 637 M
+( *) s
+5 628 M
+( *      local_elems         // Number of elements in local init array's dimension) s
+5 619 M
+( *      shared_elems        // Number of elements in shared array's dimension) s
+5 610 M
+( *      mult_by_threads     // Nonzero if shared array's dimension should be ) s
+5 601 M
+( *                               multipled by THREADS) s
+5 592 M
+( *) s
+5 583 M
+( * Note that the UPC language specification mandates that for a dynamic) s
+5 574 M
+( * translation environment \(i.e. one in which THREADS is not a compile-time) s
+5 565 M
+( * constant\) only one dimension of a shared array can contain THREADS, and it) s
+5 556 M
+( * can only be used once in that dimension, to multiply a constant size.) s
+5 547 M
+( */) s
+5 529 M
+(typedef struct upcr_startup_arrayinit_diminfo {) s
+5 520 M
+(    size_t local_elems;) s
+5 511 M
+(    size_t shared_elems;) s
+5 502 M
+(    int    mult_by_threads;) s
+5 493 M
+(} upcr_startup_arrayinit_diminfo_t;) s
+5 475 M
+(/*) s
+5 466 M
+( * Initializes a shared array from a local array, or to 0s if NULL is passed) s
+5 457 M
+( * for the local array.) s
+5 448 M
+( *) s
+5 439 M
+( * This function is used to copy initial values from a local array \(generated) s
+5 430 M
+( * by the UPC compiler\) that contains any initial values provided by the user.) s
+5 421 M
+( * The local array does not need to have the same size as the shared array) s
+5 412 M
+( * \(indeed, if the shared array contains THREADS in one of its dimensions, its) s
+5 403 M
+( * size is not even knowable at compile time\).  It does, however, need to have) s
+5 394 M
+( * the same number of dimensions as the shared array, and the same element) s
+5 385 M
+( * size.  All values in the shared array that do not have corresponding values) s
+5 376 M
+( * in the local array are memset to 0.) s
+5 367 M
+( *) s
+5 358 M
+( * The function takes the addresses of the shared and local arrays, a pointer) s
+5 349 M
+( * to an array of structures \(each of which describes a single dimension of) s
+5 340 M
+( * the array\), a count of the number of dimensions in the array, the size \(in) s
+5 331 M
+( * bytes\) of the array's element type, and the blocking factor of the array) s
+5 322 M
+( * \(as a number of elements\).) s
+5 313 M
+( *) s
+5 304 M
+( * If NULL is passed for the local array address, all local array parameters) s
+5 295 M
+( * will be ignored, and the function will simply set all elements of the) s
+5 286 M
+( * shared array to 0. ) s
+5 277 M
+( *) s
+5 268 M
+( * Here is an example:) s
+5 259 M
+( *) s
+5 250 M
+( *  // in UPC program) s
+5 241 M
+( *) s
+5 232 M
+( *  shared [5] int j[3][4][2*THREADS] = {) s
+5 223 M
+( *      {) s
+5 214 M
+( *          { 1, 2 },) s
+5 205 M
+( *          { 3, 4 },) s
+5 196 M
+( *          { 5, 6 },) s
+5 187 M
+( *          { 1, 2, 3, 4, 5 }   // the user may specify extra elems if THREADS ) s
+5 178 M
+( *                              // is part of the dimension) s
+5 169 M
+( *      }) s
+5 160 M
+( *  };) s
+5 151 M
+( *) s
+5 142 M
+( * Here the user has only provided a small subset of the inital values in the) s
+5 133 M
+( * array \(even disregarding the THREADS in the final dimension\).  The UPC) s
+5 124 M
+( * compiler should place the initial values into a [1][4][5] array, and then) s
+5 115 M
+( * setup and call the initialization function:) s
+5 106 M
+( *) s
+5 97 M
+( *  // output .c file, at file scope  ) s
+5 88 M
+( *) s
+5 79 M
+( *  upcr_shared_ptr_t j = UPCR_INITIALIZED_SHARED;) s
+5 70 M
+( *) s
+5 61 M
+( *  int j_initarray[1][4][5] = {) s
+5 52 M
+( *      {) s
+5 43 M
+( *          { 1, 2 },) s
+5 34 M
+( *          { 3, 4 },) s
+5 25 M
+( *          { 5, 6 },) s
+5 16 M
+( *          { 1, 2, 3, 4, 5 }   ) s
+5 7 M
+( *      }) s
+_R
+S
+%%Page: (26) 26
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 26 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( *  };) s
+5 700 M
+( *) s
+5 691 M
+( *  upcr_startup_arrayinit_diminfo_t j_diminfos[] = {) s
+5 682 M
+( *      { 1, 3, 0 },) s
+5 673 M
+( *      { 4, 4, 0 },) s
+5 664 M
+( *      { 5, 2, 1 }) s
+5 655 M
+( *  };) s
+5 646 M
+( *) s
+5 637 M
+( *  // In initialization function  ) s
+5 628 M
+( *) s
+5 619 M
+( *  upcr_startup_initarray\(&j, j_initarray, j_diminfos, 3, sizeof\(int\), 5\);) s
+5 610 M
+( *) s
+5 601 M
+( * This function must be called collectively by each UPC thread for each array,) s
+5 592 M
+( * in the same order and with the same arguments.) s
+5 583 M
+( * The function does not guarantee that all threads will have completed their) s
+5 574 M
+( * initializations when any particular thread returns from the call \(i.e. it) s
+5 565 M
+( * does not guarantee a barrier is performed after initialization\).) s
+5 556 M
+( *) s
+5 547 M
+( * Implementation notes:) s
+5 538 M
+( * --------------------) s
+5 529 M
+( *) s
+5 520 M
+( * For efficiency, each thread should only copy elements that belong to its) s
+5 511 M
+( * portion of the shared array, so the function should not cause any network) s
+5 502 M
+( * traffic.  ) s
+5 493 M
+( *) s
+5 484 M
+( * To save space, the local array's dimensions should only be as large) s
+5 475 M
+( * as needed to contain all the initial values specified by the user.  ) s
+5 466 M
+( */) s
+5 457 M
+(void upcr_startup_initarray\(upcr_shared_ptr_t dst, void * src, ) s
+5 448 M
+(                            upcr_startup_arrayinit_diminfo_t *diminfos, ) s
+5 439 M
+(                            size_t dimcnt, size_t elembytes, size_t blockelems\);) s
+5 421 M
+(/*) s
+5 412 M
+( * Initializes a phaseless array from a local array, or to 0s if NULL passed.) s
+5 403 M
+( *) s
+5 394 M
+( * This function is identical to upcr_startup_initarray, except that it takes a) s
+5 385 M
+( * phaseless pointer-to-shared.) s
+5 376 M
+( *) s
+5 367 M
+( * For phaseless shared arrays with indefinite blocksize, pass '0' for the) s
+5 358 M
+( * 'blockelems' parameter.) s
+5 349 M
+( *) s
+5 340 M
+( * Implementor's note:  It should be possible to simply write this as an) s
+5 331 M
+( *                      inline function that calls upcr_startup_initarray\(\),) s
+5 322 M
+( *                      with upcr_pshared_to_shared\(\) used to convert dst to) s
+5 313 M
+( *                      the correct type.) s
+5 304 M
+( */) s
+5 295 M
+(void upcr_startup_initparray\(upcr_pshared_ptr_t dst, void * src, ) s
+5 286 M
+(                            upcr_startup_arrayinit_diminfo_t *diminfos, ) s
+5 277 M
+(                            size_t dimcnt, size_t elembytes, size_t blockelems\);) s
+5 259 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 250 M
+(/* UPC Cast) s
+5 241 M
+( * ========) s
+5 232 M
+( * The following provides an implementation of the upc_cast\(\) function) s
+5 223 M
+( * defined in section 7.7.2.1 of the UPC 1.3 Optional Library Specification.) s
+5 214 M
+( *) s
+5 205 M
+( * Returns a valid pointer-to-local correspoinding to 'sptr', or NULL if the) s
+5 196 M
+( * conversion is not possible.) s
+5 187 M
+( */) s
+5 169 M
+(void *upcr_cast\(upcr_shared_ptr_t sptr\);) s
+5 151 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 142 M
+(/* UPC Thread Info) s
+5 133 M
+( * ==============-) s
+5 124 M
+( * The following provides an implementation of the upc_thread_info\(\) function) s
+5 115 M
+( * defined in section 7.7.2.2 of the UPC 1.3 Optional Library Specification.) s
+5 106 M
+( *) s
+5 97 M
+( * upc_thread_info_t is a structure, defined in the upc_castable_bits.h header,) s
+5 88 M
+( * with \(at least\) the following defined fields:) s
+5 79 M
+( *    int guaranteedCastable;) s
+5 70 M
+( *    int probablyCastable;) s
+5 61 M
+( */) s
+5 43 M
+(/*) s
+5 34 M
+( * Return a upc_thread_info_t structure with the guaranteedCastable and probablyCastable) s
+5 25 M
+( * fields initialized as described in the UPC 1.3 Optional Library Specification.) s
+5 16 M
+( * Implementation-specific additional fields, if any, are also initialized.) s
+5 7 M
+( * The behavior is undefined if \(threadId >= upcr_threads\(\)\).) s
+_R
+S
+%%Page: (27) 27
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 27 def
+/fname (upcr.txt) def
+/fdir (.) def
+/ftail (upcr.txt) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 709 M
+( */) s
+5 700 M
+(upc_thread_info_t upcr_thread_info\(size_t threadId\);) s
+5 682 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 673 M
+(/* Implementation Versioning) s
+5 664 M
+( * =========================) s
+5 655 M
+( * The following provide configuration and version information for an) s
+5 646 M
+( * implementation of this interface.) s
+5 637 M
+( */) s
+5 619 M
+(/* ) s
+5 610 M
+( * A string representing all the relevant upcr configuration settings) s
+5 601 M
+( * that can be compared using string compare to verify version compatibility.) s
+5 592 M
+( * The string is also embedded into the library itself such that it can be) s
+5 583 M
+( * scanned for within a binary executable.) s
+5 574 M
+( */) s
+5 565 M
+(#define UPCR_CONFIG_STRING "???" ) s
+5 547 M
+(/* ) s
+5 538 M
+( * Integer values which correspond to the major and minor version numbers) s
+5 529 M
+( * for this specification, indicating the highest version level of ) s
+5 520 M
+( * runtime spec conformance which is implemented in a given runtime ) s
+5 511 M
+( * \(available in specification version 3.8 and higher\)) s
+5 502 M
+( */) s
+5 493 M
+(#define UPCR_RUNTIME_SPEC_MAJOR x) s
+5 484 M
+(#define UPCR_RUNTIME_SPEC_MINOR x) s
+5 466 M
+(/* ------------------------------------------------------------------------------------ */) s
+5 457 M
+(/* Entry-points in the upc_* Namespace) s
+5 448 M
+( * ===================================) s
+5 439 M
+( *) s
+5 430 M
+( * The following preprocessor definitions are in place during the compilation of translated code.) s
+5 421 M
+( * As this interface grows to include any later additions to the UPC specification's Required or) s
+5 412 M
+( * Optional libraries, they too will be made available in the upc_* namespace in this manner.) s
+5 403 M
+( * This ensures that addition of UPC library interfaces should not require any changes to the) s
+5 394 M
+( * source-to-source translator \(unless specialized support is mandated\).) s
+5 385 M
+( */) s
+5 367 M
+(#define upc_global_exit         upcr_global_exit) s
+5 349 M
+(#define upc_global_alloc        upcr_global_alloc) s
+5 340 M
+(#define upc_all_alloc           upcr_all_alloc) s
+5 331 M
+(#define upc_alloc               upcr_alloc) s
+5 322 M
+(#define upc_free                upcr_free) s
+5 313 M
+(#define upc_all_free            upcr_all_free) s
+5 295 M
+(#define upc_threadof            upcr_threadof_shared) s
+5 286 M
+(#define upc_phaseof             upcr_phaseof_shared) s
+5 277 M
+(#define upc_addrfield           upcr_addrfield_shared) s
+5 268 M
+(#define upc_affinitysize        upcr_affinitysize) s
+5 259 M
+(#define upc_resetphase          upcr_shared_resetphase) s
+5 241 M
+(#define upc_global_lock_alloc   upcr_global_lock_alloc) s
+5 232 M
+(#define upc_all_lock_alloc      upcr_all_lock_alloc) s
+5 223 M
+(#define upc_lock_free           upcr_lock_free) s
+5 214 M
+(#define upc_all_lock_free       upcr_all_lock_free) s
+5 205 M
+(#define upc_lock                upcr_lock) s
+5 196 M
+(#define upc_lock_attempt        upcr_lock_attempt) s
+5 187 M
+(#define upc_unlock              upcr_unlock) s
+5 169 M
+(#define upc_memcpy              upcr_memcpy) s
+5 160 M
+(#define upc_memput              upcr_memput) s
+5 151 M
+(#define upc_memget              upcr_memget) s
+5 142 M
+(#define upc_memset              upcr_memset) s
+5 124 M
+(#define upc_thread_info         upcr_thread_info) s
+5 106 M
+(/* ------------------------------------------------------------------------------------ */) s
+_R
+S
+%%Trailer
+%%Pages: 27
+%%DocumentNeededResources: font Courier-Bold Courier 
+%%EOF

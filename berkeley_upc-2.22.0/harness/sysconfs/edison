@@ -1,0 +1,59 @@
+# Specify the network [GASNet conduit] to be used
+
+network = aries
+
+# Specify the type of batch system in use.  Currently I know about
+# PBS and LOADLEVELER
+
+batch_sys = pbs
+
+# Specify a sequence of queues, in order of preference, that can
+# be used to run the jobs.  Each queue must define the following
+# fields:
+#      Q_name     -> name of the queue
+#      Q_maxnode  -> max number of nodes allowed by the queue
+#      Q_minnode  -> min number of nodes allowed by the queue
+#      Q_maxtpn   -> max number of tasks per node allowed by queue
+#      Q_maxtime  -> the maximum queue limit for the queue
+#                    in the form HHH:MM:SS, 00:00:00 for unlimited
+
+queues = [
+        {
+          Q_name     => regular,   
+          Q_maxnode  => 32,      
+          Q_minnode  => 1,       
+          Q_maxtpn   => 16,      
+          Q_maxtime  => 4:00:00,
+          Q_noppn       => 1,
+          Q_usemppwidth => 1,
+          Q_usemppnppn  => 1
+        }
+]
+
+# =================================================================
+# Optional (but suggested) fields
+
+# Specify the accounting repository under which the jobs will be run
+# (not used on all systems)
+
+# must be explicit on jaguar
+repository = degas
+
+# Specify the default number of UPC threads when running the tests.
+# This value will replace the %NTHREAD% string in the per-suite
+# harness configuration file (harness.conf).
+
+nthread_default = 4
+
+# Specify the maximum number of processes per node to be used in this run
+
+max_proc_per_node = 1
+
+# Specify the minimum number of nodes to be used in a run.  This 
+# value will be violated if the total number of UPC threads is 
+# less than the specified value
+
+min_num_nodes = 1
+
+# We want results to be group-accessible
+startjob_cmd = [ 'umask 007' ]

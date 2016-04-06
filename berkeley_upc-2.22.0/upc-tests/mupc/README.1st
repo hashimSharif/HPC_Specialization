@@ -1,0 +1,13 @@
+The MuPC suite (bupc-testsuite/mupc) is ready to go - the "runall.sh" script compiles all the tests, and the "execute-all" script runs them all (both are easily hand-tweakable if you run into problems with upcrun).
+All of the tests should pass, except for:
+
+
+  test_int_multilocks.c and test_stress_{10-13}.c
+
+
+which currently fail due to bugs 148 & 149. 
+
+The compilation output is silent unless there's a problem. The execution output is fairly verbose, but if you pipe it all to a file you can then run "grep -i -e fatal -e fail" on it to see failures.
+
+See MuPCTestDoc.pdf and README for descriptions of what the tests do, and the comments at the top of each test for more detailed information.
+

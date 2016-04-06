@@ -1,0 +1,103 @@
+GUTS Changelog
+******************
+
+Here you can find the list of changes made in between the current releases. Changes prior to first official release "v1.0" is gathered into a single list.
+For detailed information, please refer to the project wiki page at http://threads.seas.gwu.edu/sites/guts.
+
+Version 1.2-11.04
+------------------
+- Some LBL test cases were integrated into GUTS. Thanks to Paul Hargrove from LBL for his help in this process. 
+    bug1665a.upc: integrated into a new test address_operator.upc
+    bug1222b.upc - bug1222.upc: integrated into a new test threadof.upc
+    bug276.upc: phaseof and resetphase semantics - integrated into a new test resetphase2.upc
+    bug2690.upc: upc_forall argument evaluation  - integrated into a new test iteration2.upc
+    bug2956.upc: upc_forall argument evaluation  - integrated into a new test iteration3.upc
+    bug2960.upc: upc_localsizeof() semanticsi    - integrated into a new test localsizeof2.upc
+    checkforall.upc: upcforall() semantics       - integrated into a new test iteration4.upc
+
+- resetphase.upc becomes resetphase1.upc for naming convention
+- iteration.upc  becomes iteration1.upc for naming convention
+- localsizeof.upc  becomes localsizeof1.upc for naming convention
+- UPC_MAX_BLOCK_SIZE check is added to predefined_macro.upc
+- GULA_FAIL statement is added to replace previously missed printf in predefined_identifiers.upc
+- Bug fixes for shared casts in compound_test1.upc and global_alloc.upc (ticket #55). 
+- Bug fix in try_prefix.upc under guts_collectives
+- guts_coa NPB kernels are updated to use latest GWU UPC NPB release
+- guts_npb is deprecated as guts_coa can already do stress testing
+
+Version 1.2-10.08
+------------------
+- Revision numbers will be from now on {spec_number}-YY.MM
+- Fix color testing in the shell scripts
+- compound_test1.upc --> barrier test inside upc_forall is removed, it is actually an undefined behavior according to the spec
+- Latest NPB kernels are integrated to COAT
+
+Version 1.2
+------------------
+Update the GUTS repository web adress in the README files
+- fixed a bug in strict_access.upc
+    - barrier added before the strict access check 
+- updated the CRAY compiler flags
+
+Version 1.1
+------------------
+
+- Features:
+    - GUTS Compiler Assesment Test Suite (guts_coa) is added
+- fixed a bug in lock_attempt.upc, ticket #38
+- fixed a bug in compound_test1.upc, ticket #39
+- fixed a bug in blocksize_neg.upc test, ticket #42
+- fixed a bug in all_alloc.upc, ticket #45
+- fixed a bug in global_alloc.upc, ticket #46
+- fixed a bug in strict_access.upc test, ticket #49
+- Five tests were moved from "units" to "units_multi" to state that these tests require more than a single thread to run
+- some tests have been renamed to get a consistent sorted output and to avoid confusion
+    - compound_test.upc --> compound_test1.upc
+    - compound2_test.upc --> compound_test2.upc
+    - barrier4_neg.upc --> barrier_neg.upc
+    - declarators_neg.upc --> declarators_neg1.upc
+    - declarators2_neg.upc --> declarators_neg2.upc
+    - declarators3_neg.upc --> declarators_neg3.upc
+    - shared_scalars_neg.upc --> shared_scalars_neg1.upc
+    - shared_scalars2_neg.upc --> shared_scalars_neg2.upc
+
+Version 1.0
+-----------------
+- automatic compiler selection is added
+- add the syntax coloring ON/OFF option to the scripts
+- guts_main
+    - dropped the following tests:
+        * local_alloc
+        * addrfiled
+        * shared_qualifier
+        * blocksizeof_neg
+        * blocksizeof2_neg
+        * localsizeof_neg
+        * localsizeof2_neg
+        * elemsizeof_neg
+        * elemsizeof2_neg
+        * layout_qualifier_neg
+        * layout_qualifier2_neg
+        * shared_qualifier_neg
+        * barrier_neg
+        * barrier2_neg
+        * barrier3_neg
+        * cast_neg
+        * iteration_neg
+        * pointer_to_shared_neg
+    - fixed a bug in array_declarators.upc, ticket # 27
+    - fixed a bug in all_lock_alloc.upc and global_lock_alloc.upc , ticket # 25
+    - fixed a bug in declarators3_neg.upc, ticket # 23
+    - fixed a bug in guts_main.sh, ticket # 3
+    - fixed a bug in lock_attampt.upc, ticket # 13
+    - fixed a bug in lock.upc, ticket # 14
+    - fixed a bug in cast.upc, ticket # 20
+    - Stylistic changes on the tab spaces, make all the files consistent, remove white spaces
+- guts/io
+    - Stylistic changes on the tab spaces, make all the files consistent, remove white spaces
+    - Removed the "-DMEMVEC_SIZE=1" compilation flag for the shared tests
+    - fixed the bug in gula.h to enforce global_exit()
+    - fixed a bug in io_fclose.upc, variable sync is changed to async  
+- guts/collectives
+    - upc_all_sort test inside try_all.c has been dropped 
+    - Note that the collective tests were adapted from MTU testing suite and GWU-UPC group is not the maintainer of those test cases

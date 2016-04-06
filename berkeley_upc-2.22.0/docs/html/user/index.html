@@ -1,0 +1,2156 @@
+<html>
+<head>
+<!--#set var="VERSION" value="2.22.0" -->
+<title>Berkeley UPC User's Guide, v2.22.0</title>
+</head>
+<body bgcolor="#ffffff">
+
+<!--#include virtual="/header.html" -->
+
+<table border=0 cellpadding=0 cellspacing=0 width=100%><tr><td>
+<h1>Berkeley UPC User's Guide <small>version 2.22.0</small></h1>
+</td><td align=right>
+<!-- SiteSearch Google -->
+<FORM method=GET action="http://www.google.com/search">
+<input type=hidden name=ie value=UTF-8>
+<input type=hidden name=oe value=UTF-8>
+<TABLE bgcolor="#FFFFFF" border=0 cellpadding=0 cellspacing=0><tr><td>
+<!---
+<A HREF="http://www.google.com/">
+<IMG SRC="http://www.google.com/logos/Logo_40wht.gif" border="0" ALT="Google"></A>
+-->
+</td> <td>
+<INPUT TYPE=text name=q size=31 maxlength=255 value="">
+<INPUT type=submit name=btnG VALUE="Google Search">
+<input type=hidden name=domains value="http://upc.lbl.gov"><br>
+<table border=0 cellpadding=0 cellspacing=0><tr><td valign=top>
+<font size=-1>
+<input type=radio name=sitesearch value="http://upc.lbl.gov/docs" checked> Berkeley UPC Documentation <br>
+<input type=radio name=sitesearch value="http://upc.lbl.gov/"> Berkeley UPC Site-wide <br>
+</font>
+</td><td valign=top>
+<font size=-1>
+<input type=radio name=sitesearch value=""> Entire Web
+</font>
+</td></tr></TABLE>
+</td></tr>
+<tr><td></td><td>
+<!--#include virtual="../../doc-versions.shtml"-->
+</td></tr>
+</table>
+</FORM>
+<!-- SiteSearch Google -->
+</td></tr></table>
+
+This guide tells you how to use Berkeley UPC, which is a portable
+implementation of Unified Parallel C (UPC) that runs on many different parallel
+systems available today.
+
+
+<h2>Contents</h2>
+<ul>
+    <li><a href="#standards">UPC standards and APIs supported by this version of
+        Berkeley UPC</a>
+    <p><li><a href="#hello_world">A Sample UPC Program</a>
+    <p><li><a href="#compiling">Compiling UPC programs with 'upcc'</a>
+    <p><li><a href="#libraries">Creating libraries of UPC code</a>
+    <p><li><a href="#running">Running UPC programs with 'upcrun'</a>
+    <p><li><a href="#pthread">Using pthreaded UPC Programs</a>
+    <p><li><a href="#debugging">Debugging UPC Programs</a>
+    <p><li><a href="#tracing">Analyzing UPC Programs with 'upc_trace'</a>
+    <p><li><a href="#stats">Gathering application statistics</a>
+    <p><li><a href="#profiling">Profiling UPC Programs with 'upcc -pg' and
+        'gprof'</a>
+    <p><li><a href="#extensions">Berkeley-specific extensions to the UPC Language</a>
+        <ul>
+
+        <p><li><a href="#NB">Non-blocking memcpy functions</a>
+        <p><li><a href="#VIS">Non-contiguous memcpy functions</a>
+        <p><li><a href="#PTP">Point-to-point synchronization functions</a>
+        <p><li><a href="#collectivev">Value-based collectives convenience interface (bupc_collectivev.h)</a>
+        <p><li><a href="#allredall">The 'bupc_all_reduce_all' function family</a>
+        <p><li><a href="#bupc_dump_shared">The 'bupc_dump_shared' function</a>
+        <p><li><a href="#bupc_ptradd">The 'bupc_ptradd' function</a>
+        <p><li><a href="#bupc_poll">The 'bupc_poll' function</a>
+        <p><li><a href="#bupc_assert_type">The 'bupc_assert_type' built-in</a>
+        <p><li><a href="#timer">High-precision wall-clock timer support</a>
+        <p><li><a href="#threaddist">Runtime thread layout query for hierarchical systems</a>
+        <p><li><a href="#castable">Castability of pointers-to-shared</a>
+        <p><li><a href="#atomics">The 'bupc_atomic*' function family</a>
+        <p><li><a href="#all_free">Collective deallocation functions</a>
+        </ul>
+    <p><li><a href="#knownbugs">Known bugs and limitations</a>
+    <p><li><a href="#platform">Platform-specific issues</a>
+</ul>
+
+<p><hr>
+<h2><a name="standards">UPC standards and APIs supported by this version of Berkeley
+UPC</a></h2>
+
+<p>This version of Berkeley UPC includes:
+
+<ul>
+    <li>Full support for the
+    <a class='download' href="upc-lang-spec-1.3.pdf">UPC Language Specifications, Version 1.3</a>, 
+    a specification which is itself a superset of ISO/IEC 9899:1999 (aka. "C99").  
+    <br>That document specifies the UPC language constructs, as well as the following core libraries:
+    <ul>
+          <li>UPC Utilities <tt>&lt;upc.h&gt;</tt></li>
+          <li>UPC Standard Typed <tt>&lt;upc_types.h&gt;</tt></li>
+    </ul>
+    These libraries are fully implemented in BUPC and well-tuned for most platform configurations.
+    </li>
+    </li>
+  <p>
+    <li>A complete implementation of the UPC Required library, as specified in 
+    <a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Required Library Specifications, Version 1.3</a>.
+    <br>That document specifies the following required libraries:
+    <ul>
+          <li>UPC Collective Utilities <tt>&lt;upc_collective.h&gt;</tt></li>
+          <li>High-Performance Wall-Clock Timers <tt>&lt;upc_tick.h&gt;</tt></li>
+    </ul>
+    These libraries are fully implemented in BUPC and well-tuned for most platform configurations.
+    </li>
+  <p>
+    <li>A mostly-complete implementation of the UPC Optional library, as specified in 
+    <a class='download' href="upc-lib-optional-spec-1.3.pdf">UPC Optional Library Specifications, Version 1.3</a>.
+    <br>That document specifies the following optional libraries:
+    <ul>
+      <li>UPC Non-Blocking Transfer Operations <tt>&lt;upc_nb.h&gt;</tt>:<br>
+          BUPC provides a complete and high-performance implementation.
+      </li>
+      <li>Castability Functions <tt>&lt;upc_castable.h&gt;</tt>:<br>
+          BUPC provides a complete and high-performance implementation.
+      </li>
+      <li>UPC Atomic Memory Operations <tt>&lt;upc_atomic.h&gt;</tt>:<br>
+          The runtime source distribution includes a reference implementation, located in
+	  <a class='ref' href="http://upc.lbl.gov/download/dist/upc-tests/UPC-Atomic-RefImp/README">
+	  <tt>upc-tests/UPC-Atomic-RefImp</tt></a>,
+	  which is functionally spec-compliant 
+	  but is <strong>not</strong> designed to be highly performant (atomicity is achieved via UPC locks).
+	  <br>A high-performance implementation will appear in a future BUPC release.
+      </li>
+      <li>UPC Parallel I/O <tt>&lt;upc_io.h&gt;</tt>:<br>
+	  BUPC provides a reference implementation, which is functionally spec-compliant but
+	  is <strong>not</strong> designed to be highly performant (all I/O is channeled through a single node).
+	  <br>An effort to develop a high performance implementation of the I/O API is
+          underway at <a href="http://upc.gwu.edu">GWU</a>.
+      </li>
+    </ul>
+    </li>
+  <p>
+    <li>A number of <a href="#extensions">Berkeley-specific extensions to the UPC Language</a>.<br>
+    Some of these extensions have been adopted into the official specifications since their inception, 
+    and are now deprecated in favor of the standardized versions (as noted in each section).
+    </li>
+</ul>
+
+<p>
+The three UPC specifications referenced above are also available for convenience as a combined document:<br>
+&nbsp; &nbsp; <a class='download' href="http://upc.lbl.gov/publications/upc-spec-1.3.pdf">UPC Language and Library Specifications, Version 1.3</a><br>
+&nbsp; &nbsp; UPC Consortium, Lawrence Berkeley National Lab Tech Report LBNL-6623E, Nov 2013.
+
+
+<p><hr>
+<h2><a name="hello_world">A Sample UPC Program</a></h2>
+Here is a simple hello-world program written in UPC:
+<pre>
+    #include &lt;upc_relaxed.h&gt;
+    #include &lt;stdio.h&gt;
+
+    int main() {
+      printf("Hello from thread %i/%i\n", MYTHREAD, THREADS);
+      upc_barrier;
+      return 0;
+    }
+</pre>
+This program prints a message once from each thread (in some arbitrary
+interleaving), executes a barrier (optional), and exits.
+
+<p>For more involved examples of UPC code, see the <a
+    href="http://www.gwu.edu/~upc/tutorials.html">UPC Language Tutorials</a> -
+from the <a href="http://upc.gwu.edu">UPC Language Community website</a> and the
+'upc-examples' directory in of the Berkeley UPC runtime distribution.
+The <a href="#standards">Official UPC Specifications</a> are
+a useful reference, and contains a description of the standard libraries.
+
+<p><hr>
+<h2><a name="compiling">Compiling UPC programs with 'upcc'</a></h2>
+
+The <tt>upcc</tt> front end is used to compile UPC programs.  It is designed
+with an interface that is very similar to the standard GNU <tt>gcc</tt>
+compiler, for ease of use.  For instance, you could compile a physics
+simulation called 'light' from two source files via
+
+<pre>
+    upcc -o light particle.upc wave.c -lgrottymath
+</pre>
+
+Note that 'wave.c' can contain either UPC code or regular C code, and the
+'grottymath' library that is linked into the application can be a regular C
+library:  Berkeley UPC is fully interoperable with regular C source, object, and
+library files (note: if you compile with the -pthreads flag,
+any C libraries you use must be thread-safe).  Berkeley UPC 2.0 also adds
+support for linking C++/FORTRAN/MPI objects into a UPC executable: see <a
+    href="interoperability.html">Mixing C/C++/MPI/FORTRAN with UPC</a>.
+
+<p><tt>upcc</tt> recognizes most commonly used C compiler flags (-D, -I, etc.).
+It also uses a number of its own flags for the choice of network API your
+program will run over, for compiling your UPC code for a static number of
+threads, and other UPC-specific options.  See the
+<a class='man' href="upcc.html">upcc man page</a> for details.
+
+<h3>Choosing a network API for your UPC executable</h3>
+
+Berkeley UPC executables are always compiled to run over a particular network
+API.  To choose which network API is used, pass the '<tt>--network</tt>' flag
+with one of the following values:
+
+<p>
+<center>
+<table width="85%" border="1" cellpadding="10" cellspacing="0">
+    <tr bgcolor="yellow">
+        <td>Name</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>ibv</td>
+        <td>OpenFabrics (aka OpenIB) InfiniBand Verbs for InfiniBand networks</td>
+    </tr>
+    <tr>
+        <td>ofi</td>
+        <td>OpenFabrics Interfaces API (aka libfabric) for multiple networks.</td>
+    </tr>
+    <tr>
+        <td>mxm</td>
+        <td>MXM API for recent Mellanox InfiniBand HCAs.</td>
+    </tr>
+    <tr>
+        <td>shmem</td>
+        <td>
+            SHMEM API for SGI Altix systems and the Cray X1.  Other systems
+            providing a SHMEM API may also work, but have not been tested.
+        </td>
+    </tr>
+    <tr>
+        <td>portals4</td>
+        <td>
+            Portals 4.x API (see <a href="https://code.google.com/p/portals4/">here</a> for info).
+        </td>
+    </tr>
+    <tr>
+        <td>aries</td>
+        <td>
+            GNI API for Cray XC systems running CLE.
+        </td>
+    </tr>
+    <tr>
+        <td>gemini</td>
+        <td>
+            GNI API for Cray XE and XK systems running CLE.
+        </td>
+    </tr>
+    <tr>
+        <td>pami</td>
+        <td>Parallel Active Message Interface for several IBM platforms, including BlueGene/Q.</td>
+    </tr>
+    <tr>
+        <td>udp</td>
+        <td>
+            UDP: works on any system with a standard TCP/IP stack,
+            but is typically slower than using one of the native network types.
+	    Generally the fastest option for systems with only Ethernet
+            hardware (notably faster than MPI-over-TCP).
+        </td>
+    </td>
+    <tr>
+        <td>mpi</td>
+        <td>
+            MPI: works on any system with MPI installed, but is typically slower
+            than using one of the other network types.
+        </td>
+    </td>
+    <tr>
+        <td>smp</td>
+        <td>"Symmetric multiprocessor (SMP)" mode: uses no network.  Currently
+            runs with only a single process unless your runtime has been
+            configured with <tt>--enable-pshm</tt> (currently default only on Linux).
+            Otherwise, you must pass <tt>-pthreads</tt> to upcc to run smp-conduit
+            with multiple UPC threads.</td>
+    </tr>
+</table>
+</center>
+
+<p>Note that you can only compile for a given network type if your Berkeley UPC
+runtime was configured to support it at build/installation time.  To see which APIs
+are supported in your installation, and to see which is used by default, use
+'<tt>upcc --version</tt>'.  
+
+<h3>Compiling for a fixed number of UPC threads</h3>
+
+The '<tt>-T &lt;number&gt;</tt>' option to upcc causes your executable to be
+build for a fixed number of UPC threads.  Alternatively, you can set
+'<tt>UPCC_FIXED_THREADS=&lt;number&gt;</tt>' in your environment (the
+'<tt>-T</tt>' flag overrides the environment setting if both are present).
+
+<p>An executable compiled for a fixed number of UPC threads will fail at startup
+if you try to run it with a different number of threads.   However, fixing the
+number of threads allows optimization on certain operations (such as shared
+pointer arithmetic), especially when the number of threads is a power of 2.
+
+
+<h3>Overriding global <tt>upcc.conf</tt> settings in a user configuration
+    file</h3>
+
+<tt>upcc</tt> gets global settings for your installation from a
+<tt>upcc.conf</tt> file which is created during the configuration stage of a
+runtime installation.  After installation the file is located in the
+<tt>$prefix/&lt;config&gt;/etc</tt> directory of your installation.
+You can create a user configration file <tt>$HOME/.upccrc</tt>
+to override any of these settings.  See the
+<a class='man' href="upcc.html">upcc man page</a>
+for a list of available settings.
+
+<h3>UPC Standard and Berkeley-specific preprocessor macros</h3>
+
+Programs compiled with Berkeley UPC will see all of the preprocessor macros
+provided by your backend C compiler, plus the following:
+
+<center>
+<p><table border="1" cellpadding="10" cellspacing="0">
+    <tr bgcolor="yellow">
+        <td><b>Name</b></td>
+        <td><b>Value</b></td>
+        <td><b>Description</b></td>
+        <td><b>Standard</b></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC__</tt></td>
+        <td>1</td>
+        <td>Defined by any UPC implementation</td>
+        <td><a class='download' href="upc-lang-spec-1.3.pdf">UPC Language</a>
+	    <br><em>first specified in v1.1.1</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_COLLECTIVE__</tt></td>
+        <td>1</td>
+        <td>Defined by UPC implementations providing the UPC Collective Utilities library <tt>&lt;upc_collective.h&gt;</tt></td>
+        <td><a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Required Library</a>
+	    <br><em>first specified in v1.2</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_TICK__</tt></td>
+        <td>1</td>
+        <td>Defined by UPC implementations providing UPC High-Performance Wall-Clock Timers library <tt>&lt;upc_tick.h&gt;</tt></td>
+        <td><a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Required Library</a>
+	    <br><em>first specified in v1.3</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_CASTABLE__</tt></td>
+        <td>1</td>
+        <td>Defined by UPC implementations providing the UPC Castability Functions library <tt>&lt;upc_castable.h&gt;</tt></td>
+        <td><a class='download' href="upc-lib-optional-spec-1.3.pdf">UPC Optional Library</a>
+	    <br><em>first specified in v1.3</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_IO__</tt></td>
+        <td>1</td>
+        <td>Defined by UPC implementations providing the UPC Parallel I/O library <tt>&lt;upc_io.h&gt;</tt></td>
+        <td><a class='download' href="upc-lib-optional-spec-1.3.pdf">UPC Optional Library</a>
+	    <br><em>first specified in v1.2</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_NB__</tt></td>
+        <td>1</td>
+        <td>Defined by UPC implementations providing the UPC Non-Blocking Transfer Operations library <tt>&lt;upc_nb.h&gt;</tt></td>
+        <td><a class='download' href="upc-lib-optional-spec-1.3.pdf">UPC Optional Library</a>
+	    <br><em>first specified in v1.3</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_VERSION__</tt></td>
+        <td>Monotonically increasing positive integer constant</td>
+        <td>UPC specification supported: value is YYYYMM date of that version's
+            ratification (currently '<tt>201311L</tt>' for UPC 1.3) </td>
+        <td><a class='download' href="upc-lang-spec-1.3.pdf">UPC Language</a>
+	    <br><em>first specified in v1.1.1</em></td>
+    </tr>
+    <tr>
+        <td><tt>UPC_MAX_BLOCK_SIZE</tt></td>
+        <td>A positive integer constant</td>
+        <td>Indicates the maximum value allowed in a layout qualifier for shared data.
+	    The actual value varies across configurations</td>
+        <td><a class='download' href="upc-lang-spec-1.3.pdf">UPC Language</a>
+	    <br><em>first specified in v1.0</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_DYNAMIC_THREADS__</tt></td>
+        <td>1 if dynamic threads: else undefined</td>
+        <td>Set to 1 unless the '<tt>-T</tt>' flag was passed to
+            <tt>upcc</tt></td>
+        <td><a class='download' href="upc-lang-spec-1.3.pdf">UPC Language</a>
+	    <br><em>first specified in v1.1.1</em></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_STATIC_THREADS__</tt></td>
+        <td>1 if static threads: else undefined</td>
+        <td>Set to 1 if the '<tt>-T</tt>' flag was passed to
+            <tt>upcc</tt></td>
+        <td><a class='download' href="upc-lang-spec-1.3.pdf">UPC Language</a>
+	    <br><em>first specified in v1.1.1</em></td>
+    </tr>
+    <tr>
+        <td><tt>THREADS</tt></td>
+        <td>A compile-time integer constant representing the static thread count: else undefined</td>
+        <td>Set to the static thread count if the '<tt>-T</tt>' flag was passed to
+            <tt>upcc</tt>. 
+	    (Under dynamic threads, THREADS is a keyword that expands to the thread
+	    count determined at program launch.)</td>
+        <td><a class='download' href="upc-lang-spec-1.3.pdf">UPC Language</a></td>
+    </tr>
+    <tr>
+        <td><tt>__UPC_PUPC__</tt></td>
+        <td>1</td>
+        <td>Defined by UPC implementations supporting the GASP interface</td>
+        <td><a class='download' href="http://upc.lbl.gov/publications/gasp-1.5-61606.pdf">GASP 1.5 specification</a></td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC__</tt></td>
+        <td>Monotonically increasing positive integer constant</td>
+        <td>The major version number of the Berkeley UPC release.
+            <br>Example: '1' for release '1.0.3'.</td>
+        <td>Berkeley UPC only </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_MINOR__</tt></td>
+        <td>An integer constant</td>
+        <td>The minor version number of the Berkeley UPC release.
+            <br>Example: '0' for release '1.0.3'.</td>
+        <td>Berkeley UPC only </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_PATCHLEVEL__</tt></td>
+        <td>An integer constant</td>
+        <td>The patch version number of the Berkeley UPC release.
+            <br>Example: '3' for release '1.0.3'.</td>
+        <td>Berkeley UPC only </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_&lt;NETWORK&gt;_CONDUIT__</tt></td>
+        <td>1, or undefined</td>
+        <td>Identifies the network API used.
+            <br>Example: if '<tt>upcc -network=mpi</tt>' is used,
+            '<tt>__BERKELEY_UPC_MPI_CONDUIT__</tt>' will be defined to '1'.</td>
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a> </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_PSHM__</tt></td>
+        <td>1, or undefined</td>
+        <td>Defined to 1 if and only if PSHM support is enabled</td> 
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a> </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_PTHREADS__</tt></td>
+        <td>1, or undefined</td>
+        <td>Defined to 1 if and only if the '<tt>-pthreads</tt>' flag is
+            used</td> 
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a> </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_RUNTIME__</tt></td>
+        <td>1, or undefined</td>
+        <td>Defined to 1 if and only if the Berkeley UPC runtime is used</td>
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a> </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_RUNTIME_DEBUG__</tt></td>
+        <td>1, or undefined</td>
+        <td>Defined to 1 if and only if a debugging runtime used (i.e.
+            '<tt>-g</tt>' passed to upcc). </td> 
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a> </td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_RUNTIME_RELEASE__</tt></td>
+        <td>An integer constant, or undefined</td>
+        <td>The major version number of the Berkeley UPC Runtime library.
+            <br>Example: '2' for release '2.12.0'.</td>
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a>
+            <br><em>release 2.12 and newer</em></td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_RUNTIME_RELEASE_MINOR__</tt></td>
+        <td>An integer constant, or undefined</td>
+        <td>The minor version number of the Berkeley UPC Runtime library.
+            <br>Example: '12' for release '2.12.0'.</td>
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a>
+            <br><em>release 2.12 and newer</em></td>
+    </tr>
+    <tr>
+        <td><tt>__BERKELEY_UPC_RUNTIME_RELEASE_PATCHLEVEL__</tt></td>
+        <td>An integer constant, or undefined</td>
+        <td>The patch version number of the Berkeley UPC Runtime library.
+            <br>Example: '0' for release '2.12.0'.</td>
+        <td>Berkeley UPC Runtime<a href="#note1">[1]</a>
+            <br><em>release 2.12 and newer</em></td>
+    </tr>
+</table>
+</center>
+<font size=-1>
+<a name="note1">Note 1:</a>
+Defined by the Berkeley <tt>upcc</tt> driver independent of the
+underlying translator/compiler (Berkeley UPC-to-C translator, Clang-upc2c
+translator, or GUPC compiler) targeting the Berkeley UPC Runtime.
+</font>
+
+<h3>Using a remote UPC-to-C translator</h3>
+
+The upcc front end has the ability to use a UPC-to-C translator located on a
+remote machine.  This is provided both as a convenience (the translator takes
+much longer to build than the runtime, and we provide a public HTTP translator
+that allows users to get started with Berkeley UPC more quickly), and to support
+the many systems on which our translator does not build, due to C++ portability
+issues.
+
+<p>A remote translator can be contacted via either the HTTP or SSH protocols.  
+To use HTTP,
+the '<tt>upcc.cgi</tt>' CGI script (located in the '<tt>contrib</tt>' directory
+of the runtime distribution) must be installed and configured with a web server
+on the remote host.  Simply set the '<tt>translator</tt>' parameter in your
+user configuration file (or the global '<tt>upcc.conf</tt>') to the URL
+for the CGI script. To use SSH, you must be able to login to the remote host
+using SSH, and the '<tt>translator</tt>' parameter must be set to
+'<tt>remote_host:/path/to/translator</tt>'.  You will want to use key-based
+authentication, and '<tt>ssh-agent</tt>' to avoid entering your password each
+time you compile.  See our <a href="sshagent.html">SSH Agent Tutorial</a>. 
+
+<p>When using an HTTP-based remote translator, upcc also includes support for
+use of an HTTP proxy.  Set the '<tt>http_proxy</tt>' parameter in your
+user configuration file (or the global '<tt>upcc.conf</tt>') to the
+proxy URL.  The upcc front end does not currently support HTTPS or SOCKS
+proxies, nor HTTP proxies that require authentication (HTTP error 407).
+
+<p><hr>
+<h2><a name="libraries">Creating libraries of UPC code</a></h2>
+
+At present you cannot create traditional C-style libraries with UPC code in them
+using Berkeley UPC (i.e. you cannot successfully use '<tt>ar</tt>' to create
+'<tt>libmyupc.a</tt>').  
+
+<p>If you wish to create a reusable set of compiled code, you must currently
+keep the files in *.o format.  So, instead of the traditional C format, where
+you'd create '<tt>libmyupc.a</tt>', and then link with something like
+
+<pre>
+    upcc myprogram.o -L/libpath -lmyupc
+</pre>
+
+You must instead do something like 
+
+<pre>
+    upcc myprogram.o /libpath/libmyupc/*.o 
+</pre>
+
+Note that beginning with Berkeley UPC 2.12.0 it is possible to link together
+static threads and dynamic threads objects, with the result being a static
+threads executable.  In many cases this allows use of a dynamic threads object
+in the role of a library, which can be linked to an executable with any
+dynamic or static thread setting.
+
+<p><hr>
+<h2><a name="running">Running UPC programs</a></h2>
+
+If you compile a UPC program with '<tt>--network=smp</tt>', you can run the
+executable normally (ie the same way you'd run '<tt>ls</tt>' or '<tt>grep</tt>').
+Otherwise, you are generating an executable that uses a parallel network API, and
+this typically means your executable will need some special treatment to be
+launched correctly.
+
+<p>Berkeley UPC executables should be run the same way as any other parallel
+program on your system that uses the same underyling network API.  So, for
+instance, a program compiled with '<tt>--network=mpi</tt>' is run on many
+systems via '<tt>mpirun -np &lt;number of processes&gt; a.out</tt>'.  Other
+systems may use other invocations, such as '<tt>prun</tt>' or '<tt>poe</tt>',
+especially when API's other than MPI are used.  Consult your system's
+documentation for details. 
+
+
+<h3>Using 'upcrun'</h3>
+
+The '<tt>upcrun</tt>' script that is installed as part of the Berkeley UPC
+runtime is our attempt to provide a standard interface for running UPC programs.
+If your installation has configured '<tt>upcrun.conf</tt>' correctly (in many
+cases the defaults will work), you can run UPC programs portably via commands
+like
+
+<pre>
+    upcrun -n 4 parboil
+</pre>
+
+This example runs the UPC executable '<tt>parboil</tt>' with 4 UPC threads. 
+The default layout of those threads on the physical hardware is system-dependent,
+but there are upcrun options to further control job layout.
+
+<p>An additional benefit of using <tt>upcrun</tt> is that it provides consistent
+support for propagating environment variables to all threads of your UPC
+program.  If you use <tt>upcrun</tt>, any environment variable beginning with
+either '<tt>UPC_</tt>' or '<tt>GASNET_</tt>' is guaranteed to be propagated to
+all threads.  (Support for propagating all environment variables
+is planned).  If you do not use <tt>upcrun</tt>, environment propagation
+will only work to the extent that the parallel job launcher you use provides it
+normally.
+
+<p>You can see how <tt>upcrun</tt> thinks your job should be run without actually
+running it by passing the upcrun '<tt>-t</tt>' flag.  Also, '<tt>upcrun -i
+    &lt;executable&gt;</tt>' will provide information about a Berkeley UPC
+executable, such as the network API that it was built against, and the number of
+fixed threads (if any) that it was compiled for.
+
+<p>See '<tt>upcrun --help</tt>' or the
+<a class='man' href="upcrun.html">upcrun man page</a>
+for more information.
+
+
+<h3>Setting the amount of shared memory available to your applications</h3>
+
+At startup, each Berkeley UPC thread reserves a fixed portion of its address
+space (via the '<tt>mmap()</tt>' system call) for shared memory.  This address
+range cannot be used for regular unshared (i.e., malloc) memory allocations,
+and it also serves as a maximum value on the amount of shared memory
+(per-thread) that the program can use:  a UPC program will die with a fatal
+error if any thread tries to allocate more shared memory than it reserved at
+startup.
+
+<p>The default amount of shared memory to reserve per UPC thread on a
+system is chosen at configure time (see 
+<a class='ref' href="http://upc.lbl.gov/download/dist/INSTALL.TXT">INSTALL.TXT</a>
+for details), but you can override that value for a particular
+application at either compile time or at job startup.  Generally this is only
+needed if you observe that your application is running out of either shared or
+regular C memory.
+
+<p>To embed a different default amount of shared memory into your application,
+simply pass '<tt>upcc -shared-heap=144MB</tt>' for instance (to get 144 megabytes per
+UPC thread).
+You can also use '<tt>GB</tt>' for gigabyte amounts (if neither '<tt>MB</tt>'
+nor '<tt>GB</tt>' is used, megabytes are assumed).  To override the embedded
+default amount of shared memory at application startup, set the
+UPC_SHARED_HEAP_SIZE environment variable to whatever value you want
+('<tt>2GB</tt>', etc.), or pass '<tt>-shared-heap</tt>' to
+<tt>upcrun</tt>.
+
+<p>While it is tempting to simply grab an extremely large shared memory segment,
+be aware that this is not always a good idea, or even possible.  Since the
+shared address space range cannot be used for regular malloc allocations,
+creating too large of a shared space can cause the amount of regular heap memory
+available to your application to become small (causing malloc to eventually
+return NULL when you request more memory).  Also, the shared memory space is
+reserved via an <tt>mmap()</tt> call, and while this does not generally cause
+any physical memory pages to be allocated, certain operating systems (for
+instance, Linux) will not allow more memory to be reserved by applications then
+the OS can guarantee is available, and so allocating a shared region larger than
+the physical memory (plus swap space) may fail.
+
+<p>The default amount of shared memory per UPC thread can be changed system-wide
+by modifying the '<tt>shared_heap</tt>' parameter in the installation's
+<tt>upcc.conf</tt> file.  You can override the system-wide default for your own
+applications by setting <tt>shared_heap</tt> in your user configuration
+file.
+
+<p>The <tt>upcc.conf</tt> file also provides a '<tt>heap_offset</tt>' parameter
+(and <tt>upcc</tt> provides a '<tt>-heap-offset</tt>' flag) that affects where
+the address region for shared memory is located in your program.  However, at
+present it is not useful on any of our supported systems, and so we do not
+recommend its use.
+
+<p><hr>
+<a name="pthread"><h2>Using pthreaded Berkeley UPC programs</h2></a>
+
+At present Berkeley UPC programs may handle inter-process communication within
+a compute node in one of two ways.  If your runtime has been configured with
+<tt>--enable-pshm</tt> to enable support for Process SHared Memory, then all
+communication within a compute node will be performed directly through shared
+memory.  This is the default configuration on Linux clusters, and on Cray
+systems in the XE, XK and XC series; and is a configure-time option on most
+other platforms (though some system setup is often required).  For all cases
+in which PSHM support is not enabled, the runtime will call the network APIs
+for all inter-process communication, even within a compute node.
+
+While many
+network APIs perform some kind of optimization for 'local' traffic (avoiding
+actually putting messages on the network), they are typically slower than simply
+using shared memory between UPC threads.  To provide shared-memory performance
+within an SMP (or cluster of SMPs), Berkeley UPC supports creating executables
+that implement UPC threads as pthreads within a process, 
+thus allowing optimized communications between multiple UPC threads
+running in the same process.  To utilize pthreads, pass the
+'<tt>-pthreads=N</tt>' option to <tt>upcc</tt>, where <tt>N</tt> is the number
+of processors per node on your system (or configure your '<tt>upcc.conf</tt>'
+file, as described below).  This will use one or more multithreaded processes
+on each node, with shared memory used among UPC threads in the same process.
+This is may often be the fastest way to run Berkeley UPC programs on SMP systems
+when PSHM is not available.
+
+<p>The '<tt>-pthreads</tt>' flag must be passed consistently at all stages of
+compilation and linking.  Also, when pthreads are used, <tt>upcc</tt> needs to
+delay much of the compilation of your code until link time, so if you split code
+generation into separate compilation and linking steps (i.e., '<tt>upcc -c
+    foo.upc</tt>', followed by '<tt>upcc foo.o bar.o</tt>'), you need to pass
+any macro and/or include path directives (ex: '<tt>-DFOO=bar
+    -I/usr/local/include</tt>') to <tt>upcc</tt> for both the compilation and
+link commands.
+
+<p>Any C libraries that your code links against must be thread-safe in order to
+be used with <tt>-pthreads</tt>.  If one or more of your libraries is not
+thread-safe, you must compile without pthreads, and run separate processes on
+the same node to exploit an SMP system.  In the non-pthreads case support for
+shared memory communication among UPC processes on an SMP node is available on
+many systems via the "PSHM" feature
+(See "INTRA-NODE SHARED MEMORY SUPPORT" in 
+<a class='ref' href="http://upc.lbl.gov/download/dist/INSTALL.TXT">INSTALL.TXT</a>).
+
+<p>When you link an application with '<tt>-pthreads</tt>', a subdirectory named
+<tt>&lt;executable_name&gt;_pthread-link</tt> will be created in the current
+directory.  This directory exists in order to speed up further linking commands
+of the same program.  If you link the same application again with the same
+object file names, and none of the global static unshared variables in your
+program have changed name or size, recompilation of all the files in your
+application can be avoided, which can make a significant difference in build
+time for programs with many source files.  You may delete the temporary
+directory at any time without any side effects (other than possibly longer link
+times).  One can prevent this optimization with the <tt>-nolink-cache</tt>
+flag to <tt>upcc</tt>.
+
+<p>Unless otherwise specified, pthreaded UPC applications use a default number
+of pthreads per process (run '<tt>upcc --version</tt>' to see the default for
+your system.  This number is set in the <tt>upcc.conf</tt> configuration file,
+and can be changed there (or in your user configuration file).  It can
+also be overridden in several ways.  Compiling with '<tt>upcc
+    -pthreads=&lt;NUMBER&gt;</tt>' changes the default number of pthreads per
+UPC process for an executable to NUMBER.  If the
+'<tt>UPC_PTHREADS_PER_PROC</tt>' environment variable is set to a nonzero
+integer when you run a UPC program, it will override any default value.
+Finally, <tt>upcrun</tt> is smart about pthreads in several ways.  First, if you
+run a pthreaded parallel job with '<tt>upcrun -n &lt;NUMBER&gt; ...</tt>', the
+number of processes actually launched will be divided by the number of pthreads,
+so that exactly NUMBER UPC threads are used.  Second, if you use
+<tt>-network=smp</tt> (which generates a executable that will run only a single
+process), <tt>upcrun -n NUMBER</tt> will automatically set the number of
+pthreads to NUMBER.
+
+<p><hr>
+<a name="debugging"><h2>Debugging Berkeley UPC programs</h2></a>
+
+<p>Berkeley UPC programs can now be debugged (with support for UPC-specific
+constructs) by the "TotalView" debugger produced by
+<a href="http://www.roguewave.com/">Rogue Wave Software</a>.  TotalView version 7.0.1 or greater is
+required, and support is currently only provided on x86 architectures, using
+MPI for the network.  See our <a href="totalview.html">tutorial on using Berkeley UPC with TotalView</a> for details.
+
+<p>If you do not have TotalView, you can also use a regular C debugger and get
+partial debugging support.  Berkeley UPC provides several mechanisms for
+attaching a regular C debugger to one or more of your UPC application's threads
+at various points during execution.  While this does not provide a fully normal
+debugging environment (the debugger will show the C code emitted by our
+translator, rather than your UPC code), it can still allow you to see program
+stack traces and other important information.  This can be very useful if you
+wish to submit a helpful bug report to us.  See <a
+href="upc-debugging.html">Attaching a regular C debugger to Berkeley UPC
+programs</a> for details.
+
+<p>Berkeley UPC also supports automatically generating backtraces if a fatal error occurs in
+your program.  This will allow you to see a stack trace of the function calls
+that your program was in at the time it crashed.  To use auto-backtracing, run
+with <tt>upcrun -backtrace</tt> or set <tt>GASNET_BACKTRACE=1</tt> in your environment.  The level of backtracing support
+available depends on the back-end C compiler and operating system, and so not
+all systems are equally functional, and some systems will not provide
+backtraces.  See 
+<a class='ref' href="http://upc.lbl.gov/download/dist/gasnet/README">gasnet/README</a> 
+for more information on backtracing.
+
+<p><hr>
+<a name="tracing"><h2>Analyzing UPC Programs with 'upc_trace'</h2></a>
+
+As of version 2.0, Berkeley UPC includes '<tt>upc_trace</tt>', a tool for
+analyzing the communication behavior of UPC programs.  When run on the output of
+a trace-enabled Berkeley UPC program, '<tt>upc_trace</tt>' provides information
+on which lines of code in your UPC program generated network traffic, including
+information such as: how many
+messages the line caused, what type (local and/or remote gets/puts), and the
+maximum/minimum/average/combined sizes of the messages.
+
+<p>Examining tracing information is one of the best ways to go about optimizing
+your UPC program.  It provides a way for you to see which lines of your code
+are generating the most network traffic (and the size of the network messages
+used).  From this you may be able to determine how to either avoid some of this
+traffic, or change your code to use fewer, larger messages (for instance, by
+replacing sets of individual reads/writes with bulk memory movement calls like
+'<tt>upc_memget()</tt>', etc.), which is typically more efficient.  Examining
+barrier wait times can also let you know if your computations are imbalanced
+across threads, and/or if you could profit by using split-phase barriers, moving
+computation in between '<tt>upc_notify</tt>' and '<tt>upc_wait</tt>'.
+
+<h3>How to use '<tt>upc_trace</tt>'</h3>
+
+<ol>
+
+    <li> Tracing must be enabled in order to work.  By default, tracing is
+    enabled for debug compilations (i.e. if '<tt>upcc -g</tt>' is used), but not 
+    otherwise (as it incurs some overhead).  If you wish to also trace non-debug
+    executables, you must rebuild your UPC runtime system and pass
+    '<tt>--with-multiconf=+opt_trace</tt>' to configure, then build your application
+    with '<tt>upcc -trace</tt>'.
+
+    <p><li> You must run your application with '<tt>upcrun -trace ...</tt>' or
+    '<tt>upcrun -tracefile <i>TRACE_FILE_NAME</i> ...</tt>'.  Either of these flags
+    causes your UPC executable to dump out tracing information while it
+    executes.  The '<tt>-trace</tt>' flag causes one file per UPC thread to be
+    generated, with the name '<tt>upc_trace-<i>a.out</i>..-<i>N</i></tt>', where
+    '<tt>a.out</tt>' is the name of your executable, and '<tt>N</tt>' is the UPC
+    thread's number.  The '<tt>-tracefile NAME</tt>' option lets you specify
+    your own name for the tracing file(s): if the name contains a '<tt>%</tt>'
+    character, one trace file per thread is generated, with the '<tt>%</tt>'
+    replaced with the UPC thread's number.  Otherwise, all threads will write to
+    the same file.  
+    
+    <blockquote><i>Note that running with tracing may slow down your
+    application considerably: the exact amount depends on your filesystem,
+    and the ratio of communication/computation in your program.
+    If you are only interested in a subset of trace information, consider
+    setting '<tt>GASNET_TRACEMASK</tt>' as described below.
+    </i></blockquote>
+
+    <p><li> After your application has completed, you may run '<tt>upc_trace</tt>'
+    on one or more of the trace files generated by your program run:  
+    <ol>
+        <li>Running '<tt>upc_trace</tt>' on a trace file generated by a single UPC
+            thread shows the information only for that thread.  If you pass
+            multiple files from the same application run, the information for
+            the various threads is coalesced, so passing in all the tracefiles
+            generated by a run allows you to see information for the entire
+            application.
+
+        <li>There are a number of flags to '<tt>upc_trace</tt>' which control what
+            kinds of information is reported, and how it is sorted.  See
+            '<tt>upc_trace --help</tt>' or the 
+            <a class='man' href="upc_trace.html">upc_trace man page</a> for details.  
+        
+        <li>Note that <tt>upc_trace</tt> may take a while to run, especially on
+        large tracefiles.  Consider setting GASNET_TRACEMASK and/or
+        GASNET_TRACELOCAL (described below) to streamline the trace file's
+        contents to include only those events you're interested in analyzing.
+
+        <li>If you compile with '<tt>upcc -opt</tt>', it is possible that the
+        UPC-to-C translator has coalesced some of the network operations in your
+        program, in order to get better network performance.  This means that
+        '<tt>upc_trace</tt>' may not report communication for certain lines of
+        your program, and other lines may seem to be getting/putting more data
+        than they should.
+    </ol>
+    The trace files are in a human-readable text format, and are amenable to 
+    generic text-file processing tools such as grep, perl, etc. This means you can 
+    also elect to perform your own analyses on the trace file if the <tt>upc_trace</tt> tool 
+    doesn't provide the information you are looking for.
+</ol>
+
+<h3>Controlling what gets logged in the trace file by setting GASNET_TRACEMASK</h3> 
+
+By default, Berkeley UPC will trace all of the following program events:
+
+<center>
+<p><table border="1" cellpadding="10" cellspacing="0" width="90%">
+    <tr bgcolor="yellow">
+        <td><b>ID</b></td>
+        <td><b>Feature</b></td>
+    </tr>
+    <tr>
+        <td><b>G</b></td>
+        <td>Network 'gets'.  These include both bulk gets (from
+            <tt>upc_memget</tt>, etc.), and network get operations caused by 
+            reading shared memory via shared variables/pointers.  The 'g' mask
+            does <b>not</b> include 'local' gets (i.e. reads from shared memory
+            which has affinity to the reading UPC thread), as these do not
+            result in network traffic.  Use '<b>H</b>' to
+            trace local gets.
+        </td>
+    </tr>
+    <tr>
+        <td><b>P</b></td>
+        <td>Network 'puts'. These include both bulk puts (from
+            <tt>upc_memput</tt>, etc.), and put operations caused by
+            writing to shared memory via variables/pointers.  The 'P' mask
+            does <b>not</b> include 'local' puts (i.e. writes to shared memory
+            which has affinity to the writing UPC thread), as these do not
+            result in network traffic.  Use '<b>H</b>' to trace local puts.
+        </td>
+    </tr>
+    <tr>
+        <td><b>B</b></td>
+        <td>Barriers, including both blocking (<tt>upc_barrier</tt>) and
+            non-blocking (<tt>upc_notify</tt> followed by <tt>upc_wait</tt>:
+            a pair of these count as a single barrier).
+        </td>
+    </tr>
+    <tr>
+        <td><b>N</b></td>
+        <td>Line number information from UPC source files.  <b>The "N" and "H" flags must always be among those set for <tt>upc_trace</tt> to work!</b></td>
+    </tr>
+    <tr>
+        <td><b>H</b></td>
+        <td>Miscellaneous UPC information. <b>The "N" and "H" flags must always
+                be among those set for <tt>upc_trace</tt> to work!</b>  Passing
+            this flag causes the following things to be traced:
+
+            <ul>
+
+                <li>UPC lock functions ('<tt>upc_lock</tt>',
+                '<tt>lock_attempt</tt>', and '<tt>upc_unlock</tt>').
+
+                <li>UPC collective operations (besides barriers, which are
+                controlled by '<b>B</b>').
+
+                <li>'Local' puts/gets, i.e. gets and puts to shared memory which
+                has affinity to the issuing UPC thread (which thus do not result
+                in network traffic).  Tracing local gets/puts can
+                significantly expand the size of the trace file (and the time it
+                takes to run 'upc_trace', so if you are not interested in
+                viewing them, consider omitting them from the trace file.  You
+                can do this by setting
+                the '<tt>GASNET_TRACELOCAL</tt>' environment variable to
+                "no" (or "0").  You may also selectively turn on/off local
+                tracing during program execution by calling the
+                '<tt>bupc_trace_settracelocal()</tt>' function (described
+                below).  Local get/put tracing only includes accesses performed
+                through pointers-to-shared or the bulk '<tt>upc_memget</tt>', etc.,
+                functions: it does not include accesses to shared memory made
+                via 'localized' pointers, i.e., pointers-to-shared that have been
+                cast to a pointer-to-local ("regular C pointers").
+
+                <li>UPC memory allocation operations, i.e.,
+                '<tt>upc_alloc</tt>', '<tt>upc_all_alloc</tt>',
+                '<tt>upc_global_alloc</tt>', and '<tt>upc_free</tt>' function
+                calls.  (Note: allocation operations are not currently reported
+                by '<tt>upc_trace</tt>':  if you wish to examine where/when your
+                program run has called allocation functions, you must examine
+                the trace file by hand.)
+
+                <li>'Strict' UPC operations.  (Note: 'strict' operations are not
+                currently reported by '<tt>upc_trace</tt>':  if you wish to
+                examine where/when your program run has executed 'strict'
+                operations, you must examine the trace file by hand.)
+  
+<!--  Flags users don't need to know about for now:
+
+    <tr>
+        <td><b>L</b></td>
+        <td>Lock/unlock operations</td>
+    </tr>
+    <tr>
+        <td><b>S</b></td>
+        <td>Non-blocking synchronization</td>
+    </tr>
+    <tr>
+        <td><b>W</b></td>
+        <td>Collective operations (excluding barriers)</td>
+    </tr>
+    <tr>
+        <td><b>X</b></td>
+        <td>Collective synchronization (excluding barriers)</td>
+    </tr>
+    <tr>
+        <td><b>A</b></td>
+        <td>Active-Message (AM) requests/replies</td>
+    </tr>
+    <tr>
+        <td><b>I</b></td>
+        <td>Informational messages about system status or performance alerts</td>
+    </tr>
+    <tr>
+        <td><b>C</b></td>
+        <td>Network/conduit-specific messages (low level)</td>
+    </tr>
+    <tr>
+        <td><b>D</b></td>
+        <td>Detailed message data for gets, puts, and AMreqrep</td>
+    </tr>
+
+-->
+            </ul>
+        </td>
+    </tr>
+</table>
+</center>
+
+<p>To trace only a subset of these features, set the '<tt>GASNET_TRACEMASK</tt>'
+environment variable to a string containing the ID's of the features you wish to
+trace.  <b>Note that the "N" and "H" flags must always be among those set for
+    '<tt>upc_trace</tt>' to work</b> (if you are intending to
+manually examine the trace file, they do not need to be set).
+
+<p>So, for instance, if you are trying to perform an analysis
+that does not require get/put information, you are highly
+advised to set '<tt>GASNET_TRACEMASK</tt>' to "BHN" and
+'<tt>GASNET_TRACELOCAL</tt>' to "no" (or "0").  This will turn off tracing for
+all get and put operations.  Since gets/puts are typically the majority of items
+in a full trace file, this will probably result in much faster program
+execution, a much smaller trace file, and faster analysis by
+'<tt>upc_trace</tt>'.
+
+<h3>Controlling tracing during runtime</h3>
+
+For even more control over tracing, you may call the following functions in your
+program to set the trace mask dynamically, read its current value, and/or insert
+your own custom messages into the trace file:
+
+<pre>
+    extern void         <b>bupc_trace_setmask</b> (const char *newmask);
+    extern const char * <b>bupc_trace_getmask</b> (void);
+    extern int          <b>bupc_trace_gettracelocal</b> (void);
+    extern void         <b>bupc_trace_settracelocal</b> (int val);
+    void                <b>bupc_trace_printf</b> ((const char *msg, ...));
+</pre>
+
+'<tt>bupc_trace_getmask</tt>' and '<tt>bupc_trace_setmask</tt>'
+   allow programmatic retrieval and modification of the trace 
+   masks in effect for the calling thread.
+   The initial values are determined by the '<tt>GASNET_TRACEMASK</tt>' 
+   environment variables, and the input and output to the mask manipulation
+   functions have the same format as '<tt>GASNET_TRACEMASK</tt>' values.
+   <b>Note that whenever any tracing is enabled (i.e. unless you are temporarily
+       turning off tracing by passing an empty string), the "N" and "H" flags
+       must always be among those set for '<tt>upc_trace</tt>' to work</b>.<br>
+'<tt>bupc_trace_{get,set}tracelocal</tt>'
+   allow the calling thread to programmatically enable/disable tracing of 
+   local put/get operations, which correspond to pointer-to-shared accesses
+   that actually have local affinity (and therefore invoke no network communication). <br><br>
+
+   Different UPC threads may set different masks and tracelocal settings, but note 
+   that in pthreaded UPC jobs all pthreads in a process share these values.
+   These functions have no effect if trace and stats communication profiling are
+   disabled at upcr configure time, or are not enabled for the current run.
+
+<pre>
+   Ex: 
+     bupc_trace_setmask("PGHN");   // trace everything
+     bupc_trace_settracelocal(1);  // include local puts and gets 
+     // do something...
+     bupc_trace_setmask("");      // stop tracing
+</pre>
+
+<p>The '<tt>bupc_trace_printf</tt>' utility outputs a message into the 
+trace file, if it exists.  Note that two sets of parentheses are required when
+invoking this operation, in order to allow it to compile away completely for
+non-tracing builds.
+<pre>
+  Ex:   double A[4] = ...; 
+        int i = ...;
+        bupc_trace_printf(("the value of A[%i] is: %f", i, A[i]));
+</pre>
+
+<p><hr>
+<a name="stats"><h2>Gathering application statistics</h2></a>
+
+Berkeley UPC also provides the ability to generate a 'stats' report, which
+contains a statistical summary of program activity.  While this report does not
+give as much information as provided by <a href="#tracing">tracing</a>, it does
+contain such information as the total number of get/put operations, barriers,
+etc.  (although these cannot be traced back to specific lines of code, as
+'<tt>upc_trace</tt>' provides).  But the stats report is generally much smaller
+than the average trace file, so it may be useful if you are finding that tracing
+is adding too much overhead to your program runs.
+
+<p>To generate statistics, simply set the '<tt>GASNET_STATSFILE</tt>'
+environment variable to a file name, into which statistics will be written at
+the end of your program's run.  (Note: by default, only debug executables
+support statistics generation, as it incurs a performance penalty:  if you wish
+to have non-debug UPC executables generate statistics, you must rebuild your
+UPC runtime system, passing '<tt>--with-multiconf=+opt_trace</tt>' to configure, 
+then build your application with '<tt>upcc -trace</tt>'.)
+You may generate both stats and tracing info for the same program run if you
+wish.
+
+<p>Just as with tracing, you may set a mask to control what types of events
+are included in the statistics, by setting the '<tt>GASNET_STATSMASK</tt>'
+environment variable, and/or by calling the following functions:
+
+<pre>
+    extern void         <b>bupc_stats_setmask</b> (const char *newmask);
+    extern const char * <b>bupc_stats_getmask</b> (void);
+</pre>
+
+The same mask IDs are used by the tracing and statistics masks, i.e., calling
+'<tt>bupc_stats_setmask("BP")</tt>' would cause execution to gather statistics
+only for barriers and puts.  See the table in the <a href="#tracing">
+    tracing documentation</a> for the list of IDs.
+
+<p><hr>
+<a name="profiling"><h2>Profiling UPC Programs with 'upcc -pg' and 'gprof'</h2></a>
+
+The standard GNU '<tt>gprof</tt>' profiling tool can be used with Berkeley UPC
+programs, if your backend C compiler supports gprof (this is autodetected at
+configure time).  Simply compile your UPC program with '<tt>upcc -pg</tt>'.
+When you run the program, one or more '<tt>gmon.out</tt>' files are generated
+(if your UPC program consists of multiple processes, one file per process is
+created, each in it's own '<tt>gmon.out.<i>process_number</i></tt>'
+subdirectory).  You can then use '<tt>gprof</tt>' on one or more of these files
+(if multiple files are passed, the statistics are combined):
+
+<pre>
+    upcc -pg foo.c
+    upcrun -n 2 a.out
+    gprof a.out gmon.out.0/gmon.out gmon.out.1/gmon.out | less
+</pre>
+
+Note that '<tt>gprof</tt>' provides timings and statistics for processor usage:
+it does not include time during which the process has been put to sleep waiting
+for I/O (including network reads/writes).  However, since Berkeley UPC uses
+spin-locks in many cases to wait for network events, rather than blocking system
+calls, you may see that certain '<tt>gasnet*</tt>' functions consume large
+amounts of CPU time.  This generally means that your program is spending most of
+that time waiting for network communication to complete (some fraction is the
+software overhead inherent in sending/receiving the network traffic).  If your
+program spends a lot of time waiting for network operations to complete, you may
+be suffering from an imbalanced load across threads (so that some take longer to
+"catch up" to a barrier, for instance).  Restructuring your application may
+avoid these waiting periods.  Or you may be able to use some of this "spare"
+time for computation (or other network traffic) by switching to use non-blocking
+barriers (i.e., '<tt>upc_notify/upc_wait</tt>'), and/or our <a
+    href="#VIS">non-contiguous memcpy extensions to UPC</a>.  Replace blocking
+network constructs (such as '<tt>upc_barrier</tt>', '<tt>upc_memcpy</tt>', and
+read/writes to shared variables) with non-blocking equivalents, and insert
+unrelated computation (and/or network traffic) in between the initialization and
+completion calls.  Of course, you must be able to find unrelated
+computation/communication for this to work, and the degree to which this is
+possible will depend on your application.
+
+<p><hr>
+<h2><a name="extensions">Berkeley-specific extensions to the UPC Language</a></h2>
+
+<h3><a name="NB">Non-blocking memcpy functions</a> (partially deprecated)</h3>
+<p><b>NOTICE:</b> A large portion of this Berkeley-specific extension is now <b>officially deprecated</b>
+in favor of the standardized version adopted into the official UPC specification.
+See below for details.</p>
+
+As of 2.0, Berkeley UPC fully implements a set of non-blocking extensions to
+the '<tt>upc_memcpy()</tt>' function for contiguous data.  These extensions
+allow you to explicitly overlap memcpy-like functions with computation (and/or with
+other memcpy calls).
+
+<p>The full interface is described in sections 2 through 4 of our <a class='download'
+    href="http://upc.lbl.gov/publications/upc_memcpy.pdf">Proposal for Extending
+    the UPC Memory Copy Library Functions</a>.  See that document for details on
+the functions and their usage.
+
+<p><b>NOTICE:</b>
+The following interfaces have been adopted in the
+<a class='download' href="upc-lib-optional-spec-1.3.pdf">UPC Optional Library Specifications, Version 1.3</a>,
+with semantics compatible to a subset of those given in the document referenced above, 
+and are available in Berkeley UPC beginning with the 2.18 release.
+Users are strongly encouraged to develop new codes using the standardized interfaces
+and to migrate existing code to them.
+The corresponding portion of the Berkeley-specific non-blocking interfaces 
+(specifically, those operating on contiguous data) are now <b>officially deprecated</b>,
+and the <tt>'bupc_'</tt> prefixed equivalents of those functions will be removed in a future version.
+
+<pre>
+    #define     __UPC_NB__  1  // predefined feature macro
+    #include    &lt;upc_nb.h&gt;     // defines the following:
+
+    // Explicit-handle non-blocking operations and synchronization:
+    typedef      <i>...</i> <b>upc_handle_t</b>;
+    #define      <b>UPC_COMPLETE_HANDLE</b> <i>...</i>
+    upc_handle_t <b>upc_memcpy_nb</b>(shared void * restrict dst,
+                               shared const void * restrict src,
+                               size_t n);
+    upc_handle_t <b>upc_memget_nb</b>(void * restrict dst,
+                               shared const void * restrict src,
+                               size_t n);
+    upc_handle_t <b>upc_memput_nb</b>(shared void * restrict dst,
+                               const void * restrict src,
+                               size_t n);
+    upc_handle_t <b>upc_memset_nb</b>(shared void *dst, int c, size_t n);
+    int          <b>upc_sync_attempt</b>(upc_handle_t handle);
+    void         <b>upc_sync</b>(upc_handle_t handle);
+
+    // Implicit-handle non-blocking operations and synchronization:
+    void <b>upc_memcpy_nbi</b>(shared void * restrict dst,
+                        shared const void * restrict src,
+                        size_t n);
+    void <b>upc_memget_nbi</b>(void * restrict dst,
+                        shared const void * restrict src,
+                        size_t n);
+    void <b>upc_memput_nbi</b>(shared void * restrict dst,
+                        const void * restrict src,
+                        size_t n);
+    void <b>upc_memset_nbi</b>(shared void *dst, int c, size_t n);
+    int  <b>upc_synci_attempt</b>(void);
+    void <b>upc_synci</b>(void);
+</pre>
+
+<p><b>NOTE:</b>
+The types <tt>upc_handle_t</tt> and <tt>bupc_handle_t</tt> are
+interchangable.  One may freely mix the standard library
+calls in <tt>upc_nb.h</tt> with the Berkeley-specifc
+interfaces for contiguous non-blocking memcpy.
+
+<h3><a name="VIS">Non-contiguous memcpy functions</a></h3>
+
+As of 2.0, Berkeley UPC fully implements a set of extensions to the
+'<tt>upc_memcpy()</tt>' function for use with non-contiguous data.
+These extensions provide versions that allow you to specify
+non-contiguous memory regions to get/put, and include both blocking
+and non-blocking versions.
+
+<p>The full interface is described in sections 5 and 6 of our <a class='download'
+    href="http://upc.lbl.gov/publications/upc_memcpy.pdf">Proposal for Extending
+    the UPC Memory Copy Library Functions</a>.  See that document for details on
+the functions and their usage.
+
+<p><b>NOTE:</b>
+The types <tt>upc_handle_t</tt> and <tt>bupc_handle_t</tt> are
+interchangable.  One may freely mix the standard library
+calls in <tt>upc_nb.h</tt> with the Berkeley-specifc
+interfaces for non-contiguous memcpy.
+
+<h3><a name="PTP">Point-to-point synchronization functions</a></h3>
+
+As of 2.2, Berkeley UPC implements a set of point-to-point synchronization
+functions, partly based on the POSIX semaphore interfaces.  These extensions
+allow you to explicitly synchronize between pairs of UPC threads, and to
+associate synchronization with data transfer.
+
+<p>The full interface is described in our <a class='download'
+    href="http://upc.lbl.gov/publications/upc_sem.pdf">Proposal for Extending
+    the UPC Libraries with Explicit Point-to-Point Synchronization Support</a>.
+See that document for details on the functions and their usage.
+
+<h3><a name="collectivev">Value-based collectives convenience interface (bupc_collectivev.h)</a></h3>
+
+This library wrapper provides a value-based convenience interface to the UPC
+collectives library that is part of UPC 1.2. There is a small amount of
+optimization for Berkeley UPC, but the wrapper is generic and can be used with
+any fully UPC-1.2 compliant implementation of the UPC collectives library. All
+operations are implemented as thin wrappers around that library.
+
+In most cases, operands to this library are simple values, and nothing is
+required to be single-valued except for the data type in use and the root
+thread identifier (in the case of rooted collectives).  The purpose of this
+wrapper is to provide convenience for scalar-based collective operations,
+especially in cases where there are not multiple values available to be
+communicated in aggregate (in which case the full array-based UPC collectives
+interface is likely to use fewer messages and achieve better performance) or
+for use in setup code (where performance is secondary to simplicity).
+
+See the <a href="README-collectivev.txt">collectivev documentation</a> for full
+interface details.
+
+<h3><a name="allredall">The 'bupc_all_reduce_all' function family</a></h3>
+
+This is an extension to the 
+<a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Collectives Specification</a>.  
+The '<tt>bupc_all_reduce_all</tt>' functions
+behave identically to the '<tt>upc_all_reduce</tt>' functions, except that the
+'<tt>dest</tt>' argument has the semantics of the '<tt>dest</tt>' argument to
+'<tt>upc_all_broadcast</tt>', i.e. the result of the reduction is broadcast to
+all threads, instead of just one.
+
+<h3><a name="bupc_dump_shared">The 'bupc_dump_shared' function</a></h3>
+
+Pointers-to-shared in UPC are logically composed of three fields: a 'local address' of
+the object referenced by the pointer-to-shared, 
+the identifier of the UPC thread with affinity to the
+referent object (the thread where that local address is valid), 
+and the 'phase' of the pointer-to-shared (see the 
+<a class='download' href="upc-lang-spec-1.3.pdf">UPC Language Specification</a> for an
+explanation of pointer-to-shared phase).  Our version of UPC provides a
+'<tt>bupc_dump_shared</tt>' function that will write a description of these
+fields into a character buffer that the user provides:
+
+<pre>
+    int bupc_dump_shared(shared const void *ptr, char *buf, int maxlen);
+</pre>
+
+Any pointer-to-shared may be passed to this function.  The '<tt>maxlen</tt>'
+parameter gives the length of the buffer pointed to by '<tt>buf</tt>', and this
+length must be at least <tt>BUPC_DUMP_MIN_LENGTH</tt>, or else -1 is returned,
+and <tt>errno</tt> set to <tt>EINVAL</tt>.  On success, the function returns 0, 
+The buffer will contain either "&lt;NULL&gt;" if the pointer-to-shared == NULL, or a
+string of the form 
+
+<pre>
+    "&lt;address=0x1234 (addrfield=0x1234), thread=4, phase=1&gt;" 
+</pre>
+
+The 'address' field provides the virtual address for the pointer, while the
+'addrfield' shows the actual contents of the pointer-to-shared address bits 
+(as returned by <tt>upc_addrfield</tt>).
+On some configurations these values may be the same (if the full address of the
+pointer can be fit into the address bits), while on others they may be quite
+different (if the address bits store an offset from a base initial address
+that may differ from thread to thread).
+
+<p>Both <tt>bupc_dump_shared()</tt> and <tt>BUPC_DUMP_MIN_LENGTH</tt> are visible
+when any of the standard UPC headers (<tt>upc.h</tt>, <tt>upc_relaxed.h</tt>, or
+<tt>upc_strict.h</tt>) are #included.
+
+
+<h3><a name="bupc_ptradd">The 'bupc_ptradd' function</a></h3>
+
+Blocked pointers-to-shared in UPC are currently restricted to being declared with
+a compile-time constant block size. This can present problems in situations
+where the desired block size of a given array is input-dependent or otherwise unknown
+at compile time, and one wishes to conveniently access the array elements
+in layout order according to a specific block size.
+
+<p>The '<tt>bupc_ptradd()</tt>' function provides support for performing pointer-to-shared 
+arithmetic with variable blocksize, which need not be a compile-time constant. 
+
+<pre>
+  shared void * bupc_ptradd(shared void *p, size_t blockelems, size_t elemsz, ptrdiff_t elemincr);
+    - 'p': the base pointer
+    - 'blockelems': the block size (number of elements in a block)
+    - 'elemsz': the element size (usually sizeof(*p))
+    - 'elemincr': the positive or negative offset from the base pointer
+</pre>
+
+<p>The following call:
+<pre>
+    bupc_ptradd(p, blockelems, sizeof(T), elemincr);
+</pre>
+Returns a value q as if it had been computed:
+<pre>
+    shared [blockelems] T *q = p;
+    q += elemincr;
+</pre>
+however, the blockelems argument is not required to be a compile-time constant.
+Blockelems must be non-negative, but may be zero to indicate an indefinite blocking factor.
+Here's an example of indexing into a dynamically-allocated array whose
+block size is not known until run time.
+
+<pre>
+  int blockelems = ...; // choose some arbitrary block size
+
+  // allocate an array of doubles with that blocksize
+  shared void *myarr = upc_all_alloc(..., blockelems*sizeof(double)); 
+
+  // access element 14
+  double d = *(shared double *)bupc_ptradd(myarr, blockelems, sizeof(double), 14);
+</pre>
+
+<p>It's worth noting that in some cases <tt>bupc_ptradd()</tt> may be less
+efficient than regular pointer-to-shared addition, because the compile-time
+constant blocksize of the pointer referent type generally makes the latter more
+amenable to compiler optimization of the addition operation and surrounding
+code. This is especially true in the case of indefinitely-blocked or 
+cyclically-blocked pointers-to-shared.  However, the potential cost may be worth the added
+convenience in non-performance-critical code.
+
+<h3><a name="bupc_poll">The 'bupc_poll' function</a></h3>
+
+The '<tt>bupc_poll()</tt>' function explicitly causes the UPC runtime to attempt
+to make progress on any network requests that may be pending.  
+
+<p>You will normally not need to call this function, as the runtime will
+automagically perform checks for incoming network requests whenever your UPC
+code causes network activity to be performed, and this usually occurs fairly
+frequently in a UPC application.  However, if you writing your own 'spin lock'
+style synchronization, you may need to use this function to avoid deadlock.
+Here is an example:
+
+<pre>
+    shared strict int flag[THREADS];
+
+    ...
+
+    if (MYTHREAD % 2) {
+        while (flag[MYTHREAD] == 0)
+            bupc_poll();
+    } else {
+        ... some calculation ...
+        flag[MYTHREAD + 1] = 1;
+    }
+</pre>
+
+Here the 'even' UPC threads are performing some calculation, then informing the
+'odd' threads that the result is ready by setting a per-thread flag.  If the
+'<tt>bupc_poll()</tt>' were omitted, the 'odd' threads might (on certain
+platforms/networks) consume all of the CPU forever in the '<tt>while</tt>' test,
+never checking for the incoming network message that would set flag[MYTHREAD].
+
+<p>If a program contains computationally intensive sections in which no remote
+accesses are performed for a long time, it is also possible that performance may
+be improved by intermittently calling <tt>bupc_poll</tt>, particularly if other
+threads are likely to be performing communication (eg. remote accesses, lock synchronization, 
+shared memory allocation, etc.) during this time.  
+
+<h3><a name="bupc_assert_type">The 'bupc_assert_type' built-in</a> (Berkeley UPC translator only)</h3>
+
+The '<tt>bupc_assert_type(expr, type)</tt>' built-in operation allows
+testing for compile-time type equality, and is primarily used by our UPC
+compiler test suite.
+
+<ol>
+    <li>'<tt>expr</tt>' = any arbitrary (legal) UPC expression
+    <li>'<tt>type</tt>' = any legal C/UPC type
+</ol>
+
+<p>If '<tt>expr</tt>' has a static type which is identical to '<tt>type</tt>',
+does nothing.  Otherwise, prints a non-fatal warning containing the line number
+and a description of the two differing types.
+
+
+
+<h3><a name="timer">High-precision wall-clock timer support</a> (deprecated)</h3>
+<p><b>NOTICE:</b> This Berkeley-specific extension is now <b>officially deprecated</b>
+in favor of the standardized version adopted into the official UPC specification.
+See the end of this section for details.</p>
+
+<pre>
+    typedef     <i>...</i> <b>bupc_tick_t</b>; /* 64-bit integral type */
+    #define     <b>BUPC_TICK_MAX</b> <i>...</i>
+    #define     <b>BUPC_TICK_MIN</b> <i>...</i>
+    bupc_tick_t <b>bupc_ticks_now</b> (void);
+    uint64_t    <b>bupc_ticks_to_us</b> (bupc_tick_t ticks);
+    uint64_t    <b>bupc_ticks_to_ns</b> (bupc_tick_t ticks);
+    double      <b>bupc_ticks_granularityus</b> (void); 
+    double      <b>bupc_ticks_overheadus</b> (void);
+</pre>
+
+The '<tt>bupc_tick_t</tt>' type and associated functions provide portable support for
+querying high-precision system timers for obtaining wall-clock timings of
+sections of code. Most CPU hardware offers access to high-performance timers
+with a handful of instructions, providing timer precision and overhead that can
+be several orders of magnitude better than can be obtained through the use of
+the <tt>gettimeofday()</tt> system call.
+
+<p>The '<tt>bupc_tick_t</tt>' type represents an integral quantity of abstract timer ticks,
+whose ratio to real time is system-dependent and thread-dependent.
+<tt>bupc_ticks_now()</tt> returns
+the current value of the tick timer for the calling thread, using the fastest mechanism available.
+<tt>bupc_ticks_to_us()</tt> and <tt>bupc_ticks_to_ns()</tt> convert
+a difference in bupc_tick_t values obtained by the calling thread into microseconds or nanoseconds, respectively. 
+The <tt>bupc_ticks_to_{us,ns}()</tt> conversion calls can be significantly
+more expensive than the <tt>bupc_ticks_now()</tt> tick query, so for timing short
+intervals it's recommended to keep timing results in units of ticks until final output.
+<tt>BUPC_TICK_MAX</tt> and <tt>BUPC_TICK_MIN</tt> provide tick values which are respectively larger and
+smaller than any possible tick value. <tt>bupc_ticks_granularityus()</tt> and
+<tt>bupc_ticks_overheadus()</tt> respectively report the estimated microsecond
+granularity (minimum time between distinct ticks) and microsecond overhead
+(time it takes to read a single tick value, not including conversion) for the timer facility.
+
+<pre>
+Example:
+
+  bupc_tick_t start = bupc_ticks_now();
+    compute_foo(); /* do something that needs to be timed */
+  bupc_tick_t end = bupc_ticks_now();
+
+  printf("Time was: %d microseconds\n", (int)bupc_ticks_to_us(end-start));
+
+  printf("Timer granularity: &lt;= %.3f us, overhead: ~ %.3f us\n",
+       bupc_tick_granularityus(), bupc_tick_overheadus());
+  printf("Estimated error: +- %.3f %%\n",
+      100.0*(bupc_tick_granularityus()+bupc_tick_overheadus()) /
+            bupc_ticks_to_us(end-start));
+</pre>
+
+It's important to keep in mind that raw bupc_tick_t values are thread-specific
+quantities with a thread-specific interpretation (e.g. they might represent a
+hardware cycle count on a particular CPU, starting at some arbitrary time in
+the past).  More specifically, raw ticks do <b>NOT</b> provide a
+globally-synchronized timer (i.e. the simultaneous absolute tick values may
+differ across threads), and furthermore the tick-to-wallclock conversion ratio
+might also differ across threads (e.g. on a cluster with heterogenerous CPU
+clock rates, the raw tick values may advance at different rates for different
+threads). Therefore as a rule of thumb, raw bupc_tick_t values and bupc_tick_t
+intervals obtained by <b>different</b> threads should never be directly
+compared or arithmetically combined, without first converting the relevant tick
+intervals to wall time intervals.
+
+<p><b>NOTICE:</b>
+The following interfaces have been adopted in the
+<a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Required Library Specifications, Version 1.3</a>,
+with similar semantics to those as described above, 
+and are available in Berkeley UPC beginning with the 2.16 release.
+Users are strongly encouraged to develop new codes using the standardized interfaces
+and to migrate existing code to them.
+The Berkeley-specific <tt>'bupc_'</tt> prefixed variants are now <b>officially deprecated</b>
+in favor of the standardized variant, and will be removed in a future version.
+
+<pre>
+    #define     __UPC_TICK__  1  // predefined feature macro
+    #include    &lt;upc_tick.h&gt;     // defines the following:
+    typedef     <i>...</i> <b>upc_tick_t</b>;
+    #define     <b>UPC_TICK_MAX</b> <i>...</i>
+    #define     <b>UPC_TICK_MIN</b> <i>...</i>
+    upc_tick_t  <b>upc_ticks_now</b> (void);
+    uint64_t    <b>upc_ticks_to_ns</b> (upc_tick_t ticks);
+</pre>
+
+<h3><a name="threaddist">Runtime thread layout query for hierarchical systems</a></h3>
+
+<pre>
+    unsigned int <b>bupc_thread_distance</b>(int threadX, int threadY); 
+    #define     <b>BUPC_THREADS_SAME</b>     <i>...</i>
+    #define     <b>BUPC_THREADS_VERYNEAR</b> <i>...</i>
+    #define     <b>BUPC_THREADS_NEAR</b>     <i>...</i>
+    #define     <b>BUPC_THREADS_FAR</b>      <i>...</i>
+    #define     <b>BUPC_THREADS_VERYFAR</b>  <i>...</i>
+</pre>
+
+<tt>bupc_thread_distance</tt> takes two thread identifiers (whose values must be in
+<tt>0..THREADS-1</tt>, otherwise behavior is undefined), and returns an unsigned integral
+value which represents an approximation of the abstract 'distance' between
+the hardware entity which hosts the first thread, and the hardware entity
+which hosts the memory with affinity to the second thread. In this context
+'distance' is intended to provide an approximate and relative measure of
+expected best-case access time between the two entities in question. Several
+abstract 'levels' of distance are provided as pre-defined constants for user
+convenience, which represent monotonically non-decreasing 'distance':
+<ul>
+<li><tt>BUPC_THREADS_SAME</tt> (must be defined to 0)  
+  implies threadX == threadY
+
+<li><tt>BUPC_THREADS_VERYNEAR</tt>
+  implies threadX has the closest possible distance (fastest access) to
+  threadY's memory without being the same actual thread
+
+<li><tt>BUPC_THREADS_NEAR</tt>
+  implies distance not less than <tt>BUPC_THREADS_VERYNEAR</tt>, 
+  but not more than <tt>BUPC_THREADS_FAR</tt>
+
+<li><tt>BUPC_THREADS_FAR</tt>
+  implies distance not less than <tt>BUPC_THREADS_NEAR</tt>, 
+  but not more than <tt>BUPC_THREADS_VERYFAR</tt>
+
+<li><tt>BUPC_THREADS_VERYFAR</tt>
+  implies threadX has the farthest possible distance (slowest access) to
+  threadY's memory
+</ul>
+<p>These constants have implementation-defined integral values which are
+monotonically increasing in the order given above. Implementations may add
+further intermediate level with values between <tt>BUPC_THREADS_VERYNEAR</tt> 
+and <tt>BUPC_THREADS_VERYFAR</tt> (with no corresponding define) to represent
+deeper hierarchies, so users should test against the constants using &lt;= or
+&gt;= instead of ==.
+
+<p>The intent of the interface is for users to not rely on the physical
+significance of any particular level and simply test the differences to discover
+which threads are <b>relatively</b> closer than others. Implementations are 
+encouraged to document the physical significance of the various levels whenever
+possible (see below), however any code based on assuming exactly N levels of hierarchy
+or a fixed significance for a particular level will probably not be
+performance portable to different implementations or machines.
+
+<p>
+The relation is symmettric, ie:
+<tt>bupc_thread_distance(X,Y) == bupc_thread_distance(Y,X)</tt><br>
+but the relation is <b>not</b> transitive, ie: 
+<tt>bupc_thread_distance(X,Y) == A &amp;&amp; bupc_thread_distance(Y,Z) == A </tt>
+does <b>NOT</b> imply <tt>bupc_thread_distance(X,Z) == A</tt>
+
+<p> Furthermore, the value of <tt>bupc_thread_distance(X,Y)</tt> is guaranteed to be
+unchanged over the span of a single program execution, and the same value is
+returned regardless of the thread invoking the query.
+
+<p> Currently the significance of the <tt>BUPC_THREADS_*</tt> constants
+is as follows:
+<center>
+<table>
+<table border="1" cellpadding="1" cellspacing="1">
+    <tr bgcolor="yellow">
+        <td>Value</td>
+        <td>Meaning(s)</td>
+    </tr>
+    <tr>
+        <td>BUPC_THREADS_SAME</td>
+        <td>Only returned when <tt>threadX == threadY</tt>.</td>
+    </tr>
+    <tr>
+        <td>BUPC_THREADS_VERYNEAR</td>
+        <td><tt>threadX</tt> and <tt>threadY</tt> will communicate through shared memory.<br>
+           May include pthreads in the same process when compiled with <tt>-pthreads</tt>,
+           and processes in the same compute node when PSHM support is available.</td>
+    </tr>
+    <tr>
+        <td>BUPC_THREADS_NEAR</td>
+        <td><tt>threadX</tt> and <tt>threadY</tt> are in the same compute node, but
+            will communicate using the network API.<br>
+            This may occur because either PSHM support is
+            not available or the <tt>-pshm-width</tt> flag to <tt>upcrun</tt> has
+            placed these threads in disjoint shared memory domains.</td>
+    </tr>
+    <tr>
+        <td>BUPC_THREADS_FAR</td>
+        <td>This value is not currently used.</td>
+    </tr>
+    <tr>
+        <td>BUPC_THREADS_VERYFAR</td>
+        <td><tt>threadX</tt> and <tt>threadY</tt> are on different compute nodes.</td>
+    </tr>
+</table>
+</center>
+
+<h3><a name="castable">Castability of pointers-to-shared</a></h3>
+<h4>Converting a pointer to "remote" shared data into a pointer-to-local (deprecated)</h4>
+<p><b>NOTICE:</b> This Berkeley-specific extension is now <b>officially deprecated</b>
+in favor of the standardized version adopted into the official UPC specification.
+See the end of this section for details.</p>
+
+<pre>
+    int bupc_castable(shared void *ptr);
+    int bupc_thread_castable(unsigned int threadnum);
+    void * bupc_cast(shared void *ptr);
+</pre>
+
+<p>This family of functions implements a UPC language extension propsed
+by Brian Wibecan of HP.  Their purpose is to allow a UPC programmer to take advantage
+of UPC implementations in which some or all of the shared data with affinity to a given
+UPC thread can be directly addressed by other UPC threads using a pointer-to-local.
+
+<p>We use the term 'castable' to denote that the UPC implementation is able to represent
+a given pointer-to-shared using a pointer-to-local on a given thread.  Any
+pointer-to-shared with affinity to a thread is guaranteed (by the language spec) 
+to castable by that same thread.
+However, in general shared storage with affinity to one thread is not castable
+by other threads.  Depending on the UPC implementation, it is possible
+that for a given pair of threads either all, none, or only some of the shared address
+space with affinity to the first may be castable by the second.
+
+<p><tt>bupc_castable()</tt> takes a pointer-to-shared as argument and returns
+non-zero if and only if the argument is castable by the calling thread.  It is
+guaranteed that a call to <tt>bupc_castable()</tt> with an argument having affinity
+to the calling thread will always return non-zero.
+
+<p><tt>bupc_thread_castable()</tt> takes a UPC thread number as argument
+and returns non-zero if and only if <i>every</i> pointer-to-shared with affinity
+to the argument thread is castable by the calling thread.  It is guaranteed that
+<tt>bupc_thread_castable(MYTHREAD)</tt> is always non-zero.
+
+<p><tt>bupc_cast()</tt> takes a pointer-to-shared as argument and returns a
+pointer-to-local.  The returned pointer may be used to reference the same object
+as the argument <i>only</i> if the argument pointer is castable by the calling
+thread, as may determined by <tt>bupc_castable()</tt> or <tt>bupc_thread_castable()</tt>.
+Otherwise the returned pointer is NULL.
+
+<p><b>NOTICE:</b>
+The following interfaces have been adopted in the
+<a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Optional Library Specifications, Version 1.3</a>,
+with similar semantics to those as described above, 
+and are available in Berkeley UPC beginning with the 2.16.2 release.
+Users are strongly encouraged to develop new codes using the standardized interfaces
+and to migrate existing code to them.
+The Berkeley-specific <tt>'bupc_'</tt> prefixed variants are now <b>officially deprecated</b>
+in favor of the standardized variant, and will be removed in a future version.
+
+<pre>
+    void *<b>upc_cast</b>(const shared void *ptr);
+    upc_thread_info_t <b>upc_thread_info</b>(size_t threadnum);
+</pre>
+
+<h4>Converting a pointer-to-local referencing shared data into a pointer-to-shared</h4>
+<p>In addition to the functions described in the previous section, Berkeley UPC 2.14.2 and
+later implement an 'inverse cast' function:
+<pre>
+    shared void * bupc_inverse_cast(void *ptr);
+</pre>
+This function takes a pointer-to-local argument and returns a pointer-to-shared (with zero phase)
+referencing the same location if and only if the argument references a UPC shared object.
+If the argument is NULL or references a location not in the UPC shared space, then 
+a null pointer-to-shared is returned.
+
+<h3><a name="atomics">The 'bupc_atomic*' function family</a></h3>
+<p><b>NOTICE:</b>  See the end of this section for information on new
+standardized interfaces which will replace a portion of these Berkeley-specific ones
+in a future release.</p>
+
+<h4>Atomic operations with a pointer-to-shared</h4>
+
+Berkeley UPC provides the following extension functions to perform 
+atomic operations on shared memory, referenced via a pointer-to-shared:
+
+<pre>
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_read_<i>RS</i></b>(shared void *ptr);
+    void <b>bupc_atomic</b><i>X</i><b>_set_<i>RS</i></b>(shared void *ptr, <i>type</i> val);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_swap_<i>RS</i></b>(shared void *ptr, <i>type</i> val);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_mswap_<i>RS</i></b>(shared void *ptr, <i>type</i> mask, <i>type</i> val);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_cswap_<i>RS</i></b>(shared void *ptr, <i>type</i> oldval, <i>type</i> newval);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchadd_<i>RS</i></b>(shared void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchand_<i>RS</i></b>(shared void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchor_<i>RS</i></b>(shared void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchxor_<i>RS</i></b>(shared void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchnot_<i>RS</i></b>(shared void *ptr);
+</pre>
+Where <i>type</i> and <i>X</i> take on the values of each pair from the following table, and <i>RS</i> is either `strict' or `relaxed'.
+<center>
+<table border="1" cellpadding="1" cellspacing="1">
+    <tr bgcolor="yellow">
+        <td>Type</td>
+        <td>X</td>
+    </tr>
+    <tr> <td>int</td>		<td>I</td> </tr>
+    <tr> <td>unsigned int</td>	<td>UI</td> </tr>
+    <tr> <td>long</td>		<td>L</td> </tr>
+    <tr> <td>unsigned long</td>	<td>UL</td> </tr>
+    <tr> <td>int64_t</td>	<td>I64</td> </tr>
+    <tr> <td>uint64_t</td>	<td>U64</td> </tr>
+    <tr> <td>int32_t</td>	<td>I32</td> </tr>
+    <tr> <td>uint32_t</td>	<td>U32</td> </tr>
+</table>
+</center>
+<p>
+This family of functions provide atomic read, write and read-modify-write of the
+indicated data types.
+When these functions are used to access a memory location in a given
+synchronization phase, atomicity is guaranteed if and only if no other mechanisms
+(eg. direct read/write operations, memory copy library calls, etc)
+are used by any thread to access the same memory location during that synchronization phase.
+Furthermore, all <tt><b>bupc_atomic</b><i>X</i></tt> accesses to a given 
+memory location from any thread within a single synchronization phase must use the same 
+data type (ie <i>X</i> function variant), 
+and compatible alignment (ie conflicting accesses must overlap fully or not at all).
+Memory accesses performed by the library behave as relaxed or strict with respect
+to surrounding operations, as indicated by the function names.
+
+<p>The <tt>swap</tt> functions set the location given by the first argument to
+the value of the second argument while atomically returning the prior value.  The
+<tt>mswap</tt> (masked swap) functions atomically update the location given by
+the first argument to a value obtained by replacing those bits set in <tt>mask</tt>
+with the corresponding values from <tt>val</tt>, while returning the prior value.
+
+<p>The
+<tt>cswap</tt> (conditional swap) functions atomically set the location given by the first argument to
+the value <tt>newval</tt> only if the current value is equal to <tt>oldval</tt>,
+but return the prior value regardless of whether the write was performed.
+
+<p>
+The <tt>fetchadd</tt> functions atomically add the second argument to the location given
+by the first argument and return the value prior to the addition.  Similarly, the
+<tt>fetchand</tt>, <tt>fetchor</tt> and <tt>fetchxor</tt> functions atomically
+perform the appropriate bit-wise operation and return the value prior to the operation.
+The <tt>fetchnot</tt> functions atomically perform a bit-wise negation of the
+location given by the argument and return the value prior to the negation.
+
+<h4>Atomic operations with a pointer-to-local (deprecated)</h4>
+
+<p> In addition to the relaxed and strict atomic operations on shared data, the following
+<b>officially deprecated</b> functions are available to operate on pointers-to-local.
+
+<pre>
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_read_private</b>(void *ptr);
+    void <b>bupc_atomic</b><i>X</i><b>_set_private</b>(void *ptr, <i>type</i> val);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_swap_private</b>(void *ptr, <i>type</i> val);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_mswap_private</b>(void *ptr, <i>type</i> mask, <i>type</i> val);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_cswap_private</b>(void *ptr, <i>type</i> oldval, <i>type</i> newval);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchadd_private</b>(void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchand_private</b>(void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchor_private</b>(void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchxor_private</b>(void *ptr, <i>type</i> op);
+    <i>type</i> <b>bupc_atomic</b><i>X</i><b>_fetchnot_private</b>(void *ptr);
+</pre>
+
+Other than the type of the first argument, these functions operate identically
+to the relaxed atomics above. More specifically, a call of the form:
+<pre>
+  bupc_atomicX_Y_private(void *ptr, ...)
+</pre>
+is defined to be semantically equivalent to the following construct, 
+which converts the pointer argument and invokes the corresponding relaxed pointer-to-shared variant:
+<pre>
+ bupc_atomicX_Y_relaxed(bupc_inverse_cast(ptr), ...)
+</pre>
+In particular, this implies these functions may only be used on objects
+that reside in UPC shared memory.
+<p>
+
+These pointer-to-local function variants are now <b>officially deprecated</b>. 
+Clients of these functions should immediately migrate to either the pointer-to-shared variants
+(possibly via an <tt>bupc_inverse_cast</tt> call, as above), or to the new atomics interface
+introduced in UPC 1.3 (discussed below).
+
+<h4>Upcoming changes to the atomics interface</h4>
+
+<p><b>NOTICE:</b>
+The 
+<a class='download' href="upc-lib-optional-spec-1.3.pdf">UPC Optional Library Specifications, Version 1.3</a>
+has added a standardized UPC Atomic Memory Operations library in <tt>&lt;upc_atomic.h&gt;</tt>
+that subsumes much of the functionality of this Berkeley-specific extension.
+Beginning with the 2.18.2 release, 
+the Berkeley UPC runtime source distribution includes a portable and compiler-independent
+reference implementation, located in
+<a class='ref' href="http://upc.lbl.gov/download/dist/upc-tests/UPC-Atomic-RefImp/README">
+<tt>upc-tests/UPC-Atomic-RefImp</tt></a>,
+of this new standard API. 
+This BSD-licensed reference implementation is functionally spec-compliant but
+is not designed to be highly performant (atomicity is achieved via UPC locks).
+A high-performance, native implementation of the standard API is forthcoming in
+a future release of Berkeley UPC, at which time the Berkeley-specific API will 
+become deprecated (at least in part).
+Users are encouraged to develop new codes using the standardized interfaces
+and to consider migrating existing code to them.
+
+
+<h3><a name="all_free">Collective deallocation functions</a> (deprecated)</h3>
+<p><b>NOTICE:</b> This Berkeley-specific extension is now <b>officially deprecated</b>
+in favor of the standardized version adopted into the official UPC specification.
+See the end of this section for details.</p>
+
+<pre>
+    void <b>bupc_all_free</b>(shared void *ptr);
+    void <b>bupc_all_lock_free</b>(upc_lock_t *lockptr);
+</pre>
+<p>
+These two functions implement collective alternatives to the standard functions
+<tt>upc_free()</tt> and <tt>upc_lock_free()</tt>, as a convenience to the programmer.  
+Both functions must be called collectively by all threads with the same
+argument. The object referenced by the argument is guaranteed to remain valid
+until all threads have entered the collective deallocation call, but the
+function does not otherwise guarantee any synchronization or strict reference.  In all other
+respects the semantics of these functions and constraints on their usage are
+identical to their non-collective variants.
+
+<p><b>NOTICE:</b>
+The following interfaces have been adopted in the
+<a class='download' href="upc-lib-required-spec-1.3.pdf">UPC Optional Library Specifications, Version 1.3</a>,
+with the same semantics as those as described above, 
+and are available in Berkeley UPC beginning with the 2.16 release.
+Users are strongly encouraged to develop new codes using the standardized interfaces
+and to migrate existing code to them.
+The Berkeley-specific <tt>'bupc_'</tt> prefixed variants are now <b>officially deprecated</b>
+in favor of the standardized variant, and will be removed in a future version.
+
+<pre>
+    void <b>upc_all_free</b>(shared void *ptr);
+    void <b>upc_all_lock_free</b>(upc_lock_t *lockptr);
+</pre>
+
+<p><hr>
+<a name="knownbugs"><h2>Known bugs and limitations</h2></a>
+
+This release of Berkeley UPC has a number of known limitations and bugs:
+
+<h3>Implicit library calls may modify <tt>errno</tt></h3>
+
+The C99 standard gives the following semantics for errno:
+
+<blockquote>
+The value of errno is zero at program startup, but is never set to
+zero by any library function. The value of errno may be set to nonzero
+by a library function call whether or not there is an error, provided
+the use of errno is not documented in the description of the function
+in this International Standard.
+</blockquote>
+
+These semantics are actually somewhat weaker than one might hope -
+specifically, they allow library calls which succeed to change errno
+to a non-zero value.  In practice many C/POSIX library implementation
+actually do this.
+<p>
+The problem in the context of Berkeley UPC and its source-to-source
+translation is that there is one copy of errno per UPC thread which is
+shared by both the generated code representing translated UPC code,
+and all the runtime libraries running underneath it (including UPCR,
+GASNet, vendor network libs, etc.).  Furthermore, many actions in UPC
+which do not qualify as library calls at UPC level (e.g.
+dereferencing a pointer-to-shared) result in library calls within the
+generated code.  Consequently, the value of errno set by a failed
+library call invoked at the UPC source level may be subsequently
+overwritten by any of these implicit library calls.
+<p>
+While one could imagine the Berkeley UPC compiler and runtime taking
+action to preserve the value of errno across all the implicit library
+calls, doing so would adversely affect performance and we do not
+currently take this approach.  
+This means that a UPC user who wants to inspect the value of errno
+after a failed library call they make must do so immediately - not
+just before the next UPC-level library call, but also before taking
+any action that might possibly invoke implicit library calls in the
+generated source code.
+<p>
+Basically, the only 100% safe way for a UPC program to read errno when
+using Berkeley UPC is to copy it into a local variable
+<em>immediately</em> after the failed library call returns.  This is
+the "recommended practice" for using errno with Berkeley UPC.
+
+<h3>Preprocessor macros defined in UPC files must not affect .h files</h3>
+
+Berkeley UPC translates your UPC programs into C code, then runs a regular C
+compiler on your system to generate object code.  To avoid handling 
+vendor-specific inline assembly code that appears in some header
+files on many of the various systems we run on, we currently have our UPC-to-C translator 'put back'
+all non-UPC header files (i.e., .h files which don't contain any UPC
+constructs), which are then handled by the regular C compiler (we do not support
+placing inline assembly in your UPC code).  A side effect of this process is
+that the preprocessor is run twice on your program.  Since any #defined macros
+you place in your UPC code are expanded (and their definitions forgotten) the
+first time the preprocessor is run, these macros will not be present the second
+time .h files are included.  Thus, UPC code such as
+
+<pre>
+    #define NDEBUG
+    #include &lt;assert.h&gt;
+</pre>
+
+will not work as expected if the NDEBUG definition modifies the behavior of
+assert.h (which, in this example, it does: this NDEBUG/assert.h case is the most
+common case where users run into this issue with our compiler).
+
+<p>There is a simple workaround: if you need to define a macro that affects the
+behavior of #included files, define it on the command line to <tt>upcc</tt>:
+
+<pre>
+    upcc -DNDEBUG myprogam.upc
+</pre>
+
+<h3>Behavior of the 'getenv/setenv' functions</h3>
+
+It is not well-defined in the UPC specification whether the
+standard '<tt>getenv</tt>' function should return the same values on all threads,
+and/or if these values should include those present in the environment of the
+process that launches the UPC application.  
+
+<p>Berkeley UPC guarantees that '<tt>getenv</tt>' allows retrieval of
+certain environment variable values that were present when the job was launched.  At
+present this function is only guaranteed to retrieve these value for all threads
+if the environment variable's name begins with '<tt>UPC_</tt>' or
+'<tt>GASNET_</tt>'.  On some platforms all environment variables seen by the job
+launcher may be propagated, but it is not portable to rely on this.
+
+<p>The '<tt>setenv</tt>' and '<tt>unsetenv</tt>' functions are not guaranteed
+to work in a Berkeley UPC runtime environment, and should be avoided.
+
+<h3>Correctness when using GCC 4.x (x&lt;3) as the C compiler</h3>
+
+There is a known correctness problem in the optimizer in gcc 4.0.x through 4.2.x that may affect
+correctness of shared-local accesses in UPC (i.e., shared accesses that result in
+node-local accesses at runtime). In a nutshell, it's possible that in rare cases
+these compilers may misoptimize a shared-local access such that it deterministically
+reads or writes an incorrect value. For this reason, configure will not allow you
+to use one of these compilers without an explicit option: '<tt>--enable-allow-gcc4</tt>'.
+
+If you do configure with '<tt>--enable-allow-gcc4</tt>', then you may encounter the
+optimizer bug.
+If you suspect you may be encountering this
+issue, the following actions are recommended for diagnosis:
+
+<ol>
+
+    <li> Try compiling your code in debug mode (ie with '<tt>upcc -g</tt>'). If the
+    problem persists, then this issue is *not* the culprit.
+
+    <li> Try compiling your code using the flag '<tt>upcc -Wc,-fno-strict-aliasing</tt>'.
+    If the problem persists, then this issue is *not* the culprit.
+
+    <li> Run your code several times. If the problem is intermittent, then this
+    issue is probably not the culprit (the optimizer bug is deterministic).
+
+</ol>
+
+<p>If you still believe you are encountering this issue, there are several
+recommended workarounds:
+
+<ol>
+
+    <li> Configure BUPC to use a different backend C compiler. If you have a
+    non-gcc vendor C compiler available, this may actually be a better choice
+    for performance anyhow. Failing that, using gcc &gt;= 4.3 (or gcc 3.x) should also resolve the
+    issue, as the bug is only believed to be present in gcc 4.0.x through 4.2.x.
+
+    <li> Build the affected modules using the flag '<tt>upcc
+    -Wc,-fno-strict-aliasing</tt>'.  This makes the gcc 4.x optimizer more
+    conservative, and also inhibits the illegal optimization.
+
+    <li> Reconfigure BUPC using '<tt>configure --enable-conservative-local-copy</tt>'.
+    This globally activates a more conservative implementation of shared-local
+    accesses that also prevents the illegal optimization.
+
+</ol>
+
+The performance impact of the workarounds above is expected to be
+application-dependent.
+
+<h3>GUPC+UPCR with -pthreads</h3>
+
+GUPC+UPCR has a known problem in -pthreads compilation mode, whereby 
+programs with a significant amount of statically-allocated private data
+ may fail at program initiation time with an error message like:
+<pre>    
+    UPC Runtime error: pthread_create: Invalid argument
+</pre> 
+Users encountering this error are recommended to workaround it by either
+using the BUPC translator (which does not demonstrate the problem), or
+reworking their program to use less statically-allocated private data.
+
+<h3>Clang-upc2c does not support -pthreads</h3>
+
+Clang-upc2c (the Clang-based UPC-to-C translator) does not yet support
+the -pthreads compilation mode.  Such support is expected to be added
+in a future release.
+
+<h3>Other known limitations/bugs</h3>
+
+<ul>
+
+    <li> The Berkeley UPC-to-C translator currently does not perform any optimizations
+    on the network traffic of UPC programs--all network accesses are treated as
+    'strict', and are blocking. <i>Note: we now have some experimental
+        optimizations implemented, but they are not considered production-ready,
+        and so are not enabled by default.  Pass the '<tt>-opt</tt>'
+        flag to <tt>upcc</tt> to turn on these translator optimizations.</i> 
+
+    <p><li>Shared memory optimizations for inter-thread communcations are used
+    on SMP systems only if you use the '<tt>-pthreads</tt>' flag to upcc
+    (which requires the use of only thread-safe libraries), or if
+    the runtime has been configured with <tt>--enable-pshm</tt>
+    (currently the default only on Linux).
+    Support for
+    shared memory communication among (non-pthreaded) UPC processes on an
+    SMP node is available via the "PSHM" feature beginning in the 2.10.0
+    release (See "INTRA-NODE SHARED MEMORY SUPPORT" in 
+    <a class='ref' href="http://upc.lbl.gov/download/dist/INSTALL.TXT">INSTALL.TXT</a>).
+
+    <p><li> Programs which #include complex.h, and/or tgmath.h do not work on
+    certain platforms.
+<!-- Now fixed
+    <p><li>C  pragmas (both '<tt>#pragma</tt>' and C99's '<tt>_Pragma()</tt>')
+    are passed down to the back-end C compiler, but only if they appear within
+    function scope.  Support for file-scope pragma directives is coming soon.
+-->
+
+<!-- Now fixed
+    <p><li> Certain inline assembly constructs within header files may cause
+    compilation errors.
+-->
+
+    <p><li> Inline assembly statements are not supported within UPC code.
+    However, UPC applications are permitted to #include C-mode header files containing
+    inline assembly statements, written in the syntax appropriate for the backend 
+    native C compiler and platform.  (A C-mode header file is any header which contains 
+    no UPC-specific constructs and includes no files containing UPC-specific constructs.)
+
+    <p><li> UPC programs are not permitted to register signal handlers (i.e.
+    via <tt>signal(2)</tt> or <tt>sigaction(2)</tt>), use the pthread library
+    (ie.  <tt>pthread_create(3)</tt>, pthread mutexes), fork child processes
+    (via <tt>fork(2)</tt>/<tt>clone(2)</tt>), call
+    <tt>setjmp</tt>/<tt>longjmp</tt>, or use System V shared memory constructs.
+
+    <p><li> UPC programs are recommended to terminate by calling
+    <tt>exit</tt>(), <tt>abort</tt>(), <tt>upc_global_exit</tt>() or returning
+    from <tt>main</tt>. Calling <tt>_exit</tt>() could result in the creation of
+    orphaned processes.
+
+    <p><li> UNIX file descriptors (obtained via <tt>open</tt>(),
+    <tt>fopen</tt>(), <tt>socket</tt>() etc) may not be safely shared across UPC
+    threads.
+
+    <p><li> '<tt>stdin</tt>' may not work on some platforms - programs are
+    recommended to obtain their input via the command line or file system.
+    '<tt>stdout</tt>' and '<tt>stderr</tt>' are multiplexed on a line-by-line basis
+    to the console, but not ordered in any way between UPC threads (i.e., a
+    single thread's output lines will appear in order, but may be arbitrarily
+    interleaved with the output from other threads)
+
+    <p><li> The variable-argument list access macro <tt>va_arg</tt> may be used
+    with pointer-to-shared types, but the pointer type passed to <tt>va_arg</tt>
+    must match the type of the actual argument (specifically, the shared
+    blocksize must match) and no typedefs may be used in the argument to
+    <tt>va_arg</tt>.
+
+    <p><li> Berkeley UPC does not currently support C99-style variable-length arrays
+    (eg a stack temporary array with bounds that are not a compile-time constant).
+    This is planned to be fixed in a future version.
+
+    <p><li> As documented under <a href="#pthread">Using pthreaded UPC Programs</a>,
+    all C functions called by UPC code must be thread-safe when compiling with
+    the -pthreads flag.  Unfortunately, this precludes use of '<tt>getopt()</tt>'
+    and related functions for parsing command-line arguments (because it may write
+    to '<tt>argv</tt>' when permuting options, and because it uses global state
+    variables).  There are two suggested work-arounds for this issue:
+    <ul>
+    <li> Perform argument parsing on THREAD 0 and broadcast the results.
+    <li> Serialize the '<tt>getopt()</tt>' calls and additionally ensure that
+         the global variable '<tt>optind</tt>' is reset to 1 before each call.
+    </ul>
+
+    <p><li> The default flags for optimization by the back-end compiler are
+    typically the most aggressive that do not produce incorrect results on our
+    test suite.  This can, in some cases, mean that ``unsafe'' optimizations have
+    been enabled.  Currently known instances:
+    <ul>
+    <li> IBM XLC: Arithmetic operations involving NaNs and Infinities may not produce
+         correct results by default.  Pass '-Wc,-qstrict=ieeefp' to upcc to
+         enforce IEEE-compilant arithmetic.
+    </ul>
+
+    <p><li> Many other bugs with particular code constructs, and/or when using
+    specific architectures/compilers/networks.  See our <a class='ref'
+        href="http://upc-bugs.lbl.gov/bugzilla/">Bugzilla bug database</a> for the
+    grisly details.
+
+</ul>
+
+<p><hr>
+<a name="platform"><h2>Platform-specific issues</h2></a>
+
+<h3>Running into Maximum size limits on pinning-based networks</h3>
+
+On systems that pin RDMA-addressable memory (such as InfiniBand),
+the amount of shared memory that a default Berkeley UPC build can provide to a
+UPC program will be no larger than the maximum region that the OS and network
+drivers allow to be pinned at once. While this is typically a large fraction of
+physical memory, it may prove insufficient for your application.  In this case,
+a "large segment" mode is available, which imposes a slight performance overhead in some
+situations, but which provides the maximum possible UPC shared memory space.  To
+use large segment mode, the Berkeley UPC runtime needs to be reconfigured with
+'<tt>--enable-segment-large</tt>', and rebuilt.
+
+When using PSHM over POSIX shared memory (the default under Linux), it
+has also been observed that GASNet's InfiniBand support is unable to
+register a UPC shared heap as large as when using PSHM over SystemV
+shared memory.  If you are using ibv-conduit on Linux and see crashes
+at startup with large UPC shared heap sizes, then we recommend
+reconfiguring your runtime with '<tt>--disable-pshm-posix
+--enable-pshm-sysv</tt>' before trying '<tt>--enable-segment-large</tt>'.
+
+<!-- No longer support AIX nor lapi-conduit
+<h3>IBM SP segment size limits (in 32 bit mode)</h3>
+
+    32 bit applications run on the IBM SP by default are given a small (256MB)
+    memory segment which contains the program stack, heap, and static data.  If
+    your stack/heap/data exceed this size, your program will fail with a message
+    stating "there is not enough memory available".  To run such programs you
+    must enable either "large program support" (supports up to 2 GB of program
+    data: available on AIX 4.3 and later) or "very large program support"
+    (supports up to 3.25 GB of program data: available on AIX 5.1 and later).
+    Enabling these modes requires passing the '-bmaxdata' data flag to the IBM
+    linker, so use upcc's '<tt>-Wl,</tt>' flag:
+
+<pre>
+    upcc -v -Wl,-bmaxdata:0x80000000 foo.c      # 'large'
+
+    upcc -v -Wl,-bmaxdata:0x80000000/dsa foo.c  # 'very large'
+</pre>
+
+    <p>Users wishing to know more details about this issue are invited to 
+    <a href="http://www.google.com/search?hl=en&q=AIX+%22large+program+support%22&btnG=Google+Search">search for AIX "large program support" on Google</a>.
+
+    <p>In general, for performance reasons (such as a faster pointer-to-shared
+    implementation), Berkeley UPC users are encouraged to build 64-bit UPC
+    programs on IBM SP systems, in which case these memory segment limits are
+    not an issue.  Instructions on how to build a 64-bit Berkeley UPC compiler
+    on the IBM SP are available in the INSTALL.TXT document that comes with the
+    distribution.  To see if the copy of upcc you're running is 32/64 bit, check
+    the 'Binary interface' field in the output of '<tt>upcc -version</tt>'.
+-->
+
+<p><hr>
+<h2>Feedback</h2>
+
+Please <a href="contact.html">contact us</a> with your bug reports, comments,
+and suggestions.  
+
+<p>Thank you for using Berkeley UPC!
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

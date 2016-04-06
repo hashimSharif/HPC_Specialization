@@ -1,0 +1,101 @@
+# ====================================================================
+# System configuration file for the UPC test harness
+#
+# Notes on syntax/semantics:
+# -------------------------
+# (1) Comments, as in PERL, begin with the pound (#) symbol and
+#     continue until the end of the line
+#	
+# (2) local definitions.  Lines of the form:
+#     define NAME = value
+#     will define a substitution, that can be used as shorthand
+#     in later entries.  See item 5 below.   
+#
+# (3) The data in the file consists of a series of definitions in
+#     the form: 
+#          name = value
+#     where "name" is a string and value is either:
+#          a scalar value,   eg:  foo = bar
+#          a hash            eg:  foo = { a => 5; b => upc }
+#          an array          eg:  foo = [x, y, z]
+#     That is, similar to how you would write them in PERL.
+# 
+# (4) values of the form '%HOME%' (uppercase surrounded by percent)
+#     will be replaced by the corresponding local definition (see 2)
+#     if it is defined, or the corresponding environment variable.
+#     It is a run-time error if such a definition or environment 
+#     variable is not defined.
+#
+# (5) The following values must be defined:
+#     network         NOTE: can be modified on command line
+#     batch_sys
+#     queues
+#
+# ====================================================================
+
+# Specify the network [GASNet conduit] to be used
+
+network = lapi
+
+# Specify the name of the compute system this will run on
+# Currently only needed on cheetah and seaborg
+
+sysname = cheetah
+
+# Specify the type of batch system in use.  Currently I know about
+# PBS and LOADLEVELER
+
+batch_sys = loadleveler
+
+# Set a maximum job size.  Tests that require more nodes than this
+# will not be (automatically) run by the test harness.  They can be
+# submitted manually after the fact.  
+
+max_nodes_to_run = 2
+
+# Specify a sequence of queues, in order of preference, that can
+# be used to run the jobs.  Each queue must define the following
+# fields:
+#      Q_name     -> name of the queue
+#      Q_maxnode  -> max number of nodes allowed by the queue
+#      Q_minnode  -> min number of nodes allowed by the queue
+#      Q_maxtpn   -> max number of tasks allowed pre node by the queue
+#      Q_maxtime  -> the maximum queue limit for the queue
+#                    in the form HHH:MM:SS
+# NOTE: max queue time on cheetah is 12 hours, will run faster if
+#       we use a smaller number
+queues = [
+        {
+          Q_name     => batch
+          Q_maxnode  => 8,     
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 32,      
+	  Q_maxtime  => 5:00:00
+        }
+]
+
+# =================================================================
+# Optional (but suggested) fields
+
+# Specify the accounting repository under which the jobs will be run
+# NOT USED ON CHEETAH
+
+repository = mp215
+
+# Specify the default number of UPC threads when running the tests.
+# This value will replace the %NTHREAD% string in the per-suite
+# harness configuration file (harness.conf).
+
+nthread_default = 4
+
+# Specify the maximum number of processes per node to be used in this run
+# NOTE: reserve 8 processors to run LAPI threads on cheetah
+
+max_proc_per_node = 24
+
+# Specify the minimum number of nodes to be used in a run.  This 
+# value will be violated if the total number of UPC threads is 
+# less than the specified value
+
+min_num_nodes = 1
+

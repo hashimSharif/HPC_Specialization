@@ -1,0 +1,73 @@
+#!@BOURNE_SHELL@
+#set -x
+
+#search='grep -e FAIL -e COMPLETE'
+# perl has more predictable flushing behavior
+failed='/FAILED/'
+tail_f='@TAIL_FOLLOW@'
+monitor=1
+dir=''
+
+usage () {
+     echo "Usage: $0 [flags] [dir]" 1>&2
+     echo " scans the compile.rpt and run.rpt files in the current directory," 1>&2
+     echo " a logroot subdirectory, or given directory, and output the failures" 1>&2
+     echo " -u output only 'unknown' failures (ignore known failures)" 1>&2
+     echo " -t ignore timeout failures" 1>&2
+     echo " -m ignore out-of-memory failures" 1>&2
+     echo " -n perform scan and exit immediately (default is continuous monitoring)" 1>&2
+     exit 1
+}
+
+for arg in $*
+do
+ case $arg in 
+  -n) monitor=0 ;;
+  -u) failed="$failed && !/KNOWN\)/" ;;
+  -m) failed="$failed && !/\(MEM/" ;;
+  -t) failed="$failed && !(/\(TIME/ || /got TIMEOUT/)" ;;
+  -*) usage;;
+  *) test -n "$dir" && usage
+     dir="$arg"
+     cd "$arg" || exit 1
+     ;;
+ esac
+done
+
+search="@PERL@ -ne 'BEGIN {\$|=1;} print if (/HARNESSERROR/ || /COMPLETE/ || ($failed));'"
+
+exist=
+missing=
+if test -f log; then
+  exist="$exist log"
+else
+  if test -z "$dir" -a -d logroot; then
+    dir=`find logroot/* -type d -prune -print | sort | tail -1`
+    echo Scanning files in $dir...
+    cd $dir
+    exec ../../checkfail $*
+  fi
+  echo 'ERROR: no log, compile.rpt or run.rpt files found!'
+  exit 1
+fi
+if test -f compile.rpt; then
+  exist="$exist compile.rpt"
+else
+  missing="$missing compile.rpt"
+fi
+if test -f run.rpt; then
+  exist="$exist run.rpt"
+else
+  missing="$missing run.rpt"
+fi
+
+tailarg=
+for file in $exist; do
+  echo "==> $file <=="
+  cat $file | eval $search
+  tailarg=$file
+done
+@TAIL_FOLLOW_MULTI@ tailarg="$tailarg $missing"
+if test -n "$tailarg" -a "$tailarg" != ' ' -a "$monitor" = 1; then
+  $tail_f $tailarg 2>&1 | eval $search
+fi

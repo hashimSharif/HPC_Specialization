@@ -1,0 +1,32 @@
+# ocracoke.renci.org a BG/L w/ ANL's Cobalt queue manager
+
+network = mpi
+
+batch_sys = interactive
+
+queues = [
+        {
+          Q_name     => interactive,
+          Q_maxnode  => 128,
+          Q_minnode  => 1,
+	  Q_maxtpn   => 1,
+	  Q_maxtime  => 00:00:00
+        }
+]
+
+repository = NA
+
+nthread_default = 8
+
+max_proc_per_node = 1
+
+min_num_nodes = 1
+
+timeout_multiplier = 8
+
+# default values to use if not already set in harness environment
+run_env_default = { 
+   MPIRUN_CMD => 'cqsub -t 60 -n %N %C',
+   GASNET_TMPDIR => '$HOME/tmp',
+   GASNETRUN_MODE => 'vn'
+}

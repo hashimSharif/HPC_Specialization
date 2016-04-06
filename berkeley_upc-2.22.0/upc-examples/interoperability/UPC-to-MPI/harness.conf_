@@ -1,0 +1,21 @@
+# This file may be renamed to harness.conf IF your
+# platform has been properly configured for interoperability.
+
+BEGIN_DEFAULT_CONFIG
+DynamicThreads: $DEFAULT$
+StaticThreads: 0
+CompileResult: pass
+PassExpr: SUCCESS
+FailExpr: FAILURE
+ExitCode: 0
+BuildCmd: make,notrans
+TimeLimit: $DEFAULT$
+RequireFeature: trans_bupc#,network_mpi
+ProhibitFeature: pthreads
+END_DEFAULT_CONFIG
+
+TestName: a.out
+WarningFilter: .*?mpi.h:.*? warning: .*? attribute directive ignored.*?
+# Open MPI contains an old portable_platform.h (w/ a defn that differs only in whitespace):
+WarningFilter: .*warning: .__PLATFORM_COMPILER_GNU_VERSION_STR. redefined.*?
+WarningFilter: .*warning: this is the location of the previous definition.*?

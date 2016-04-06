@@ -1,0 +1,153 @@
+
+LOCAL_TARGETS = all distclean clean install uninstall
+HOOK_TARGETS = all distclean install
+DIST_TARGETS = dist distcheck
+exec_prefix = ${prefix}
+bindir = ${exec_prefix}/bin
+sysconfdir = ${prefix}/etc
+mandir = ${prefix}/man
+mkinstalldirs = $(SHELL) $(top_srcdir)/config-aux/mkinstalldirs
+INSTALL_PROGRAM = $(SHELL) $(top_srcdir)/config-aux/install-sh -c
+INSTALL_DATA = $(INSTALL_PROGRAM) -m 644
+
+.PHONY: $(LOCAL_TARGETS:%=%-local) $(HOOK_TARGETS:%=%-hook) $(DIST_TARGETS) default-target force
+
+default-target: all
+
+recurse_local = $(CONFS:%=%-recurse) recurse_local_dummy
+$(recurse_local): 
+	@dirname=`echo $@ | sed s/-recurse//` ; \
+	 UPCRI_EXTRA_HELP="`pwd`/multiconf.conf" ; export UPCRI_EXTRA_HELP ; \
+         if test -f "$$dirname/Makefile" ; then \
+	  echo "-------------------------------------------------------------------------" ; \
+	  echo "  === Multiconf making $(DO_MULTICONF_RECURSE) for $$dirname conf ==="     ; \
+	  echo "-------------------------------------------------------------------------" ; \
+          cd "$$dirname" && $(MAKE) prefix="${prefix}/$$dirname" $(DO_MULTICONF_RECURSE) || exit $$? ; \
+         fi
+
+conf_files = multiconf.conf
+script_drivers = upcc_multi
+scripts = $(script_drivers:%=%.pl)
+files_we_copy = $(scripts)
+$(files_we_copy): force
+	@srcfile="$(top_srcdir)/`basename $@`" ; \
+         if test ! -f "$@" -o "`find $$srcfile -newer '$@' 2>&1`" ; then \
+          echo cp -f "$$srcfile" . ;         \
+          cp -f "$$srcfile" . ;              \
+         fi
+link_execs = upcrun upc_trace upcdecl upcc-dump
+
+$(DEFAULT_CONF)/gasnet/other/perlstart: $(top_srcdir)/gasnet/other/perlstart.in
+	@$(MAKE) -C $(DEFAULT_CONF)/gasnet/other perlstart
+
+$(script_drivers): $(DEFAULT_CONF)/gasnet/other/perlstart
+	echo '#!/bin/sh' > $@
+	cat $(DEFAULT_CONF)/gasnet/other/perlstart >> $@
+	chmod +x $@
+
+$(DEFAULT_CONF)/config.status:
+	@echo "ERROR: $(DEFAULT_CONF)/config.status missing - it appears you have not completed configure for the default config '$(DEFAULT_CONF)'"
+	@exit 1
+
+upcc: 
+	rm -f upcc
+	ln -s upcc_multi upcc
+
+upcrun: 
+	rm -f upcrun
+	ln -s $(DEFAULT_CONF)/upcrun upcrun
+
+multiconf.conf:
+	@echo "ERROR: $@ is missing. Please re-run configure." ; exit 1
+
+Makefile: $(top_srcdir)/Makefile.multiconf ./multiconf.conf
+	$(PERL) "$(top_srcdir)/multiconf.pl" --regen-makefile --prefix="$(prefix)" --with-multiconf-file=./multiconf.conf
+
+all-local: $(DEFAULT_CONF)/config.status $(script_drivers) $(files_we_copy) 
+
+all-hook: upcc upcrun
+
+install-local: all-local
+	@if test -n "$(DESTDIR)" -a `expr "X$(DESTDIR)" : X/` = 0; then \
+	  echo "ERROR: \$$DESTDIR must begin with a '/' character."; \
+	  exit 1; \
+	 fi
+	@if test `expr "X$(prefix)" : X/` = 0; then \
+	  echo "ERROR: \$$prefix must begin with a '/' character."; \
+	  exit 1; \
+	 fi
+	$(mkinstalldirs) $(DESTDIR)$(sysconfdir)
+	@for file in $(conf_files) ; do                                      \
+	  echo "$(INSTALL_DATA) $$file $(DESTDIR)$(sysconfdir)/$$file" ;     \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(sysconfdir)/$$file || exit $$?; \
+        done
+	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	@for file in $(scripts) ; do                                     \
+	  echo "$(INSTALL_DATA) $$file $(DESTDIR)$(bindir)/$$file" ;     \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(bindir)/$$file || exit $$?; \
+        done
+	@for file in $(script_drivers) ; do                                 \
+	  echo "$(INSTALL_PROGRAM) $$file $(DESTDIR)$(bindir)/$$file" ;     \
+	  $(INSTALL_PROGRAM) $$file $(DESTDIR)$(bindir)/$$file || exit $$?; \
+        done
+	cd $(DESTDIR)$(bindir) ; rm -f upcc ; ln -s upcc_multi upcc
+
+install-hook: $(DEFAULT_CONF)/config.status
+	@cd $(DESTDIR)$(bindir) ;                                    \
+         for file in $(link_execs) ; do                              \
+	  if test -r "../$(DEFAULT_CONF)/bin/$$file" ; then          \
+	    rm -f $$file ;                                           \
+	    ln -s ../$(DEFAULT_CONF)/bin/$$file $$file || exit $$? ; \
+          fi ;                                                       \
+         done
+	@$(MAKE) -C $(DEFAULT_CONF)/man install mandir=$(mandir)
+
+uninstall-local:
+	@if test -n "$(DESTDIR)" -a `expr "X$(DESTDIR)" : X/` = 0; then \
+	  echo "ERROR: \$$DESTDIR must begin with a '/' character."; \
+	  exit 1; \
+	 fi
+	@if test `expr "X$(prefix)" : X/` = 0; then \
+	  echo "ERROR: \$$prefix must begin with a '/' character."; \
+	  exit 1; \
+	 fi
+	@for file in $(conf_files) ; do                     \
+	  echo "rm -f $(DESTDIR)$(sysconfdir)/$$file" ;     \
+	  rm -f $(DESTDIR)$(sysconfdir)/$$file || exit $$?; \
+        done
+	@for file in $(scripts) $(script_drivers) $(link_execs) ; do         \
+          if test -r "$(DESTDIR)$(bindir)/$$file" ; then         \
+	    echo "rm -f $(DESTDIR)$(bindir)/$$file" ;            \
+	    rm -f $(DESTDIR)$(bindir)/$$file || exit $$?;        \
+          fi ;                                                   \
+        done
+	rm -f $(DESTDIR)$(bindir)/upcc $(DESTDIR)$(bindir)/upcrun
+	@$(MAKE) -C $(DEFAULT_CONF)/man uninstall mandir=$(mandir)
+
+distclean-local clean-local:
+	rm -f $(script_drivers) upcc upcrun
+	@if test "$(top_builddir)" != "$(top_srcdir)" ; then    \
+	   echo "rm -f $(files_we_copy)" ;                      \
+	   rm -f $(files_we_copy) || exit $$? ;                 \
+         fi
+
+distclean-hook:
+	rm -f Makefile $(conf_files)
+
+$(DIST_TARGETS):
+	@dir=dbg_tv; if test -d $$dir; then                                     \
+	   $(MAKE) -C $$dir $@;                                                 \
+	   echo "NOTICE: look for your archive in $$dir/";                      \
+	 else                                                                   \
+	   echo "ERROR: target $@ only supported when $$dir config is enabled"; \
+	   exit 1;                                                              \
+	 fi
+
+force:
+
+# pass-thru target
+%: 
+	@if test -n "`echo ' $(LOCAL_TARGETS) ' | grep ' $@ '`" ; then $(MAKE) $@-local || exit $$? ; fi
+	@$(MAKE) $(recurse_local) DO_MULTICONF_RECURSE=$@
+	@if test -n "`echo ' $(HOOK_TARGETS) ' | grep ' $@ '`" ; then $(MAKE) $@-hook || exit $$? ; fi
+

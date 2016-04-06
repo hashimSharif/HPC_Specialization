@@ -1,0 +1,29 @@
+# Sysconf for Herbie, the UV test system at PSC
+
+network = shmem
+
+batch_sys = pbs
+
+# Note: herbie uses "ncpus", not "nodes", for allocation.
+# However "ncpus" must be a multiple of 16.
+queues = [
+        {
+          Q_name     => batch
+          Q_maxnode  => 16,  # lie to harness for the ppn=1 gasnet tests
+          Q_minnode  => 1,
+	  Q_maxtpn   => 16,
+	  Q_maxtime  => 4:00:00,
+          Q_usencpus => 16
+        }
+]
+
+repository = NA
+
+nthread_default = 16
+
+max_proc_per_node = 16
+
+min_num_nodes = 1
+
+# Known to always return exitcode == 0
+#features = sgi_mpirun

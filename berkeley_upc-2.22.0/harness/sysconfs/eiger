@@ -1,0 +1,28 @@
+network = ibv
+batch_sys = slurm
+queues = [
+        {
+          Q_name     => medium,   
+          Q_maxnode  => 4,      
+          Q_minnode  => 1,       
+          Q_maxtpn   => 12,      
+          Q_maxtime  => 02:00:00 
+        },
+        {
+          Q_name     => quick,   
+          Q_maxnode  => 15,      
+          Q_minnode  => 4,       
+          Q_maxtpn   => 12,      
+          Q_maxtime  => 00:30:00 
+        }
+]
+
+nthread_default = 8
+max_proc_per_node = 4
+min_num_nodes = 1
+
+run_env_default = { GASNET_PHYSMEM_MAX => '12G',
+		    GASNET_PHYSMEM_NOPROBE => 1,
+		    GASNET_IBV_SPAWNER => 'ssh' }
+
+submit_cmd = 'sbatch --partition=stdMem'

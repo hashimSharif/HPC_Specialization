@@ -1,0 +1,46 @@
+1######################################
+# CG UPC Benchmarks                  #
+# Revision 1.1        06/26/2002     #
+#                                    #
+# Department of Computer Science     #
+# University of North Carolina,      #
+#                                    #
+# email: {feasel, huan, prins} @     # 
+#         cs.unc.edu                 #
+# http://www.cs.unc.edu/~prins       #
+######################################
+
+==========================================
+INSTALLATION
+
+    This directory includes the CG OMP implementation.
+    To install the benchmark, first create a directory
+    called bin under the OMP subdirectory. Second, run 
+    the make file Makefile by the following format:
+       make <Bench mark> <Class> <THREADS> 
+
+       where <Bench mark> := "CG"
+                  <Class> := "A" | "B" | 
+                             "C" | "S" | "W" 
+                <THREADS> := nature number
+
+    It generates an executable (under bin) named 
+    cg.CLASS.THREADS (the threads number is auxiliary since it 
+    is specified by enviroment OMP_NUM_THREADS
+    during execution)
+
+    To run the executable, set the environment variable
+    first and run the executable as shown below (C shell) 
+        >setenv OMP_NUM_THREADS <Threads number>
+        ><executable>
+
+    
+==========================================
+Acknowledgement:
+    The MPI implementation is available from NASA website at 
+         http://www.nas.nasa.gov/NAS/NPB/           
+    The OpenMP implementation is available on line at
+         http://pdplab.trc.rwcp.or.jp/pdperf/Omni/benchmarks/NPB/
+
+
+Send comments or suggestions to  prins@cs.unc.edu 

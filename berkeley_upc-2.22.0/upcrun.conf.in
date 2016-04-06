@@ -1,0 +1,244 @@
+######################################################################
+#  Config settings for the Berkeley UPC compiler upcrun job spawner
+#
+# Note that these settings can be overridden on an individual basis
+# in your $HOME/.upcrunrc file.  Values in a user's .upcrunrc file
+# *replace* values read from this file (something to keep in mind
+# when setting the 'default_options' and network-specific options).
+######################################################################
+
+######################################################################
+# Site-wide default command-line options for upcrun
+#
+# Additional default command-line options can also be given using
+# the envronment variable UPCRUN_FLAGS.
+######################################################################
+default_options     =
+
+######################################################################
+# Site-wide Totalview config (ignored if not supported)
+# totalview_exec = totalview executable, fullpath if no tin $PATH
+# totalview_timeout = limit in seconds to wait for attach
+######################################################################
+totalview_exec    = totalview
+totalview_timeout = 120
+
+######################################################################
+#  Site-wide network-specific command-line options for upcrun
+#
+#  The options given for the appropriate network (a.k.a. "conduit")
+#  are appended to the 'default_options'.
+######################################################################
+mpi_options  = 
+udp_options  = 
+smp_options  = 
+ibv_options  = 
+mxm_options  = 
+shmem_options=
+portals4_options=
+gemini_options=
+aries_options=
+pami_options = 
+
+######################################################################
+#  Site-wide default cpu's per node.
+#
+#  If unset or 0, the underlying parallel job spawner will be allowed
+#  to map UPC threads to nodes using its default behavior (which might
+#  be one UPC thread per node, regardless of the CPU count per node).
+######################################################################
+default_cpus_per_node = 0
+
+######################################################################
+#  conduit spawner commands 
+#
+#  Each different network (a.k.a. "conduit") that your UPC build
+#  supports needs two spawn command templates (see the defaults,
+#  below).  One of these ('<network>_spawn_nodes') is used when the
+#  number of nodes for a job is controlled by upcrun, and the other
+#  ('<network>_spawn') when the node count is left to the underlying
+#  parallel job spawner.
+#
+#  upcrun attempts to control the node count if any of the following
+#  conditions are true:
+#    1) upcrun is passed '--nodes' (-N), which explicitly sets the
+#       node count.
+#    2) upcrun is passed '--cpus-per-node' (-c), or the
+#       'default_cpus_per_node' parameter is set to nonzero in this
+#       file (or is overridden to nonzero in a user's $HOME/.upcrunrc
+#       file).  In this case the node count is implicitly the thread
+#       count divided by cpus-per-node, rounded up.
+#
+#  Some job spawners benefit from having upcc handle the node count
+#  (otherwise they may put a single UPC thread on each node,
+#  regardless of how many CPUs it has).  Others do not provide any way
+#  to set the node count (ex: mpich's 'mpirun'), in which case you may
+#  omit the '_nodes' template (users will be warned if they try to set
+#  the number of nodes or cpus-per-node, as these cannot be guaranteed
+#  when upcc cannot control the node count).
+#
+#  We have tried to provide reasonable defaults for the spawn
+#  commands, in some cases using using 'gasnetrun_<conduit>' scripts
+#  we have contributed.  But you may need to use different commands.
+#
+#  Variables available:
+#   %N  - number of processes to launch (might not equal UPC threads when
+#         using pthreads)
+#   %M  - number of "nodes" on which to launch processes
+#   %R  - number of "processes per node" (ppn) to launch
+#   %T  - number of pthreads per process (1 when not using pthreads)
+#   %P  - program file
+#   %A  - program arguments
+#   %Q  - program arguments, intentionally overquoted (for working around buggy system spawners)
+#   %C  - alias for "%P %A"
+#   %D  - current working directory
+#   %L  - UPC-specific environment variable names (comma separated list)
+#         which the spawner will propogate to the application
+#   %V  - expands to "-v" if the user passed -v to upcrun, or to nothing
+#         otherwise
+#   %%  - expands to a single % character
+#
+#  Arguments are split on whitespace, but single- or double-quotes may
+#  be used to prevent this.  Backslash (\) is not special.
+#
+#  Note:
+#  $(UPCR_HOME) will be replaced with the root of the installation tree.
+#  If run from the build directory, a search is conducted (in the build
+#  and source trees) for any filename prefixed by "$(UPCR_HOME)/bin".
+#
+######################################################################
+
+##
+## mpi-conduit:
+##
+mpi_spawn = $(UPCR_HOME)/bin/gasnetrun_mpi %V -n %N -c %T -E %L %P %A
+#mpi_spawn = mpirun -np %N %P %A
+#mpi_spawn = @ENVCMD@ MP_FENCE=-- poe %P -nodes %N -tasks_per_node 1 -msg_api mpi -rmpool 1 -euilib us -retry 1 -retrycount 10000 -- %Q
+#mpi_spawn = cqsub -I -n %N -e UPC_QUIET=1 %C
+mpi_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_mpi %V -np %N -N %M -c %T -E %L %P %A
+
+##
+## udp-conduit:
+##
+# Default:
+udp_spawn = %P %N %A
+udp_spawn_nodes = %P %N %A
+# amudprun:
+#udp_spawn = $(UPCR_HOME)/bin/amudprun %V -n %N %P %A
+#udp_spawn_nodes = $(UPCR_HOME)/bin/amudprun %V -n %N %P %A
+
+##
+## smp-conduit:
+##
+# Default:
+smp_spawn = %P %A
+smp_spawn_nodes = 
+# Cray aprun:
+#smp_spawn = aprun -n1 -d%N %P %A
+# Intel Phi coprocessor (using script in gasnet/other/contrib):
+#smp_spawn = gasnetrun_mic %V -E %L -- %P %A
+
+##
+## ibv-conduit:
+##
+# For mpi- and ssh-based spawning:
+ibv_spawn = $(UPCR_HOME)/bin/gasnetrun_ibv %V -n %N -E %L %P %A
+ibv_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_ibv %V -n %N -N %M -E %L %P %A
+# For PMI2-based spawning via SLURM's srun:
+#ibv_spawn = srun %V --kill-on-bad-exit=0 --mpi=pmi2 -n %N -c %T %P %A
+#ibv_spawn_nodes = srun %V --kill-on-bad-exit=0 --mpi=pmi2 -n %N -N %M -c %T %P %A
+
+##
+## ofi-conduit:
+##
+# For mpi- and ssh-based spawning:
+ofi_spawn = $(UPCR_HOME)/bin/gasnetrun_ofi %V -n %N -E %L %P %A
+ofi_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_ofi %V -n %N -N %M -E %L %P %A
+# For PMI2-based spawning via SLURM's srun:
+#ofi_spawn = srun %V --kill-on-bad-exit=0 --mpi=pmi2 -n %N -c %T %P %A
+#ofi_spawn_nodes = srun %V --kill-on-bad-exit=0 --mpi=pmi2 -n %N -N %M -c %T %P %A
+
+##
+## mxm-conduit:
+##
+# For mpi- and ssh-based spawning:
+mxm_spawn = $(UPCR_HOME)/bin/gasnetrun_mxm %V -n %N -E %L %P %A
+mxm_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_mxm %V -n %N -N %M -E %L %P %A
+# For PMI2-based spawning via SLURM's srun:
+#mxm_spawn = srun %V --kill-on-bad-exit=0 --mpi=pmi2 -n %N -c %T %P %A
+#mxm_spawn_nodes = srun %V --kill-on-bad-exit=0 --mpi=pmi2 -n %N -N %M -c %T %P %A
+
+##
+## pami-conduit:
+##
+# For mpirun:
+pami_spawn = $(UPCR_HOME)/bin/gasnetrun_pami %V -n %N -E %L %P %A
+pami_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_pami %V -n %N -N %M -E %L %P %A
+# For POE w/i Load Leveler:
+#pami_spawn = @ENVCMD@ MP_FENCE=-- poe %P -nodes %N -tasks_per_node 1 -use_bulk_xfer yes -- %A
+#pami_spawn_nodes = @ENVCMD@ MP_FENCE=-- poe %P -nodes %M -procs %N -use_bulk_xfer yes -- %A
+
+##
+## portals4-conduit:
+##
+# For hydra-based yod from the portals4 reference implementation:
+portals4_spawn = yod %V -np %N %P %A
+portals4_spawn_nodes = yod %V -ppn %R -np %N %P %A
+
+##
+## gemini-conduit:
+##
+gemini_spawn = $(UPCR_HOME)/bin/gasnetrun_gemini %V -n %N -c %T -E %L %P %A
+gemini_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_gemini %V -np %N -N %M -c %T -E %L %P %A
+# Raw aprun:
+#gemini_spawn = aprun -N 1 -n %N %P %A
+#gemini_spawn_nodes = 
+
+##
+## aries-conduit:
+##
+aries_spawn = $(UPCR_HOME)/bin/gasnetrun_aries %V -n %N -c %T -E %L %P %A
+aries_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_aries %V -np %N -N %M -c %T -E %L %P %A
+# Raw aprun:
+#aries_spawn = aprun -N 1 -n %N %P %A
+#aries_spawn_nodes = 
+
+##
+## shmem-conduit:
+##
+# Altix
+shmem_spawn = mpirun -np %N %P %A
+# Cray
+#shmem_spawn = aprun -n %N %P %A
+
+######################################################################
+#  Settings determined at ./configure time: DO NOT CHANGE THESE!
+######################################################################
+
+# version
+upcrun_version        = @UPCR_VERSION@
+
+# available networks
+conduits            = @CONDUITS@
+
+# Size of architecture for target code (32 or 64 bits)
+arch_size           = @UPCRI_PTR_BITS@
+
+# Suffix used for executable files (e.g. ".exe")
+exe_suffix = @EXESUFFIX@
+
+# How to invoke 'size' on this system to get tdata/tbss (optional - can be omitted)
+size_cmd            = @SIZE_CMD@
+
+# Platform-specifc debug malloc (e.g. glibc's MALLOC_CHECK_ env var)
+debugmalloc = @DEBUGMALLOC@
+debugmalloc_var = @DEBUGMALLOC_VAR@
+debugmalloc_val = @DEBUGMALLOC_VAL@
+
+# Source and build dierctories
+top_srcdir = @TOP_SRCDIR@
+top_builddir = @TOP_BUILDDIR@
+
+# fca
+enable_fca_by_default = @ENABLE_FCA_BY_DEFAULT@
+enable_fca = @CONF_FCA_ENABLED@

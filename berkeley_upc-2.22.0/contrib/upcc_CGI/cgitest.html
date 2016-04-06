@@ -1,0 +1,47 @@
+<html>
+<body>
+
+<h1>upcc.cgi test page.</h1>
+
+<form action="http://mantis.lbl.gov/~jduell/upcc.cgi" method=POST
+    enctype="multipart/form-data"> 
+    
+<pre>
+
+This page is for testing the 'upcc.cgi' script that comes with the Berkeley UPC
+distribution.
+
+To use:
+-------
+
+1) read the instructions in upcc.cgi to set up the script on your web server.
+
+2) Edit the source HTML for this page, so that the 'form action' points to the
+   URL for your copy of upcc.cgi.
+
+3) Load this page in your browser, select 'foo.tar' for the 'tarball' input
+   field, and hit 'submit.'  If your browser receives a file to download, your
+   copy of upcc.cgi is working.  Otherwise you will get an error from either
+   upcc.cgi, or your webserer.  
+   
+4) Once this page is working with upcc.cgi, set up your remote UPC runtime to
+   point at the upcc.cgi URL, and you'll be ready to compile UPC code.
+
+
+Archsize: <input type="text" name="archsize" size="3" value="32">
+Network: <select name="network">
+    <option value="smp" selected>Single process
+    <option value="mpi">MPI
+    <option value="ibv">InfiniBand (Open Fabrics) Verbs
+</select>
+verbose?: <input type="text" name="verbose" size="2" value="1">
+threads: <input type="text" name="threads" size="2" value="1">
+pthreads: <input type="text" name="pthreads" size="2" value="">
+tarball: <input type="file" name="infile" value="foo.tar"> (select 'foo.tar', located in the same directory as this HTML page)
+
+<input type="submit">
+
+</pre>
+</form>
+</body>
+</html>

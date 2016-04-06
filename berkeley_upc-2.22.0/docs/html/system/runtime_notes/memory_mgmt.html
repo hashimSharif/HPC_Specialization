@@ -1,0 +1,623 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+    <title>Memory Management in the UPC Runtime</title></head>
+<body bgcolor="#ffffff">
+<!--#include virtual="/header.html" -->
+
+<center>
+<h1>Memory Management in the UPC Runtime</h1>
+<h3>Version 1.2, March 31, 2013
+    <p>Paul H. Hargrove &lt;
+   <script TYPE="text/javascript">
+<!--
+emailE=('upc-devel' + '@' + 'lbl.' + 'gov')
+document.write('<a href="mai' + 'lto:' + emailE + '">' + emailE + '</a>')
+//-->
+</script>&gt; 
+</h3>
+</center>
+
+
+
+<p>This is a design document for the implementation of memory management in the
+runtime layer of the Berkeley UPC compiler.  The external API for the runtime
+layer (as seen by compiler-generated code) is documented in the <a
+    href="../">UPC Runtime Specification</a>.
+
+<hr>
+
+<h2>Notational conventions</h2>
+
+<table border=1 cellspacing="0" cellpadding="5">
+    <tr bgcolor="yellow">
+        <td><b>Prefix</b></td>
+        <td><b>Meaning</b></td>
+    </tr>
+    <tr>
+        <td><b>upc_</b></td>
+        <td>indicates a UPC language-level symbol</td>
+    </tr>
+    <tr>
+        <td><b>upcr_</b></td>
+        <td>indicates a symbol in the runtime system not visible to the
+            UPC programmer (called by compiler-generated code)</td> 
+    </tr>
+    <tr>
+        <td><b>upcri_</b></td>
+        <td>indicates a symbol in the runtime system not visible outside
+            the runtime system (called only within the runtime)</td> 
+    </tr>
+    <tr>
+        <td><b>gasnet_</b></td>
+        <td>indicates a routine in the GASNet communication system
+         (not visible to users or compiler: called by runtime functions)</td> 
+    </tr>
+</table>
+
+<p><h4>"Threads" vs. Pthreads/Processes</h4>
+
+"Thread" will be used throughout this document to indicate a parallel thread of
+execution in the UPC job.  Where processes vs. pthreads need to be treated
+differently for implementation reasons, context will make it clear which we are
+talking about.
+
+<p><h4>"Static" User data</h4>
+
+In this document, 'static' user data means "not dynamically allocated" (as
+opposed to static vs. global variable declaration).  Both global variables and
+those declared with the 'static' keyword (at either file or function scope) are
+'static' in this sense.
+
+<p><hr><h2>Supported Platform Environments, by Type of Memory</h2>
+
+The UPC runtime will support 3 different runtime environments, which differ in
+the way that accesses to (logically) shared memory between UPC threads are done.
+The type of runtime will be determined at compile time, and will cause the
+<b><tt>UPCR_PLATFORM_ENVIRONMENT</tt></b> preprocessor macro to be set to one of
+the following values:
+
+<ol>
+    <li><b><tt>UPCR_PURE_SHARED</tt></b>
+
+    <p>On pure shared memory machines, shared memory (and interprocess
+    mechanisms such as pthreads/SysV IPC synchronization) is used to perform all
+    interthread communication.  
+
+    <p><li><b><tt>UPCR_PURE_DISTRIBUTED</tt></b>
+
+    <p>In this model, the UPC runtime will reply upon the network (i.e. the
+    GASNet layer) for all inter-thread communications.  
+
+    <p><li><b><tt>UPCR_SHARED_DISTRIBUTED</tt></b>
+
+    <p>On CLUMPs ("clusters of SMPs"), multiple threads/processes will exist on
+    each of multiple nodes.  In this environment, shared memory will be used for
+    communication between pthreads/processes on the same node, and GASNet will
+    be used for communication between nodes.  
+    
+</ol>
+
+
+<p><hr><h2>Memory Layout of a UPC Process</h2>
+
+<img align="right" src="images/upc_process_mmap.gif">
+
+The diagram on the right shows a possible layout for the memory regions of a
+single process that is implementing 2 UPC threads (via 2 pthreads):  the
+sections need not necessarily be in the order specified.  A UPC that only
+implements a single UPC thread would not use pthreads, and would thus only have
+1 stack, 1 global and local shared heap, and no thread-local data sections.
+
+<h4>Stack, program text, and program data</h4>
+
+The program text, data, and stack of a UPC executable will be laid out and
+managed in the traditional fashion by the linker and loader, with the text and
+data toward the start of the address range, and the stack at the top.  If
+pthreads are used, the pthreads library will take care of splitting the user
+stack into separate, per-thread stacks (we may wish to allow users to specify
+the size of the thread-specific stacks, in case they need to use larger stacks
+than the pthreads' library's default size).
+
+
+<h4>Thread-local data</h4>
+
+Any <i>unshared</i> global or static data declared in a UPC program is "thread-local",
+i.e. if pthreads are used, a separate copy for each pthread must be allocated,
+and uses of the data must be handled specially so that the correct copy of the
+data is used (see the implementation note on <a href="static_data.html">
+handling static user data</a> for more details).  The diagram here assumes we
+are using the 'tld section' approach to thread-local data, in which we place all
+such data in a special section in the executable, then make copies of it for new
+threads (the original program thread--thread 0--can use the original section).
+In the alternative 'global struct' approach, each thread would store its data in
+a large C struct allocated out of the regular C heap.
+
+<p>When pthreads are not used, the user's static/global unshared variables 
+simply exist as regular C static/global variables in the program data section.
+
+
+<h4>Shared address space</h4>
+
+As can be seen from the memory layout diagram, all shared memory will be
+allocated within a single, large contiguous address space.  The size and limits
+of this region will be fixed at startup time (as with the local heap, users will
+be able to specify the size of the region).  If there are multiple threads, the
+shared memory area will be split between them, with each thread getting a equal,
+page aligned slice of the shared address space.  Making the address spaces
+page-aligned and contiguous with one another will generally make shared pointer
+calculations easier and faster (note: since shared pointer implementations are
+interchangeable at library compilation time, it will be possible for a slower
+implementation to be written to handle non-contiguous regions, without affecting
+performance when a contiguous region is used).  
+
+<p>The shared memory region needs to be allocated specially for many network
+interfaces (the pages may need to be pinned in memory, and/or DMA registration
+may need to occur, etc.), and so the entire region is allocated for the runtime
+by GASNet as part of the gasnet_attach() call.  GASNet may or may not allocate
+physical memory for the shared region (it may just mmap some virtual memory to
+be allocated on first write).  It must be guarantee, however, that the memory
+area returned is legal to reference at any time after gasnet_attach without
+causing a segmentation fault (this constraint considerably reduces the
+communication requirements needed for the UPC global shared memory allocation
+functions--see below).
+
+<h4>Shared libraries</h4>
+
+<p>UPC programs will generally be compiled statically:  however, there may be
+cases in which dynamic shared libraries will be loaded, and the location where
+they are put may not be under the control of the UPC runtime or GASNet.   Most
+operating systems have a standard address at which they start performing the
+mmaps of shared library contents (the x86 Linux loader, for instance, starts
+loading shared objects starting at address 0x40000000, leaving wide gaps between
+the loaded libraries' address spaces and those of the stack and default heap).
+Depending on the amount of shared memory that is needed in a program, this
+default location may make it difficult to find a large enough contiguous region
+in which to place the shared memory region (particularly on 32 bit machines).
+
+<p>Dealing with this issue is left to GASNet:  the runtime merely requests a
+shared region of a specific size (with a guaranteed heap offset, as discussed
+next), and GASNet either provides it or returns an error.
+
+
+<h4>Regular heap</h4>
+
+The regular C heap cannot be allowed to overlap into the shared memory region.
+In the worst case scenario, on some platforms malloc(), etc., may need to be
+intercepted, and a custom allocator used to guarantee this.  However, on most
+platforms the regular heap will not encroach on any region that has already been
+mmapped, so the shared memory region will be safe from interference.  When the
+standard C library's heap hits an mmapped area, sbrk() will fail, and the heap
+will either stop growing (and return NULL when additional memory would be
+needed to satisfy a malloc()), or grow non-contiguously (i.e. via mmap instead of
+sbrk).  
+
+<p>To support malloc implementations that simply fail once sbrk ceases to
+provide more memory space, the gasnet_attach function will take a parameter that
+guarantees a certain spacing between the shared heap area and the beginning of
+the regular heap. This will guarantee that the shared region (at least) will not
+limit the size of the regular heap.  Users will be able to specify the size of
+this region via environment variables and/or command line flags.
+
+
+
+<p><hr><h2>Categories of Dynamic Memory</h2>
+
+<p>As can be seen from the diagram above, each UPC thread will make use of 3
+separate memory heaps.  If a UPC process uses pthreads, the pthreads will share
+a single regular heap, but will each have separate shared global and shared
+local heaps.  The following table summarizes which types of allocations reside
+in which heap:
+
+<p><table border="1" cellspacing="0" cellpadding="5">
+<tr bgcolor="yellow">
+    <td>
+        <b>Heap</b>
+    </td>
+    <td>
+        <b>Types of Allocations</b>
+    </td>
+    <td>
+        <b>Example</b>
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>Global shared heap</b>
+    </td>
+    <td valign="top">
+        UPC shared allocations that result in phased memory blocks that
+        stripe across nodes
+    </td>
+    <td valign="top">
+        Any call to upc_global_alloc or upc_all_alloc in which the block size is
+        less than the size of the allocated memory (i.e. any such memory that doesn't
+        exist only on thread 0).  Static UPC arrays with the same property.
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>Local shared heap</b> 
+    </td>
+    <td valign="top">
+        UPC shared memory that is allocated to exist only on a single 
+        node/thread
+    </td>
+    <td valign="top">
+        All calls to upc_alloc.  Memory allocated by upc_all_alloc and/or
+        upc_global_alloc that exists entirely on node 0 (i.e. has a block size
+        larger than the allocated size).  Static shared data with the same
+        property.
+    </td>
+</tr>
+<tr>
+    <td>
+        <b>Regular heap</b>
+    </td>
+    <td valign="top">
+        Unshared memory from standard calls to malloc(), etc.
+    </td>
+    <td valign="top">
+        Malloc, calloc, realloc, etc.
+    </td>
+</tr>
+</table>
+
+
+<p>Note that since static shared data will be implemented using dynamic
+allocations at startup--as explained in the notes on <a
+href="static_data.html">static user data</a>--it will exist in the heaps,
+rather than in a regular data segment.
+
+<hr>
+<h2>Use of 3rd Party Memory Allocator(s)</h2>
+
+The UPC runtime will provide an interface for memory allocators, so that
+different implementations may be used when this is desirable (as is may be for
+debugging, profiling, or performance purposes).
+
+<h3>Constraints on Memory Allocators</h3>
+
+Several important constraints exist for a memory allocator to be compatible with
+the UPC runtime:
+
+<ul>
+
+    <li>The allocators for the global and local shared heaps must not call
+    mmap/sbrk internally: instead they must receive their address ranges from
+    the runtime.  This is to ensure that the various heaps do not expand outside
+    the ranges that the runtime has received from GASNet.
+
+    <p><li>Ideally, the allocator for global heaps should be able to grow its
+    address range down instead of up.  Having the global and local shared heaps
+    grow toward one another means that either can take up more than half the
+    total region (so long as the two heaps do not overlap).  Otherwise a less
+    efficient partitioning (in which both the local and global shared heaps grow
+    upward, and thus the amount allocated to each is fixed) must be used.
+
+    <p><li>The allocator for the local shared heap must be able to support
+    multiple heaps within a single process if pthreads are used, since each
+    pthread will have a separate allocator for its local shared heap (all
+    global shared heaps are managed by a single allocator, as explained below).
+
+    <p><li>Heap access does not need to be thread safe or reentrant: the runtime
+    will ensure that access to each heap's allocator is serialized.  If the same
+    allocation library is used for multiple heaps--as will definitely be the
+    case when pthreads are used--the allocator must support concurrent calls to
+    different heaps, as serialized is done on a per-heap basis, not per
+    allocator library.
+
+</ul>
+
+<h3>Interface to Memory Allocators</h3>
+
+
+We will provide separate interfaces to the 3 types of allocators.  The
+preprocessor (or inline functions) can be used to translate these generic
+functions to the calls provided by a specific allocator (i.e. the addresses of
+these calls will never be used).
+
+<p>In the functions below &lt;AT&gt; stands for the allocator type, 
+which may be one of: 'sharedglobal', 'sharedlocal', or 'local'. upcra_ stands for UPC
+Runtime Allocator API, a different name since this is not intended to be called
+by compiler-generated code, which will use only the global_alloc, etc., style
+functions.
+
+<pre><b>  upcra_&lt;AT&gt;_heap_t* upcra_&lt;AT&gt;_init(void *heapstart, uintptr_t initbytes);</b></pre>
+
+<blockquote> 
+    Called by upcr once during startup (during upcr_init) to initialize
+    each allocator before any other calls to the allocator. heapstart points to
+    the start of the allocator's heap, and initbytes provides an initial size
+    for the heap.  The return value is a pointer to a heap structure, which is
+    passed to the other functions to specify which heap is to be used.
+</blockquote>
+
+<pre><b>  void *upcra_&lt;AT&gt;_alloc(upcra_&lt;AT&gt;_heap_t* heap, size_t numbytes);</b></pre>
+
+<blockquote> 
+    Allocates a region of numbytes bytes from the appropriate heap and
+    return a pointer to the allocated memory, which is suitably aligned for any
+    kind of variable. The memory is not cleared.
+
+    <p>Returns NULL to indicate that the allocator has run out of free memory
+    and either some memory frees must take place or the allocator needs to be
+    provided with additional pages (using upcra_provide_pages_&lt;AT&gt;())
+    before a request for numbytes can be satisfied.  
+</blockquote>
+
+<pre><b>  void upcra_&lt;AT&gt;_free(upcra_&lt;AT&gt;_heap_t* heap, void *ptr);</b></pre>
+
+<blockquote> 
+    Free the region of memory indicated by ptr, which was previously returned by
+    a call to upcra_alloc_&lt;AT&gt; on this same allocator. Allocators that
+    optionally choose to detect deallocation errors (e.g. duplicate free calls)
+    should print an error message to stderr and call abort() when an error is
+    detected.
+</blockquote> 
+
+<pre><b>  void upcra_&lt;AT&gt;_provide_pages(upcra_&lt;AT&gt;_heap_t* heap, uintptr_t numbytes);</b></pre>
+
+<blockquote> 
+    The runtime may call this function at any time to provide additional unused
+    memory pages to the allocator.  The allocator will be told it has an
+    additional amount of 'numpages' pages of memory to use (the amount provided
+    will always be a multiple of the system's page size).  This new memory will
+    start from the previous end address of the heap (if the global heap grows
+    down, the new memory comes from the bottom end of the heap).
+
+    <p>This function will often be called after a failed call to
+    upcra_alloc_&lt;AT&gt; which indicates the allocator requires more pages.
+
+    <p>The runtime is responsible for ensuring that the address ranges given to
+    the heaps are safe to access (and, for the shared heaps, have been
+    registered with gasnet such that they can be accessed by remote nodes).
+</blockquote> 
+
+Finally, if the allocator for the global shared heap cannot support growing the
+address range for the heap downward instead of upward, 
+<tt>UPCR_GLOBALHEAP_GROWS_UP</tt> must be #defined, as the logic for detecting
+global/local heap collision is different in that case.
+
+<p><hr><h2>GASNet Critical Sections and Asynchronous Handler Execution</h2>
+
+To handle memory allocation requests that arrive from other nodes, the UPC
+runtime registers 'handler' functions for various message types with the GASNet
+network layer.  When a network message containing a request from another node
+arrives, it will generally  be handled synchronously, as periodic polling is
+done to see if new messages have arrived.  Such polling will happen at most of
+the UPC Runtime API's entry points--every time a message is to be sent, or a
+barrier entered, etc.
+
+<p>However, since user code may take an arbitrary amount of time in between
+calls to the UPC runtime, it is desirable to also have a method of
+asynchronously forcing incoming requests to be handled, if they have not been
+handled after a specified amount of time.  The GASNet layer may thus cause a
+signal to be sent (presumably a SIGALRM), in order to force progress on
+requests.  This may result in the handlers being run within a signal handler
+context.
+
+<p> Traditionally, code running in signal handler context is extremely
+circumscribed in what it can do: none of the standard pthreads/System V
+synchronization calls are on the list of signal-safe functions (for such a list
+see Richard Stevens' *Advanced Programming in the Unix Environment*, p 278).  To
+overcome these limitations, and allow our handlers to be more useful, the normal
+limitations on signal handlers will be avoided through the use of "Handle-safe
+locks."  All function calls that are not signal-safe and which are used within
+our handlers MUST be called within a GASNet critical section:
+
+<pre>
+    GASNET_CRITICAL_START
+    ...
+    GASNET_CRITICAL_END
+</pre>
+
+Critical sections are designed to be held briefly (no blocking, no network calls,
+etc.). They guarantee that the code within the section will not be interrupted by
+a signal-spawned GASNet-registered handler (if a signal arrives while the
+critical section is in effect, the handler will be postponed until the critical
+section is completed).  This system guarantees that 'signal unsafe' (i.e.
+non-reentrant) functions will not be called reentrantly, and so we may use them
+even in handler code that may run in signal handler context.  
+
+<p>Code that runs inside an asynchronous handler is implicitly within a GASNet
+critical section, so the START/END macro calls must not be used.  Code that runs
+in regular context (including the user's UPC code) must use these macros
+whenever a signal-unsafe function is called.  This means that the UPC runtime
+must intercept any such calls (like malloc. etc.), and redirect them to a
+version that wraps the standard library call with the GASNet critical section
+macros.
+
+<p>See the GASNet specification for details.
+
+
+<h2>Shared Memory Allocation Algorithms</h2>
+
+The pluggable memory allocators used by the UPC Runtime will handle the
+traditional issues of heap management: allocating and freeing blocks of memory
+while avoiding fragmentation.  The UPC runtime will delimit the memory space
+controlled by each allocator, handle the internode communication needed for
+shared memory allocations, and perform most of the synchronization needed around
+allocations.
+
+<p>The issues involved with the regular heap have already been covered above
+(the UPC runtime must ensure that it does not tread into the shared memory area,
+and if the allocator for the local heap is not reentrant and pthreads are being
+used, the UPC runtime's wrapper versions of malloc, etc., must perform the
+needed locking).  
+
+<p>The following diagram illustrates the mechanisms used for handling shared
+memory allocations (for clarity, the diagram is of a UPCR_PURE_DISTRIBUTED
+configuration, with one process per node: for a threaded implementation there
+would be two shared regions per process, as in the layout diagram above):
+
+<p><img src="images/upc_distheaps.gif">
+
+<p>Each UPC thread has its own shared memory area, containing a local heap growing
+upward from the bottom, and a global heap growing down from the top.  The size
+of the shared memory area for all threads will be the same, and will be
+allocated at startup.
+
+<p>Each thread maintains a separate allocator for its local shared heap, along
+with a handle-safe lock to protect it from concurrent accesses (since memory
+allocated via upc_alloc may have upc_free called on it asynchronously from
+another node, locking is required even for local shared heaps).
+
+<p>The global shared memory heaps of all threads are managed by a
+single allocator on thread 0, which makes decisions on behalf of all the
+threads. The layout of used/unused areas of the global portion is consistent
+across all the threads; although the starting/ending virtual addresses of the
+global heaps may be different (on pthreads implementations it must be, for
+instance) the size of the heap, and the offset of allocations within it will
+always the same for all global heaps in a UPC job.  
+
+<p>Thread 0 also maintains two counters ('global_size' and 'local_size' in the
+diagram) that track the number of pages that have been handed out for the global
+and local heaps, respectively (for the local heap size, this is the size of the
+largest local heap of all the threads in the UPC job).  These counters are
+monotonically increasing, since pages are never taken away from the heap sizes,
+only added.  The counters exist to make sure that the global and local heaps
+never collide (if they are about to collide this is a fatal runtime error).  The
+locks are protected by a single lock ("Limit lock" in the diagram): the values
+may be read without the lock (since they are guaranteed to only increase), but
+cannot be increased without holding the lock.  Note that if both the limit-lock
+and either the global or local allocator locks on thread 0 need to be held at
+the same time, the limit lock must be grabbed after the local or global lock:
+this simple lock hierarchy prevents deadlock (we do not anticipate ever needing
+to hold all three locks at once, but if we do, then we'll need a lock hierarchy
+between the local and global locks as well).
+
+<p>Threads other than thread 0 will keep a local copy of the value of local_size
+('cached_lsize' in the diagram).  This value need not be in sync with the actual
+value of local_size, but provides a reliable minimum local stack size that local
+threads can rely on as valid, eliminating the need for some network traffic.
+This value does not need a lock (it can only be modified by upcr_local_allocs,
+which are guaranteed to be performed serially by any one thread).
+
+<p>With this diagram in mind, we can now outline pseudocode for each of the UPC
+runtime memory allocation functions.
+
+<pre><b> upcr_shared_ptr_t* upcr_local_alloc(int nblocks, int blocksz)</b></pre>
+
+<ol>
+    <li>The shared lock for the local allocator is grabbed (this will always
+    succeed: any GASNet asynchronous signal handler that grabs the lock for a
+    upcr_free will complete and release the lock before mainline code can call
+    upcr_local_alloc).
+
+    <li>upcra_alloc_sharedlocal(nblocks * blocksz) is called on the local
+    allocator.  If it succeeds, the lock is released, and the address received
+    is returned as the function exits.
+
+    <li>If upcra_alloc_sharedlocal returns NULL, the allocator is out of memory
+    and needs more pages.  The size of the local heap is compared with the
+    cached_lsize: if cached_lsize is greater, the local heap is provided with a
+    number of pages equal to their difference, and the request is tried again.
+
+    <li>If the local heap is already as big as cached_lsize, the lock for the
+    allocator is released, and an RPC is made to thread 0 asking for more local
+    stack space.  The RPC handler on thread 0 grabs the limit_lock, adds the
+    requested amount to local_size (if needed: the actual value of local_size
+    may already be large enough from other nodes' allocations), and checks to
+    see if local_size + global_size is now larger than the shared memory area
+    size.  The lock is then released.  If the heaps now overlap, a fatal error
+    is triggered.  Otherwise, the RPC returns the new value of local_size to the
+    initiating node, which grabs its local shared allocator lock again, sets its
+    copy of cached_lsize to the returned value, calls
+    upcra_provide_pages_sharedlocal() with the amount of address space it
+    requested, and then calls upcra_alloc_sharedlocal() again (which is
+    guaranteed to be successful this time: only asynchronous upcr_free() calls
+    can have occurred during the RPC), releases the lock, and returns the
+    allocated memory address.
+
+    <p>So, for instance, in the diagram above, if Node 1 needs more pages for
+    its local allocator, it may be able to give them to it without any network
+    traffic, since it has a cached_lsize that exceeds its heap size.  Node 2,
+    however, will need to talk to node 0 to increase its local heap size, since
+    it is already using all of the local heap space that it knows is valid.
+
+    <p>Possible optimization: if an RPC request for more memory space is
+    required, it may make sense to ask for more memory than is immediately
+    needed, on the principle that allocations tend to come in groups, hence
+    another allocation is likely to occur soon.
+
+</ol>
+
+<pre><b> upcr_shared_ptr_t* upcr_all_alloc(int nblocks, int blocksz)</b></pre>
+
+<ol>
+    <li>All threads besides thread 0: simply wait for the result of the function
+    call to be broadcast by thread 0.  This is all that these threads need to
+    do, so the remaining steps are only taken by thread 0.
+
+    <li>Thread 0: if nblocks is equal to 1, the allocation can be performed
+    entirely on thread 0 (and thus is better performed on the shared local stack
+    rather than the global one, to save space).  Thus upcr_local_alloc is
+    called, and the address it returns is broadcast to all nodes.
+
+    <li>If the allocation cannot be optimized into a local allocation,  the lock
+    for the global allocator is grabbed.  
+    
+    <li>upcra_alloc_sharedglobal is called.  If the function returns a valid
+    address, the lock is released, the address broadcast to all of the other
+    threads, and the function returns.  
+    
+    <li>If the allocator returns NULL, it needs more pages: the "Limit lock" is
+    grabbed, the global_size increased by the needed amount, and the value of
+    global_size + local_size is checked to see if it is larger than the shared
+    memory size.  If so, a fatal error occurs.  Otherwise, the limit lock is
+    released, the new pages are fed to the global allocator via
+    upcra_provide_pages_sharedglobal(), the allocation is made, and the
+    resulting address broadcast to all the nodes.  
+
+    <p>Possible optimization:  each thread could "touch" (write) a location on
+    each page of the newly allocated region before returning, thereby forcing
+    all threads to page fault (if necessary) at the same time, maintaining
+    better lockstep across processors. For very large allocations (where the
+    size is on the same order as the physical memory size) this optimization
+    would be skipped to prevent introducing thrashing behavior.
+
+</ol>
+
+<pre><b> upcr_shared_ptr_t* upcr_global_alloc(int nblocks, int blocksz)</b></pre>
+
+<ol>
+    <li>If the thread making this call is not thread 0, an RPC is made to
+    thread 0 to perform the request.
+
+    <li>Thread 0: the request is handled by thread 0 in exactly the same way as
+    in upcr_all_alloc (it is transformed into a upcr_local_alloc if the
+    requested memory will all reside on thread 0, otherwise the memory is
+    allocated from the global allocator).  There are only two differences: 1)
+    the received address is sent only to the the requesting thread, rather than
+    being broadcast to all threads. 2) if the RPC arrives asynchronously, it is
+    possible that thread 0 will be in a critical section of code, in which case
+    the request will be delayed until the critical section is exited.
+</ol>
+
+<h4>Note on (the absence of) race conditions in shared memory allocation</h4>
+
+In the case of upcr_global_alloc, memory is being allocated on all nodes, but
+only 2 nodes (thread 0 and the requesting node) are involved in any network
+traffic, and are thus aware of the allocation.  Thread 2 can allocate global
+shared memory on thread 1 and write/read that memory without thread 1 even 
+knowing its memory has been allocated.  
+
+<p>It will also be OK if during a upc_all_alloc, one node receives the broadcast
+address and immediately refers to the new memory on another node which has not
+yet even received the broadcast address (this is theoretically possible if the
+network allows messages to be delivered out of order).  
+
+<p>These types of "refer to the memory on a node without the node knowing that
+is has been allocated" scenarios are OK, since GASNet guarantees that the entire
+shared memory region handed out to each thread at startup is valid to be
+referenced at any time after wards.  It guarantees this interface even for
+networks which do not actually support allowing the entire shared region to be
+directly accessible at once in its entirely (see the GASNet specification for
+details).
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

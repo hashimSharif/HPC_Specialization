@@ -1,0 +1,55 @@
+declare foo as shared 4 int | shared [4] int foo
+declare foo as shared blocksize 4 int | shared [4] int foo
+declare foo as shared (blocksize 4) int | shared [4] int foo
+declare foo as shared (blocksize cyclic) int | shared [1] int foo
+declare foo as shared blocksize cyclic int | shared [1] int foo
+declare foo as shared (blocksize automatic) int | shared [*] int foo
+declare foo as shared blocksize automatic int | shared [*] int foo
+declare foo as shared (blocksize indefinite) int | shared [] int foo
+declare foo as shared blocksize indefinite int | shared [] int foo
+cast foo into shared 4 pointer to local double | (double *shared [4])foo
+declare x as shared array 4 of pointer to double | double* shared[1] x[4]
+declare x as shared array of pointer to double | double* shared[1] x[]
+declare x as shared array 4 of pointer to local double | double* shared[1] x[4]
+declare x as shared array of pointer to local double | double* shared[1] x[]
+declare x as array 4 of pointer to shared 12 double | shared [12] double* x[4]
+declare x as array of pointer to shared blocksize 12 double | shared [12] double* x[]
+declare x as shared blocksize 12 array 4 of double | shared [12] double x[4]
+declare x as shared blocksize 12 array of double | shared [12] double x[]
+declare x as shared blocksize 12 array 4 of pointer to local double | double* shared [12] x[4]
+declare x as shared blocksize 12 array of pointer to local double | double* shared [12] x[]
+declare x as array 10 of pointer to shared (blocksize cyclic) pointer to shared (blocksize 4) int | shared[4] int * shared[1] * x[10]
+declare x as array 10 of local pointer to shared (blocksize cyclic) pointer to shared (blocksize 4) int | shared[4] int * shared[1] * x[10]
+explain shared int f | declare f as shared (blocksize cyclic) int
+explain shared [] int f | declare f as shared (blocksize indefinite) int
+explain shared [0] int f | declare f as shared (blocksize indefinite) int
+explain shared [1] int f | declare f as shared (blocksize cyclic) int
+explain shared [3] int *shared[5] x[7] | declare x as array 7 of shared (blocksize 5) pointer to shared (blocksize 3) int
+explain int shared [2] * shared [3] x[5] | declare x as array 5 of shared (blocksize 3) pointer to shared (blocksize 2) int
+set upcverbose | 
+explain shared[4] int *x[10] | declare x as array 10 of local pointer to shared (blocksize 4) int
+explain shared[4] int * shared * x[10] | declare x as array 10 of local pointer to shared (blocksize cyclic) pointer to shared (blocksize 4) int
+declare f as shared array of int | shared [1] int f[]
+declare f as array of shared int | shared [1] int f[]
+explain shared [12] double* x[] | declare x as array of local pointer to shared (blocksize 12) double
+explain int shared [2] * const * volatile x[5] | declare x as array 5 of local volatile pointer to local const pointer to shared (blocksize 2) int
+explain int shared [3] x[4] | declare x as array 4 of shared (blocksize 3) int
+explain int *shared [3] x | declare x as shared (blocksize 3) pointer to local int
+explain int *shared [3] strict x | declare x as shared (blocksize 3) strict pointer to local int
+explain int *shared [3] relaxed x | declare x as shared (blocksize 3) relaxed pointer to local int
+explain upc_lock_t *x | declare x as local pointer to upc_lock_t
+explain upc_file_t strict *x | declare x as local pointer to strict upc_file_t
+explain upc_lock_t * shared x | declare x as shared (blocksize cyclic) pointer to upc_lock_t
+declare x as local pointer to const upc_lock_t | const upc_lock_t * x
+explain upc_lock_t relaxed *x[14] | declare x as array 14 of local pointer to relaxed upc_lock_t
+explain const upc_flag_t *x | declare x as local pointer to local const upc_flag_t
+cast x into local const pointer to const upc_lock_t | (const upc_lock_t * const)x
+explain upc_lock_t * shared [6] x[12] | declare x as array 12 of shared (blocksize 6) pointer to upc_lock_t
+explain const upc_off_t x[12] | declare x as array 12 of local const upc_off_t
+explain size_t shared [4] x[12] | declare x as array 12 of shared (blocksize 4) size_t
+explain shared int x[THREADS] | declare x as array THREADS of shared (blocksize cyclic) int
+explain shared [THREADS] int x[(16/4)*THREADS++16/(-24%(16))] | declare x as array ( 16 / 4 ) * THREADS + +16 / ( -24 % ( 16 ) ) of shared (blocksize THREADS) int
+explain shared [23+THREADS%4] int x[THREADS+45/5] | declare x as array THREADS + 45 / 5 of shared (blocksize 23 + THREADS % 4) int
+explain int x[MYTHREAD*foo+ bar/45] | declare x as array MYTHREAD * foo + bar / 45 of local int
+declare x as array THREADS + 45 of shared (blocksize THREADS % 4) int | shared [THREADS % 4] int x[THREADS + 45]
+declare x as array ( 16 / 4 ) * THREADS + +16 / ( -24 % ( 16 ) ) of shared (blocksize THREADS) int | shared [THREADS] int x[( 16 / 4 ) * THREADS + +16 / ( -24 % ( 16 ) )]

@@ -1,0 +1,414 @@
+dnl --------------------------------------------------------------- 
+dnl     Run 'autoscan' on your code, and compare what you see here
+dnl     with 'configure.scan'.  Absorb what looks promising, then
+dnl     process this file with autoconf to produce a 'configure' script
+dnl         -- you may need to run 'aclocal' first
+dnl ---------------------------------------------------------------
+
+dnl Note that dist-hook rewrites AC_REVISION in the generated configure
+AC_REVISION("no-version-control-info")
+
+dnl     Generates init code for configure: filename is optional, and is tested
+dnl     for existence to make sure configure isn't confused about directories
+AC_INIT()
+
+dnl     Adjust srcdir if running from harness/contrib directory
+if test -f "$srcdir"/../../upcr.h; then
+  srcdir=`cd ${srcdir}/../..; ${PWDCMD-pwd}`
+fi
+
+AC_CONFIG_AUX_DIR(config-aux)
+
+dnl set target_cpu, target_vendor, target_os, etc.
+AC_CANONICAL_SYSTEM
+dnl AC_VALIDATE_CACHED_SYSTEM_TUPLE
+
+dnl ---------------PROGRAMS---------------
+
+AC_PATH_PROGS(PERL, $PERL perl)
+
+case "$target_os" in
+    aix*)
+        # If on AIX, and in 64 bit mode, we need to use 'nm -X64' and 'ar -X64'
+        # Also, use /usr/bin/nm instead of GNU nm (which can't do 64 bits)
+        if test "$UPCRI_PTR_BITS" = 64; then 
+            NM="/usr/bin/nm -X64"
+            AR="ar -X64"
+            RANLIB="ranlib -X64"
+        else
+            NM="/usr/bin/nm"
+        fi
+        ;;
+    osf*)
+        # Tru64 has a default /bin/sh that emits error msgs for missing
+        # commands, even when 2>/dev/null passed.  Use posix shell instead.
+        if test -x /usr/bin/posix/sh; then
+            BOURNE_SHELL="/usr/bin/posix/sh"
+        fi
+        ;;
+esac
+dnl     Store full paths, so we find right ones even if users have
+dnl     some other version in their path
+if test x"$BOURNE_SHELL" = x; then
+    BOURNE_SHELL="/bin/sh"
+fi
+
+AC_DEFUN([HARNESS_OPTION_HELP],[  --$1 ]m4_substr[([                         ],len([$1]))[$2]])
+
+dnl provide a --with-foo=bar configure option
+dnl action-withval runs for a named value in $withval (or withval=yes if named arg missing)
+dnl action-without runs for --without-foo or --with-foo=no
+dnl action-none runs for no foo arg given
+dnl HARNESS_WITH(foo, description, action-withval, [action-without], [action-none])
+AC_DEFUN([HARNESS_WITH],[
+HARNESS_FUN_BEGIN([$0($1,...)])
+AC_ARG_WITH($1,HARNESS_OPTION_HELP(with-$1=value,[$2]), [
+  case "$withval" in
+    no) :
+        $4 ;;
+    *)  $3 ;;
+  esac
+  ],[
+   :
+   $5
+  ])
+HARNESS_FUN_END([$0($1,...)])
+])
+
+# _AM_SUBST_NOTMAKE(VARIABLE)
+# ---------------------------
+# Prevent Automake from outputting VARIABLE = @VARIABLE@ in Makefile.in.
+# This macro is traced by Automake.
+AC_DEFUN([_AM_SUBST_NOTMAKE])
+
+# AM_SUBST_NOTMAKE(VARIABLE)
+# ---------------------------
+# Public sister of _AM_SUBST_NOTMAKE.
+AC_DEFUN([AM_SUBST_NOTMAKE], [_AM_SUBST_NOTMAKE($@)])
+
+# AM_CONDITIONAL(NAME, SHELL-CONDITION)
+# -------------------------------------
+# Define a conditional.
+AC_DEFUN([AM_CONDITIONAL],
+[AC_PREREQ(2.52)dnl
+ ifelse([$1], [TRUE],  [AC_FATAL([$0: invalid condition: $1])],
+	[$1], [FALSE], [AC_FATAL([$0: invalid condition: $1])])dnl
+AC_SUBST([$1_TRUE])dnl
+AC_SUBST([$1_FALSE])dnl
+_AM_SUBST_NOTMAKE([$1_TRUE])dnl
+_AM_SUBST_NOTMAKE([$1_FALSE])dnl
+m4_define([_AM_COND_VALUE_$1], [$2])dnl
+if $2; then
+  $1_TRUE=
+  $1_FALSE='#'
+else
+  $1_TRUE='#'
+  $1_FALSE=
+fi
+AC_CONFIG_COMMANDS_PRE(
+[if test -z "${$1_TRUE}" && test -z "${$1_FALSE}"; then
+  AC_MSG_ERROR([[conditional "$1" was never defined.
+Usually this means the macro was only invoked conditionally.]])
+fi])])
+
+AC_PATH_PROGS(NM, $NM nm)
+AC_PATH_PROGS(AR, $AR ar)
+AC_PATH_PROGS(SIZE, $SIZE size)
+AC_PATH_PROGS(READLINK, $READLINK readlink)
+AC_PATH_PROGS(DIRNAME, $DIRNAME dirname)
+AC_PATH_PROGS(BASENAME, $BASENAME basename)
+AC_PATH_PROGS(PWD_PROG, $PWD pwd)
+AC_PATH_PROGS(RANLIB, $RANLIB ranlib)
+case "$target_os" in
+    darwin*) RANLIB="$RANLIB -s -c" ;; # ensure correct common block behavior on darwin
+esac
+ENVCMD="${ENVCMD:-/usr/bin/env}"
+AC_PATH_PROGS(ENVCMD, $ENVCMD env)
+AC_PATH_PROGS(GMAKE, $GMAKE gmake)
+AC_MSG_CHECKING(for GNU make)
+AC_PROG_AWK 
+AC_PATH_PROGS(TAIL, $TAIL tail)
+TAIL_FOLLOW="$TAIL"
+AC_MSG_CHECKING(whether $TAIL supports -q)
+if test "`$TAIL -q /dev/null 2>&1`" = "" ; then
+  TAIL_FOLLOW="$TAIL_FOLLOW -q"
+  AC_MSG_RESULT(yes)
+else
+  AC_MSG_RESULT(no)
+fi
+AC_MSG_CHECKING(whether $TAIL supports multi-file)
+# use -q here or GNU tail dumps headers causing false negatives
+if test "`$TAIL_FOLLOW /dev/null /dev/null 2>&1`" = "" ; then
+  TAIL_FOLLOW_MULTI='' 
+  AC_MSG_RESULT(yes)
+else
+  TAIL_FOLLOW_MULTI='#' 
+  AC_MSG_RESULT(no)
+fi
+TAIL_FOLLOW="$TAIL_FOLLOW -f"
+
+AC_SUBST(BOURNE_SHELL)
+AC_SUBST(PERL)
+AC_SUBST(NM)
+AC_SUBST(AR)
+AC_SUBST(ENVCMD)
+AC_SUBST(DIG)
+AC_SUBST(NSLOOKUP)
+AC_SUBST(RANLIB)
+AC_SUBST(SIZE_CMD)
+AC_SUBST(GMAKE)
+AC_SUBST(TAIL)
+AC_SUBST(TAIL_FOLLOW)
+AC_SUBST(TAIL_FOLLOW_MULTI)
+
+# Find the appropriate OS suffix for executables
+case "$target_os" in
+  cygwin*)    EXESUFFIX='.exe' ;;
+  *)          EXESUFFIX='' ;;
+esac
+AC_SUBST(EXESUFFIX)
+
+dnl ---------------DETERMINE COMPILER USED------------------------------------
+dnl TODO - set $USING_... based on the compiler
+dnl        set all variables for spec.in file - UPC_HOME, UPC_FLAGS, UPC_RUN
+dnl            Berkeley spec.in has more options that we might consider setting
+dnl            with the script (e.g. CC, HOST_CC, ...)
+
+dnl ---------------UPC COMPILER-----------------------------------------------
+AC_MSG_CHECKING(for UPC compiler)
+AC_SUBST(UPC_COMPILER)
+AC_ARG_WITH(upc-compiler,
+   [AS_HELP_STRING([--with-upc-compiler=UPC_COMPILER],
+                   [specify the UPC compiler])],
+   [if ! test -x "$withval"; then
+      AC_MSG_ERROR(--with-upc-compiler=$withval cannot execute!); fi
+    UPC_COMPILER=$withval
+   ],
+   [AC_MSG_ERROR(A working UPC compiler must be specified with --with-upc-compiler=UPC_COMPILER option)
+   ]
+)
+AC_MSG_RESULT($UPC_COMPILER)
+AC_MSG_CHECKING(for GUPC or CUPC compiler)
+dnl -- NOTE - expand for other compilers
+if test `echo $UPC_COMPILER | grep clang-upc`; then
+  USING_CUPC=yes
+  CC_FAMILY=clang
+  AC_MSG_RESULT(CUPC)
+else
+  USING_GCCUPC=yes
+  CC_FAMILY=gnu
+  AC_MSG_RESULT(GUPC)
+fi
+
+dnl ---------------CUSTOM COMMAND-LINE ARGUMENTS TO 'configure'---------------
+UPCR_BUILDCONFIG="pragma_upc_code,upc_all_free,upc_atomics,upc_castable,upc_collective,upc_nb,upc_tick,upc_types"
+if test "$USING_GCCUPC" = "yes"; then
+  BUILDCONFIG="driver_gupc,trans_gupc,runtime_cupc,$UPCR_BUILDCONFIG"
+elif test "$USING_CUPC" = "yes"; then
+  BUILDCONFIG="driver_cupc,trans_cupc,runtime_gupc,$UPCR_BUILDCONFIG"
+elif test "$USING_CUPC2C" = "yes"; then
+  BUILDCONFIG="trans_cupc2c,$UPCR_BUILDCONFIG"
+else
+  BUILDCONFIG="driver_upcr,runtime_upcr,gasnet,trans_bupc,pragma_upc_code,$UPCR_BUILDCONFIG"
+fi
+
+BUILDCONFIG_OS=os_`echo "$target_os" | $PERL -p -e '/([[^0-9.]]+)/ ; print $1; last'`
+case "$BUILDCONFIG_OS" in
+  os_linux*) BUILDCONFIG_OS="os_linux";;
+esac
+BUILDCONFIG_CPU=cpu_"$target_cpu"
+if test "$UPCRI_PTR_BITS" = 64; then
+  BUILDCONFIG_CPU="$BUILDCONFIG_CPU,cpu_64"
+else
+  BUILDCONFIG_CPU="$BUILDCONFIG_CPU,cpu_32"
+fi
+BUILDCONFIG_CC=cc_`echo "$CC_FAMILY" | $PERL -p -e 'print lc($_); last'`
+BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_OS,$BUILDCONFIG_CPU,$BUILDCONFIG_CC"
+
+pushdef([harness_fun_level],0)
+define([harness_fun_comment],[# $1])
+AC_DEFUN([HARNESS_FUN_BEGIN],[
+pushdef([harness_fun_level],incr(defn([harness_fun_level])))                      
+harness_fun_comment(vvvvvvvvvvvvvvvvvvvvvv [$1] vvvvvvvvvvvvvvvvvvvvvv (L:harness_fun_level))
+])                                                                              
+AC_DEFUN([HARNESS_FUN_END],[                                                     
+harness_fun_comment(^^^^^^^^^^^^^^^^^^^^^^ [$1] ^^^^^^^^^^^^^^^^^^^^^^ (L:harness_fun_level))
+popdef([harness_fun_level])                                                      
+])
+
+AC_MSG_CHECKING(for source directory)
+AC_SUBST(TOP_SRCDIR)
+dnl Check source directory.  Makes sense only if source directory
+dnl was specified on the command line with --srcdir 
+if ! test -d "$srcdir"; then
+  AC_MSG_ERROR(Source directory $srcpwd does not exist!); fi
+dnl Check where source directory points to and make changes
+dnl TODO - depending on the configure script source position
+dnl        make additional changes.
+dnl contrib OR harness source dirs
+if test -f "$srcdir"/../upcr.h; then
+  srcpwd=`cd ${srcdir}/.. ; ${PWDCMD-pwd}`
+else
+  srcpwd=`cd ${srcdir}; ${PWDCMD-pwd}`
+fi
+if ! test -f "$srcpwd"/upcr.h; then
+  AC_MSG_ERROR(--srcdir=$srcpwd directory is not UPCR source dir!); fi
+TOP_SRCDIR=$srcpwd
+AC_MSG_RESULT($TOP_SRCDIR)
+
+AC_MSG_CHECKING(for build directory)
+AC_SUBST(TOP_BUILDDIR)
+bldpwd=`${PWDCMD-pwd}`
+TOP_BUILDDIR=$bldpwd
+AC_MSG_RESULT($TOP_BUILDDIR)
+
+dnl Check for spec.in file
+AC_MSG_CHECKING(for default compiler spec file)
+AC_ARG_WITH(compiler-spec,
+   [AS_HELP_STRING([--with-compiler-spec=SPEC],                                      
+                   [the default compiler.spec for use by the test harness])],
+   [if ! test -f "$TOP_SRCDIR"/harness/"$withval".in; then
+      AC_MSG_ERROR(--with-compiler-spec=$withval spec file does not exist!); fi
+    COMPILER_SPEC_FILE="$withval"],
+   [if test "$USING_GCCUPC" = "yes"; then
+       COMPILER_SPEC_FILE="gupc.spec"
+     else
+       COMPILER_SPEC_FILE="cupc.spec"
+     fi
+   ]
+)
+AC_MSG_RESULT($COMPILER_SPEC_FILE)
+AC_SUBST(COMPILER_SPEC_FILE)  
+
+AC_ARG_WITH(feature-list, 
+    HARNESS_OPTION_HELP([with-feature-list], [explicitly specify a comma-delimited list of additional test harness features for this build]),
+    [if test "$with_feature_list" = yes; then
+        AC_MSG_ERROR(--with-feature-list requires an argument!)
+     fi
+     BUILDCONFIG="$BUILDCONFIG,$with_feature_list"
+    ])
+
+AC_MSG_CHECKING(for compiler feature list)
+AC_MSG_RESULT($BUILDCONFIG)
+AC_SUBST(BUILDCONFIG)
+
+dnl ---------------UPC COMPILER OPTIONS-----
+AC_MSG_CHECKING(for UPC compiler options)
+AC_SUBST(UPC_OPTIONS)
+AC_ARG_WITH(upc-options,
+   [AS_HELP_STRING([--with-upc-options=UPC_OPTIONS],
+                   [specify the UPC compiler options])],
+   [UPC_OPTIONS="$withval"],
+   [UPC_OPTIONS=])
+AC_MSG_RESULT($UPC_OPTIONS)
+
+AC_MSG_CHECKING(for UPC run command)
+AC_SUBST(UPCRUN_CMD)
+AC_ARG_WITH(upcrun-cmd,
+   [AS_HELP_STRING([--with-upcrun-cmd=UPCRUN_CMD],
+                   [specify the UPC run command - harness pattern])],
+   [UPCRUN_CMD=$withval],
+   [UPCRUN_CMD="%P -n %N %A"]
+)
+AC_MSG_RESULT($UPCRUN_CMD)
+
+AC_MSG_CHECKING(for harness configuration file)
+AC_SUBST(SYSCONFIG)
+AC_ARG_WITH(sysconfig,
+   [AS_HELP_STRING([--with-sysconfig=SYSCONFIG],
+                   [specify the harness sysconfig file])],
+   [SYSCONFIG="$withval"],
+   [
+     if test "$USING_GCCUPC" = "yes"; then
+       SYSCONFIG=shem-interactive
+     else
+       SYSCONFIG=smp-interactive-no-pthreads
+     fi
+   ]
+)
+AC_MSG_RESULT($SYSCONFIG)
+
+dnl ---------------OUTPUT---------------
+
+dnl     Work around automake intercepting all 'include's in Makefile.am
+MAKE_INCLUDE="include"
+
+AM_CONDITIONAL(BLD_IN_SRCDIR, test "$TOP_SRCDIR" = "$TOP_BUILDDIR")
+
+AC_DEFUN([HARNESS_FIX_EXEC],[                                                    
+HARNESS_FUN_BEGIN([$0($1)])                                                      
+  cv_prefix[]exec_list="$cv_prefix[]exec_list $1"                               
+HARNESS_FUN_END([$0($1)])                                                        
+])
+
+AC_DEFUN([HARNESS_FIX_EXEC_SETUP],[[                                             
+HARNESS_FUN_BEGIN([$0])                                                          
+  dnl round-about method ensure autoconf 2.53 picks up depfiles command         
+  if test "\${config_commands+set}" != set ; then                               
+    config_commands="default"                                                   
+  fi                                                                            
+  CONFIG_COMMANDS="\$config_commands"                                           
+  cv_prefix[]exec_list="$cv_prefix[]exec_list"                                  
+HARNESS_FUN_END([$0])                                                            
+]])
+
+AC_DEFUN([HARNESS_FIX_EXEC_OUTPUT],[[
+HARNESS_FUN_BEGIN([$0])
+  for file in $cv_prefix[]exec_list; do
+   case "$CONFIG_FILES" in
+     *${file}*) chmod +x ${file} ;;
+   esac
+  done
+HARNESS_FUN_END([$0])
+]])
+
+PERLSTART=$TOP_BUILDDIR/gasnet/other/perlstart
+AC_SUBST_FILE(PERLSTART)
+
+HARNESS_FIX_EXEC(harness/harness)
+HARNESS_FIX_EXEC(harness/runjobs)
+HARNESS_FIX_EXEC(harness/checkfail)
+
+# TODO - check on these variables
+GASNET_PERL_BYTESFLAG="-Mbytes"
+AC_SUBST(GASNET_PERL_BYTESFLAG)
+GASNET_PERL_LANG=en_US
+AC_SUBST(GASNET_PERL_LANG)
+PARSEQ=
+AC_SUBST(PARSEQ)
+
+AC_CONFIG_COMMANDS([harness/harness.pl],
+	[cp -f $srcdir/harness/harness.pl harness/harness.pl])
+AC_CONFIG_COMMANDS([harness/harness_util.pl],
+	[cp -f $srcdir/harness/harness_util.pl harness/harness_util.pl])
+AC_CONFIG_COMMANDS([harness/runjobs.pl],
+	[cp -f $srcdir/harness/runjobs.pl harness/runjobs.pl])
+AC_CONFIG_COMMANDS([harness/tune_max_compile_jobs.pl],
+	[cp -f $srcdir/harness/tune_max_compile_jobs.pl harness/tune_max_compile_jobs.pl])
+AC_CONFIG_COMMANDS([harness/harness-incomplete.sh],
+	[ln -s $srcdir/harness/contrib/harness-incomplete.sh harness/harness-incomplete.sh])
+AC_CONFIG_COMMANDS([harness/harness-stats.sh],
+	[ln -s $srcdir/harness/contrib/harness-stats.sh harness/harness-stats.sh])
+AC_CONFIG_COMMANDS([harness/harness-retest.pl],
+	[ln -s $srcdir/harness/contrib/harness-retest.pl harness/harness-retest.pl])
+AC_CONFIG_COMMANDS([harness/harness-times.pl],
+	[ln -s $srcdir/harness/contrib/harness-times.pl harness/harness-times.pl])
+
+if test "$USING_GCCUPC" = "yes"; then
+  SPEC=harness/gupc.spec
+else
+  SPEC=harness/cupc.spec
+fi
+
+AC_OUTPUT(
+	gasnet/other/perlstart
+	harness/Makefile
+	harness/harness
+	harness/runjobs
+	harness/checkfail
+	$SPEC
+, 
+HARNESS_FIX_EXEC_OUTPUT()
+, 
+HARNESS_FIX_EXEC_SETUP()
+)

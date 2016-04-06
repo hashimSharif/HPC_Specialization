@@ -1,0 +1,60 @@
+# Configuration file for Berkeley UPC multiplexing compiler driver
+# This file is a variant for building only clang-upc support.
+# Please see multiconf.conf.in for the "full" version with documentation.
+
+# --- Global settings ---
+# Global configure options:
+CONFIGURE_OPTIONS= 
+
+# Forced options:
+FORCED_OPTIONS=
+
+# Global environment settings:
+# NONE
+
+# Enabled conf list: comma-separated list
+ENABLED_CONFS= dbg_cupc2c, opt_cupc2c
+
+# Change this line to the full path of your clang-upc2c execuable 
+# OR set the same-named environment variable at configure time.
+CUPC2C_TRANS=/usr/local/upc/bin/clang-upc2c
+
+# BLACKLISTED TOP-LEVEL CONFIGURE OPTIONS
+BLACKLISTED_ENABLE_OPTIONS=debug,totalview,trace,stats,inst
+BLACKLISTED_WITH_OPTIONS=bupc,cupc,clang-upc2c,translator
+
+# ALIASES ("ALIAS fake = real")
+# NONE
+
+# end of global section:
+;;;
+
+# --- Conf settings ---
+# Each configuration is specified in the following format:
+#
+#  conf-name ; conf-options ; upcc-select-expr ; upcc-arg-strip 
+#
+# See multiconf.conf.in for complete documentation
+
+# clang-upc2c + UPCR mode with debugging, stats and tracing (selected by '-g')
+dbg_cupc2c ; --with-clang-upc2c="${CUPC2C_TRANS}" --enable-debug ; $opt{'g'} ; -cupc2c
+
+# clang-upc2c + UPCR mode optimized mode with tracing
+opt_cupc2c_trace ; --with-clang-upc2c="${CUPC2C_TRANS}" --enable-trace --enable-stats ; $opt{'trace'} ; -cupc2c
+
+# clang-upc2c + UPCR mode and GASP profiling support (selected by '-inst*' family of options)
+opt_cupc2c_inst ; --with-clang-upc2c="${CUPC2C_TRANS}" --enable-inst ; ( $opt{'inst'} || $opt{'inst-functions'} || $opt{'inst-local'} || $opt{'inst-toolname'} ) ; -cupc2c
+  
+# clang-upc2c + UPCR mode with optimizations (default)
+opt_cupc2c ; --with-clang-upc2c="${CUPC2C_TRANS}" ; 1 ; -cupc2c
+
+# end of config section 
+# everything below the following line is upcc -help output for the above options
+;;;
+
+Multiconf options: 
+   -show-confs        Show the multiconf variations which are installed
+(availability of following options varies based on configure-time decisions)
+   -g                 Enable system-wide debugging symbols and assertions
+   -trace             Enable communication tracing & statistics for use with upc_trace
+   -inst              Enable GASP-compliant instrumentation for 3rd party performance tools

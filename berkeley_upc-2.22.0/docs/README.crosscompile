@@ -1,0 +1,117 @@
+--------------------------------------------------------------------------
+Cross-compile build instructions for BlueGene/Q & Cray X{T,E,K,C} & Intel MIC
+
+These platforms are only supported using cross-compilers, because for 
+various reasons the compute nodes cannot run the C compiler and associated machinery.
+
+1. cd into the top source directory
+
+2. symlink the appropriate cross configure script into your top-level source dir:
+   BG/Q: ln -s gasnet/other/contrib/cross-configure-bgq .
+   Cray XT: ln -s gasnet/other/contrib/cross-configure-crayxt-linux .
+   Cray XE or XK: ln -s gasnet/other/contrib/cross-configure-crayxe-linux .
+   Cray XC: ln -s gasnet/other/contrib/cross-configure-crayxc-linux .
+   Intel MIC: ln -s gasnet/other/contrib/cross-configure-intel-mic .
+
+3. open the cross-configure script in an editor and edit the values as necessary
+   to match your system's compiler paths (the defaults are normally correct):
+   - CC and MPI_CC should both be set to the working MPI compiler for the 
+     *target* architecture.
+   - MPIRUN_CMD might need tweaking based on your job system setup
+   - HOST_CC needs to be set to a working C compiler for the *host* architecture,
+     as it's used to build binaries used by upcc during UPC compilation.
+   - The C++ compiler is not used on these systems, so that setting can be ignored.
+   Also check the script for any target-specific notes (at the top of the file).
+
+4. cd into your desired build directory (must not be the source directory)
+
+5. set environment for the desired compiler
+   BG/Q: If you want to compile with gcc, set USE_GCC=1 in the environment
+         If you want to compile with clang, set USE_CLANG=1 in the environment
+   Cray X*: Load the desired PrgEnv-* environment module
+   Intel MIC: Make sure the Intel compilers (icc and icpc) and Intel MPI (mpiicc)
+              are in your $PATH.
+
+6. run the cross-configure script and pass in any desired options, eg:
+     ../srcdir/cross-configure-bgq --enable-mpi --prefix=/path/to/install
+     ../srcdir/cross-configure-crayxc-linux --enable-mpi --prefix=/path/to/install
+     ../srcdir/cross-configure-intel-mic --prefix=/path/to/install
+
+7. build (and optionally install) as usual:
+      gmake ; gmake install
+--------------------------------------------------------------------------
+Cross-compile build instructions for Cray X-1:
+
+Berkeley UPC can be built and used on the Cray X-1 using the X-1 frontend nodes -
+ie, without any cross-compilation : just login to the X-1/Unicos system and
+configure/gmake as with any other system. However, the configure, build and 
+app build steps are all very slow due when run in this manner due to the
+slowness of the Cray C compiler on the X-1, which actually transparently ships
+source files to a C compile server that performs cross-compilation behind the
+scenes. 
+
+If your X-1 allows direct user login access to the cross-compile server, you can 
+skip all this overhead by cross-compiling Berkeley UPC and your UPC
+applications from that machine instead.
+
+The recommended network on the X-1 is shmem-conduit, however smp and mpi are
+also available.
+
+1. cd into the top source directory
+
+2. symlink the appropriate cross configure script into your top-level source dir:
+    ln -s gasnet/other/contrib/cross-configure-phoenix .
+
+3. open the cross-configure script in an editor and edit the values as necessary
+   to match your system's compiler paths:
+   - CC and MPI_CC should both be set to the working MPI compiler for the 
+     *target* architecture.
+   - MPIRUN_CMD might need tweaking based on your job system setup
+   - HOST_CC needs to be set to a working C compiler for the *host* architecture,
+     as it's used to build binaries used by upcc during UPC compilation.
+     NOTE: you may need to set GCC_EXEC_PREFIX=/usr/bin/ 
+     in your environment during configure *and* build in order to get the 
+     correct assembler when using gcc as HOST_CC (just add it to your login scripts)
+   - The C++ compiler is not used on this system, so that setting can be ignored.
+
+4. cd into your desired build directory
+
+5. run the cross-configure script and pass in any desired options, eg:
+     ../srcdir/cross-configure-phoenix --enable-shmem --enable-mpi --prefix=/path/to/install
+
+6. build (and optionally install) as usual:
+      gmake ; gmake install
+--------------------------------------------------------------------------
+Generic cross-compile build instructions:
+
+If your system is not listed above as a supported cross-compilation system,
+you may still be able to make it work yourself with the following generic
+instructions -- note that while Berkeley UPC is quite portable, for obvious reasons
+we don't guarantee it will work out of the box on machine types we've never
+tried before.
+
+1. Follow the generic cross-compilation instructions in:
+  gasnet/other/cross-configure-help.c
+during which you'll create a cross-configure script in your top-level
+source directory.
+[NOTE: We currently don't distribute the cross-configure-help.c in our 
+ normal distribution.  If you think you need it, contact us at upc@lbl.gov]
+
+2. Edit the cross-configure script to ensure it correctly reflects the
+characteristics of the target architecture. 
+   - CC (and MPI_CC for mpi conduit) need to be set to apprpriate working 
+     compilers for the *target* architecture.
+   - HOST_CC needs to be set to a working C compiler for the *host* architecture,
+     as it's used to build binaries used by upcc during UPC compilation.
+   - The C++ compiler is not currently used for Berkeley UPC (assuming you're 
+     not trying to use udp-conduit), so that setting can be ignored.
+
+3. Run cross-configure with the same options you'd pass to configure, as
+described in the regular build instructions. eg:
+      ./cross-configure --enable-mpi --prefix=/path/to/install
+
+4. build (and optionally install) as usual, eg:
+      gmake ; gmake install
+
+--------------------------------------------------------------------------
+                                                                             

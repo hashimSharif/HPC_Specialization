@@ -1,0 +1,183 @@
+This directory contains a number of test suites of UPC code, see each suite for
+licensing details.
+
+Note that most of the code in this subdirectory tree was contributed by
+outside sources, and the Berkeley UPC group makes no claims of 
+correctness, optimality or suitability of this code for any purposes.
+
+In particular, be aware that the Makefiles provided may not be setup
+appropriately for Berkeley UPC.  To run the tests, we recommnend use
+of the automated test harness in ../harness.  However, the
+descriptions below note steps required to use 'make' when supported.
+
+
+Brief descriptions of the subdirectories
+----------------------------------------
+
+mupc - redistribution of the MuPC test suite:
+  http://www.upc.mtu.edu/
+  To use 'make':
+   + Edit the runall.sh script as needed.
+   + Compiler defaults to 'upcc', which assumes it is in your PATH.
+
+gwu - redistribution of an older GWU test suite:
+  http://upc.gwu.edu
+  NOTE: These are NOT always the most current versions of GWUs codes
+  To use 'make':
+   + Set the UPCC and THREADS variables.
+   + UPCC defaults to 'upcc', which assumes it is in your PATH.
+
+gwu-upc-io - redistribution of the GWU UPC-IO test suite:
+  http://upc.gwu.edu
+  NOTE: These are NOT always the most current versions of GWUs codes
+  To use 'make':
+   + Edit the first 10 or so lines of Makefile.
+   + Compiler setting is CC, not UPCC, and defaults to a full path
+     which is almost certainly not correct on your system.
+   + Variable NP must be set to the desired thread count.
+    
+gwu-npb-upc - redistribution GWU's UPC implementations of the NAS parallel benchmarks
+  http://threads.hpcl.gwu.edu/sites/npb-upc
+  To use 'make':
+   + Running 'make' with no arguments provides some instructions.
+   + UPCC defaults to 'upcc', which assumes it is in your PATH.
+
+guts_main - redistribution of a portion the GWU Unified Testing Suite
+  http://threads.hpcl.gwu.edu/sites/guts/
+  To use 'make':
+   + NOT SUPPORTED - use the Berkeley UPC test harness.
+   + However, most tests can be built as normal UPC programs, needing
+     '-Iinclude' as the only extra compiler flag.
+
+intrepid - redistribution of the Intrepid/SGI/GNU test suite:
+  http://www.intrepid.com/upc/
+  To use 'make':
+   + NOT SUPPORTED - use the Berkeley UPC test harness.
+   + However, most tests can be built as normal UPC programs.
+
+CGBENCH - implementation of conjugate gradient in UPC, MPI and OpenMP by
+  the University of North Carolina:
+  http://www.cs.unc.edu/~prins 
+  To use 'make':
+   + Compiler setting is CC, not UPCC, and defaults to 'upcc', which
+     assumes it is in your PATH.
+   + CLINK should normally be set to the same value as CC.
+   + Running 'make' with no arguments provides some instructions.
+
+benchmarks - microbenchmarks by the Berkeley UPC compiler group and others
+  http://upc.lbl.gov
+  To use 'make':
+   + NOT SUPPORTED - use the Berkeley UPC test harness.
+   + However, most tests can be built as normal UPC programs.
+
+UPC-Coll-RefImp - redistribution of the MTU UPC Collectives implementation
+  http://www.upc.mtu.edu/
+  To use 'make':
+   + Set the UPCC and N variables if needed.
+   + UPCC defaults to 'upcc', which assumes it is in your PATH.
+   + If N is unset, builds for dynamic threads environment.
+
+collectives - modified tests extracted from the MTU Collective implementation
+  http://www.upc.mtu.edu/
+  To use 'make':
+   + NOT SUPPORTED - use the Berkeley UPC test harness.
+
+uts - redistribution of the Unbalanced Tree Search (UTS) code v1.1
+  http://barista.cse.ohio-state.edu/wiki/index.php/UTS
+  To use 'make':
+   + Indended that the user run the configure script.  However, one
+     can pass 'CONFFILE=config/linux-cluster' to make when using
+     Berkeley UPC as your compiler (even when NOT on a Linux system).
+   + UPCC defaults to 'upcc', which assumes it is in your PATH.
+  
+upcr-tests - Berkeley UPC Runtime unit tests
+detect-upc - Berkeley UPC preprocessor unit tests
+gasnet-tests - GASNet unit tests
+  http://upc.lbl.gov
+  Tests for various apects of Berkeley UPC and GASNet runtimes
+  NOTE: These are of little value except to compiler/runtime implementers
+  To use 'make':
+   + NOT SUPPORTED - use the Berkeley UPC test harness.
+
+bugzilla - regression tests from the Berkeley UPC bug database system
+  http://upc-bugs.lbl.gov/bugzilla/
+  NOTE: These are of little value except to compiler/runtime implementers
+  To use 'make':
+   + NOT SUPPORTED - use the Berkeley UPC test harness
+
+
+Notes on writing regression tests for Berkeley UPC
+--------------------------------------------------
+
+*** All tests must be added to a harness.conf file
+
+Each testing directory contains a harness.conf file with settings to control
+the execution of the tests in that directory. When adding a new test, you must
+add an entry to that file to control it, otherwise your test will not be run
+with the automated tester. Be sure to check the expected success and failure
+outputs are set correctly - good tests should output both failure and a 
+success indications as appropriate, in order to prevent false positives 
+(eg a common failure mode, especially on clusters, is to crash on startup without
+producing any output or visible indication of crash. The harness needs a way
+to distinguish this behavior from a success - so your program should print 
+something on success).
+
+*** Do not rely on exit codes
+
+Some platforms and backends (especially on loosely coupled clusters) have
+trouble propagating the program exit code in a reliable manner. Therefore, your
+test should indiciate success or failure using stdout/stderr, and never solely
+relying on an exit code.
+
+*** All tests must work in parallel 
+
+Unless you configure the harness.conf entry otherwise, the harness will be used
+to run your test both in serial *and* parallel, both with and without pthreads.
+This means all tests must be written to be free of parallel race conditions
+(even if the bug you're reporting is visible with a single thread), otherwise
+your test could generate false negatives when run in parallel mode. If you're
+confident that parallel mode is irrelevant to your test, then if nothing else,
+place a "if (MYTHREAD==0) {}" around the contents of main() and place a barrier
+at the end. If you take an approach where only one thread does the work, 
+be sure that no thread can reach a call to upc_global_exit() before that thread 
+does its job. Also be sure not to call into any external code or libraries
+which may not be pthread-safe.
+
+*** All tests must be architecture-independent and OS-independent
+
+The harness is used to run your test on a variety of OS's and backend C
+compilers, on architectures with varying sizes for the basic types, and with
+different struct ptr representations.  Therefore, your test should not make any
+assumptions about sizeof() for any type, nor should it rely on any library
+functions, headers or language extensions which are not part of the C99 and UPC
+specs. This notably includes the following often-problematic OS-specific functions:
+ sched_yield - use sleep(0)
+ random/srandom - use rand/srand
+
+*** Passing upc_threadof/upc_phaseof/upc_addrfield to printf-family fns
+
+Code of the form:
+
+printf("%i %i %i", upc_threadof(x), upc_phaseof(y), upc_addrfield(z));
+
+is always a bug, because these functions all return size_t, which is 
+often a different type than int (usually not even the same size on LP64).
+The code above is likely to produce garbage output on LP64 platforms.
+
+The correct (portable) way to write this code is to cast the result to a known
+type before passing it to printf:
+
+printf("%i %i %lu", (int)upc_threadof(x), 
+                    (int)upc_phaseof(y), (unsigned long)upc_addrfield(z));
+
+This ensures correct behavior everywhere (also note the use of unsigned long
+with upc_addrfield, to prevent truncation on LP64).
+ 
+*** printf format specifiers: use %f NOT %lf:
+
+%lf causes warnings on some compilers (eg gcc 2.95.2) and has absolutely no
+effect (even according to the language spec) - C's default argument promotion
+requires and ensures that all float or double variables passed to varargs
+function like printf are passed as doubles, so specifying %lf for a double is
+redundant and unnecessary - %f is already a double.
+

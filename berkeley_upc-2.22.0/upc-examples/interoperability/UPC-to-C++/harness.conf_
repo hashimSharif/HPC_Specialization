@@ -1,0 +1,17 @@
+# This file may be renamed to harness.conf IF your
+# platform has been properly configured for interoperability.
+
+BEGIN_DEFAULT_CONFIG
+DynamicThreads: $DEFAULT$
+StaticThreads: 0
+CompileResult: pass
+PassExpr: SUCCESS
+FailExpr: FAILURE
+ExitCode: 0
+BuildCmd: make,notrans
+TimeLimit: $DEFAULT$
+RequireFeature: trans_bupc
+ProhibitFeature: pthreads
+END_DEFAULT_CONFIG
+
+TestName: a.out

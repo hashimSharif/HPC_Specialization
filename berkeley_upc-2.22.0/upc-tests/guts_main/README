@@ -1,0 +1,79 @@
+--------------------------------------------------------------------------
+		GWU Unified Testing Suite (GUTS)
+--------------------------------------------------------------------------
+
+GUTS is a new framework which includes various UPC testing suites. The main 
+goal behind this new framework is to hold different UPC testing benches in a
+single unified environment as much as possible. 
+
+This README file contains general information for GUTS, if you would like to
+know more about the specific testing suites please go to those directories 
+and refer to the information provided there. 
+
+BUG REPORTS MAY BE SUBMITTED USING OUR TICKET SYSTEM AT:
+	http://threads.hpcl.gwu.edu/sites/guts
+ 	
+IF FOR SOME REASON THIS IS NOT AN OPTION, E-MAIL THE MAINTAINER AT:
+	apokayi@gwmail.gwu.edu
+
+
+Quick Overview:
+----------------
+
+Currently GUTS include the following test benches:
+	
+	1- guts_main: This is the main UPC testing suite for the language specification
+	compliance check for the UPC compilers
+
+	2- guts_io: This is the testing suite for the UPC/IO library 
+
+	3- guts_collectives: This is the testing suite released by Michigan Tech University
+	and it is used for testing the UPC/Collectives library
+
+	4- guts_coa: This bench provides performance optimization testing on the compilers by running
+	some of the kernels from the NAS Parallel Benchmarks 
+
+Again for more information in any of these testing suites please go to that specific
+directory and use the README file. 
+
+Background information and changes:
+------------------------------------
+
+GUTS is a modified version of the previous GWU testing efforts especially 
+Unified UPC Test Framework (UUTF) which was released June 2005. It differs 
+mainly in the testing strategy i.e. GUTS follow the "unit" based testing 
+wherever possible (guts_io & guts_main). Also, GUTS includes various bug fixes 
+and modifications to previous release. Last but not least, GUTS tries to provide 
+clear information as the output of testing by going through each unit one by one and 
+at the end including statistics for the whole run.
+
+For more information on the official releases of the test suites, please refer to 
+http://upc.gwu.edu.
+
+Requirements:
+--------------
+
+Please refer to the README files provided for each sub testing suite.
+GUTS itself does not require to be installed and requires only working UPC compiler.
+
+How to use GUTS?
+----------------
+
+There are two main alternatives to use GUTS for testing purposes.
+	
+	1- Use the "guts.sh" script provided in the top directory and run any of the testing
+	suite by specifying the name in the command line
+	
+	2- Use the scripts provided inside each testing suite to run that specific test bench
+	e.g. to run the UPC/IO testing suite first go to "guts_io" directory, refer to the 
+	README file provided for any specific information, and run the test bench using the 
+	script provided in that directory which is "guts_io.sh" by calling
+		./guts_io.sh [#of threads] [COMPILER]
+
+User does not need to compile anything, every source file is compiled and run accordingly 
+using the scripts provided. Statistical output is provided at the end where applicable.
+
+License:
+--------
+
+Please refer to each source file for the licenses as they may come from different sources.

@@ -1,0 +1,23 @@
+                           An UPC BTIO implementation
+
+                                    Yiyi Yao
+                                   yyy@gwu.edu
+                          High Performance Computing Lab
+                         The George Washington University
+
+The BTIO benchmark is a part of NAS Parallel Benchmark (NPB) suites. This IO benchmark is developed based on one of the BT computational kernels. The BT benchmark is basically a CFD code that uses an implicit algorithm to solve the 3D compressible Navier-Stokes equations. For more information regarding the algorithm, please refer to the NAS documents.
+
+The BTIO benchmark uses the same computational core as the BT benchmark. But it will write the results to disk file every iteration step. Thus it can be used to extensively benchmark the programming language I/O library and file system. 
+
+The Original NAS NPB suites provide a set of example implementations as following:
+>> BT-epio: In this version each node writes its part of the solution to a local file on the local processor. This is the ``embarrassingly parallel'' version, which is for reference and not part of the benchmark proper.
+>> BTIO-fortran-direct: The BTIO benchmark requires that the results from all nodes should be written to a single file. This version uses a Fortran direct access file and allows each node to write to its own data areas concurrently.
+>> BTIO-simple-mpiio: Uses basic MPI-2 IO to perform the file operations.
+>> BTIO-full-mpiio: Again using MPI-2 IO, but with use of collective file operations.
+
+This UPC version of the BTIO is based on BTIO-simple-mpiio scheme. Basic UPC-IO functions are used to perform the file operations.  Each thread writes its local part of results to a global shared disk file every iteration step. To verify if the data has been successfully written to the file, the BTIO uses the data stored in the file instead of using the memory image to calculate the final error norm values. All the threads participate in the verification by reading its part of data from the file. THREAD 0 will collect all the data and perform the error norm calculation. 
+
+A workable UPC-IO library must be installed properly to run this UPC BTIO benchmark. This version has passed the verification running with the UPC-IO reference implementation released by GWU. The UPC-IO reference implementation is available on the UPC site: http://upc.gwu.edu. Some modification may be needed to fit the Makefile into the environment.
+
+
+

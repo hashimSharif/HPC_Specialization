@@ -1,0 +1,59 @@
+ #---------------------------------------------------------------------------
+ #
+ # SITE- AND/OR PLATFORM-SPECIFIC DEFINITIONS. 
+ #
+ #---------------------------------------------------------------------------
+
+ #---------------------------------------------------------------------------
+ # Parallel C:
+ #
+ # For IS, which is in C, the following must be defined:
+ #
+ # CC - C compiler 
+ # CFLAGS - C compilation arguments
+ # C_INC - any -I arguments required for compiling C 
+ # CLINK - C linker
+ # CLINKFLAGS - C linker flags
+ # C_LIB - any -L and -l arguments required for linking C 
+ #
+ # compilations are done with $(CC) $(C_INC) $(CFLAGS) or
+ # $(CC) $(CFLAGS)
+ # linking is done with $(CLINK) $(C_LIB) $(CLINKFLAGS)
+ #---------------------------------------------------------------------------
+ 
+ #---------------------------------------------------------------------------
+ # This is the C compiler used for OpenMP programs
+ #---------------------------------------------------------------------------
+ CC = upc 
+ # This links C programs; usually the same as ${CC}
+ CLINK = upc
+
+ 
+ #---------------------------------------------------------------------------
+ # These macros are passed to the linker 
+ #---------------------------------------------------------------------------
+ C_LIB = -lm
+ 
+ #---------------------------------------------------------------------------
+ # These macros are passed to the compiler 
+ #---------------------------------------------------------------------------
+ C_INC = -I../common
+ 
+ #---------------------------------------------------------------------------
+ # Global *compile time* flags for C programs
+ #---------------------------------------------------------------------------
+ CFLAGS = -O3 
+ # CFLAGS = -g
+ 
+ #---------------------------------------------------------------------------
+ # Global *link time* flags. Flags for increasing maximum executable 
+ # size usually go here. 
+ #---------------------------------------------------------------------------
+ CLINKFLAGS = -fast  
+ RAND   = randdp
+ WTIME = wtime
+ BINDIR  = ../bin
+# LSUFIX  = c      
+ LSUFIX = upc
+# THREADF = -fthreads ${THREADS}
+THREADF = -fupc-threads-${THREADS}

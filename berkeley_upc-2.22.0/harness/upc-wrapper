@@ -1,0 +1,47 @@
+#!/bin/sh
+#set -x
+
+UPCC_CMD="cc"
+
+createdfiles=
+compileonly=
+explicitoutput=
+trap 'eval rm -f $createdfiles' INT
+for file in "$@" ; do
+  base=`basename $file .upc 2> /dev/null`
+  base2=`basename $file 2> /dev/null`
+  if test "$base" != "$base2" -a -f "$file" ; then
+    # use cp instead of ln because ln leads to race conditions on ORNL's broken filesystems
+    #ln -s "$file" "$file-wrap.c"
+    cp "$file" "$file-wrap.c"
+    createdfiles="$createdfiles '$file-wrap.c'"
+    args="$args '$file-wrap.c'"
+  else
+    args="$args '$file'"
+  fi 
+  if test "$file" = "-c" ; then
+    compileonly=1
+  fi
+  if test "$file" = "-o" ; then
+    explicitoutput=1
+  fi
+done
+#$UPCC_CMD `echo "$@" | perl -pe 's/.upc([^\S+])/.upc-wrap.c$1/g'`
+#sync
+eval $UPCC_CMD $args
+status=$?
+
+eval rm -f $createdfiles
+if test "$compileonly" = 1 -a "$explicitoutput" != 1; then # rename created object files
+ for file in $createdfiles ; do
+  dir=`eval dirname $file 2> /dev/null`
+  base=`eval basename $file .upc-wrap.c 2> /dev/null`
+  # use cp instead of mv because mv leads to race conditions on ORNL's broken filesystems
+  cp "${dir}/${base}.upc-wrap.o" "${dir}/${base}.o"
+  rm -f "${dir}/${base}.upc-wrap.o"
+ done
+fi
+#sync
+
+exit $status
+

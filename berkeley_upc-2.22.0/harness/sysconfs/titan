@@ -1,0 +1,24 @@
+network = gemini
+
+batch_sys = pbs
+repository = CSC103
+queues = [
+        {
+          Q_name     => batch,   
+          Q_maxnode  => 32,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 16,      
+	  Q_maxtime  => 2:00:00,
+	  Q_noppn    => 1,
+        }
+]
+
+nthread_default = 8
+max_proc_per_node = 1
+min_num_nodes = 1
+num_pthreads = 0
+
+# No working /tmp:
+run_env_default = { 
+  GASNET_TMPDIR => '$WORKDIR'
+}

@@ -1,0 +1,28 @@
+# Add the following lines to ~/.tcshrc to get tab-completion for 
+# the Berkeley UPC commands upcc and upcrun
+# NoteL this file is NOT carefully maintained
+
+complete '*upcc*' 'n/-network/(mpi udp smp shmem ibv ofi mxm portals4 pami aries gemini)/'    \
+ 'C/-*/(-c -E -O -g -D -h -help -I -l -L -o -network            \
+        -smart-output -T \
+        -shared-heap -heap-offset \
+        -checks -nochecks \
+        -lines -nolines \
+        -link-cache -nolink-cache \
+        -link-with \
+        -pthreads -nopthreads \
+        -require-size -norequire-size \
+        -save-all-temps -nosave-all-temps \
+        -save-temps -nosave-temps \
+        -size-warn -nosize-warn \
+        -version \
+        -trans -v -vv -Wp, -Wu, -Ww, -Wc, -Wl, \
+        -nightly -stable -yesterday -hier \
+        )/'           \
+ 'n/{-I,-L}/d:*/' \
+ 'C/*/f:*.{upc,c,o,a,so,trans.c}/'
+
+complete '*upcrun*' \
+ 'C/-*/(-h -n -np -N -nodes -c -cpus-per-node -p -pthreads -shared-heap -heap-offset -v -verbose -noverbose -t -show -noshow -i -info -noinfo -q -quiet -noquiet -trace -notrace -tracefile -version)/' \
+ 'C/*/C:*/'
+

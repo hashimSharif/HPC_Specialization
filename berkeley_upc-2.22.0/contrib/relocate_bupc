@@ -1,0 +1,59 @@
+#!/bin/sh
+# This is a simple (but not yet proven to be portable) script for
+# Changing the paths in an installed BUPC runtime.
+
+# Config settings (default is to let them be found in $PATH)
+PERL=${PERL:-perl}
+FIND=${FIND:-find}
+# End of config
+
+usage () {
+  echo >&2 "usage: `basename $0` [options] directory"
+  echo >&2 "options:"
+  echo >&2 "   --old-dir=DIR      legacy option (ignored)"
+  echo >&2 "   --new-dir=DIR      legacy option (ignored)"
+  echo >&2 "   --transator=TRANS  default is no change"
+  exit 1
+}
+
+fatal () {
+  echo >&2 $@
+  exit 1
+}
+
+if test $# -lt 1; then
+ usage
+fi
+while test $# -gt 1; do
+  case "$1" in
+    --old-dir=*) old_dir=`echo "$1" | cut -d= -f2-`;;
+    --new-dir=*) new_dir=`echo "$1" | cut -d= -f2-`;;
+    --translator=*) translator=`echo "$1" | cut -d= -f2-`;;
+    *) usage;;
+  esac
+  shift
+done
+
+target=$1
+cd $target || error "Failed to cd to target directory '$target'"
+target=`pwd -P`
+
+if test -f "etc/multiconf.conf" -o -f "etc/upcrun.conf"; then
+  : # Looks OK
+else
+  fatal "Directory '$target' does not appear to be a Berkeley UPC install directory"
+fi
+
+if test -n "$translator"; then
+  echo "translator: $translator"
+fi
+
+chmod -R +w .
+
+if test -n "$translator"; then
+  $FIND . -name upcc.conf \
+     -exec echo Patching translator setting in {}... \; \
+     -exec $PERL -pi -e "s@^translator =.*@translator = $translator@" {} \;
+fi
+
+chmod -R -w .

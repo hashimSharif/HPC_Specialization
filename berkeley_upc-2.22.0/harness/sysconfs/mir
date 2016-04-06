@@ -1,0 +1,23 @@
+# Mir cluster in Mellanox's DMZ
+
+network = mxm
+batch_sys = slurm
+
+# Run all our jobs sequentially (in lieu of proper fair-share)
+submit_cmd = 'sbatch -J PHH -d singleton'
+
+queues = [
+        {
+          Q_name     => psputnik,
+          Q_maxnode  => 8,
+          Q_minnode  => 1,
+          Q_maxtpn   => 16,
+          Q_maxtime  => 04:00:00,
+        }
+]
+
+nthread_default = 8
+max_proc_per_node = 2
+
+run_env_default = { GASNET_PHYSMEM_MAX => '16G',
+                    GASNET_PHYSMEM_NOPROBE => 1 }

@@ -1,0 +1,30 @@
+# TACC's Stampede
+
+network = ibv
+batch_sys = slurm
+
+queues = [
+        {
+          Q_name     => serial,
+          Q_maxnode  => 1,
+          Q_minnode  => 1,
+          Q_maxtpn   => 16,
+          Q_maxtime  => 01:00:00,
+        },
+        {
+          Q_name     => normal, # may change to "development"
+          Q_maxnode  => 16,
+          Q_minnode  => 2,
+          Q_maxtpn   => 16,
+          Q_maxtime  => 01:00:00,
+        },
+]
+
+nthread_default = 8
+max_proc_per_node = 2
+
+run_env_default = { GASNET_PHYSMEM_MAX => '16G',
+                    GASNET_PHYSMEM_NOPROBE => 1 }
+
+# By default MVAPICH pins each process to a single core (bad for pthreads).
+run_env = { VIADEV_USE_AFFINITY => 0, MV_USE_AFFINITY => 0, MV2_ENABLE_AFFINITY => 0 }

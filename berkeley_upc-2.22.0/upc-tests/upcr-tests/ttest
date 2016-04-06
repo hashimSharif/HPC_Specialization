@@ -1,0 +1,1450 @@
+#!/usr/bin/env perl
+
+#########################################################################
+# ttest.pl
+#
+# Tempest test manager. Builds and runs test programs
+#
+#########################################################################
+
+$| = 1;     # turn on autoflush for STDOUT, STDERR for each print cmd
+
+################## Modules (kinda like Java import command)
+
+use strict;          # insane if you don't use this: enforces "my"
+                     # declarations for variables
+use Getopt::Long;    # Command-line processing
+use Config;          # to get architecture
+use Cwd;             # for "pwd" on Win32
+use Sys::Hostname;   # tries everything to get hostname
+
+
+########## "Global" variables #####################
+# (actually, they're file-scoped lexicals, kind
+# of like "static" in C)
+##################################################
+
+my ($testsRun) = 0;
+my (@errors);                    # all errors that have occurred
+my ($WIN32, $LINUX, $SOLARIS);   # booleans for OSes
+my ($MAKE, $DEL, $DEVNULL, $ALLNULL);      # OS specific
+my (@ignore);                    # list of name regexes for files to
+                                 # ignore for OS reasons.
+
+########## Command switch variables ###############
+# These are "real" global variables, ie they're
+# part of the main:: namespace (in case anyone cares)
+###################################################
+
+use vars qw<   %parameters $opt_verbose $opt_debug $opt_env_override 
+               $opt_nobuild $opt_recurse $opt_javac @opt_keywords 
+               $javac $opt_no_default_ignore $opt_help
+               @opt_add_ignore @opt_remove_ignore $opt_file
+               $opt_bgpause $backgroundPause @keywords @opt_cleantargets 
+               @cleantargets $opt_noclean>;
+
+%parameters = (
+   "cleantargets=s@"          => \@opt_cleantargets,
+   "noclean"                  => \$opt_noclean,
+   "d|debug"                  => \$opt_debug,
+   "e|envoverride"            => \$opt_env_override,
+   "f|file=s"                 => \$opt_file,
+   "h|help|?"                 => \$opt_help,
+   "ignore=s@"                => \@opt_add_ignore,
+   "javac=s"                  => \$opt_javac,
+   "keyword=s@"               => \@opt_keywords,
+   "nb|nobuild"               => \$opt_nobuild,
+   "nodefaultignore"          => \$opt_no_default_ignore,
+   "bgpause=n"                => \$opt_bgpause,
+   "unignore=s@"              => \@opt_remove_ignore,
+   "r|recurse"                => \$opt_recurse,
+   "v|verbose"                => \$opt_verbose
+);
+
+###########################################################
+########### "main" (i.e., all logic outside subroutines) ##
+###########################################################
+
+print "\n";
+
+GetOptions(%parameters);         # get command options: from GetOpt::Long
+GetOSInfo();                     # set OS variables, etc.
+TweakOptions();
+Help() if $opt_help;             # usage unless dir specified
+
+
+push @ARGV, "." if !@ARGV;       # run in current directory by default
+
+for (@ARGV) { 
+   RecurseDirectory($_);
+}
+
+AnnounceResults();               # print some crap to terminal
+
+##################################################
+# debug
+#
+##################################################
+
+sub debug ($) {
+   print "\nDEBUG: ", @_, "\n" if $opt_debug;
+}
+
+
+##################################################
+# verbose
+#
+##################################################
+
+sub verbose ($) {
+   print "\n", @_, "\n" if $opt_verbose;
+}
+
+##################################################
+# err
+#
+##################################################
+
+sub printerr ($) {
+   print STDERR @_, "\n";
+}
+
+
+##################################################
+# println
+#
+##################################################
+
+sub println ($) {
+   print @_, "\n";
+}
+
+##################################################
+# TweakOptions
+#
+# Dumping ground for some default values, 
+# environment variable searches, etc., affecting
+# the command line switch options.
+##################################################
+
+sub TweakOptions {
+
+   # Java compiler: if not specified, check Env var. JAVAC, else use "javac" 
+   $javac = $opt_javac || $ENV{TTEST_JAVAC} || $ENV{JAVAC} || "javac";  # I love the perl || operator:
+                                                                        # returns the successful value
+
+   $backgroundPause = $opt_bgpause || 5;
+
+   # add, subtract, or replace ignore specifications from cmdline
+
+   if ($opt_no_default_ignore) {
+      @ignore = ();                       # clear default ignorespecs
+   } else {
+       push @ignore, qw/^CVS$ README ttest/;
+   }
+
+   if (@opt_add_ignore) {
+      for (@opt_add_ignore) {
+         push @ignore, split (',', $_);   # split ignorespecs by commas
+      }
+   }
+
+   if (@opt_cleantargets) {
+      for (@opt_cleantargets) {
+         push @cleantargets, split (',', $_);   # split by commas
+      }
+   } else {
+      map { push @cleantargets, $_ } qw<clean realclean scrub>;
+   }
+
+   if (@opt_remove_ignore) {
+      for (@opt_remove_ignore) {
+         my @unignores = split ',', @opt_remove_ignore;
+         for (@unignores) {
+            my $removedElement = $_;
+            @ignore = grep { !/^\Q$removedElement\E$/i } @ignore; # inefficient but easy
+         }
+      }
+   }
+
+   # split up keywords
+   for (@opt_keywords) {
+      push @keywords, split(',', $_);
+   }
+
+   # get directories from file if provided
+   if ($opt_file) {
+      open (FILE, $opt_file) or die "Can't open config file $opt_file\n";
+      $/ = "\n";
+      my @lines = <FILE>;
+      for (@lines) {
+         chomp $_;
+         s/\cm$//;
+         # sub $foo or ${foo} for environment variable value if any
+         s/
+            \${?        # '$', followed by optional '{'
+            (\w+ )      # $1: one or more word chars [A-z0-9_]
+            }?
+         / (defined $ENV{$1}) ? $ENV{$1} : $1/exg; # 'e' causes eval() to be run on replacement string
+      }
+      close FILE;
+      push @ARGV, @lines;
+   }
+
+}
+
+##################################################
+# GetOSInfo
+#
+##################################################
+
+sub GetOSInfo {
+   # Get OS
+   my $arch = $Config{archname};
+
+   if ($arch =~ /win32/i) {
+      $WIN32 = 1;
+      $MAKE = "nmake -c";        # -c avoids copyright message
+      $DEL = "del";
+      $DEVNULL = $opt_verbose ? "" : ">NUL";
+      $ALLNULL = ">NUL 2>NUL";
+      @ignore = qw(unix linux sun solaris g++ \.cc \.sh) unless $opt_no_default_ignore;
+   } elsif ($arch =~ /sun/i) {
+      $SOLARIS = 1;
+      $MAKE = "make";
+      $DEL = "rm -f";
+      $DEVNULL = $opt_verbose ? "" : ">/dev/null";
+      $ALLNULL = ">/dev/null 2>/dev/null";
+      @ignore = qw(linux win \.bat \.exe \.cc) unless $opt_no_default_ignore;
+   } elsif ($arch =~ /linux/i) {
+      $LINUX = 1;
+      $MAKE = "make";
+      $DEL = "rm -f";
+      $DEVNULL = $opt_verbose ? "" : ">/dev/null";
+      $ALLNULL = ">/dev/null 2>/dev/null";
+      @ignore = qw(win sun solaris \.cc \.bat \.exe) unless $opt_no_default_ignore;
+   } else {
+      die "Couldn't determine architecture from Config{archname} '$arch'\n";
+   }
+
+   push @ignore, 'ignore';
+
+   # "-e" will cause environment variables to override same-named makefile variable definitions
+   $MAKE .= " -e" if $opt_env_override;
+}
+
+
+##################################################
+# RecurseDirectory
+#
+# Changes dir into subdir (if passed), then checks
+# for programs (or more subdirs) to test
+#
+##################################################
+
+sub RecurseDirectory {
+   # Change to new directory, and get all non-ignored files
+
+   my ($oldir) = cwd();                # save current working dir
+   my ($cwd) = shift;                  # get 1st argument (=directory of test)
+   my $cderr = chdir $cwd;
+
+   die "'$cwd' is not a valid subdirectory of @{[cwd()]}\n" unless $cderr;
+
+   my @cwdfiles = <*>;     # <*> is same as glob("*"): gets all files in cwd
+   RemoveIgnoredFiles(\@cwdfiles, \@ignore);
+
+   # Build and Run test in directory, unless we have an empty directory
+   # (excluding subdirectories), or a specified reason to skip test
+
+   my $emptyDirectory = !grep(!-d, @cwdfiles);
+   my $shouldSkip = ShouldSkipThisTest(\@cwdfiles);
+   if ($emptyDirectory || $shouldSkip) {
+      # for now, we don't even mention empty directories
+      if ($shouldSkip) {
+         print cwd(), ":      skipping ($shouldSkip)\n";
+      }
+   } else {
+      BuildAndRunTest(\@cwdfiles);
+   }
+
+   # If asked to, find subdirectories and recurse 
+   # --  For some damn reason glob(*) returns "*" when dir empty:
+   #     I'm just grepping it out
+
+   if ($opt_recurse) {
+      map { RecurseDirectory($_) } grep !/\*/ && -d, @cwdfiles;
+   }
+
+   # change back to the original directory
+
+   chdir($oldir);
+}
+
+##################################################
+# BuildAndRunTest
+#
+# Actually, mainly handles display and error logic:
+# real work done in subroutines.
+#
+##################################################
+
+sub BuildAndRunTest {
+   my $cwdfilesRef = shift;   # takes ref (pointer) to array
+   my $buildAttempted = 0;
+   my $buildFailed = 0;
+   my $runAttempted = 0;
+   my $runFailed = 0;
+
+   print cwd(), ":    ";
+
+   # Build
+
+   unless ($opt_nobuild) {
+      ($buildAttempted, $buildFailed) = BuildTests($cwdfilesRef);
+   }
+   if ($buildAttempted) {
+      print ($buildFailed ? "FAILED!\n" : "OK");
+   }
+            
+   # Run
+
+   unless ($buildFailed) {
+      ($runAttempted, $runFailed) = RunTests($cwdfilesRef);
+   }
+
+   # Make pronouncements
+
+   if ($runAttempted) {
+      $testsRun++;
+      print ($runFailed ? "FAILED!\n" : "OK\n");
+   } else {
+      if ($buildAttempted) {
+         # We assume that a build without a run is a failure
+         BuildWithoutRunError() unless $buildFailed;
+      } else {
+         # for now we're going to be real strict and also assume
+         # that a non-empty directory that didn't build/test was
+         # an error, too.
+         NeitherBuiltNorRanError();
+      }
+   }
+
+}
+
+##################################################
+# RemoveIgnoredFiles
+#
+# takes two arrays by reference:
+# First is list of files, second is list of plain text regex's
+# for weeding out files for other OSes.
+#
+# When function is done, ref will point to new array which does not
+# contain offending files
+#
+# Notes:
+#
+# "@$foo" just means "The array pointed to by reference $foo": Can also
+# be expressed as "@{$foo}" (braces used sometimes to disambiguate)
+#
+##################################################
+
+sub RemoveIgnoredFiles {
+   my ($filesArrayRef, $ignoreArrayRef) = @_;   # passed by reference (i.e., pointer)
+   for (@$ignoreArrayRef) {
+      my $ignoreSpec = $_; # grep will overwrite $_
+      
+      @$filesArrayRef = grep !/$ignoreSpec/i, @$filesArrayRef; # remove ignored files from list
+   }
+}
+
+##################################################
+# ShouldSkipThisTest
+#
+# Looks for "SkipUnless" file, parses criteria therein,
+# and determines if test should be skipped.
+#
+##################################################
+
+sub ShouldSkipThisTest {                      
+   my $cwdFilesRef = shift;
+
+   my @skipFiles = grep /SkipUnless/i, @$cwdFilesRef;
+   if (@skipFiles) {
+      my %tests;
+      for (@skipFiles) {
+         open(SKIP, $_) or next;
+         $/ = "\n"; # make sure we have normal setting
+         my $line;
+         while ($line = <SKIP>) {
+            chomp $line;   # gets rid of any trailing carriage return
+            my ($key, $val) = split('=', $line, 2);
+            $tests{lc $key} = $val if $key && $val;  # lowercase keys
+         }
+         close(SKIP);
+      }
+      # check tests that we have scanned in
+      if (%tests) {
+
+         # Hostname: we allow multiple comma separated values
+         # at moment, we only get computer name, and not domain name:
+         # at some point we should support "hostname=*.tempest.com"
+         if ($tests{hostname}) {
+            my $thishost = lc Sys::Hostname::hostname(); 
+            my @hosts = split ',', $tests{hostname};
+            my $matched = 0;
+            for (@hosts) {
+               if (/!/) {
+                  if (/^!$thishost$/i) {
+                     return "hostname '$thishost' deliberately skipped"; ;
+                  } else {
+                     $matched = 1;
+                     last;
+                  }
+               } else {
+                  if (/^$thishost$/i) {
+                     $matched = 1;
+                     last;
+                  }
+               }
+            }
+            return "hostname '$thishost' not in hostname list" unless $matched;
+         }
+
+         # arch: ex: "Win32" will match "win32-x86"
+         #  -- use "perl -v" to get Perl's description of your 
+         # architecture, straight from the camel's mouth...
+         if ($tests{arch}) {
+            my @arches = split ',', $tests{arch};
+            unless ( grep { $Config{archname} =~ /$_/i } @arches ) {
+               return "architecture '$Config{archname}' not matched" ;
+            }
+         }
+
+         # keywords
+         if ($tests{keywords}) {
+            my @conditions = split ',', $tests{keywords};
+            my $missed; 
+            my $misscnt = 0;
+            for (@conditions) {
+               my $condition = $_;
+               unless ( grep /^\Q$condition\E$/i, @keywords ) {
+                  $missed .= "'$condition', ";
+                  $misscnt++;
+               }
+            }
+            if ($misscnt) {
+               my $err = ($misscnt > 1) ? "Missing keywords: "
+                           : "Missing keyword: ";
+               $missed =~ s/, $//;   #  chop last comma
+               return $err . $missed;
+            }
+         }
+
+         if ($tests{runcheck}) {
+            my @checks = split ',', $tests{runcheck};
+            RemoveIgnoredFiles(\@checks, \@ignore);
+            for (@checks) {
+               my $cmdline = "$_ $ALLNULL";
+               if (/fail/i) {
+                  return "runcheck '$_' should have failed" unless system("$cmdline");
+               } else {
+                  return "runcheck '$_' failed" if system("$cmdline");
+               }
+            }
+         }
+
+      }
+
+   }
+   return 0;
+}
+
+##################################################
+# BuildTests
+#
+# Builds all tests in directory.
+#
+# Takes reference (pointer) to array containing
+# all files it should see in directory (i.e,
+# non-ignored files). 
+##################################################
+
+sub BuildTests {
+   my ($cwdfilesRef) = shift;
+   my($buildAttempted, $buildFailed) = (0, 0);
+
+   # First shot goes to files with "build" in name:
+   # then makefiles, then file extension guessing.
+
+   my @buildfiles = grep /build/i && -f, @$cwdfilesRef;
+   my @makefiles = grep /makefile/i && -f, @$cwdfilesRef;
+
+   if (@buildfiles) {
+      $buildAttempted = 1;
+      print "    Building...";
+      $buildFailed = ExecuteByName(@buildfiles);
+      #for (@buildfiles) { $buildFailed=1 if RunCaptureErrors($_) } 
+   } elsif (@makefiles) {
+      $buildAttempted = 1;
+      print "    Making...";
+      unless ($opt_noclean) {
+         for (@cleantargets) { 
+            my $cleantarget = $_; 
+            for (@makefiles) { 
+               system("$MAKE -f $_ $cleantarget $ALLNULL"); 
+               debug "$MAKE -f $_ $cleantarget $ALLNULL";
+            }
+         }
+      }
+      for (@makefiles) { $buildFailed=1 if RunCaptureErrors("$MAKE -f $_") } 
+   } else {
+      ($buildAttempted, $buildFailed) = BuildFromFileExtensions($cwdfilesRef);
+   }
+
+   return ($buildAttempted, $buildFailed);
+}
+
+##################################################
+# BuildFromFileExtensions
+#
+# Tries to figure out how to build, based on
+# file extensions, etc.
+#
+##################################################
+
+sub BuildFromFileExtensions {
+   my $cwdref = shift;  # takes array reference (pointer)
+   my $buildAttempted = 0;
+   my $buildFailed = 0;
+
+   # Java: run javac on any java source files found
+   my @javafiles = grep /\.java$/, @$cwdref;
+   if (@javafiles) {
+      print "    Building...";
+      $buildAttempted = 1;
+      # array interpolated into string automatically puts space between elements
+      $buildFailed = 1 if RunCaptureErrors("$javac @javafiles"); 
+   }
+
+
+   return ($buildAttempted, $buildFailed);   # perl can return an array of vals
+}
+
+
+##################################################
+# RunTests
+#
+# Runs all tests in directory.
+#
+# Takes reference (pointer) to array containing
+# all files it should see in directory (i.e,
+# non-ignored files). 
+##################################################
+      
+sub RunTests {
+   my $cwdref = shift;  # takes array reference (pointer)
+   my $runAttempted = 0;
+   my $runFailed = 0;
+   
+   # Find and run files:
+   # if no files with "run" in name, check for java appserver,
+   # or guess by file extension
+   my @runFiles = grep { /run/i && -f && -x } @$cwdref;
+   if (!@runFiles) {
+      @runFiles = GuessExecutableFiles();
+   }
+   if (@runFiles) {
+      print "    Running...";
+      $runAttempted = 1;
+      $runFailed = ExecuteByName(@runFiles);
+   }
+
+   return ($runAttempted, $runFailed);
+}
+
+
+##################################################
+# GuessExecutableFiles
+#
+# Tries to figure out what to run, based on
+# file extensions, etc.
+#
+##################################################
+
+sub GuessExecutableFiles {
+   my (@cwdfiles) = <*>;     
+   RemoveIgnoredFiles(\@cwdfiles, \@ignore);
+   my (@runFiles);
+
+   # language-specific tricks
+
+   # Perl: look for .pl extension
+   push @runFiles, grep {/\.pl$/i} @cwdfiles;
+   return @runFiles if @runFiles;
+
+   # C/C++: look for executable file with same name as source files
+   my $exe = $WIN32 ? ".exe" : "";
+   # Note: 's' operator in grep modifies @cwdfile elements in place (thus -x works)
+   push @runFiles, map { my $ext = $_; grep s/$ext$/$exe/i && -x, @cwdfiles } qw(.c .cc .cpp .cxx);
+
+   # Still nothing? Look for a.out/a.exe
+   my $defex = $WIN32 ? "a.exe" : "a.out";
+   push @runFiles, $defex if -f $defex && -x $defex;
+
+   # java: just assume that any .class file has a main() in it!
+   #  -- if you've got a fancier setup, write a Run script
+   push @runFiles, grep { /\.class$/i } @cwdfiles;
+
+   return @runFiles;
+}
+
+
+##################################################
+# ExecuteByName
+#
+# Takes array of files, and executes them, ensuring
+# that
+#
+# 1) They are executed in alphanumeric order
+# 2) They are executed correctly for their file extension
+# 3) They are run in the background (no blocking) if
+#        they contain "backg" in name
+#
+##################################################
+
+sub ExecuteByName {
+   # Note: we sort the RunFiles alphabetically, so
+   # that users can determine the order in which they
+   # are run.
+   my @RunFiles = sort @_;
+   my $errorsOccurred = 0;
+
+   for (@RunFiles) {
+      my $command;
+
+      if (/\.pl$/i) {
+         $command = "perl $_";
+      } elsif (/\.class$/i) {
+         $command = "java $_";
+         $command =~ s/\.class$//;
+      } else {
+         $command = "$_";
+      }
+
+      # files with "backg" we'll run in the background
+      # (i.e we don't block until they exit, and don't catch errors)
+      # Otherwise, run file and capture any errors
+      if (/backg/i) {
+         RunInBackground($command);
+      } else {
+         if (/fail/i) {
+            $errorsOccurred = 1 unless RunCaptureErrors($command);
+         } else {
+            $errorsOccurred = 1 if RunCaptureErrors($command);
+         }
+      }
+   }
+
+   return $errorsOccurred;
+}
+
+##################################################
+# RunInBackground
+#
+# Runs command in background
+#
+# Makes no effort to terminate process--up to test
+#
+# At some point we may be able to write a version of this that
+# will allow backgrounded processes to be killed automatically when 
+# test is over. it appears that such a facilty will require ttest to parse 
+# the 'run' file and execute the command in it directly, since on Win32 we would be
+# killing only the cmd.exe that is invoked to run the 'run' script, while the program
+# that cmd.exe ran would not be stopped. We might thus need yet another file spec
+# trick ('exec' or 'spawn' to indicate parse of file) 
+# It may also be necessary to use absolute
+# paths for executable names, so the PATH may need to be searched).
+# On Win32 we would need to use the Win32::Process module.
+
+##################################################
+
+sub RunInBackground {
+   my $command = shift;
+   my $cmdline;
+
+
+   if ($WIN32) {
+      $cmdline = "$command"; # since new window, might as well see output...
+
+      verbose("Running 'start $cmdline' in @{[cwd()]}: ");
+      system("start $cmdline");  # alas, passing "/b" to start does
+                                 # not work for some reason, so we 
+                                 # have to launch a new window
+      sleep($backgroundPause); # give backgrounded process time to get ready
+   } else {
+      $cmdline = "$command $DEVNULL";
+      #$cmdline = "$command $ALLNULL";
+
+      verbose("Running '$cmdline &' in @{[cwd()]}: ");
+      system("$cmdline &");
+      sleep($backgroundPause); # give backgrounded process time to get ready
+   }
+}
+
+
+##################################################
+# RunCaptureErrors
+#
+# Runs command, catches any error output
+#
+##################################################
+
+sub RunCaptureErrors  {
+   my $command = shift;
+   my $cmdline;
+
+   system ("$DEL ttest_temp ttest_temp2 $ALLNULL");
+
+   # total hack to work around fact that nmake spits out
+   # some compiler errors to STDOUT instead of STDERR
+
+   if ($WIN32 && $command=~/^nmake/i) {
+      $cmdline = "$command >ttest_temp 2>ttest_temp2";
+   } else {
+      $cmdline = "$command $DEVNULL 2>ttest_temp";
+   }
+
+   verbose("Running '$cmdline' in @{[cwd()]}: ");
+
+   my $err = system("$cmdline");
+
+   # gets errors from redirect file, if any
+   if ($err) {
+      my $errstring =
+qq<##############################################
+While running '$command' in @{[cwd()]}
+##############################################
+>;
+      undef $/; # slurp!
+      open (ERR, "ttest_temp"); 
+      my $temp = <ERR>;
+      $errstring .= $temp;
+      close (ERR);
+      #check for nmake extra file
+      if (open(ERR2, "ttest_temp2")) {
+         $temp = <ERR2>;
+         $errstring .= $temp;
+         close (ERR2);
+         system("$DEL ttest_temp2");
+      }
+      push @errors, $errstring;
+   }
+   system("$DEL ttest_temp");
+   return $err;
+}
+
+##################################################
+# BuildWithoutRunError
+#
+# We consider a build followed by not knowing how
+# to run to be an error. 
+#
+##################################################
+
+sub BuildWithoutRunError {
+   print "    Running...FAILED!\n";
+
+   my $errstring =
+"##############################################
+in @{[cwd()]}: 
+##############################################
+Built test, but don't know how to run it!
+";
+
+   push @errors, $errstring;
+}
+
+
+##################################################
+# NeitherBuiltNorRanError
+#
+##################################################
+
+sub NeitherBuiltNorRanError {
+   print "    Can neither build nor run...FAILED!\n";
+
+   my $errstring =
+"##############################################
+@{[cwd()]}: 
+    Directory not empty, but could not build 
+    or run any tests!
+##############################################
+";
+
+   push @errors, $errstring;
+
+}
+
+
+##################################################
+# AnnounceResults
+#
+##################################################
+
+sub AnnounceResults {
+   if (@errors) {
+      my $bigErrString = join "\n\n", @errors;
+      print
+qq<
+
+------------ ERRORS ---------------
+$bigErrString
+----------- /ERRORS ---------------
+>;
+   } else {
+      if ($testsRun) {
+         print qq<
+################################################################
+               ALL TESTS COMPLETED SUCCESSFULLY
+################################################################
+>;
+      } else {
+         print qq<
+################################################################
+               NO TESTS RUN !
+################################################################
+>;
+      }
+   }
+}
+
+sub Help {
+die q@ttest.pl - a cross-platform testing framework engine
+
+ Usage: ttest [ flags ]  [test directories]
+
+ Flags:
+   -bgpause=10             # Pause after backgrounding server (default=5 seconds)
+   -cleantargets=clean,foo # call 'make clean; make foo' before regular make
+   -debug                  # see extra debugging output
+   -e -envoverride         # pass -e flag to make 
+   -f -file "filename"     # read test directories from 'filename'
+   -h -help -?             # print usage message
+   -ignore "foo,bar"       # add 'foo' and 'bar' to ignore specs
+   -javac "jikes +F"       # changes java compiler to 'jikes +F'
+   -keyword "foo,bar"      # add 'foo' & 'bar' to skipunless keywords
+   -nb -nobuild            # run tests without building them first.
+   -nodefaultignore        # clear default ignore specifications 
+   -unignore "foo"         # remove 'foo' from default ignore specs
+   -r -recurse             # recursive: tests subdirectories, too
+   -v -verbose             # show commands run & unblock their STDOUT
+
+Type 'perldoc ttest.pl' for the full documentation
+(or, if you like HTML especially, try 
+'which ttest.pl | xargs pod2html > temp.html').
+@;
+
+}
+
+__END__
+
+=head1 NAME
+
+ttest.pl - a cross-platform testing framework engine
+
+=head1 SYNOPSIS
+
+ Usage: ttest [ flags ] [ test directories ]
+
+ Flags:
+   -bgpause=10             # Pause after backgrounding server (default=5 seconds)
+   -cleantargets=clean,foo # call 'make clean; make foo' before regular make
+   -debug                  # see extra debugging output
+   -e -envoverride         # pass -e flag to make 
+   -f -file "filename"     # read test directories from 'filename'
+   -h -help -?             # print usage message
+   -ignore "foo,bar"       # add 'foo' and 'bar' to ignore specs
+   -javac "jikes +F"       # changes java compiler to 'jikes +F'
+   -keyword "foo,bar"      # add 'foo' & 'bar' to skipunless keywords
+   -nb -nobuild            # run tests without building them first.
+   -nodefaultignore        # clear default ignore specifications 
+   -unignore "foo"         # remove 'foo' from default ignore specs
+   -r -recurse             # recursive: tests subdirectories, too
+   -v -verbose             # show commands run & unblock their STDOUT
+
+
+=head1 DESCRIPTION
+
+ttest ("Tree test") is a program for running suites of tests. It provides
+support for building and running tests in a very flexible manner, with built-in
+convenience features for standard languages and tools like B<make>, C++, Java,
+and Perl, as well as generic mechanisms that can support virtually any build and
+execution process.  Test failures are noted and conventions for debugging
+support are provided.
+
+ttest runs on both Win32 and Unix (currently Solaris and Linux; other Unixes should
+require only an additional 'else' switch in ttest's GetOSInfo() function to support). 
+ttest provides a recursive option, which allows you to set up an entire
+regression suite in a directory tree (one test per subdirectory), and then run
+all the tests with one command.  Output from ttest can either be terse ("OK" or
+"Failed" for each test's build/run, plus summary output), or quite verbose.
+ttest also provides features that support a distributed test system: tests may
+be allowed to run on all machines, or to run only on specified systems, and
+ttest lets you easily customize your build and test process per test by
+platform, by individual machine, and/or by any arbitrary conditions that you are
+willing to write a program to test for.
+
+=head1 HOW TTEST WORKS
+
+ttest is designed to be run either on a single directory (or set of directories),
+or on a directory tree (or trees) of tests, with one test per directory leaf. 
+Either way, you should store only one test in a directory. A test
+may involve several programs, in which case you should store all of them in the same 
+directory; the key idea to understand is that all files in a single directory
+will be judged as succeeding or failing as a unit.
+
+
+=head2 INVOCATION
+
+ttest must be given at least one directory to run in, otherwise a usage
+message is shown. You can pass directores to ttest in one of two
+ways: as arguments ('C<ttest .>' runs ttest in the current directory), or
+via the B<-f> (or B<-file>) flag. This flag takes a filename as its argument,
+and this file should contain one or more directories (one per line) in
+which ttest should be run. If environment variable notation is used in any 
+directory pathname in this file (you must use Unix-style notation,
+e.g. 'C<$ENV_VARIABLE/subdir/mytest>'), 
+and such a variable name exists in your environment, ttest will automagically 
+substitute the value of the environment variable into the directory pathname for you.
+This can be handy when you are using a distributed source control system 
+(such as perforce), and so your tests may be in different places on different
+machines--simply have each machine define a TEST_ROOT environment variable,
+and use it in all directory pathnames in your file. .
+
+Forward slashes should be used in any directory paths you pass to ttest,
+both on Win32 and Unix. Backslashes will not work on Unix as directory
+separators.
+
+For each directory that ttest is invoked with, it will perform the build, run,
+and recurse steps described below.
+
+=head2 BUILDING TESTS
+
+When ttest is invoked on a directory, it first tries to build the test via
+the following steps:
+
+=over 4
+
+=item 1
+
+If any non-ignored files (see L<IGNORED FILES>) in the directory contain "I<build>" in their name 
+(matches are always case-insensitive), 
+they are run in alphabetical order (suggestion: use "Build1.cmd", "Build2.cmd", etc. if the
+order of execution is important). 
+
+=item 2
+
+If no "build" files were found, B<make> (or B<nmake> on win32) is run on any non-ignored files
+that contain "I<makefile>" in their name, again in alphabetical order.If the B<-cleantargets> flag was
+passed, B<make [target]> will be executed for each of the specified 'clean' target(s).
+If several 'clean' targets are needed, you can pass them as a 
+comma-separated list (ex: B<-clean=clean,scrub,realclean>). B<make> failures are ignored
+for the cleantarget targets, so you can simply pass all and any targets needed by any of your
+makefiles for cleaning purposes.Once all and any cleaning is complete, the makefiles are
+passed to make without any target: all test programs built with B<make> must thus 
+build completely via the default (ie. the first) target in their makefile.
+
+=item 3
+
+If neither "build" nor "make" files were found, ttest attempts to build the test from I<file 
+extensions> as a convenience for the lazy. Currently only the 'B<.java>' extension is supported,
+with the java compiler (B<javac> by default; see L<SETTING THE JAVA COMPILER>) getting invoked on
+any non-ignored '.java' files that are found.
+
+=back
+
+If the build process fails (i.e. returns a nonzero result: see L<"TEST SUCCESS/FAILURE">),
+any errors written to STDERR by the build process will be saved (for display immediately 
+before ttest exits), and the test will skip the run phase.
+
+=head2 RUNNING TESTS
+
+If a test was built successfully (or if no build occurred, which may be the case if you are
+testing an interpreted Perl script, etc.), ttest proceeds to run the test, using
+following rules:
+
+=over 4
+
+=item 1
+
+If any non-ignored files in the directory contain "I<run>" in their name (case-insensitive), 
+they are run in alphabetical order (suggestion: use "run1.cmd", "run2.cmd", etc. when the
+order of execution is important). By default, ttest blocks for each program to finish, and so
+programs are run serially, but any files with 'I<backg>' in their name are run in the 
+background, allowing the simultaneous execution needed for client/server tests, etc. 
+(see L<RUNNING PROGRAMS IN THE BACKGROUND>).
+
+=item 2
+
+If no non-ignored 'run' files exist in the directory, ttest attempts to intelligently guess
+and run test executables by the following rules:
+
+=over 4
+
+=item *
+
+Any files ending with 'I<.pl>' are assumed to be perl tests, and are added to the list of test programs.
+
+=item *
+
+If any C/C++ source files (I<.c .cc .cpp .cxx>) exist in the directory, and there is an executable
+('.exe' on win32, no extension on Unix) with the same root filename as one of them,
+it is added to the list of test programs. 
+
+=item *
+
+Any java bytecode files (I<.class>) are I<assumed> to have a main function and are added to the list of 
+test programs (if your java files do not all have main() functions, you must write a 'run' script).
+
+=item *
+
+If the preceding steps result in a non-empty list of programs to run, the programs are executed in 
+alphabetic order.
+
+=back
+
+=back
+
+If any of the tests fail (see L<"TEST SUCCESS/FAILURE">, STDERR is saved (for display immediately
+before ttest exits). Any remaining tests in the directory are still run.
+
+=head2 RECURSING SUBDIRECTORIES
+
+If ttest is run with the B<-r> (or B<-recurse>) flag, if will recurse through all 
+nonignored (see L<IGNORED FILES>) subdirectories. After the build and run phases 
+are completed for a test (or if there are no files in a directory except for other 
+directories), ttest will scan for all subdirectories, filter them though its set 
+of ignored files specifications, and recursively repeat the build/run/recurse steps 
+for each non-ignored subdirectory. The order of recursion is alphabetical, and is 
+'depth first' (not that you should ever care).
+
+ttest silently skips over directories which contain no files, or which contain only subdirectories,
+so you may use such directories as ways of organizing your tests, while putting actual tests only
+in leaf directories. If a directory contains any non-directory files, however, it much be a runnable
+test, otherwise ttest will complain. 
+
+=head2 REPORTING
+
+By default ttest produces a very terse output as tests are running: the directory of each test is
+printed, and "Running" and "Building" are printed as each occurs, with a simple
+"OK" or "FAILED!" printed out for each. If the B<-v> (also B<-verbose>) flag is used,
+the output is more prolific. First, ttest will print out the text of commands that it issues
+to the shell. Second, the STDOUT of all commands run will be unblocked and allowed to print to
+the terminal--depending on how verbose your test programs are, this may result in no additional
+output, or tons of it.
+
+Once all tests have been run, ttest produces a final summary, which either consists of an
+"All Tests Successful" message, or a list of the tests (directories) in which errors occurred,
+along with the command that caused the error, and any STDERR that was captured during the 
+erroneous command's execution.
+
+As ttest strives to set a good example for well-mannered programs (see 
+L<THE WELL-MANNERED TEST PROGRAM>), it exits with a zero if all tests were run
+successfully, or a non-zero result otherwise.
+
+=head1 HOW TTEST EXECUTES FILES
+
+By default, files involved in both the building and running of a test are simply 
+assumed to be executables, and are invoked
+as if their name had been typed on the command line (ex: 'foo.bat').
+They should thus have their executable bit set (if on Unix), and/or have a 
+file extension recognized as executable ('.bat', '.cmd') on Win32. 
+
+However, the following types of files are handled specially as a convenience:
+
+=over 4
+
+=item *
+
+If Java class files (B<'.class>') are invoked directly (this will only happen in no 'run' files 
+are in the directory), they are invoked as 'C<java foo.class>';
+
+=item *
+
+makefiles ('B<makefile>') are invoked as either 'C<make -f makefile.foo>' (unix) or 
+'C<nmake makefile.foo>' (win32). If the B<-e> flag is passed to ttest, the make program
+will be invoked with 'C<-e>', which causes any environment variables to override same-named
+variables in the makefile.
+
+=item *
+
+Perl scripts ('B<.pl>') are invoked as 'C<perl foo.pl>' (this is provided only for
+Windozers who have not set their ASSOC and FTYPE to support recognizing '.pl'
+as an executable file extension).
+
+=back
+
+If your program requires anything else (command line parameters, etc.) to run
+correctly, you must write a batch/shell 'run' file that invokes it correctly. If the
+invocation is simple enough to be a one-line, cross-platform command 
+(ex: "C<java tempest.appserver.AppServer>"), you should put it in a '.cmd' file 
+(ex: "run2.cmd"), since ttest ignores '.bat' files by default when running on 
+Unix systems (make sure your '.cmd' file has its executable bit set on Unix).
+Most 'run' scripts can be made cross-platform in this manner.
+
+=head2 TEST PROGRAMS' ENVIRONMENT
+
+Programs run by ttest inherit the environment that ttest itself has when run.
+This means that it is entirely up to you to ensure that any needed variables
+(PATH, CLASSPATH, LD_LIBRARY_PATH, etc) are set before ttest is invoked.
+
+If setting your environment variables globally before running ttest does not
+work for all your tests (you need different values for the same variable for different
+tests), you must currently write your own (OS-and/or-shell-dependent) script
+that sets (and on Unix, exports) your desired environment settings, then runs
+your program. While this is tedious, it is not difficult.
+
+A facility is planned to more easily set environment variables. In it you will
+be able to specify a 'setenv' file containing simple name=value pairs, one per line,
+which will be set for the duration of your test.  It will also let you put 
+'setenv[name]' in your run and build scripts to allow specific environment settings
+for a given program (e.g. 'Run3SetenvOldPath.bat' would result in ttest searching
+for a name/value file called 'SetenvOldPath', which would be used to set environment
+settings for the execution of 'Run3SetenvOldPath.bat'). This feature has not yet
+been implemented.
+
+=head2 RUNNING PROGRAMS IN THE BACKGROUND
+
+If you are writing a client/server test, or any kind of test that requires multiple
+programs to be running concurrently, you can take advantage of ttest's ability to
+run programs in the background. Any program that contains 'B<backg>' ('B<background>'
+is the preferred form) in its name (case-insensitive, as always) will be started 
+in the background by ttest, and ttest will continue to execute the next program in
+the test without waiting for the backgrounded process to complete.  
+
+ttest pauses for 3 seconds by default after starting a backgrounded processes, 
+to give it time to prepare (typically your backgrounded processes are servers 
+and your normal 'run' programs are clients, and so database connections may need to be
+opened, etc.). If 2 seconds is not enough for your purposes, you can either set
+the ttest pause time globally with the B<-pause> command-line flag, or you can
+ensure that the next 'run' script following your backgrounded process does something
+clever like 'C<perl -e "sleep(25)">'.
+
+Note that ttest does not stop backgrounded processes--it is up to you to make sure
+that one of your later 'run' programs kills the backgrounded process somehow. Also, 
+the exit codes of backgrounded processes are not collected (and so no errors
+can be noted).  The success/failure of your test, as well as its cleanup, are thus
+left up to your other test programs when you background a process.
+
+A facility is planned which will automatically terminate backgrounded executables
+for you after your test is finished, but it has not been implemented yet. 
+
+=head2 TEST SUCCESS/FAILURE
+
+The rule for determining whether a test (or build of a test) is successful is very simple: 
+B<if the exit code of all programs run was 0, the result was successful. Otherwise, a failure 
+is assumed to have occurred> (this is in keeping with standard exit code conventions on 
+both Unix and Win32).  You must thus ensure that your program exits with a non-zero exit 
+code if an error occurs in it.  
+
+Of course, rules are made to be broken, and so if your program contains 'B<fail>' 
+(case-insensitive, as always) in its name ('B<shouldfail>' is the preferred 
+form), the rule for interpreting the exit code is reversed. This is useful if a program 
+I<should> fail as part of a successful test scenario ("C<Run2ShouldFail.cmd>").
+
+Note that programs which are run in the background (see L<RUNNING PROGRAMS IN THE BACKGROUND>)
+do not have their exit codes captured, and so they are not measured for success/failure.
+
+=head2 THE WELL-MANNERED TEST PROGRAM
+
+Besides returning a nonzero exit code upon failure, your test program should also refrain
+from writing to STDERR until and unless a failure condition occurs.  If a failure does
+occur, your  program I<should> print some helpful notification of precisely
+what went wrong to STDERR, so that ttest will have something useful to report for
+debugging purposes.
+
+Your test programs may print to STDOUT as freely and copiously as you desire:
+by default, ttest redirects the STDOUT of the programs it runs to the rubbish
+bin of history ('/dev/null' on Unix, 'NUL' on win32), to avoid 
+screen clutter while running ttest.  However, if ttest is run in verbose mode
+(B<-v> or B<-verbose>), the STDOUT of programs is unblocked, and this may be useful 
+for debugging purposes.
+
+=head1 RUNNING TTEST ON MULTIPLE MACHINES AND OPERATING SYSTEMS
+
+ttest is designed to work in conjunction with distributed source control systems 
+and/or file systems, so that you can take the same tree of tests and verify it
+on multiple machines, architectures, and operating systems.  Obviously, you may not
+wish to run every test on every machine (Visual Basic programs on Unix, for instance), 
+and some tests may need to be build differently on different platforms (different 
+makefiles, etc.).  ttest provides three basic mechanisms for handling these 
+differences: specifications for ignoring certain files, 'skipunless' files, and 
+the ability to override your makefile variables with environment variables.
+
+=head2 IGNORED FILES
+
+The majority of cross-platform differences can be handled by ttest's ability to 
+filter out certain files from consideration during testing. This happens via 
+a simple list of regular expressions which are applied to files: if a file or
+directory's name contains any of the regular expressions in the list, 
+it is ignored by ttest during all stages of testing.
+
+ttest automatically uses the following lists of ignore specs when it is run
+on Win32/Solaris/Linux:
+
+=over 4
+
+=item WIN32:
+
+I<'unix' 'linux' 'sun' 'solaris' 'g++' '.cc' '.sh' 'ignore'>
+
+=item Solaris:
+
+I<'linux' 'win' '.bat' '.exe' '.cc' 'ignore'>
+
+=item Linux:
+
+I<'win' 'sun' 'solaris' '.cc' '.bat' '.exe' 'ignore'>
+
+=back
+
+Take, for instance, the following test directory:
+
+ mytest/
+    client.cpp
+    server.java
+    Makefile.g++
+    Makefile.win32
+    Makefile.g++
+    Makefile.solaris.CC
+    Run1ServerBackground.bat
+    Run1ServerBackground.sh
+    Run2Client.cmd
+
+On a Win32 machine, "nmake Makefile.win32" and "javac server.java" 
+would be run during the build phase, and "Run1ServerBackground.bat"
+followed by "Run2Client.bat" would be run during the run phase. The 
+files containing 'g++', 'solaris', and '.sh' are simply ignored.
+On Linux and Solaris machines, the "Makefile.win32",
+"Makefile.solaris.CC" and "Run1ServerBackground.bat"  would
+all be ignored. Effectively this means that g++ is the default
+compiler for Unix with ttest.
+
+The built-in ignore specifications for ttest are quite arbitrary. 
+Note, for instance, that while '.bat' is ignored by ttest on Unix,
+'.cmd' is not: this is just an artifact of ttest's development
+environment, which had a number of pre-existing, win32-specific 
+.bat files, making it easier for '.cmd' to become the standard
+for cross-platform scripts. The ".cc", "solaris", and "g++"
+specs resulted from makefile conventions. If you really hate
+ttest's default ignore specs, you can always modify the source
+to something you find more pleasing. However, you can also
+quite easily modify ttest's ignore specifications at runtime.
+Add new ignore specs with the 'B<-ignore>' flag. This
+flag can be repeated as many times as needed 
+('C<ttest -ignore "foo" -ignore "bar">'), and/or 
+multiple specs can be added with one 
+flag by using commas to separate them ('C<ttest -ignore "foo,bar">').
+You may also remove some or all of ttest's default ignore specs,
+either by using the 'B<unignore>' flag to remove a single 
+(or several comma-separated) default ignore spec, or the 
+'B<-nodefaultignore>' flag to remove I<all> the default specs.
+For example, to use the CC compiler rather than g++ in the
+above example, you could use
+'C<ttest -unignore "CC" -ignore "g++" ...>'.
+
+Note that while ttest ignore specifications are regular expressions
+in the strict sense, they use only 'literal' characters, and no
+metacharacters. Thus, for instance 'g+' matches 'g+', as opposed
+to "one or more of the character 'g'". Also, ignore specifications
+are always matched in a case-insensitive manner.
+
+Ignored file specifications apply to directories as well as regular 
+files: ttest will neither perform tests in nor recurse into an ignored 
+directory. This means that if you are running ttest 
+recursively on a tree of tests, you can easily skip an entire 
+branch of tests just by naming the 
+top-level directory appropriately (ex: 'C<Win32Onlytests>'). 
+
+The spec 'ignore' is always ignored by default. This can be useful
+when you wish to graft a large existing project 
+with a directory structure that does not conform
+to ttest's expectations into your test tree: just place 
+the entire project in an 'ignore' subdirectory, 
+and keep only the custom 'build' and 'run' scripts 
+needed to test the project in the nonignored parent 
+directory.
+
+=head2 'SKIPUNLESS' FILES
+
+While ignored file specifications are capable of handling the majority of 
+cross-platform differences, there are times when they are not sufficient.
+You may wish to run a test only if it is on a particular host,
+or only if a particular database or website is up and running, or
+only if the moon is waxing rather than waning, etc. 
+You can handle these (and any other arbitrary conditions) via 
+ttest's 'I<skipunless>' mechanism.
+
+In each test directory, ttest will look for a file (or files) with
+'I<skipunless>' in its name. This file, if it exists, should contain
+one or more name=value pairs (one per line). The names can be 
+any of the following values:
+
+=over 4
+
+=item hostname
+
+Tests may be limited to run on only a specified set of (comma-separated)
+hosts ('C<hostname=lion,tiger,zebra>'). Or, you may limit a test to run
+on any machines I<except> certain hosts by preceding each host 
+with an exclamation point
+('C<hostname=!lion,!tiger>'). You should stick to one or the other of
+these methods, as using both in the same line is nonsensical.
+
+Unfortunately ttest currently matches only the actual computer name
+of hosts, and not their domain names ('C<lion.tempest.com>').
+At some point it is hoped that host matches like 'C<*.tempest.com>'
+will be supported.
+
+=item arch 
+
+Tests can also be run only on certain architectures 
+(specifying both the OS and/or the processor type). Perl
+gives a fairly standard description of a machine's OS and
+chip architecture (ex: 'C<MSWin32-x86>'), and unless this 
+string contains one or more of the architecture 
+specs you provide, the test will not be run. So, for
+instance, 'C<arch=picoJava,x86>' would run on the Win32
+example given above, since 'x86' would match.  If
+you plan to run ttest on NT Alpha boxes and want certain
+tests to run only on Intel NT boxes, you could use
+the full 'C<arch=win32-x86>'.
+
+Use "C<perl -v>" to get Perl's description of your 
+machine's architecture straight from the camel's mouth.
+Unfortunately, Perl may report the same chip differently on
+different OSes (I get 'C<i386-linux>' on my Linux box),
+meaning you may need to use several specs
+('C<arch=x86,i386>') or a least-common-denominator
+('C<arch=86>') to get the result you're looking for.
+
+=item keywords
+
+Another way to limit which tests are run is through
+ttest's keyword mechanism. If any (comma-separated) values for
+the 'keyword' attribute are present in your 'skipunless'
+file, your test will not be run unless
+ttest has been invoked with I<all> the keywords (via
+the B<-keyword> flag). For instance, if you had
+
+ keywords=havejava,willtravel
+
+for a test, it would be skipped unless you ran ttest
+as 'C<ttest -keyword "willtravel" -keyword "havejava">'
+(you could combine these to 
+'C<-keyword "willtravel,havejava">'). Keywords are
+I<not> partially matched, so 'C<keyword=java,travel>'
+would not result in a match.
+
+If you have many tests that use a resource that is not 
+present on all your machines (such as a Java JDK), 
+you can filter them out easily through the consistent use 
+of the keyword mechanismc You could also do it by putting
+all your java tests in a branch with a parent 'java'
+directory, and use 'C<-ignore "java">', so as usual,
+there's more than one way to do it.
+
+=item runcheck
+
+The final and most flexible way to control whether
+a test is run is through the 'runcheck' attribute.
+This specifies a command (or list of comma-separated
+commands) that is to be executed in order to determine
+whether the test should be run. Such commands can either
+be executable files ('C<checkDatabase.cmd>'), or 
+raw commands as you would type on the command
+line ('C<java -version>'). These two forms can be
+combined freely, as in
+
+ runcheck=java -version,checkDatabase.cmd
+
+If I<any> of the commands you specify in your 
+'runcheck' value fail, the test will be skipped.
+
+The usual ignore specs are applied to commands listed
+in your list of runchecks, so if for some reason you 
+need to run different checks on different OSes, you can
+name your checks appropriately. Also, the usual 'fail' 
+inversion rule also applies: if 'fail' is part of a 
+command name, the test will be skipped I<unless>
+the command fails.
+
+Commands run as runchecks have both their STDOUT and
+STDERR sent to /dev/null or NUL, so no output will be
+seen from them.
+
+=back
+
+=head2 OVERRIDING MAKEFILE VARIABLES WITH ENVIRONMENT VARIABLES
+
+Using the B<-e> (or B<envoverride>) flag causes ttest to invoke B<make>
+(B<nmake> on win32) with the 'B<-e>' flag. This causes B<make> to override
+any variables set in a makefile with the value of the same-named environment
+variable, if it exists.  This comes in handy in situations where you wish 
+to point your compilation at a different set of INCLUDE directories or pass
+different CFLAGS, etc.
+
+
+=head1 TIPS, OPTIMIZATIONS, AND OTHER MISCELLANY
+
+=head2 RUNNING TTEST ON WIN32 AND UNIX CONVENIENTLY
+
+The following setup is recommended:
+
+=over 4
+
+=item 1
+
+Store C<ttest.pl> in a directory that is in your PATH. 
+
+=item 2
+
+On Unix systems create a symlink in the same directory called "ttest" 
+that points to ttest.pl. This will let your Unix users run the program 
+as just 'C<ttest>'.
+
+=item 3
+
+On Win32 systems, users Perl installations may have already set up 
+Win32 to automatically recognize 'C<.pl>' files as executables.
+This lets Win32 users invoke ttest by just typing 'C<ttest>'.
+If this is not set up, it can be done manually by typing
+
+ ftype perlscript=perl "%1" %*
+ assoc .pl=perlscript
+
+on the win32 command prompt, then modifying your B<PATHEXT> environment to 
+include '.PL' (ex: 'C<set PATHEXT=.PL;%PATHEXT%>'). 
+
+=back
+
+=head2 SETTING THE JAVA COMPILER
+
+By default ttest uses 'javac' as the java compiler.  However, this can be set to a 
+less sluggish tool either by setting the TTEST_JAVAC or JAVAC environment variables
+(the former overrides the latter if both are set), or by using the B<-javac> flag
+on the command line (which has priority over the environment setting). ttest runs
+that involve lots of java code can be sped up dramatically by the use of a 
+native java compiler (I recommend getting B<jikes> from 
+C<www.alphaworks.ibm.com> and calling ttest with B<-javac "jikes +F">).
+
+=head2 CREDITS
+
+Written by Jason Duell, Lawrence Berkeley National Laboratory, 2002
+For bug reports, comments, hate mail, etc., please 
+contact C<jduell@alumni.princeton.edu>.
+
+
+=cut     
+

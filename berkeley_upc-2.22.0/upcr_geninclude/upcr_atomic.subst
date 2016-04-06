@@ -1,0 +1,67 @@
+@@ This file is table of substitutions for automatic generation of
+@@ files for the atomic extensions.
+@@ Fields are separated by one or more TABS, not spaces.
+
+@@ Table of all operations
+@OP@		@OPCNT@	@ARGS@
+fetchadd	1	_dst,_op
+fetchand	1	_dst,_op
+fetchor		1	_dst,_op
+fetchxor	1	_dst,_op
+swap		1	_dst,_op
+fetchnot	0	_dst
+cswap		2	_dst,_op0,_op1
+mswap		2	_dst,_op0,_op1
+
+@@ Strict vs. relaxed flag
+@SR@	@ISSTRICT@
+strict	1
+relaxed	0
+
+@@ Tables of operations (inc. read) by operand count
+@OP0@
+read
+fetchnot
+@OP1@
+fetchadd
+fetchand
+fetchor
+fetchxor
+swap
+@OP2@
+cswap
+mswap
+
+@@ Tables of fixed-width types
+@TYPE@		@CODE@	@BITS@
+uint64_t	U64	64
+int64_t		I64	64
+uint32_t	U32	32
+int32_t		I32	32
+@TYPE32@	@CODE32@
+uint32_t	U32
+int32_t		I32
+@TYPE64@	@CODE64@
+uint64_t	U64
+int64_t		I64
+
+@@ Table of integer types
+@ITYPE@		@ICODE@	@IBASE@
+int		I	I
+unsigned int	UI	U
+
+@@ Table of long types
+@LTYPE@		@LCODE@	@LBASE@
+long		L	I
+unsigned long	UL	U
+
+@@ All supported type codes
+@TCODE@
+U64
+I64
+U32
+I32
+I
+UI
+L
+UL

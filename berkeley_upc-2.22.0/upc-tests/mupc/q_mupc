@@ -1,0 +1,180 @@
+# Sample Loadleveler script to run the mupc test suite
+#
+# Need to change MY_ACCOUNT to whatever account you want
+# to charge, or comment out it take the default
+# Also, to with with MPI, replace "network.LAPI" with 
+# "network.MPI"
+# You will also have to change the name of the class to
+# whatever is appropriate for your system.
+
+#@ job_name        = mupc
+#@ account_no      = MY_ACCOUNT
+#@ output          = JOB.$(jobid)
+#@ error           = JOB.$(jobid).err
+#@ job_type        = parallel
+#@ environment     = COPY_ALL
+#@ notification    = complete
+#@ network.LAPI    = csss,not_shared,us
+#@ node_usage      = not_shared
+#
+#  Select the number of nodes to run on, and the number
+#  of tasks (UPC THREADS) to run on each node.
+#@ node            = 1
+#@ tasks_per_node  = 2
+#
+#  Set the Loadleveler class (queue) you wish to use
+#  and the hard wall-clock limit.  Check your configuration
+#  because some classes have maximum time limits.
+#  These are selected to run quickly at NERSC.
+#@ class           = debug
+#@ wall_clock_limit= 00:28:00
+#
+#  Tell Loadleveler to queue-up the request
+#@ queue
+
+echo "NODES"
+echo $LOADL_PROCESSOR_LIST
+
+ITER=4
+ITER=10000
+
+myecho() {
+	echo $* 
+	echo $* >& 2
+}
+
+runtest() {
+	mode=$1
+	shift
+	progname=$1
+	shift
+	DATE=$(date)
+	myecho "=========================================================="
+	myecho $DATE
+	myecho "Running $progname in mode $mode with args $*"
+	if [ ! -e $progname ] ; then
+		myecho "No such binary: $progname"
+		myecho
+		return
+	fi
+	env GASNET_LAPI_MODE=$mode /usr/bin/poe ./${progname} $*
+	status=$?
+	myecho "$progname complete with exit status $status"
+	if [ "$status" -ne 0 ]; then
+		myecho "   FAILED   FAILED   FAILED"
+	fi
+	myecho
+}
+
+ALL_FILES="\
+test_getput1    \
+test_getput2    \
+test_getput3    \
+test_getput4    \
+test_barrier1    \
+test_barrier3    \
+test_barrier4    \
+test_locks1    \
+test_locks2    \
+test_locks3    \
+test_locks4    \
+test_locks5    \
+test_memory1    \
+test_memory2    \
+test_memory3    \
+test_memory5    \
+test_memory6    \
+test_memory7    \
+test_memory8    \
+test_string1    \
+test_string2    \
+test_string3    \
+test_string4    \
+test_int_allfunc    \
+test_int_alltype    \
+test_int_barlocks    \
+test_int_memlocks    \
+test_int_memstring    \
+test_int_multilocks    \
+test_int_precision    \
+test_stress_01    \
+test_stress_02    \
+test_stress_03    \
+test_stress_04    \
+test_stress_05    \
+test_stress_06    \
+test_stress_07    \
+test_stress_08    \
+test_stress_09    \
+test_stress_10    \
+test_stress_11    \
+test_stress_12    \
+test_stress_13    \
+test_stress_14    \
+test_app_matmult    \
+test_app_prime    \
+test_app_wave1    \
+test_app_wave2    \
+test_globalexit    \
+"
+
+# Sometimes we have to run this in multiple passes.
+# If so, re-define ALL_FILES here by including only
+# the file roots we need to complete the test
+#ALL_FILES="\
+#"
+
+# The files in the DONT_FUN list will be filtered out of
+# the ALL_FILES list above, either because they are buggy
+# or are supposed to fail.
+#
+# these are supposed to fail (run by hand because they might hang)
+DONT_RUN="\
+test_barrier2  \
+test_memory4   \
+"
+
+# these currently fail (known BUGS), dont run them
+DONT_RUN="${DONT_RUN} \
+test_int_memstring  \
+test_stress_13 \
+"
+
+echo ${DONT_RUN} > dont_run_file
+
+RUN_FILES=""
+for file in $ALL_FILES
+do
+	if grep ${file} dont_run_file > /dev/null 
+        then
+		echo "   WILL NOT RUN $file "
+	else
+		RUN_FILES="$RUN_FILES $file"
+	fi
+done
+
+rm dont_run_file
+
+echo "RUN_FILES:"
+echo $RUN_FILES
+echo
+
+MODES="INTERRUPT POLLING"
+MODES="INTERRUPT"
+for MODE in $MODES
+do
+for file in ${RUN_FILES}
+do
+	runtest $MODE ${file}-dynamic-int
+	runtest $MODE ${file}-static2-int
+	runtest $MODE ${file}-dynamic-long
+	runtest $MODE ${file}-static2-long
+	runtest $MODE ${file}-dynamic-float
+	runtest $MODE ${file}-static2-float
+	runtest $MODE ${file}-dynamic-double
+	runtest $MODE ${file}-static2-double
+done
+done
+
+exit 0
+

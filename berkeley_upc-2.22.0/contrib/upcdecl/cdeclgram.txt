@@ -1,0 +1,79 @@
+Taken from cdecl(1)
+
+              character   is a synonym for   char
+               constant   is a synonym for   const
+            enumeration   is a synonym for   enum
+                   func   is a synonym for   function
+                integer   is a synonym for   int
+                    ptr   is a synonym for   pointer
+                    ref   is a synonym for   reference
+                    ret   is a synonym for   returning
+              structure   is a synonym for   struct
+                 vector   is a synonym for   array
+
+
+            <program> ::= NOTHING
+                 | <program> <stmt> NL
+            <stmt>    ::= NOTHING
+                 | declare NAME as <adecl>
+                 | declare <adecl>
+                 | cast NAME into <adecl>
+                 | cast <adecl>
+                 | explain <optstorage> <ptrmodlist> <type> <cdecl>
+                 | explain <storage> <ptrmodlist> <cdecl>
+                 | explain ( <ptrmodlist> <type> <cast> ) optional-NAME
+                 | set <options>
+                 | help | ?
+                 | quit
+                 | exit
+            <adecl>   ::= array of <adecl>
+                 | array NUMBER of <adecl>
+                 | function returning <adecl>
+                 | function ( <adecl-list> ) returning <adecl>
+                 | <ptrmodlist> pointer to <adecl>
+                 | <ptrmodlist> pointer to member of class NAME <adecl>
+                 | <ptrmodlist> reference to <adecl>
+                 | <ptrmodlist> <type>
+            <cdecl>   ::= <cdecl1>
+                 | * <ptrmodlist> <cdecl>
+                 | NAME :: * <cdecl>
+                 | & <ptrmodlist> <cdecl>
+            <cdecl1>  ::= <cdecl1> ( )
+                 | <cdecl1> ( <castlist> )
+                 | <cdecl1> [ ]
+                 | <cdecl1> [ NUMBER ]
+                 | ( <cdecl> )
+                 | NAME
+            <cast>    ::= NOTHING
+                 | ( )
+                 | ( <cast> ) ( )
+                 | ( <cast> ) ( <castlist> )
+                 | ( <cast> )
+                 | NAME :: * <cast>
+                 | * <cast>
+                 | & <cast>
+                 | <cast> [ ]
+                 | <cast> [ NUMBER ]
+            <type>    ::= <typename> | <modlist>
+                 | <modlist> <typename>
+                 | struct NAME | union NAME | enum NAME | class NAME
+            <castlist>     ::= <castlist> , <castlist>
+                 | <ptrmodlist> <type> <cast>
+                 | <name>
+            <adecllist>    ::= <adecllist> , <adecllist>
+                 | NOTHING
+                 | <name>
+                 | <adecl>
+                 | <name> as <adecl>
+            <typename>     ::= int | char | double | float | void
+            <modlist> ::= <modifier> | <modlist> <modifier>
+            <modifier>     ::= short | long | unsigned | signed | <ptrmod>
+            <ptrmodlist>   ::= <ptrmod> <ptrmodlist> | NOTHING
+            <ptrmod>  ::= const | volatile | noalias
+            <storage> ::= auto | extern | register | static
+            <optstorage>   ::= NOTHING | <storage>
+            <options> ::= NOTHING | <options>
+                 | create | nocreate
+                 | prompt | noprompt
+                 | ritchie | preansi | ansi | cplusplus
+                 | debug | nodebug | yydebug | noyydebug

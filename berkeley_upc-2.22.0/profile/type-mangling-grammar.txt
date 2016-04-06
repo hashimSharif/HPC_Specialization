@@ -1,0 +1,70 @@
+The BUPC_STATIC_SHARED event in BUPC 2.3.11+ includes a mangled type string
+which represents the type of each statically allocated shared object. The
+grammar used is shown below.
+
+<type> ::= <builtin-type>
+       ::= <function-type>
+       ::= <class-enum-type>
+       ::= <array-type>
+       ::= <pointer-to-member-type>
+       ::= <template-param>
+       ::= <template-template-param> <template-args>
+       ::= <substitution> # See Compression below
+<type> ::= <CV-qualifiers> <type>
+       ::= P <type>       # pointer-to
+       ::= R <type>       # reference-to
+       ::= C <type>       # complex pair (C 2000)
+       ::= G <type>       # imaginary (C 2000)
+       ::= U <source-name> <type>             # vendor extended type qualifier
+
+                             # restrict (C99), volatile, const, shared
+<CV-qualifiers>    ::= [r] [V] [K] <shared_qualifier>
+<shared_qualifier> ::= [S] [R] <integer constant> _ # strict or relaxed and blocksize in elements
+<builtin-type>     ::= v # void
+                   ::= w # wchar_t
+                   ::= b # bool
+                   ::= c # char
+                   ::= a # signed char
+                   ::= h # unsigned char
+                   ::= s # short
+                   ::= t # unsigned short
+                   ::= i # int
+                   ::= j # unsigned int
+                   ::= l # long
+                   ::= m # unsigned long
+                   ::= x # long long, __int64
+                   ::= y # unsigned long long, __int64
+                   ::= n # __int128
+                   ::= o # unsigned __int128
+                   ::= f # float
+                   ::= d # double
+                   ::= e # long double, __float80
+                   ::= g # __float128
+                   ::= z # ellipsis
+                   ::= u <source-name> # vendor extended type
+
+<array-type>       ::= A <positive dimension number> [H] _ <element type>
+                   ::= A [<dimension expression>] _ <element type>
+
+# H indicates that the dimension number should be multiplied by THREADS
+# Alternately we could use the dimension expresion syntax
+
+<expression> ::= <unary operator-name> <expression>
+      ::= <binary operator-name> <expression> <expression>
+      ::= <trinary operator-name> <expression> <expression> <expression>
+      ::= st <type>
+      ::= <template-param>
+
+      ::= sr <type> <unqualified-name>                 # dependent name
+      ::= sr <type> <unqualified-name> <template-args> # dependent template-id
+      ::= <expr-primary>
+
+<expr-primary> ::= L <type> <value number> E   # integer literal
+               ::= L <type <value float> E     # floating literal
+               ::= L <mangled-name> E          # external name
+
+For more general information on type mangling, see the g++ version 3 name
+mangling scheme (This is documented as part of the Itanium C++ ABI document
+here: http://www.codesourcery.com/cxx-abi/abi.html)
+
+

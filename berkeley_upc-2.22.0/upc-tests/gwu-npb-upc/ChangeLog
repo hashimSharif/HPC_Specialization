@@ -1,0 +1,418 @@
+2011-02-17 21:58  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r63] Makefile:
+	  
+	  The release target also creates a correctly named ChangeLog file.
+
+2011-02-17 21:56  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r62] README:
+	  
+	  Update the README file to clarify the new release numbering scheme.
+
+2011-02-17 21:56  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r61] Makefile:
+	  
+	  Add a release target to the Makefile. The new target prepares a
+	  .tar.gz file ready for distribution.
+
+2011-02-17 21:38  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r60] README, config/Makefile.default:
+	  
+	  README: build instructions updated.
+
+2010-10-22 16:26  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r59] sys/setparams.c:
+	  
+	  Print a warning if last_parameters cannot be opened
+
+2010-10-21 23:07  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r58] CG/variants/cg.O0.c, CG/variants/cg.O1.c, CG/variants/cg.O3.c,
+	  CG/variants/cg.O3static.c, EP/variants/ep.O0.c, FT/variants/ft.O0.c,
+	  FT/variants/ft.O1.c, FT/variants/ft.O1static.c, IS/variants/is.O0.c,
+	  IS/variants/is.O1.c, IS/variants/is.O1static.c, MG/variants/mg.O0.c,
+	  MG/variants/mg.O1.c, MG/variants/mg.O3.c, sys/print_header:
+	  
+	  Update version information, remove (old) dates.
+
+2010-10-21 07:13  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r57] sys/make.common, sys/setparams.c:
+	  
+	  Display the real compilation parameters used after the benchmark run,
+	  not just the ones from make.def
+
+2010-10-20 20:13  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r56] FT/variants/ft.O1.c, FT/variants/ft.O1static.c,
+	  IS/variants/is.O1.c, IS/variants/is.O1static.c:
+	  
+	  Removing non-standard UPC optimization from the main branch. ifdefs
+	  were not delimiting the code well enought for some. Non-standard UPC
+	  optimization can be found in the optimized branch.
+
+2010-10-18 11:56  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r54] MG/variants/mg-common-1.h:
+	  
+	  Bug fix: Fix the number of iterations in the verification code of MG,
+	  class D.
+	  
+	  Bug reported by Raghu Reddy.
+
+2010-09-17 06:11  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r53] Makefile:
+	  
+	  make clean: also removes generated executables
+
+2010-09-17 06:09  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r52] config/Makefile.default:
+	  
+	  CLINKFLAGS is most probably CFLAGS. Also, add the number of threads to
+	  CFLAGS.
+
+2010-09-17 05:29  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r51] EP/variants/ep.O0.c:
+	  
+	  Bug correction: EP was incorrectly failing for classes bigger than S
+	  due to a bug in the verification function.
+
+2010-09-06 21:59  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r50] FT/variants/ft.O1.c:
+	  
+	  Minor change in code indentation.
+
+2010-09-06 21:59  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r49] README:
+	  
+	  Formatting changed (lines cut at 80 car.)
+
+2010-09-06 21:55  Nikita Andreev <nik@kemsu.ru>
+
+	* [r48] IS/variants/is.O1static.c:
+	  
+	  Also use bupc_memget_vlist in O1static if available.
+
+2010-09-06 15:58  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r47] AUTHORS, authors.xml:
+	  
+	  Correct Nikita Andreev's email address
+
+2010-09-06 15:56  Nikita Andreev <nik@kemsu.ru>
+
+	* [r46] IS/variants/is.O1.c:
+	  
+	  A barrier is also necessary when using bupc_memget_vlist.
+
+2010-09-04 23:44  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r45] AUTHORS, authors.xml:
+	  
+	  Add Nikita Andreev to the author list.
+
+2010-09-04 23:42  Nikita Andreev <nik@kemsu.ru>
+
+	* [r44] IS/variants/is.O1.c:
+	  
+	  Use bupc_memget_vlist if available.
+
+2010-09-04 23:33  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r43] IS/variants/is.O1.c, IS/variants/is.O1static.c:
+	  
+	  Coding style correction
+
+2010-09-04 23:13  Nikita Andreev <nik@kemsu.ru>
+
+	* [r42] FT/variants/ft.O1.c, FT/variants/ft.O1static.c:
+	  
+	  In transpose2_global, use non-blocking data transfer operation
+	  (bupc_memget_async) when available.
+
+2010-09-04 01:13  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r41] IS/variants/is.O0.c:
+	  
+	  Small correction in the coding style.
+
+2010-08-29 04:06  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r40] config/Makefile.default[ADD], config/make.def, sys/make.common:
+	  
+	  Compiler specific parameters extracted to config/Makefile.default
+
+2010-04-08 20:42  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r38] CG/variants/cg.O1.c, CG/variants/cg.O3static.c, Makefile,
+	  README:
+	  
+	  Update of the README for the 2.2 release, headers updated, improved
+	  ChangeLog rule in the Makefile.
+
+2010-04-01 19:26  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r37] README, common/upc_timers.h, config/make.def:
+	  
+	  Add support for the system monotonic clock.
+
+2010-03-31 22:29  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r36] CG/variants/cg.O3.c:
+	  
+	  Bug correction: Removed unmatched #endif.
+
+2010-03-17 20:41  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r35] FT/variants/ft-common-1.h, FT/variants/ft-common-2.h,
+	  FT/variants/ft.O1static.c:
+	  
+	  Coding style changes. Removed useless global variable.
+
+2010-03-16 21:11  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r34] MG/variants/mg-common-1.h, MG/variants/mg.O0.c,
+	  MG/variants/mg.O1.c, MG/variants/mg.O3.c:
+	  
+	  Moved the main function to mg-common-1.h.
+
+2010-03-15 23:57  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r33] AUTHORS[ADD], Makefile, README, authors.xml[ADD]:
+	  
+	  Add an AUTHORS file. Small changes in Makefile and README to reflect
+	  that.
+
+2010-03-15 22:37  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r32] MG/variants/mg.O0.c, MG/variants/mg.O1.c, MG/variants/mg.O3.c:
+	  
+	  Calls to the deprecated function upc_local_alloc removed; replaced by
+	  upc_alloc calls.
+
+2010-03-15 22:22  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r31] FT/variants/ft-common-1.h, FT/variants/ft-common-2.h,
+	  FT/variants/ft.O0.c, FT/variants/ft.O1.c, FT/variants/ft.O1static.c:
+	  
+	  Changed code style and more code moved to ft-common-2.h
+
+2010-03-15 04:57  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r30] FT/variants/ft.O1static.c:
+	  
+	  Add missing int i;
+
+2010-03-14 21:21  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r29] FT/variants/ft-common-1.h, FT/variants/ft-common-2.h,
+	  FT/variants/ft.O0.c, FT/variants/ft.O1.c, FT/variants/ft.O1static.c:
+	  
+	  Functions main and setup are moved to ft-common-2.h.
+
+2010-03-14 20:03  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r28] common/c_timers.c[DEL], common/c_timers.h[DEL], common/npb-C.h,
+	  common/wtime.c[DEL], common/wtime.h[DEL], sys/make.common:
+	  
+	  Old timer code removed.
+
+2010-03-14 07:13  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r27] CG/Makefile, CG/variants/cg.O0.c, CG/variants/cg.O1.c,
+	  CG/variants/cg.O3.c, CG/variants/cg.O3static.c:
+	  
+	  CG updated to use the new timer code. Also TIMER_ALLREDUCE2 was never
+	  stopped.
+
+2010-03-14 06:52  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r26] MG/Makefile, MG/variants/mg-common-1.h:
+	  
+	  MG updated to use the new timer code.
+
+2010-03-14 06:42  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r25] MG/variants/mg-common-1.h[ADD], MG/variants/mg.O0.c,
+	  MG/variants/mg.O1.c, MG/variants/mg.O3.c:
+	  
+	  Common code between the different optimization variants moved to
+	  mg-common-1.h.
+
+2010-03-14 06:03  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r24] IS/Makefile, IS/variants/is-common-1.h, IS/variants/is.O0.c,
+	  IS/variants/is.O1.c, IS/variants/is.O1static.c:
+	  
+	  IS updated to use the new timer code.
+
+2010-03-14 04:04  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r23] IS/variants/is.O0.c, IS/variants/is.O1.c,
+	  IS/variants/is.O1static.c:
+	  
+	  Partial coding style corrections.
+
+2010-03-14 03:42  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r22] EP/Makefile, EP/variants/ep.O0.c:
+	  
+	  EP updated to use the new timer code.
+
+2010-03-14 03:41  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r21] IS/variants/is-common-1.h[ADD], IS/variants/is-common-2.h[ADD],
+	  IS/variants/is.O0.c, IS/variants/is.O1.c, IS/variants/is.O1static.c:
+	  
+	  Common code between the different optimization variants moved to
+	  is-common-*.h
+
+2010-03-14 02:02  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r20] README:
+	  
+	  Update of the README file
+
+2010-03-14 01:46  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r19] FT/Makefile, FT/variants/ft-common-1.h,
+	  FT/variants/ft-common-2.h, FT/variants/ft.O0.c, FT/variants/ft.O1.c,
+	  FT/variants/ft.O1static.c, common/c_timers.h[ADD], common/npb-C.h,
+	  common/upc_timers.h[ADD]:
+	  
+	  New timer code for FT. All the timer code is in an include (.h) file -
+	  it will be compiled at the same time as the .upc code with the good
+	  options. Two new macros TIMER_START and TIMER_STOP allow to remove the
+	  timer code by defining UPC_TIMERS_DISABLE.
+
+2010-03-13 22:09  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r18] EP/variants/ep.O0.c, sys/setparams.c:
+	  
+	  Partial coding style corrections.
+
+2010-03-13 22:09  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r17] CG/variants/cg.O0.c, CG/variants/cg.O1.c, CG/variants/cg.O3.c,
+	  CG/variants/cg.O3static.c:
+	  
+	  Partial coding style corrections.
+
+2010-03-13 22:07  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r16] MG/variants/mg.O0.c, MG/variants/mg.O1.c, MG/variants/mg.O3.c:
+	  
+	  Partial coding style corrections.
+
+2010-03-13 22:07  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r15] IS/variants/is.O0.c, IS/variants/is.O1.c,
+	  IS/variants/is.O1static.c:
+	  
+	  Partial coding style corrections.
+
+2010-03-13 21:46  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r14] FT/variants/ft-common-1.h, FT/variants/ft-common-2.h,
+	  FT/variants/ft.O0.c, FT/variants/ft.O1.c, FT/variants/ft.O1static.c:
+	  
+	  Coding style change. Braces are now on the same line as the loop
+	  constructs.
+
+2010-03-13 20:26  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r13] FT/variants/ft-common-2.h:
+	  
+	  Bug correction: checksums could end up being equal to NaN (Not a
+	  Number), but still considerated as valid. Some unsuccessful runs
+	  involving NaN were wrongly reported as successful.
+
+2010-03-13 19:48  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r12] FT/variants/ft-common-1.h[ADD], FT/variants/ft-common-2.h[ADD],
+	  FT/variants/ft.O0.c, FT/variants/ft.O1.c, FT/variants/ft.O1static.c:
+	  
+	  Common code between the different optimization variants moved to
+	  ft-common-*.h
+
+2010-03-13 00:14  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r11] common/c_print_results.c, common/c_randdp.c, common/c_randi8.c,
+	  common/c_timers.c, common/npb-C.h, common/wtime.c, common/wtime.h:
+	  
+	  Re-indented using 4 spaces. Removed trailing white spaces. Removed
+	  useless comments.
+
+2010-03-12 23:40  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r10] FT/variants/ft.O1.c, FT/variants/ft.O1static.c:
+	  
+	  Slightly move the T_SETUP timer, to have uniform time measurement
+	  accross the 3 optimization levels.
+
+2010-03-12 22:59  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r9] FT/variants/ft.O0.c, FT/variants/ft.O1.c,
+	  FT/variants/ft.O1static.c:
+	  
+	  Change coding style; remove useless braces.
+
+2010-03-12 21:16  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r8] sys/setparams.c:
+	  
+	  Re-indented using 4 spaces. Removed trailing white spaces. Removed
+	  useless comments
+
+2010-03-12 20:44  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r7] CG/variants/cg.O0.c, CG/variants/cg.O1.c, CG/variants/cg.O3.c,
+	  CG/variants/cg.O3static.c, EP/variants/ep.O0.c, FT/variants/ft.O0.c,
+	  FT/variants/ft.O1.c, FT/variants/ft.O1static.c, IS/variants/is.O0.c,
+	  IS/variants/is.O1.c, IS/variants/is.O1static.c, MG/file_output.c,
+	  MG/variants/mg.O0.c, MG/variants/mg.O1.c, MG/variants/mg.O3.c:
+	  
+	  Re-indented using 4 spaces. Removed trailing white spaces.
+
+2010-03-12 20:23  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r6] EP/variants/ep.O0.c, FT/variants/ft.O0.c, FT/variants/ft.O1.c,
+	  FT/variants/ft.O1static.c, IS/variants/is.O0.c, IS/variants/is.O1.c,
+	  IS/variants/is.O1static.c, MG/file_output.h, MG/globals.h,
+	  MG/variants/mg.O0.c, MG/variants/mg.O1.c, MG/variants/mg.O3.c:
+	  
+	  Remove useless comments
+
+2010-03-12 06:18  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r5] CG/variants/cg.O0.c, CG/variants/cg.O1.c, CG/variants/cg.O3.c,
+	  CG/variants/cg.O3static.c:
+	  
+	  Remove useless comments
+
+2010-03-12 00:08  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r4] README, sys/print_instructions:
+	  
+	  Instructions update: removing section about non-provided support
+	  scripts, add missing NP= parameters in sys/print_instructions.
+
+2010-03-12 00:04  Olivier Serres <serres@gwmail.gwu.edu>
+
+	* [r3] CG/Makefile, CG/cg.c[DEL], CG/variants/cg.O3.c, EP/Makefile,
+	  EP/ep.c[DEL], EP/variants/ep.O0.c, FT/Makefile, FT/ft.c[DEL],
+	  FT/variants/ft.O1.c, IS/Makefile, IS/is.c[DEL], IS/variants/is.O1.c,
+	  MG/Makefile, MG/mg.c[DEL], MG/variants/mg.O3.c:
+	  
+	  Removed MG/mg.c, EP/ep.c, CG/cg.c, FT/ft.c and IS/is.c which are
+	  duplicates of the optimized variants.
+

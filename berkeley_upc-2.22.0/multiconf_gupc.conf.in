@@ -1,0 +1,53 @@
+# Configuration file for Berkeley UPC multiplexing compiler driver
+# This file is a variant for building only GUPC support.
+# Please see multiconf.conf.in for the "full" version with documentation.
+
+# --- Global settings ---
+# Global configure options:
+CONFIGURE_OPTIONS= 
+
+# Forced options:
+FORCED_OPTIONS=
+
+# Global environment settings:
+# NONE
+
+# Enabled conf list: comma-separated list
+ENABLED_CONFS= dbg_gupc, opt_gupc
+
+# Change this line to the full path of your GUPC compiler executable
+# OR set the same-named environment variable at configure time.
+GUPC_TRANS=/usr/local/upc/bin/upc
+
+# BLACKLISTED TOP-LEVEL CONFIGURE OPTIONS
+BLACKLISTED_ENABLE_OPTIONS=debug,totalview,trace,stats,inst
+BLACKLISTED_WITH_OPTIONS=gupc,cupc,clang-upc2c,translator
+
+# ALIASES ("ALIAS fake = real")
+ALIAS dbg_gccupc = dbg_gupc
+ALIAS opt_gccupc = opt_gupc
+
+# end of global section:
+;;;
+
+# --- Conf settings ---
+# Each configuration is specified in the following format:
+#
+#  conf-name ; conf-options ; upcc-select-expr ; upcc-arg-strip 
+#
+# See multiconf.conf.in for complete documentation
+
+# GUPC + UPCR mode with debugging, stats and tracing (selected with '-g')
+dbg_gupc ; --with-gupc="${GUPC_TRANS}" --enable-debug ; $opt{'g'} ; -gupc,-gccupc
+
+# GUPC + UPCR mode with optimization (default)
+opt_gupc ; --with-gupc="${GUPC_TRANS}" ; 1 ; -gupc,-gccupc 
+
+# end of config section 
+# everything below the following line is upcc -help output for the above options
+;;;
+
+Multiconf options: 
+   -show-confs        Show the multiconf variations which are installed
+(availability of following options varies based on configure-time decisions)
+   -g                 Enable system-wide debugging symbols and assertions

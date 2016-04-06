@@ -1,0 +1,42 @@
+sysname = bluedrop
+
+#batch_sys = interactive
+#network = smp
+#queues = [
+#        {
+#          Q_name     => none,   
+#          Q_maxnode  => 1,
+#          Q_minnode  => 1,       
+#          Q_maxtpn   => 32,      
+#          Q_maxtime  => 00:00:00 
+#        }
+#]
+
+network = mpi
+
+batch_sys = loadleveler
+ll_network_MPI = 'default'
+ll_network_LAPI = 'ethernet'
+
+queues = [
+        {
+          Q_name     => debug, 
+          Q_maxnode  => 1,     
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 32,      
+	  Q_maxtime  => 1:00:00
+        },
+]
+
+max_nodes_to_run = 1
+min_num_nodes = 1
+
+nthread_default = 16
+
+max_proc_per_node = 32
+
+run_env_default = {
+	MPIRUN_CMD => 'mpiexec -n %N %C',
+	UPC_POLITE_SYNC => 1,
+	GASNET_TEST_POLITE_SYNC => 1
+}

@@ -1,0 +1,78 @@
+######################################
+# CG UPC Benchmarks                  #
+# Revision 1.1        06/26/2001     #
+#                                    #
+# Department of Computer Science     #
+# University of North Carolina       #
+#                                    #
+# email: {feasel, huan, prins} @     # 
+#         cs.unc.edu                 #
+# http://www.cs.unc.edu/~prins       #
+######################################
+
+==========================================
+INSTALLATION
+    
+    Three UPC CG implementations were supported
+    in this package. They were named as cgB.c(upc)
+    cgL1.c(upc) and cgL2.c(upc). Please refer to the 
+    associated report for the used parallel schema.
+
+    To install the bench mark, 
+    1). Create a subdirectory bin under UPC subdirectory
+    2). Choosing the right configuration file in config 
+        subdirectory. Two platforms are supported in 
+        this package: SGI origin 2000 and Compaq Alpha cluster.
+        One configuration template is provided for each of the 
+        two platforms. 
+    3). run the make file with the following parameters:
+        >make <benchmark-name> CLASS=<class> THREADS=<threads number>
+        where <benchmark-name> := "CG1" | "CG2" | "CG3" 
+              <class>          := "S" | "W" | "A" | "B" | "C"
+              <threads number> := a nature number
+ 
+    The executable is put in the bin directory
+    with the format:
+       cg<suffix>.<class>.<threads number>
+       where <suffix> := "B" | "L1" | "L2"
+    
+    To run the benchmark on alpha sever, use prun 
+    to allocate parallel processes 
+      >prun -n <threads number> ./<executable>
+    
+    To run the benchmark on SGI origin2000
+      ><executable> -fupc-threads-<THREADS>
+
+    Note: cleaning all the .o and the executable file
+    setparams (under sys/) is recommended when switching machines
+    which are running under the same OS. It is required if 
+    switching between different operating systems. 
+ 
+Change since 1.0
+==================================================================
+    The last two  UPC implementations (L1 and L2) in 1.0
+    is combined into on program (L1) in 1.1. A new implementation,
+    which follows the MPI scheme and supports the 2D decomposition
+    of the matrix is provided in 1.1 (L2). 
+  
+    SGI origin 2000 support is made available in this release. This
+    is done by 1). providing two identical source files 
+    with different suffix. This is used to satisfy the different 
+    compiler requirement.  2). providing two configuration templates 
+    for the two platforms (under config/). Please use the right 
+    template according to the execution platforms. 
+    
+    Limited code change to L1 was made in order to 
+    improve the readability and a bug reported in 
+    the makefile was fixed in this release.
+    
+==========================================
+Acknowledgement:
+    The MPI implementation is available from NASA website at 
+         http://www.nas.nasa.gov/NAS/NPB/           
+    The OpenMP implementation is available on line at
+         http://pdplab.trc.rwcp.or.jp/pdperf/Omni/benchmarks/NPB/
+  
+
+Send comments or suggestions to  prins@cs.unc.edu 
+

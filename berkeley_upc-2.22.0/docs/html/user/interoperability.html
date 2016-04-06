@@ -1,0 +1,443 @@
+<html>
+<head>
+    <title>Mixing UPC and C/C++/MPI/FORTRAN</title>
+</head>
+<body bgcolor="#ffffff">
+
+<!--#include virtual="/header.html" -->
+
+<h2>Mixing UPC and C/C++/MPI/FORTRAN</h2>
+
+As of release 2.0, Berkeley UPC supports creating applications which are a
+hybrid of UPC and C, C++, and/or FORTRAN.  We also support applications which
+contain MPI (Message Passage Interface) calls.  This allows you to rewrite
+performance-critical sections of an existing application in UPC, without needing
+to rewrite the entire application.  It also lets you link a UPC application to
+existing MPI and/or C++/C/FORTRAN libraries.
+
+<p>The <a class='download' href="upc-lang-spec-1.3.pdf">UPC Specification</a> does not address
+language interoperability issues, and so the interfaces described here should be
+considered Berkeley UPC extensions.
+
+<h3>General Concepts</h3>
+
+UPC is a superset of ANSI/ISO C99.  Thus, UPC code can refer to any
+functions/variables in C/C++/FORTRAN code, provided that they "look like C" to
+the UPC code.  In the other direction, UPC functions and variables can be
+treated as C by other languages, so long as they do NOT contain any UPC-specific
+keywords (no '<tt>shared</tt>', etc., in declarations).
+
+<p><i>NOTE: if <tt>-pthreads</tt> is used to generate UPC executables,
+    differences emerge between C and UPC global variables, and function calls
+    become the only interface from other languages into UPC. See the 
+    <a href="#pthreads"> Programming Hybrid Applications with Pthreads</a>
+    section.</i>
+
+<h4>Contents:</h4>
+<ul>
+<li>
+<a href="#bootstrap">Bootstrapping the UPC Runtime from an external language</a>
+<li>
+<a href="#c">Hybrid C/UPC programs</a>
+<li>
+<a href="#cplusplus">Hybrid C++/UPC programs</a>
+<li>
+<a href="#fortran">Hybrid FORTRAN/UPC programs</a>
+<li>
+<a href="#mpi">MPI and UPC</a>
+<li>
+<a href="#multiple">Combining multiple languages with UPC</a>
+<li>
+<a href="#pointers">Passing pointers-to-shared between non-UPC and UPC code</a>
+<li>
+<a href="#pthreads">Programming hybrid applications with -pthreads</a>
+</ul>
+
+<hr><a name="bootstrap">
+<h4>Bootstrapping the UPC Runtime from an external language</h4>
+
+<p>The '<tt>main()</tt>' function can live either in UPC code, or in an object
+written in another language.  If '<tt>main</tt>' is in a UPC file, the UPC
+runtime is bootstrapped normally, and no special logic is needed at program
+exit.
+
+<p>If '<tt>main()</tt>' does not live in UPC code, '<tt>bupc_init()</tt>' or
+'<tt>bupc_init_reentrant()</tt>' must be called at startup to bootstrap
+the Berkeley UPC runtime, and '<tt>bupc_exit()</tt>' should be used at program
+exit.  These functions are available by #including &lt;bupc_extern.h&gt;:
+
+<pre>
+    #include &lt;bupc_extern.h&gt;
+
+    int main(int argc, char** argv) 
+    {
+        int exitcode = 0;
+
+        bupc_init(&argc, &argv);
+        ... rest of program...
+        bupc_exit(exitcode);
+    }
+</pre>
+
+The '<tt>bupc_init_reentrant()</tt>' function must be used when
+'<tt>-pthreads</tt>' is used.  It also supports non-pthreaded applications, and
+so it is preferred for portability.
+
+<p>The call to '<tt>bupc_init()</tt>' (or '<tt>bupc_init_reentrant()</tt>')
+should be the first statement in '<tt>main()</tt>'. The semantics of any code
+appearing before it is implementation-defined (for example, it is undefined how
+many threads of control will run that code, or whether
+<tt>stdin/stdout/stderr</tt> are functional).  Similarly, no code should follow
+a call to '<tt>bupc_exit()</tt>': it is not defined if such code will even be
+reached (hint: it won't).  See the comments in &lt;bupc_extern.h&gt; for more
+information.
+
+<p>If regular '<tt>exit()</tt>' (or a <tt>return</tt> from <tt>main</tt>) is
+performed from non-UPC code, instead of '<tt>bupc_exit()</tt>', the result is as
+if '<tt>upc_global_exit()</tt>' had been called--i.e., program termination will
+occur immediately, for all threads, without the final UPC barrier that occurs
+during normal UPC program termination.  Calling '<tt>_exit</tt>' is strongly
+discouraged--program behavior is undefined in this case, and even process
+cleanup is not guaranteed (i.e. zombie processes may be left behind).
+
+<p>The path needed to include <tt>&lt;bupc_extern.h&gt;</tt> is always available
+by calling '<tt>upcc -print-include-dir</tt>'.  Thus a C file that #includes
+<tt>&lt;bupc_extern.h&gt;</tt> can be portably compiled with
+
+<pre>
+    gcc -I`upcc -print-include-dir` -c main.c
+</pre>
+
+<p> Finally, whenever <tt>main()</tt> is not declared within a .upc file, the
+call to link UPC and non-UPC objects together must use the
+'<tt>--extern-main</tt>' flag:
+
+<pre>
+    upcc foo.upc 
+    upcc --extern-main foo.o main.o
+</pre>
+
+<hr><a name="c">
+<h4>Hybrid C/UPC programs</h4>
+
+Referring to C variables/functions in UPC code is quite simple.  The standard
+mechanism of #including a header file containing C declarations/prototypes is
+all UPC needs to be able to use C symbols. Note there is one problematic corner
+case - if a C header included from UPC code uses a UPC keyword (eg shared) as
+the name of an function or variable, this will cause an error in the UPC compile.
+
+<p>To have C code refer to a UPC variable or call a UPC function, have the C
+file #include a header file that declares the UPC variables/functions (none of
+which may contain any UPC-specific constructs, like '<tt>strict</tt>'), and then
+the C code can refer to them normally.  You may use the '<tt>__UPC__</tt>' macro
+(always defined during UPC compilation) to hide UPC-specific
+constructs:
+
+<pre>
+    #ifndef MY_UPC_HEADER_H
+    #define MY_UPC_HEADER_H
+
+    /* Variables/Routines exported to C routines */
+    extern int foo;
+    int get_bar();
+    void set_bar(int newval);
+
+    /* UPC-specific declarations */
+    #ifdef __UPC__
+      extern shared int bar;
+      extern strict shared long myarray[THREADS * 2];
+    #endif /* __UPC__ */
+
+    #endif /* MY_UPC_HEADER_H */
+</pre>
+
+<p><i>NOTE: if <tt>-pthreads</tt> is used to generate UPC executables,
+    differences emerge between C and UPC global variables, and function calls
+    become the only interface from other languages into UPC. See the 
+    <a href="#pthreads"> Programming Hybrid Applications with Pthreads</a>
+    section.</i>
+
+<p>You can compile C code with any C compiler that is ABI-compatible with the one
+used by Berkeley UPC (use '<tt>upcc -version</tt>' to see which compiler
+<tt>upcc</tt> uses).  Then pass both your C and UPC object files (and/or any C
+libraries you wish to use) to <tt>upcc</tt> to link:
+
+<pre>
+    upcc -c foo.upc
+    gcc -c bar.c
+    upcc foo.o bar.o -lm
+    upcrun -n 2 a.out
+</pre>
+
+
+<hr><a name="cplusplus">
+<h4>Hybrid C++/UPC programs</h4>
+
+Having UPC and C++ code refer to each other's variables/routines works similarly
+to the UPC/C case, except that all declarations from UPC must appear as "C"
+declarations to the C++ compiler, and all declarations from C++ must appear as
+"C" to the UPC compiler.  This means that  when C++ compilation is in effect
+(i.e. the '<tt>__cplusplus</tt>' macro is defined), <tt>extern "C"</tt> must be
+used.  For instance, to make the example UPC header given above for C work with
+either C/C++:
+
+<pre>
+    #ifndef MY_UPC_HEADER_H
+    #define MY_UPC_HEADER_H
+
+    /* Variables/Routines exported to C/C++ routines */
+    #ifdef __cplusplus
+      extern "C" {
+    #endif
+        extern int foo;
+        int get_bar();
+        void set_bar(int newval);
+    #ifdef __cplusplus
+      } /* end "extern" */
+    #endif
+
+    /* UPC-specific declarations */
+    #ifdef __UPC__
+      extern shared int bar;
+      extern strict shared long myarray[THREADS * 2];
+    #endif /* __UPC__ */
+
+    #endif /* MY_UPC_HEADER_H */
+</pre>
+
+<p>Similarly, a C++ header that is also #included by UPC code would need to use
+the same <tt>extern "C"</tt> wrapper around any symbols intended for use by UPC,
+and any C++-specific constructs would need to be hidden from UPC by putting them
+within an '<tt>#ifdef __cplusplus</tt>' block.
+
+<p><i>NOTE: if <tt>-pthreads</tt> is used to generate UPC executables,
+    differences emerge between C and UPC global variables, and function calls
+    become the only interface from other languages into UPC. See the 
+    <a href="#pthreads"> Programming Hybrid Applications with Pthreads</a>
+    section.</i>
+
+<p>You can compile C++ code with any C++ compiler that is ABI-compatible with the C
+compiler used by Berkeley UPC.  At link time, '<tt>upcc</tt>' additionally needs
+to be pointed at the C++ linker that should be used for the final link step: use
+the '<tt>-link-with</tt>' flag for this:
+
+<pre>
+    upcc -c foo.upc
+    g++ -c bar.cc
+    upcc -link-with=g++ foo.o bar.o -lsomeC++library
+    upcrun -n 2 a.out
+</pre>
+
+<p><ol><i>Exceptions: 
+    <li> When compiling with '<tt>-network=udp</tt>', <tt>upcc</tt>
+    already uses a C++ compiler for linking, and you must use it (or another
+    compatible C++ compiler) as the argument to '<tt>-link-with</tt>'.  You
+    should also use it to compile any C++ objects/libraries linked into the
+    application.  Use '<tt>upcc -version -network=udp</tt>' to see which C++
+    compiler upcc uses for UDP.
+    <li>When compiling with '<tt>-network=mpi</tt>', <tt>upcc</tt>
+    must use a MPI-aware linker.  You must thus use the '<tt>-link-with</tt>'
+    flag to point <tt>upcc</tt> at a C++-capable MPI linker ('mpiCC' or 'mpic++'
+    on many systems, but other names are also used: consult your system MPI
+    documentation).
+</ol>
+</i>
+    
+
+<hr><a name="fortran">
+<h4>Hybrid FORTRAN/UPC programs</h4>
+
+The conventions for interoperating between FORTRAN and C vary across different
+systems/compilers (some FORTRAN compilers transform all symbols to upper-case,
+or prepend an underscore to names, etc.).  Berkeley UPC code can refer to
+FORTRAN symbols in whatever way regular C code can, given the back-end C
+compiler that upcc uses and the FORTRAN compiler used for FORTRAN
+code/libraries.  As with C/C++, FORTRAN can not access any UPC
+variables/functions that use UPC-specific constructs like '<tt>shared</tt>'.
+
+<p><i>NOTE: if <tt>-pthreads</tt> is used to generate UPC executables,
+    differences emerge between C and UPC global variables, and function calls
+    become the only interface from other languages into UPC. See the 
+    <a href="#pthreads"> Programming Hybrid Applications with Pthreads</a>
+    section.</i>
+
+<p>As with C objects, you should generally be able to simply pass FORTRAN
+objects/libraries to the upcc linker:
+
+<pre>
+    upcc -c foo.upc
+    f77 -c bar.f
+    upcc foo.o bar.o -lsomeFortranLibrary
+    upcrun -n 2 a.out
+</pre>
+
+<i>Note:  different systems use different methods for linking together C and
+FORTRAN.  You may need to consult your system documentation.  You may select a
+different linker for upcc to use via the '<tt>-link-with</tt>' flag, and/or
+pass any linker-specific flags needed via upcc's '<tt>-Wl,</tt>' flag.  See the
+<a class='man' href="upcc.html">upcc man page</a>.</i>
+
+<hr><a name="mpi">
+<h4>MPI and UPC</h4>
+
+Berkeley UPC now contains support for creating applications which use both UPC
+and MPI explicitly in user code (note that this is different from UPC programs
+which do not explicitly use MPI, but are compiled with '<tt>upcc
+    -network=mpi</tt>': such programs do not require any special treatment).
+MPI calls can appear within UPC files, and/or in non-UPC code that is linked
+into the application.  Note however, that strict programming conventions must be
+adhered to when switching between MPI and UPC network communication, otherwise
+deadlock may result on some systems.
+
+<p><i>Note: at present, compiling mixed MPI/UPC applications requires that the
+    Berkeley UPC runtime be configured and built with '<tt>CC</tt>' and
+    '<tt>MPI_CC</tt>' set to a C MPI compiler (and '<tt>CXX</tt>' set to a C++
+    MPI compiler, unless '<tt>--disable-udp</tt>' is passed).  Such a runtime
+    will always use an MPI compiler to compile UPC programs, even those which do
+    not use MPI:  you may thus wish to keep a separate runtime installation
+    specifically for compiling MPI/UPC programs.  Finally, MPI interoperability
+    is not provided for all systems and network types, and '<tt>-pthreads</tt>'
+    is not supported.  See the '<tt>INSTALL.TXT</tt>' document in the runtime for
+    more information.</i>
+
+<p>UPC files which contain calls to MPI functions must '<tt>#include
+    &lt;mpi.h&gt;</tt>', and must be compiled with the '<tt>-uses-mpi</tt>'
+flag.  If <i>any</i> objects in a UPC application contain calls to MPI, the flag
+must be passed to the <tt>upcc</tt> at link time:
+
+<pre>
+    upcc -uses-mpi -c foo.upc
+    mpicc -c bar.c
+    upcc -uses-mpi foo.o bar.o
+</pre>
+
+<p>On some systems, '<tt>-lmpi</tt>' must also be passed to 'upcc' in order for
+MPI symbols to be resolved.  If C++ MPI objects are linked into a UPC
+application, the '<tt>-link-with</tt>' flag must be additionaly used at link
+time to point <tt>upcc</tt> at a C++ MPI compiler to use for linking.
+
+<pre>
+    upcc -uses-mpi -c foo.upc
+    mpic++ -c bar.cc
+    upcc -uses-mpi -link-with=mpic++ foo.o bar.o
+</pre>
+
+<p>When '<tt>-uses-mpi</tt>' is used to link a UPC application, the
+'<tt>MPI_Init()</tt>' and '<tt>MPI_Finalize()</tt>' calls are handled by the UPC
+runtime--these calls should <i>not</i> appear in client code.  If
+'<tt>main()</tt>' exists in a non-UPC file, calls to '<tt>bupc_init()</tt>' and
+'<tt>bupc_exit()</tt>' should replace any calls to the MPI init/finalize
+functions.  
+
+<p>Certain UPC network types (notably 'mpi', 'ibv', 'ofi' and 'mxm') may use MPI under the
+covers.  For this reason, non-UPC MPI objects should be compiled with the same
+MPI compiler family as is used by <tt>upcc</tt>.  To see the MPI C compiler used
+by <tt>upcc</tt>, use '<tt>upcc -print-mpicc</tt>'.
+
+<p>Both MPI and UPC cause network communication.  At present, the network
+traffic generated by MPI is not coordinated with that generated by UPC code.  As
+a result, it is quite easy to cause network deadlock when mixing MPI and UPC,
+unless the following protocol is strictly observed:
+
+<ol>
+    <li>When the application starts, the first MPI or UPC code that results in
+    network traffic from any thread should be considered to put the application in 'MPI' or
+    'UPC' mode, respectively.
+
+    <p><li>When an application is in 'MPI' mode, and needs to switch to
+    using UPC, it should collectively execute an '<tt>MPI_Barrier()</tt>' as the
+    last MPI call before causing any UPC-initiated communication.  Once any
+    UPC communication has occurred from any thread, the program should be considered to have
+    switched to 'UPC' mode.
+
+    <p><li>When an application is in 'UPC' mode, and an MPI call that may cause
+    network traffic is needed, a collective call to '<tt>upc_barrier</tt>' (or,
+    equivalently, a '<tt>upc_notify</tt>' followed by a '<tt>upc_wait</tt>')
+    should be executed as the last UPC communication before any MPI calls are
+    made.  Once any MPI functions have been called from any thread, the program should be
+    considered to be in 'MPI' mode.
+</ol>
+
+If this simple construct--UPC code must be followed by a UPC barrier, and MPI
+code must be followed by an MPI_Barrier--is followed, deadlock should not occur
+(<i>Note: we are investigating support for automatically avoiding MPI/UPC
+deadlock, but unfortunately it is a difficult problem, and solutions would
+likely be specific to particular MPI implementations</i>).
+
+
+<hr><a name="multiple">
+<h4>Combining multiple languages with UPC</h4>
+
+The above methods for mixing UPC with C/C++/FORTRAN/MPI are not mutually
+exclusive, and so more than one of these languages/APIs can be mixed with UPC in
+the same application.  For instance, a C/C++/FORTRAN/MPI/UPC application might
+be built and run with
+
+<pre>
+    upcc -c upc.upc
+    gcc -c c.c
+    g++ -c c++.cc
+    mpiCC -c mpi.cc
+    f77 -c fortran.f
+    upcc -uses-mpi -link-with=mpiCC upc.o c.o c++.o mpi.o fortran.o -lFortranLib -lC++lib -lClib
+    upcrun -n 2 a.out
+</pre>
+
+
+
+<hr><a name="pointers">
+<h4>Passing pointers-to-shared between non-UPC and UPC code</h4>
+
+
+The <tt>&lt;bupc_extern.h&gt;</tt> file also contains a number of convenience
+functions which allow non-UPC code to allocate shared memory as standard
+'<tt>void *</tt>' pointers, which UPC code can then cast back to UPC shared
+pointers using the '<tt>bupc_local_to_shared</tt>' function (a Berkeley UPC
+extension).  This allows a convenient way for UPC code to provide non-UPC code
+with access to shared memory that has affinity to the executing thread, then
+convert it back to the original UPC type for UPC communication calls.  See
+&lt;bupc_extern.h&gt; (located in the directory provided by '<tt>upcc
+    -print-include-dir</tt>') for details.  
+
+
+<hr> <a name="pthreads">
+<h4>Programming hybrid applications with -pthreads</h4>
+
+When '<tt>upcc -pthreads</tt>' is used to create a pthreaded UPC application,
+global variables in UPC must be made thread-local (i.e., a copy of the variable
+is made for each UPC thread).  This does not occur, however, for variables
+declared in other languages.  All UPC threads in the same process will share the
+same copy of '<tt>stdout</tt>', for instance.  Generally, this is the
+desired behavior (it would be very detrimental for UPC to try to make multiple
+copies of '<tt>stdout</tt>').  It is also the only feasible implementation
+strategy for pthreaded UPC, since the C library and other system libraries
+ are generally not built by the
+UPC compiler, and thus C variables within them could not be made pthread-local
+even if this was desired.
+
+<p>The result of this is that when '<tt>-pthreads</tt>' is used, C/C++/FORTRAN
+code can not refer to UPC global variables.  However, UPC functions which have a
+C interface (no UPC-specific constructs) can still be called.  Note, though,
+that UPC functions should only be called from pthreads that were created by the
+UPC runtime:  pthreads created by user calls to '<tt>pthread_create</tt>' cannot
+safely call UPC routines.
+
+<p>When '<tt>-pthreads</tt>' is used in a hybrid application, any non-UPC
+code linked into the application must be thread-safe (i.e. capable of being
+referenced by multiple threads at the same time), if you plan to call it 
+concurrently from more than one UPC thread.
+
+<p>Many MPI libraries are not safe to use with pthreads, and those that are
+often require special initialization.  At present Berkeley UPC does not support
+hybrid MPI/UPC applications with '<tt>-pthreads</tt>', but support may be added
+for reentrant MPI libraries in the future.
+
+<p>See the <a
+    href="index.html#pthread">Using Pthreads</a> section of the UPC User's
+Manual for more details on '<tt>-pthreads</tt>' usage.
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

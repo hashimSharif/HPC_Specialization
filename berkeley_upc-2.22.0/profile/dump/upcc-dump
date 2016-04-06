@@ -1,0 +1,79 @@
+#!/bin/sh
+#set -x
+toolname=dump
+upcctype=bupc
+mydir=$0
+mydir=`dirname $mydir`
+
+if test -x "$mydir/upcc" ; then # install tree
+  upcc="$mydir/upcc"
+  auxbindir="$mydir/gasp-$toolname"
+  auxsrcdir="$mydir/gasp-$toolname"
+elif test -x "$mydir/../../upcc" ; then # build tree
+  upcc="$mydir/../../upcc"
+  auxbindir="$mydir"
+  if test -f "$mydir/gaspu.upc" ; then
+    auxsrcdir="$mydir"
+  else
+    auxsrcdir="@TOP_SRCDIR@/profile/$toolname"
+  fi
+else
+  echo "ERROR: unable to find upcc script!"
+  exit 1  
+fi
+
+for file in "$auxsrcdir/gaspu.upc" "$auxsrcdir/gaspu.h" "$auxbindir/libgasp-$toolname.a" ; do 
+  if test ! -f "$file" ; then
+    echo "ERROR: unable to find file $file"
+    exit 1
+  fi
+done
+
+# scan the other arguments, carefully preserving quoting
+link=1
+numargs=$#
+while test "$numargs" -gt 0 ; do
+  arg="$1"
+  shift
+  suppress=0
+  case "$arg" in
+    -c|--c|-trans|--trans|-E) link=0 ;;
+    -inst|--inst)             got_inst=1 ;;
+    -inst-local|--inst-local) got_inst_local=1 ;;
+    -inst-only|--inst-only)   suppress=1 ; shift ; got_inst_only="$1" ;;
+  esac
+  if test "$suppress" != "1" ; then
+    set -- "$@" "$arg"
+  fi
+  numargs=`expr $numargs - 1`
+done
+
+INST_FLAGS=
+
+# --inst-local and --inst-only imply --inst
+if test "$got_inst_local" = "1" -o "$got_inst_only" = "1" && \
+   test "$got_inst" != "1" ; then
+  got_inst=1
+  INST_FLAGS="--inst $INST_FLAGS" 
+fi
+
+case "$upcctype" in 
+ bupc) # "magic" flag for Berkeley UPC that must be passed by GASP wrappers
+   INST_FLAGS="$INST_FLAGS --inst-toolname=$toolname"
+   # if we want instrumentation, should enable these BUPC options as well
+   if test "$got_inst" = "1" ; then
+     INST_FLAGS="$INST_FLAGS -lines"
+     # optional - enable function instrumentation events 
+     INST_FLAGS="$INST_FLAGS -inst-functions"
+   fi
+ ;;
+ *) :
+ ;;
+esac
+
+if test "$link" = "1"; then
+  exec $upcc "$@" $INST_FLAGS $auxsrcdir/gaspu.upc -L$auxbindir -lgasp-$toolname
+else
+  exec $upcc "$@" $INST_FLAGS
+fi
+

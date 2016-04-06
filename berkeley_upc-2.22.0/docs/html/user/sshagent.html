@@ -1,0 +1,140 @@
+<html>
+<head>
+    <title>A brief ssh-agent tutorial</title>
+</head>
+<body bgcolor="#ffffff">
+
+<!--#include virtual="/header.html" -->
+
+<h2>A short ssh-agent tutorial</h2>
+
+<p><i>Note: this tutorial is only relevant to UPC users if any of the following are true
+    <ol> 
+        <li> You are using ssh to launch UDP-based UPC programs
+        with <a class='man' href="upcrun.html">upcrun</a>;
+        <li> You are using ssh to launch ibv-, ofi- or mxm-based UPC programs
+        with <a class='man' href="upcrun.html">upcrun</a>, because spawning such programs
+	via MPI is disabled (either when your Berkeley UPC compiler was
+	configured, or by an environment variable setting);
+    <li> Your Berkeley UPC installation is
+    configured to use a remote UPC-to-C translator via ssh.  (This is the case if
+    you are asked for a password when you try to compile a UPC program with
+    <a class='man' href="upcc.html">upcc</a>).
+    </ol>
+</i>
+
+<p>Here is a rather abbreviated tutorial on setting up ssh-agent, which is a
+program that 'remembers' your ssh passwords for you.
+
+<ol> 
+
+    <li>You need to generate an SSH public/private key pair on the host on which
+    you'll use upcc.  Do this via "<tt>ssh-keygen -t rsa</tt>".  You'll be asked
+    to enter a password.  Pick a good one, and remember it.  The result should
+    be two files, <tt>id_rsa</tt> and <tt>id_rsa.pub,</tt> both in your
+    <tt>$HOME/.ssh</tt> directory.  
+
+    <p><li>Copy the public key file to the host where the UPC-to-C translator is
+    located.  Example: "<tt>scp ~/.ssh/id_rsa.pub somelinuxbox.lbl.gov:</tt>"
+    Open (or create) your <tt>$HOME/.ssh/authorized_keys2</tt> file.  Cut and
+    paste the contents of the <tt>id_rsa.pub</tt> file into it.  Make sure there
+    are no line breaks--the contents of id_rsa.pub should show up at one line in
+    the file.  Close <tt>authorized_keys2,</tt> and make sure only you can read
+    or write it (<tt>chmod 600 .ssh/authorized_keys</tt>).  Delete the
+    id_rsa.pub file that you copied over (<tt>rm ~/id_rsa.pub</tt>). 
+
+    <p><li>Test to see if everything is working so far:  go back to the first
+    host, and enter "<tt>ssh somelinuxbox.lbl.gov</tt>".  You should see that
+    ssh now asks you for the password to your key, not your general login
+    password.  If you don't see this, make sure all the files in
+    your<tt>~/.ssh</tt> directories on both machines are readable/writable only
+    by you, and try passing the "<tt>-v</tt>" flag to ssh to see what's going on.
+
+    <p><li>Now that you can log on, you want to avoid typing your password all
+    the time.  Setting up ssh-agent will do this.  ssh-agent is a wrapper
+    program--you run it with the name of another command, like "<tt>ssh-agent
+        bash</tt>", or "<tt>ssh-agent startx</tt>".  All children of the program
+    started by ssh-agent can share a one-time authentication you provide.  Once
+    you start bash (or X, etc.) from ssh-agent, enter "<tt>ssh-add</tt>", and
+    you will be prompted for the password to your ssh key.  After this, you
+    should be able to use your key without entering your password again.
+
+</ol>
+
+Now that we've got the basics covered, here are some more ssh pointers:
+
+<ol> 
+
+    <li>You can create a <tt>$HOME/.ssh/config</tt> file to contain settings for
+    ssh on both a global and per-host basis.  For instance, you may have a
+    different username than your normal one on some machine.  To ssh to it, you
+    can either use "<tt>ssh -l username hostname"</tt>, or you can enter a
+    "<tt>User</tt>" directive in your config file.  Since some utilities (like
+    CVS, and upcc), don't let you fiddle much with the way ssh/scp are invoked,
+    you'll need to set any options like this in the config file.  You can also
+    set up aliases in the config file, which can eliminate tedious typing.  For
+    instance,
+
+    <pre>
+        Host falcon falcon.ccs.ornl.gov
+            HostName falcon.ccs.ornl.gov
+            User jduell
+            Compression yes
+            Protocol 2
+
+        Host *
+            ForwardAgent yes
+            ForwardX11 yes
+
+    </pre>
+
+    Allows me to type "<tt>ssh falcon</tt>" and get the equivalent of 
+    <nobr>"<tt>ssh -C -2 jduell@falcon.ccs.ornl.gov</tt>"</nobr>.
+
+    
+    <p>You must specify global options at the end of the config file, using the
+    "<tt>Host *</tt>" as the target.  Here I've set up "<tt>ForwardX11</tt>",
+    which allows you to run X11 programs on the remote host securely (they are
+    tunneled over the secure connection), if not quickly.
+    "<tt>ForwardAgent</tt>" tells ssh to use transitive authentication--i.e. if
+    you enter your password via <tt>ssh-add</tt> on one machine, then ssh to
+    another that accepts that key, you should be able to then ssh to a third
+    machine that also accepts the key without ever entering your password again.
+    Some hosts turn this off, however, so don't count on it always working.
+
+    <p><li>Setting up your desktop machine to always run ssh-agent as the parent
+    of <tt>startx</tt> makes life easy: every shell you launch on your desktop
+    can share a single ssh-add.  There are several ways to do this:
+
+    <ul>
+        <p><li>Your X server may already launch an ssh-agent for the entire X
+        session by default.  Apparently Debian does this.
+
+        <p><li>If your window manager allows you to specify an
+        <tt>~/.xsession</tt> file to launch programs during X startup, you can
+        add lines in it to launch ssh-agent at startup (and also pop up a window
+        to ask you your password).  
+	See <a href="http://old-en.opensuse.org/Using_ssh-agent_globally_for_X_session">this guide</a>
+        for details. 
+    
+        <p><li>You can set up your computer to boot into a command line instead
+        of a GUI login screen, and then launch X with "<tt>ssh-agent
+            startx</tt>".  On most Unices, the difference between booting into
+        the GUI or not is a matter of setting the default runlevel in
+        <tt>/etc/inittab.</tt>  On Red Hat, for instance, you can change this
+        simply by changing a line in <tt>/etc/inittab</tt> from
+        "<tt>id:5:initdefault:</tt>" instead of "<tt>id:3:initdefault:</tt>".
+
+        <p><li>Wade into your window manager startup script(s), and find a
+        clever place to put an <tt>ssh-agent</tt> command.
+    </ul> 
+</ol>
+
+    <p>&nbsp;
+
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

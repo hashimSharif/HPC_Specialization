@@ -1,0 +1,65 @@
+declare foo as const pointer to int | int * const foo
+declare foo as pointer to const int | const int *foo
+declare foo as pointer to function returning const int | const int (* foo)()
+declare foo as pointer to array 5 of int | int (* foo)[5]
+declare foo as pointer to function returning const pointer to int | int * const (* foo)()
+declare f as pointer to array 5 of pointer to array 10 of array 50 of unsigned const int | unsigned const int (* (* f)[5])[10][50]
+declare foo as array of int | int foo[]
+declare foo as array 5 of int | int foo[5]
+declare foo as array 5 of pointer to const int | const int * foo[5]
+declare foo as array 5 of pointer to int | int * foo[5]
+declare array 5 of array 10 of pointer to array 20 of int | int (* var[5][10])[20]
+declare f as pointer to function (a,b,c as int, int, pointer to const char, pointer to array 5 of pointer to function(a,b,int) returning pointer to int) returning int | int (* f)(a, b, int c, int, const char *, int * (* (* )[5])(a, b, int))
+declare f as static int | static int f
+explain int* f(int*) | declare f as function (pointer to int) returning pointer to int
+explain int f(a,b,c) | declare f as function (a, b, c) returning int
+explain int *(f)[] | declare f as array of pointer to int
+explain const int *const f | declare f as const pointer to const int
+explain volatile int *const f | declare f as const pointer to volatile int
+explain static volatile const f | declare f as static volatile const int
+explain static volatile const* f | declare f as static pointer to volatile const int
+declare f as array 12 of pointer to pointer to array 15 of pointer to union foo | union foo * (* * f[12])[15]
+explain int**f[]()[] | declare f as array of function returning array of pointer to pointer to int
+explain int*volatile const*noalias*f | declare f as pointer to restrict pointer to volatile const pointer to int
+explain static const *volatile f | declare f as static volatile pointer to const int
+explain static const *volatile*const*noalias f | declare f as static restrict pointer to const pointer to volatile pointer to const int
+explain const * volatile f | declare f as volatile pointer to const int
+explain const * volatile* f | declare f as pointer to volatile pointer to const int
+explain static const * volatile* f[] | declare f as static array of pointer to volatile pointer to const int
+explain (int((())(a,b,c))[4])f | cast f into function returning function (a, b, c) returning array 4 of int
+explain(int(*())())f | cast f into function returning pointer to function returning int
+explain(int(***())())f | cast f into function returning pointer to pointer to pointer to function returning int
+explain (int *(*)())f | cast f into pointer to function returning pointer to int
+explain (int** (*(*)(a,b))())f | cast f into pointer to function (a, b) returning pointer to function returning pointer to pointer to int
+explain static const int foo | declare foo as static const int
+explain static const foo | declare foo as static const int
+explain int(*f)() | declare f as pointer to function returning int
+explain int(*f)()() | declare f as pointer to function returning function returning int
+explain int(*f)()()() | declare f as pointer to function returning function returning function returning int
+declare x as ptr to character | char *x
+declare x as func(w as ptr to char, y as int) ret ptr to int | int * x(char * w, int y)
+declare x as func(ptr to char) ret ptr to int | int * x(char *)
+declare x as func(int) ret ptr to int | int * x(int)
+declare x as func(ptr to char, int) ret ptr to int | int * x(char *, int)
+declare x as function (args) returning pointer to int | int * x(args)
+explain char *x | declare x as pointer to char
+explain int *x() | declare x as function returning pointer to int
+explain int *x(args) | declare x as function (args) returning pointer to int
+explain int *x(char *) | declare x as function (pointer to char) returning pointer to int
+explain int *x(char *, int ) | declare x as function (pointer to char, int) returning pointer to int
+explain int *x(char *, int, float) | declare x as function (pointer to char, int, float) returning pointer to int
+explain int *x(int ) | declare x as function (int) returning pointer to int
+cast x into ptr to char | (char *)x
+cast x into ptr to func ret int | (int (*)())x
+cast x into ptr to func() ret int | (int (*)())x
+cast x into ptr to func(args) ret int | (int (*)(args))x
+cast x into ptr to func(x as ptr to char, y as int) ret int | (int (*)(char * x, int y))x
+cast x into ptr to func(ptr to char) ret int | (int (*)(char *))x
+cast x into ptr to func(ptr to char, int) ret int | (int (*)(char *, int))x
+cast x into ptr to func(ptr to char, int, float) ret int | (int (*)(char *, int , float))x
+explain (char *)x | cast x into pointer to char
+explain (int (*)())x | cast x into pointer to function returning int
+explain (int (*)(char *))x | cast x into pointer to function (pointer to char) returning int
+explain (int (*)(char *, int))x | cast x into pointer to function (pointer to char, int) returning int
+explain (int (*)(char *, int, float))x | cast x into pointer to function (pointer to char, int, float) returning int
+explain (const int *)f | cast f into pointer to const int

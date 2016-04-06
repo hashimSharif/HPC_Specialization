@@ -1,0 +1,7 @@
+TEST_ROOT	= ../../..
+
+include $(TEST_ROOT)/CTestTop.mak
+
+OBJS	= locks.trans.o
+
+include $(TEST_ROOT)/CTestBottom.mak

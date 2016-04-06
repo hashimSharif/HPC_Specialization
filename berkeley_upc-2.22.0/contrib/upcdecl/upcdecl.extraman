@@ -1,0 +1,100 @@
+[DESCRIPTION]
+
+upcdecl is a simple tool based off the original cdecl tool written in the
+late 80's by Graham Ross et al. upcdecl is a text-based tool with two
+main modes of operation: translating english versions of UPC declarations to UPC
+code, and vice versa. upcdecl accepts commands using a very simple grammar,
+such as `explain int c' or `declare c as pointer to shared int'. Typing `help'
+with no arguments inside upcdecl will display a simplified version of the 
+grammar the tool uses, or see the mygram.txt file in the installation directory
+for the full grammar. See the EXAMPLES section for more example usage.  
+
+If files given on the command line start with explain, declare, cast, or set,
+the rest of the input on the command line is interpreted as a command instead
+of a set of filenames. Otherwise, each file is opened and the contents of the
+file are interpreted as upcdecl commands.
+
+There are six statements in the language. The declare statement composes a UPC
+type declaration from a verbose description. The cast statement composes a UPC
+type cast as might appear in an expression. The explain statement decodes a UPC
+type declaration or cast, producing a verbose description. The help (or ?)
+statement provides a help message. The quit (or exit) statement (or the end of
+file) exits the program. The set statement allows the command line options to be
+set interactively. Each statement is separated by a semicolon or a newline.
+
+[EXAMPLES]
+To have upcdecl display UPC code for an English description, use the `declare'
+statement:
+
+    upcdecl> declare f as const int
+    const int f
+
+You can use `pointer to', `array of', and `function returning' to make
+arbitrarily complex definitions:
+
+    upcdecl> declare f as pointer to array of function returning pointer to volatile int
+    volatile int * (* f)[]()
+    
+Use the `shared' keyword to have upcdecl return UPC declarations:
+
+    upcdecl> declare f as shared array 55 of int
+    shared [1] int f[55]
+
+When followed by `blocksize', the `shared` keyword also takes arbitrary 
+numerical blocksizes or one of `automatic', `cyclic', `indefinite':
+
+    upcdecl> declare f as shared blocksize 5 pointer to shared blocksize indefinite pointer to function returning shared blocksize cyclic int
+    shared [1] int (* shared [] * shared [5] f)()
+
+Additionally, the `cast' statement may be used to show how to perform a cast: 
+  
+    upcdecl> cast c into shared blocksize indefinite int
+    (shared [] int)c
+
+To make sense of a UPC declaration, use the `explain' command:
+
+    upcdecl> explain shared [4] int (*f)(int, int, int)
+    declare f as pointer to function (int, int, int) returning shared (blocksize 4) int
+
+    upcdecl> explain shared [] int *const shared c
+    declare c as const shared (blocksize cyclic) pointer to shared (blocksize indefinite) int
+
+[BUGS]
+As in the original cdecl tool, the English syntax is very verbose.
+
+There are even less semantic checks done for upcdecl than the original cdecl.
+
+The tool accepts "shared void f" as a valid C declaration.
+
+The cdecl grammar used as a basis for upcdecl was written before the ANSI C 
+standard was completed (and well before ISO C99 was finished). Some attempt
+has been made to update the grammar to accept valid ISO C99 code, but there
+are undoubtedly bits of valid code that will be rejected by the parser.
+
+upcdecl will parse many simple arithmetic expressions inside blocksize
+declarations or array dimensions, but does not understand function calls,
+sizeof operators, struct accesses, relational/boolean operators, bitwise operators,
+conditional expressions, increment/decrement operators, floating point literals
+or type cast sub-expressions.
+
+There should be an array visualization feature to show how a shared array will
+be distributed among threads.
+
+[AUTHORS]
+Adam Leko, with significant contributions and guidance from Dan Bonachea and the
+rest of the Berkeley UPC team.
+
+[ACKNOWLEDGEMENTS]
+upcdecl is heavily based on the grammar specified in the original cdecl man
+page.
+
+Credits for the original cdecl tool:
+
+ Originally written by Graham Ross, improved and expanded by David Wolverton,
+ Tony Hansen, and Merlyn LeRoy.  GNU readline support and Linux port by David
+ R. Conrad, <conrad@detroit.freenet.org>.
+
+[REPORTING BUGS]
+We are interested in fixing any bugs that exist in upcdecl.  For bug reporting
+instructions, please go to http://upc.lbl.gov.
+

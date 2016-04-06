@@ -1,0 +1,34 @@
+network = ibv
+batch_sys = pbs
+queues = [
+        {
+          Q_name     => regular,   
+          Q_maxnode  => 15,      
+          Q_minnode  => 1,       
+          Q_maxtpn   => 8,      
+          Q_maxtime  => 02:30:00 
+        }
+        {
+          Q_name     => regular,   
+          Q_maxnode  => 64,      
+          Q_minnode  => 16,       
+          Q_maxtpn   => 8,      
+          Q_maxtime  => 00:20:00 
+        }
+]
+
+repository = degas
+
+nthread_default = 4
+max_proc_per_node = 2
+min_num_nodes = 1
+
+run_env_default = { GASNET_PHYSMEM_MAX => '16G',
+		    GASNET_PHYSMEM_NOPROBE => 1 }
+
+# We want results to be group-accessible
+startjob_cmd = [ 'umask 007' ]
+
+# Cannot qsub on compute node (recheck this?)
+# Note that NERSC only prohibits job chaining in the debug queue.
+resubmit_cmd = 'ssh -q carver `which qsub`'

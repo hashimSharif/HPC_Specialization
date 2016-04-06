@@ -1,0 +1,195 @@
+# Configuration file for Berkeley UPC multiplexing compiler driver
+#
+# Berkeley UPC supports a wide variety of mutually-exclusive configure
+# time settings (eg debug vs ndebug mode, performance instrumentation vs not, etc).
+# It is often desirable to install multiple such configurations on one system and select
+# between them at application compile time based on the provided compilation options.
+# This file specifies the different configurations of Berkeley UPC
+# to create during the multiconf configure process, and the logic for choosing
+# between the configurations at application compile time.
+#
+# Alternate versions of this file can be selected at configure time using --with-multiconf-file=<filename>
+# At application compile time, the first enabled, matching configuration will be selected.
+# This file is copied to multiconf.conf in $TOP_BUILDDIR and $PREFIX/etc during build/install.
+# Settings may be altered after configure, but changes to conf-options and any new confs will be ignored.
+
+# --- Global settings ---
+# Global configure options:
+# configure options to apply for every conf specified below
+CONFIGURE_OPTIONS= 
+
+# Forced options:
+# upcc_multi.pl will behave as if these (comma-separated) multiconf-specifc options were passed
+FORCED_OPTIONS=
+
+# Global environment settings:
+# environment variables which apply for every conf specified below, one per line in the format:
+#   KEYNAME=VALUE...   (without leading #)
+# Note that any values set here provide *default* global environment variable settings,
+# and the user can set these environment variables explicitly before invoking multiconf configure
+# to override any defaults specified here.
+
+# Enabled conf list: comma-separated list of which confs described below are enabled by default
+# All specified configurations will be built and installed. 
+# Can be overridded on the configure command line via --with-multiconf (see configure --help)
+ENABLED_CONFS= dbg, opt
+
+# Change this line to point at the default BUPC translator installation to use
+# use the internet-based public 2.X.Y release translator: (internet connection required)
+BUPC_TRANS=http://upc-translator.lbl.gov/upcc-2.22.0.cgi
+# use a local BUPC translator installation, if you have one:
+#BUPC_TRANS=/usr/local/berkeley_upc_translator/targ
+
+# Change this line to point at your GUPC translator installation 
+# (if you have one -- required for *_gupc configs)
+GUPC_TRANS=/usr/local/upc/bin/upc
+
+# Change this line to point at your Clang UPC translator installation
+# (if you have one -- required for *_cupc configs)
+CUPC_TRANS=/usr/local/upc/bin/clang-upc
+
+# Change this line to point at your clang-upc2c translator installation
+# (if you have one -- required for *_cupc2c configs)
+CUPC2C_TRANS=/usr/local/upc/bin/clang-upc2c
+
+# BLACKLISTED TOP-LEVEL CONFIGURE OPTIONS
+# The following enable/disable options are blacklisted as top-level options to this 
+# multiconf script, since the sub-configures offer permutations of these options,
+# so you should instead enable/disable building of the appropriate configurations.
+# For example: 
+# Instead of passing --enable-inst, you should pass --with-multiconf=+opt_inst
+# Instead of passing --enable-totalview, you should pass --with-multiconf=+dbg_tv
+# Instead of passing --with-translator you should set the BUPC_TRANS path above.
+# Instead of passing --with-gupc you should set the GUPC_TRANS path above,
+#   and pass --with-multiconf=+dbg_gupc,+opt_gupc
+# Instead of passing --with-cupc you should set the CUPC_TRANS path above,
+#   and pass --with-multiconf=+dbg_cupc,+opt_cupc
+BLACKLISTED_ENABLE_OPTIONS=debug,totalview,trace,stats,inst
+BLACKLISTED_WITH_OPTIONS=gupc,cupc,clang-upc2c,translator
+
+# ALIASES
+# Used for backward compatibility if a configuration is renamed.
+# Format is "ALIAS fake = real"
+ALIAS dbg_gccupc = dbg_gupc
+ALIAS opt_gccupc = opt_gupc
+
+# end of global section:
+;;;
+# --- Conf settings ---
+# Each configuration is specified in the following format:
+#
+#  conf-name ; conf-options ; upcc-select-expr ; upcc-arg-strip 
+#
+# conf-name : unique name for the configuration. Special characters are prohibited 
+#  (must match pattern [A-Za-z0-9_-]+), as are names that conflict with top-level
+#  names in the install tree (bin, man, etc). 
+#  see below for the special case conf-name = 'error'
+#
+# conf-options : configure options to use for this configuration. Normal shell variable
+#  expansion will be performed. May be empty for default settings.
+#
+# upcc-select-expr : boolean perl expression defining the condition under which this
+#  configuration will be selected at compile time. The expression should rely only 
+#  upon the user-provided command-line arguments (available in %opt), and possibly 
+#  environment variables in %ENV. Note selection arguments should only be boolean
+#  arguments (ie present or absent) and may not have require a helper value argument.
+#
+# upcc-arg-strip : an optional, comma-delimited list of arguments to strip from the
+#  user-provided compile line before invoking the upcc of the current conf. 
+#  This is primarily intended to strip selection options used in upcc-select-expr
+#  which are not recognized by the base upcc script. Should not strip normal
+#  upcc options, as that would lead to non-intuitive behavior.
+#  May be omitted to indicate no change.
+#
+# Each conf spec may be preceded by one or more lines of the form:
+#  KEYNAME=VALUE...
+# which specify environment variables to set when configuring that conf,
+# in addition to those specified above in the global section or already present in the user's environment.
+# Note that unlike the global section, per-conf environment variables take highest priority,
+# overridding any in the user's environment and/or specified in the global section above.
+#
+# conf-name=error : this is a special case to issue error messages when an unsupported
+#  combination of options is matched.  The upcc-select-expr is matched normaly, and
+#  the upcc-arg-strip field is unused.  The conf-options field is used as the error
+#  message to print.  The conf-name 'error' may be repeated as many times as needed.
+#  An error conf is always enabled.
+# 
+
+# Remove the following if a "dbg_inst" config were to be added
+error ; the -g flag is incompatibile with the -inst* flags; $opt{'g'} && ( $opt{'inst'} || $opt{'inst-functions'} || $opt{'inst-local'} || $opt{'inst-toolname'} ) ;
+
+error ; the -bupc and -gccupc flags are mutually exclusive; $opt{'bupc'} && $opt{'gccupc'} ;
+error ; the -bupc and -gupc flags are mutually exclusive; $opt{'bupc'} && $opt{'gupc'} ;
+error ; the -cupc2c and -gccupc flags are mutually exclusive; $opt{'cupc2c'} && $opt{'gccupc'} ;
+error ; the -cupc2c and -gupc flags are mutually exclusive; $opt{'cupc2c'} && $opt{'gupc'} ;
+error ; the -cupc2c and -bupc flags are mutually exclusive; $opt{'cupc2c'} && $opt{'bupc'} ;
+error ; the -cupc and -gccupc flags are mutually exclusive; $opt{'cupc'} && $opt{'gccupc'} ;
+error ; the -cupc and -gupc flags are mutually exclusive; $opt{'cupc'} && $opt{'gupc'} ;
+error ; the -cupc and -bupc flags are mutually exclusive; $opt{'cupc'} && $opt{'bupc'} ;
+error ; the -cupc and -cupc2c flags are mutually exclusive; $opt{'cupc'} && $opt{'cupc2c'} ;
+
+
+# GUPC + UPCR mode
+dbg_gupc ; --with-gupc="${GUPC_TRANS}" --enable-debug ; $opt{'g'} && ( $opt{'gupc'} || $opt{'gccupc'} ) ; -gupc,-gccupc
+
+# GUPC + UPCR mode
+opt_gupc ; --with-gupc="${GUPC_TRANS}" ; $opt{'gupc'} || $opt{'gccupc'} ; -gupc,-gccupc 
+
+# CUPC + UPCR mode
+dbg_cupc ; --with-cupc="${CUPC_TRANS}" --disable-pthreads --enable-debug ; $opt{'g'} && $opt{'cupc'} ; -cupc
+
+# CUPC + UPCR mode
+opt_cupc ; --with-cupc="${CUPC_TRANS}" --disable-pthreads ; $opt{'cupc'} ; -cupc
+
+# clang-upc2c + UPCR mode
+dbg_cupc2c ; --with-clang-upc2c="${CUPC2C_TRANS}" --enable-debug ; $opt{'g'} && $opt{'cupc2c'} ; -cupc2c
+
+# clang-upc2c + UPCR mode optimized mode with tracing
+opt_cupc2c_trace ; --with-clang-upc2c="${CUPC2C_TRANS}" --enable-trace --enable-stats ; $opt{'cupc2c'} && $opt{'trace'} ; -cupc2c
+
+# clang-upc2c + UPCR mode and GASP
+opt_cupc2c_inst ; --with-clang-upc2c="${CUPC2C_TRANS}" --enable-inst ; $opt{'cupc2c'} && ( $opt{'inst'} || $opt{'inst-functions'} || $opt{'inst-local'} || $opt{'inst-toolname'} ) ; -cupc2c
+
+# clang-upc2c + UPCR mode
+opt_cupc2c ; --with-clang-upc2c="${CUPC2C_TRANS}" ; $opt{'cupc2c'} ; -cupc2c
+
+## Following options are the -bupc ones
+## By NOT specifying $opt{'bupc'} and placing them last they become
+## the default-default when no --with-multiconf-force=name is used.
+
+# Debug configuration - enables system-wide sanity checks and globally disables backend optimization
+# also enables tracing and stats
+dbg ; --with-translator="$BUPC_TRANS" --enable-debug ; $opt{'g'} && !$opt{'tv'} ; -bupc
+
+# alternate debug version that enables Totalview debugger support: (requires Totalview 7+ and libtool)
+dbg_tv ; --with-translator="$BUPC_TRANS" --enable-debug --enable-totalview ; ( $opt{'g'} || $opt{'tv'} ) ; -bupc
+
+# optimized tracing mode
+opt_trace ; --with-translator="$BUPC_TRANS" --enable-trace --enable-stats ; $opt{'trace'} ; -bupc
+
+# instrumented mode (for use with GASP-enabled performance tools)
+opt_inst ; --with-translator="$BUPC_TRANS" --enable-inst ; ( $opt{'inst'} || $opt{'inst-functions'} || $opt{'inst-local'} ) || $opt{'inst-toolname'} ; -bupc
+
+# Example alternate ABI configurations
+#CC=xlc -q64
+#CXX=xlC -q64
+#MPI_CC=mpcc -q64
+#opt_64 ; --with-translator="$BUPC_TRANS" ; $opt{'64'} ; -64
+
+# Default conf (should come last) - regular optimized mode
+opt ; --with-translator="$BUPC_TRANS" ; 1 ; -bupc
+
+# end of config section 
+# everything below the following line is upcc -help output for the above options
+;;;
+
+Multiconf options: 
+   -show-confs        Show the multiconf variations which are installed
+(availability of following options varies based on configure-time decisions)
+   -bupc              Use the Berkeley UPC translator [default]
+   -gupc              Use the Intrepid GUPC translator
+   -cupc              Use the Intrepid Clang UPC translator
+   -cupc2c            Use the Intrepid clang-upc2c translator
+   -g                 Enable system-wide debugging symbols and assertions
+   -trace             Enable communication tracing & statistics for use with upc_trace
+   -inst              Enable GASP-compliant instrumentation for 3rd party performance tools

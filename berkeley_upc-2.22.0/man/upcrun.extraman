@@ -1,0 +1,391 @@
+[THREAD LAYOUT]
+
+The layout of UPC threads to network nodes depends on the settings of two
+parameters, the `cpus_per_node' and the -nodes flag.  The `cpus_per_node'
+setting comes from the -cpus_per_node flag if present, or else from the
+`default_cpus_per_node' setting in `upcrun.conf' or `$HOME/.upcrunrc'.  There are
+three distinct mechanisms for thread layout depending on the values of
+`cpus_per_node' and the -nodes flag.
+
+If `cpus_per_node' and -nodes are both set to zero (or are not set) then the
+layout of UPC threads is left to the underlying mpirun-style spawner (the
+`<conduit>_spawn' configuration setting or the UPC_<CONDUIT>_SPAWNCMD
+environment variable).  This is the only case in which the mpirun-style spawner
+is used by default.  If the executable has been compiled with pthreads enabled,
+the UPC threads are first grouped into processes which are in turn laid out by
+the spawner.  With the possible exception of the last process, each such process
+includes the same number of pthreads.  This number defaults to the value
+compiled-in to the executable.  This can be overridden at upcrun time by either
+the UPC_PTHREADS_PER_PROC evironment variable or with the -pthreads flag.  For
+unusual cases, the UPC_PTHREADS_MAP environment variable can be used to specify
+the grouping of threads into processes.
+
+If `cpus_per_node' is zero while -nodes has a non-zero value then UPC threads
+are spread as evenly as possible over the given number of nodes without regard
+to possible overcommit of CPUs.  When using pthreads, this may result in some
+processes having fewer threads than others if the threads do not divide evenly
+among the processes and nodes.
+
+If `cpus_per_node' is non-zero and -nodes is zero (or not set), then UPC threads
+are laid out to use the fewest number of nodes possible without exceeding
+`cpus_per_node'.  Then UPC threads are spread as evenly as possible over the
+given number of nodes.  When using pthreads, this may result in some processes
+having fewer threads than others if the threads do not divide evenly among the
+processes and nodes.
+
+[ENVIRONMENT VARIABLES]
+
+The UPCRUN_FLAGS environment variable can be set to pass any flags/arguments that
+you wish to use for every invocation of upcrun.  This is in addition to
+the `default_options' parameter described below.
+
+The UPC_<CONDUIT>_SPAWNCMD and UPC_<CONDUIT>_SPAWN_NODESCMD environment variables
+can be set to override the spawner templates found in the upcrun.conf and .upcrunrc
+files for a given conduit/network.
+
+If set, the UPC_NO_WARN variable causes startup warnings (such as those
+displayed when debugging or tracing is enabled) to be omitted.  UPC_QUIET causes
+all non-application-generated output to be omitted (including both warnings and
+the initial display of UPC thread layout), and is equivalent to `-q'.
+
+UPC_NODES, UPC_NODEFILE, or PBS_NODEFILE can be used to control job layout when
+-network=udp is used (see RUNNING UDP-BASED UPC JOBS, below).
+
+If used, UPC_SHARED_ALLOC_ALIGN must be set to a number (a following 'K', 'M',
+or 'G' sets the value to kilobytes, megabytes, or gigabytes, respectively).
+This number is the minimum size for "large" objects (such as large structs,
+arrays, upc_alloc'd memory, etc.) in a UPC program.  The Berkeley UPC runtime
+automatically cache-aligns such large objects, while smaller objects maintain
+their default alignment (depending on your compiler and the object type:  8-byte
+alignment is common).  This has been observed to improve performance on certain
+platforms.  The default value is '4K' (i.e., 4 kilobytes). 
+
+Environment variables UPC_FIRSTTOUCH and UPC_FORCETOUCH are described
+under PROCESSOR AND MEMORY AFFINITY, below.
+
+UPC_SHARED_HEAP_SIZE sets the amount of shared heap (per UPC thread) for your
+program, exactly as the '-shared-heap' flag does.  It is overridden by the flag
+if both are used. 
+
+If -pthreads are used, UPC_STACK_SIZE may be set to a number (optionally
+followed by K/M/G for kilobytes/megabytes/gigabyes), and this will determine the
+size of each pthread's stack.  Alternatively, UPC_STACK_PAD may be set to a number
+(again with optional K/M/G suffix) and this will be added to the system's default
+pthread stack size.  If both are specified, the one resulting in the larger stack
+is honored.  Generally these are only needed if you experience
+stack overflow in your program.
+
+The UPC specification makes the affinity of UPC locks undefined.  Beginning in the
+2.12.2 release of Berkeley UPC, locks allocated with upc_all_lock_alloc() are spread
+across UPC threads.  This more evenly distributes the CPU load associated with lock
+and unlock operations.
+One may set environment variable UPC_LOCKS_RR to '0' to force the old
+behavior in which upc_all_lock_alloc() only allocated from memory on thread 0.
+Integer values other than '0' specify the number of threads by which lock
+affinity advances for each upc_all_lock_alloc() call, with the default value
+being chosen to spread locks evenly over processes.
+
+UPC_DEBUG_MALLOC may be set to '0' to disable a debug build of Berkeley UPC from
+using the default, debug malloc algorithm.  This allocator is on by default (as
+it helps to catch many allocation errors, such as duplicate free() calls),
+but turning it off allows memory layout to more closely mimic that of a
+non-debug execution. 
+
+Mixed-language programmers should note that the debug mallocator is not fully
+intermixable with system malloc()/free() - specifically, you cannot malloc()
+objects using one allocator and free() them with the other. This should only be
+an issue in mixed-language programs which (for example) malloc() some storage
+in a pure-C object file (compiled without upcc), and then attempt to free()
+that storage from UPC code (or vice versa).  There are a number of possible
+solutions in the current implementation: (1) segregate your allocations so
+objects created with malloc() in UPC code are freed only with free() in UPC
+code (and similarly with non-UPC C code). (2) A special case of the previous
+solution which may apply in some applications is to perform all allocations in
+one language or the other -- preferably in UPC, in order to reap the benefits
+of the debug malloc checking; one can trivially write a UPC code wrapper around
+a malloc() call and then call it from other languages instead of calling
+malloc() directly.  (3) Disable the debug mallocator by setting
+UPC_DEBUG_MALLOC=0, which fixes the problem by forcing UPC code to use the same
+(non-debug) mallocator for everything (this solution loses the safety checking
+features of the debug mallocator).
+
+Some system job spawners (especially on loosely-coupled clusters) do a poor job
+of propagating environment variable settings from the spawning console to the
+worker compute nodes, and on such systems some extra care may be required to 
+ensure environment variables set before calling upcrun are seen by UPC code.
+On the code side, the most portable and reliable way to query environment variables is to call
+bupc_getenv() instead of getenv() (the signatures are identical). The latter
+automatically redirected to the former in any program which includes upc.h.  On
+the spawning side, environment variables with prefix UPC_ or GASNET_ are
+automatically propagated, but if your code queries additional settings you may
+need to explicitly request propagation of those variables to the compute nodes.
+UPC_ENVPREFIX may be set to a comma-delimited list of environment variable name prefixes.
+For any prefix in $UPC_ENVPREFIX, upcrun will ensure all currently-set env vars
+matching ^$prefix are propagated to all compute nodes (prefix may contain perl
+regexs).
+
+[PROCESSOR AND MEMORY AFFINITY]
+
+Some shared-memory systems use a `first-touch'
+memory allocation scheme, in which the first CPU to touch a memory page `owns'
+it (and has the shortest latency access to it).  By default, Berkeley UPC ensures
+that any static shared data, and/or memory allocated by the upc_alloc() and
+upc_all_alloc() functions are `touched' by the thread which should have affinity
+to it.  You may set UPC_FIRSTTOUCH=0 to disable this.
+
+By default memory allocated with upc_global_alloc() does not have the
+first-touch guarantee described in the previous paragraph. 
+If your program uses upc_global_alloc() and you are running on a NUMA
+system, you may wish to consider setting UPC_FORCETOUCH=1, which will
+cause all possible shared memory in your program to be touched by the
+appropriate thread at startup, to guarantee correct affinity.  Since this
+involves a higher startup cost, you may wish to limit the size of your shared
+memory to the minimum needed. 
+
+The UPC_*TOUCH environment variables may produce unexpected or undesirable
+results if the UPC threads do not remain on fixed processor cores.  The
+-bind-threads option attempts to bind the UPC threads to fixed cores, but
+currently has the following limitations that should be considered before use:
+.IP 1. 5
+This option is currently only implemented on Linux and AIX, and is silently
+ignored on all other platforms.
+.IP 2. 5
+The first UPC thread on a given compute node is bound to the first processor
+core, the second thread to the second core, and so on.  This will wrap around
+if there are more UPC threads per node than processor cores.
+.IP 3. 5
+The ordering used for numbering of cores is unknown to Berkeley UPC,
+and so nothing is done to ensure that the layout is sensible.  For instance
+if using only half the cores on a dual-socket node it is possible that all
+the UPC threads might be bound to one socket.
+.IP 4. 5
+If the job spawner binds processes to cores then use of -bind-threads may
+either be ineffective or could result in an error.
+
+[RUNNING UDP-BASED UPC JOBS]
+
+The 'udp' network type allows UPC programs to run on any machine that supports
+the ubiquitous UDP network layer.  This is the fastest way to run on a cluster
+which only has an ethernet network (in particular, it is faster than using
+-network=mpi with a TCP-based MPI implementation).  
+
+In the most general case our implementation can use UDP datagrams for
+inter-process communication, even when processes are located on the same node.
+However, the fastest way to run over UDP on a cluster of SMPs is to use shared
+memory within each compute node.  There are two ways one can acheive that: PSHM
+or pthreads.
+
+If Berkeley UPC has been configured with intra-node shared memory (PSHM)
+support, then applications use shared memory for communication within a compute
+node automatically.  Regardless of whether PSHM is available, applications can
+be compiled with the -pthreads option.  Compiling with -pthreads=N (where N is
+the number of processors on your nodes) will cause a single multithreaded
+process to be run on each node, with shared memory used among the corresponding
+N UPC threads.  If it is more convenient, you can also compile with -pthreads
+(without "=N") and pass -pthreads=N to upcrun instead.
+
+In general the performance when compiled with and without -pthreads will differ
+in ways not easily predicted, and we advise trying both ways to determine the
+best option for you own application.
+
+When UDP is used, you need to tell upcrun which machines to run the job on.
+There are four methods for doing this:
+.IP 1. 5
+If you simply wish to run your entire job on localhost, pass the -localhost
+flag to upcrun.  However, compilation with -network=smp (and possibly
+-pthreads, as described above) will almost always generate a faster
+executable for single-node runs (and does not require -localhost to run).
+So, do not expect the best performance from -localhost runs.
+.IP 2. 5
+If you are running under the Portable Batch System (PBS), or any batch system
+that sets the $PBS_NODEFILE environment variable, upcrun will detect this and
+read the list of nodes for your job from that file.  If running under N1 Grid
+Engine (formerly SGE), then the file $TMPDIR/machines is used if it exists.
+Note that the node list is
+used to launch UPC *processes*, which is different than UPC *threads* if you are
+using -pthreads (see below).
+.IP 3. 5
+You can manually provide a list of nodes for your job, either by storing a
+space-separated list of hosts into $UPC_NODES, or by creating a file with one
+hostname per line, and setting $UPC_NODEFILE to that file's name.  Note that
+the node list is used to launch UPC *processes*, which is different than UPC
+*threads* if you are using -pthreads (see below). 
+.IP 4. 5
+You may use your own custom spawner to launch UDP jobs.  See the README.udp file
+for details.
+.P
+The $UPC_NODES, $UPC_NODEFILE, and $PBS_NODEFILE variables, and $TMPDIR/machines
+are checked for in that
+order, and the first one found determines the job configuration.
+
+Methods which rely on a "node list" ($UPC_NODES, $UPC_NODEFILE, or
+$PBS_NODEFILE) use the list to determine where to launch the UPC processes in
+the job.  The first UPC process will be run on the first node in the list, the
+second process on the second, etc.  If you are not using -pthreads, this is the
+same as having UPC thread 0 on the first node, thread 1 on the second, etc.  If
+you are using -pthreads, however, multiple UPC threads will be run in each
+process, so you will need fewer names in your node list than UPC threads (it
+does not hurt to have extra node names in the list, but be aware that they will
+not be used).  To run multiple UPC processes on the same node, simply enter the
+node name in the list multiple times (note that this is typically not as
+efficient as using a single process per node with -pthreads, as explained
+above).  If you are not sure how your process is being laid out, look at the
+output from the job--all Berkeley UPC processes by default print out their node
+and process ID at the beginning of a run.
+
+Methods 2 and 3 use `ssh' by default to connect to remote nodes in the job
+during set up.  You may set the $UPC_SSH environment variable to any
+ssh-compatible program (ex: 'rsh') if that is preferable.  Logging into remote
+nodes must not require an interactive password, and so you must use a method
+that allows this (ssh-agent, or passwordless ssh keys, or a passwordless rsh
+setup).  For information on using ssh-agent (generally the most secure of these
+methods), see http://upc.lbl.gov/docs/user/sshagent.html
+
+When you run on multiple nodes, you must ensure that your executable exists on
+all nodes.  Typically a shared filesystem (such as NFS) is used to provide this,
+but you can also copy the executable to the individual compute nodes manually
+if they lack a shared file system.  All nodes must have a copy of the 
+executable located at the same absolute pathname, which defaults to the absolute
+pathname of the executable used to invoke the job on the frontend node. If the 
+absolute pathname for the executable on the compute nodes differs from the path on the 
+frontend, you can specify the absolute path by setting the value in the
+SSH_REMOTE_PATH environment variable before running.
+
+Example:  Johnny Parallel wants to run a 4-way UPC job on his cluster of 2-way
+SMPs.  So he sets his $UPC_NODES environment variable to his nodes' names (let's
+say "one.cluster.edu two.cluster.edu"), compiles with
+
+    upcc -network=udp -pthreads=2 foo.upc
+
+and runs with
+
+    upcrun -n 4 a.out
+
+[ADDITIONAL NETWORK-SPECIFIC SETTINGS]
+
+The GASNet networking layer used by Berkeley UPC provides various additional
+parameters that control job launching and/or performance tuning for specific
+networks.  Each supported network has a README file (with a name like
+'README-ibv' for the 'ibv' network API, etc.).  These files should be
+located in the 'PREFIX/share/doc' directory, where 'PREFIX' is the base
+directory of your UPC installation.  It is worth your time to peruse the READMEs
+for the network type(s) that your programs use, as you may find settings that
+allow programs to run faster on your machine, or workarounds for known bugs.
+
+[CONFIGURATION FILES]
+
+upcrun uses a site-wide `upcrun.conf' file to get some of its settings.  You may
+override any of the settings found in the global upcrun.conf file by creating a
+`.upcrunrc' file in your $HOME directory, or in an alternate file specified by
+the `-conf=filename' command line option.  One can prevent processing of the `.upcrunrc'
+file by passing `-norc' or setting the environment variable $UPCRUN_NORC.
+
+To specify flags to pass to upcrun each time it is invoked set `default_options':
+
+    default_options = -n 4 -shared-heap 256MB
+
+To specify flags to pass to upcrun only when it is invoked for an executable compiled for a given network, set the `<conduit>_options' parameter:
+
+    mpi_options = -shared-heap 192MB
+
+To specify environment variables to pass to every application set `default_environment':
+
+    default_environment = UPC_STACK_SIZE=4MB
+
+To specify environment variables to pass to applications only when compiled for a given network, set the `<conduit>_environment' parameter:
+
+    mpi_environment = SOMETHING="a value with spaces"
+
+The `default_environment' and `<conduit>_environment' parameters are combined, with the conduit-specific settings given precedence.  In the `<conduit>_environment' parameter the syntax `!VAR' can be used to unset a variable set in `default_environment'.  The user's environment is always given precedence over these parameters.
+
+To specify the number of UPC threads to start on each node of a cluster of SMPs, set the `default_cpus_per_node' paramater.  If this value is unset, or is set to zero, then upcrun will rely on the underlying spawner to correctly layout processes on nodes.  When running a UPC executable that was not compiled to use pthreads, this default is likely to be acceptible.  However, when using pthreads the underlying spawner is unaware of the number of threads per process and therefore may start more UPC threads per node than available CPUs.  Your site-wide `upcrun.conf' should have a correct setting for this parameter, but if using pthreads you are strongly encouraged to verify the value is correct.
+
+    default_cpus_per_node = 2
+
+To modify the command line that upcrun uses to run applications for a
+particular network type (a.k.a. conduit), set the `<conduit>_spawn'
+and/or `<conduit>_spawn_nodes' parameters, where <conduit> is one of
+the network types listed in `upcc -version'.  These parameters are
+templates used to execute a command to launch the necesssary processes.
+When writing templates, the following substitutions are available:
+.TP
+%N
+number of processes to launch (might not equal UPC threads when using pthreads)
+.TP
+%M
+number of "nodes" on which to launch processes
+.TP
+%R
+number of "processes per node" (ppn) to launch
+.TP
+%P
+program file
+.TP
+%A
+program arguments
+.TP
+%C
+alias for "%P %A"
+.TP
+%D
+current working directory
+.TP
+%L
+UPC-specific environment variable names (comma separated list) which the spawner will propogate to the application 
+.TP
+%V
+expands to "-v" if the user passed -v to upcrun, or to nothing otherwise
+.TP
+%%
+expands to a single % character
+.P  
+Arguments are split on whitespace, but single- or double-quotes may be used to
+prevent this.  Backslash `\\' is not special.
+
+The `<conduit>_spawn'
+parameter is a template for launching a spawner similar to most
+implementations of `mpirun' -- a single parameter specifies the number
+of processes to launch and these are assigned to available nodes in an
+implementation-specific manner.  This spawner is used when the number
+of requested nodes and number of cpus per node are both unspecified
+(or has been set to zero).  Examples include:
+
+    mpi_spawn = $(UPCR_HOME)/bin/gasnetrun_mpi -n %N -E %L %P %A
+    smp_spawn = %P %A    
+    ibv_spawn = $(UPCR_HOME)/bin/gasnetrun_ibv %V -n %N -E %L %P %A
+
+
+The `<conduit>_spawn_nodes' parameter is a template for launching a
+spawner such as `prun' or `poe', in which one specifies both the
+number of processes to launch and the number of nodes to use.
+Given sufficient information, upcrun will compute the number of
+processes and nodes required as described in the section THREAD LAYOUT.
+This template should contain either the `%M' (nodes) or `%R' (ppn)
+substitution to pass the layout infomation to the spawner.
+For example:
+
+    ibv_spawn_nodes = $(UPCR_HOME)/bin/gasnetrun_ibv %V -n %N -N %M -E %L %P %A
+    portals4_spawn_nodes = yod -ppn %R -n %N %P %A
+
+[OPTION PROCESSING]
+
+Options are read from the site-wide and user-specific configuration files, the environment and the command-line .  The precedence of options is equivalent to parsing the options in the following order:
+
+    default_options <conduit>_options UPCRUN_FLAGS command-line
+
+For options which set a value (such as -n and -shared-heap), the last value seen is the one used.  Thus values on the command-line always take precedence over any others.
+
+The `default_options' and `<conduit>_options' are taken from your $HOME/.upcrunrc file if present there, or from the site-wide upcrun.conf otherwise.  If a given setting is present in both files only the settings in $HOME/.upcrunrc are used; they are not additive.
+
+Arguments in `default_options', `<conduit>_options' and UPCRUN are split on whitespace, but single- or double-quotes will suppress splitting.  The backslash character `\\' does not have any special meaning.
+
+[REPORTING BUGS]
+
+We are very interested in fixing any bugs in upcrun.  For bug reporting
+instructions, please go to http://upc.lbl.gov.
+
+[SEE ALSO]
+
+upcc(1), upc_trace(1)
+
+The Berkeley UPC User's Guide (available at http://upc.lbl.gov)

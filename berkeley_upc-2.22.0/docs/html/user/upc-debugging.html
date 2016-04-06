@@ -1,0 +1,366 @@
+<html>
+<head>
+    <title>Debugging Berkeley UPC</title>
+</head>
+<body bgcolor="#ffffff">
+
+<!--#include virtual="/header.html" -->
+
+<h2>Debugging Berkeley UPC applications</h2>
+
+<p>Berkeley UPC programs can be debugged (with support for UPC-specific
+constructs) by the "TotalView" debugger produced by
+<a href="http://www.roguewave.com/">Rogue Wave Software</a>.  See our
+<a href="totalview.html">tutorial on using Berkeley UPC with TotalView</a> for
+details.
+
+<p>If you do not have TotalView, you can also use a regular C debugger and get
+partial debugging support.  Berkeley UPC provides several mechanisms for
+attaching a regular C debugger to one or more of your UPC application's threads
+at various points during execution.  While this does not provide a fully normal
+debugging environment (the debugger will show the C code emitted by our
+translator, rather than your UPC code), it can still allow you to see program
+stack traces and other important information.  This can be very useful if you
+wish to submit a helpful bug report to us.  
+
+<p><i><b>Note:</b> if you have a <tt>main()</tt> function in your UPC code, it
+    will have been renamed <b><tt>user_main()</tt></b> after being translated to
+    C code, and so you will need to refer to <tt>user_main</tt> in the debugger
+    (to set a breakpoint, etc.).  This is a special case: your other function
+    names and variables generally have the same name in the C output as in your
+    UPC code.</i> 
+
+
+<h2>How it works</h2>
+
+<p>Make sure to build your UPC application with '<tt>upcc -g</tt>', to turn on
+debugging.  You can then
+tell your UPC application to busy-wait at startup at one of three different
+entry points by passing a upcrun option or setting an environment variable.  
+You can then attach a debugger
+to one or more of your UPC processes, and resume the program within the
+debugger.
+
+The following table describes the different startup points:
+
+<center>
+<table border=1 cellpadding=10 cellspacing=0>
+    <tr bgcolor="yellow">
+        <td>
+            <b>upcrun setting / environment variable</b> 
+        </td>
+        <td>
+            <b>Behavior</b> 
+        </td>
+        <td>
+            <b>To continue</b> 
+        </td>
+    </tr>
+    <tr>
+        <td align=center>
+            <nobr>upcrun -freeze[=&lt;thread_id&gt;]</nobr><br>
+	    <i>-or-</i><br>
+            <nobr>UPC_FREEZE=&lt;thread_id&gt;</nobr>
+        </td>
+        <td>
+            Setting this option will cause UPC thread <i>thread_id</i> to
+            busy-wait at startup, right before <tt>user_main()</tt>
+            is called.  
+            
+            <p>All the UPC threads in your application are guaranteed to exist
+            by this time.  They will all print out their hostname and pid
+            when the specified thread begins busy-waiting, then  wait in a
+            barrier for the specified thread to stop busy-waiting.  This allows
+            you to attach a debugger to one or more of your UPC processes before
+            continuing.
+        </td>
+        <td>
+            Once you have attached a debugger to the busy-waiting thread's
+            process (and to any of the other UPC processes you are interested in
+            debugging), set the '<tt>bupc_frozen</tt>' variable in the
+            busy-waiting process to 0 within your debugger.  Resume the
+            execution of the process, and all the UPC threads in the application
+            will leave the barrier and enter <tt>user_main()</tt>.
+        </td>
+    </tr>
+    <tr>
+        <td align=center>
+            <nobr>upcrun -freeze-early[=&lt;node_id&gt;]</nobr><br>
+	    <i>-or-</i><br>
+            <nobr>UPC_FREEZE_EARLY=&lt;node_id&gt;</nobr>
+        </td>
+        <td>
+            This is similar to the option above, but it occurs earlier in the runtime
+            startup process.  It is primarily of interest if you are trying to
+            debug the runtime's initialization process.  
+
+            <p>Since the busy-wait/barrier occurs before any pthreads are
+            launched, the <i>node_id</i> value passed must indicate a <b>node</b> number
+            rather than a UPC thread number (if you did not compile your program
+            with <tt>--pthreads</tt>, the node and UPC threads numbers are the same).
+        </td>
+        <td>
+            Like with UPC_FREEZE, you must attach a debugger to the busy-waiting
+            process and set '<tt>bupc_frozen</tt>' to 0 before continuing the
+            application.
+        </td>
+    </tr>
+    <tr>
+        <td align=center>
+            <nobr>upcrun -freeze-earlier</nobr><br>
+	    <i>-or-</i><br>
+            <nobr>GASNET_FREEZE=[anything]</nobr>
+        </td>
+        <td>
+            This option causes the application to be frozen as early as possible
+            in the gasnet startup process.  In many cases, the application may
+            consist of a single process at this point.  Any processes that do
+            exist will print out their hostname and pid.
+        </td>
+        <td>
+            You must attach to the initial process(es) in the application, and set
+            '<tt>gasnet_frozen</tt>' variable to 0 before proceeding.
+        </td>
+    </tr>
+
+    <tr>
+        <td align=center>
+            <nobr>upcrun -abort</nobr><br>
+	    <i>-or-</i><br>
+            <nobr>UPC_ABORT=1</nobr>
+        </td>
+        <td>
+            If this option is set, any fatal errors in the UPC runtime will
+            cause the application to die by calling abort(), which will produce
+            a core file (assuming your system is set up to create core files:
+            try 'ulimit -c BigNum' if you don't see a core file).  You can then
+            run a debugger on the core file to see where the application was at
+            the time of the error.  For example,
+            <pre>
+    gdb a.out core
+    backtrace
+            </pre>
+        </td>
+        <td>You cannot continue the program when this option is used.  Note that
+            since gasnet_exit() is not called, on some systems the other
+            processes in the job may not exit automatically, so you may need to
+            kill them manually.
+        </td>
+    </tr>
+    <tr>
+        <td align=center>
+            <nobr>upcrun -freeze-on-error</nobr><br>
+	    <i>-or-</i><br>
+            <nobr>GASNET_FREEZE_ON_ERROR=1</nobr>
+        </td>
+        <td>
+	    If this option is set, most fatal errors will cause the relevant threads
+	    to stop, print a message and await a debugger to attach.
+	    This can be a good way to track down intermittent problems or issues that 
+	    don't manifest when the entire process is run under the debugger (using the
+	    techniques above), however as it does not stop until the error is encountered
+	    it may be too late to properly diagnose some problems.
+	</td>
+        <td>
+	    Follow the instructions in the generated message to continue the frozen process.
+	</td>
+   </tr>
+    <tr>
+        <td align=center>
+            <nobr>upcrun -backtrace</nobr><br>
+	    <i>-or-</i><br>
+            <nobr>GASNET_BACKTRACE=1</nobr>
+        </td>
+        <td>
+	    If this option is set, most fatal errors cause the relevant threads
+	    to attempt to automatically attach a debugger and generate stack backtrace information
+	    to stderr. This option is only supported on some platforms, and the quality of the
+	    auto-generated backtrace can be negatively affected by system-specific details
+	    such as the details of signal handling. However, it's often the simplest way to get
+	    hints about what went wrong in the execution which in some cases may be sufficient
+	    to resolve the issue. 
+	</td>
+        <td>
+	    Once the backtrace is generated, the process should exit.
+	    Note that some types of program crashes may cause the backtrace
+	    code to hang, potentially creating zombie processes that will need
+	    to be manually killed. 
+	</td>
+   </tr>
+</table>
+</center>
+
+<p>
+You may set more than one of these variables if you choose to, and they will
+independently freeze the program at their respective execution locations.
+
+<h2>Attaching a debugger to a UPC process</h2>
+
+The method for how you attach a debugger to one of your UPC processes will vary
+from machine to machine (and with different debuggers).  The general mechanism
+is usually to log into the node that the process is running on, and then execute
+the debugger with flags that tell it to attach to the process you are interested
+in.
+
+
+
+<h3>An example using GCC/GDB, and TCP MPICH</h3>
+
+<p>Here is an example of a debugging session on a Linux system using a GCC
+compiler, GDB debugger, and the MPICH MPI library.  On this system we use
+'<tt>ssh</tt>' to log into the compute nodes.
+
+<ol>
+
+    <li>GDB relies on having the source C files available to provide the source
+    for the code that is being executed.  If you want to step through
+    specific lines of code, pass the <tt>-save-temps</tt>
+    flag to upcc when compile your UPC application, which will save the
+    '<tt>*.trans.c</tt>' files for your application.  (This is not necessary if
+    you are just trying to get a stack trace from a program that has crashed as
+    part of a bug report):
+
+    <pre>   
+        $upcc -network=mpi -save-temps foo.upc
+    </pre>
+
+    You will now see (among other files) a <tt>foo.trans.c</tt> file, which
+    the GDB debugger will use.
+
+    <p><li>Let's pretend that you've already noticed that it's always UPC thread
+    2 that crashes, and so it's the thread you are interested in debugging.
+    To have it be the thread that busy-waits, we'll pass it to upcrun -freeze.
+    If you're uncertain which thread is crashing, you can optionally attach 
+    debuggers to all of them before continuing the debugging session.
+
+    <p><li>Start the UPC application (on our system you need to first create an
+    interactive PBS session with the '<tt>qsub</tt>' command: see your system
+    for details on running a parallel job):
+
+    <pre>
+    $upcrun -np 4 -freeze=2 a.out
+    ************************************************************************
+    ************* Freezing UPC application for debugging *******************
+    ************************************************************************
+    Thread 2 (pid 7100 on pcp-c-28) is frozen: attach a debugger to it and set
+     the 'bupc_frozen' variable to 0 to continue.
+     - To debug additional UPC threads, attach to them before unfreezing thread 2
+     - Note: if you wish to set a breakpoint at 'main', use 'user_main' instead
+    Thread 0 (pid 10655 on pcp-c-31) waiting for thread 2
+    Thread 1 (pid 2379 on pcp-c-30) waiting for thread 2
+    Thread 3 (pid 2698 on pcp-c-29) waiting for thread 2
+    </pre>
+
+    <p>Note how the processes in your UPC application all pause, with
+    information on their location.
+
+    <p><li>Open a separate shell on the same host as thread 2's process, move to
+    the directory where the executable resides, and run gdb with arguments to
+    attach to the thread 2's PID:
+
+    <pre>
+    $ssh pcp-c-28
+    pcp-c-28 $cd testprog/
+    pcp-c-28 $gdb a.out 7100
+    Attaching to program: /home/pcp1/jduell/testprog/a.out, process 7100
+    [...]
+    0x0804b4da in _upcri_startup_freeze (pargs=0xbffff4c0, freezethread=2) at upcr_init.c:170
+    170             while (bupc_frozen == 1)
+    (gdb)
+    </pre>
+
+    <p><li>Now that you have attached the debugger, you can perform any regular
+    debugger tasks, such as printing a stack trace or setting a breakpoint.  For
+    instance, you could set the following breakpoint to your UPC program's
+    'main' function: (<i>note: most functions in your UPC code will have the
+        same name in the generated C code, but <tt>main()</tt> is an
+        exception--it gets renamed to <tt>user_main()</tt></i>):
+
+    <pre>
+        (gdb) break user_main
+        Breakpoint 1 at 0x804a0be: file foo.upc.trans.c, line 33.
+    </pre>
+
+    <p><li>Set the application's <tt>bupc_frozen</tt> variable to 0, and your
+    UPC application can continue:
+
+    <pre>
+        (gdb) set bupc_frozen=0
+        (gdb) continue
+        Continuing.
+        Breakpoint 1, user_main () at testprog.trans.c:45
+    </pre>
+
+    You may encounter problems setting this variable if you built your application 
+    and/or the UPC runtime without debugging symbols (note this will likely
+    also negatively affect the accuracy of information reported by the debugger). 
+    In this situtation, you can alternatively continue the process by sending a
+    SIGCONT signal to the relevant process pid indicated in the startup
+    message, using a different window on the same compute node:
+
+    <pre>
+       $ ssh pcp-c-28 kill -CONT 7100
+    </pre>
+
+    Now you can start to step through your code.  
+
+    <p><li>If your application crashes, gdb should tell you the line of
+    offending code:
+
+    <pre>
+    Program received signal SIGSEGV, Segmentation fault.
+    0x0804a045 in get_millionth_element (array=0x80cf0a0) at testprog.trans.c:39
+    39        return * (array + 999999LL);
+    </pre>
+
+    <p>Looking at the stack of function calls that got to your error is often
+    quite informative:
+
+    <pre>
+    (gdb) bt
+    #0  0x0804a045 in get_millionth_element (array=0x80cf0a0) at testprog.trans.c:39
+    #1  0x0804a06e in user_main () at testprog.trans.c:49
+    #2  0x0804b5db in upcri_perthread_main (p_args=0xbffff4c0) at upcr_init.c:228
+    #3  0x0804b98d in upcr_run (pargc=0xbffff510, pargv=0xbffff514) at upcr_init.c:524
+    #4  0x0804a13a in main (argc=1, argv=0x80d2e68) at a.out_startup_tmp.c:34
+    #5  0x420158d4 in __libc_start_main () from /lib/i686/libc.so.6
+    </pre>
+
+    <p>Use the '<tt>frame</tt>' command to move between contexts, the 
+    '<tt>list</tt>' to view the code at each point, and '<tt>print VAR</tt>' to
+    print out the value of a variable or expression:
+
+    <pre>
+    (gdb) frame 1
+    #1  0x0804a06e in user_main () at testprog.trans.c:49
+    49      } /* user_main */
+    (gdb) l
+    46        
+    47        get_millionth_element((_INT32 *) &amp; smallarray);
+    48        return 0;
+    49      } /* user_main */
+    (gdb) p smallarray[0]
+    $1 = 0
+    (gdb) p smallarray[999999]
+    Cannot access memory at address 0x849f99c
+    </pre>
+
+    Hmm, looks like I shouldn't have passed '<tt>smallarray</tt>' to my
+    <tt>get_millionth_element()</tt> function.  Well, I never was much of an
+    applications developer anyway...
+
+    <p>If your bug is more mysterious, just cut and paste the output of your
+    stack trace (and whatever other helpful info you may have collected) into
+    the main form of a new <a class='ref' href="http://upc-bugs.lbl.gov/bugzilla/">bug
+        report</a>.  After you add the bug, please go back to it and attach your
+    source files (as a tarball if there are lots of them: please don't send
+    extremely large tarballs with .o files and core dumps, etc.).
+
+
+</ol>
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

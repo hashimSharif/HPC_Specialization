@@ -1,0 +1,1042 @@
+2015-10-27  Berkeley UPC release 2.22.0
+    - Initial release of ofi-conduit
+      - This is the initial release of GASNet and Berkeley UPC with support
+        for the "OFI" libfabric API.  See, gasnet/ofi-conduit/README for more
+        information.  This support was contributed by Intel Corporation.
+    - Improved support for UPC Runtime without Berkeley UPC translator
+      - clang-upc and clang-upc2c support updated to version 3.6.2-0
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - See gasnet/ChangeLog for numerous improvements to GASNet
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - New '-trace' command line option
+    - Enhancements/improvements to upcrun (see the upcrun manpage)
+      - Automatic integration with gemini/aries multi-domain support
+    - Enhancements/improvements to upc-trace (see the upc-trace manpage)
+      - New '-peer' comand line option to bin results by remote node
+    - Enhancements/improvements in UPC tests and examples directories
+      - Numerous bug fixes to the tests and examples
+      - UPC-Atomic-RefImp now works around translator bug 3271
+    - Improved platform support/portability
+      - Updates for Mac OS X 10.11 (El Capitan)
+      - Support for XLC-13 on Linux (including little-endian POWER CPUs)
+      - Fixed a typo which prevented gupc+upcr on OpenBSD
+      - Fixes for Cygwin-2.2 (both 32- and 64-bit)
+    - Improved UPC source-to-source translator portability
+      - Can now build with clang compilers (include those from Apple Xcode)
+    - Misc. changes/improvements in configure and build infrastructure
+      - Installations of Berkeley UPC are now position-independent (can be
+        relocated within the filesystem without editing config files)
+
+    - Fixed the following notable bugs in 2.20.2 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      - The --encode-args and --encode-env options to upcrun did nothing
+      - Fixed thread-safety of async memcpy ops in 'tv' and 'thr' builds
+
+    - Fixed the following notable bugs in 2.20.2 source-to-source translator:
+      (see http://upc-bugs.lbl.gov for details):
+      - Fixed parsing of clang-specific attribute syntax in OS X system headers
+
+2015-04-27  Berkeley UPC release 2.20.2
+    - Improved support for UPC Runtime without Berkeley UPC translator
+      - New multiconf files for GUPC, CUPC and CUPC2C can replace the
+        --with-multiconf-forced=... configure option introduced in 2.20.0
+      - clang-upc and clang-upc2c support updated to version 3.5.1-0
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - Finally remove upc_local_alloc() (deprecated since UPC 1.1)
+      - Remove optional support for keywords removed in UPC 1.1
+      - Generate (with supported backend compilers) deprecation warnings
+        for the bupc_* extensions which duplicate functionality present
+        in the UPC 1.3 specification.
+      - Asynchronous implementation of blocking upc_memput() on mxm-conduit
+      - GASNet's ibv-conduit updated for new OFED XRC APIs
+      - GASNet's xpmem support updated for SGI's new "_2" APIs
+    - Improved platform support/portability
+      - Small changes required to support FreeBSD-10.1
+      - Improved support for Xeon Phi
+      - Initial (experimental) support for ARMv8 (aka AARCH64 or ARM64)
+
+    - Fixed the following notable bugs in 2.20.0 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug3027: correct logic to enable umalloc external metadata by default
+      bug3029: reduce size of umalloc metadata
+      bug3153: problems with lib vs lib64 on SUSE Linux distributions
+      bug3257: crash in upcri_do_local_free()
+      bug3258: allow mixed use of bupc translator + {gupc,cupc,cupc2c}
+      bug3261: redeclaration of va_list with Intel 15.x compilers
+      bug3263: failures on intrepid/test{18,27} due to bad "restrict" usage
+      Fixed multiple incorrect runtime behaviors with -pshm-width:
+        + bug3260: mis-detecting shared memory size with -pshm-width
+        + bug3264: incorrect overcommit decisions with -pshm-width
+        + Incorrect -bind-threads behavior with -pshm-width
+
+    - Fixed the following notable bugs in 2.20.0 source-to-source translator:
+      (see http://upc-bugs.lbl.gov for details):
+      bug2907: translator crash on bug2504.upc
+      bug3256: Cannot build translator with g++-5.0.0 (snapshot) 
+      bug3266: Bad codegen for "X ? A : A + 1" 
+      User-after-realloc caused translator crash w/ certain inputs on OpenBSD
+
+2014-10-28  Berkeley UPC release 2.20.0
+    - Updated integration with clang-upc version 3.4.1-1
+      - NEW support for clang-upc (CUPC)
+        - Binary (not source-to-source) UPC compiler based on clang-3.4
+        - Supports Linux and MacOSX on x86-64, and Linux on PPC64
+      - Improved support for clang-upc2c (CUPC2C)
+        - Source-to-source UPC translator based on clang-3.4
+        - Supports Linux and MacOSX on x86-64, and Linux on PPC64
+        - Now supports '-pthreads' and '-nolines' options to upcc
+      - See INSTALL.txt for more information on using CUPC and CUPC2C
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - New configure option --with-multiconf-forced=... simplifies
+        builds that exclusively use GUPC, CUPC or CUPC2C.
+      - Faster intra-node upc_memcpy() on Cray systems (gemini and aries)
+      - GASP support updated to use UPC 1.3 timers when available
+      - Reduced startup times with ibv and mxm network conduits
+      - Removed arbitrary limit on command line length in udp-conduit
+        when using ssh-based spawning (GASNET_SPAWNFN=S).
+      - PMI-based job launch now supports PMI2 (ibv, mxm and portals4)
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Improved link speed on systems with small memory and/or slow disk
+      - Several improvements and fixes to Thrille active testing support
+    - Enhancements/improvements in UPC tests and examples directories
+      - Numerous bug fixes to the tests and examples
+    - Improved platform support/portability
+      - Several small changes require to support recent OpenBSD releases
+    - Enhancements/improvements in Berkeley UPC documentation
+      - Fixed some typos in identifier names
+
+    - Fixed the following notable bugs in 2.18.2 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug3215: cleanup usage and documentaion for -W,<options>
+      bug3236: misleading Bootstrap error when automake is missing
+      bug3247: bupc_inverse_cast() fails for non-zero linker segment address
+      bug3248: must disable PIE by default on recent OpenBSD
+      runtime: upc_memcpy_nb() functions were not pthread-safe
+      runtime: bug with --enable-sptr-symmetric and heaps over 2GB/process
+      upcc: now ensure same include path ordering is used for all stages
+
+    - Fixed the following notable bugs in 2.18.2 source-to-source translator:
+      (see http://upc-bugs.lbl.gov for details):
+      bug3235: translator allows PTS compare w/ differing blocksizes
+      build: gen_util.cxx may define inline via __inline circularly
+      build: build failures with gcc-4.9
+      build: build failures recent OpenBSD releases which lack stab.h
+
+    - Note that this will be the LAST release to support those
+      Berkeley-specific extensions which have equivalents in the UPC 1.3
+      specification.  These have been identified as deprecated in previous
+      releases as documented in the Berkeley UPC User's Guide.
+      Please see the Berkeley UPC User's Guide for full details.
+
+2014-05-05  Berkeley UPC release 2.18.2
+    - Full UPC 1.3 Support:
+      - Required libraries are supported with high-performance implementations
+      - Optional libraries are supported to varying degrees
+        - UPC Non-Blocking Transfer Operations <upc_nb.h>:
+          BUPC provides a complete and high-performance implementation.
+        - Castability Functions <upc_castable.h>:
+          BUPC provides a complete and high-performance implementation.
+        - UPC Parallel I/O <upc_io.h>:
+          BUPC provides a spec-compliant reference implementation, which is not
+          designed for high performance (all I/O issued via a single node). 
+        - UPC Atomic Memory Operations <upc_atomic.h>:
+          The runtime source distribution includes a reference implementation.
+          See below for more information.
+          A high-performance implementation will appear in a future BUPC release.
+    - Reference implementation of UPC 1.3's <upc_atomic.h>
+      - BSD licensed and fully portable to any UPC 1.2 compliant compiler
+      - Uses UPC locks for atomicity, so performance may be sub-optimal
+      - See upc-tests/UPC-Atomic-RefImp/README for details
+      - Proprietary bupc_atomic* API remains available, with native implementation
+    - Several BUPC extensions mirroring API's now standardized in UPC 1.3 are
+      now officially deprecated in favor of the standard API, and are slated for
+      removal in a future release.  See the User's Guide for full details.
+    - Improved platform support/portability
+      - Updates to support newer Cray systems software and compilers
+    - Enhancements/improvements in UPC tests and examples directories
+      - Several new tests for UPC 1.3 spec compliance
+      - Numerous bug fixes to the tests and examples
+      - Work-arounds in several tests for bugs in back-end compilers
+    - Enhancements/improvements in Berkeley UPC documentation
+      - Updates for UPC 1.3
+      - Numerous editorial improvements
+    - Numerous small changes for move from CVS to Git.
+      Berkeley UPC development now takes place in public repositories:
+      - http://bitbucket.org/berkeleylab/gasnet
+      - http://bitbucket.org/berkeleylab/upc-runtime
+      - http://bitbucket.org/berkeleylab/upc-translator
+
+    - Fixed the following notable bugs in 2.18.0 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug973:  implement shared-memory locks on global-pointer SHMEM
+      bug3187: overly conservative upc_thread_info() on SGI Altix
+      bug3210: va_list warnings from multiple non-gnu compilers
+      bug3217: xlc string.h wrapper missing some intrinsics
+      bug3226: deprecate bupc_atomic_*_private API
+
+    - Fixed the following notable bugs in 2.18.0 source-to-source translator:
+      (see http://upc-bugs.lbl.gov for details):
+      bug3192: syntax error on "array[restrict]" in parameter list
+      bug3194: bad code gen on upc_forall with 64-bit affinity expression
+      bug3201: bad translation for volatile pointer to shared array
+      bug3202: function defn incompatible with its prototype
+    - Starting with this release, the set of UPC-level optimizations enabled
+      by ``upcc -opt'' no longer includes the split-phase optimization.
+      See bug 2662 for details.
+
+    - This release no longer supports the following platforms:
+      + Cray X1 and T3E
+      + IBM BlueGene/L and BlueGene/P
+      + NEC SX Series
+      + Sicortex
+      + DEC Alpha CPU
+      + HP PA-RISC CPU
+      + ABIs prior to V8+ on SPARC CPUs
+      + LP32 ABI on IA64
+    - This release no longer supports the following operating systems:
+      + Unicos, Catamount, HP/UX, SuperUX, Tru64 (OSF/1), AIX, IRIX
+    - This release no longer supports the following compiler families:
+      + Compaq, NEC, SGI, HP on IA64 and PA-RISC, PathScale on MIPS
+
+2013-10-21  Berkeley UPC release 2.18.0
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - Improved time and space efficiency of the UPC memory allocator
+      - Improved upc_memcpy() performance for PSHM-accessible src or dst
+      - Improved barriers for IBV, Gemini and Aries conduits
+      - Aries conduit is no longer "Beta"
+      - Portals4-conduit native implementation of Put and Get
+      - Ability to launch IBV and MXM applications using srun or hydra
+      - Ability to run udp-conduit on more network configurations
+      - Mellanox FCA support still not compatible with pthreads, but no
+        longer requires entirely disabling pthreads in a build of BUPC.
+    - Changes/additions in preparation for upcoming UPC 1.3 specification:
+      - Implemented <upc_nb.h> (optional for UPC 1.3 compliance)
+      - Fully compliant UPC barrier implementation (fixed bug 3114).
+      - Continued expansion of testsuite to test against UPC 1.3 spec
+    - Improved platform support/portability
+      - Updates to better support recent XLC compilers
+      - Initial support for building with NVIDIA's nvcc compiler
+      - Initial support for running UPC apps on Intel MIC (a.k.a. Xeon Phi);
+        This release only supports running UPC apps on MIC in native mode.
+      - Support for IBM BG/Q driver versions through at least V1R2M1
+      - Work-around crash of gcc-4.8.x when building UPC Runtime
+	
+    - Fixed the following notable bugs in 2.16.2 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug2556: False instance of upc_alloc in PPW
+      bug3114: Barrier non-conformance with pthreads
+      bug3176: PSHM-bypass upc_memcpy operations being traced as remote
+      bug3177: Upcrun options -c and -n could be parsed incorrectly
+      bug3178: Error communicating with upc_cast() results (Gemini and Aries)
+      bug3179: HSL violation in UPC locks (debug only)
+      bug3180: Insufficient memory fences in UPC locks on PPC
+      bug3181: PSHM mapping error with unequal segment requests
+      Fixed numerous small errors in codes in upc-tests and upc-examples.
+
+    - Fixed the following notable bugs in 2.16.2 source-to-source translator:
+      (see http://upc-bugs.lbl.gov for details):
+      bug349: (PARTIAL fix) inconsistent conversion of PTS to integral types
+      bug3172: function definition after declaration loses block size
+
+    - This release no longer supports the following networks:
+      - elan (Quadrics elan3/elan4)
+      - gm (Myrinet GM)
+      - vapi (legacy Mellanox-specific InfiniBand)
+      - lapi (IBM LAPI)
+      - portals (Cray Portals for XT series)
+      - sci (Dolphin SCI)
+      If you require Berkeley UPC on one these networks, and can provide
+      access to resources for maintenance of the code, please contact us.
+
+2013-04-30  Berkeley UPC release 2.16.2
+    - NEW Aries-conduit for Cray XC30 (aka Cascade)
+    - NEW Beta support for Portals 4.x API (portals4-conduit)
+    - Gemini-conduit is no longer "BETA" (and performance has improved)
+    - Changes/additions in preparation for upcoming UPC 1.3 specification:
+      - Implemented <upc_types.h> (required for UPC 1.3 compliance)
+      - Implemented <upc_castable.h> (optional for UPC 1.3 compliance)
+      - Several source-to-source translator changes (see fixed bugs list)
+      - Expanded and modified testsuite to test against UPC 1.3 spec
+    - Improved performance of upc_forall with integer affinity expression
+      - UPC 1.3 makes case of negative integer affinity expression undefined.
+        This allows for simpler code to be generated, but could break some
+        applications which use negative integer affinity expressions.
+      - Code which requires the old behavior may need to adjust their
+        affinity expression to a non-negative range.
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - bupc_cast() behavior now better aligned with upc_cast() from UPC 1.3
+        - Returns NULL when a cast is not possible (was previously undefined)
+      - FCA library now linked normally, rather than using dlopen()
+      - Fixed several minor unreported bugs
+    - Enhancements/improvements to upcrun (see the upcrun manpage)
+      - Add -pshm-width option to control grouping of cores on a compute node
+        into multiple "supernodes" (shared memory communication domains).
+    - Improved platform support/portability
+      - Updates to better support FreeBSD 9.1 and OpenBSD 5.2
+      - Support for THUMB2 mode of newer ARM processors
+
+    - Fixed the following notable bugs in 2.16.0 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug3139: bug in upc_unlock() when AMs may arrive out-of-order
+
+    - Fixed the following notable bugs in 2.16.0 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug3141: translator buffer overrun
+      bug3143: conformance to issue #64 in UPC 1.3 draft specification
+      bug3145: conformance to issue #104 in UPC 1.3 draft specification
+      bug3146: conformance to issue #71 in UPC 1.3 draft specification
+      bug3147: conformance to issue #70 in UPC 1.3 draft specification
+
+2012-10-30  Berkeley UPC release 2.16.0
+    - Initial release of mxm-conduit
+      - This is the initial release of GASNet and Berkeley UPC with support
+        for the "MXM" API for Mellanox's InfiniBand HCAs.  This is based on
+        the code which Mellanox has been distributing for about one year.
+    - Optional collectives acceleration using Mellanox's FCA
+      - Works with both ibv-conduit and mxm-conduit on recent Mellanox HCAs
+      - See gasnet/other/fca/README-fca.txt
+    - Pami-conduit is no longer "BETA"
+    - Gemini-conduit performance improvements:
+      - Improved performance for 129 to 4096 byte transfers.
+      - This release includes *experimental* support (OFF by default) for
+        improved performance via uGNI's "RELAXED_PI_ORDERING", which can be
+        enabled using an environment variable.
+        See the conduit README for more information.
+    - Improved performance of pointer-to-shared arithmetic for common cases:
+      - Adding a constant 0, 1 or -1 to a pointer-to-shared
+      - Adding a constant multiple of block size to a pointer-to-shared
+      - Above cases multiplied by THREADS (in static-threads environment) 
+    - Improved performance of operations on upc_lock_t:
+      - Re-implemented based on the MCS list-based queue lock algorithm
+      - Operations within a shared-memory node are performed w/o AMs
+    - Improved platform support/portability
+      - Support for Apple's clang 4.0 as backend compiler (Xcode 4.2+)
+    - Configure option --with-default-network=
+      - Useful on systems with multiple network APIs installed
+    - Changes/additions in preparation for upcoming UPC 1.3 specification:
+      - Add upc_tick.h and associated functions
+        and document the corresponding Berkeley UPC extension as superseded
+      - Implement upc_all_free() and upc_all_lock_free()
+        and document the corresponding Berkeley UPC extension as superseded
+      - Update handling of clarified barrier-matching corner cases
+      - Update upc-examples to remove calls to upc_local_alloc()
+
+    - Fixed the following notable bugs in 2.14.2 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug3069: ctype toupper/tolower unreliable on Cygwin
+      bug1228: ambiguity in barrier matching semantics
+      bug3102: SEGV in GASNet's 64-bit atomics for PPC64/ILP32
+
+    - Fixed the following notable bugs in 2.14.2 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug858: translator fails to lower C99 array designators
+      bug2698: bad code gen for "short" string initializers
+      bug3048: code generated with incorrect blocking factor
+      bug3052: failure to diagnose automatic layout qualifier with pointers
+      bug3101: translator crash on extern decl after defn w/ initializer
+      bug3105: -opt generates multiply defined initializers
+      bug3111: ..../targ//be/be.so: undefined symbol: dlopen
+      bug3124/3126: crashes on declarations using incomplete types
+      Misc. additional fixes for improved UPC and C99 conformance
+
+2012-05-14  Berkeley UPC release 2.14.2 (feature and bug fix release)
+    - Beta release of pami-conduit
+      - This release includes a BETA of native support for IBM's PAMI API
+        used on the Power 775 (aka PERCS or Blue Waters) and BlueGene/Q, as
+        well as InfiniBand and Ethernet clusters running IBM's "PE for Linux".
+      - See GASNet's ChangeLog for more details.
+    - Beta release of gemini-conduit
+      - Internal memory use in gemini-conduit has been significantly reduced.
+      - Cray XK series has been added as a tested/supported platform.
+      - See GASNet's ChangeLog for more details.
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - UPC I/O support for files over 2GiB on LP64 platforms.
+      - Faster startup/shutdown on InfiniBand networks.
+      - Improvements to dynamic connection support for InfiniBand.
+      - Startup messages now include supernode (shared memory) information.
+      - Continued improvement to signal handling for smp-conduit.
+      - New extension: bupc_inverse_cast()
+        See Berkeley UPC's HTML documentation for more information.
+      - Improved implementation of BUPC atomic extensions no longer requires
+        that bupc_cast() be disabled on platforms where certain atomics are
+        implemented using mutexes (e.g. on ppc32 platforms like BG/P).
+      - PSHM-over-XPMEM is now available on SGI Altix.
+      - PSHM-over-SysV is now available on Cygwin.
+      - See GASNet's ChangeLog for details and more enhancements/improvements.
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Updated/clarified documentation for the "-W?" family of options.
+      - Perl performance "tune-ups" in upcc.
+    - Enhancements/improvements in UPC tests directories
+      - Greatly expanded documentation in upc-tests/README.
+      - Suites "gwu-npb-upc" and "intrepid" have been updated to the most
+        recent versions from their respective upstream maintainers.
+    - Improved platform support/portability
+      - Initial support for clang as a backend compiler (x86, x86-64 & ppc64).
+      - MPI compiler "debug vs. optimize compilation conflict" can now be
+        resolved automatically in most cases, without user intervention.
+      - Configure logic work-arounds for bugs in /bin/sh on Solaris.
+      - See GASNet's ChangeLog for more items in this category.
+    - Improved support for GUPC (formerly "GCC UPC").
+      - Numerous small changes to support renaming "GCC UPC" -> "GUPC".
+      - Automatically increase pthread stack size on many platforms when this
+        is required to accommodate allocation of thread-specific data.
+
+    - Fixed the following notable bugs in 2.14.0 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug2150: test failure(s) with PGI compilers on MacOS
+      bug2668: document upcc's "-W?" switch differences vs. other compilers
+      bug2879: conflict between 64-bit BUPC atomics and PSHM on ppc32 (eg BG/P)
+      bug3066: PSHM-over-SysV should not require a working mmap()
+      bug3071: native 64-bit atomics for ILP32 builds w/ Apple XCode-4.x
+      bug3075: initial port of GASNet and Berkeley UPC to Clang compilers
+      bug3079: enhancement to local to shared pointer conversion
+      bug3083: type upc_off_t is unconditionally 32-bit
+      bug3084: incorrect call site information in certain GASP events
+      bug3087: missing tracing/stats for BUPC "_private" atomics
+      bug3089: enable/disable error-checking malloc indep. of --enable-debug
+      bug3100: debugger assistant SEGV when using unaligned segments
+
+    - Fixed the following notable bugs in 2.14.0 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug3077: port translator to build with llvm-gcc-4.2.1 (llvm-2.8)
+      bug3091: c-parse.y incompatible with bison-2.x
+      bug3097: cannot build translator with g++-4.7.0
+      bug3098: error on static string initializer containing newlines
+
+2011-10-30  Berkeley UPC release 2.14.0
+    - Beta release of gemini-conduit
+      - This release includes a BETA of native support for the Cray XE network.
+        See GASNet's ChangeLog for more details.
+    - New runtime features
+      - Most runtime error messages in a debug (-g) build now include source
+        file and line number information.
+      - Implemented collective deallocation functions based on a UPC language
+        extension proposal by Cray (fixes bug 3060).
+    - Enhancements/improvements to UPC Runtime and GASNet
+      - Implemented faster atomics for x86, x86-64 and PPC64.
+      - Improved signal handling for smp-conduit.
+      - Fix output corruption sometimes seen when redirecting stdout/stderr.
+      - GASNET_TMPDIR env var to control placement of most temporary files.
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Implement support for HTTP proxy when using network translator.
+    - Enhancements/improvements to upcdecl (see the upcdecl manpage)
+      - Now supports additional types, including upc_lock_t, upc_file_t,
+        offset_t and size_t (fixes bug 2953).
+      - Now supports THREADS and simple arithmetic expressions in array
+        dimensions and layout qualifiers (fixes bug 2954).
+    - Improved platform support/portability
+      - Fixed bugs 2648 and 2748: problems with autoconf 2.64 and newer.
+      - Now ship with updated config.guess and friends.
+      - Removed constructs deprecated in perl 5.12.
+      - Added work-arounds for Open64 and PathScale compiler bugs.
+      - Fixed various warnings seen with recent gcc and icc versions.
+      - Better MIPS and ARM support in GASNet.
+    - Improved support for GCC UPC
+      - Add support for all Berkeley UPC extensions when using the GCCUPC
+        back-end (fixes bug 2884).
+      - Fixed bug 2427: default optimization incorrect in dbg_gccupc build.
+      - Enforce alignment of struct PTS only when target arch requires it.
+
+    - Fixed the following notable bugs in 2.12.2 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug2506/3030: more space-efficient shared heap allocator
+      bug2768: errors with firehose at node counts over 4096
+      bug3008: runtime detection of shared-NULL dereference (with -g)
+      bug3035: compilation chokes on byteswap.h and arpa/inet.h
+      bug3053: reductions with blocksize==0 result in error (crash)
+      unreported: PSHM-over-SYSV broken for non-contiguous proc distribution
+      Fixed several additional minor bugs/issues not reported in Bugzilla.
+
+    - Fixed the following notable bugs in 2.12.2 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug1319: refixed to reject expansion of asm()-based macros in UPC code
+      bug3017: erroneous type error involving shared[1] int and shared int
+      bug3037: erroneous "discards qualifiers" warnings with string constants
+      bug3039: silent truncation of large enum values (now issues a warning)
+
+2011-10-17  Berkeley UPC release 2.13.6 (stable snapshot)
+    - First release candidate for 2.14.0
+
+2011-09-23  Berkeley UPC release 2.13.4 (gemini-conduit only beta release)
+    - This is a Beta release featuring an initial native implementation
+      for the Gemini interconnect of the Cray XE.
+    - The performance of gemini-conduit has not been tuned, but we believe
+      that the implementation is correct.
+    - Relative to the previous stable release, 2.12.2, this Beta includes
+      several miscellaneous changes not described here.  Most are fixes for
+      bugs or improvements to performance, and none are suspected to make
+      this release any less stable than 2.12.2.
+    - This Beta has been mostly tested on Cray XE6 systems, but is not
+      known or suspected to be less stable on any other specific platforms.
+    - There is no corresponding beta release of the source-to-source
+      translator: version 2.12.2 is still the most current release.
+
+2011-05-18  Berkeley UPC release 2.12.2 (feature and bug fix release)
+    - Improved InfiniBand scalability:
+      This release adds support for the XRC extension to the InfiniBand spec,
+      and for running without connecting all pairs of nodes at startup.  These
+      changes can significantly reduce resource requirements for large node
+      counts and/or reduce job startup time.
+      See GASNet's ChangeLog for more details on these improvements.
+    - Enhancements/improvements to upcrun (see the upcrun manpage)
+      - Improve job-spawner support under SGE
+      - Add support for tree topology in ssh-spawner (see README-ssh-spawner)
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Now more tolerant of UPC keywords appearing in non-UPC header files
+      - Add support for static initialization of shared 1-D arrays
+      - Remove support for keywords removed in the UPC 1.1 specification
+    - Misc. changes/improvements in UPC and GASNet libraries
+      - Improved IBM LAPI support (see GASNet's README-lapi)
+        - Enable partial PSHM support when not using lapi-rdma
+        - Link w/ "big TOC" by default
+      - Work around a thread safety bug in glibc's rand48() family of functions
+      - Expand BUPC atomic extensions to include operations on private memory
+      - Distribute locks created by upc_all_lock_alloc() for better performance
+      - Reduced exit-time delays
+    - Misc. changes/improvements in configure and build infrastructure
+      - Fix test suite build problems with GNU Make version 3.82
+      - Improved configure support for AIX 6.x
+    - Misc. changes/improvements in UPC tests and examples directories
+      - Begin removal of out-of-date and/or broken tests and examples
+      - Added and/or updated several test suites
+    - Improved UPC source-to-source translator portability
+      - Fix translator build problems with GNU Make version 3.82
+      - Tested translator builds with additional compilers:
+        - Intel compliers on x86-64 and ia64 platforms
+        - PathScale compilers on x86-64 and mips64el platforms
+      - Initial EXPERIMENTAL translator ports to additional platforms:
+        - IBM AIX 6.x PowerPC/PowerPC64 32-bit translator executable
+        - Linux mips64el (SiCortex) 64-bit translator executable
+
+    - Fixed the following notable bugs in 2.12.1 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug 2944: memory corruption with upc_{all,global}_alloc()
+      bug 2950: ibv-conduit page alignment problem on ia64
+      bug 2951: persistent exitcode=1 from smp-conduit under unusual conditions
+      bug 2974: missing documentation for semaphores and signaling put 
+      bug 2976: BUPC atomics fail to compile in opt_trace mode
+      bug 2984: incorrect values in limits.h (when system one was unusable)
+      bug 2986: a pthread race that could lead to upc_alloc() leaking memory
+      bug 2991: remove prefix reduction code for inputs prohibited by UPC spec
+      bug 2996: progress problem in spin-loop constructs
+      Bug fixes in GASNet's non-default AMCENTRAL barrier
+      Many additional minor bug fixes and performance improvements
+
+    - Fixed the following notable bugs in 2.12.1 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug 1382: limited size of static char arrays
+      bug 1664/2364/2963: PTS in shared struct always treated as indefinite
+      bug 1797/2358: backend SEGV on AIX
+      bug 1926: translator generates conflicting struct definition for typedefs
+      bug 2308/2967: missing struct definition in translated output
+      bug 2500: incorrect type for pointer to FIRST field of shared struct
+      bug 2693: TLD not applied accessing array field of a struct at file-scope
+      bug 2702: SEGV writing WHIRL for array of structures with a string
+      bug 2723: regression in 2.10.0 translator accessing union
+      bug 2867: problem(s) with function pointers in nested shared struct
+      bug 2890: translator error on accessing a struct member of an union
+      bug 2900: initializer failure w/ symmetric pointers
+      bug 2947: (partial fix) struct initializers violate alignment restrictions
+      bug 2949: UPC translation failing on arrA[1UL * (THREADS )]
+      bug 2956: side-effects of upc_for_all() affinity expression are lost
+      bug 2958: temporaries used for initialization can shadow shared vars 
+      bug 2959: incorrect blocksize warnings with default blocksize
+      bug 2960: incorrect upc_localsizeof()
+      bug 2961: translator crash on upc_localsizeof() with dynamic threads
+      bug 2962: translator crash on addr of shared PTS as nested struct field
+      bug 2968: wrong type from upc_blocksizeof(indefinite)
+      bug 2971: arbitrary limit on depth of struct/union field access
+      bug 2972: function address translated as TLD initializing file scope var
+      bug 2973: crash on initialized shared pointer-to-private
+      bug 2979: warning on NULL initializer for PTS in struct with struct-PTS
+      bug 2981: bad behavior(s) converting integer constant to PTS
+      bug 2982: redundant errors on private to shared pointer conversion
+      bug 2989: translator build failure if CFLAGS set in environment
+      bug 3009: loss of local-scoped variables with C99 for loops
+
+2010-12-08  Berkeley UPC release 2.12.1 (minor bug fix release)
+    - Fixed the following notable bugs in 2.12.0 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug2863: gasp support requires a usable stdint.h
+      bug2910: "ld: cannot find -lfl"
+      bug2914: build problems w/ CCE 7.2.7
+      bug2927: PSHM breaks with greater than 255 processes
+
+    - Fixed the following notable bugs in 2.12.0 source-to-source translator:
+      (see http://upc-bugs.lbl.gov for details):
+      bug1965/2831: problems with #include when not at file scope
+      bug2306: sizeof(A[0]) miscomputed as sizeof(A) 
+      bug2936: translator truncates sizeof(struct) to 32 bits
+
+2010-11-01  Berkeley UPC release 2.12.0
+    - Enhancements/improvements to upcrun (see the upcrun manpage)
+      - Added CNL and Solaris implementations for -bind-threads flag
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Support mixed linking of dynamic-threads and static-threads
+        objects when generating a static-threads executable.
+    - Misc changes/improvements in UPC and GASNet libraries
+      - Improved speed of shared pointer arithmetic
+      - Shared-memory (PSHM) support 
+        - Now enabled by default on Linux
+        - Optional implementation via SystemV shared memory
+        - Optional implementation via mmap()ed files
+        - Added support for portals-conduit (Cray XT) when using SystemV
+      - Expand BUPC atomic extensions
+        - Add masked-swap (mswap) operation
+        - Add support for int and long types (both signed and unsigned)
+      - Improved InfiniBand support
+        This release features a (re)implementation of Active Messages for
+        ibv-conduit via SRQ (Shared Receive Queue) which greatly reduces
+        the memory requirements for large node counts.
+        See GASNet's README-ibv for more details on SRQ.
+      - Improved debugger support for MacOSX
+      - Improved support for SGI Altix models w/ x86-64 CPUs including
+        the ICE and UV family platforms.
+      - Initial testing on Cray XE series (w/ mpi-conduit)
+      - Provide the spec-required iso646.h on systems that lack it
+      - Initial support for Thrille Active Testing (see INSTALL.TXT)
+
+    - Fixed the following notable bugs in 2.10.2 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug2435: portals-conduit assertion failures if signalled
+      bug2530: bad addressing for 128-bit atomics on x86-64
+      bug2688: GASNet installing extraneous internal headers
+      bug2826: GASNet testhsl failures with PSHM + mpi-conduit
+      bug2829: use of platform-provided checking malloc was accidentally lost
+      bug2853: gprof not working with PSHM + smp-conduit
+      bug2891: translator errors on libc headers using FORTIFY_SOURCE
+
+    - Improved UPC source-to-source translator portability
+      - Tested to build correctly with g++ versions 4.4.x and 4.5.x
+      - Tested translator builds with additional compilers:
+        - Well tested support for building with Apple's gcc
+        - Lightly tested support for building with Sun's gccfss
+        - Lightly tested support for building with AMD's Open64 (1 known bug)
+      - Initial EXPERIMENTAL translator ports to additional platforms:
+        - NetBSD/i386 32-bit translator executable
+        - NetBSD/amd64 64-bit translator executable
+    - Fixed the following notable bugs in 2.10.2 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug2061: pointer arith on shared PTS incorrectly yields a shared value
+      bug2690: translator crash on EXAMPLE2 from p31 of UPC spec 1.2
+      bug2778/2893: bad code gen for UPC automatic block size
+      bug2851: translator corrupting internal type info
+      bug2862: incorrect debug line numbers in body of upc_forall()
+      bug2877: translator may truncate PTS arithmetic operands
+      bug2878: some internal prototypes susceptible to identifier capture
+      bug2882: violation of strict semantics when -opt passed to upcc
+
+2010-10-24  Berkeley UPC release 2.11.8 (stable snapshot)
+    - Second release candidate for 2.12.0
+
+2010-10-17  Berkeley UPC release 2.11.6 (stable snapshot)
+    - First release candidate for 2.12.0
+
+2010-06-28  Berkeley UPC release 2.11.4 (ibv-conduit only beta release)
+    - This is a Beta release featuring an initial (re)implementation of
+      Active Messages for ibv-conduit via SRQ (Shared Receive Queue).
+      See the GASNet ChangeLog for more details on SRQ.
+    - This initial implementation is known to deadlock under very rare AM-
+      intensive workloads which are not characteristic of UPC applications,
+      or when some settings are set to values much lower than the defaults.
+    - Relative to the previous stable release, 2.10.2, this Beta includes
+      several miscellaneous changes not described here.  Most are fixes for
+      bugs or improvements to performance, and none are suspected to make
+      this release any less stable than 2.10.2.
+    - This Beta has been mostly tested on ibv-conduit systems, but is not
+      known or suspected to be less stable on any other specific platforms.
+    - There is no corresponding beta release of the source-to-source
+      translator: version 2.10.2 is still the most current release.
+
+2010-05-20  Berkeley UPC release 2.10.2
+    - Enhancements/improvements to upcrun (see the upcrun manpage)
+      - Fix bug 2432: errors induced by certain uses of #include
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Fix bug 2749: link failures with Totalview support on Solaris
+    - Build/configure changes/improvements
+      - Enhanced multiconf syntax for more control of sub-configures
+      - Improved support for LEX != flex (or unavailable)
+    - Misc changes/improvements in runtime libraries
+      - Use MALLOC_OPTIONS variable in debug builds on BSD-family O/Ses
+      - Much improved support for heterogeneous compilers (CC, CXX and MPI_CC)
+      - Shared-memory awareness added to default barrier implementations
+      - Shared-memory awareness added to Extended API and Collectives
+      - Improved scalability of CrayXT job startup and termination code
+
+    - Fixed the following notable bugs in 2.10.0 UPC and GASNet libraries:
+      (see http://upc-bugs.lbl.gov for details):
+      bug 2079: stack overflow errors when vapi/ibv compiled with pgcc
+      bug 2685: timers broken on variable-frequency x86_64 CPUs
+      bug 2696: (partial fix) build errors with Sun Studio compilers
+      bug 2735: buggy MALLOC_CHECK_ support on some glibc versions
+      bug 2756: dcmf-conduit PAR mode crashes with V1R4M0 drivers
+      bug 2766: dcmf-conduit performance problem with loopback AM LongAsync
+      bug 2781 and 2791: deadlocks with some uses of DCMF collectives
+
+    - Improved UPC source-to-source translator portability
+      - Fixed support for building with some vendors' g++-4.1.x (bug 2202)
+      - Added support for additional platforms:
+        - MacOS/x86 64-bit translator executable (previously only 32-bit)
+        - MacOS/PPC 64-bit translator executable (previously only 32-bit)
+        - Linux/PPC 32-bit translator executable (previously only 64-bit)
+      - Initial EXPERIMENTAL translator ports to additional platforms:
+        - Solaris/i86pc 32- and 64-bit translator executables
+        - Solaris/SPARC 32- and 64-bit translator executables
+        - FreeBSD/i386 32-bit translator executable
+        - FreeBSD/amd64 64-bit translator executable
+        - OpenBSD/i386 32-bit translator executable
+        - OpenBSD/amd64 64-bit translator executable
+      - Fixed DependencyGenerator for use with perl 5.10 and newer (bug 2661)
+    - Fixed the following notable bugs in 2.10.0 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug600: #line directives broken for #include of file in same directory
+      bug819: incorrect overflow warning on upc_io_test/64
+      bug846: overflows computing sizeof() or upc_localsizeof() large arrays
+      bug896: warning on correct assignment involving pointer to an array
+      bug1020: comparison of ptr to local w/ ptr to shared should be an error
+      bug1113/1647: crashes with certain nested for() or upc_forall() loops
+      bug1442/2679: over-zealous DSE w/ -opt on MacOS-build translators
+      bug1464: ppc64 translator crash on some code for 32-bit targets
+      bug1668: translator crash on arithmetic on (shared void *)
+      bug1748/2403: translator crash when outputting NaN or INFINITY
+      bug1965: problems with #include when not at file scope
+      bug2703: garbage collection error that could cause translator crashes
+    
+2009-11-02  Berkeley UPC release 2.10.0
+    - New runtime features
+      - Experimental shared-memory support (see the section
+        "INTRA-NODE SHARED MEMORY SUPPORT" in INSTALL.txt)
+      - Experimental collectives autotuner (see gasnet/README)
+      - Expand BUPC atomic extensions w/ additional operations and 32-bit types
+      - Enhance bupc_thread_distance() to detect processes on same compute node
+      - Implement bupc_{cast,castable,thread_castable}() extensions based on
+        a UPC language proposal from HP
+    - UPC source-to-source translator changes
+      - Many corner cases now generate compiler errors or warnings instead of
+        crashing the translator
+      - Much improved quality of code generated when experimental UPC-level
+        optimizations are enabled by -opt
+      - Deprecate support for building translator on Tru64 and AIX
+    - Enhancements/improvements to upcrun (see the upcrun manpage)
+      - Implement -conf=file and -norc command line options
+      - Implement UPCRUN_NORC environment variable (analogous to UPCC_NORC)
+      - Implement -bind-threads option
+      - Fix bug 1553 - set appropriate env vars on IBM SP for pthreads runs
+      - Several improvements to job spawning on Cray-XT series
+    - Enhancements/improvements to upcc (see the upcc manpage)
+      - Implement -conf=file command line option
+      - Correct behavior when -g and -tv are both specified
+      - Extend config file format to be multiconf friendly
+      - Enhance upcc-multi to reject contradictory argument pairings
+    - Improved platform support
+      - Cray XT support extended to PE 2.1.42+ and to PrgEnv-Intel
+      - IBM BG/P support extended to V1R4M0 drivers
+      - Support MacOS 10.6 (Snow Leopard) including Apple's new gcc-4.2.1
+      - Add support for building with libtool-2.0 and newer
+    - Improved support for GCC UPC
+      - Support for virtual address field order in shared pointer representation
+      - Added support for MacOS 10.5 and newer
+    - Misc changes/improvements
+      - Tools now work around sometimes buggy UTF-8 support in perl
+      - Use strict prototypes in public headers and generated code
+        to allow compilation with -Wstrict-prototypes
+      - Expanded test suite and fixed several bugs in the tests themselves
+      - Fixed several minor bugs/issues with the configure and build scripts
+    - Fix the following notable bugs in 2.8.0 runtime libraries
+      (see http://upc-bugs.lbl.gov for details):
+      bug1840: SIGFPE crashes (environment variable UPC_SUPPRESS_SIGFPE can
+               now be used to control suppression of SIGFPE)
+      bug1976: (1st half) portals-conduit AMMedium payload corruption
+      bug1976: (2nd half) use-after-free in GASNET_VIS_AMPIPE code
+      bug2461: PTL_ME_IN_USE runtime crash from portals-conduit
+      bug2462: catch basin overflow failure on portals-conduit
+      bug2507: mutex debug code yields warning on every compile on IRIX/gcc/64
+      bug2530: mis-aligned use of x86-64 cmpxchg16b instruction
+      bug2576/2633: XLC crashes due to CFLAGS used in an opt build
+      bug2582: lapi-conduit LongAsync memory leak
+      bug2583: AMMedium payload corruption on lapi-conduit
+      bug2584: Segfault from upc_free() with pgicc 7.2-5 through 8.0-4
+      bug2588: assertion failure when out-of-memory message expected
+      bug2606: trace output corruption with high pthread count
+      bug2613: FATAL ERROR: Firehose: Ran out of request handles
+      bug2617: PtlMDUpdate errors on portals-conduit
+      bug2627: long pause at exit time due to sync() call
+      bug2665: could not build shmem-conduit with TotalView support
+      bug2674: testinternal-par failure on portals-conduit (iop check assertion)
+      bug2677: infrequent fflush(NULL) failure on AIX
+      bug2683: deal with aggressive alias assumptions of gcc-4.4.x
+    - Fix the following notable bugs in 2.8.0 source-to-source translator
+      (see http://upc-bugs.lbl.gov for details):
+      bug244: translator crashes on incomplete types
+      bug247: need compiler error for over-size arrays (instead of under-allocation)
+      bug1546/2504/2522/2642: various problems with arrays inside structs
+      bug2396: bad codegen for complex upc_forall affinity expression
+      bug2502: mismatched static vs. non-static declaration/definition
+      bug2626: NPB2.4-UPC Benchmark FT class C compilation error
+      bug2643: Wrong precedence generating a flat address for multi-dimensional array
+
+2008-11-05  Berkeley UPC release 2.8.0
+    - Add native support for IBM BlueGene/P via new 'dcmf' network
+    - Upgrade portals network support to cache local memory registration
+    - Many small improvements to IBM LAPI support
+    - Fix performance and correctness problems in Myrinet GM support
+    - Add Pathscale compilers to supported list for Cray XT machines
+    - Improved support for XLC compilers on Linux
+    - Extend "ibv" (InfiniBand) support to Qlogic's InfiniPath adapters
+    - Add/improve support for MIPSEL/Linux platforms, including SiCortex
+    - Extend GCCUPC support to GCCUPC 4.2.0.2 and newer
+    - Add user documentation for experimental UPC-level compiler
+        optimizations (see the upcc manpage)
+    - Workaround for a gcc 4.x (x<3) optimizer bug has changed
+        We now encourage updating to gcc >= 4.3.0, though our previously
+        documented workarounds remain valid
+    - Add support for autoconf 2.62 and newer
+    - Add experimental support for ARM processors
+    - Misc improvements and/or fixes for MIPS, Alpha, PPC and SPARC processors
+    - Fix the following notable bugs in 2.6.0 (see http://upc-bugs.lbl.gov for details):
+      - bug1847 - Fix stability problems in cygwin -pthread apps
+      - bug2391 - Berkeley UPC atomics failures on SGI Altix
+      - bug2383 - Failure to parse gcc-4.3.2's private includes
+      - bug2304 - "make install" always appears up-to-date on Cygwin
+      - bug2209 - Provide missing documentation for IBM SP job launch
+      - bug2188 - Support unequal thread distribution on LAPI network
+      - bug2025 - Translator build failures w/ g++ >= 4.1.2
+      - Various code generation bugs in the source-to-source translator
+      - Source-to-source translator error messages on various valid inputs
+      - Source-to-source translator crashes on various valid inputs
+    - Additional bug reports resolved with improved/clarified documentation
+    - Additional bugs fixed in GASNet (see gasnet/ChangeLog)
+    - Numerous misc minor bug fixes
+
+2007-10-30  Berkeley UPC release 2.6.0
+    - Multiconf build manager is now enabled by default, providing easy access
+        to multiple UPCR configs (eg debug and opt) from the upcc command line
+    - lapi-conduit now uses RDMA support on LAPI/Federation systems,
+        when available, to improve communication performance
+    - Data movement collectives now use a scalable, high-performance implementation
+    - Add upcc -extern-main flag for programs with main() in non-UPC code
+    - Suppress harmless warnings caused by a gcc 4.2 optimizer bug
+    - Document workarounds for a gcc 4.x optimizer bug that can affect the 
+      correctness of shared-local accesses in rare cases.
+
+2007-09-13  Berkeley UPC release 2.5.10 (Cray XT only beta release)
+    - Upgrade portals network support to be fully native
+    - Add pthreads support on compute-node Linux
+    - Value collectives v1.2: minor usability upgrades
+    - Fully inline local put/get operations for GCCUPC+UPCR
+    - GCCUPC+UPCR now requires GCCUPC v4.x or newer
+
+2007-02-01  Berkeley UPC release 2.5.8 (Cray XT-3 only beta release)
+    - Add native support for OpenIB networks via new 'ibv' network
+    - Port the runtime to: CrayXT/Linux, SunC/Linux, OpenBSD/x86
+    - Add multiconf config manager, allowing upcc options to select appropriate install
+    - Fix a bug with handling of multiple trans_extra files
+    - Add upcrun options for backtracing and freezing
+    - Add upcrun options for argument and environment encoding for buggy spawners
+    - Add new test harness options to select groups of tests based on filters
+    - Add a valgrind warning suppression file: gasnet.supp
+    - Fix the following notable bugs in 2.4.0 (see http://upc-bugs.lbl.gov for details):
+      - bug1853: compiler mismatch warnings for GCC/UPC
+
+2006-11-02  Berkeley UPC release 2.4.0 (and 2.3.16 BETA 1)
+    - Add initial native support for the Cray XT3 via new 'portals' network
+    - Implement the GASP 1.5 performance instrumentation interface, supporting the
+       Parallel Performance Wizard (PPW) and other third-party profiling tools.
+    - Add bupc_ticks_to_ns() - finer granularity timer query
+    - Add the Berkeley implementations of the UPC collectives and UPC-IO to GCCUPC+UPCR
+    - Add most of the Berkeley UPC library extensions to GCCUPC+UPCR
+    - Add upcdecl command-line tool (also online at: http://upc.lbl.gov/upcdecl)
+    - Add support for alloca() and stdarg.h
+    - Performance improvements to the BUPC semaphore library for signalling store
+    - Add bupc_thread_distance() - runtime thread layout query for hierarchical systems
+    - Add a remote fetch-and-add UPC library extension (initially just for 64-bit ints)
+    - Allow configure-time tuning of bit distribution in packed pointer-to-shared rep
+    - Fix the following notable bugs in 2.2.2 (see http://upc-bugs.lbl.gov for details):
+      - bug525: optimizer crashes on Tru64/CompaqC for libgasnet
+      - bug1229: More robust preprocessing on Compaq C
+      - bug1389: ansi-aliasing violations on small local put/get copies
+      - bug1531: improved lock fairness to remote lock requests
+      - bug1594: timer inaccuracies on Cray X1E
+      - bug1645: preprocess-time failure 'Backslash found where operator expected'
+      - bug1657: PACKAGE_* symbols exposed to UPC code on GCCUPC+UPCR
+      - bug1683: improve upcrun handling of -shared-heap-max
+      - bug 1743: More robust behavior when backend C compiler changes 
+    - Improved SRV-based DNS failover for upcc HTTP translation
+    - Add gzip compression to HTTP netcompile, for faster compiles over slow links
+    - Improved robustness for SSH netcompile to handle stray output from dotfiles
+    - Numerous misc minor bug fixes
+
+2006-03-15  Berkeley UPC release 2.2.3 (Cray XT-3 only bug-fix release)
+    - Workaround for gcc 3.2.3 optimizer hang when compiling UPC code on XT-3
+    - Fix GCCUPC+UPCR specific bug - broken initialization of static shared data
+
+2006-03-07  Berkeley UPC release 2.2.2 
+    - Port translator to new platforms: MacOSX/PPC32, Linux/PPC64 and AIX/PPC32
+    - Port runtime to: MacOSX/x86, MacOSX/PPC64 and Cray XD1
+    - Translator build improvements: auto platform detection and install target
+    - Numerous translator optimizer improvements
+    - Fix the following bugs in 2.2.1 (see http://upc-bugs.lbl.gov for details):
+       bug990: runtime failures on PPC/Linux with XLC
+       bug1316: AMMPI workaround for bug in IBM MPI
+       bug1300: upcc tweaks to support OSX translator (auto-set shared lib paths)
+       bug1324: string.h compilation errors on RHEL4/x86-64
+       bug1327: intermittent ref-collectives crashes on ppc/xlc
+       bug1337: workaround pathscale optimizer bug breaking libupcr barriers
+       bug1358: initialization failure finding an mmap segment
+       bug1367: vapi-conduit under-utilizes physical memory
+       bug1375: update handling of mpi-incompatible conduit configs
+       bug1378: miscompilation w/ icc-9.0.027 on ia64
+       bug1392: mysterious non-collective exits from vapi-conduit
+       bug1443: compile errors when using runtimes with non-canonical install paths
+       bug1452: bad codegen for embedded struct alignment exceptions on PowerPC
+       bug1475: broken rand() behavior with pthreads on Cygwin
+       bug1490: link failures on HP C
+       bug1493: barrier mismatch failures on AIX/Power5 with pthreads
+       intermittent exit crashes when profiling with pthreads
+       intermittent gmon.out loss when profiling with multiple nodes
+       intermittent crash on realloc in debug mode
+    - Improve handling of asm statements in system headers
+    - Robustness improvements to header-wrapper infrastructure
+    - Add auto-retry and DNS failover to upcc HTTP translation
+    - Expand gcc_as_cc to improve robustness of processing for Sun C and PGI
+    - Many fixes to Cray XT3 port
+    - Numerous misc minor bug fixes
+
+2005-10-20  Berkeley UPC release 2.2.1 (no translator release)
+    - Fix the following bugs in 2.2 (see http://upc-bugs.lbl.gov for details):
+       bug569: upcc -version leaks temp files
+       bug1185: startup crash on Altix running Propack4 (davinci)
+       bug1226-7: gasnet-trace improvements to deal with bad tracemask values
+       bug1247: -translator flag broken for ssh netcompile
+       bug1261: stdio.h broken on Mac OSX 10.4
+       bug1262: potential memory corruption on upc_all_alloc
+       bug1263: upcrun broken for non-uniform pthread layouts
+       bug1270: limited number of shared globals per file
+       bug1287: fix blocksize units on upc_all_{fread,fwrite}_shared()
+       bug1297: incorrect behavior for puts to remote shared 'float' variables
+    - other misc minor bug fixes
+
+2005-8-27  Berkeley UPC release 2.2 (and 2.1.18, 2.2 BETA 2)
+    - Fully compliant with the UPC 1.2 language specification, including
+      support for UPC collectives and the optional UPC-IO interface.
+    - Berkeley UPC programs can now be debugged with Totalview on x86 over
+      MPI or Quadrics.
+    - UPC-to-C translator now supported on Linux x86, Itanium and Opteron 
+      systems, as well as Tru64/Alpha.
+    - Experimental support for faster 'symmetric' shared pointers (with
+      blocksize == 1 or indefinite blocksize) on smp-pthreads and SHMEM.  
+    - Experimental support for optimizations at the UPC language level
+      within our UPC-to-C translator: Use 'upcc -opt ...' to enable.
+    - Improve the performance of local shared accesses.
+    - Substantial performance improvements to the upc_lock library.
+    - New bupc_ptradd library extension enables pointer-to-shared 
+      arithmetic with a variable (non-constant) blocksize.
+    - New bupc_tick_t library extensions expose cycle-granularity
+      wall-clock timers to UPC code.
+    - Performance improvements to bupc_mem{put,get,cpy}_async.
+    - Added prototype implementation of proposed UPC semaphore library.
+    - bupc_collectivev.h provides a convenience wrapper that adds 
+      simple-to-use value-based collectives. 
+    - Add library extensions for printing to and controlling communication tracing.
+    - Myrinet/GM-based Berkeley UPC programs can now interoperate with MPI.
+    - Many GASNet performance/functionality improvements, including improved
+      barrier performance on many platforms, and optimized collective
+      operations.  See 'gasnet/ChangeLog' for details.
+    - Cross-compilation support for the Cray X-1.
+    - Experimental support for the Cray XT3 and IBM Blue Gene/L (contact us
+      for details).
+    - Improve the flexibility of max shared heap size.
+    - Add automatic malloc heap debug checking in --enable-debug mode.
+    - Add automatic cache alignment for large shared heap objects.
+    - UPC-to-C translator now passes '#pragma' and 'restrict' in user UPC code
+      to the back-end C compiler.
+    - Improve processor affinity of shared heap objects in pthreaded configs.
+    - New upcc -pg option embeds gprof sequential profiling information, 
+      if supported by the C compiler.
+    - Improved upcc heuristic detection of C/UPC header language mode.
+    - Expand upcrun -i to show more useful program information.
+    - Improved creation and error checking for program stack under pthreads.
+    - Various improvements to upc_trace.
+    - Removed the need for users to hard-code a maximum per-node size for
+      shared memory at configure time.  
+    - Improve the performance and functionality of upc_trace.
+    - Many, many bug fixes, for both language constructs and platform
+      portability. See http://upc-bugs.lbl.gov for complete details.
+
+2004-12-06 Berkeley UPC release 2.1.0 (2.2 BETA 1)
+    - IMPORTANT: this is a BETA release, and may not be as stable as our
+      official releases.
+    - Added a reference implementation of the UPC I/O spec.  This
+      implementation is not designed to be highly performant, but it is
+      believed to be complete and stable.
+    - The SHMEM network API is now supported, at least on SGI Altix and Cray
+      X1 systems.
+    - Support for Quadrics' Elan 4 API added.  Performance tuning is not yet
+      complete, but the implementation is stable.
+    - Support for using GCC/UPC 3.3.2.9.  You must upgrade to this version of the
+      runtime if you wish to use this version (or greater) of GCC/UPC, due to
+      changes in the GCC/UPC interface.
+    - Improved the automated UPC test harness to support any UPC 1.1 compiler
+    - Numerous bugfixes.
+
+2004-10-04 Berkeley UPC release 2.0.1
+    - GM/Myrinet network layer was broken in 2.0.0.
+    - Fixed upc_trace and improved documentation.
+    - Added documentation on running UPC over UDP networks.
+
+2004-09-15 Berkeley UPC release 2.0
+    - Full implementation of UPC collectives (as per version 1.0 of the UPC
+      Collective specification)
+    - MPI/C++/C/FORTRAN/UPC interoperability support added
+    - Runtime now works with GCC UPC binary compiler (see INSTALL.TXT for more
+      information)
+    - Runtime memory allocator no longer divides shared memory 50-50% between
+      upc_global_alloc/upc_all_alloc and upc_alloc: either type of allocation
+      allowed to go over 50% of shared region, so long as total of both < 100%
+    - Added '-network=udp' which runs UPC over UDP, and is thus supported by
+      any network with a standard TCP/IP stack (this is now the recommended
+      layer for use on Ethernet hardware).
+    - Added numerous Berkeley-specific extensions to the UPC memcpy libraries
+       to support explicitly asynchronous and non-contiguous bulk data movement
+       (see http://upc.lbl.gov/publications/upc_memcpy.pdf).
+    - Experimental support for Dolphin SCI networks.
+    - Ported to new platforms: Cray X1, AMD Athlon/Opteron, Sun Pro C, HP C
+    - 'upc_trace' application added to allow profiling of UPC application's 
+       network traffic
+    - GM (Myrinet) network layer now supports pthreaded UPC applications
+    - Added auto-detection of most network drivers
+    - Fixes to ensure memory consistency behavior matches the current 
+       memory model proposal (due to be introduced in UPC spec 1.2)
+    - Runtime interface has changed, so 1.x translators/runtimes will not work
+       with their 2.x counterparts (i.e. if you have installed your own
+       translator, you will need to upgrade it at the same time as your
+       runtime).
+    - Enhanced heuristics for detecting C-mode and UPC-mode headers when
+       compiling for pthreads
+    - Greatly expanded compiler automated test suite, which is now run 
+       nightly on many platforms
+    - Many, many bugfixes, and much-improved stability/portability.
+2003-11-14 UPC release 1.1.0
+    - adheres to UPC 1.1.1 specification
+    - added pthread support
+    - added support for VAPI/Infiniband networks
+    - added 'smp' (single process, no network) -network option
+    - Added support for HTTP-based remote translation
+    - More C compilers (Portland Group, Intel ecc) supported.
+    - 'detect-upc' utility removes need to add #pragma to UPC .h files
+    - upcrun improvements
+2002-06-08 
+    -- Added an initial implementation of UPC barrier (for the trivial case of
+       processes and the non-trivial case of pthreads)
+    -- Added an initial implementation of UPC locks (using GASNet core AM calls)
+    -- Both compile, need the rest of the system to test functionality
+2002-06-07  
+    -- All shared ptr functions now working & tested for naive implementation.
+2002-06-04  
+    -- Phaseless ptr arithmetic now working.
+2002-06-02  
+    -- Have phased shared ptr arithmetic working for both positive/negative
+       offsets, with test framework.
+2002-05-15  
+    -- CVS tag VERSION_4: Merged changes from 0.4 of the runtime spec
+

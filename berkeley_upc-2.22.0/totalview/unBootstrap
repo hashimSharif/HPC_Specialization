@@ -1,0 +1,39 @@
+#!/bin/sh
+
+########################################################################
+# Remove all automake detritus, leaving just
+# configure.in and Makefile.am
+#
+# This script assumes you use 'config-aux' to store temporary autoconf
+# files in.  See comment in 'autoboot'.
+########################################################################
+
+set -x 
+
+if test -f Makefile ; then
+    gmake distclean
+    rm -f Makefile
+fi
+
+# Remove standard autoconf detritus
+rm -Rf autom4te*.cache 
+rm -f aclocal.m4 upcr_config.h.in configure Makefile.in		      \
+    stamp-h.in config.status config.log config.cache configure.scan   \
+    config-aux/Makefile.in assistant/Makefile.in tcl/Makefile.in
+
+rm -f config-aux/ltmain.sh		\
+	config-aux/libtool.m4		\
+	config-aux/'lt~obsolete.m4'	\
+	config-aux/ltoptions.m4		\
+	config-aux/ltsugar.m4		\
+	config-aux/ltversion.m4		\
+	config-aux/compile		\
+  2>/dev/null
+
+# Remove 'config-aux' dir only if it exists and is not empty
+#   -- may contain user M4 macro files
+rmdir config-aux 2>/dev/null
+
+true     # ensure exit 0
+
+

@@ -1,0 +1,27 @@
+sysname = blueprint
+
+network = lapi
+
+batch_sys = loadleveler
+ll_network_LAPI = 'sn_all,not_shared,us,,,rcxtblocks=2'
+
+max_nodes_to_run = 16
+
+queues = [
+        {
+          Q_name     => medium, 
+          Q_maxnode  => 16,     
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 16,      
+	  Q_maxtime  => 1:00:00
+        },
+]
+
+nthread_default = 16 # Power of 2 and perfect square
+
+max_proc_per_node = 4 # Under subscribe to keep the network in use
+
+min_num_nodes = 1
+
+# Not sure is this is needd, but it is safer than not using.
+run_env_default = { GASNET_MAX_SEGSIZE => '512M' }

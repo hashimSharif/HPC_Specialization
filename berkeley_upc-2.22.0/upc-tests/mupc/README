@@ -1,0 +1,266 @@
+****************************************************
+*            MuPC Test Suite Version 1.0           *
+****************************************************
+
+---------------
+1. Introduction 
+---------------
+
+This compilation of test codes is the release of the MuPC
+Test Suite by Michigan Technological University (MTU).
+
+The MuPC Run-Time System (RTS) provides publicly available
+implementation of UPC. This test suite is targeted at
+developers or individuals who are interested in performing
+tests on MuPC or other implementations of UPC.  Thus, prior
+experience with UPC is assumed.  For more information
+regarding UPC in general, please visit www.upc.gwu.edu.
+A copy of MuPC is available at www.upc.mtu.edu.
+
+Almost all the test codes included in this test suite 
+were written using the UPC language. 
+
+------------------------
+2. Content of test suite
+------------------------
+
+- README: This file.
+
+- BugList: A list of all known bugs|issues|problems|errors 
+   with MuPC and software needed to support it.
+
+- MuPCTestDoc.{ps, pdf}: Documentation of all the test cases 
+    in the test suite. This document provide user with a list 
+    of all the test cases and descriptions of them
+	extracted from their header.
+
+- run.sh, run2.sh, rtype.sh, runall.sh: scripts to help run 
+    the tests (see section 3.4)
+    
+- The following is a list of all the test cases in this test suite. 
+  More information is available in the preamble of these test program.
+
+Application programs
+- test_app_matmult.c: matrix multiplication program.
+- test_app_prime.c: counts the number of prime in a given range, 
+                    and fine largest prime. 
+- test_app_wave1.c: decompose vibrating string into points and update 
+                    its amplitude. 
+- test_app_wave2.c: decompose vibrating string into pts and update 
+                    its amplitude. (alt ver.)
+
+Barriers
+- test_barrier1.c: test of gets and puts with notify and wait 
+                   (works for n = pow(2, x), x=0,1,2,...) 
+- test_barrier2.c: test if appropriate run-time error is generated.
+- test_barrier3.c: test of synchronization of upc_barrier.
+- test_barrier4.c: test of synchronization of split-barrier. 
+
+Gets and Puts
+- test_getput1.c: gets and puts w/ and w/o affinity.
+- test_getput2.c: gets and puts with interleaved data types. 
+- test_getput3.c: gets and puts w/ uniform offset affinity.
+- test_getput4.c: volume test MuPC by concurrently doing many gets and puts.
+
+Integration test cases
+- test_int_allfunc.c: a test case that includes all the functions 
+                      implemented in MuPC.  
+- test_int_alltype.c: a more complex test case that integrates 
+                      the different data types. 
+- test_int_barlocks.c: integrates memory alloc., locking, and split-barrier 
+- test_int_memlocks.c: integration test of locking, mem. alloc, and mem. xfer
+- test_int_memstring.c: tests upc_all_alloc, and memory transfer functions.
+- test_int_multilocks.c: test multiple locks and multiple memory allocations.
+- test_int_precision.c: test loss of precision in floating-point numbers 
+                        during data transfer. 
+
+Locks
+- test_locks1.c: test the use of upc_all_lock_alloc 
+                 and other locking mechanisms.
+- test_locks2.c: test of upc_global_lock_alloc and other locking mechanisms.
+- test_locks3.c: test the use of lock_attempt, and other locking mechanism.
+- test_locks4.c: test of locks and gets and puts of a specified data type.
+- test_locks5.c: test of implied synchronization of upc_all_lock_alloc.
+
+Memory allocation functions.
+- test_memory1.c: test the correctness of upc_all_alloc.
+- test_memory2.c: test the correctness of upc_global_alloc function.
+- test_memory3.c: test the correctness of upc_local_alloc.
+- test_memory4.c: test if the RTS allows a user to allocate more 
+                  than the max memory.
+- test_memory5.c: test that upc_threadof functions properly.
+- test_memory6.c: test that upc_phaseof functions properly.
+- test_memory7.c: test that upc_addrfield functions properly.
+- test_memory8.c: test of implied synchronization of upc_all_alloc. 
+
+
+Test cases for stress testing.
+- test_stress_01.c: stress test barriers and notify's and wait's. 
+- test_stress_02.c: stress test upc_memputs. 
+- test_stress_03.c: stress test upc_memget.
+- test_stress_04.c: alternative stress test of upc_memputs. 
+- test_stress_05.c: alternative stress test of upc_memget.
+- test_stress_06.c: stress test of upc_memcpy. 
+- test_stress_07.c: alternative stress test of upc_memcpy. 
+- test_stress_08.c: stress test of upc_memset. 
+- test_stress_09.c: alternative stress test of upc_memset.
+- test_stress_10.c: stress test of upc_all_alloc.
+- test_stress_11.c: stress test of upc_global_alloc.
+- test_stress_12.c: stress test of upc_local_alloc. 
+- test_stress_13.c: stress test of upc_all_lock_alloc, upc_lock_init.
+- test_stress_14.c: stress test of upc_lock and upc_unlock.
+
+
+String handling functions.
+- test_string1.c: test correctness of upc_memcpy.
+- test_string2.c: test correctness of upc_memget.
+- test_string3.c: test correctness of upc_memput.
+- test_string4.c: test the functionality of upc_memset.
+
+Miscellaneous functions.
+- test_globalexit.c: test the functionality of the upc_global_exit().
+
+
+-----------------------------
+3. How to Use the Test Suite?
+-----------------------------
+- Section 3.1 and 3.2 try to explain how to compile and run a UPC program.
+  The example given in these sections worked for us on the
+  platforms that we tested MuPC on.  Your mileage may vary.
+
+- Section 3.3 and 3.4 explain the macros and the scripts 
+  used in the test suite to automate some of the work.
+
+3.1 How to compile using MuPC
+-------------------
+  To compile a UPC program:
+  	mupcc -i -f x test_case.c -o test_case
+
+  mupcc : a script that comes with MuPC RTS (similar to mpicc). 
+   -i   : produce the intermediate code (optional). 
+   -f x : specify the number of THREADS 
+  test_case.c  : UPC source code 
+  -o test_case : (optional) executable name.
+
+
+3.2 How to run a MuPC program
+---------------
+A compiled MuPC program is in fact a MPI executable. One must do
+what one usually does to set up an MPI run.  Then invoke the
+corresponding runscript:
+	mupcrun -n x executable
+
+  mupcrun : the MuPC equivalent of mpirun
+  -n x    : the number of THREADS
+		  >>Note<<: In MuPC, the number of threads is statically set at
+          compile time.  So, this must match the number of THREADS
+          chosen for the corresponding compile using mpicc.
+  executable: the name of the executable
+
+
+3.3 What are these macros for?
+------------------------------
+- #define VERBOSE0 1 : used to turn "printf"s on and off. 
+   By default they're commented out so that output is not cluttered.
+
+- #define DTYPE DATA : used to change the data types 
+   of variables and/or arrays used in the test cases. By
+   default, DTYPE is defined as DATA because we have a
+   sed script "rtype.sh" that substitutes DATA with each of
+   the supported data types (char, short, int, long, float,
+   double), it then uses the script run.sh to compile and
+   run the test case.
+
+- #define SIZE 16  : this macro specifies the size of arrays
+   used in the test case. We did not set a particular value for
+   SIZE.  The user can change SIZE to any value desired,
+   keeping in mind the range of the data type used. For
+   instance, "char" only has a size of 1 byte, "short" has a
+   size of 2 bytes, etc. Going over the boundaries of a data
+   type will cause the test case to behave unexpectedly.
+
+
+3.4 What scripts are there? ---------------------------
+
+- run.sh - compiles and runs a UPC program.
+  	   
+	Usage: run.sh x test_case.c
+	This will compile and run program test_case.c using 
+    the mupcc and mupcrun scripts with "x" number of THREADS.
+
+	e.g. run.sh 4 test_getput1.c
+
+- run2.sh - uses the "run.sh" script for collection of THREADS.
+	Usage: run2.sh test_case.c
+    This will compile and run a UPC program for the values of
+    THREADS determined by the value of "List" in the script.
+ 
+   e.g. run2.sh test_getput1.c
+
+- rtype.sh - sets the data type and run the test case as above.
+
+    Usage: rtype.sh x test_case.c 
+    This will compile and run program test_case.c using "x"
+    number of threads, for all the data types specified in
+    the variable "List" in the script.
+
+    Also, note that not all test cases will support this
+    script. Those which don't have been marked with at the
+    first line of the test case.
+
+	>>NOTE<<: 
+    1) When switching on the messages by uncommenting the
+       VERBOSE macro, be sure to change the format
+       specifiers in the printfs, or else you might see some
+       erroneous results. Nonetheless, the messages will not
+       affect the outcome of a test case.
+    2) Again, please take into consideration the boundaries
+       of a data type when substituting a data type or
+       modifying the SIZE macro.  Exceeding these boundaries
+       would yield erroneous results.
+
+- runall.sh - this script compiles and runs all test cases
+    in the test suite, for each data type and for the
+    specified sizes of threads. The list "List" determines
+    the data types that would be tested for each test case,
+    and the list "List2" determines the sizes of threads to
+    run a test case. Some test cases that do not support
+    multiple data types (those marked with X) would be run
+    several times by the script since substituting data
+    types have no effect on them.
+
+    Usage: runall.sh > output 
+    This will compile and run all test cases in the
+    test suite, for each data type and sizes of threads
+    specified. In order to record the results, the user can
+    just redirect the output to an output file "output",
+    then do a grep on the keyword "Success" to get a list of
+    test cases that passed, or "Error" to get a list of test
+    cases that failed.
+               
+ >>NOTE:<<
+ Currently we don't support any elegant scripts that
+ would run all the test case and give a report of the
+ outcome. This is due to several difficulties or problems
+ which we couldn't resolve still. One of these problems is
+ inability of the MuPC RTS to return the value returned
+ from the main function of a UPC program. Without this
+ return value, we can't determine if a test case passes
+ or fails. Nonetheless, we will try and come up with a
+ solution.
+
+-----------
+5. Contacts
+-----------
+
+- For questions regarding the test suite 
+  (bugs, constructive comments or suggestions),
+  please email "merk@mtu.edu".
+
+- If you have trouble getting a copy of MuPC, 
+  installing MuPC, or getting it to work,
+  email "steve@mtu.edu" or "merk@mtu.edu"
+
+- UPC website at Michigan Tech: http://www.upc.mtu.edu
+  UPC website at George Washington University: http://www.upc.gwu.edu
+ 

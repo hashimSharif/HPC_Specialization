@@ -1,0 +1,1021 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+    <title>Static User Data in UPC</title>
+</head>
+<body bgcolor="#ffffff">
+<!--#include virtual="/header.html" -->
+
+<center>
+<h1>Allocating, Initializing, and Referring to Static User Data in the Berkeley
+    UPC Compiler</h1>
+
+<h3>Version 1.1, October 22, 2002
+    <p>Jason Duell &lt;
+   <script TYPE="text/javascript">
+<!--
+emailE=('jcduell' + '@' + 'lbl.' + 'gov')
+document.write('<a href="mai' + 'lto:' + emailE + '">' + emailE + '</a>')
+//-->
+</script>&gt; 
+</h3>
+</center>
+
+<br>
+
+<p>This document describes the interface between the UPC compiler and the UPC
+runtime for handling static user data (both shared and unshared) in UPC
+programs.
+
+<p>Within this document, 'static' user data means 'not dynamically allocated'
+(i.e., not allocated on the stack, nor with malloc(), upc_all_alloc(), or any
+other memory allocation function).  All of a user's global and static variables
+in the regular C sense are static user data for the purposes of this document.
+
+<p>Allocating and initializing static data in UPC is much more challenging than
+in regular C, where the linker simply gathers up the static data defined in
+various object files and places it in an executable along with any initial
+values (all of which are, in C, known at link time at the latest).  In UPC we
+cannot always know the size, location, or initial value of a variable at link
+time, and thus support from the runtime layer is needed to properly allocate and
+initialize static data.  In the Berkeley UPC compiler, the mechanisms we use to
+set up static data also require us to also refer to it specially during program
+execution.
+
+<p>The following example shows data definitions from two UPC files (and a shared
+'.uph' header file) that are part of the same program--we will use this example
+to illustrate the steps that need to be taken with static UPC data.  [Working
+UPC and C files for all the code shown in this web page can be found in the
+'tests/foo_bar' subdirectory of the UPC Runtime distribution].
+
+<center>
+<p><table cellpadding="6" cellspacing="0" border="2" width="80%">
+    <tr>
+        <td valign="top" align="center">
+            <font size="+1"><b>foobar.uph</b></font> 
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffcc"><pre><!--#include virtual="foobar.uph"--></pre></td>
+    </tr>
+</table>
+
+<p><table cellpadding="6" cellspacing="0" border="2" width="80%">
+    <tr>
+        <td valign="top" align="center">
+            <font size="+1"><b>foo.upc</b></font> 
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffcc"><pre><!--#include virtual="foo.upc"--></pre></td>
+    </tr>
+</table>
+
+<p><table cellpadding="6" cellspacing="0" border="2" width="80%">
+<tr>
+    <td valign="top" align="center">
+        <font size="+1"><b>bar.upc</b></font> 
+    </td>
+</tr>
+<tr>
+    <td bgcolor="#ffffcc"><pre><!--#include virtual="bar.upc"--></pre></td>
+</tr>
+</table>
+
+
+
+</center>
+
+<p>As we can see, there are two types of data in a user's UPC program that we
+have to deal with: shared variables, which all UPC threads can see, and unshared
+variables, which are visible only to a single UPC thread. Note that 'pfoo' in
+bar.upc is NOT a shared variable: it is a local pointer, which happens to point
+to the shared integer type (it is of course not a 'normal' pointer, since more
+information is needed to point to a shared variable than an address. But this is
+a separate issue from whether it is itself shared or unshared). On the other
+hand, 'pbar' in foo.upc is a shared variable: it is a shared pointer to a shared
+integer.  Also note that we've made the situation tricky by placing some of our
+pointers (pfoo and pquux) in a different file than the variable they are
+initialized to point to: in a regular C program, the linker handles resolving
+all such addresses, but in the UPC case things are not so simple...
+
+
+<p>In the Berkeley UPC compiler, .upc files are translated into .c files that
+have had all UPC specific constructs translated into C code.  Below are two
+hand-translated .c files that should be similar to those that UPC compiler
+emits.  Don't try to understand them all at first glance (especially the
+initialization code at the bottom of each file): the remainder of this document
+will go over each element in turn.
+
+<center>
+<p><table cellpadding="6" cellspacing="0" border="2" width="80%">
+    <tr>
+        <td valign="top" align="center">
+            <font size="+1"><b>foo.c</b></font> [<a href="foo.c">source file</a> ]
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffcc"><pre><!--#include virtual="foo.c"--></pre></td>
+    </tr>
+</table>
+
+<p><table cellpadding="16" cellspacing="0" border="2" width="80%">
+    <tr>
+        <td valign="top" align="center">
+            <font size="+1"><b>bar.c</b></font> [<a href="bar.c">source file</a> ]
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffcc"><pre><!--#include virtual="bar.c"--></pre></td>
+    </tr>
+</table>
+</center>
+
+
+<h3>A brief propaedeutic digression: "tentative definitions"</h3>
+
+The ANSI/ISO C specification refers to variable definitions like 'int bar;'
+(i.e.  those that do not use 'extern', yet do not provide an initial value) as
+'tentative definitions' (see section 6.9.2).  Multiple tentative definitions--
+including multiple appearances in the same file--are allowed in a program
+without error (in contrast, multiple initialized definitions are always illegal,
+even if the same value is used for the initialization: placing multiple 'int foo
+= 0;' statements in a program will cause a linker error).  Multiple tentative
+definitions must be converted into a single variable in the final application.
+If the variable was initialized somewhere in the application, that value must be
+used.  Otherwise, it must an initial value of 0.  For example, the declarations
+of both 'foo' and 'bar' in foobar.uph are tentative--but foo winds up being
+initialized to '3' in foo.upc, while 'bar' is never initialized, and must be set
+to 0.
+
+<p>Support for properly converting multiple tentative definitions into a single
+variable requires special support from the linker (compilers cannot know when
+they see 'int foo;' whether the variable will be initialized in a different
+file).
+
+<p>Duplicate tentative definitions are rare in real code, and typically show up
+only in older C code.  The 'extern' keyword is now typically used to avoid
+multiple definitions.  However, since the UPC specification states that UPC
+officially follows the ANSI/ISO C specification except where explicitly noted
+otherwise, a UPC compiler ought to handle them.  This specification
+contains a fair amount of logic dedicated specifically to handling tentative
+definitions correctly (although one of our two alternatives for handling
+unshared global UPC variables declared by the user does not currently support
+them completely, as explained later).
+
+
+<h2>Definition and Use of Static Shared Variables</h2>
+
+Since GASNet does not guarantee that any particular range of virtual addresses
+in a UPC program will be addressable by the network, the UPC compiler and
+runtime cannot allocate any actual shared memory until program startup.  To
+implement user defined static shared variables, an indirection strategy must be
+used, in which each static shared variable is represented by a "proxy" unshared
+pointer to the shared memory,  which is allocated at startup.  The following
+list explains the steps that need to be taken to make this scheme work.
+
+<ol>
+
+<li><h4>Definitions of shared static variables replaced with unshared
+    'proxy' pointers</h4>
+
+    Wherever the compiler sees a definition of a static shared variable, it
+    instead defines the variable as type upcr_shared_ptr_t or upcr_pshared_ptr.
+    For the rest of this document, these are referred to as 'proxy pointers'.
+
+
+    <p><i>Note: the 'phaseless' upcr_pshared_ptr_t type is used (to save space
+        and/or make address calculation easier) when the variable is either a
+        scalar value that will live only on thread 0, or an array that either
+        exists entirely on a single thread (i.e. is indefinitely blocked), or
+        which uses the default UPC blocking of one element per block.  </i>
+    
+
+    <pre>
+    /*** UPC code ***/
+
+    shared int foo = 3;
+    shared int bar;
+    double do_sum() {
+        static shared [3] double messy[16][4*THREADS] = { ... };
+    }
+
+    /*** Translated C code ***/
+
+    upcr_pshared_ptr_t foo = UPCR_INITIALIZED_PSHARED;
+    upcr_pshared_ptr_t bar;
+    static upcr_shared_ptr_t do_sum_messy = UPCR_INITIALIZED_SHARED;
+    </pre>
+
+    A couple points are worth noting here.
+    <p>
+    <ul>
+
+        <li>The upcr_pshared_ptr_t (or upcr_shared_ptr_t) variable that we
+        create is defined at global C scope: we do not need to make it a
+        thread-local variable, since it is by definition visible to all the
+        pthreads running in a single UPC process.
+
+        <p><li>We have given the proxy pointers the same name as the UPC
+        variables that they proxy for.  Doing this allows the standard C linker
+        to catch illegal UPC programs that define a different variable with the
+        same name at global scope in a different file.
+
+        <p><li>Values which are initialized in the user's code are initialized
+        to a special dummy UPCR_INITIALIZED_{P}SHARED value, so that the
+        linker will catch multiple initializations of the same variable in
+        different files.  Tentative definitions, on the other hand, are
+        represented by tentatively defined shared pointers, so that if a shared
+        variable is never initialized anywhere, its proxy pointer will have a
+        NULL value at startup.
+
+        <p>The UPCR_INITIALIZED_{P}SHARED values are provided in upcr.h (as
+        their values can differ across shared pointer representations), as are a
+        pair of upcr_is_init{p}val() functions for testing pointers for that
+        value.  We use UPCR_INITIALIZED_PSHARED in foo.c to initialize the
+        variables 'foo' and 'pbar': if 'foo' was also initialized in bar.upc 
+        the linker would catch the error.
+
+        <p><li>It is legal for shared data items in UPC to be defined as
+        'static' within a function or file.  Such variables should be handled by
+        defining the proxy pointer for the variable as a static variable.
+        However, proxy pointers must be defined at file scope so that the file's
+        initialization functions can access them, so static variables defined
+        within a function must be renamed to 'functionName_variableName" (to
+        avoid name conflicts), and placed at file scope.  Otherwise, they are
+        treated the same as regular proxy pointers.
+
+    </ul>
+    
+<li><h4>References to shared variables replaced with use of proxy pointers
+        and UPC runtime functions</h4>
+
+    All references to shared static variables are performed via their 
+    proxy variables and the appropriate UPC runtime functions: so the array
+    access of 'messy' in 'do_sum' is transformed into 
+
+<pre>
+    double tmp;
+    upcr_get_shared(&amp;tmp, do_sum_messy, 
+                    sizeof(double)*(16*i + j), 
+                    sizeof(double));
+    total += tmp;				     
+</pre>
+
+    Note that any optimizations performed by the compiler to avoid, schedule, or
+    coalesce network traffic are performed above the level of the UPC
+    runtime--the code here, for instance, might be altered by an enterprising
+    compiler to use a single block copy per thread.
+
+<li><h4>Allocation/initializations performed in per-file init/allocation
+    functions</h4>
+
+    As described later in this document, each .c file generated by the UPC
+    compiler must contain two initialization functions: one to dynamically
+    allocate the shared memory for all shared static data items defined in the
+    file, and one which performs initializations of both shared and unshared
+    user variables defined in the file (samples of these functions are provided
+    in the foo.c and bar.c files, named with the prefixes UPCRI_ALLOC_ and
+    UPCRI_INIT_, respectively). 
+
+    <p>The allocation function must contain upcr_startup_{p}shalloc_t structs with
+    the allocation information for each proxy pointer defined in the file:
+
+<pre>
+    upcr_startup_pshalloc_t pinfos[] = {
+	{ &amp;foo, sizeof(int), 1, 0 },
+	{ &amp;bar, sizeof(int), 1, 0 }
+    };
+
+    upcr_startup_shalloc_t infos[] = {
+	{ &amp;do_sum_messy, 3*sizeof(double), 16*4*sizeof(double), 1 }
+    };
+
+    /* Allocate shared data */
+    upcr_startup_pshalloc(pinfos,
+	sizeof(pinfos) / sizeof(upcr_startup_pshalloc_t));
+    upcr_startup_shalloc(infos,
+	sizeof(infos) / sizeof(upcr_startup_shalloc_t));
+</pre>
+    
+    A call to upcr_startup_{p}shalloc() is then made to actually allocate the
+    shared memory for each proxy pointer (and spread the information about it to
+    all of the node/threads in the UPC job). The function takes the address of
+    the proxy pointer, the size and number of blocks of shared memory to
+    allocate, and a flag indicating if the number of blocks should be multiplied
+    by THREADS.  The function also performs a bzero() on the data if it was
+    never initialized by the user (which can be determined by noting whether the
+    proxy pointer's initial value was UPCR_INITIALIZED_{P}SHARED or not).
+    
+    <p>In the initialization function for the file, all shared data that was
+    initialized by the user must be assigned the correct values.  Scalar shared
+    values will all have affinity to thread 0, and so only that thread should
+    run the code that sets the values.  Here, for instance, is the relevant code
+    from foo.c:
+
+<pre>
+    /* Explicit initializations of variables living only 
+     * on UPC thread 0 
+     */
+    if (upcr_mythread() == 0) {
+      *((int*)upcr_pshared_to_local(foo)) = 3;
+      *((upcr_shared_ptr_t*)upcr_pshared_to_local(pbar)) = bar;
+    } 
+</pre>
+
+    [Note that casting to local pointers is not the only way to achieve this--it
+    was done here since calling upcr_put_pshared() would have first required
+    storing the '3' in a temporary variable, and the author was feeling lazy.
+    Compilers may generate any code that correctly does the job].
+
+    <p>For arrays that are striped across UPC threads, initialization is
+    trickier, and a helper function called upcr_startup_assignarray() function
+    is provided.  It takes a pointer to a local array from which the initial
+    values for the shared array will be taken, and a set of information for each
+    dimension of the arrays.  Each thread initializes only the portion of the
+    array which has affinity to it, to avoid unneeded network traffic.  If the
+    local array is not as large as the shared array, the remainder of shared
+    array is filled with 0s.
+
+<pre>
+    double init_messy[1][5] = { { 1, 2, 3, 4, 5 } };
+    upcr_startup_arrayinit_diminfo_t init_messy_info[] = {
+        { 1, 16, 0 },
+        { 5, 4,  1 }
+    };
+    upcr_startup_initarray(do_sum_messy, init_messy, 
+                           init_messy_info, 2, 
+                           sizeof(double), 3);
+</pre>
+
+    See the UPC Runtime Specification for more details on the parameters and
+    behaviors of these functions.
+
+</ol>
+
+<br>
+
+<h2>Definition and Use of Static Unshared Variables (Thread-Local Data)</h2>
+
+If single-threaded processes are used to run a UPC job, the user's global/static
+unshared variables can simply be declared and referenced as regular C
+global/static variables.  But if pthreads are used to implement multiple UPC
+threads within a process, this no longer would work, since the UPC specification
+mandates that each UPC thread has its own copy of such data.  Instead we need to
+make per-thread copies of all such data items (i.e. they must be made
+'thread-local').
+
+<p>There are various ways to transform global/static data into thread-local
+data.  The Berkeley UPC compiler supports two methods: a 'global struct'
+approach, and a 'tld section' approach.  Both strategies cause all such data
+across all files to be coalesced into a single region, a copy of which is made
+for each thread.  References to thread-local variables are then transformed into
+offsets into the current thread's region.  
+
+<p>Each strategy has its disadvantages:  the 'global struct' approach
+occasionally requires all .c files in a UPC application to be recompiled, and
+uses more memory at runtime.  The 'tld section' strategy requires compiler and
+linker behaviors that are not portable across different C compilers.
+
+<p>While this discussion is concerned specifically with the case when the UPC
+compiler is generating C output, the strategies (especially the 'tld section'
+approach) should also be relevant to UPC compilers that generate straight to
+object code.
+
+<h3>Interface to thread-local data declarations/definitions/references</h3>
+
+The interface between the UPC compiler and the UPC runtime for declaring,
+defining, and referring to unshared static variables is the same for both
+threaded and unthreaded targets, and for both TLD implementation strategies.
+This allows the UPC compiler to generate the same C code regardless of the
+compilation environment.
+
+<ol>
+
+<li><h4>Declarations made with 'extern' are noted as TLD, but are otherwise
+        unchanged</h4>
+
+    Declarations that are made with the 'extern' keyword do not need to be
+    transformed by the UPC compiler, and should be output unchanged in the
+    output C file:
+
+<pre>
+    extern int defined_somewhere_else;    /* same in both .upc and .c output */
+</pre>
+
+    There is an important exception to this rule--unshared pointers to shared
+    data still need to be transformed into upcr_shared_ptr_t's:
+
+<pre>
+    extern shared int *pint;            /* in .upc */
+
+    extern upcr_pshared_ptr_t pint;      /* in .c output */
+</pre>
+
+    Although the UPC compiler need not transform a 'extern' declaration itself,
+    it does need to note the fact that the data in question is thread-local
+    since such items are not referred to in the normal way, as we will see
+    below.
+
+<p><li><h4>Definitions with initial value use UPC_TLD_DEFINE macro</h4>
+
+    Definitions that provide an initial value for a variable use the
+    UPCR_TLD_DEFINE() macro:
+
+<pre>
+    int mcfoobar = 999;                 /* in .upc */
+
+    /* in .c output */
+    int UPCR_TLD_DEFINE(mcfoobar, 4) = 999;
+</pre>
+
+    The macro takes the name and size (in bytes) of the variable.  
+    The full type of the definition must come before the macro, so 
+
+<pre>
+    int natural[3] = { 1, 2, 3};
+    void (*int_taker)(int) = &amp;print_int;
+</pre>
+
+    cannot be transformed into 
+
+<pre>
+    int UPCR_TLD_DEFINE(natural)[3] = {1, 2, 3}
+    void (*(UPCR_TLD_DEFINE(int_taker, 4))(int) = &amp;print_int;
+</pre>
+
+    Instead the UPC compiler must declare typedefs for array and
+    function pointer definitions:
+
+<pre>
+    typedef int _type_natural[3];
+    _type_natural UPCR_TLD_DEFINE(natural, 12) = { 1, 2, 3 };
+
+    typedef void (*_type_int_taker)(int);
+    _type_int_taker UPCR_TLD_DEFINE(int_taker, 4) = &amp;print_int;
+</pre>
+
+    Finally, static unshared definitions must be promoted to regular (unstatic)
+    type and global scope, and when this is done, their names must be mangled to
+    avoid any name collisions with other global variables that may exist in
+    other files (the 'suspects' array in foo.upc is an example of such a
+    variable).  Such mangling should be done in a deterministic fashion, so that
+    the name of the variable is not changed across compilations unnecessarily
+    (it is OK for the name to change whenever the set of names/sizes of other
+    global unshared data change, but it should not change otherwise).
+
+
+<p><li><h4>Tentative definitions use UPCR_TLD_DEFINE_TENTATIVE macro</h4>
+
+    Tentative declarations of unshared global/static variables must use the
+    UPCR_TLD_DEFINE_TENTATIVE macro.  Thus
+
+<pre>
+    int quux;
+</pre>
+
+    at file scope in foo.upc becomes
+
+<pre>
+    int UPCR_TLD_DEFINE_TENTATIVE(quux, 4);
+</pre>
+
+    in foo.c.
+
+    <p>The macro otherwise works identically to UPCR_TLD_DEFINE.
+
+<p><li><h4>Regular "C" variables declared/defined in .h/.c files are not
+    treated as thread-local</h4>
+
+    UPC must support programs that wish to link to standard C system libraries,
+    or to other C code that the user may provide.  The user should not call the
+    UPC compiler on .c files, but .upc/.uph files will need to be able to
+    #include .h (and perhaps .c) files and still link correctly.  
+
+    <p>To link and operate correctly with regular C libraries, UPC must not
+    treat data it sees in .c/.h files as thread-local variables: instead it must
+    treat them as regular global variables.  Variables are recognized as being
+    external C variables if they are declared/defined in a #included .h or .c
+    file.
+
+    <p>Of course, for this strategy to work with a pthreaded UPC process, all
+    linked C code must be thread-safe.  UPC applications which need to use
+    non-thread-safe C code or libraries should compile and run their UPC
+    code as single-threaded executables.
+
+<p><li><h4>References to TLD performed via UPCR_TLD_ADDR macro</h4>
+
+    Once a variable has been flagged as thread-local by the compiler, all
+    references to it must be done via the UPCR_TLD_ADDR() macro, which returns
+    the address of the thread's copy of the data.  The address is returned as a
+    void *, so it must be cast to the correct type, and dereferenced as needed.
+    For instance, 
+
+<pre>
+    assert (quux == 0 || quux == 1);
+</pre>
+
+    in foo.upc must be converted into 
+
+<pre>
+    assert( *((int*)UPCR_TLD_ADDR(quux)) == 0
+	 || *((int*)UPCR_TLD_ADDR(quux)) == 1);
+ </pre>
+
+    in foo.c.
+
+<p><li><h4>Complex initializations performed in file-specific init
+    functions</h4>
+
+    Unlike with shared data, most TLD will be correctly initialized at startup
+    by the UPC runtime without any specific action needed on the part of the UPC
+    compiler.  However, initializations that involve addresses of other TLD,
+    such as 
+
+<pre>
+        int *pquux = &quux;
+</pre>
+
+    must be handled specially (since the address of quux will be different on
+    different pthreads).  Local pointers to shared data also require special
+    treatment:
+
+<pre>
+        shared int pfoo =  &foo;
+</pre>
+
+    cannot be correctly assigned until the shared memory for 'foo' is allocated
+    at startup.  The UPC compiler must recognize all such special cases, and
+    perform the appropriate assignments in each file's initialization function
+    (information on the per-file allocation/initialization functions is provided
+    later in this document).  The above two definitions in bar.upc, for
+    instance, cause the following special logic in bar.c's initialization
+    function:
+        
+<pre>
+    (*((int**)UPCR_TLD_ADDR(pquux))) = UPCR_TLD_ADDR(quux);
+    (*((upcr_shared_ptr_t*)UPCR_TLD_ADDR(pfoo))) = foo;
+</pre>
+
+</ol>
+
+<p>&nbsp;<p>
+<h3>The 'tld section' approach to implementing thread-local data</h3>
+
+The key to the 'tld section' approach is that the linker is used to coalesce all
+TLD into a special separate data segment of the final executable.  A copy of
+this segment can then be made in memory at startup for each additional pthread
+on a UPC node (process), and references to TLD items can be transformed into
+offsets into a thread's copy of the TLD section.
+
+<p>The compiler directives used in the explanation below are all specific to the
+GNU GCC compiler.  They also may not work (even with GCC) if the target machine
+does not support the ELF object format.  Other C compilers may use different
+compiler/linker directives to achieve the same effect, or may not support the
+strategy at all.  For this reason UPC compilers which target C code as their
+output may find it easier (and more portable) to use the 'global struct'
+strategy.  Authors of UPC compilers which directly produce object code, however,
+will probably find the 'tld section' approach more natural within a compiler
+context.
+
+<p>Finally, as specified here, the tld section approach does not support
+multiple tentative definitions of the same UPC variable in multiple files (it
+does support it for variables defined in external C header files).  It has not
+yet been determined if full support for tentative definitions is achievable
+under the tld section approach--at a minimum it appears that a custom linker
+script would need to be written to make them work.  In the worst case it could
+certainly be done by modifying the linker itself.
+
+<ol>
+
+<li><h4>Static unshared definitions are coalesced into thread-local linkage
+    section</h4>
+
+    The UPC compiler will coalesce unshared static data items into a separate
+    section (let's call it '.upc_tld') of each object file.  It does this by
+    expanding the UPCR_TLD_DEFINE() macro to a compiler command that causes the
+    variable to be placed in a special linkage section: When GCC/ELF is the
+    target compiler/format, for instance, the UPC runtime header file simply
+    arrange for the appropriate __attribute__ modifier to be placed in the
+    declaration (the size parameter of the macro is simply discarded): so
+
+<pre>
+    int UPCR_TLD_DEFINE(jrandomvariable, 4) = 9;
+</pre>
+
+    becomes
+
+<pre>
+    int jrandomvariable __attribute__((section(".upc_tld"))) = 9;
+</pre>
+
+    Any ELF-compatible linker will automatically coalesce the '.upc_tld'
+    sections from the various object files into a single, contiguous '.upc_tld'
+    section in the executable.
+
+    <p><i><h4>The party pooper: tentative definitions</h4>
+
+        You will note that we do not mention the UPCR_TLD_DEFINE_TENTATIVE macro
+        here.  This is because we have not yet figured out a way to get it to
+        work correctly.  
+
+        <p>In regular C tentative definitions are placed in a special 'common'
+        section of .o files.  Multiple definitions of the same variable are
+        permitted to exist in the various object files that are linked to form
+        an executable, so long as at most one such variable is in an initialized
+        data section. At link time the linker examines each variable defined in
+        the common sections of the objects to be linked: if an initialized value
+        exists, it is used, otherwise the object is created in the 'BSS' (i.e.
+        it is created with an initial value of 0).  
+
+        <p>The gcc documentation states that the __attribute__((section))
+        directive only works with initialized values, and is ignored for
+        uninitialized variables.  In actuality, at least in recent gcc versions,
+        the directive does not get ignored, and instead causes the variable to
+        be put in the desired section with an initial value of 0.  This, alas,
+        is not sufficient, since if the same variable appears in multiple
+        object files (even with the same initial 0 value), the linker declares a
+        duplicate symbol error.  One can avoid linker errors by causing the
+        UPCR_TLD_DEFINE_TENTATIVE macro to use __attribute__(weak)), but this
+        in turn causes the 'section' attribute to be ignored, so the variable
+        will not be made thread-local.
+
+        <p>It may be possible to have the UPCR_TLD_DEFINE_TENTATIVE use a
+        different section name (ex: .upc_tld_common), and then somehow write a
+        linker script that will treat that section with the common section's
+        semantics at link time, but is not known if this will work (the
+        author's several pleas for help on the gnu.gcc Usenet group have gone
+        unanswered).
+
+        <p>Another alternative may simply be to ban the use of multiple
+        tentative definitions within UPC code, while supporting them for extern
+        "C" code.  Multiple tentative definitions can always be trivially
+        avoided without any change in program semantics via the addition of an
+        'extern', and programmers writing new UPC code are unlikely to even
+        notice the absence of full support for tentative definitions (C++, for
+        instance, does not use tentative definitions--'int foo;' is equivalent
+        to 'int foo = 0;'--but few programmers are even aware of this
+        difference).  Old C libraries may place tentative definitions in their
+        header files, but since such code is treated as 'extern C' by the UPC
+        compiler (and hence will not be converted into thread-local data), such
+        definitions will still be handled correctly.  If it is decided that
+        support for multiple tentative unshared UPC variables is not needed,
+        UPCR_TLD_DEFINE_TENTATIVE can simply be #defined to UPCR_TLD_DEFINE, and
+        single tentative definitions will work correctly.</i>
+
+
+<li><h4>Length and address of the static unshared segment stored in known
+    locations</h4>
+    
+    <p>The UPC compiler will arrange to have the starting address and length of
+    the .upc_tld segment written into two 'well-known' variables that are
+    visible to the UPC runtime.  This will probably need to be done in a linker
+    script.
+
+<li><h4>Copy of linkage section made for each new UPC thread at startup</h4>
+
+    At startup, for each UPC thread besides the first, the UPC runtime will
+    allocate a copy of the .upc_tld section.  A simple memcopy will be done to
+    move the initial values in the .upc_tld section into each of these copies,
+    and then the per-file initialization functions (described elsewhere in this
+    document) will be run to perform any special initializations that need to be
+    done.  Each thread will be given a pointer to its thread-local static
+    unshared data area, and will use it for all static unshared data references.
+
+<li><h4>Conversion of references into dynamic lookups</h4>
+    
+    At compile time, the compiler will translate references of thread-local data
+    into a dynamic calculation that takes the offset of the referred-to variable
+    within the .upc_tld section, and adds it to the address of the thread's copy
+    of this area.  C code targets will do this with an inline function call:
+
+<pre>
+    UPCR_TLD_ADDR(foo)
+</pre>
+
+    which will return the equivalent of 
+
+<pre>
+    (tld_addrs[MYTHREAD] + ( ((uintptr_t)&amp;foo) - upc_tld_start))
+</pre>
+
+    cast to a void pointer.
+
+    <p>Since the 'tld_addrs[THREAD] - upc_tld_start' portion can be done only
+    once, at startup, and then stored as a separate 'tld_offset[MYTHREAD]'
+    variable, the cost of a lookup can be optimized to
+
+<pre>
+        tld_offset[MYTHREAD] + (unintptr_t)&amp;foo)
+</pre>
+
+    On most architectures, this should translate into a single indexed load
+    instruction (assuming the value of tld_offset[MYTHREAD] is cached in a
+    register).
+
+</ol>
+
+
+<p>&nbsp;<p>
+<h3>The 'global struct' approach to implementing thread-local data</h3>
+
+The global struct approach uses a regular C structure to coalesce thread-local
+variables.  All unshared global/static variables in all files are converted into
+members of this structure, whose definition is made visible to each .c file.  At
+startup, a copy of the struct is made for each thread and initialized, and
+references to thread-local variables are converted into member accesses in the
+struct.
+
+<ol>
+
+<li><h4>UPCR_TLD_DEFINE definitions grepped out into .tld files</h4>
+
+    When foo.upc is compiled into foo.c by the UPC compiler, the script that
+    invokes the compiler will also cause a second program to be run after the .c
+    file is generated.  This program will be a grep-like tool that finds all the
+    UPCR_TLD_DEFINE (and UPCR_TLD_DEFINE_TENTATIVE) macro invocations in the .c
+    file, sorts them (in a deterministic order which is otherwise unspecified),
+    and dumps them out into a foo.tld file.  This file will contain only lines
+    that look like 
+
+<pre>
+    UPCR_TLD_DEFINE(suspects_MANGLED, 8)
+    UPCR_TLD_DEFINE(quux, 4)
+</pre>
+
+    Note that any UPCR_TLD_DEFINE_TENTATIVE definitions are transformed into
+    regular UPCR_TLD_DEFINEs in the .tld file (we do not need to distinguish
+    between them here).  Also, any duplicate definitions are discarded.  Also
+    note the lack of semicolons in the .tld file.  Finally, the grep-like script
+    will only overwrite an existing .tld data if its contents are different
+    (this will only happen if a variable has been added/deleted/renamed, or its
+    size has changed).
+
+
+<li><h4>UPCR_TLD_DEFINE macros in .c file expands into regular variable
+        definition</h4>
+
+    When the global struct approach is used, the regular UPC runtime header
+    files will define the UPCR_TLD_DEFINE{_TENTATIVE} macros to simply expand to
+    the 'name' parameter.  Thus the backend C compiler will see a regular
+    definition, like:
+
+<pre>
+    int quux;
+</pre>
+
+    These regular global variables serve several purposes.  First, they store
+    the initial value (if any) for the definition.  Secondly, they will cause
+    the linker to catch any errors from the user initializing the value in
+    multiple files.  Third, the linker will handle tentative definitions of
+    these variables correctly.  These variables are otherwise unused in the
+    final executable, and this is what makes the global struct approach consume
+    more memory than the tld section approach (which can use the initial
+    coalesced linker section of thread-local data as thread 0's section, only
+    making copies for further threads).
+
+<li><h4>upcr_global_tld.h creates struct from UPCR_TLD_DEFINE macros</h4>
+
+    When the global struct approach is in use, upcr.h (which is #included by all 
+    .c files generated by the UPC compiler) will at some point #include 
+    upcr_global_tld.h.  This file contains the declaration of the global
+    structure that holds all thread-local data:
+
+<pre>
+    #define UPCR_TLD_DEFINE(name, size)  char name[size];
+    struct upcr_tld {
+    #include "upcr_global_tld.tld"
+    };
+    #undef UPCR_TLD_DEFINE
+
+    /* at some point later in upcr.h or a file it includes... */
+    #define UPCR_TLD_DEFINE(name, size) name
+</pre>
+
+    All variables are declared as the same type--arrays of char.  This is done
+    because it is virtually impossible to assemble the full set of type
+    information that would needed to use the real types of the variables as they
+    are declared in various scopes and .c files (the same type name may legally
+    be used in different files/scopes to refer to different typedefs/structs.
+    Correct ordering of type declarations is also difficult).  Since the
+    UPCR_TLD_ADDR macro returns a void * (and the compiler will always know what
+    type to cast it to), this is not a problem.  Alignment issues can be solved
+    by sorting the definitions in the global tld file by size, and/or by padding
+    the sizes of variables passed to UPCR_TLD_DEFINE{_TENTATIVE}.
+
+<li><h4>upcr_global_tld.c creates initialization function from UPCR_TLD_DEFINE
+    macros</h4>
+
+    The upcr_global_tld.c file uses the UPCR_TLD_DEFINE macros to provide an
+    initialization function for the global struct:
+
+<pre>
+    #include &lt;string.h&gt;
+    #include "upcr_global_tld.h"
+
+    #undef UPCR_TLD_DEFINE
+    #define UPCR_TLD_DEFINE(name, size) extern int name;
+    #include "upcr_global_tld.tld"
+
+    void upcri_startup_init_tld(struct upcr_tld *tld)
+    {
+    #undef UPCR_TLD_DEFINE
+    #define UPCR_TLD_DEFINE(name, size) memcpy(&amp;tld-&gt;name, &amp;name, size);
+    #include "upcr_global_tld.tld"
+    }
+</pre>
+
+    The function uses the values of the global variables left in the .c files as
+    the source for initial values.  Any initializations for which this simple
+    memcpy is not sufficient must be handled in the special per-file
+    initialization functions.
+    
+<li><h4>UPC linker script sets up and performs "hidden make" to build
+    executable</h4>
+
+    The UPC compiler and linker will present the familiar "compile .c files into
+    .o objects, then link the .o files with a linker" interface to users.
+
+    <p>When the 'tld section' approach is used (or the UPC executable will run
+    as a single-threaded process), the UPC compiler will also invoke the backend
+    C compiler on its output .c files, the resulting .o files seen by the user
+    will be regular C object files, and the UPC linker wrapper will simply send
+    them directly to the regular C linker.  When the 'global struct' approach is
+    in use, however, UPC .o files will actually be copies of the .c files output
+    by the UPC compiler: all compilation by the back-end C compiler will be done
+    at link time, since this is the only time that enough information is
+    available to know the full layout of the global thread-local data structure.
+
+    <p>The fact that all C compilation occurs at link time in the global struct
+    approach does not mean, however, that every intermediate .c file in a UPC
+    application needs to be recompiled every time the application is linked.
+    The fact that users typically link an application with the same set of files
+    repeatedly can be exploited by the UPC linker to avoid needless
+    recompilations.  Under this scheme, UPC .o files will only be recompiled
+    when the .o file itself has been changed (presumably because the user has
+    modified and recompiled its parent .upc file), or when the size or layout of
+    the global tld struct has changed (in which case all the UPC .o files in the
+    application will need to be recompiled).
+
+    <p>This optimization is performed via the following steps: 
+    
+    <ol type="I">
+
+    <li>When the UPC linker is invoked, it examines the list of files it was
+    given, and looks in a "hidden" build directory (perhaps 'upc-build') for a
+    Makefile that corresponds to this list of files (note: the linker is able to
+    tell between UPC .o files--which contain C source code--and regular C .o
+    files that have been created by another compiler.  Only UPC .o files count
+    for purposes of determining if the file list is 'different').  
+    
+    <p><li>If a Makefile setup for this exact list already exists, the script
+    jumps to the final 'make' step below.  
+    
+    <p><li>If the Makefile exists but is for a different list of files, 'make
+    clean' is executed, and the Makefile recreated as if it did not exist (see
+    next step).
+    
+    <p><li>If the Makefile does not exist, the script will first ensure that the
+    hidden build directory exists (creating it if necessary), and that two
+    files, 'upcr_global_tld.h' and 'upcr_global_tld.c' are in it (they are
+    copied from the UPC compiler's installation directory if needed).  A
+    Makefile with the following characteristics is then built and placed in the
+    build directory:
+
+    <p><ul>
+
+    <li>The Makefile will construct a list of '.upo' files corresponding to the
+    the UPC .o files passed to the linker. The target application will depend on
+    OBJS, which will consist of these .upo files, plus upcr_global_tld.o (any
+    regular C .o files or libraries the user passed along to the linker script
+    will become EXTRA_OBJS, which are not involved in any dependencies, but
+    which will be linked into the executable).  The rule for making .upo files
+    will first transform a .o file into a .c file (so the C compiler will
+    recognize it), then compile it regularly into the .upo file.
+
+    <li>Each .upo file in OBJS will depend on both its .o file, and on
+    "upcr_global_tld.h".
+
+    <li>A list of .tld files will be created from the UPC .o files passed to the
+    linker, and upcr_global_tld.h will depend on these.  The rule for building
+    upcr_global_tld.h will run a script that coalesces all the various .tld
+    files into a single upcr_global_tld.tld file (and updates upcr_global_tld.h
+    with a simple 'touch').  Sorting of entries in the global_tld file is not
+    required (note: one might want to base the ordering on program profile data
+    for optimal cache performance), but only one copy of any duplicate entries
+    (which can result from the same tentative definition appearing in different
+    .upc files) may be kept. 
+
+    </ul>
+
+
+    <p><li>"make" will be invoked, and the program will be linked and built.
+    The Makefile's dependency structure will allow future relinking of the same
+    set of UPC files to often proceed without requiring recompilation of all the
+    .c files--if a single UPC file is changed and recompiled, the other .c files
+    in the directory will only be recompiled if the user changed the names or
+    sizes of any thread-specific data in the UPC file (i.e. if they changed the
+    names or sizes of any unshared global/static variables).  This should allow
+    for a much faster compile/run/modify debug cycle in most cases.
+
+
+    </ol>
+
+    <p><b>Note:</b> The 'hidden' build directory and all the files it in will
+    not be deleted after the link is complete.  Thus, users will need to
+    explicitly delete the 'upc-build' directory in their 'make clean'
+    commands--it will never be deleted automatically for them.
+
+</ol>
+
+<p>&nbsp;<p>
+
+<h2>UPC Startup Framework and Per-file Allocation/Initialization Functions</h2>
+
+As this document has shown, the UPC compiler needs to generate a fair amount of
+allocation and initialization code that is run at startup.   The content of this
+startup code depends on the user's UPC code, and so it cannot all be boilerplate
+library code.  Also, since separate compilation is used, the logic cannot even
+be centralized into a single function in the final executable--instead each file
+must contain the startup logic that is needed to support the code in that file. 
+
+<p>The question then becomes how to arrange to call all of these functions at
+startup, how to name them in such a way that they do not collide in the symbol
+namespace, and how to determine the order in which they are called.
+The Berkeley UPC compiler takes the following approach to these issues:
+
+<ul>
+
+    <li>Each .c file output by the UPC compiler must contain an allocation and
+    an initialization function.  The allocation function must be given a name
+    that starts with a well-known prefix (ex: "UPCRI_ALLOC_"), as must the
+    initialization function (ex: "UPCRI_INIT_").  Furthermore, the names must be
+    extremely unlikely to collide with those in other files from the
+    application.  Merely tacking on the file name is not sufficient, for
+    instance, since this may not work for applications that store their files in
+    multiple directories.  Using the full pathname of a file is also not
+    desirable, since there may be limits on the length of a valid symbol name
+    [<i>TBD: what are typical limits for various object formats?</i>].  A
+    hashing scheme that compresses the full pathname should work satisfactorily.
+
+    <p><li>The UPCRI_ALLOC_ functions must allocate the shared memory for the
+    user's static shared application data, and assign it to the proxy pointer
+    for each variable.  They should contain no code besides calls to
+    upcr_startup_shalloc and upcr_startup_pshalloc, which allocate data pointed
+    to by upcr_shared_ptr_t's and upcr_pshared_ptr_t's, respectively.
+
+    <p>The UPCR_INIT_ functions must perform all needed initializations of both
+    shared and thread-local variables.  The specifics of how this is done have
+    already been described above in the relevant sections on shared and
+    thread-local data initialization.  The order in which TLD/shared
+    initializations are performed within the functions should not be important.
+
+    <p><li>Before passing the final set of .o files for a UPC application to
+    the standard C linker, the UPC linker script will perform the equivalent of
+
+<pre>
+    nm *.o | grep UPCRI_ALLOC
+    nm *.o | grep UPCRI_INIT
+</pre>
+
+    These commands will provide lists of all the allocation/initialization
+    functions in the UPC program.  The UPC linker script will use these lists to
+    generate a small .c file with two functions, one called
+    upcri_linkergenerated_alloc() that calls all of the allocation functions,
+    and one called upcri_linkergenerated_init() that calls all of the
+    initialization functions.  The order in which particular
+    allocation/initialization functions are called by these functions is not
+    specified, except that is is guaranteed that the same ordering will be used
+    for all threads/nodes.  The .c file is then compiled and the resulting .o
+    file linked with the rest of the user's objects into the final UPC
+    executable.  [Note: if the names for functions are constructed in a
+    deterministic manner--such as via the hash of the file's full pathname
+    mentioned above--it may be possible to only need to compile this small .c
+    file when the list of files being compiled changes, rather than each time
+    the application is linked.  But this would presumably not save a great deal
+    of time, and may not be worth the complexity].
+
+    <p><li>At startup, the UPC runtime first initializes GASNet and the memory
+    allocators for the shared memory heaps.  It then creates any additional
+    pthreads needed per process (a copy of the TLD section/struct is made for
+    each thread, and if the global_struct approach is in use,
+    upcri_startup_init_tld() is called to initialize each struct before it is
+    given to its thread).  Each thread then runs the allocation and
+    initialization logic.  First upcri_linkergenerated_alloc() is called.  When
+    all of the per-file allocation functions have been run, the function
+    returns, and a barrier across all nodes/threads is performed, to guarantee
+    that all allocations are completed before any initialization logic is run.
+    Then upcri_linkergenerated_init() is called by each thread.  Finally, another
+    barrier is performed, to ensure that all initializations are complete.
+    Startup is now complete, and the user's application logic is ready to run.
+
+</ul>
+
+
+
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

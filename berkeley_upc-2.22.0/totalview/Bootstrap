@@ -1,0 +1,94 @@
+#!/bin/sh
+
+########################################################################
+# bootstrap script for Totalview/UPC autoconf/automake framework
+
+# Assumes you wish to store autoconf temp files in a 'config-aux'
+# subdirectory:  make sure you add 
+#
+#   AC_CONFIG_AUX_DIR(config-aux)
+#
+# to your configure.in files (or nothing works), and 
+#
+#   EXTRA_DIST      = $(top_builddir)/config-aux
+#
+# to your Makefile.am (or 'make dist' won't work).
+#
+########################################################################
+
+#autoheaderfilter="2>&1 | perl -0 -pe 's/^(autoheader.*?: )?WARN.+auxiliary files(.|\n)+WARN.+documentation.\n//m'"
+libtoolfilter="perl -0 -pe 's/^libtoolize:.*?--force.*?\n//mg ; s/^You should update your .aclocal.m4.*\n//g'"
+srcdir=`dirname $0`
+
+
+for arg in "$@"; do
+  case "$arg" in
+    -h) echo "Usage: $0 [options]"
+        echo " -v  verbose mode: don't filter benign warnings from autotool output"
+        echo " -t  time autotool commands"
+        echo " -T  touch Bootstrap-generated files to make them appear up-to-date"
+	exit 1
+        ;;
+    -v) libtoolfilter=cat ;;
+    -T) DOTOUCH=1 ;;
+    -t) TIME='/usr/bin/time'
+        if test ! -x "$TIME" ; then
+          TIME=
+        fi
+        ;;
+    *) ;; # ignore unrecognized args
+  esac
+done
+DOIT='echo "+ $CMD | \$libtoolfilter" ; ( eval $TIME $CMD 2>&1 || kill $$ ) | eval $libtoolfilter'
+
+if [ "$DOTOUCH" = 1 ]; then
+    if [   -r $srcdir/Makefile.in \
+        -a -r $srcdir/aclocal.m4 \
+        -a -r $srcdir/configure \
+    ]; then
+        echo "Touching Bootstrap-generated files in $srcdir to make them appear up-to-date"
+        cd $srcdir
+        touch aclocal.m4
+        sleep 2
+        touch configure
+        sleep 2
+        perl -ane 'utime undef, undef, (grep {m/\bMakefile\.in$/ && -f $_} @F);' -- unBootstrap
+        exit 0;
+    else
+        echo "Can't touch generated files because this tree does not appear to be Bootstrapped"
+        exit 1;
+    fi
+fi
+
+set -e
+set -x 
+
+./unBootstrap
+aclocal -I config-aux -I .. -I ../gasnet
+set +x
+CMD="libtoolize -c"; eval $DOIT 
+set -x
+aclocal -I config-aux -I .. -I ../gasnet   # run it again, as libtool whines that we ought to
+
+# Don't appear to need autoheader, at least for now
+#set +x
+#    echo '+ autoheader $autoheaderfilter'
+#    eval autoheader $autoheaderfilter
+#set -x
+autoconf
+
+# Our configure script requires caching, and autoconf 2.5 stupidly disables
+# caching by default. Caching may open some dangers of stale values, but
+# the alternative is worse - automake reconfiguring in the absence of
+# precious environment variables leads to silent incorrect behavior that
+# can't be detected or fixed because there's no cache!
+# Restore ./config.cache as the default cache
+mv configure .configure-orig
+sed 's/^cache_file=\/dev\/null$/cache_file=.\/config.cache/' .configure-orig > configure
+chmod +x configure
+rm -f .configure-orig
+
+# do NOT use automake -i: the meaning of that automake option recently changed 
+automake -a
+rm -Rf autom4te*.cache
+

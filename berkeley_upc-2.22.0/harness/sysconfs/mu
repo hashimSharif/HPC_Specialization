@@ -1,0 +1,28 @@
+network = elan
+batch_sys = slurm
+submit_cmd = 'srun --batch'
+
+queues = [
+        {
+          Q_name     => pca,
+          Q_maxnode  => 8,
+          Q_minnode  => 1,
+	  Q_maxtpn   => 1,
+	  Q_maxtime  => 04:00:00,
+          Q_sbatch   => SLURM,
+          Q_tpnopt   => N/A
+        }
+]
+
+nthread_default = 4
+max_proc_per_node = 1
+
+# We need to "srun" for SLURM, plus libelan work-arounds and segment limit
+run_env_default = { MPIRUN_CMD => 'srun -q -n %N -N %N -- %C',
+                    UPC_ELAN_SPAWNCMD => 'srun -q %V -n %N -- %C',
+                    UPC_ELAN_SPAWN_NODESCMD => 'srun -q %V -N %M -n %N -- %C',
+                    LIBELAN_TOUCHBUF => 1, LIBELAN_GROUP_SANDF => 0,
+                    GASNET_MAX_SEGSIZE => '512M' }
+
+# automounter sometimes needs help
+startjob_cmd = [ 'ls $HOME' ]

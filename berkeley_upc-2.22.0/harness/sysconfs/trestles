@@ -1,0 +1,36 @@
+network = ibv
+batch_sys = pbs
+queues = [
+        {
+          Q_name     => normal,
+          Q_maxnode  => 8,
+          Q_minnode  => 1,
+          Q_maxtpn   => 32,
+          Q_maxtime  => 04:00:00 
+        },
+        {
+          Q_name     => normal,
+          Q_maxnode  => 32,
+          Q_minnode  => 9,
+          Q_maxtpn   => 32,
+          Q_maxtime  => 02:00:00 
+        }
+]
+
+# Default to 2-nodes X 2-procs X 2-pthreads
+nthread_default = 8
+max_proc_per_node = 2
+num_pthreads = 2
+
+run_env_default = {
+	GASNET_PHYSMEM_MAX => '48G',
+	GASNET_PHYSMEM_NOPROBE => 1,
+	MPIRUN_CMD => 'mpirun_rsh -np %N -hostfile %H %P %A',
+	MV2_ENABLE_AFFINITY => 0
+}
+
+# Need -V according to web docs (but not confirmed)
+submit_cmd = 'qsub -V'
+
+# Not yet known if job-chaining is pemitted
+resubmit_cmd = false

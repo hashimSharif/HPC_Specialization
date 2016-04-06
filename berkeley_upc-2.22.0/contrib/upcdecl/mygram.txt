@@ -1,0 +1,140 @@
+  character   is a synonym for   char
+   constant   is a synonym for   const
+enumeration   is a synonym for   enum
+       func   is a synonym for   function
+    integer   is a synonym for   int
+        ptr   is a synonym for   pointer
+        ret   is a synonym for   returning
+  structure   is a synonym for   struct
+      indef   is a synonym for   indefinite
+    noalias   is a synonym for   restrict
+
+# program:
+#   NOTHING
+# | declare <declare>
+# | cast <docast>
+# | explain <explain>
+# | set <set>
+# | help <help> | '?' <help>
+# | quit | exit
+
+# explain:
+#   ( <explaincast>
+# | <explaincdecl>
+
+# explaindecl:
+#   <storage>? <ptrmodlist>? <type>? <cdecl> <ptrmodlist>?
+
+# explaincast:
+#   <ptrmodlist>? <type> <cast> ) NAME?
+
+# docast:
+#   NAME into <adecl>
+# | <adecl>
+
+# declare:
+#   NAME as <storage>? <adecl>
+# | <storage>? <adecl>
+
+# adecl:
+#   function ( <adecllist> returning <adecl>
+# | function returning <adecl>
+# | <ptrmodlist>? pointer to <adecl>
+# | <ptrmodlist>? array NUMBER? of <adecl>
+# | <ptrmodlist>? <type>
+
+# ptrmodlist:
+#   <ptrmod> <ptrmodlist>?
+
+# ptrmod:
+#   const
+# | volatile
+# | noalias
+# | restrict
+# | relaxed
+# | strict
+# | <shared>
+
+# shared:
+#   shared
+# The following are valid only in C mode:
+# | shared []
+# | shared [*]
+# | shared [NUMBER]
+# Otherwise (english mode):
+# | local
+# | shared '('? blocksize? NUMBER ')'?
+# | shared '('? blocksize? indefinite ')'?
+# | shared '('? blocksize? automatic ')'?
+# | shared '('? blocksize? cyclic ')'?
+
+# cdecl:
+#   <cdecl1>
+# | * <ptrmodlist>? <cdecl>
+
+# cdecl1:
+#   ( <cdecl> ) <cdeclpost>*
+# | NAME <cdeclpost>*
+
+# cdeclpost:
+#   ( )
+# | ( <castlist>
+# | [ ]
+# | [ NUMBER ]
+
+# cast:
+#   <casthead>? <castpost>*
+
+# casthead:
+#   ( <castlist>
+# | ( <cast>? )
+# | ( <cast> ) ( <castlist>?
+# | * <cast>?
+
+# castpost:
+#   [ ]
+# | [ NUMBER ]
+
+# type:
+#   <typename>
+# | <modlist> <typename>?
+# | struct NAME
+# | union NAME
+# | enum NAME
+
+# castlist:
+#   <castlistitem> (, <castlistitem>)*
+# | )
+
+# castlistitem:
+#   NAME
+# | <ptrmodlist>? <type> <cast>
+
+# adecllist:
+#   <adecllistitem> (, <adecllistitem>)*
+# | )
+
+# adecllistitem:
+#   NAME
+# | NAME as <adecl>
+# | <adecl>
+
+# typename:
+#   int | char | double | float | void
+
+# modlist:
+#   <modifier>
+# | <modlist> <modifier>
+
+# modifier:
+#   short
+# | long
+# | unsigned
+# | signed
+# | <ptrmod>
+
+# storage:
+#   auto
+# | extern
+# | register
+# | static

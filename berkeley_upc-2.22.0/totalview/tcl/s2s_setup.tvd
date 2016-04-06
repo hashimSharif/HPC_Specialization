@@ -1,0 +1,67 @@
+set TV::S2S::debug 0
+
+proc check_relative_file {image_id file trans_path} {
+   # don't give up so quick...could be a relative path.
+   #
+   set splitpath [split $file "/"]
+   set splittranspath [split $trans_path "/"]
+
+   foreach elem $splitpath {
+     lappend splittranspath $elem
+   }
+
+   set newpath [join $splittranspath /]
+   set newpath [file normalize $newpath]
+
+   set file [TV::scope lookup $image_id by_properties kind file full_pathname $newpath$]
+   return $file
+}
+
+set image_id $s2s_image_id
+set image_name [TV::symbol get $image_id base_name]
+
+set split_tran_file [split $bupc_trans_file "/"]
+set base_tran_file  [lindex $split_tran_file end]
+set tran_file [TV::scope lookup $image_id by_properties kind file full_pathname "$base_tran_file$"]
+
+if {$tran_file == {}} {
+   puts "Can't find transformation file symbol"
+   return 0
+}
+
+# Won't need this once we get the full path of 
+# the .trans file.
+#
+set transpath [TV::symbol get [lindex $tran_file 0] directory_hint]
+
+# this is all very confusing but it is caused by the fact that 
+# the upc translator invokes the compiler from the /tmp directory.
+# thus the directory hint becomes the compilation directory in the dwarf
+# and the symbol actually has the path as relative to this /tmp.  So 
+# that's how we have to look it up.  So we take the directory_hint from the
+# translated file and append it to the relative path.
+#
+set file [TV::scope lookup $image_id by_properties kind file full_pathname $bupc_file$]
+
+if {$file == {}} {
+   set file [check_relative_file $image_id $bupc_file $transpath]
+
+   # If that didn't work...just try the base name.
+   if {$file == {}} {
+       set splitpath [split $bupc_file "/"]
+       set basename [lindex $splitpath [expr [llength $splitpath] - 1]]
+       set file [TV::scope lookup $image_id by_properties kind file base_name $basename$]
+   }
+
+   # if we still can't find it...give up
+   if {$file == {}} {
+     puts [format {%s %s} "Can't find file symbol" $bupc_file]
+     return 0
+   }
+}
+
+proc db_puts {text} {
+    if {$TV::S2S::debug} {
+      puts $text
+    }
+}

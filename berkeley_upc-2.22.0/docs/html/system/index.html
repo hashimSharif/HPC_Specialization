@@ -1,0 +1,182 @@
+<html>
+<head>
+<!--#set var="VERSION" value="2.22.0" -->
+  <title>Berkeley UPC System Internals Documentation, v2.22.0</title>
+</head>
+<body bgcolor="#ffffff">
+
+<!--#include virtual="/header.html" -->
+
+<table border=0 cellpadding=0 cellspacing=0 width=100%><tr><td>
+<h1>Berkeley UPC System Internals Documentation <small>version 2.22.0</small></h1>
+</td><td align=right>
+<!-- SiteSearch Google -->
+<FORM method=GET action="http://www.google.com/search">
+<input type=hidden name=ie value=UTF-8>
+<input type=hidden name=oe value=UTF-8>
+<TABLE bgcolor="#FFFFFF" border=0 cellpadding=0 cellspacing=0><tr><td>
+<!---
+<A HREF="http://www.google.com/">
+<IMG SRC="http://www.google.com/logos/Logo_40wht.gif" border="0" ALT="Google"></A>
+-->
+</td> <td>
+<INPUT TYPE=text name=q size=31 maxlength=255 value="">
+<INPUT type=submit name=btnG VALUE="Google Search">
+<input type=hidden name=domains value="http://upc.lbl.gov"><br>
+<table border=0 cellpadding=0 cellspacing=0><tr><td valign=top>
+<font size=-1>                                                                                      
+<input type=radio name=sitesearch value="http://upc.lbl.gov/docs" checked> Berkeley UPC Documentation <br>
+<input type=radio name=sitesearch value="http://upc.lbl.gov/"> Berkeley UPC Site-wide <br>
+</font>
+</td><td valign=top>
+<font size=-1>
+<input type=radio name=sitesearch value=""> Entire Web
+</font>
+</td></tr></TABLE>
+</td></tr>
+<tr><td></td><td>
+<!--#include virtual="../../doc-versions.shtml"-->
+</td></tr>
+</table>
+</FORM>
+<!-- SiteSearch Google -->
+</td></tr>
+</table>
+<h2>High-level System Design </h2>
+<p>The Berkeley UPC compiler project is seeking to
+develop a fully-portable, high-performance UPC compiler that will run on a wide
+variety of shared-memory and distributed-memory platforms using different
+network interconnects, including large-scale multiprocessors, PC clusters, and
+clusters of shared memory multiprocessors. One of the main goals of the project
+is to experiment with parallel compiler optimization techniques, without being
+tied to a particular system architecture or network. Portability is achieved by
+translating UPC programs to an intermediate representation in C, which can then
+be compiled using the system's ANSI C compiler and linked to a standardized
+runtime system and communication system tailored to the specific platform.
+<table border="0" width="100%">
+  <tr>
+    <td width="374">
+      <p align="center"><img border="0" src="diagram.gif" width="368" height="188"><br>
+      <b>High-level system diagram</b></td>
+    <td width="*">The figure shows the
+      high-level system diagram for a UPC application compiled using the Berkeley
+      UPC compiler. The generated C code runs on top of the UPC runtime system,
+      which provides platform independence and implements language-specific
+      features such as shared memory allocation and shared pointer manipulation.
+      The runtime system implements remote operations by calling the GASNet
+      communication interface, which provides hardware-independent lightweight
+      networking primitives.&nbsp;</td>
+  </tr>
+</table>
+<hr>
+<h2>The Berkeley UPC-to-C Translator</h2>
+<p>The Berkeley UPC-to-C translator performs source to source translation from 
+UPC code to ANSI-compliant C code, with shared memory operations transformed 
+into calls to the Berkeley UPC runtime.&nbsp; The translator is based on the
+<a href="http://open64.sourceforge.net">Open64</a> compiler suite; please refer 
+to their <a href="http://open64.sourceforge.net/documentation.html">
+documentation</a> page for information about the design and specific features of 
+that compiler.&nbsp; Numerous modifications have been added to the translator to 
+support UPC features, and the translator's C front end has also been extended to 
+support both 32- and 64-bit platforms.&nbsp; A detailed description of our modifications
+can be found <a href="http://upc.lbl.gov/publications/open64-talk.ppt">here</a>.</p>
+<table border="0" width="100%" >
+  <tr>
+    <td width="*" >The figure gives a high-level overview of the 
+    translation process.&nbsp; Upon receiving a preprocessed UPC program, the 
+    translator invokes the UPC front end, whose function is to parse, 
+    type-check, and generate the Whirl intermediate format for the program.&nbsp; 
+    UPC-specific information such as shared types and block sizes of distributed 
+    arrays are kept in the symbol table, so the translator could take advantage 
+    of such information during optimizations.&nbsp; The back end operates on the 
+    Whirl intermediate language and lowers shared memory operations into 
+    equivalent runtime library calls.&nbsp; The Berkeley UPC runtime provides a 
+    wide of variety of shared memory accesses from non-blocking to bulk, so that 
+    the translator could experiment with different strategies for communication 
+    optimizations such as message pipelining and prefetching.&nbsp; Finally the 
+    whirl2c component translates Whirl into ANSI-compliant C code, with shared 
+    variables declared as the opaque pointer-to-shared construct.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+    <td width="404" >
+    <img border="0" src="translator.gif" width="404" height="303"></td>
+  </tr>
+</table>
+<hr>
+<h2>The Berkeley UPC Runtime</h2>
+<p>The Berkeley UPC runtime specification documents the platform-independent interface
+between compiler-generated C code and the UPC runtime system. It provides
+platform-independent job/thread control, shared memory access (put/get
+operations and bulk transfer operations), shared pointer manipulation and
+arithmetic, shared memory management, UPC barriers and UPC locks. The shared
+memory operations provide very flexible non-blocking shared memory access with a
+wide range of synchronization alternatives. </p>
+<p> In addition to providing platform independence, the Berkeley Runtime interface 
+provides a cleanly-documented, compiler-independent "UPC abstract machine" 
+that can be used as a compilation target by other front-end UPC compilers.</p>
+
+<h3 align="center">The UPC Runtime Specification: <br>
+&nbsp;&nbsp;&nbsp; <a href="upcr.ps">Postscript</a>
+&nbsp;&nbsp;&nbsp; <a href="upcr.pdf">Acrobat PDF</a>
+&nbsp;&nbsp;&nbsp; <a href="upcr.txt">Text</a>
+</h3>
+<h3 align="center">UPC Runtime Implementation Notes:<br>
+    <a href="runtime_notes/memory_mgmt.html">Memory Management in the UPC Runtime</a><br>
+    <a href="runtime_notes/static_data.html">Handling Static Data in the UPC Runtime</a>
+</h3>
+
+
+<hr>
+<h2>The GASNet Networking Layer </h2>
+<p><a href="http://gasnet.lbl.gov/">GASNet</a> is a language-independent, low-level networking layer that provides
+network-independent high-performance communication primitives tailored for
+implementing parallel global address space SPMD languages such as <b><a href="http://upc.gwu.edu">UPC</a></b>
+and <a href="http://titanium.cs.berkeley.edu"><b>Titanium</b></a>. </p>
+<table border="0" width="100%" >
+  <tr>
+    <td width="*" >The design of GASNet is partitioned into two layers
+      to maximize porting ease without sacrificing performance: the lower level
+      is a narrow but very general interface called the GASNet core API - the
+      design is based heavily on Active Messages, and is implemented directly on
+      top of each individual network architecture. The upper level is a wider
+      and more expressive interface called the GASNet extended API, which
+      provides high-level operations such as remote memory access and various
+      collective operations.&nbsp;</td>
+    <td width="221">
+      <p align="center"><img border="0" src="diagram2.gif" width="204" height="190"><br>
+      <b>System diagram showing GASNet layers</b></p>
+    </td>
+  </tr>
+</table>
+<p>We've written a network-independent reference
+implementation of the extended API purely in terms of the core API, which allows
+GASNet (and the GAS compiler) to quickly and easily be ported to a new network
+architecture by re-implementing only the minimal core API. GASNet is structured
+such that implementers can choose to additionally bypass certain functions in
+the reference implementation of the extended API and implement them directly on
+the hardware to improve performance of specific operations when hardware support
+is available (e.g. special network support for puts/gets or hardware-assisted
+broadcast). </p>
+<center>
+<big><b>
+The GASNet Specification: <br>
+&nbsp;&nbsp;&nbsp; <a href="gasnet.pdf">Acrobat PDF</a>
+&nbsp;&nbsp;&nbsp; <a href="gasnet.ps">Postscript</a>
+&nbsp;&nbsp;&nbsp;&nbsp; <a href="gasnet.html">HTML</a>
+&nbsp;&nbsp;&nbsp;&nbsp; <a href="gasnet.txt">Text</a>
+<br>
+</b></big>
+<i>For the most up-to-date version of the spec, see the </i><a href="http://gasnet.lbl.gov/">GASNet web page</a>.<br>
+For citations, please use:
+U.C. Berkeley Tech Report <a href="http://sunsite.berkeley.edu/TechRepPages/CSD-02-1207">CSD-02-1207</a>, November 2002. (spec v1.1)<br>
+</center>
+<!--
+<center><a href="http://sunsite.berkeley.edu/TechRepPages/CSD-02-1207">
+U.C. Berkeley Tech Report (UCB/CSD-02-1207), spec v1.1</a></center>
+-->
+
+
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

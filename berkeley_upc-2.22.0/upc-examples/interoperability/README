@@ -1,0 +1,14 @@
+The tests in this tree demonstrate how Berkeley UPC can interoperate with C++
+and/or MPI, allowing programs to be partly written in UPC and partly in C++/MPI.
+
+The 'C++-to-UPC' and 'MPI-to-UPC' directories contains programs that are
+'mainly' C++ and MPI, respectively (i.e., 'main' is defined within the C++ or
+MPI file, not in the UPC code).  These non-UPC main functions bootstrap the UPC
+runtime, and can then freely call UPC routines.
+
+The 'UPC-to-C++' and 'UPC-to-MPI' directories show the opposite--programs in
+which main() is a UPC routine, that then calls into C++ or MPI functions.
+
+Although it is not demonstrated here, both C++ and MPI can be mixed with UPC at
+the same time (and FORTRAN, too!).  See the UPC User's Manual for details.
+

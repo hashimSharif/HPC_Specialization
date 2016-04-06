@@ -1,0 +1,192 @@
+<html>
+<head>
+    <title>Using Berkeley UPC with TotalView</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<!--#include virtual="/header.html" -->
+
+<h2>Using Berkeley UPC with TotalView</h2>
+
+As of version 2.2, Berkeley UPC programs can be debugged by the "TotalView"
+debugger produced by <a href="http://www.roguewave.com/">Rogue Wave Software</a>.  Support for
+UPC-level source examination, stepping through UPC code, and examination of
+shared variable's values are all supported.
+
+<blockquote>
+    <I>If you do not have TotalView, you can also use a regular C
+        debugger and get partial debugging support.  See 
+        <a href="upc-debugging.html">Attaching a regular C debugger to
+        Berkeley UPC programs</a> for details.</i>
+</blockquote>
+
+<h3>Requirements for debugging Berkeley UPC with TotalView</h3>
+
+<ul>
+
+    <li><a href="http://www.roguewave.com/products/totalview-family/totalview.aspx">TotalView</a> version 7.0.1 or
+    greater.
+
+    <p><li>Support is currently only provided for Berkeley UPC installations
+    running on x86 architectures, using either <a
+        href="http://www-unix.mcs.anl.gov/mpi/mpich/">MPICH</a> MPI or
+    Quadrics "elan" for the network.
+    (Other MPI implementations may work if they have integrated TotalView
+    support into their 'mpirun' command, but this has not been as well tested).
+
+    <p><li>The back-end C compiler used by Berkeley UPC must be <a
+        href="http://www.gnu.org/software/gcc">GNU GCC</a> (other
+    C compilers may work, but have not been tested).
+
+    <p><li>You must enable TotalView support when building the Berkeley runtime
+    layer.  To enable TotalView support, include this option in your invocation
+    of the Berkeley UPC runtime configure to activate the TotalView conf:
+   <pre> 
+         --with-multiconf=+dbg_tv
+   </pre>
+    (if your configure line already includes a --with-multiconf clause, then
+    append ",+dbg_tv" to the existing value).
+
+
+</ul>
+
+<h3>Compiling programs for TotalView</h3>
+
+You must compile with the '<tt>-tv</tt>' flag if you will be debugging your UPC
+program with TotalView:
+
+<pre>
+     upcc -tv foo.upc
+</pre>
+
+The '<tt>-tv</tt>' flag implicitly turns on '<tt>-g</tt>', and also ensures that
+the executable is instrumented for TotalView support.
+
+<p>TotalView does not currently support pthreaded Berkeley UPC executables: you
+cannot compile with both '<tt>-tv</tt>' and '<tt>-pthreads</tt>'.
+
+
+<h3>Running Berkeley UPC programs under TotalView</h3>
+
+<p>Unfortunately, '<tt>upcrun</tt>' and TotalView do not yet work together.  You
+must instead use the underlying network spawner for your network type:
+
+<ul>
+
+    <li>For MPI programs (compiled with <a
+    href="http://www-unix.mcs.anl.gov/mpi/mpich/">MPICH</a>: other MPI
+implementations may also work, so long as they have integrated TotalView
+support):
+
+<pre>
+    mpirun -tv -np COUNT a.out
+</pre>
+
+where <tt>COUNT</tt> is the number of UPC threads (and thus MPI processes) to
+launch.
+
+<p><li>If you are using the Quadrics 'elan' network layer, use 
+
+<pre>
+     totalview prun -a -N COUNT a.out
+</pre>
+
+where <tt>COUNT</tt> is the number of UPC threads to launch.  It is also possible
+to use the '<tt>-n</tt>' flag to <tt>prun</tt>, in addition to or instead of -N:
+see the 'prun' man page for how these flags control job layout.
+
+</ul>
+
+Depending on your TotalView installation, you may need to have certain
+environment variables and/or other settings (such as the TotalView license
+manager) working correctly.  In general, whatever settings you would need to use
+TotalView with MPI programs will also be needed for debugging UPC programs.  On
+the author's system, for instance, the TVDSVRLAUNCHCMD environment variable must
+be set to "ssh".  Consult your system administrator and/or your TotalView
+documentation for details.
+
+<h3>Setting up TotalView for Berkeley UPC</h3>
+
+When you launch a debugging session using one of the above commands, TotalView
+will open one or more windows.  In the main, "root" window, select <b>File >
+    Preferences</b>, and go to the <b>Action Points</b> tab.  Change each of the
+<b>When ... , stop</b> entries to stop the "<b>Thread</b>" rather than the
+"Process". (This picture shows the default settings where all are set to
+"Process".)
+
+<p><center><img src="ActionPoints.png"></center>
+
+<p>Close the Preferences Window by hitting the OK button.
+
+You'll only need to do this the first time you use TotalView as they'll be saved
+in your TotalView preferences file.
+
+<h3>Setting breakpoints and running your program</h3>
+
+For MPI programs, you will see your UPC program's code displayed in the main
+TotalView window.  You may set any breakpoints as you wish in the usual fashion
+(for instance by left-clicking on the line number), and then hit "Go" to start
+the program.  If you see a dialog asking you if you want to "Stop the parallel
+job now?", you may select "no", and your program should run until it hits your
+first breakpoint.
+
+<p>For elan programs, the code for the '<tt>prun</tt>' command itself will be
+shown initially, rather than your UPC code.  Hit "Go" to launch '<tt>prun</tt>',
+then attach to the parallel job, and you should see your UPC code, at which time
+you can select breakpoints and run your UPC code.
+
+<h3>TotalView's support for UPC constructs</h3>
+
+TotalView supports a number of UPC constructs.  For instance, it knows which
+functions in the stack trace are UPC, and which are part of Berkeley UPC's
+runtime infrastructure.  For example, in the picture below, the "Stack Trace" in
+the upper left shows that '<tt>print_shared()</tt>' and '<tt>user_main()</tt>'
+are UPC code, while the functions marked with 'C' are from the Berkeley runtime
+initialization logic.
+
+<p><i>Note:  Berkeley UPC renames the '<tt>main()</tt>' function in UPC code to
+    '<tt>user_main()</tt>'.  Other function and variable names in your program
+    will keep their exact name within TotalView.</i>
+
+<p><center><img src="ProcessWindow.png"></center>
+
+<p>TotalView also has support for understanding 'shared' variables.  If you
+click on (or otherwise "dive" into) a shared variable in your UPC program, you
+will see that TotalView correctly displays it.  Arrays' values are shown, and
+pointers to shared data show all the logical components of the pointer-to-shared
+(address, UPC thread, and phase), as well as the value of the data pointed to.
+Here, for instance, is the display from clicking on  
+<nobr>'<tt>shared int bar[4*THREADS]</tt>'</nobr> (this is with THREADS=3, and
+array values set to bar[0]=0, bar[1]=1, etc.):
+
+<p><center><img src="array.png"></center>
+
+<p>Note how the correct type for the array is shown, as well as its address,
+values, and the affinity of each value (in the "Node" field).  (Note: to see the
+"Node" value, right-click within the header area (the area containing Field and
+Value in the previous figure) and select "<b>Node</b>"). 
+
+
+<p>You can switch which UPC thread is displayed in the main TotalView window by
+hitting the <b>P+</b> and <b>P-</b> buttons in the bottom right of the window.
+"Rank 0" will correspond to UPC thread 0, "Rank 1" to thread 1, etc.
+
+<p>Also, if you are examining a variable that potentially has different values
+on different UPC threads, you can see all its values by selecting 
+<b>View > Laminate > Process</b> from the menu:
+
+<p><center><img src="Variable_Laminated.png"></center>
+
+<h3>More information</h3>
+
+This tutorial has only covered UPC-related features in TotalView.  For more
+information, see your TotalView documentation.
+
+<p>&nbsp;<p>
+
+<!-- don't touch stuff below this line -->
+<hr>
+<!--#include virtual="/footer.html"-->
+</body>
+</html>

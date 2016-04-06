@@ -1,0 +1,52 @@
+# Configuration file for Berkeley UPC multiplexing compiler driver
+# This file is a variant for building only clang-upc support.
+# Please see multiconf.conf.in for the "full" version with documentation.
+
+# --- Global settings ---
+# Global configure options:
+CONFIGURE_OPTIONS= 
+
+# Forced options:
+FORCED_OPTIONS=
+
+# Global environment settings:
+# NONE
+
+# Enabled conf list: comma-separated list
+ENABLED_CONFS= dbg_cupc, opt_cupc
+
+# Change this line to the full path of your clang-upc execuable 
+# OR set the same-named environment variable at configure time.
+CUPC_TRANS=/usr/local/upc/bin/clang-upc
+
+# BLACKLISTED TOP-LEVEL CONFIGURE OPTIONS
+BLACKLISTED_ENABLE_OPTIONS=debug,totalview,trace,stats,inst
+BLACKLISTED_WITH_OPTIONS=gupc,cupc,clang-upc2c,translator
+
+# ALIASES ("ALIAS fake = real")
+# NONE
+
+# end of global section:
+;;;
+
+# --- Conf settings ---
+# Each configuration is specified in the following format:
+#
+#  conf-name ; conf-options ; upcc-select-expr ; upcc-arg-strip 
+#
+# See multiconf.conf.in for complete documentation
+
+# CUPC + UPCR mode with debugging, stats and tracing (selected with '-g')
+dbg_cupc ; --with-cupc="${CUPC_TRANS}" --disable-pthreads --enable-debug ; $opt{'g'} ; -cupc
+
+# CUPC + UPCR mode with optimization (default)
+opt_cupc ; --with-cupc="${CUPC_TRANS}" --disable-pthreads ; 1 ; -cupc
+
+# end of config section 
+# everything below the following line is upcc -help output for the above options
+;;;
+
+Multiconf options: 
+   -show-confs        Show the multiconf variations which are installed
+(availability of following options varies based on configure-time decisions)
+   -g                 Enable system-wide debugging symbols and assertions

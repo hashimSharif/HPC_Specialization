@@ -1,0 +1,31 @@
+# Sysconf for Pople, the Altix at PSC
+
+network = shmem
+
+batch_sys = pbs
+
+# Note: pople uses "ncpus", not "nodes", for allocation.
+# However "ncpus" must be a multiple of 4.
+queues = [
+        {
+          Q_name     => batch,   
+          Q_maxnode  => 8,      # match nthread_default for ppn=1 gasnet tests
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 4,      
+	  Q_maxtime  => 8:00:00,
+          Q_usencpus => 4
+        }
+]
+
+repository = NA
+
+nthread_default = 8
+
+max_proc_per_node = 4
+
+# Nothing else makes sense here 
+min_num_nodes = 1
+
+# Known to always return exitcode == 0
+#features = sgi_mpirun
+

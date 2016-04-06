@@ -1,0 +1,82 @@
+# ====================================================================
+# System configuration file the UPC test harness on Babbage.nersc.gov
+# ====================================================================
+
+# Specify the network [GASNet conduit] to be used
+
+network = ibv  ## can also use mpi if desired
+
+# Specify the type of batch system in use.
+
+batch_sys = slurm
+resubmit_cmd = sbatch
+
+# Specify a sequence of queues, in order of preference, that can
+# be used to run the jobs.  Each queue must define the following
+# fields:
+#      Q_name     -> name of the queue
+#      Q_maxnode  -> max number of nodes allowed by the queue
+#      Q_minnode  -> min number of nodes allowed by the queue
+#      Q_maxtpn   -> max number of tasks per node allowed by queue
+#      Q_maxtime  -> the maximum queue limit for the queue
+#                    in the form HHH:MM:SS, 00:00:00 for unlimited
+
+queues = [
+        {
+          Q_name     => regular,   
+          Q_maxnode  => 8,
+          Q_minnode  => 1,       
+          Q_maxtpn   => 120, # 60thr x 2-MIC
+          Q_maxtime  => 6:00:00
+        }
+]
+
+# =================================================================
+# Optional (but suggested) fields
+
+# Specify the accounting repository under which the jobs will be run
+# (not used on all systems)
+
+repository = NA
+
+# Specify the default number of UPC threads when running the tests.
+# This value will replace the %NTHREAD% string in the per-suite
+# harness configuration file (harness.conf).
+
+nthread_default = 8
+
+# No pthreads by default
+num_pthreads = 0
+
+# Specify the maximum number of processes per node to be used in this run
+
+max_proc_per_node = 60
+
+# Specify the minimum number of nodes to be used in a run.  This 
+# value will be violated if the total number of UPC threads is 
+# less than the specified value
+
+min_num_nodes = 1
+
+# Environment values passed to the run script and spawner
+# default values to use if not already set in harness environment
+run_env_default = {
+   I_MPI_PIN_DOMAIN => 'socket', ## allow pthreads to use the whole MIC 
+   GASNET_PHYSMEM_MAX => '1G',   ## good enough for the tests
+   GASNET_PHYSMEM_NOPROBE => 1,  ## saves some time
+   UPCRUN_FLAGS => '-c1',        ## place threads round-robin across MICs
+}
+
+# commands to begin the job
+startjob_cmd = [ # Eventually this should be automatic:
+    'get_micfile',
+    'GASNET_NODEFILE=`pwd`/micfile.$SLURM_JOB_ID',
+    'export GASNET_NODEFILE',
+]
+
+
+# NOTES:
+# Eventually GASNET_PHYSMEM_MAX and GASNET_NODEFILE should be handled
+# automatically, either within UPCR or in a site-specific spawner script
+# (which would just wrap the mpi spawner).  So, look to remove those
+# settings eventually.

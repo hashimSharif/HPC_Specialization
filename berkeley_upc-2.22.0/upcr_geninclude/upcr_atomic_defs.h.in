@@ -1,0 +1,56 @@
+@@
+@@ This file is the template to autogenerate the file upcr_atomic_defs.h
+@@
+/*   $Source: bitbucket.org:berkeleylab/upc-runtime.git/upcr_geninclude/upcr_atomic_defs.h.in $
+ * Description:
+ *  Berkeley UPC atomic extensions - external interface defines
+ *
+ * Copyright 2010,  E. O. Lawrence Berekely National Laboratory
+ */
+
+#ifndef UPCR_ATOMIC_DEFS_H
+#define UPCR_ATOMIC_DEFS_H
+
+/*---------------------------------------------------------------------------------*/
+/* External interface: */
+@@ The lines below with all the '@FOO@' get expanded to cover all of the atomic ops
+@@ The "@@" string marks a "line comment", like C's "//", which is removed
+
+#if UPCRI_LIBWRAP
+  #define _bupc_atomic@CODE@_set_@SR@(_dst,_val) \@\
+	_bupc_atomic@BITS@_set(_dst,(@TYPE@)(_val),@ISSTRICT@)
+  #define _bupc_atomic@CODE@_read_@SR@(_src) \@\
+	((@TYPE@)_bupc_atomic@BITS@_read(_src,@ISSTRICT@))
+  #define _bupc_atomic@CODE@_@OP@_@SR@(@ARGS@) \@\
+	_bupc_atomic@CODE@_@OP@(@ARGS@,@ISSTRICT@)
+  #define _bupc_atomic@CODE@_set_private(_dst,_val) \@\
+	_bupc_atomic@BITS@_set_priv(_dst,(@TYPE@)(_val))
+  #define _bupc_atomic@CODE@_read_private(_src) \@\
+	((@TYPE@)_bupc_atomic@BITS@_read_priv(_src))
+  #define _bupc_atomic@CODE@_@OP@_private(@ARGS@) \@\
+	_bupc_atomic@CODE@_@OP@_priv(@ARGS@)
+#else
+  #define bupc_atomic@CODE@_set_@SR@(_dst,_val) \@\
+	(upcri_srcpos(),_bupc_atomic@BITS@_set(_dst,(@TYPE@)(_val),@ISSTRICT@ UPCRI_PT_PASS))
+  #define bupc_atomic@CODE@_read_@SR@(_src) \@\
+	(upcri_srcpos(),(@TYPE@)_bupc_atomic@BITS@_read(_src,@ISSTRICT@ UPCRI_PT_PASS))
+  #define bupc_atomic@CODE@_@OP@_@SR@(@ARGS@) \@\
+	(upcri_srcpos(),_bupc_atomic@CODE@_@OP@(@ARGS@,@ISSTRICT@ UPCRI_PT_PASS))
+  GASNETT_INLINE(bupc_atomic@CODE@_set_private) GASNETT_DEPRECATED @\
+  void bupc_atomic@CODE@_set_private(void) {/*empty*/} @\
+  #define bupc_atomic@CODE@_set_private(_dst,_val) \@\
+	(upcri_srcpos(),bupc_atomic@CODE@_set_private (),\@\
+         _bupc_atomic@BITS@_set_priv(_dst,(@TYPE@)(_val) UPCRI_PT_PASS))
+  GASNETT_INLINE(bupc_atomic@CODE@_read_private) GASNETT_DEPRECATED @\
+  void bupc_atomic@CODE@_read_private(void) {/*empty*/} @\
+  #define bupc_atomic@CODE@_read_private(_src) \@\
+	(upcri_srcpos(),bupc_atomic@CODE@_read_private (),\@\
+         (@TYPE@)_bupc_atomic@BITS@_read_priv(_src UPCRI_PT_PASS))
+  GASNETT_INLINE(bupc_atomic@CODE@_@OP@_private) GASNETT_DEPRECATED @\
+  void bupc_atomic@CODE@_@OP@_private(void) {/*empty*/} @\
+  #define bupc_atomic@CODE@_@OP@_private(@ARGS@) \@\
+	(upcri_srcpos(),bupc_atomic@CODE@_@OP@_private (),\@\
+         _bupc_atomic@CODE@_@OP@_priv(@ARGS@ UPCRI_PT_PASS))
+#endif
+
+#endif /* UPCR_ATOMIC_DEFS_H */

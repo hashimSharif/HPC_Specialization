@@ -1,0 +1,164 @@
+@@
+@@ This file is the template to autogenerate the file bupc_atomic_extensions.h
+@@
+/*   $Source: bitbucket.org:berkeleylab/upc-runtime.git/upcr_geninclude/bupc_atomics.h.in $
+ * Description:
+ *  Berkeley UPC atomic extensions - prototypes
+ *
+ * Copyright 2010,  E. O. Lawrence Berekely National Laboratory
+ */
+#ifndef _BUPC_ATOMIC_EXTENSIONS_H_
+#define _BUPC_ATOMIC_EXTENSIONS_H_
+
+#if !defined(__BERKELEY_UPC_FIRST_PREPROCESS__) && !defined(__BERKELEY_UPC_ONLY_PREPROCESS__)
+#error This file should only be included via upc.h or bupc_extensions.h
+#else
+
+/*---------------------------------------------------------------------------------*/
+/* bupc_atomic extensions */
+
+#if UPCRI_LIBWRAP
+  UPCRI_LIBWRAP_FN@\
+  void bupc_atomic@CODE@_set_private(void *_ptr, @TYPE@ _val) {@\
+    _bupc_atomic@CODE@_set_private(_ptr, _val);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  void bupc_atomic@CODE@_set_relaxed(shared void *_sptr, @TYPE@ _val) {@\
+    _bupc_atomic@CODE@_set_relaxed(upcri_bless_SVP2shared(_sptr), _val);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  void bupc_atomic@CODE@_set_strict(shared void *_sptr, @TYPE@ _val) {@\
+    _bupc_atomic@CODE@_set_strict(upcri_bless_SVP2shared(_sptr), _val);@\
+  }
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP0@_private(void *_ptr) {@\
+    return _bupc_atomic@CODE@_@OP0@_private(_ptr);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP0@_relaxed(shared void *_sptr) {@\
+    return _bupc_atomic@CODE@_@OP0@_relaxed(upcri_bless_SVP2shared(_sptr));@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP0@_strict(shared void *_sptr) {@\
+    return _bupc_atomic@CODE@_@OP0@_strict(upcri_bless_SVP2shared(_sptr));@\
+  }
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP1@_private(void *_ptr, @TYPE@ _op1) {@\
+    return _bupc_atomic@CODE@_@OP1@_private(_ptr, _op1);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP1@_relaxed(shared void *_sptr, @TYPE@ _op1) {@\
+    return _bupc_atomic@CODE@_@OP1@_relaxed(upcri_bless_SVP2shared(_sptr), _op1);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP1@_strict(shared void *_sptr, @TYPE@ _op1) {@\
+    return _bupc_atomic@CODE@_@OP1@_strict(upcri_bless_SVP2shared(_sptr), _op1);@\
+  }
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP2@_private(void *_ptr, @TYPE@ _op1, @TYPE@ _op2) {@\
+    return _bupc_atomic@CODE@_@OP2@_private(_ptr, _op1, _op2);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP2@_relaxed(shared void *_sptr, @TYPE@ _op1, @TYPE@ _op2) {@\
+    return _bupc_atomic@CODE@_@OP2@_relaxed(upcri_bless_SVP2shared(_sptr), _op1, _op2);@\
+  }@\
+  UPCRI_LIBWRAP_FN@\
+  @TYPE@ bupc_atomic@CODE@_@OP2@_strict(shared void *_sptr, @TYPE@ _op1, @TYPE@ _op2) {@\
+    return _bupc_atomic@CODE@_@OP2@_strict(upcri_bless_SVP2shared(_sptr), _op1, _op2);@\
+  }
+#else
+  void bupc_atomic@CODE@_set_private(void *_ptr, @TYPE@ _val);@\
+  void bupc_atomic@CODE@_set_relaxed(shared void *_sptr, @TYPE@ _val);@\
+  void bupc_atomic@CODE@_set_strict(shared void *_sptr, @TYPE@ _val);
+  @TYPE@ bupc_atomic@CODE@_@OP0@_private(void *_ptr);@\
+  @TYPE@ bupc_atomic@CODE@_@OP0@_relaxed(shared void *_sptr);@\
+  @TYPE@ bupc_atomic@CODE@_@OP0@_strict(shared void *_sptr);
+  @TYPE@ bupc_atomic@CODE@_@OP1@_private(void *_ptr, @TYPE@ _op1);@\
+  @TYPE@ bupc_atomic@CODE@_@OP1@_relaxed(shared void *_sptr, @TYPE@ _op1);@\
+  @TYPE@ bupc_atomic@CODE@_@OP1@_strict(shared void *_sptr, @TYPE@ _op1);
+  @TYPE@ bupc_atomic@CODE@_@OP2@_private(void *_ptr, @TYPE@ _op1, @TYPE@ _op2);@\
+  @TYPE@ bupc_atomic@CODE@_@OP2@_relaxed(shared void *_sptr, @TYPE@ _op1, @TYPE@ _op2);@\
+  @TYPE@ bupc_atomic@CODE@_@OP2@_strict(shared void *_sptr, @TYPE@ _op1, @TYPE@ _op2);
+#endif
+
+/* Map I and UI to appropriate fixed-width size */
+#if (SIZEOF_INT == 4)
+  #define bupc_atomic@ICODE@_set_relaxed   bupc_atomic@IBASE@32_set_relaxed@\
+  #define bupc_atomic@ICODE@_set_strict    bupc_atomic@IBASE@32_set_strict@\
+  #define bupc_atomic@ICODE@_set_private   bupc_atomic@IBASE@32_set_private
+  #define bupc_atomic@ICODE@_read_relaxed  bupc_atomic@IBASE@32_read_relaxed@\
+  #define bupc_atomic@ICODE@_read_strict   bupc_atomic@IBASE@32_read_strict@\
+  #define bupc_atomic@ICODE@_read_private  bupc_atomic@IBASE@32_read_private
+  #define bupc_atomic@ICODE@_@OP@_relaxed  bupc_atomic@IBASE@32_@OP@_relaxed@\
+  #define bupc_atomic@ICODE@_@OP@_strict   bupc_atomic@IBASE@32_@OP@_strict@\
+  #define bupc_atomic@ICODE@_@OP@_private  bupc_atomic@IBASE@32_@OP@_private
+#elif (SIZEOF_INT == 8)
+  #define bupc_atomic@ICODE@_set_relaxed   bupc_atomic@IBASE@64_set_relaxed@\
+  #define bupc_atomic@ICODE@_set_strict    bupc_atomic@IBASE@64_set_strict@\
+  #define bupc_atomic@ICODE@_set_private   bupc_atomic@IBASE@64_set_private
+  #define bupc_atomic@ICODE@_read_relaxed  bupc_atomic@IBASE@64_read_relaxed@\
+  #define bupc_atomic@ICODE@_read_strict   bupc_atomic@IBASE@64_read_strict@\
+  #define bupc_atomic@ICODE@_read_private  bupc_atomic@IBASE@64_read_private
+  #define bupc_atomic@ICODE@_@OP@_relaxed  bupc_atomic@IBASE@64_@OP@_relaxed@\
+  #define bupc_atomic@ICODE@_@OP@_strict   bupc_atomic@IBASE@64_@OP@_strict@\
+  #define bupc_atomic@ICODE@_@OP@_private  bupc_atomic@IBASE@64_@OP@_private
+#else
+  #define bupc_atomic@ICODE@_set_relaxed   ERROR__no_atomics_for_type_@ICODE@@\
+  #define bupc_atomic@ICODE@_set_strict    ERROR__no_atomics_for_type_@ICODE@@\
+  #define bupc_atomic@ICODE@_set_private   ERROR__no_atomics_for_type_@ICODE@
+  #define bupc_atomic@ICODE@_read_relaxed  ERROR__no_atomics_for_type_@ICODE@@\
+  #define bupc_atomic@ICODE@_read_strict   ERROR__no_atomics_for_type_@ICODE@@\
+  #define bupc_atomic@ICODE@_read_private  ERROR__no_atomics_for_type_@ICODE@
+  #define bupc_atomic@ICODE@_@OP@_relaxed  ERROR__no_atomics_for_type_@ICODE@@\
+  #define bupc_atomic@ICODE@_@OP@_strict   ERROR__no_atomics_for_type_@ICODE@@\
+  #define bupc_atomic@ICODE@_@OP@_private  ERROR__no_atomics_for_type_@ICODE@
+#endif
+
+/* Map L and UL to appropriate fixed-width size */
+#if (SIZEOF_LONG == 4)
+  #define bupc_atomic@LCODE@_set_relaxed   bupc_atomic@LBASE@32_set_relaxed@\
+  #define bupc_atomic@LCODE@_set_strict    bupc_atomic@LBASE@32_set_strict@\
+  #define bupc_atomic@LCODE@_set_private   bupc_atomic@LBASE@32_set_private
+  #define bupc_atomic@LCODE@_read_relaxed  bupc_atomic@LBASE@32_read_relaxed@\
+  #define bupc_atomic@LCODE@_read_strict   bupc_atomic@LBASE@32_read_strict@\
+  #define bupc_atomic@LCODE@_read_private  bupc_atomic@LBASE@32_read_private
+  #define bupc_atomic@LCODE@_@OP@_relaxed  bupc_atomic@LBASE@32_@OP@_relaxed@\
+  #define bupc_atomic@LCODE@_@OP@_strict   bupc_atomic@LBASE@32_@OP@_strict@\
+  #define bupc_atomic@LCODE@_@OP@_private  bupc_atomic@LBASE@32_@OP@_private
+#elif (SIZEOF_LONG == 8)
+  #define bupc_atomic@LCODE@_set_relaxed   bupc_atomic@LBASE@64_set_relaxed@\
+  #define bupc_atomic@LCODE@_set_strict    bupc_atomic@LBASE@64_set_strict@\
+  #define bupc_atomic@LCODE@_set_private   bupc_atomic@LBASE@64_set_private
+  #define bupc_atomic@LCODE@_read_relaxed  bupc_atomic@LBASE@64_read_relaxed@\
+  #define bupc_atomic@LCODE@_read_strict   bupc_atomic@LBASE@64_read_strict@\
+  #define bupc_atomic@LCODE@_read_private  bupc_atomic@LBASE@64_read_private
+  #define bupc_atomic@LCODE@_@OP@_relaxed  bupc_atomic@LBASE@64_@OP@_relaxed@\
+  #define bupc_atomic@LCODE@_@OP@_strict   bupc_atomic@LBASE@64_@OP@_strict@\
+  #define bupc_atomic@LCODE@_@OP@_private  bupc_atomic@LBASE@64_@OP@_private
+#else
+  #define bupc_atomic@LCODE@_set_relaxed   ERROR__no_atomics_for_type_@LCODE@@\
+  #define bupc_atomic@LCODE@_set_strict    ERROR__no_atomics_for_type_@LCODE@@\
+  #define bupc_atomic@LCODE@_set_private   ERROR__no_atomics_for_type_@LCODE@
+  #define bupc_atomic@LCODE@_read_relaxed  ERROR__no_atomics_for_type_@LCODE@@\
+  #define bupc_atomic@LCODE@_read_strict   ERROR__no_atomics_for_type_@LCODE@@\
+  #define bupc_atomic@LCODE@_read_private  ERROR__no_atomics_for_type_@LCODE@
+  #define bupc_atomic@LCODE@_@OP@_relaxed  ERROR__no_atomics_for_type_@LCODE@@\
+  #define bupc_atomic@LCODE@_@OP@_strict   ERROR__no_atomics_for_type_@LCODE@@\
+  #define bupc_atomic@LCODE@_@OP@_private  ERROR__no_atomics_for_type_@LCODE@
+#endif
+
+/* Optionally map bupc_atomic* extensions into upc_* namespace */
+#ifdef BUPC_USE_UPC_NAMESPACE
+  #define upc_atomic@TCODE@_set_relaxed   bupc_atomic@TCODE@_set_relaxed@\
+  #define upc_atomic@TCODE@_set_strict    bupc_atomic@TCODE@_set_strict@\
+  #define upc_atomic@TCODE@_set_private   bupc_atomic@TCODE@_set_private
+  #define upc_atomic@TCODE@_read_relaxed  bupc_atomic@TCODE@_read_relaxed@\
+  #define upc_atomic@TCODE@_read_strict   bupc_atomic@TCODE@_read_strict@\
+  #define upc_atomic@TCODE@_read_private  bupc_atomic@TCODE@_read_private
+  #define upc_atomic@TCODE@_@OP@_relaxed  bupc_atomic@TCODE@_@OP@_relaxed@\
+  #define upc_atomic@TCODE@_@OP@_strict   bupc_atomic@TCODE@_@OP@_strict@\
+  #define upc_atomic@TCODE@_@OP@_private  bupc_atomic@TCODE@_@OP@_private
+#endif
+
+#endif /* first/only preprocess */
+#endif /* _BUPC_ATOMIC_EXTENSIONS_H_ */

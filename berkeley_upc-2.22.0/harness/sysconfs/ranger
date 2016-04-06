@@ -1,0 +1,114 @@
+# Berkeley UPC test harness "sysconf" file for ranger.tacc.utexas.edu
+
+# NOTE:
+# We need MPIRUN_CMD to be a wrapper around ibrun to grok -np
+# and to work around a bug (not ours) related to MALLOC_CHECK_.
+# See gasnet/other/contrib/gasnet_ibrun for the one I use. -PHH
+# run_env_default = { MPIRUN_CMD => 'gasnet_ibrun -np %N %P %A' }
+
+# Specify the network [GASNet conduit] to be used
+# NOTE: mpi is also available
+
+network = ibv
+
+# Specify the type of batch system in use.
+
+batch_sys = sge
+
+# Specify a sequence of queues, in order of preference, that can
+# be used to run the jobs.  Each queue must define the following
+# fields:
+#      Q_name     -> name of the queue
+#      Q_maxnode  -> max number of nodes allowed by the queue
+#      Q_minnode  -> min number of nodes allowed by the queue
+#      Q_maxtpn   -> max number of tasks per node allowed by queue
+#      Q_maxtime  -> the maximum queue limit for the queue
+#                    in the form HHH:MM:SS, 00:00:00 for unlimited
+
+# NOTE:
+# Except for the "serial" queue, these queue definitions all point
+# at the "normal" queue, but differ in the "Q_maxtpn" field
+# so that the harness picks the one with the proper SGE "Q_pe" field.
+queues = [
+        {
+          Q_name     => serial,   
+          Q_maxnode  => 1,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 1,      
+	  Q_maxtime  => 2:00:00,
+          Q_nslots   => 16,
+          Q_pe       => '1way'
+        },
+        {
+          Q_name     => normal,   
+          Q_maxnode  => 256,      
+          Q_minnode  => 2,       
+	  Q_maxtpn   => 1,      
+	  Q_maxtime  => 2:00:00,
+          Q_nslots   => 16,
+          Q_pe       => '1way'
+        },
+        {
+          Q_name     => normal,   
+          Q_maxnode  => 256,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 2,      
+	  Q_maxtime  => 2:00:00,
+          Q_nslots   => 16,
+          Q_pe       => '2way'
+        },
+        {
+          Q_name     => normal,   
+          Q_maxnode  => 256,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 4,      
+	  Q_maxtime  => 2:00:00,
+          Q_nslots   => 16,
+          Q_pe       => '4way'
+        },
+        {
+          Q_name     => normal,   
+          Q_maxnode  => 256,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 8,      
+	  Q_maxtime  => 2:00:00,
+          Q_nslots   => 16,
+          Q_pe       => '8way'
+        },
+        {
+          Q_name     => normal,   
+          Q_maxnode  => 256,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 16,      
+	  Q_maxtime  => 2:00:00,
+          Q_nslots   => 16,
+          Q_pe       => '16way'
+        }
+]
+
+# =================================================================
+# Optional (but suggested) fields
+
+# Specify the accounting repository under which the jobs will be run
+# (not used on all systems)
+
+repository = NA
+
+# Specify the default number of UPC threads when running the tests.
+# This value will replace the %NTHREAD% string in the per-suite
+# harness configuration file (harness.conf).
+
+nthread_default = 8
+
+# Specify the maximum number of processes per node to be used in this run
+
+max_proc_per_node = 4
+
+# Specify the minimum number of nodes to be used in a run.  This 
+# value will be violated if the total number of UPC threads is 
+# less than the specified value
+
+min_num_nodes = 2
+
+# Prevent MVAPICH from pinning everything to 1 core in case we are using pthreads
+run_env = { VIADEV_USE_AFFINITY => 0, MV_USE_AFFINITY => 0, MV2_ENABLE_AFFINITY => 0 }

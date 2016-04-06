@@ -1,0 +1,18 @@
+# Intrepid Technology - IB cluster
+network = ib
+batch_sys = slurm
+queues = [
+        {
+          Q_name     => ib,   
+          Q_maxnode  => 4,      
+          Q_minnode  => 1,       
+	  Q_maxtpn   => 8,      
+	  Q_maxtime  => 24:00:00 
+        }
+]
+
+nthread_default = 8
+max_proc_per_node = 2
+min_num_nodes = 1
+submit_cmd = '/usr/bin/sbatch'
+num_pthreads = 0

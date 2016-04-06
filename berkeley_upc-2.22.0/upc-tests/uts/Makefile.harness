@@ -1,0 +1,12 @@
+uts-upc uts-upc-dcq uts-upc-enhanced: force
+	$(MAKE) -f Makefile CONFFILE=config/linux-cluster UPCC_OPTS='-DBUPC_TEST_HARNESS' $@
+
+uts-upc-%: force
+	@base=`echo $@ | sed 's/^\(uts-upc.*\)-[a-z0-9]*/\1/'`; \
+	 $(MAKE) -f Makefile.harness $$base && \
+	 mv $$base $@ && rm -f *.o
+
+.PHONY: force
+
+.NOTPARALLEL:
+

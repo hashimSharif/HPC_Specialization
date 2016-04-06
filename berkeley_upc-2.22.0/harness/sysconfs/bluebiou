@@ -1,0 +1,32 @@
+network = ibv
+batch_sys = pbs
+queues = [
+        {
+          Q_name     => parallel,   
+          Q_useppn   => 128,      
+          Q_maxnode  => 16,      
+          Q_minnode  => 2,       
+          Q_maxtpn   => 32,      
+          Q_maxtime  => 04:00:00 
+        }
+        {
+          Q_name     => serial,   
+          Q_useppn   => 32,      
+          Q_maxnode  => 1,      
+          Q_minnode  => 1,       
+          Q_maxtpn   => 32,      
+          Q_maxtime  => 01:00:00 
+        }
+]
+
+#repository = N/A
+
+nthread_default = 4
+max_proc_per_node = 8
+min_num_nodes = 1
+
+submit_cmd = 'qsub -V'
+
+run_env_default = { MPIRUN_CMD => 'mpiexec --loadbalance -n %N %P %A',
+		    GASNET_PHYSMEM_MAX => '200G',
+		    GASNET_PHYSMEM_NOPROBE => 1 }

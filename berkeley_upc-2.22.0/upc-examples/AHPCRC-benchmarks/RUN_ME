@@ -1,0 +1,94 @@
+#!/bin/csh
+#PBS -l cput=1024:00:00
+#PBS -l mppe=32
+#PBS -v X1_HEAP_SIZE=16000000000
+#PBS -j oe
+#PBS -c n
+#PBS -r n
+#PBS 
+
+cd /scratch/ajohn/IDC_UPC_TESTS
+
+@ i = 1
+
+while ($i <= 80)
+
+   mpirun -np 4 PingpongMPI 
+
+   set new1 = `echo $i | awk '{printf "outMPI-NB-004-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outMPI-SR-004-%02d.txt", $1}'`
+   mv outMPI-NB-004.txt $new1
+   mv outMPI-SR-004.txt $new2
+
+   aprun  -n  4 PingpongUPC 
+
+   set new1 = `echo $i | awk '{printf "outUPC-G-004-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outUPC-P-004-%02d.txt", $1}'`
+   set new3 = `echo $i | awk '{printf "outUPC-GM-004-%02d.txt", $1}'`
+   set new4 = `echo $i | awk '{printf "outUPC-PM-004-%02d.txt", $1}'`
+   mv outUPC-G-004.txt $new1
+   mv outUPC-P-004.txt $new2
+   mv outUPC-GM-004.txt $new3
+   mv outUPC-PM-004.txt $new4
+
+
+   mpirun -np 8 PingpongMPI 
+
+   set new1 = `echo $i | awk '{printf "outMPI-NB-008-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outMPI-SR-008-%02d.txt", $1}'`
+   mv outMPI-NB-008.txt $new1
+   mv outMPI-SR-008.txt $new2
+
+   aprun  -n  8 PingpongUPC
+
+   set new1 = `echo $i | awk '{printf "outUPC-G-008-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outUPC-P-008-%02d.txt", $1}'`
+   set new3 = `echo $i | awk '{printf "outUPC-GM-008-%02d.txt", $1}'`
+   set new4 = `echo $i | awk '{printf "outUPC-PM-008-%02d.txt", $1}'`
+   mv outUPC-G-008.txt $new1
+   mv outUPC-P-008.txt $new2
+   mv outUPC-GM-008.txt $new3
+   mv outUPC-PM-008.txt $new4
+
+
+   mpirun -np 16 PingpongMPI 
+
+   set new1 = `echo $i | awk '{printf "outMPI-NB-016-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outMPI-SR-016-%02d.txt", $1}'`
+   mv outMPI-NB-016.txt $new1
+   mv outMPI-SR-016.txt $new2
+
+   aprun  -n  16 PingpongUPC
+
+   set new1 = `echo $i | awk '{printf "outUPC-G-016-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outUPC-P-016-%02d.txt", $1}'`
+   set new3 = `echo $i | awk '{printf "outUPC-GM-016-%02d.txt", $1}'`
+   set new4 = `echo $i | awk '{printf "outUPC-PM-016-%02d.txt", $1}'`
+   mv outUPC-G-016.txt $new1
+   mv outUPC-P-016.txt $new2
+   mv outUPC-GM-016.txt $new3
+   mv outUPC-PM-016.txt $new4
+
+
+   mpirun -np 32 PingpongMPI
+
+   set new1 = `echo $i | awk '{printf "outMPI-NB-032-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outMPI-SR-032-%02d.txt", $1}'`
+   mv outMPI-NB-032.txt $new1
+   mv outMPI-SR-032.txt $new2
+
+   aprun  -n  32 PingpongUPC
+
+   set new1 = `echo $i | awk '{printf "outUPC-G-032-%02d.txt", $1}'`
+   set new2 = `echo $i | awk '{printf "outUPC-P-032-%02d.txt", $1}'`
+   set new3 = `echo $i | awk '{printf "outUPC-GM-032-%02d.txt", $1}'`
+   set new4 = `echo $i | awk '{printf "outUPC-PM-032-%02d.txt", $1}'`
+   mv outUPC-G-032.txt $new1
+   mv outUPC-P-032.txt $new2
+   mv outUPC-GM-032.txt $new3
+   mv outUPC-PM-032.txt $new4
+
+
+   @ i = $i + 1
+end
+

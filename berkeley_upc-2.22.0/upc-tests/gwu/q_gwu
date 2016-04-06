@@ -1,0 +1,167 @@
+# Sample Loadleveler script to run the mupc test suite
+#
+# Need to change MY_ACCOUNT to whatever account you want
+# to charge, or comment out it take the default
+# Also, to with with MPI, replace "network.LAPI" with
+# "network.MPI"
+# You will also have to change the name of the class to
+# whatever is appropriate for your system.
+
+#@ job_name        = gwu
+#@ account_no      = MY_ACCOUNT
+#@ output          = JOB.$(jobid)
+#@ error           = JOB.$(jobid).err
+#@ job_type        = parallel
+#@ environment     = COPY_ALL
+#@ notification    = complete
+#@ network.LAPI    = csss,not_shared,us
+#@ node_usage      = not_shared
+#
+#
+#  Select the number of nodes to run on, and the number
+#  of tasks (UPC THREADS) to run on each node.
+#@ node            = 1
+#@ tasks_per_node  = 2
+#
+#  Set the Loadleveler class (queue) you wish to use
+#  and the hard wall-clock limit.  Check your configuration
+#  because some classes have maximum time limits.
+#  These are selected to run quickly at NERSC.
+#@ class           = debug
+#@ wall_clock_limit= 00:28:00
+#
+#@ queue
+
+echo "NODES"
+echo $LOADL_PROCESSOR_LIST
+
+ITER=4
+ITER=10000
+
+myecho() {
+	echo $* 
+	echo $* >& 2
+}
+
+runtest() {
+	mode=$1
+	shift
+	progname=$1
+	shift
+	DATE=$(date)
+	myecho "=========================================================="
+	myecho $DATE
+	myecho "Running $progname in mode $mode with args $*"
+	if [ ! -e $progname ] ; then
+		myecho "No such binary: $progname"
+		myecho
+		return
+	fi
+	env GASNET_LAPI_MODE=$mode /usr/bin/poe ./${progname} $*
+	status=$?
+	myecho "$progname complete with exit status $status"
+	if [ "$status" -ne 0 ]; then
+		myecho "   FAILED   FAILED   FAILED"
+	fi
+	myecho
+}
+
+ALL_FILES="\
+I_case1_v \
+I_case2_i \
+I_case2_ii \
+I_case3_i \
+I_case4_i \
+I_case5_i \
+I_case5_ii \
+II_case1_i \
+II_case2_i \
+II_case3_i \
+III_case1_i \
+IV_case1_i \
+IV_case2_i \
+IX_case1_i \
+V_case1_i \
+V_case2_i \
+V_case4_i \
+V_case4_ii \
+VI_case1_i \
+VII_case1_i \
+VII_case1_ii \
+VII_case1_iii \
+VII_case2_i \
+VII_case2_ii \
+VII_case2_iii \
+VII_case3_i \
+VII_case4_i \
+VIII_case1_i \
+VIII_case1_ii \
+VIII_case1_iii \
+VIII_case1_iv \
+VIII_case1_v \
+VIII_case2_i \
+X_case1_i \
+XI_case1_i \
+XI_case2_i \
+XI_case3_i \
+XII_case1_ii \
+XII_case2_i \
+XII_case2_ii \
+XIII_case1_i \
+XIII_case4_i \
+XIII_case2_i \
+XIII_case3_i \
+"
+# NOTES:
+# V_case5_i   whirl2c -> generates bogus_field_name
+# XII_case1_i brain dead test, uses static locks, FE crashes on
+
+# Sometimes we have to run this in multiple passes.
+# If so, re-define ALL_FILES here by including only
+# the file roots we need to complete the test
+#ALL_FILES="\
+#"
+
+# The files in the DONT_FUN list will be filtered out of
+# the ALL_FILES list above, either because they are buggy
+# or are supposed to fail.
+#
+# these are supposed to fail (run by hand because they might hang)
+DONT_RUN="\
+"
+
+# these currently fail (dont compile)
+DONT_RUN="${DONT_RUN} \
+"
+
+echo ${DONT_RUN} > dont_run_file
+
+RUN_FILES=""
+for file in $ALL_FILES
+do
+	if grep ${file} dont_run_file > /dev/null 
+        then
+		echo "   WILL NOT RUN $file "
+	else
+		RUN_FILES="$RUN_FILES $file"
+	fi
+done
+
+rm dont_run_file
+
+echo "RUN_FILES:"
+echo $RUN_FILES
+echo
+
+MODES="INTERRUPT POLLING"
+MODES="INTERRUPT"
+for MODE in $MODES
+do
+for file in ${RUN_FILES}
+do
+	runtest $MODE ${file}
+done
+done
+
+exit 0
+

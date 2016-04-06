@@ -1,0 +1,33 @@
+network = pami
+
+batch_sys = loadleveler
+ll_network_PAMI = 'sn_all,not_shared,us,,instances=max'
+ll_network_MPI  = 'sn_all,not_shared,us,,instances=max'
+
+queues = [
+        {
+          Q_name     => No_Class,
+          Q_maxnode  => 16,
+          Q_minnode  => 1,
+	  Q_maxtpn   => 32,
+	  Q_maxtime  => 02:00:00 
+        },
+        {
+          Q_name     => long,
+          Q_maxnode  => 16,
+          Q_minnode  => 1,
+	  Q_maxtpn   => 32,
+	  Q_maxtime  => 04:00:00 # Actual limit is 48:00:00
+        },
+]
+
+min_num_nodes = 1
+
+# Default to (th,proc,node) = (2,2,2)
+nthread_default = 8
+max_proc_per_node = 2
+num_pthreads = 2
+
+max_runlist = 250
+
+resubmit_cmd = 'ssh f36c11p02 /usr/bin/llsubmit'

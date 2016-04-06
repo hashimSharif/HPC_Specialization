@@ -1,0 +1,481 @@
+Berkeley UPC and Intrepid GUPC
+Compiler installation instructions
+----------------------------------
+
+This source archive contains everything required to build the Berkeley UPC
+compiler and Intrepid GUPC+UPCR compiler on Cray XT series systems with
+Catamount or Compute-Node Linux, and consists of the following components:
+
+* berkeley_upc-X.Y.Z.tar.gz: Berkeley UPC Runtime (UPCR) vX.Y.Z source 
+   Also available from http://upc.lbl.gov/
+
+* berkeley_upc_translator-X.Y.Z.tar.gz: Berkeley UPC translator vX.Y.Z source 
+   Also available from http://upc.lbl.gov/
+
+* gupc-4.A.B.C.tar.gz: GUPC compiler source (version 4 branch)
+
+* README.CrayXT: These instructions (also available in the Berkeley UPC Runtime
+  distribution in the docs directory)
+
+===============================================================================
+BASIC INFORMATION
+
+There are two different translator configurations for using UPC on the Cray XT3:
+
+1) 'BUPC+UPCR':  the Berkeley runtime is used with the Berkeley UPC-to-C translator.
+   This configuration supports the widest range of Berkeley extensions to the UPC language,
+   best interoperability with different backend C compilers, and generally provides the 
+   best performance for local shared accesses. Translation can either use an internet-based
+   compilation server (best option for quick installs or limited disk space), or a 
+   local install of the BUPC translator (best option for high-security systems).
+
+2) 'GUPC+UPCR': the Berkeley runtime is used with the GUPC binary UPC compiler from Intrepid.
+   This configuration provides a high degree of compatibility with GNU extensions to C99.
+   It requires PrgEnv-gnu and does *not* interoperate with PGI or other C compilers.
+   This option requires building and installing the GUPC translator on the login node.
+
+It is now possible for a single unified install tree to support one or both of the options
+above, such that the user can select the desired translator with a command-line option at 
+application compile time option. In all cases you should start by building the appropriate
+translators you want, and then configure and build the UPC runtime/frontend as the final step:
+
+  Step 1A (optional): Build the BUPC translator locally, if desired
+  Step 1B (optional): Build the GUPC translator, if desired
+  Step 2  (required): Build the Berkeley UPC runtime (UPCR) to use the desired translators
+
+Steps 1A & 1B can be done concurrently in different windows.
+
+None of this software requires root permissions to install. The only
+requirement is that the installing user have write permissions to the install
+directories specified by the prefix options described in the instructions
+below.  We do *not* recommend installing these products directly into a prefix
+of an existing directory (eg / or /usr), as that might inadvertently overwrite
+system-specific files.  We recommend creating an empty directory owned by an
+unprivileged user for each product to be installed (eg
+/usr/local/upc/bupc_translator), and perform the install operations as that
+user, targeting that directory as the install --prefix. 
+
+CrayXT login nodes use a shared, read-only root that can only be written to
+from the boot node; the software included in this package need *not* be
+installed on the shared root; it can safely be installed on some other file system
+available only from login nodes, such as /ptmp, or /usr/local.  Also, it's a good idea 
+to do the install under a user ID other than root, to avoid any possibility 
+of inadvertently overwriting unrelated system files.
+
+===============================================================================
+Step 1A: BUPC+UPCR: Instructions for the Berkeley UPC translator
+===============================================================================
+
+Berkeley UPC can be configured to use the public UPC-to-C translation server
+provided at http:///upc.lbl.gov (the default), or you can build the Berkeley UPC
+translator to run on the XT frontend (login) node and use that locally (recommended for
+compiling classified UPC application code).
+
+To build the Berkeley UPC translator locally:
+
+   * unpack the translator source tarball:
+
+      gunzip -c berkeley_upc_translator-X.Y.Z.tar.gz | tar xvpf -  
+
+   * cd into the source directory:
+
+      cd berkeley_upc_translator-X.Y.Z/
+
+   * build the translator, using the *FRONTEND* (login node) gcc compiler 
+     (CC and CXX MUST reference the gcc for the login host, 
+      NOT the cross-compiling gcc for compute-node targets):
+
+      gmake CC=/usr/bin/gcc CXX=/usr/bin/g++
+
+   * install the translator to an appropriate empty directory:
+
+      gmake install PREFIX=/prefix/to/use/for/bupc
+
+   * make note of the translator path printed at the end of the last step, eg:
+
+      "To use this translator LOCALLY, insert the following pathname:
+              /prefix/you/chose/targ
+       ..."
+
+     you'll need that path in Step 2.
+
+===============================================================================
+Step 1B: GUPC+UPCR: Instructions for Intrepid GUPC translator
+===============================================================================
+
+This configuration utilizes the Intrepid GUPC v4 compiler which runs on the
+frontend and compiles UPC code to binary object code with calls to the runtime
+system. This is linked with the Berkeley UPC runtime library and GASNet, which
+handle all cross-node communication.
+
+To build the GUPC compiler:
+
+   * Load PrgEnv-gnu. It must remain loaded while configuring, building and using GUPC, 
+     otherwise things can fail in mysterious ways:
+
+       module unload PrgEnv-pgi
+       module load PrgEnv-gnu
+
+   * unpack the translator source tarball:
+
+      gunzip -c gupc-4.A.B.C.tar.gz | tar xvpf -
+
+   * cd into the unpacked directory:
+
+      cd gupc-4.A.B.C/
+
+   * create a build directory, and cd into it:
+
+      mkdir bld && cd bld
+
+   * Set environment variable CC to ensure the *FRONTEND* (login node) gcc
+     compiler is used for config/build process. $CC MUST reference the gcc for
+     the login host, NOT the cross-compiling gcc for compute-node targets:
+
+      setenv CC /usr/bin/gcc        (csh shells)
+      CC=/usr/bin/gcc ; export CC   (bourne shells)
+
+   * configure the compiler:
+
+    To configure for Catamount compute-node targets, use:
+
+      ../configure --prefix=/path/to/install/gupc --host=x86_64-catamount-linux-gnu
+
+    To configure for Compute-Node Linux (CNL) targets, use:
+
+      ../configure --prefix=/path/to/install/gupc --host=x86_64-cnl-linux-gnu
+
+    Be sure to note the install prefix, as you'll need that path in Step 2.
+
+   * build the compiler:
+
+      gmake 
+
+   * install the compiler:
+
+      gmake install 
+      
+===============================================================================
+Step 2: UPCR: Instructions for the Berkeley UPC runtime and frontend
+===============================================================================
+
+Use the following instructions to build the Berkeley UPC runtime and frontend (upcc)
+for use with either or both of the translators above.
+
+   * decide whether to use PrgEnv gnu or pgi, and load the appropriate module:
+
+       module unload PrgEnv-pgi
+       module load PrgEnv-gnu
+
+     BUPC+UPCR supports either PrgEnv, but it must be configured, built AND
+     used all with the same PrgEnv loaded.  On PE versions 1.4 and older,
+     portals-conduit which provides native communication services ONLY supports
+     PrgEnv-gnu (due to limitations in Cray Portals), therefore must be
+     configured, built AND used all with PrgEnv-gnu loaded. This limitation 
+     has been removed starting in PE version 1.5.
+
+     GUPC+UPCR does *not* support PrgEnv-pgi. It must be be configured, built 
+     AND used with PrgEnv-gnu loaded.
+
+   * unpack the runtime source tarball:
+
+      gunzip -c berkeley_upc-X.Y.Z.tar.gz | tar xvpf -  
+   
+     This will create a runtime source directory which we'll henceforce refer to as $UPCR_SRC
+
+   * symlink the appropriate cross-configure script into the top-level of the source tree.
+
+      for Catamount compute-node targets, use:
+
+        cd $UPCR_SRC
+        ln -s gasnet/other/contrib/cross-configure-crayxt-catamount .
+
+      for Compute-Node Linux (CNL) targets, use:
+     
+        cd $UPCR_SRC
+        ln -s gasnet/other/contrib/cross-configure-crayxt-linux .
+
+   * open the cross-configure script in an editor:
+
+      vi $UPCR_SRC/cross-configure-crayxt-*
+
+     inspect the settings at the top for accuracy: 
+
+      - CC and MPI_CC should both be set to the compute-node MPI-enabled compiler
+      - HOST_CC should be set to the frontend gcc compiler (/usr/bin/gcc)
+      - MPIRUN_CMD might need tweaking to match on your job system setup
+      - The C++ compiler setting is ignored on the XT
+
+   * create a build directory, and cd into it:
+
+      cd ..
+      mkdir bld && cd bld
+
+   * select an appropriate install prefix for the UPCR frontend executables that will be 
+     created during installation. These are:
+
+       upcc - the script invoked by end-users to compile all UPC programs, regardless of translator
+       upcrun - yod/aprun wrapper for launching UPC programs
+
+     We recommend the UPCR install prefix to be a separate, empty directory, ie disjoint 
+     from the directories used to install any translators (which are never directly invoked
+     by the user). Below we shall refer to this directory as $PREFIX.
+
+   * select optional configure options.  Many options are available - a complete
+     list is available with: 
+
+       $UPCR_SRC/configure --help
+
+     Here are several potentially useful options to consider:
+
+     --disable-smp   Disables the single-node smp-conduit, to save disk space
+     --disable-mpi   Disables the low-performance mpi-conduit, to save disk space
+     --enable-sptr-struct   Use the 128-bit shared pointer representation
+          (currently required for runs using > 1024 nodes w/ the BUPC translator,
+           or for runs > 4096 nodes w/ the Intrepid GUPC translator).
+
+   * configure the runtime by invoking the cross-configure script, and point it at the 
+     appropriate translators from steps 1A & 1B:
+
+     For BUPC translator ONLY, use: (if BUPC_TRANS is omitted, it will default to the 
+     internet-based BUPC translator)
+
+      BUPC_TRANS=/path/from/step1A/targ; export BUPC_TRANS
+      $UPCR_SRC/cross-configure-crayxt-* --with-multiconf=dbg,opt \
+              --prefix=$PREFIX   ...any optional settings...
+
+     For GUPC translator ONLY, use:  (this option requires PrgEnv-gnu)
+
+      GUPC_TRANS=/path/from/step1B/bin/upc; export GUPC_TRANS
+      $UPCR_SRC/cross-configure-crayxt-* --with-multiconf=dbg_gupc,opt_gupc \
+              --prefix=$PREFIX   ...any optional settings...
+
+     For both BUPC and GUPC translators, use:  (this option requires PrgEnv-gnu)
+
+      BUPC_TRANS=/path/from/step1A/targ; export BUPC_TRANS
+      GUPC_TRANS=/path/from/step1B/bin/upc; export GUPC_TRANS
+      $UPCR_SRC/cross-configure-crayxt-* --with-multiconf=dbg,opt,dbg_gupc,opt_gupc \
+              --prefix=$PREFIX   ...any optional settings...
+
+     NOTE: For a csh-type shell, replace "VAR=VAL; export VAR" with "setenv VAR VAL"
+     in all the examples above.
+
+     The multiconf.conf.in file contains detailed tweakable settings for each conf, 
+     although in most cases you should stick with the defaults. 
+
+     By default the UPCR+GUPC configure steps will attempt to validate
+     version compatibility with the GUPC translator. If the GUPC translator
+     binary is not yet available at the path provided (eg when preparing an RPM
+     installer) this check can be bypassed by explicitly providing the version
+     number as an additional argument: --with-gupc-version=4.A.B.C
+
+   * build the runtime:
+
+      gmake
+
+     This will build two copies of the runtime libraries (optimized & debug) for each 
+     translator selected, as subdirectories named: dbg, opt, dbg_gupc, opt_gupc
+
+   * build a basic UPC test program for each active configuration:
+
+      gmake tests-local
+
+   * run the basic UPC test programs for each config, ex: 
+     (Note: you may need to be in a PBS session)
+
+      ./upcrun -np 2 ./dbg/libupcr-mpi-seq-test   
+      ./upcrun -np 2 ./dbg/libupcr-portals-seq-test
+
+   * install the runtime:
+      
+      gmake install
+
+     the compiler should now be ready for use in: $PREFIX/bin/upcc
+     for documentation, see: $PREFIX/man and http://upc.lbl.gov
+     If you installed the GUPC translator, you can access it with: 
+         upcc -gupc ...
+     The BUPC translator is used by default, and can be explicitly requested with:
+         upcc -bupc ...
+
+   * run comprehensive correctness tests (optional):
+
+      - check the job queue settings in tester configuration file: 
+            $UPCR_SRC/harness/guppy (catamount) or $UPCR_SRC/harness/crow (CNL) 
+        and ensure they match the job system for your machine
+      - run the test harness - note this builds and runs hundreds of tests, 
+        and takes a *long* time:
+            cd dbg/harness/ && harness -sysconf=guppy 
+	See 'harness -help' for additional options
+        For GUPC+UPCR, test in dbg_gupc/harness and include harness option: 
+	   -compiler_spec=gupc-upcr.spec
+	Note this step requires the build directory reside on a filesystem 
+	accessible to the compute nodes, or test executables may fail to run.  
+      - check the test results, during and after the run:
+            cd harness && checkfail -u
+        there are a handful of expected failures on the XT, 
+        but most tests should pass
+
+===============================================================================
+Known Issues and limitations:
+===============================================================================
+
+* BUPC+UPCR supports either PrgEnv-gnu or PrgEnv-pgi, but the runtime component
+ must be configured, built and used with all the same setting (otherwise
+ non-obvious malfunctions can occur). The best solution is probably to build
+ and install two separate copies of the runtime, one for each PrgEnv, then
+ setup modules to select the correct one automatically when PrgEnv is loaded
+ (the BUPC translator component is not sensitive to PrgEnv).
+
+* GUPC+UPCR currently supports only PrgEnv-gnu, and must be configured, built
+ and used with PrgEnv-gnu loaded.  Modules should probably be setup to disallow
+ loading a GUPC+UPCR module under PrgEnv-pgi, or other backend compilers. 
+
+* UPCR requires the backend compiler (eg gcc or pgi) and PE version to remain
+  constant between configuration and use. Modules should probably be setup to 
+  ensure the same compiler and PE version used to configure UPCR remains active
+  when using UPCR to compile UPC programs.
+
+* Harmless compiler warnings of the form:
+  gcc: -lpapi: linker input file unused because linking not done
+  gcc: -lperfctr: linker input file unused because linking not done
+ can be avoided by unloading the papi module.
+
+* A bug in the portals implementation for Cray PE versions 1.5.34-1.5.37 
+  (and possibly a few surrounding versions) is known to cause stability problems
+  under heavy load for all configurations of UPC. These PE versions should be avoided.
+  For more info, see: http://upc-bugs.lbl.gov/bugzilla/show_bug.cgi?id=1917 
+  or Cray SPR 737547
+
+* GUPC+UPCR has a known problem in -pthreads compilation mode, whereby 
+  programs with a significant amount of statically-allocated private data
+  may fail at program initiation time with an error message like:
+   
+   UPC Runtime error: pthread_create: Invalid argument
+
+  Users encountering this error are recommended to workaround it by either
+  using the BUPC translator (which does not demonstrate the problem), or
+  reworking their program to use less statically-allocated private data.
+
+ portals-conduit:
+ ---------------
+ * portals-conduit is a native implementation of GASNet (and hence UPC)
+   targeting Portals which delivers improved communication performance on the
+   Cray XT3/XT4. The current release now includes a fully-native implementation 
+   of portals-conduit, where all functionality is implemented via direct Portals
+   calls. The current version no longer uses MPI in any way.
+
+*  On CNL, if we try to pin more memory than the OS will allow, the job is killed.
+   Therefore there is really no way (that we know of) to determine the maximum
+   pinnable memory (and therefore maximal GASNET_SEGMENT_FAST segment size) 
+   under CNL without dire consequences - furthermore the maximal value appears
+   to be site-specific. Currently portals-conduit leaves this quantity 
+   unlimited (subject only to GASNET_MAX_SEGSIZE, which determines the maximal 
+   mmap) and jobs requesting too large a GASNet segment will be killed by the
+   kernel with an error message like:
+
+     [NID 18]Apid 49229: initiated application termination
+     Application 49229 exit signals: Killed
+
+   Programs encountering this error are recommended to reduce their GASNet 
+   segment size demands, either at the GASNet client level (eg
+   UPC_SHARED_HEAP_SIZE), or by setting environment variable GASNET_MAX_SEGSIZE
+   to a smaller value to impose a segment limit.  The default value for
+   GASNET_MAX_SEGSIZE can be established at configure time using:
+   --with-segment-mmap-max=XGB
+
+ * See gasnet/portals-conduit/README and gasnet/README in the UPCR distribution
+   for information on environment variables that can be used to tweak the runtime
+   behavior of portals-conduit and GASNet.
+
+ mpi-conduit:
+ -----------
+ * mpi-conduit is a fully portable implementation of GASNet that implementes
+   all communication services needed by UPC using a one-sided communication
+   layer built on MPI.  Due to limitations of MPI, UPC communication performance is
+   non-optimal when using mpi-conduit. Cray XT users are advised to use the native
+   portals-conduit for improved communication performance.
+
+ * The lack of robust backpressure in the MPI implementation can lead to crashes
+   under certain heavy communication patterns for mpi-conduit. The crashes look like the
+   following:
+
+  MPIDI_PortalsU_Request_PUPE(334): exhausted unexpected receive queue
+  buffering increase via env. var.   MPICH_UNEX_BUFFER_SIZE
+   - or -
+  [0] MPIDI_Portals_Progress: dropped event on unexpected receive queue, increase
+  [0] queue size by setting the environment variable MPICH_PTL_UNEX_EVENTS
+
+   In addition to the workarounds suggested in the error messages, increasing
+   GASNET_NETWORKDEPTH or decreasing AMMPI_CREDITS_PP may also help, although
+   none of these provide a foolproof solution. The native portals-conduit
+   implementation includes a robust flow-control algorithm that avoids these
+   problems by design.
+
+ * See gasnet/mpi-conduit/README and gasnet/README in the UPCR distribution
+   for information on environment variables that can be used to tweak the runtime
+   behavior of mpi-conduit and GASNet.
+
+===============================================================================
+Summary of build/install/packaging constraints
+===============================================================================
+
+For those who may be planning to install multiple copies of this software
+(eg to support different PE versions, backend compilers, etc) we've compiled
+a summary of the build/install constraints to assist in planning your install.
+
+UPCR constraints (any translator):
+----------------------------------
+
+* The PE version used to configure and build UPCR for a particular install must
+be the exact PE version active during any user invocations of upcc (ie UPC
+application code compilation and linking). This is due to PE system header
+dependencies established at configure time and portals/MPI binary dependencies
+established at library build time.
+
+* C compiler used to configure UPCR for a particular install must be the exact
+C compiler (family & version) that is invoked internally by that upcc driver
+when it calls "cc".
+
+* The user may link vanilla C or Fortran code into his UPC application built
+with any compiler that is ABI compatible with the compiler above (ie need not
+be an exact version match).
+
+* PrgEnv-pgi is only supported for configuring UPCR/portals-conduit in PE 1.5+
+
+* A bug in the portals implementation for Cray PE versions 1.5.34-1.5.37 (and
+possibly a few surrounding versions) is known to cause stability problems under
+heavy load for all configurations of UPC. These PE versions should be avoided.
+
+Additional constraints for using UPCR in pthreaded mode: (optimizes on-node communication btw cores)
+--------------------------------------------------------
+
+* Special UPCR configure options must be passed to select the NPTL libraries and headers
+
+* On PE 2.0, C compiler used to configure UPCR must be ABI compatible with the one used to
+build the NPTL library (there might be a sles10 dependency here). 
+
+Additional constraints for UPCR with BUPC translator:
+-------------------------------------------------------
+
+* BUPC translator should be built using gcc for the frontend node (any version should work)
+
+* A single installed copy of the BUPC translator can service any and all
+installed copies of BUPC+UPCR
+
+Additional constraints for UPCR with GUPC translator:
+-------------------------------------------------------
+
+* GUPC translator should be built using gcc 4.0 for the frontend node
+
+* GUPC translator install includes a gcc executable, which needs to be
+available for correct operation (although not necessarily to the end user?).
+
+* UPCR must be built using PrgEnv-gnu (any version) - PrgEnv-pgi is not
+supported for GUPC+UPCR (although it *is* supported using the BUPC
+translator)
+
+* A single installed copy of the GUPC translator can service any and all
+installed copies of GUPC+UPCR for a particular CNOS (however you need
+separate installs for CNL vs Catamount)
+
+

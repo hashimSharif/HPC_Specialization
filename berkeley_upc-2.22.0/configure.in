@@ -1,0 +1,2423 @@
+dnl --------------------------------------------------------------- 
+dnl     Run 'autoscan' on your code, and compare what you see here
+dnl     with 'configure.scan'.  Absorb what looks promising, then
+dnl     process this file with autoconf to produce a 'configure' script
+dnl         -- you may need to run 'aclocal' first
+dnl ---------------------------------------------------------------
+
+dnl Note that dist-hook rewrites AC_REVISION in the generated configure
+AC_REVISION("no-version-control-info")
+
+dnl     Generates init code for configure: filename is optional, and is tested
+dnl     for existence to make sure configure isn't confused about directories
+AC_INIT(upcr.h)
+AC_PREREQ(2.13)
+
+dnl     Store autoconf temp files in 'config' directory instead of root
+AC_CONFIG_AUX_DIR(config-aux)
+
+dnl set target_cpu, target_vendor, target_os, etc.
+AC_CANONICAL_SYSTEM
+AC_VALIDATE_CACHED_SYSTEM_TUPLE
+
+dnl     Initializes automake: requires 'package' name and version as args.
+AM_INIT_AUTOMAKE(berkeley_upc, UPCR_VERSION_LIT, no-define)
+if test "" ; then
+  dnl workaround a bug in aclocal 1.4
+  AM_INIT_AUTOMAKE(x,x,no-define) 
+fi
+
+dnl     Name of the header file containing config #defines 
+dnl     --if you use this, run 'autoheader' before 'automake'
+AM_CONFIG_HEADER(upcr_config.h)
+
+dnl     Our upper case versions of these standard configure variables use
+dnl     full path instead of relative path
+AC_PREFIX_DEFAULT(/usr/local/berkeley_upc)
+
+GASNET_START_CONFIGURE([])
+GASNET_DEFINE_CONFIGURE_VARS([UPCRI])
+
+UPCR_INIT_VERSIONS()
+
+dnl     We don't use AC_CONFIG_SUBDIRS, which implies AC_DISABLE_OPTION_CHECKING
+GASNET_NO_CHECK_OPTS
+
+dnl     Deal with "$prefix/" in translator settings
+if test -n "$with_multiconf_magic"; then
+  TOP_PREFIX=[`expr "$prefix" : '\(/[^ ]*\)/'`] # "dirname"
+else
+  TOP_PREFIX="$prefix"
+fi
+AC_SUBST(TOP_PREFIX)
+AC_DEFUN([expand_prefix],[dnl
+`$PERL -e "\\\$_='$1';s@^\\044prefix/@$TOP_PREFIX/@;print;"`dnl
+])
+
+dnl     Tell gasnet_trace to identify itself as upc_trace
+GASNET_SUBCONFIGURE_ARG(--with-tool-prefix=upc)
+GASNET_PROG_PERL
+
+dnl bug 2323: disallow configure --program-{prefix,suffix,transform}
+GASNET_FORBID_PROGRAM_TRANSFORM
+
+dnl Note bug 2848: the --disable-sptr-* options don't do anything
+GASNET_IF_ENABLED(sptr-packed, 
+    [Use the more efficient 'packed' shared pointer representation (on by default)], 
+                [force_packed_sptr="yes"], [])
+GASNET_IF_ENABLED(sptr-struct, 
+    [Use the 'struct' shared pointer representation], 
+                [force_struct_sptr="yes"], [])
+if test "$force_struct_sptr$force_packed_sptr" = "yesyes"; then
+    AC_MSG_ERROR([Conflicting options --enable-sptr-struct and --enable-sptr-packed were both given])
+fi
+GASNET_IF_ENABLED(sptr-symmetric, 
+    [Enable 'symmetric' pointer variant where available (64-bit smp & shmem) (off by default)], 
+                [force_symmetric_sptr="yes"], [])
+
+GASNET_IF_DISABLED(umalloc-external-metadata,
+    [Keep shared heap metadata in private memory (on by default)], 
+                [umalloc_external_metadata="no"])
+if test "x$umalloc_external_metadata" != "xno"; then
+      AC_DEFINE(UMALLOC_EXTERNAL_METADATA)
+fi
+
+GASNET_IF_DISABLED(strict-hook,
+    [Enable optimizations which add overhead to strict operations (on by default)],
+                [strict_hook_enabled="no"])
+if test "x$strict_hook_enabled" != "xno"; then
+      AC_DEFINE(UPCRI_STRICT_HOOK_ENABLED)
+fi
+
+COMPILER_SPEC_FILE="compiler.spec"
+AC_SUBST(COMPILER_SPEC_FILE)
+
+dnl     Parse --with-gupc-version before --with-gupc to know if we can
+dnl     run the translator or not.
+dnl     NOTE: This may no longer have any user and can/should be removed
+dnl     if it ever creates problems
+GCCUPC_VERSION=
+GASNET_WITH(gupc-version, [Force UPCR to assume a particular version of GUPC (default is auto-detect)], 
+    [ # don't attempt to run GUPC (eg when building an RPM it might not yet be installed)
+      # just accept the version override and trust the user knows what he's doing
+      GCCUPC_VERSION="$withval"
+      GASNET_MSG_WARN([Accepting --with-gupc-version=$GCCUPC_VERSION. Translator validation checks will be skipped.])
+    ])
+dnl     Helper for gupc version checks
+dnl     example: GUPC_VERSION_CHECK(ge, 4.00.00.00)
+dnl	Value is 'yes' or 'no'
+AC_DEFUN([gupc_version_check],[dnl
+`$PERL -e "print '$GCCUPC_CANONICAL_VERSION' $1 '$2' ? 'yes':'no'"`dnl
+])
+dnl 
+dnl     Need to parse --with-gupc before detecting CC, since it changes the
+dnl     default value for CC to the 'gcc' that comes with gupc's 'upc'
+dnl     NOTE: The statement above about CC is NOT currently true.  See below.
+GASNET_WITH(gupc, [use gupc compiler (provide full pathname to 'upc')],
+    [AC_MSG_CHECKING(for gupc)
+     translator=expand_prefix($withval)
+     pushdef([bad_with_gupc], [['--with-gupc' requires full path to 'gupc', 'xgupc', 'upc', or 'xupc' executable]])
+     dnl Check that we have a full path (also catches "yes" when no argument was given)
+     dnl The value $gccdir could be used to locate the matching gcc (currently disabled).
+     gccdir=[`expr "$translator" : '\(/[^ ]*\)/'`] # "dirname"
+     if test -z "$gccdir"; then
+        AC_MSG_ERROR(bad_with_gupc)
+     fi
+     dnl Check that we have an executable name containing 'upc'
+     gupcexec=[`expr "$translator" : "$gccdir/\([^ ]*\)"`] # "basename" plus strips any args
+     case "$gupcexec" in
+        *upc*) : ;;
+        *) AC_MSG_ERROR(bad_with_gupc)
+           ;;
+     esac
+     dnl Validate that this really is GUPC (Fatal unless --with-gupc-version was passed)
+     echo > conftest.c  # empty .c file
+     if test -z "`$translator -dM -E conftest.c 2>&1 | grep __GCC_UPC__`"; then
+        tmp="$gccdir/$gupcexec"
+        if test -z "$GCCUPC_VERSION"; then 
+           if test -x "$tmp"; then 
+             AC_MSG_ERROR([GUPC_TRANS setting '$tmp' does not appear to be a working gupc executable])
+           elif test -e "$tmp"; then 
+             AC_MSG_ERROR([GUPC_TRANS setting '$tmp' does not appear to be executable])
+           else
+             AC_MSG_ERROR([GUPC_TRANS setting '$tmp' does not appear to exist])
+           fi
+        else
+           if test -x "$tmp"; then 
+             GASNET_MSG_WARN([GUPC_TRANS setting '$tmp' does not appear to be a working gupc executable])
+           elif test -e "$tmp"; then 
+             GASNET_MSG_WARN([GUPC_TRANS setting '$tmp' does not appear to be executable])
+           else
+             GASNET_MSG_WARN([GUPC_TRANS setting '$tmp' does not appear to exist])
+           fi
+        fi
+     fi
+     rm conftest.c
+     TRANSLATOR="$withval"
+     AC_MSG_RESULT($TRANSLATOR)
+# Default CC to gupc's 'gcc' (living in same directory as 'upc')
+#   - TODO: make this work:  right now gasnet doesn't see the CC change if we
+#           merely set CC=$gccdir/gcc.  If we export CC (or append
+#           CC=$gccdir/gcc or --with-cc=$gccdir/gcc to ac_configure_args),
+#           gasnet's configure dies complaining that CC wasn't set in the last
+#           configure invocation.  This is because it shared the same
+#           config.cache with upcr.
+#       - for now, force users to set CC=<gupc's gcc> if they want it.
+#   - UPDATE: we do *not* require the use of CC=<gupc's gcc>: that approach is fully supported, but optional
+#         users are free to supply a different CC provided it is ABI compatible with gupc
+#     if test -n "`$gccdir/gcc -v 2>&1 < /dev/null | grep 'gcc version'`"; then
+#         if test -z "$CC"; then
+#             CC="$gccdir/gcc"
+#         fi
+#     fi
+     
+     AC_DEFINE(UPCRI_USING_GCCUPC)
+     USING_GCCUPC="yes"
+     if test -z "$GCCUPC_VERSION" ; then # auto-detect version by running the compiler
+       AC_MSG_CHECKING(for gupc version)
+       # GNU UPC version string:
+       #  [x][g]upc (GCC) 4.8.0 20111121 (GNU UPC 4.8.0-1)
+       # GNU UPC version string:
+       #  xgcc (GCC) 4.7.0 20111121 (GNU UPC 4.7.0-2)
+       # GCC UPC version string:
+       #  xgcc (GCC) 4.2.0 20071006 (dev) (GCC UPC 4.2.0-1) 
+       # Old GCC UPC version string:
+       #  xgcc (GCC) 4.0.3 20071007 upc-4.0.3.5 (GCC UPC/dev)
+       # Above, in a production compiler, xgcc is gcc,
+       # and dev (with optional parens) is not present.
+       GCCUPC_VERSION=`$translator --version 2>&1 | \
+	  $PERL -ne 'if (/^x?g?(upc|gcc).*[[ -]](\d+\.\d+\.\d+[[.-]]\d+)/) {print $2;}'`
+       if test -z "$GCCUPC_VERSION"; then
+         AC_MSG_ERROR(bad_with_gupc)
+       fi
+     fi
+     GCCUPC_CANONICAL_VERSION=`$PERL -e 'if ("'"$GCCUPC_VERSION"'" =~ m/(\d+)\.(\d+)\.(\d+)[[.-]](\d+)/) \
+          {printf "%01d.%02d.%02d.%02d", $1, $2, $3, $4;}'`
+     if test -z "$GCCUPC_CANONICAL_VERSION" ; then
+       AC_MSG_ERROR([Missing or invalid GUPC translator version: $GCCUPC_VERSION])
+     else
+       AC_MSG_RESULT($GCCUPC_VERSION)
+     fi
+     AC_SUBST(GCCUPC_VERSION)
+
+     if test gupc_version_check(ge, 4.00.00.00) = 'no'; then
+       AC_MSG_ERROR([This version of UPCR requires GUPC version 4.x or greater. Detected GUPC translator version: $GCCUPC_VERSION])
+     fi
+
+     # bless gupc's gcc as ok
+     # The problem in question should not affect that config anyhow because
+     # local accesses are generated as assembly from gupc, instead of UPCR calls
+     GASNET_SUBCONFIGURE_ARG(--enable-allow-gcc4)
+
+     # Versions 4.2.0.2 and up support init sections
+     AC_MSG_CHECKING([for gupc init section support])
+     GCCUPC_INIT_SECTION=gupc_version_check(ge, 4.02.00.01)
+     AC_MSG_RESULT($GCCUPC_INIT_SECTION)
+     if test "$GCCUPC_INIT_SECTION" = "yes"; then
+       AC_DEFINE(UPCRI_USING_GCCUPC_INIT_SECTION)
+     else
+       AC_DEFINE(UPCRI_USING_GCCUPC_INIT_STATIC_COPY)
+     fi
+     AC_MSG_CHECKING([for older gupc that supports only struct pointer-to-shared])
+     GCCUPC_HAS_ONLY_STRUCT_SPTR=gupc_version_check(lt, 4.02.00.02)
+     AC_MSG_RESULT($GCCUPC_HAS_ONLY_STRUCT_SPTR)
+     AC_MSG_CHECKING([for gupc that supports new struct pointer-to-shared format])
+     GCCUPC_HAS_NEW_STRUCT_SPTR=gupc_version_check(ge, 4.02.03.05)
+     AC_MSG_RESULT($GCCUPC_HAS_NEW_STRUCT_SPTR)
+
+     AC_MSG_CHECKING(for __attribute__((__aligned__ (16))))
+     GASNET_TRY_CCOMPILE_WITHWARN([
+	#undef __attribute__
+	typedef struct {int x; int y;} __attribute__((__aligned__ (16))) foo;
+	], [ ], [
+	 AC_MSG_RESULT(yes)
+	 AC_DEFINE(HAVE_GCC_ATTRIBUTE_ALIGNED)
+	 have_attrib_aligned=1
+       ],[ AC_MSG_RESULT([no/warning])
+       ],[ AC_MSG_RESULT([no/error]) 
+     ])
+
+     AC_MSG_CHECKING([for older gupc that requires alignment of struct pointer-to-shared])
+     if test "$have_attrib_aligned" -eq 1; then
+        GCCUPC_MUST_ALIGN_STRUCT_SPTR=gupc_version_check(lt, 4.06.00.00)
+     else
+        GCCUPC_MUST_ALIGN_STRUCT_SPTR="no"
+     fi
+     AC_MSG_RESULT($GCCUPC_MUST_ALIGN_STRUCT_SPTR)
+
+     COMPILER_SPEC_FILE="gupc-upcr.spec"
+     if test -n "$force_symmetric_sptr"; then 
+       AC_MSG_ERROR(['--with-gupc' does not support '--enable-sptr-symmetric'])
+     fi
+     AC_MSG_CHECKING([for gupc packed sptr support])
+     if test "$with_gccupc_version"; then
+       if test "$GCCUPC_HAS_ONLY_STRUCT_SPTR" = "yes" \
+               -o -n "$force_struct_sptr"; then
+	 GCCUPC_PACKED_SPTR="no"
+       else
+         GCCUPC_PACKED_SPTR="yes"
+       fi
+     else
+       # We'd like to use the AC_TRY_CPP macro here, but GCCUPC has
+       # a bug where it always exits with a 0 status even when
+       # it hits the #error preprocessor op.
+       cat > conftest.upc << _ACEOF
+	  #if !__UPC_PTS_PACKED_REP__
+	    #error UPC packed shared pointers are not supported.
+	  #endif
+_ACEOF
+       if $translator -E conftest.upc 2>&1 | grep '#error' > /dev/null; then
+	 GCCUPC_PACKED_SPTR="no"
+       else
+	 GCCUPC_PACKED_SPTR="yes"
+       fi
+       rm -f conftest.upc
+     fi
+     AC_MSG_RESULT($GCCUPC_PACKED_SPTR)
+     if test "$GCCUPC_PACKED_SPTR" = "yes"; then
+       if test -n "$force_struct_sptr"; then
+	   AC_MSG_ERROR([The GCCUPC installation at $TRANSLATOR does not support '--enable-sptr-struct'. If you wish to use the struct pointer-to-shared representation (eg to support huge thread counts, memory sizes or shared blocksizes) then you must configure GCCUPC with: --with-upc-pts=struct])
+       fi
+       force_packed_sptr="yes"
+     else
+       if test -n "$force_packed_sptr"; then 
+	 if test "$GCCUPC_HAS_ONLY_STRUCT_SPTR" = "yes"; then
+	   AC_MSG_ERROR([The GCCUPC installation at $TRANSLATOR does not support '--enable-sptr-packed'. Packed pointer support is available starting in GCCUPC v4.2.0.2])
+	 else
+	   AC_MSG_ERROR([The GCCUPC installation at $TRANSLATOR does not support '--enable-sptr-packed'. If you wish to use the packed pointer-to-shared representation then you must configure GCCUPC with: --with-upc-pts=packed])
+	 fi
+       fi
+       if test -z "$have_attrib_aligned"; then
+         AC_MSG_ERROR([GCCUPC requires CC to support __attribute__(__aligned__) for struct pointers])
+       fi
+       force_struct_sptr="yes"
+     fi
+     # Newer GCCUPC's will report their pointer-to-shared configuration.
+     if test -z "$with_gccupc_version"; then
+       AC_MSG_CHECKING(
+	 [for gupc that provides pointer-to-shared configuration information])
+       GCCUPC_HAS_SPTR_CONFIG=gupc_version_check(ge, 4.02.03.04)
+       AC_MSG_RESULT($GCCUPC_HAS_SPTR_CONFIG)
+     fi
+     if test "$GCCUPC_HAS_SPTR_CONFIG" = "yes"; then
+       cat > conftest.upc << _ACEOF
+#define _XSTR(X) #X
+#define _STR(S) _XSTR(S)
+#ifdef __UPC_VADDR_FIRST__
+UPCRI_SPTR_ADDR_FIRST=__UPC_VADDR_FIRST__
+#endif
+UPCRI_ADDR_BITS_OVERRIDE=_STR(__UPC_VADDR_SIZE__)
+UPCRI_PHASE_BITS_OVERRIDE=_STR(__UPC_PHASE_SIZE__)
+UPCRI_THREAD_BITS_OVERRIDE=_STR(__UPC_THREAD_SIZE__)
+#if __UPC_PTS_STRUCT_REP__
+UPCRI_STRUCT_SPTR_ADDR_TYPE=_STR(__UPC_VADDR_TYPE__)
+UPCRI_STRUCT_SPTR_PHASE_TYPE=_STR(__UPC_PHASE_TYPE__)
+UPCRI_STRUCT_SPTR_THREAD_TYPE=_STR(__UPC_THREAD_TYPE__)
+#if __UPC_PTS_ALIGN__
+UPCRI_STRUCT_SPTR_ALIGN=_STR(__UPC_PTS_ALIGN__)
+#endif
+#ifdef __UPC_VADDR_FIELD__
+UPCRI_STRUCT_SPTR_ADDR_FIELD=_STR(__UPC_VADDR_FIELD__)
+#endif
+#ifdef __UPC_PHASE_FIELD__
+UPCRI_STRUCT_SPTR_PHASE_FIELD=_STR(__UPC_PHASE_FIELD__)
+#endif
+#ifdef __UPC_THREAD_FIELD__
+UPCRI_STRUCT_SPTR_THREAD_FIELD=_STR(__UPC_THREAD_FIELD__)
+#endif
+#endif
+_ACEOF
+	 eval `$translator -E conftest.upc | grep '^ *UPCRI_[[A-Z0-9_]]*='`
+	 rm -f conftest.upc
+     else
+       # Set configuration defaults based upon version and target word size
+       GASNET_CHECK_SIZEOF(void *)
+       GCCUPC_PTR_BITS=`expr $SIZEOF_VOID_P \* 8`
+       if test -n "$force_struct_sptr"; then
+	 AC_MSG_RESULT([Setting default struct sptr configuration values])
+	 if test "$GCCUPC_HAS_NEW_STRUCT_SPTR" = "yes" ; then
+	   UPCRI_SPTR_ADDR_FIRST=1
+	   if test "$GCCUPC_PTR_BITS" = 64 ; then
+	     UPCRI_ADDR_BITS_OVERRIDE=64
+	     UPCRI_THREAD_BITS_OVERRIDE=32
+	     UPCRI_PHASE_BITS_OVERRIDE=32
+	     UPCRI_STRUCT_SPTR_ADDR_TYPE="char *"
+	     UPCRI_STRUCT_SPTR_THREAD_TYPE="uint32_t"
+	     UPCRI_STRUCT_SPTR_PHASE_TYPE="uint32_t"
+	   else
+	     UPCRI_ADDR_BITS_OVERRIDE=32
+	     UPCRI_THREAD_BITS_OVERRIDE=16
+	     UPCRI_PHASE_BITS_OVERRIDE=16
+	     UPCRI_STRUCT_SPTR_ADDR_TYPE="char *"
+	     UPCRI_STRUCT_SPTR_THREAD_TYPE="uint16_t"
+	     UPCRI_STRUCT_SPTR_PHASE_TYPE="uint16_t"
+	   fi
+	 else
+	   # Old format
+	   if test "$GCCUPC_PTR_BITS" = 64 ; then
+	     UPCRI_ADDR_BITS_OVERRIDE=64
+	     UPCRI_THREAD_BITS_OVERRIDE=16
+	     UPCRI_PHASE_BITS_OVERRIDE=48
+	     UPCRI_STRUCT_SPTR_THREAD_FIELD=": 16"
+	     UPCRI_STRUCT_SPTR_PHASE_FIELD=": 48"
+	     UPCRI_STRUCT_SPTR_ADDR_TYPE="char *"
+	     UPCRI_STRUCT_SPTR_THREAD_TYPE="unsigned short"
+	     UPCRI_STRUCT_SPTR_PHASE_TYPE="unsigned long"
+	   else
+	     UPCRI_ADDR_BITS_OVERRIDE=32
+	     UPCRI_THREAD_BITS_OVERRIDE=8
+	     UPCRI_PHASE_BITS_OVERRIDE=24
+	     UPCRI_STRUCT_SPTR_THREAD_FIELD=": 8"
+	     UPCRI_STRUCT_SPTR_PHASE_FIELD=": 24"
+	     UPCRI_STRUCT_SPTR_ADDR_TYPE="char *"
+	     UPCRI_STRUCT_SPTR_THREAD_TYPE="unsigned char"
+	     UPCRI_STRUCT_SPTR_PHASE_TYPE="unsigned long"
+	   fi
+	 fi
+       else  
+	 UPCRI_SPTR_ADDR_FIRST=1
+	 # Set GCC packed default representation.
+	 UPCRI_PHASE_BITS_OVERRIDE=16
+	 UPCRI_THREAD_BITS_OVERRIDE=12
+	 UPCRI_ADDR_BITS_OVERRIDE=36
+       fi
+     fi
+     # If we're configuring GCCUPC's 'struct' PTS representation
+     # and no PTS alignment has been set, and this version of GCCUPC
+     # requires PTS alignment, then set the default alignment to be
+     # twice the size of the address field.
+     if test -n "$UPCRI_STRUCT_SPTR_ADDR_TYPE" \
+        && test -z "$UPCRI_STRUCT_SPTR_ALIGN" \
+	&& test "$GCCUPC_MUST_ALIGN_STRUCT_SPTR" = "yes"; then
+       UPCRI_STRUCT_SPTR_ALIGN=`expr 2 '*' $UPCRI_ADDR_BITS_OVERRIDE / 8`
+     fi
+     for cfg in UPCRI_ADDR_BITS_OVERRIDE UPCRI_PHASE_BITS_OVERRIDE \
+                UPCRI_THREAD_BITS_OVERRIDE UPCRI_STRUCT_SPTR_ADDR_TYPE \
+		UPCRI_STRUCT_SPTR_PHASE_TYPE UPCRI_STRUCT_SPTR_THREAD_TYPE \
+		UPCRI_STRUCT_SPTR_ADDR_FIELD UPCRI_STRUCT_SPTR_PHASE_FIELD \
+		UPCRI_STRUCT_SPTR_THREAD_FIELD UPCRI_STRUCT_SPTR_ALIGN ; do
+       eval "cval=\$$cfg"
+       if test -n "$cval"; then
+         AC_MSG_CHECKING([value of $cfg])
+         AC_MSG_RESULT($cval)
+       fi
+     done
+     # Add target-specific arguments
+     case "$target" in
+       *-catamount-*) 
+         TRANSLATOR="$TRANSLATOR -D__LIBCATAMOUNT__ -D__QK_USER__";;
+       *-cnl-*)
+         TRANSLATOR="$TRANSLATOR -D__CRAYXT_COMPUTE_LINUX_TARGET -D__TARGET_LINUX__";;
+     esac
+     popdef([bad_with_gupc])
+    ],
+    [ USING_GCCUPC="no" ], 
+    [ USING_GCCUPC="no" ]) 
+AC_SUBST(USING_GCCUPC)
+
+dnl     Parse --with-cupc-version before --with-cupc to know if we can
+dnl     run the translator or not.
+dnl     NOTE: This may no longer have any user and can/should be removed
+dnl     if it ever creates problems
+CUPC_VERSION=
+GASNET_WITH(cupc-version, [Force UPCR to assume a particular version of CUPC (default is auto-detect)], 
+    [ # don't attempt to run CUPC (eg when building an RPM it might not yet be installed)
+      # just accept the version override and trust the user knows what he's doing
+      CUPC_VERSION="$withval"
+      GASNET_MSG_WARN([Accepting --with-cupc-version=$CUPC_VERSION. Translator validation checks will be skipped.])
+    ])
+dnl     Helper for gupc version checks
+dnl     example: CUPC_VERSION_CHECK(ge, 4.00.00.00)
+dnl	Value is 'yes' or 'no'
+AC_DEFUN([cupc_version_check],[dnl
+`$PERL -e "print '$CUPC_CANONICAL_VERSION' $1 '$2' ? 'yes':'no'"`dnl
+])
+dnl 
+dnl     Need to parse --with-cupc before detecting CC, since it changes the
+dnl     default value for CC to the 'clang' that comes with Clang UPC's 'upc'
+dnl     NOTE: The statement above about CC is NOT currently true.  See below.
+GASNET_WITH(cupc, [use Clang UPC compiler (provide full pathname to 'clang-upc')],
+    [AC_MSG_CHECKING(for clang-upc)
+     if test "$USING_GCCUPC" = "xyes"; then
+        AC_MSG_ERROR([cannot use both --with-gupc and --with-cupc])
+     fi
+     translator=expand_prefix($withval)
+     pushdef([bad_with_cupc], [['--with-cupc' requires full path to 'clang-upc', or 'upc' executable]])
+     dnl Check that we have a full path (also catches "yes" when no argument was given)
+     dnl The value $clangdir could be used to locate the matching clang (currently disabled).
+     clangdir=[`expr "$translator" : '\(/[^ ]*\)/'`] # "dirname"
+     if test -z "$clangdir"; then
+        AC_MSG_ERROR(bad_with_cupc)
+     fi
+     dnl Check that we have an executable name containing 'clang-upc', or 'upc'
+     cupcexec=[`expr "$translator" : "$clangdir/\([^ ]*\)"`] # "basename" plus strips any args
+     case "$cupcexec" in
+        *clang-upc*) : ;;
+        *upc*) : ;;
+        *) AC_MSG_ERROR(bad_with_cupc)
+           ;;
+     esac
+     dnl Validate that this really is Clang UPC (Fatal unless --with-cupc-version was passed)
+     echo > conftest.c  # empty .c file
+     if test -z "`$translator -dM -E conftest.c 2>&1 | grep __clang_upc__`"; then
+        tmp="$clangdir/$cupcexec"
+        if test -z "$CUPC_VERSION"; then 
+           if test -x "$tmp"; then 
+             AC_MSG_ERROR([CUPC_TRANS setting '$tmp' does not appear to be a working Clang UPC executable])
+           elif test -e "$tmp"; then 
+             AC_MSG_ERROR([CUPC_TRANS setting '$tmp' does not appear to be executable])
+           else
+             AC_MSG_ERROR([CUPC_TRANS setting '$tmp' does not appear to exist])
+           fi
+        else
+           if test -x "$tmp"; then 
+             GASNET_MSG_WARN([CUPC_TRANS setting '$tmp' does not appear to be a working Clang UPC executable])
+           elif test -e "$tmp"; then 
+             GASNET_MSG_WARN([CUPC_TRANS setting '$tmp' does not appear to be executable])
+           else
+             GASNET_MSG_WARN([CUPC_TRANS setting '$tmp' does not appear to exist])
+           fi
+        fi
+     fi
+     rm conftest.c
+     TRANSLATOR="$withval"
+     AC_MSG_RESULT($TRANSLATOR)
+     
+     AC_DEFINE(UPCRI_USING_CUPC)
+     USING_CUPC="yes"
+     if test -z "$CUPC_VERSION" ; then # auto-detect version by running the compiler
+       AC_MSG_CHECKING(for Clang UPC version)
+       # Clang UPC version string:
+       #  clang version 3.4  (UPC 3.4.0-1 20140401)
+       #  clang version 3.5.1  (UPC 3.5.1-0 20150202)
+       CUPC_VERSION=`$translator --version 2>&1 | \
+	  $PERL -ne 'if (/clang version (\d+\.\d+(\.\d+)?)  \(UPC (\d+\.\d+\.\d+[[.-]]\d+) (\d+)\)/) {print $3;}'`
+       if test -z "$CUPC_VERSION"; then
+         AC_MSG_ERROR(bad_with_cupc)
+       fi
+     fi
+     CUPC_CANONICAL_VERSION=`$PERL -e 'if ("'"$CUPC_VERSION"'" =~ m/(\d+)\.(\d+)\.(\d+)[[.-]](\d+)/) \
+          {printf "%01d.%02d.%02d.%02d", $1, $2, $3, $4;}'`
+     if test -z "$CUPC_CANONICAL_VERSION" ; then
+       AC_MSG_ERROR([Missing or invalid Clang UPC translator version: $CUPC_VERSION])
+     else
+       AC_MSG_RESULT($CUPC_VERSION)
+     fi
+     AC_SUBST(CUPC_VERSION)
+
+     # bless Clang UPC CC compiler
+     # The problem in question should not affect that config anyhow because
+     # local accesses are generated as assembly from clang-upc, instead of UPCR calls
+     GASNET_SUBCONFIGURE_ARG(--enable-allow-gcc4)
+
+     # Clang UPC supports UPC init section
+     AC_DEFINE(UPCRI_USING_GCCUPC_INIT_SECTION)
+
+     AC_MSG_CHECKING(for __attribute__((__aligned__ (16))))
+     GASNET_TRY_CCOMPILE_WITHWARN([
+	#undef __attribute__
+	typedef struct {int x; int y;} __attribute__((__aligned__ (16))) foo;
+	], [ ], [
+	 AC_MSG_RESULT(yes)
+	 AC_DEFINE(HAVE_GCC_ATTRIBUTE_ALIGNED)
+	 have_attrib_aligned=1
+       ],[ AC_MSG_RESULT([no/warning])
+       ],[ AC_MSG_RESULT([no/error]) 
+     ])
+
+     COMPILER_SPEC_FILE="cupc-upcr.spec"
+
+     # Try to match PTS rep:
+     if test -n "$force_symmetric_sptr"; then 
+       AC_MSG_ERROR(['--with-cupc' does not support '--enable-sptr-symmetric'])
+     fi
+     TRANSEXTRA=''
+     if test -z `echo "$translator" | grep ' -fupc-pts=' 2>/dev/null`; then
+       AC_MSG_CHECKING([for pts option])
+       if test -n "$force_struct_sptr"; then
+         AC_MSG_RESULT([appending -fupc-pts=struct])
+         TRANSEXTRA=' -fupc-pts=struct'
+       elif test -n "$force_packed_sptr"; then
+         AC_MSG_RESULT([appending -fupc-pts=packed])
+         TRANSEXTRA=' -fupc-pts=packed'
+       else
+         AC_MSG_RESULT([none required])
+       fi
+     fi
+
+     # Clang UPC will report their pointer-to-shared configuration.
+     cat > conftest.upc << _ACEOF
+#define _XSTR(X) #X
+#define _STR(S) _XSTR(S)
+#ifdef __UPC_VADDR_FIRST__
+UPCRI_SPTR_ADDR_FIRST=__UPC_VADDR_FIRST__
+#endif
+UPCRI_ADDR_BITS_OVERRIDE=_STR(__UPC_VADDR_SIZE__)
+UPCRI_PHASE_BITS_OVERRIDE=_STR(__UPC_PHASE_SIZE__)
+UPCRI_THREAD_BITS_OVERRIDE=_STR(__UPC_THREAD_SIZE__)
+#if __UPC_PTS_STRUCT_REP__
+UPCRI_STRUCT_SPTR_ADDR_TYPE=_STR(__UPC_VADDR_TYPE__)
+UPCRI_STRUCT_SPTR_PHASE_TYPE=_STR(__UPC_PHASE_TYPE__)
+UPCRI_STRUCT_SPTR_THREAD_TYPE=_STR(__UPC_THREAD_TYPE__)
+#if __UPC_PTS_ALIGN__
+UPCRI_STRUCT_SPTR_ALIGN=_STR(__UPC_PTS_ALIGN__)
+#endif
+#ifdef __UPC_VADDR_FIELD__
+UPCRI_STRUCT_SPTR_ADDR_FIELD=_STR(__UPC_VADDR_FIELD__)
+#endif
+#ifdef __UPC_PHASE_FIELD__
+UPCRI_STRUCT_SPTR_PHASE_FIELD=_STR(__UPC_PHASE_FIELD__)
+#endif
+#ifdef __UPC_THREAD_FIELD__
+UPCRI_STRUCT_SPTR_THREAD_FIELD=_STR(__UPC_THREAD_FIELD__)
+#endif
+#endif
+_ACEOF
+     eval `$translator$TRANSEXTRA -E conftest.upc | grep '^ *UPCRI_[[A-Z0-9_]]*='`
+     rm -f conftest.upc
+     for cfg in UPCRI_ADDR_BITS_OVERRIDE UPCRI_PHASE_BITS_OVERRIDE \
+                UPCRI_THREAD_BITS_OVERRIDE UPCRI_STRUCT_SPTR_ADDR_TYPE \
+		UPCRI_STRUCT_SPTR_PHASE_TYPE UPCRI_STRUCT_SPTR_THREAD_TYPE \
+		UPCRI_STRUCT_SPTR_ADDR_FIELD UPCRI_STRUCT_SPTR_PHASE_FIELD \
+		UPCRI_STRUCT_SPTR_THREAD_FIELD UPCRI_STRUCT_SPTR_ALIGN \
+		UPCRI_SPTR_ADDR_FIRST; do
+       eval "cval=\$$cfg"
+       if test -n "$cval"; then
+         AC_MSG_CHECKING([value of $cfg])
+         AC_MSG_RESULT($cval)
+       fi
+     done
+     if test -z "$UPCRI_STRUCT_SPTR_ADDR_TYPE" ; then
+       if test -n "$force_struct_sptr"; then
+	   AC_MSG_ERROR([The Clang UPC installation at $TRANSLATOR does not support '--enable-sptr-struct'. If you wish to use the struct pointer-to-shared representation then you must configure Clang UPC to match])
+       fi
+       force_packed_sptr="yes"
+     else
+       if test -n "$force_packed_sptr"; then
+	   AC_MSG_ERROR([The Clang UPC installation at $TRANSLATOR does not support '--enable-sptr-packed'. If you wish to use the packed pointer-to-shared representation then you must configure Clang UPC to match])
+       fi
+       force_struct_sptr="yes"
+     fi
+     TRANSLATOR="$TRANSLATOR$TRANSEXTRA"
+     # Add target-specific arguments
+     case "$target" in
+       *-catamount-*) 
+         TRANSLATOR="$TRANSLATOR -D__LIBCATAMOUNT__ -D__QK_USER__";;
+       *-cnl-*)
+         TRANSLATOR="$TRANSLATOR -D__CRAYXT_COMPUTE_LINUX_TARGET -D__TARGET_LINUX__";;
+     esac
+     popdef([bad_with_cupc])
+    ],
+    [ USING_CUPC="no" ], 
+    [ USING_CUPC="no" ]) 
+AC_SUBST(USING_CUPC)
+
+# Clear AC_HEADER_STDC side-effects of the probes above (see bug 2488)
+grep -v 'define HAVE_.*_H' < confdefs.h > confdefs.h-tmp
+mv -f confdefs.h-tmp confdefs.h
+for cvvar in NON_EMPTY_HACK `(set) | grep "^ac_cv_header_" | cut -d= -f1`; do
+    unset $cvvar
+done 
+
+dnl Setup for clang-upc2c as UPC-to-C translator
+USING_CUPC2C="no"
+GASNET_WITH(clang-upc2c, [use clang-upc2c translator (provide full pathname to 'clang-upc2c')], [
+   AC_MSG_CHECKING(for clang-upc2c translator)
+   translator=expand_prefix($withval)
+   if test "$USING_CUPC" = "yes"; then
+      AC_MSG_ERROR([cannot use both --with-cupc and --with-clang-upc2c])
+   elif test "$USING_GCCUPC" = "yes"; then
+      AC_MSG_ERROR([cannot use both --with-gupc and --with-clang-upc2c])
+   fi
+   cupc2cdir=[`expr "$translator" : '\(/[^ ]*\)/'`] # "dirname"
+   if test -z "$cupc2cdir"; then
+     AC_MSG_ERROR([CUPC2C_TRANS setting '$withval' is not a full path])
+   fi
+   dnl Check that we have an executable name containing 'clang-upc2c' or 'upc2c'
+   cupc2cexec=[`expr "$translator" : "$cupc2cdir/\([^ ]*\)"`] # "basename" plus strips any args
+   case "$cupc2cexec" in
+      *clang-upc2c*) : ;;
+      *upc2c*) : ;;
+      *) AC_MSG_ERROR([CUPC2C_TRANS setting '$withval' does not contain 'clang-upc2c' or 'upc2c'])
+         ;;
+   esac
+   TRANSLATOR="$withval"
+   # Probe to report the pointer-to-shared configuration.
+   cat > conftest.upc << _ACEOF
+#define _XSTR(X) #X
+#define _STR(S) _XSTR(S)
+#ifdef __UPC_VADDR_FIRST__
+char* UPCRI_SPTR_ADDR_FIRST=_STR(__UPC_VADDR_FIRST__);
+#endif
+char* UPCRI_ADDR_BITS_OVERRIDE=_STR(__UPC_VADDR_SIZE__);
+char* UPCRI_PHASE_BITS_OVERRIDE=_STR(__UPC_PHASE_SIZE__);
+char* UPCRI_THREAD_BITS_OVERRIDE=_STR(__UPC_THREAD_SIZE__);
+#if __UPC_PTS_STRUCT_REP__
+char* UPCRI_STRUCT_SPTR_ADDR_TYPE=_STR(__UPC_VADDR_TYPE__);
+char* UPCRI_STRUCT_SPTR_PHASE_TYPE=_STR(__UPC_PHASE_TYPE__);
+char* UPCRI_STRUCT_SPTR_THREAD_TYPE=_STR(__UPC_THREAD_TYPE__);
+#if __UPC_PTS_ALIGN__
+char* UPCRI_STRUCT_SPTR_ALIGN=_STR(__UPC_PTS_ALIGN__);
+#endif
+#ifdef __UPC_VADDR_FIELD__
+char* UPCRI_STRUCT_SPTR_ADDR_FIELD=_STR(__UPC_VADDR_FIELD__);
+#endif
+#ifdef __UPC_PHASE_FIELD__
+char* UPCRI_STRUCT_SPTR_PHASE_FIELD=_STR(__UPC_PHASE_FIELD__);
+#endif
+#ifdef __UPC_THREAD_FIELD__
+char* UPCRI_STRUCT_SPTR_THREAD_FIELD=_STR(__UPC_THREAD_FIELD__);
+#endif
+#endif
+_ACEOF
+   tmp="$cupc2cdir/$cupc2cexec"
+   if test -n "$force_struct_sptr"; then
+     tmp_pts='struct'
+   else
+     tmp_pts='packed'
+   fi
+   if test \! -e "$tmp"; then
+     cupc2c_missing=yes  # issue warning after AC_MSG_RESULT
+   elif test \! -x "$tmp"; then
+     AC_MSG_ERROR([CUPC2C_TRANS setting '$TRANSLATOR' is not executable])
+   elif expr "`$translator --version`" : clang >/dev/null 2>&1 &&
+        eval "$translator -x upc -fupc-pts=$tmp_pts -fno-upc-pre-include conftest.upc" >/dev/null 2>&1 &&
+        test -e conftest.trans.c ; then
+     AC_MSG_RESULT([$TRANSLATOR])
+   else
+     AC_MSG_ERROR([setting '$TRANSLATOR' does not appear to be the clang UPC-to-C translator])
+   fi
+   if test x"$cupc2c_missing" = "xyes"; then
+     GASNET_MSG_WARN([CUPC2C_TRANS setting '$TRANSLATOR' does not appear to exist - validation skipped])
+   fi
+   if test -n "$force_struct_sptr"; then
+     # UPCR must adapt to clang's struct pts:
+     if test x"$cupc2c_missing" = "xyes"; then
+       # Set configuration defaults based upon target word size
+       GASNET_CHECK_SIZEOF(void *)
+       cupc2c_word=`expr $SIZEOF_VOID_P \* 8`
+       cupc2c_half_word=`expr $SIZEOF_VOID_P \* 4`
+       UPCRI_ADDR_BITS_OVERRIDE=$cupc2c_word
+       UPCRI_PHASE_BITS_OVERRIDE=$cupc2c_half_word
+       UPCRI_THREAD_BITS_OVERRIDE=$cupc2c_half_word
+       UPCRI_STRUCT_SPTR_ADDR_TYPE='uintptr_t'  # Ignored by upcr
+       UPCRI_STRUCT_SPTR_PHASE_TYPE="uint${cupc2c_half_word}_t"
+       UPCRI_STRUCT_SPTR_THREAD_TYPE="uint${cupc2c_half_word}_t"
+       UPCRI_SPTR_ADDR_FIRST=1
+     else
+       eval `$PERL -n -e 'if (m/(UPCRI_[[A-Z_]]*)\s*=\s*(".*")/) { print "$1=$2\n" }' -- conftest.trans.c`
+       for cfg in UPCRI_ADDR_BITS_OVERRIDE UPCRI_PHASE_BITS_OVERRIDE \
+                  UPCRI_THREAD_BITS_OVERRIDE UPCRI_STRUCT_SPTR_ADDR_TYPE \
+		  UPCRI_STRUCT_SPTR_PHASE_TYPE UPCRI_STRUCT_SPTR_THREAD_TYPE \
+		  UPCRI_SPTR_ADDR_FIRST; do
+         eval "cval=\$$cfg"
+         if test -n "$cval"; then
+           AC_MSG_CHECKING([value of $cfg])
+           AC_MSG_RESULT($cval)
+         fi
+       done
+       if test -z "$UPCRI_STRUCT_SPTR_ADDR_TYPE" ; then
+	   AC_MSG_ERROR([The Clang-upc2c installation at $TRANSLATOR does not support '--enable-sptr-struct'. If you wish to use the struct pointer-to-shared representation then you must configure Clang-upc2c to match])
+       fi
+     fi
+   fi
+   rm -f conftest.upc conftest.trans.c
+   USING_CUPC2C="yes"
+   AC_DEFINE(UPCRI_USING_CUPC2C)
+   COMPILER_SPEC_FILE="cupc2c.spec"
+])
+if test "$USING_CUPC2C" = "yes"; then
+   AC_MSG_CHECKING(for clang-upc or clang)
+   orig_cupc2cdir=[`expr "$TRANSLATOR" : '^\([/\$][^ ]*\)/'`] # "dirname" including $prefix, if present
+   if test -e "${cupc2cdir}/clang-upc"; then
+     CLANG_UPC="${orig_cupc2cdir}/clang-upc"
+   else
+     CLANG_UPC="${orig_cupc2cdir}/clang"
+   fi
+   GASNET_WITH(clang-upc,
+     [path to optional clang-upc or clang for preprocessing with clang-upc2c],
+     [ if test "$withval" != "yes"; then CLANG_UPC="$withval"; fi ],
+     [ CLANG_UPC="no" ])
+   clang_upc=expand_prefix($CLANG_UPC)
+   if test "$CLANG_UPC" = "no"; then
+     : # --without-clang-upc => ignore now and allow 'upcc -E' to fail later
+   elif test \! -e "$clang_upc"; then
+     if test x"$cupc2c_missing" != "xyes"; then
+       clang_upc_missing=yes  # issue warning after AC_MSG_RESULT
+     fi
+   elif test \! -x "$clang_upc"; then
+     AC_MSG_ERROR([--with-clang-upc setting '$CLANG_UPC' is not executable])
+   elif expr "`$clang_upc --version`" : clang >/dev/null 2>&1; then
+     AC_MSG_RESULT([$CLANG_UPC])
+   else
+     AC_MSG_ERROR([--with-clang-upc setting '$CLANG_UPC' does not appear to be the clang UPC compiler])
+   fi
+   if test x"$clang_upc_missing" = "xyes"; then
+     GASNET_MSG_WARN([--with-clang-upc setting '$CLANG_UPC' does not appear to exist - validation skipped])
+   fi
+fi
+AC_SUBST(USING_CUPC2C)
+AC_SUBST(CLANG_UPC)
+
+dnl ---------------TRANSLATOR-DEPENDENT SETUP---------------
+
+if test "$USING_GCCUPC$USING_CUPC2C$USING_CUPC" = "nonono"; then
+  USING_BUPC=yes
+else
+  USING_BUPC=no
+fi
+
+AM_CONDITIONAL(USING_GCCUPC, test "$USING_GCCUPC" = "yes")
+AM_CONDITIONAL(USING_CUPC2C, test "$USING_CUPC2C" = "yes")
+AM_CONDITIONAL(USING_CUPC, test "$USING_CUPC" = "yes")
+AM_CONDITIONAL(USING_BUPC, test "$USING_BUPC" = "yes")
+
+dnl UPC language specification identifier (ie __UPC_VERSION__)
+dnl
+dnl TODO: Should really reflect the lower of the capabilities of
+dnl the translator or runtime, but for now we are assuming that
+dnl the runtime is always the limiting factor.  To do otherwise
+dnl requires the ability to probe the translator, which runs
+dnl counter to our current practice of allowing builds of the
+dnl runtime without a yet-working translator.
+if test "$USING_GCCUPC" = 'yes'; then
+  UPC_SPEC="201311L" # Not actually used
+elif test "$USING_CUPC2C" = 'yes'; then
+  UPC_SPEC="201311L"
+elif test "$USING_CUPC" = 'yes'; then
+  UPC_SPEC="201311L"
+else # Berkeley UPC-to-C translator
+  UPC_SPEC="201311L"
+fi
+AC_SUBST(UPC_SPEC)
+
+dnl ---------------PROGRAMS---------------
+
+dnl     Finds C compiler, and sets CC to it (sets GCC too if gcc used). 
+dnl     Also sets CFLAGS (default val?) if not already set.
+GASNET_PROG_CC
+
+dnl determine compiler type
+GASNET_FAMILY_CACHE_CHECK(C, CC, upcr_cv_cc_family)
+
+UPCR_SYSTEM_CFLAGS=""
+UPCR_UMALLOC_CFLAGS=""
+case "$CC_FAMILY" in
+  GNU)  # gcc's strict-aliasing-based optimizations break pointer-to-shared in many nasty ways
+    if test "$CC_SUBFAMILY" = 'NVIDIA'; then
+      UPCR_SYSTEM_CFLAGS="-Xcompiler -fno-strict-aliasing"
+    else
+      UPCR_SYSTEM_CFLAGS="-fno-strict-aliasing"
+    fi
+    ;;
+  XLC)  # xlc's ansi-aliasing-based optimizations break pointer-to-shared in many nasty ways
+    GASNET_TRY_CFLAG([-qnoansialias -qalias=addr],
+        [UPCR_SYSTEM_CFLAGS="$UPCR_SYSTEM_CFLAGS -qnoansialias -qalias=addr"],
+        [GASNET_TRY_CFLAG([-qalias=addrtaken:noansi:restrict],
+             [UPCR_SYSTEM_CFLAGS="$UPCR_SYSTEM_CFLAGS -qalias=addrtaken:noansi:restrict"])])
+    ;;
+  Intel)  # bug 137c - disable a broken warning for non-POD type passed to ...
+    UPCR_SYSTEM_CFLAGS="-wd1595" ;;
+  Compaq) # we might need to use -noansi_alias here, but thus far there are no known instances
+          # of misbehavior and some evidence that Compaq's optimizer attempts to validate aliasing
+          # assumptions rather than blindly trusting the foolish ansi aliasing rules.
+          # so for now, just disable the warning it issues upon detecting a violation
+    UPCR_SYSTEM_CFLAGS="-msg_disable badansialias" ;;
+  PGI)  # -alias=ansi is default for -O2 and higher w/ recent pgcc versions.
+        # However, -alias=* option did not exist in older versions.
+    dnl XXX: Don't add -alias=traditional to CFLAGS until we know it is needed
+    dnl UPCR_SYSTEM_CFLAGS="-alias=traditional"
+    dnl GASNET_TRY_CFLAG([$UPCR_SYSTEM_CFLAGS],[:],[UPCR_SYSTEM_CFLAGS=""])
+    # PGI known to sometimes foul up umalloc when ANSI alias rules in effect (bug 2584)
+    GASNET_PUSHVAR(CPPFLAGS,"$CPPFLAGS -I$TOP_SRCDIR/gasnet/other")
+    GASNET_TRY_CACHE_CHECK([if PGI compiler requires work-around when building umalloc], bug2584, [
+      #include "portable_platform.h"
+      #if PLATFORM_COMPILER_VERSION_LT(7,2,5) || PLATFORM_COMPILER_VERSION_GT(8,0,4)
+      #error "Good pgcc version should FAIL this test"
+      #endif
+    ],[],[UPCR_UMALLOC_CFLAGS="-alias=traditional"])
+    GASNET_POPVAR(CPPFLAGS)
+    ;;
+esac
+AC_SUBST(UPCR_SYSTEM_CFLAGS)
+AC_SUBST(UPCR_UMALLOC_CFLAGS)
+
+case "${USING_CUPC}${USING_GCCUPC}-${CC_FAMILY}-${target_cpu}" in
+  noyes-PGI-x86_64)
+    AC_MSG_ERROR([UPCR+GUPC currently does not support the PGI backend compiler, due to x86_64 ABI incompatibilities (bug 1397)])
+    ;;
+  yesno-PGI-x86_64)
+    AC_MSG_ERROR([UPCR+Clang UPC currently does not support the PGI backend compiler, due to x86_64 ABI incompatibilities (bug 1397)])
+    ;;
+esac
+
+dnl get a host C compiler we can use to build upcc binaries like detect-upc
+GASNET_PROG_HOSTCC
+
+case "$CC_FAMILY" in
+  GNU)    UPCR_PROFILE_FLAG="-pg" ;;
+  Intel)  UPCR_PROFILE_FLAG="-p" ;;
+  Sun)    UPCR_PROFILE_FLAG="-p" ;;
+  Compaq) UPCR_PROFILE_FLAG="-pg" ;; # -prof_gen also works, enables pixie profiling
+  XLC)    UPCR_PROFILE_FLAG="-pg" ;;
+  PGI)    UPCR_PROFILE_FLAG="-pg" ;; # -Mprof options enable lots of PGI-specific profiling
+  *)      UPCR_PROFILE_FLAG="" ;;
+esac
+GASNET_TRY_CFLAG([$UPCR_PROFILE_FLAG],[],[UPCR_PROFILE_FLAG=""])
+AC_SUBST(UPCR_PROFILE_FLAG)
+if test "$UPCR_PROFILE_FLAG" != ""; then
+  AC_CHECK_HEADERS(sys/types.h sys/gmon.h mon.h)
+  pushdef([mon_headers],[
+          #if HAVE_SYS_TYPES_H
+            #include <sys/types.h>
+          #endif
+          #if HAVE_SYS_GMON_H
+            #include <sys/gmon.h>
+          #endif
+          #if HAVE_MON_H
+            #include <mon.h>
+          #endif
+          ])
+  GASNET_PUSHVAR(CFLAGS,"$CFLAGS $UPCR_PROFILE_FLAG")
+  AC_MSG_CHECKING([for _mcleanup()])
+  AC_TRY_LINK( mon_headers, [ { _mcleanup(); } ],
+               [ AC_MSG_RESULT(yes) 
+                 AC_DEFINE(HAVE_MCLEANUP) ],
+               [ AC_MSG_RESULT(no) ])
+  AC_MSG_CHECKING([for monitor_signal(0)])
+  AC_TRY_LINK( mon_headers, [ { monitor_signal(0); } ],
+               [ AC_MSG_RESULT(yes) 
+                 AC_DEFINE(HAVE_MONITOR_SIGNAL) ],
+               [ AC_MSG_RESULT(no) ])
+  AC_MSG_CHECKING([for monitor(0)])
+  AC_TRY_LINK( mon_headers, [ { monitor(0); } ],
+               [ AC_MSG_RESULT(yes) 
+                 AC_DEFINE(HAVE_MONITOR) ],
+               [ AC_MSG_RESULT(no) ])
+  AC_MSG_CHECKING([for monitor(0,0,0,0,0)])
+  AC_TRY_LINK( mon_headers, [ { monitor(0,0,0,0,0); } ],
+               [ AC_MSG_RESULT(yes) 
+                 AC_DEFINE(HAVE_MONITOR5) ],
+               [ AC_MSG_RESULT(no) ])
+  case "$CC_FAMILY" in
+    PGI)
+      AC_MSG_CHECKING([for __rouexit()])
+      AC_TRY_LINK( mon_headers
+                   [extern void __rouexit(void);], [ { __rouexit(); } ],
+                   [ AC_MSG_RESULT(yes) 
+                     AC_DEFINE(HAVE_ROUEXIT) ],
+                   [ AC_MSG_RESULT(no) ])
+    ;;
+  esac
+  GASNET_POPVAR(CFLAGS)
+  popdef([mon_headers])
+fi
+
+# Determine the C compiler flag needed to accept c99
+# TODO: raise min autoconf and just use AC_PROG_CC_C99 instead
+case "$CC_FAMILY" in
+  # Some known oddball cases:
+   XLC) upcr_c99_flags="-qlanglvl=extc99 -qlanglvl=stdc99";;
+   Sun) upcr_c99_flags="-xc99=all";;
+  Cray) upcr_c99_flags="'-h c99'";;
+  # One of these should work for the rest:
+     *) upcr_c99_flags="-std=gnu99 -c99 -std=c99";;
+esac
+pushdef([cachevar],[[upcr_cv_cc_c99flag]])
+pushdef([c99code],[[
+      #include <stdio.h>
+      #include <stdbool.h>
+      #include <wchar.h>
+      #if __STDC_VERSION__ - 0 < 199901L
+        #error This is not C99
+      #endif
+      struct S { int i; int array[]; } x; // incomplete array
+      static inline int foo(int * restrict arg) { // inline and restrict keywords
+        struct S y;
+        y = (struct S){ .i = arg[1] }; // compound literal and named initializer
+        _Bool flag = false; // boolean and decl after stmt
+        return arg[0] || flag || y.i;
+      }
+      int bar(int arg) {
+        int array[4] = { [0] = 0, [1] = 4, [3] = 7 }; // named initializer
+        array[2] = arg * array[1];
+        int vla[arg]; // VLA and decl after stmt
+        for (int i = 0; i < arg; ++i) vla[i] = i; // for-scoped decl
+        return foo(array) + foo(vla) ;
+      }
+]])
+AC_CACHE_CHECK([for C compiler flag to accept ISO C99],
+               [cachevar],[
+  cachevar="none needed"
+  AC_TRY_COMPILE(c99code,[],[],[
+    cachevar="unknown"
+    eval set - $upcr_c99_flags
+    for flag in "$@"; do
+      GASNET_PUSHVAR(CFLAGS, "$CFLAGS $flag")
+      AC_TRY_COMPILE(c99code,[],[cachevar="$flag"])
+      GASNET_POPVAR(CFLAGS)
+      if test "$cachevar" != "unknown"; then break; fi
+    done
+  ])
+])
+UPCR_C99_FLAG=""
+if test "$cachevar" = "unknown"; then
+  if test "$USING_CUPC2C" = "yes"; then
+    AC_MSG_ERROR([Could not deterimine \$CC flag to accept ISO C99 input])
+  fi
+elif test "$cachevar" != "none needed"; then
+  UPCR_C99_FLAG="$cachevar"
+fi
+popdef([cachevar])
+popdef([c99code])
+
+# Collect GNUC settings for clang-upc2c
+if test "$USING_CUPC2C" = "yes"; then
+  UPCR_REDEF_GNUC='-U__GNUC__ -U__GNUC_MINOR__ -U__GNUC_PATCHLEVEL__'
+  UPCR_TRY_GET_CPP_INT([for value of __GNUC__],[gnuc_major],[],[__GNUC__],cc_gnuc_major,'')
+  if test -n "$cc_gnuc_major"; then
+    UPCR_TRY_GET_CPP_INT([for value of __GNUC_MINOR__],[gnuc_minor],[],[__GNUC_MINOR__],cc_gnuc_minor,0)
+    UPCR_TRY_GET_CPP_INT([for value of __GNUC_PATCHLEVEL__],[gnuc_patch],[],[__GNUC_PATCHLEVEL__],cc_gnuc_patch,0)
+    cat >conftest.upc <<"EOF"
+#ifndef STRINGIFY
+#define STRINGIFY_HELPER(x) #x
+#define STRINGIFY(x) STRINGIFY_HELPER(x)
+#endif
+char *st1 = "MAJOR:>" STRINGIFY(__GNUC__) "<:";
+char *st2 = "MINOR:>" STRINGIFY(__GNUC_MINOR__) "<:";
+char *st3 = "PATCH:>" STRINGIFY(__GNUC_PATCHLEVEL__) "<:";
+EOF
+    if eval "$translator -fno-upc-pre-include conftest.upc" >/dev/null 2>&1; then
+      trans_gnuc_ver=`grep 'MAJOR:>' conftest.trans.c 2>/dev/null`
+      trans_gnuc_ver=[`expr "X$trans_gnuc_ver" : 'X.*:>\([0-9]*\)<:' 2>/dev/null`]
+      if test -z "$trans_gnuc_ver"; then
+        AC_MSG_ERROR([Failed to extract __GNUC__ value from $TRANSLATOR])
+      fi
+    else
+      AC_MSG_ERROR([Failed to run $TRANSLATOR to extract __GNUC__ value])
+    fi
+    cc_gnuc_ver="$cc_gnuc_major"
+    if test $cc_gnuc_ver -eq $trans_gnuc_ver; then
+      trans_gnuc_ver=`grep 'MINOR:>' conftest.trans.c`
+      trans_gnuc_ver=[`expr "X$trans_gnuc_ver" : 'X.*:>\([0-9]*\)<:'`]
+      if test -z "$trans_gnuc_ver"; then trans_gnuc_ver=0; fi
+      cc_gnuc_ver="$cc_gnuc_minor";
+      if test $cc_gnuc_ver -eq $trans_gnuc_ver; then
+        trans_gnuc_ver=`grep 'PATCH:>' conftest.trans.c`
+        trans_gnuc_ver=[`expr "X$trans_gnuc_ver" : 'X.*:>\([0-9]*\)<:'`]
+        if test -z "$trans_gnuc_ver"; then trans_gnuc_ver=0; fi
+        cc_gnuc_ver="$cc_gnuc_patch";
+      fi
+    fi
+    rm -f conftest.upc conftest.trans.c
+    if test $cc_gnuc_ver -lt $trans_gnuc_ver; then
+      UPCR_REDEF_GNUC="$UPCR_REDEF_GNUC -D__GNUC__=$cc_gnuc_major"
+      if test -n "$cc_gnuc_minor"; then
+        UPCR_REDEF_GNUC="$UPCR_REDEF_GNUC -D__GNUC_MINOR__=$cc_gnuc_minor"
+      fi
+      if test -n "$cc_gnuc_patch"; then
+        UPCR_REDEF_GNUC="$UPCR_REDEF_GNUC -D__GNUC_PATCHLEVEL__=$cc_gnuc_patch"
+      fi
+    else
+      # $CC is same level as clang-upc2c or newer
+      UPCR_REDEF_GNUC=''
+    fi
+  fi
+  AC_SUBST(UPCR_REDEF_GNUC)
+fi
+
+dnl     Needed for GCC-UPC, since its current shared ptr representation depends on endianness
+GASNET_BIGENDIAN()
+
+dnl     We *want* a lexer, but can live without one
+dnl	This code ensures that the user can specify (--with-lex=value) or disable (--without-lex)
+dnl	We get an empty LEX value in the event lex is disabled or not found.
+AC_SUBST(LEX)
+enabled_lex=auto
+AC_ARG_WITH(lex,
+    GASNET_OPTION_HELP([with-lex=value],
+                   [specify the 'lex' version to use (default is auto-detection).  Use --without-lex to force use of the prebuild scanner.]),
+    [case "$with_lex" in
+	no|yes)	enabled_lex="$with_lex" ;;
+	*)	LEX="$with_lex" ;;
+     esac]
+)
+if test "$enabled_lex" != no; then
+  AM_PROG_LEX
+  # Automake uses the 'missing' script when no lex found, we want an empty LEX variable
+  case "$LEX" in
+    *missing*) LEX="" ;;
+    :) LEX="" ;;        # Automake 1.4-p6 may produce ':' instead of missing
+  esac
+fi
+if test "$enabled_lex$LEX" = yes; then
+  AC_MSG_ERROR([User specified --with-lex but no lex or flex could be found, try --with-lex=value.])
+fi
+if test -n "$LEX"; then
+  if test -n "`$LEX --help </dev/null 2>&1 | grep 'compatibility with original lex'`"; then
+    uprc_have_flex=yes
+  elif test x"$LEXLIB" = "x-lfl"; then
+    GASNET_MSG_WARN([LEXLIB='-lfl' but LEX='$LEX' does not appear to be flex])
+  fi
+else
+  LEXLIB=''
+fi
+AM_CONDITIONAL(UPCR_USE_LEX, test -n "$LEX")
+AM_CONDITIONAL(UPCR_HAVE_FLEX, test -n "$uprc_have_flex")
+AC_SUBST(LEXLIB) dnl needed w/ older autotools or automake will say this is undefined
+
+GASNET_CHECK_SIZEOF(void *) # do NOT put inside 'case' statement...
+UPCRI_PTR_BITS=`expr $SIZEOF_VOID_P \* 8`
+AC_SUBST(UPCRI_PTR_BITS)
+case "$target_os" in
+    aix*)
+        # If on AIX, and in 64 bit mode, we need to use 'nm -X64' and 'ar -X64'
+        # Also, use /usr/bin/nm instead of GNU nm (which can't do 64 bits)
+        if test "$UPCRI_PTR_BITS" = 64; then 
+            NM="/usr/bin/nm -X64"
+            AR="ar -X64"
+            RANLIB="ranlib -X64"
+        else
+            NM="/usr/bin/nm"
+        fi
+        ;;
+    osf*)
+        # Tru64 has a default /bin/sh that emits error msgs for missing
+        # commands, even when 2>/dev/null passed.  Use posix shell instead.
+        if test -x /usr/bin/posix/sh; then
+            BOURNE_SHELL="/usr/bin/posix/sh"
+        fi
+        ;;
+esac
+dnl     Store full paths, so we find right ones even if users have
+dnl     some other version in their path
+if test x"$BOURNE_SHELL" = x; then
+    BOURNE_SHELL="/bin/sh"
+fi
+
+AC_PATH_PROGS(NM, $NM nm) # allow failure - nm is optional
+AC_MSG_CHECKING(for GNU nm)
+if test "`$NM --version 2>&1 | grep GNU`" = "" ; then
+  gnu_nm=no
+else
+  gnu_nm=yes
+fi
+AC_MSG_RESULT($gnu_nm)
+AM_CONDITIONAL(GNU_NM, test "$gnu_nm" = "yes")
+GASNET_PATH_PROGS(AR, $AR ar gar, archiver)
+GASNET_PATH_PROGS(SIZE, $SIZE size, size)
+SIZE_CMD=""
+if test -n "$SIZE"; then
+  GASNET_COMPILE_EXAMINE([
+    #include <stdio.h>
+  ],[
+    puts("Hello, World!");
+  ],[
+    # Lets see if we can coax tdata and tbss info from "size"
+    # XXX: There are certainly more things to try here.
+    if eval "$SIZE --format=sysv $GASNET_EXAMINE_BIN" >/dev/null 2>&1; then
+      SIZE_CMD="$SIZE --format=sysv"
+    elif eval "$SIZE -A $GASNET_EXAMINE_BIN" >/dev/null 2>&1; then
+      SIZE_CMD="$SIZE -A"
+    fi
+  ])
+fi
+GASNET_PATH_PROGS(RANLIB, $RANLIB ranlib touch, ranlib)
+case "$target_os" in
+    darwin*) RANLIB="$RANLIB -s -c" ;; # ensure correct common block behavior on darwin
+esac
+ENVCMD="${ENVCMD:-/usr/bin/env}"
+AC_PATH_PROGS(ENVCMD, $ENVCMD env)
+AC_PATH_PROGS(DIG, $DIG dig) # optional
+AC_PATH_PROGS(NSLOOKUP, $NSLOOKUP nslookup) # optional
+GASNET_PATH_PROGS(GMAKE, $GMAKE gmake make $MAKE, GNU make)
+AC_MSG_CHECKING(for GNU make)
+GMAKE_VERSTR=`$GMAKE --version | grep GNU 2> /dev/null`
+if test "$GMAKE_VERSTR" = "" ; then
+  AC_MSG_RESULT(no)
+  AC_MSG_ERROR(cannot find a version of GNU make - please install GNU make and/or set \$GMAKE to indicate where it's located)
+else
+  GMAKE_VER=`echo "$GMAKE_VERSTR" | $PERL -n -e 'if (/([[0-9]]+)\.([[0-9]]+)(\.[[0-9]]+)?/) { $maj=$1; $min=$2; $pat=$3; printf "%i%03i%03i",($maj,$min,($pat?$pat=~s/\.//:0)) }'`
+  # bug 824 - we require 3.79+
+  if test $GMAKE_VER -lt 3079000 ; then
+    AC_MSG_RESULT(no)
+    AC_MSG_ERROR([This software requires GNU make version 3.79 or newer, and you appear to be running: "$GMAKE_VERSTR" - please install GNU make and/or set \$GMAKE to indicate where it's located])
+  else
+    AC_MSG_RESULT($GMAKE_VERSTR)
+  fi
+fi
+AC_PROG_AWK 
+GASNET_PATH_PROGS(TAIL, $TAIL tail cat, tail)
+TAIL_FOLLOW="$TAIL"
+AC_MSG_CHECKING(whether $TAIL supports -q)
+if test "`$TAIL -q /dev/null 2>&1`" = "" ; then
+  TAIL_FOLLOW="$TAIL_FOLLOW -q"
+  AC_MSG_RESULT(yes)
+else
+  AC_MSG_RESULT(no)
+fi
+AC_MSG_CHECKING(whether $TAIL supports multi-file)
+# use -q here or GNU tail dumps headers causing false negatives
+if test "`$TAIL_FOLLOW /dev/null /dev/null 2>&1`" = "" ; then
+  TAIL_FOLLOW_MULTI='' 
+  AC_MSG_RESULT(yes)
+else
+  TAIL_FOLLOW_MULTI='#' 
+  AC_MSG_RESULT(no)
+fi
+TAIL_FOLLOW="$TAIL_FOLLOW -f"
+
+AC_SUBST(BOURNE_SHELL)
+AC_SUBST(PERL)
+AC_SUBST(NM)
+AC_SUBST(AR)
+AC_SUBST(ENVCMD)
+AC_SUBST(DIG)
+AC_SUBST(NSLOOKUP)
+AC_SUBST(RANLIB)
+AC_SUBST(SIZE_CMD)
+AC_SUBST(GMAKE)
+AC_SUBST(TAIL)
+AC_SUBST(TAIL_FOLLOW)
+AC_SUBST(TAIL_FOLLOW_MULTI)
+
+# Some vendor C compilers have a misbehaving preprocessor, so GCC's must be used
+GASNET_WITH(gcc, [full pathname of GNU GCC compiler (if needed)],
+    [GNU_GCC=$with_gcc
+     if test "$with_gcc" = yes; then
+	AC_MSG_ERROR(--with-gcc=/path/to/gcc requires a path to gcc!)
+     fi
+     echo with-gcc passed: GNU_GCC=$GNU_GCC]
+    )
+# first, set the default behavior for the supported compiler families
+case "$CC_FAMILY" in
+    XLC) # Only needed when not using the clang front-end
+         GASNET_IFDEF([__clang__],[:],[USE_GNU_PREPROC="yes"]) ;;
+    Sun) USE_GNU_PREPROC="yes" ;; 
+    PGI) USE_GNU_PREPROC="yes" ;; 
+    Cray) # Bug 3161 - preprocessor picks up Cray's upc*.h headers on XE, XK and XC
+       case "$target_cpu" in
+          x86_64) USE_GNU_PREPROC="yes" ;;
+       esac ;;
+    Compaq) USE_GNU_PREPROC="no" ;;  # bug 974, 1229 - this works, but simpler solution is sufficient
+    *)   USE_GNU_PREPROC="";; # empty forces ALLOW_GNU_PREPROC="no" below
+esac
+# not allowed unless gcc_as_cc knows about the family
+if test -n "$USE_GNU_PREPROC"; then
+  ALLOW_GNU_PREPROC="yes"
+else
+  ALLOW_GNU_PREPROC="no"
+fi
+AC_MSG_CHECKING([whether to use gcc as a substitute preprocessor])
+GASNET_IF_ENABLED_WITH_AUTO(gnu-preproc,[Enable/disable use of Gnu gcc as a substitute preprocessor], 
+      [ if test "$ALLOW_GNU_PREPROC" = "no" ; then
+          AC_MSG_ERROR([Do not --enable-gnu-preproc if CC=$CC_FAMILY - not supported for that compiler])
+        fi
+        USE_GNU_PREPROC="yes" 
+      ], [ 
+	if test "$USE_GNU_PREPROC" = "yes" ; then
+	  GASNET_MSG_WARN([The use of --disable-gnu-preproc for CC=$CC_FAMILY is inadvisable and may lead to compilation failures])
+	fi
+	USE_GNU_PREPROC="no" 
+      ])
+AC_MSG_RESULT($USE_GNU_PREPROC)
+if test "$USE_GNU_PREPROC" = "yes" ; then
+   GCC_CC_ERRMSG="The GCC preprocessor needed if CC=$CC_FAMILY: use '--with-gcc=...' or make sure gcc is in your PATH"
+   if test "$GNU_GCC" = no; then
+      AC_MSG_ERROR([The GCC preprocessor is required if CC=$CC_FAMILY: cannot use '--without-gcc'])
+   fi
+   if test -z "$GNU_GCC"; then
+      AC_PATH_PROGS(GNU_GCC, gcc, GNU GCC)
+   fi
+   if test -z "$GNU_GCC"; then
+      AC_MSG_ERROR($GCC_CC_ERRMSG)
+   fi
+
+   # run a check to ensure this is really GCC
+   GASNET_PUSHVAR(CPP,"$GNU_GCC -E -I$TOP_SRCDIR/gasnet/other")
+   GASNET_PUSHVAR(CFLAGS,"")
+   AC_MSG_CHECKING(for working gcc preprocessor)
+   AC_TRY_CPP([
+      #include "portable_platform.h"
+      #if !PLATFORM_COMPILER_GNU
+      #error not GCC
+      #endif
+   ], [AC_MSG_RESULT(yes)], [ AC_MSG_RESULT(no)
+      AC_MSG_ERROR('$GNU_GCC' is not an instance of the GCC compiler. $GCC_CC_ERRMSG)
+   ])	
+   GASNET_POPVAR(CPP)
+   GASNET_POPVAR(CFLAGS)
+
+   # we also need to teach GCC how to emulate the vendor preprocessor
+   # TODO: this is slow and so it would be great to cache the result
+   AC_MSG_CHECKING(how to make GNU cpp look like $CPP)
+   AC_MSG_RESULT()
+   AC_MSG_RESULT($PERL $srcdir/gcc_as_cc.pl --gcc="$GNU_GCC -E" --cc="$CPP" --cc-family=$CC_FAMILY)
+      GCC_AS_CC=`$PERL $srcdir/gcc_as_cc.pl --gcc="$GNU_GCC -E" --cc="$CPP" --cc-family=$CC_FAMILY -v 2> conftest.err`
+   cat conftest.err >&5
+   AC_MSG_RESULT($GCC_AS_CC)
+   if test -z "$GCC_AS_CC" ; then
+      cat conftest.err
+      AC_MSG_ERROR([Failed to detect GCC_AS_CC setting])
+   fi
+   rm -f conftest.err
+fi
+AC_SUBST(USE_GNU_PREPROC)
+AC_SUBST(GCC_AS_CC)
+
+
+# Find the appropriate OS suffix for executables
+case "$target_os" in
+  cygwin*)    EXESUFFIX='.exe' ;;
+  *)          EXESUFFIX='' ;;
+esac
+AC_SUBST(EXESUFFIX)
+
+# Additional preprocess step to run on the preprocessed UPC file before translation
+case "$target_os" in
+  cygwin*)    PLATFORM_PREPROCESS="| $AWK -F \\n '{gsub(\"__attribute__[[(]][[(]][[^)]]*cdecl[[^)]]*[[)]][[)]]\",\"\");gsub(\"__attribute__[[(]][[(]][[^)]]*dll[[^)]]*[[)]][[)]]\",\"\");print;}'" ;;
+  *)          PLATFORM_PREPROCESS='' ;;
+esac
+if test "$USE_GNU_PREPROC" = "no" ; then
+case "$CC_FAMILY" in
+  Sun) 
+  # Sun C preprocessor drops the filename in subsequent #line directives with the same filename
+  # this perl goop puts it back, and also removes the #file directives it inserts whenever seeing #line upon input
+    PLATFORM_PREPROCESS="| $PERL -p -e 'if (/^#\s*(?:line\s+)?([0-9]+)\s+(\S+)\$\$/) { \$\$srcfile=\$\$2; \$\$_=\"#line \$\$1 \$\$srcfile\n\"; } elsif (/^#\s*file\s+(\S+)\$\$/) { \$\$srcfile=\$\$1; \$\$_=\"\"; } elsif (/^#\s*(?:line\s+)?([0-9]+)\s*\$\$/) { \$\$_=\"#line \$\$1 \$\$srcfile\n\"; } ' $PLATFORM_PREPROCESS"
+;;
+  Compaq)
+  # bug 1229: drop line directives for auto-included __DECC_include_{prologue,epilogue}.h, 
+  # whose line directives are incorrect
+    PLATFORM_PREPROCESS="| $PERL -n -e 'print unless (/^#\s*(?:line\s+)?[0-9]+\s+.*?\/__DECC_include_(?:prologue|epilogue).h/)' $PLATFORM_PREPROCESS"
+;;
+*)
+;;
+esac
+fi
+AC_SUBST(PLATFORM_PREPROCESS)
+
+case "$CC_FAMILY" in
+  Cray) # PR436 - no scannable object strings on Cray X1
+        case "$target_cpu" in
+          x86_64) object_strings=yes ;; # XT is known OK
+               *) object_strings=no  ;; # X1 or T3E (T3E case untested)
+        esac ;;
+  *)    object_strings=yes ;;
+esac
+GASNET_IF_ENABLED_WITH_AUTO(object-strings, assume strings can be scanned from unlinked objects,
+                 [object_strings=yes], [object_strings=no], [])
+
+AM_CONDITIONAL(UPCR_OBJECT_STRINGS,test "$object_strings" = "yes")
+
+dnl ----------------------------------------------------------------------------
+dnl Totalview support
+
+GASNET_IF_ENABLED(totalview, 
+    [Enable Totalview debugger support (implies --enable-debug)],
+    [if test "$USING_GCCUPC" = "yes" ; then
+       AC_MSG_ERROR([--with-gupc and --enable-totalview cannot be used together])
+     elif test "$USING_CUPC" = "yes" ; then
+       AC_MSG_ERROR([--with-cupc and --enable-totalview cannot be used together])
+     elif test "$USING_CUPC2C" = "yes" ; then
+       AC_MSG_ERROR([--with-clang-upc2c and --enable-totalview cannot be used together])
+     elif test "$force_symmetric_sptr" = "yes"; then
+         AC_MSG_ERROR([--enable-sptr-symmetric does not yet work with --enable-totalview])
+     elif test ! -f "$TOP_SRCDIR/totalview/configure"; then
+         AC_MSG_ERROR([Cannot --enable-totalview - totalview support was disabled at Bootstrap])
+     fi
+     GASNET_PUSHVAR(LIBS,"")
+      AC_SEARCH_LIBS(socket, socket)
+      AC_SEARCH_LIBS(gethostbyname, nsl)
+      TOTALVIEW_LIBS="$LIBS"
+     GASNET_POPVAR(LIBS)
+     TOTALVIEW_SUBDIR="totalview"
+     TOTALVIEW_ENABLED=yes], 
+    [TOTALVIEW_SUBDIR=""
+     TOTALVIEW_ENABLED=no])
+AC_SUBST(TOTALVIEW_ENABLED)
+AC_SUBST(TOTALVIEW_SUBDIR)
+AC_SUBST(TOTALVIEW_LIBS)
+
+
+dnl ---------------CUSTOM COMMAND-LINE ARGUMENTS TO 'configure'---------------
+dnl     Note:  pass '--enable-debug' to get both runtime and GASNet to use debug.
+dnl
+dnl     UPCR_DEBUG/GASNET_DEBUG is defined (otherwise *_NDEBUG is defined, i.e., assertions are turned off).
+
+dnl     Empty actions here: GASnet's config does all the work.
+UPCR_BUILDCONFIG="driver_upcc,runtime_upcr,gasnet,upc_collective,upc_io,upc_memcpy_async,upc_memcpy_vis,upc_ptradd,upc_thread_distance,upc_tick,upc_sem,upc_dump_shared,upc_trace_printf,upc_trace_mask,upc_local_to_shared,upc_all_free,pupc,upc_types,upc_castable,upc_nb"
+if test "$USING_GCCUPC" = "yes"; then
+  BUILDCONFIG="trans_gupc,pragma_upc_code,$UPCR_BUILDCONFIG"
+elif test "$USING_CUPC" = "yes"; then
+  BUILDCONFIG="trans_cupc,pragma_upc_code,$UPCR_BUILDCONFIG"
+elif test "$USING_CUPC2C" = "yes"; then
+  BUILDCONFIG="trans_cupc2c,$UPCR_BUILDCONFIG"
+else
+  BUILDCONFIG="trans_bupc,pragma_upc_code,$UPCR_BUILDCONFIG"
+fi
+BUILDCONFIG_TRACE=
+BUILDCONFIG_STATS=
+BUILDCONFIG_DEBUGMALLOC=
+GASNET_IF_ENABLED(trace, [build UPC Runtime/GASNet with tracing enabled], 
+                 [BUILDCONFIG_TRACE="trace"], [BUILDCONFIG_TRACE="notrace"])
+GASNET_IF_ENABLED(stats, [build UPC Runtime/GASNet with statistical collection enabled], 
+                 [BUILDCONFIG_STATS="stats"], [BUILDCONFIG_STATS="nostats"])
+GASNET_IF_ENABLED(debug-malloc, [build UPC Runtime/GASNet with debuging malloc implementation], 
+                 [BUILDCONFIG_DEBUGMALLOC="debugmalloc"], [BUILDCONFIG_DEBUGMALLOC="nodebugmalloc"])
+GASNET_IF_ENABLED(debug, [build UPC Runtime/GASNet in debug mode], 
+                 [ enabled_debug=yes ], [ 
+                   enabled_debug="$TOTALVIEW_ENABLED"
+                   if test "$TOTALVIEW_ENABLED" = "yes" ; then
+                      GASNET_SUBCONFIGURE_ARG(--enable-debug)
+                   fi
+                 ])
+if test "$enabled_debug" = "yes" ; then
+   BUILDCONFIG="$BUILDCONFIG,debug"
+   BUILDCONFIG_TRACE="trace" # debug also enables trace and stats
+   BUILDCONFIG_STATS="stats"
+   BUILDCONFIG_DEBUGMALLOC="debugmalloc" # debug also enables debugging malloc
+else
+   BUILDCONFIG="$BUILDCONFIG,nodebug"
+fi
+BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_TRACE"
+BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_STATS"
+BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_DEBUGMALLOC"
+AM_CONDITIONAL(BUILDCONFIG_DEBUG, test "$enabled_debug" = yes)
+
+GASNET_IF_ENABLED(inst, [enable UPC performance instrumentation via GASP - note might negatively impact performance],
+  [ GASP_ENABLED=yes ], [ GASP_ENABLED=no ])
+if test "$GASP_ENABLED" = "yes"; then
+      BUILDCONFIG="$BUILDCONFIG,gasp"
+      AC_DEFINE(UPCRI_GASP)
+      GASNET_SUBCONFIGURE_ARG(--enable-srclines)
+else
+      BUILDCONFIG="$BUILDCONFIG,nogasp"
+fi
+AM_CONDITIONAL(BUILDCONFIG_GASP, test "$GASP_ENABLED" = yes)
+AC_SUBST(GASP_ENABLED)
+
+THRILLE_DIR="$TOP_SRCDIR/thrille"
+GASNET_WITH(thrille, [Set location of thrille files (default srcdir/thrille)],
+  [ if test "$withval" != "yes"; then THRILLE_DIR="$withval"; fi ])
+AC_SUBST(THRILLE_DIR)
+
+GASNET_IF_ENABLED(thrille, [enable Thrille active testing support],
+  [THRILLE_ENABLED=yes], [THRILLE_ENABLED=no])
+if test "$THRILLE_ENABLED" = "yes"; then
+  if test -d "$THRILLE_DIR"; then
+      BUILDCONFIG="$BUILDCONFIG,thrille"
+      AC_DEFINE(UPCRI_THRILLE)
+  else
+      AC_MSG_ERROR([--enable-thrille passed but '$THRILLE_DIR' does not exist.  Please rename or symlink the Thrille distribution, or use --with-trille=fullpath to specify an alternate location.])
+  fi
+else  
+      BUILDCONFIG="$BUILDCONFIG,nothrille"
+fi
+AM_CONDITIONAL(BUILDCONFIG_THRILLE, test "$THRILLE_ENABLED" = yes)
+AC_SUBST(THRILLE_ENABLED)
+
+# Conduits that are incompatible w/ --uses-mpi:
+# case that MPI is not found eliminates use of --uses-mpi anyway.
+MPI_INCOMPATIBLE="smp"
+AC_SUBST(MPI_INCOMPATIBLE)
+
+# no-ops: pass down to gasnet.  Here for documentation purposes only
+GASNET_WITH(segment-mmap-max,
+   [Set default max size of mmap-based GASNet segments (ex: "2GB", "1045MB") -- see also --enable-segment-large])
+GASNET_WITH(max-pthreads-per-node, [Set max pthreads supported per GASNet node])
+BUILDCONFIG_SEGMENT="segment_fast"
+GASNET_IF_ENABLED(segment-fast,
+   [Select GASNet's FAST segments (default), for the fastest remote access with a possible cost in max shared memory size])
+GASNET_IF_ENABLED(segment-large,
+   [Select GASNet's LARGE segments, for the largest possible shared memory size (see also --with-segment-mmap-max), at a possible cost in remote access time],[
+   BUILDCONFIG_SEGMENT="segment_large"
+])
+GASNET_IF_ENABLED_NOHELP(segment-everything,[
+  GASNET_MSG_WARN([--enable-segment-everything is *NOT* supported for Berkeley UPC!!!])
+  BUILDCONFIG_SEGMENT="segment_everything"
+])
+BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_SEGMENT"
+
+GASNET_IF_ENABLED(pshm, [build UPC Runtime/GASNet with Process-SHared Memory enabled], 
+                 [BUILDCONFIG_PSHM="pshm"], [BUILDCONFIG_PSHM="nopshm"])
+# Since the actual use of PSHM is now conduit dependent, this info is not enough to
+# know if the conduit is USING it or not.  This is now just for documentation.
+#BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_PSHM"
+
+GASNET_IF_ENABLED(debug-malloc,
+  [enable use of system-specific debugging malloc in debug builds (default is system dependent)])
+
+BUILDCONFIG_OS=os_`echo "$target_os" | $PERL -p -e '/([[^0-9.]]+)/ ; print $1; last'`
+case "$BUILDCONFIG_OS" in
+  os_linux*) BUILDCONFIG_OS="os_linux";;
+esac
+BUILDCONFIG_CPU=cpu_"$target_cpu"
+if test "$UPCRI_PTR_BITS" = 64; then
+  BUILDCONFIG_CPU="$BUILDCONFIG_CPU,cpu_64"
+else
+  BUILDCONFIG_CPU="$BUILDCONFIG_CPU,cpu_32"
+fi
+BUILDCONFIG_CC=cc_`echo "$CC_FAMILY" | $PERL -p -e 'print lc($_); last'`
+BUILDCONFIG="$BUILDCONFIG,$BUILDCONFIG_OS,$BUILDCONFIG_CPU,$BUILDCONFIG_CC"
+
+# default to packed shared ptr rep
+if test "$force_struct_sptr" = "yes"; then
+      AC_DEFINE(UPCRI_STRUCT_SPTR)
+      BUILDCONFIG="$BUILDCONFIG,structsptr"
+      if test -n "$UPCRI_STRUCT_SPTR_ADDR_TYPE" ; then
+        AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_ADDR_TYPE,[$UPCRI_STRUCT_SPTR_ADDR_TYPE])
+        AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_THREAD_TYPE,[$UPCRI_STRUCT_SPTR_THREAD_TYPE])
+        AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_PHASE_TYPE,[$UPCRI_STRUCT_SPTR_PHASE_TYPE])
+	if test -n "$UPCRI_STRUCT_SPTR_ALIGN" ; then
+          AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_ALIGN,[$UPCRI_STRUCT_SPTR_ALIGN])
+	fi
+	# Field specifiers (eg, ": 24") are defined only when needed.
+	if test -n "$UPCRI_STRUCT_SPTR_ADDR_FIELD" ; then
+          AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_ADDR_FIELD,[$UPCRI_STRUCT_SPTR_ADDR_FIELD])
+	fi
+	if test -n "$UPCRI_STRUCT_SPTR_THREAD_FIELD" ; then
+          AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_THREAD_FIELD,[$UPCRI_STRUCT_SPTR_THREAD_FIELD])
+	fi
+	if test -n "$UPCRI_STRUCT_SPTR_PHASE_FIELD" ; then
+          AC_DEFINE_UNQUOTED(UPCRI_STRUCT_SPTR_PHASE_FIELD,[$UPCRI_STRUCT_SPTR_PHASE_FIELD])
+	fi
+      fi
+else
+      AC_DEFINE(UPCRI_PACKED_SPTR)
+      BUILDCONFIG="$BUILDCONFIG,packedsptr"
+fi
+
+# GCCUPC/CUPC may order its sptr fields (addr, thread, phase), thus "address first".
+if test -n "$UPCRI_SPTR_ADDR_FIRST" ; then
+      AC_DEFINE_UNQUOTED(UPCRI_SPTR_ADDR_FIRST,[$UPCRI_SPTR_ADDR_FIRST])
+fi
+
+# Enable symmetric pointer if enabled by user
+if test "$force_symmetric_sptr" = "yes"; then
+      if test "$UPCRI_PTR_BITS" != "64"; then
+	AC_MSG_ERROR(--enable-sptr-symmetric is only available on 64-bit targets)
+      fi
+      AC_DEFINE(UPCRI_SYMMETRIC_SPTR)
+      BUILDCONFIG="$BUILDCONFIG,symmetricsptr"
+fi
+
+GASNET_WITH(sptr-packed-bits, [value='phase,thread,addr' tweak bit distribution in packed sptr representation, requires phase+thread+addr=64 ], [
+  if test "$force_struct_sptr" = "yes"; then
+    AC_MSG_ERROR([--with-sptr-packed-bits is only supported for packed sptr representation])
+  fi
+  if test "$USING_GCCUPC" = "yes" -a -z "$with_gccupc_version" ; then
+    AC_MSG_ERROR([--with-sptr-packed-bits is not supported for GUPC])
+  fi
+  if test "$USING_CUPC" = "yes" -a -z "$with_cupc_version" ; then
+    AC_MSG_ERROR([--with-sptr-packed-bits is not supported for CUPC])
+  fi
+  UPCRI_PHASE_BITS_OVERRIDE=`echo $withval | $PERL -ne 'm/^(\d+),(\d+),(\d+)$/;  print $1 if ($1+$2+$3 == 64);'`
+  UPCRI_THREAD_BITS_OVERRIDE=`echo $withval | $PERL -ne 'm/^(\d+),(\d+),(\d+)$/; print $2 if ($1+$2+$3 == 64);'`
+  UPCRI_ADDR_BITS_OVERRIDE=`echo $withval | $PERL -ne 'm/^(\d+),(\d+),(\d+)$/;   print $3 if ($1+$2+$3 == 64);'`
+  # Exactly one of the following must now be true:
+  # 1) All three _OVERRIDE variables are empty
+  # OR
+  # 2) All three contain integers, and their sum equals 64
+  if test -z "$UPCRI_PHASE_BITS_OVERRIDE"; then
+    AC_MSG_ERROR([--with-sptr-packed-bits=phase,thread,addr requires phase+thread+addr=64])
+  fi
+  if test "$UPCRI_PHASE_BITS_OVERRIDE"  -lt 1 -o \
+          "$UPCRI_THREAD_BITS_OVERRIDE" -lt 1 -o \
+          "$UPCRI_ADDR_BITS_OVERRIDE"   -lt 20 ; then
+    AC_MSG_ERROR([--with-sptr-packed-bits=phase,thread,addr requires phase >= 1 and thread >= 1 and addr >= 20])
+  fi
+  if test "$UPCRI_ADDR_BITS_OVERRIDE" -gt "$UPCRI_PTR_BITS" \
+          -a "$USING_GCCUPC$USING_CUPC" = "nono"; then
+    AC_MSG_ERROR([--with-sptr-packed-bits=phase,thread,addr requires addr <= 8*sizeof(void*)])
+  fi
+])
+# The layout of a packed shared pointer can be changed by --with-sptr-packed-bits
+# (as shown above), or when GUPC is configured to support the
+# packed pointer representation.  GUPC also sets these fields when
+# configuring its 'struct' sptr. representation.
+if test -n "$UPCRI_ADDR_BITS_OVERRIDE"; then
+  AC_DEFINE_UNQUOTED(UPCRI_PHASE_BITS_OVERRIDE, $UPCRI_PHASE_BITS_OVERRIDE)
+  AC_DEFINE_UNQUOTED(UPCRI_THREAD_BITS_OVERRIDE,$UPCRI_THREAD_BITS_OVERRIDE)
+  AC_DEFINE_UNQUOTED(UPCRI_ADDR_BITS_OVERRIDE,  $UPCRI_ADDR_BITS_OVERRIDE)
+fi
+
+# clang-upc[2c] needs to be told explicitly what PTS rep to use
+if test x"$USING_CUPC2C" = "xyes" ; then
+  if test "$force_struct_sptr" = "yes"; then
+    # No variants supported currently: always 32,32,64
+    CLANG_PTS_OPTS="-fupc-pts=struct"
+  elif test -n "$UPCRI_ADDR_BITS_OVERRIDE"; then
+    CLANG_PTS_OPTS="-fupc-pts=packed -fupc-packed-bits=$UPCRI_PHASE_BITS_OVERRIDE,$UPCRI_THREAD_BITS_OVERRIDE,$UPCRI_ADDR_BITS_OVERRIDE"
+  elif test "$UPCRI_PTR_BITS" = 64; then
+    CLANG_PTS_OPTS="-fupc-pts=packed -fupc-packed-bits=20,10,34"
+  else
+    CLANG_PTS_OPTS="-fupc-pts=packed -fupc-packed-bits=22,10,32"
+  fi
+fi
+AC_SUBST(CLANG_PTS_OPTS)
+
+# Bit-width of upc_off_t
+GASNET_CHECK_SIZEOF(long)
+UPCR_LONG_BITS=`expr $SIZEOF_LONG \* 8`
+AC_MSG_CHECKING(for width of upc_off_t)
+AC_ARG_WITH(upc_off_t,
+    GASNET_OPTION_HELP([upc_off_t], [width in bits of upc_off_t (defaults to width of long)]),
+    [case "$with_upc_off_t" in
+     32|64) :
+       ;;
+     *) AC_MSG_ERROR([--with-upc_off_t requires an argument which must be either 32 or 64])
+       ;;
+     esac
+     AC_MSG_RESULT([$with_upc_off_t (explicit)])
+     if test $with_upc_off_t -gt $UPCR_LONG_BITS; then
+       AC_MSG_ERROR([sizeof(upc_off_t) greater than sizeof(long) is NOT supported])
+     fi
+    ],[
+     with_upc_off_t=$UPCR_LONG_BITS
+     AC_MSG_RESULT([$with_upc_off_t (default)])
+    ])
+BUILDCONFIG="$BUILDCONFIG,upc_io_$with_upc_off_t"
+if test x"$with_upc_off_t" = x64; then
+  AC_DEFINE(BUPC_IO_64)
+fi
+
+dnl translator-specifc default value has already been set
+dnl for the case of --with-compiler-spec we just keep it
+AC_MSG_CHECKING(for default compiler spec file)
+GASNET_WITH(compiler-spec, [specify the default compiler.spec for use by the test harness],
+   [if test "$withval" != "yes"; then COMPILER_SPEC_FILE="$withval"; fi],
+   [COMPILER_SPEC_FILE="NO_DEFAULT_SET"]
+)
+AC_MSG_RESULT($COMPILER_SPEC_FILE)
+
+AC_ARG_WITH(feature-list, 
+    GASNET_OPTION_HELP([with-feature-list], [explicitly specify a comma-delimited list of additional test harness features for this build]),
+    [if test "$with_feature_list" = yes; then
+        AC_MSG_ERROR(--with-feature-list requires an argument!)
+     fi
+     BUILDCONFIG="$BUILDCONFIG,$with_feature_list"
+    ])
+
+AC_MSG_CHECKING(for compiler feature list)
+AC_MSG_RESULT($BUILDCONFIG)
+AC_SUBST(BUILDCONFIG)
+
+#  Allow translator location to be specified during configure
+AC_ARG_WITH(translator, 
+    GASNET_OPTION_HELP([with-translator], [specify UPC-to-C translator]),
+    [if test "$with_translator" = yes; then
+        AC_MSG_ERROR(--with-translator requires an argument!)
+     elif test "$USING_GCCUPC" = "yes"; then
+        AC_MSG_ERROR(cannot use both --with-gupc and --with-translator!)
+     elif test "$USING_CUPC" = "yes"; then
+        AC_MSG_ERROR(cannot use both --with-cupc and --with-translator!)
+     elif test "$USING_CUPC2C" = "yes"; then
+        AC_MSG_ERROR(cannot use both --with-clang-upc2c and --with-translator!)
+     fi
+     TRANSLATOR="$with_translator"],
+    [if test -z "$TRANSLATOR"; then 
+        TRANSLATOR="$default_translator"
+      fi
+    ])
+AC_SUBST(TRANSLATOR)
+
+# check for prohibited relative translator paths
+translator=expand_prefix($TRANSLATOR)
+TRANSCHECK=`echo "$translator" | $PERL -ne 'if (m@^http://@) { print "ok" } elsif (m@^[[^:]]+:(.)@) { if ($1 ne "/") { print "bad" } else { print "ok" } } elsif (m@^/@) { print "ok" } else { print "bad" }'`
+if test "$TRANSCHECK" != "ok" ; then
+  AC_MSG_ERROR([translator setting '$TRANSLATOR' does not look like a valid default translator path. Relative paths are prohibited.])
+elif expr "$USING_BUPC$translator" : 'yes/' >/dev/null; then
+  if test \! -d "$translator/."; then
+    GASNET_MSG_WARN([BUPC_TRANS setting '$TRANSLATOR' does not appear to exist])
+  fi
+fi
+
+#     
+#     default: support pthreads-based UPC programs if library found
+#     note this will be trimmed below based on the outcome of pthread support tests
+GASNET_IF_ENABLED_WITH_AUTO(par, support pthreaded UPC processes,
+                 [PARSEQ="par seq"
+		  PARSEQ_force="yes"], [PARSEQ="seq"], [PARSEQ="par seq"])
+
+dnl   Check to see if __thread attribute exists and works (for gccupc pthreads support)
+dnl   XXX: We are assuming -lpthread for LIBS and no special CFLAGS or CPPFLAGS.
+dnl        But if we move to after extraction of GASNET_THREAD_{DEFINES,LIBS}, then
+dnl        of course then we can't disable GASNet's PAR builds (chicken-and-egg).
+dnl        In fact, if we wait until after configuring GASNet, we might as well just
+dnl        extract GASNETI_HAVE_TLS_SUPPORT.
+dnl   So far, this is sufficiently accurate on platforms supported by GCCUPC
+GASNET_IF_ENABLED_WITH_AUTO(tls, Enable/disable use of thread-local storage extensions (ie __thread) (auto-detected), enabled_tls=yes, enabled_tls=no, enabled_tls=probe)
+if test $enabled_tls = probe; then
+  GASNET_PUSHVAR(LIBS,"$LIBS -lpthread")
+  GASNET_CHECK_TLS_SUPPORT([ GCC_TLS_SUPPORT=yes ],[ GCC_TLS_SUPPORT=no ])
+  GASNET_POPVAR(LIBS)
+else
+  GCC_TLS_SUPPORT=$enabled_tls
+fi
+AC_SUBST(GCC_TLS_SUPPORT)
+if test $GCC_TLS_SUPPORT = yes; then
+  AC_DEFINE([HAVE_GCC_TLS_SUPPORT], 1)
+fi
+
+if test "$USING_GCCUPC" = "yes" -a "$GCC_TLS_SUPPORT" = "no" -a "$PARSEQ" != "seq"; then
+  GASNET_MSG_WARN([GCCUPC requires __thread support for pthreaded operation - disabling pthreads support])
+  # don't bother building pthreaded versions of UPCR libraries, since they won't work with GCCUPC 
+  PARSEQ="seq"
+  # However, we *do* build pthreaded GASNet libs for --uses-threads support
+fi
+
+# always disable GASNet parsync libraries to save build time, because BUPC never uses them
+GASNET_SUBCONFIGURE_ARG(--disable-parsync)
+
+dnl     Enable this if you're using glibc and you want to be able to pass shared
+dnl     pointers (as %S/%P for shared_ptr/pshared_ptr) to printf and friends
+dnl GASNET_IF_ENABLED(extend-printf, [add %S/%P formats to printf (for shared/pshared ptr)],
+dnl                 [extend_printf="yes"], [])
+
+
+dnl ---------------LIBRARIES---------------
+
+
+dnl ---------------HEADERS---------------
+AC_HEADER_STDC 
+
+dnl --- C99 headers ---
+AC_CHECK_HEADERS(assert.h complex.h ctype.h errno.h fenv.h   	\
+		 float.h inttypes.h iso646.h limits.h locale.h 	\
+		 math.h setjmp.h signal.h stdarg.h stdbool.h 	\
+		 stddef.h stdint.h stdio.h stdlib.h string.h 	\
+		 tgmath.h time.h wchar.h wctype.h)
+
+dnl Prefer C99/Posix stdarg.h to BSD varargs
+AC_CHECK_HEADERS(stdarg.h varargs.h, break)
+
+dnl --- other POSIX & system headers of interest ---
+AC_CHECK_HEADERS(fcntl.h unistd.h sys/types.h sys/stat.h memory.h strings.h	\
+                 sys/mman.h sys/resource.h printf.h netinet/tcp.h malloc.h)
+
+
+dnl Test for #include_next support
+dnl Default to probing for include_next and using it when it appears to work
+dnl GCCUPC, Compaq, XLC, Intel and PGI all require include_next for correct operation
+dnl and it seems safest to use it elsewhere whenever it's available
+HAVE_CPP_INCLUDE_NEXT=1
+GASNET_IF_ENABLED_WITH_AUTO(include-next, try to use include_next in header wrappers,
+                 [FORCE_CPP_INCLUDE_NEXT=1], [HAVE_CPP_INCLUDE_NEXT=0], [])
+
+if test "$HAVE_CPP_INCLUDE_NEXT" != "0"; then
+AC_MSG_CHECKING([for include_next support])
+dnl Here we carefully emulate the two ways we may include a header wrapper
+CONFTMP="$TOP_BUILDDIR/conftemp"
+CONFTMPINC_BASE="include"
+CONFTMPINC="$CONFTMP/$CONFTMPINC_BASE"
+mkdir -p $CONFTMPINC
+cat > "$CONFTMPINC/stdlib.h" << EOF
+#ifdef IN_STDLIB_WRAPPER
+  #error reinclusion of stdlib wrapper
+#endif
+#define IN_STDLIB_WRAPPER
+#include_next <stdlib.h>
+#undef IN_STDLIB_WRAPPER
+#define STDLIB_WRAPPER
+EOF
+cat > "$CONFTMPINC/assert.h" << EOF
+#ifdef IN_ASSERT_WRAPPER
+  #error reinclusion of assert wrapper
+#endif
+#define IN_ASSERT_WRAPPER
+#include_next <assert.h>
+#undef IN_ASSERT_WRAPPER
+#define ASSERT_WRAPPER
+EOF
+
+GASNET_PUSHVAR(CPPFLAGS,"-I$CONFTMPINC -I$CONFTMP $CPPFLAGS")
+AC_TRY_COMPILE([
+            #include "stdlib.h"
+            #include "$CONFTMPINC_BASE/assert.h"
+           ],[
+            ldiv_t ld;
+	    void *p = malloc(10);
+            #ifndef assert
+	      #error assert missing
+            #endif
+            #ifndef ASSERT_WRAPPER
+	      #error assert wrapper missing
+            #endif
+            #ifndef STDLIB_WRAPPER
+	      #error stdlib wrapper missing
+            #endif
+           ],
+           [HAVE_CPP_INCLUDE_NEXT=1 ; AC_MSG_RESULT(yes)],
+           [HAVE_CPP_INCLUDE_NEXT=0 ; AC_MSG_RESULT(no)])
+GASNET_POPVAR(CPPFLAGS)
+rm -Rf "$CONFTMP"
+if test "$HAVE_CPP_INCLUDE_NEXT$FORCE_CPP_INCLUDE_NEXT" = "01" ; then
+  AC_MSG_ERROR(['--enable-include-next' passed, but include_next does not appear to work])
+fi
+fi
+AC_SUBST(HAVE_CPP_INCLUDE_NEXT)
+
+SYSHDR_FILE=conftest-syshdr.c
+echo "#include <confdefs.h>" > $SYSHDR_FILE
+
+dnl find full pathname for some headers, if they exist
+if test "$USE_GNU_PREPROC" = "yes"; then
+  # help the FIND_HEADER detection logic by giving it a sane preprocessor
+  GASNET_FIND_HEADER_CPP="$GCC_AS_CC"
+fi
+AC_DEFUN([UPCR_HEADER_WRAPPER],[
+  GASNET_FIND_HEADER($1)
+  pushdef([uppername],translit([$1],'a-z/.-','A-Z___'))
+  HAVE_HEADER=$HAVE_[]uppername
+  PATH_HEADER=$PATH_[]uppername
+  if test "$HAVE_CPP_INCLUDE_NEXT" = "1" ; then
+    GASNET_SUBST_TEXT(UPCR_INCLUDE_NEXT_[]uppername,[
+      #if $HAVE_HEADER
+         #include_next <$1>
+         #include_next <$1>
+      #endif
+    ])
+  else
+    GASNET_SUBST_TEXT(UPCR_INCLUDE_NEXT_[]uppername,[
+      #ifdef __SUNPRO_C
+        #pragma error_messages(off, E_INC_USR_INC_MAY_NOT_PORTABLE)
+      #endif
+      #if $HAVE_HEADER
+         #include $PATH_HEADER
+         #include $PATH_HEADER
+      #endif
+    ])
+  fi
+  echo '#line 1 "'"$PATH_HEADER"'"' >> $SYSHDR_FILE
+  echo 'extern int x;' >> $SYSHDR_FILE
+  popdef([uppername])
+])
+UPCR_HEADER_WRAPPER(byteswap.h)
+UPCR_HEADER_WRAPPER(alloca.h)
+UPCR_HEADER_WRAPPER(ctype.h)
+UPCR_HEADER_WRAPPER(fenv.h)
+UPCR_HEADER_WRAPPER(stdint.h)
+UPCR_HEADER_WRAPPER(string.h)
+UPCR_HEADER_WRAPPER(stdlib.h)
+UPCR_HEADER_WRAPPER(stdio.h)
+UPCR_HEADER_WRAPPER(stddef.h)
+UPCR_HEADER_WRAPPER(stdbool.h)
+UPCR_HEADER_WRAPPER(stdarg.h)
+UPCR_HEADER_WRAPPER(inttypes.h)
+UPCR_HEADER_WRAPPER(iso646.h)
+UPCR_HEADER_WRAPPER(limits.h)
+UPCR_HEADER_WRAPPER(math.h)
+UPCR_HEADER_WRAPPER(time.h)
+UPCR_HEADER_WRAPPER(sys/stat.h)
+
+AC_MSG_CHECKING(for system header directories)
+touch upcr_config.h
+cat $TOP_SRCDIR/upcr_syshdrs.h >> $SYSHDR_FILE
+echo "${GASNET_FIND_HEADER_CPP:-$CPP} -I. -I$TOP_SRCDIR/gasnet/other $SYSHDR_FILE > $SYSHDR_FILE.tmp" >&5
+eval "${GASNET_FIND_HEADER_CPP:-$CPP} -I. -I$TOP_SRCDIR/gasnet/other $SYSHDR_FILE > $SYSHDR_FILE.tmp 2>&5"
+$PERL -n -e '{ if (m|^#(?:line)?\s*[0-9]+\s*"(/.*)/[^/]+"|) { $dirs{$1} = 1; } } END { my @dirs = (keys %dirs); delete @dirs{(map {my $x = $_; grep (m|^$x/|, @dirs);} @dirs)}; delete @dirs{"'"$TOP_SRCDIR/gasnet/other"'"}; print join(":", (keys %dirs)); }' $SYSHDR_FILE.tmp > $SYSHDR_FILE.out 2>&5
+SYSTEM_HEADER_DIRS=`cat $SYSHDR_FILE.out`
+if test -z "$SYSTEM_HEADER_DIRS" ; then
+  SYSTEM_HEADER_DIRS='/usr/include'
+  GASNET_MSG_WARN(Failed to auto-detect SYSTEM_HEADER_DIRS - using $SYSTEM_HEADER_DIRS)
+fi
+AC_MSG_RESULT($SYSTEM_HEADER_DIRS)
+AC_SUBST(SYSTEM_HEADER_DIRS)
+rm -f $SYSHDR_FILE*
+
+HAVE_BUILTIN_ALLOCA=0
+case "$CC_FAMILY" in
+  XLC)  # bug 1823 and 2123 
+    AC_MSG_CHECKING([for xlc's __builtin_alloca symbol])
+    AC_TRY_LINK( [ #include <alloca.h> ], [ { char *p = __builtin_alloca(1); } ],
+                 [ AC_MSG_RESULT(yes) 
+                   HAVE_BUILTIN_ALLOCA=1 ],
+                 [ AC_MSG_RESULT(no) ])
+  ;;
+esac
+AC_SUBST(HAVE_BUILTIN_ALLOCA)
+
+HAVE_ALLOCA_IN_STDLIB_H=0
+if test x"$HAVE_ALLOCA_H" != x1; then
+  # Bug 2131 - FreeBSD-7.0 has no alloc.h but declares/defines alloca() in stdlib.h
+  AC_MSG_CHECKING([for alloca in stdlib.h])
+  AC_TRY_COMPILE([ #include <stdlib.h>
+  ],[	/* Either #define'd or declared - either one will compile w/o error */
+	#ifndef alloca
+		int x = (int)sizeof(&alloca); /* fails unless declared */
+	#endif
+  ],[ HAVE_ALLOCA_IN_STDLIB_H=1; AC_MSG_RESULT([yes])
+  ],[ AC_MSG_RESULT([no])])
+fi
+AC_SUBST(HAVE_ALLOCA_IN_STDLIB_H)
+
+dnl     gcc and clang have __uint128_t as an internal type, but the Berkeley UPC
+dnl     translator does not.  This has been seen to be an issue in (at least) the
+dnl     headers included by signal.h on Linux/aarch64.
+dnl     TODO: probe for an actual behavior (instead of the target tuple)
+UPCRI_NEED_UINT128_T=0
+if test $USING_BUPC = yes; then
+  case "$target_cpu:$target_os" in
+    aarch64:linux*)
+      UPCRI_NEED_UINT128_T=1
+      ;;
+  esac
+fi
+AC_SUBST(UPCRI_NEED_UINT128_T)
+
+dnl ---------------TYPEDEFS, STRUCTS, COMPILER CHARACTERISTICS-------
+AC_TYPE_OFF_T
+AC_TYPE_SIZE_T
+AC_TYPE_PID_T
+AC_TYPE_SIGNAL
+
+if test "$ac_cv_header_stddef_h" = "yes" ; then
+  dnl Some platforms define types like ptrdiff_t only in stddef.h
+  dnl so make sure that AC_CHECK_SIZEOF uses it
+  echo "#include <stddef.h>" >> confdefs.h
+fi
+
+dnl     Get size of types on this platform
+# setup_inttypes() takes care of most of them, but we also need a couple others
+# - note: normally we'd get this info from gasnet_config.h, but Totalview
+# doesn't see it, so we need to dupe it here.
+GASNET_SETUP_INTTYPES()
+#GASNET_CHECK_SIZEOF(void *) # already handled above
+GASNET_CHECK_SIZEOF(ptrdiff_t)
+GASNET_CHECK_SIZEOF(size_t)
+
+AC_MSG_CHECKING(whether char is signed)
+AC_TRY_RUN([
+  int main(void) {
+    char c = (char)(int)-5;
+    if (c > 0) return 0;
+    else return 1;
+  }],[ CHAR_IS_SIGNED=0 ], 
+     [ CHAR_IS_SIGNED=1 ],
+     [ GASNET_TRY_CACHE_EXTRACT_EXPR([whether char is signed (binary probe)],CHAR_IS_SIGNED,[],
+       [(((char)(int)-5) > 0 ? 0 : 1)],CHAR_IS_SIGNED)
+       if test -z "$CHAR_IS_SIGNED"; then
+         GASNET_CROSS_VAR(CHAR_IS_SIGNED,CHAR_IS_SIGNED) 
+       fi
+     ])
+if test "$CHAR_IS_SIGNED" = 0; then
+  AC_MSG_RESULT(no)
+else
+  AC_MSG_RESULT(yes)
+fi
+AC_SUBST(CHAR_IS_SIGNED)
+
+AC_MSG_CHECKING(for direction of stack growth)
+AC_TRY_RUN([
+  int foo(int *p, int x) { 
+    int local = 1;
+    if (x == 0) return foo(&local,x+1);
+    else if (x < 100) return foo(p,x+1);
+    else if (&local > p) return 1;
+    else return 0;
+  }
+  int main(void) {
+    return foo((int*)0, 0);
+  }],[ STACK_GROWS_UP=0 ], 
+     [ STACK_GROWS_UP=1 ],
+     [ GASNET_CROSS_VAR(STACK_GROWS_UP,STACK_GROWS_UP) ])
+if test "$STACK_GROWS_UP" = "0" ; then
+  AC_MSG_RESULT(down) 
+else
+  AC_DEFINE(UPCRI_STACK_GROWS_UP) 
+  AC_MSG_RESULT(up) 
+fi
+
+AC_MSG_CHECKING(for attribute(cleanup))
+AC_TRY_RUN([
+  int result = 3; 
+  int *addr;
+  void clean(int *pi) {
+    if (pi != addr) result = 1;
+    else if (*pi != 1) result = 2;
+    else result = 0;
+  }
+  int foo() { 
+    int local  __attribute__((cleanup(clean))) = 1;
+    addr = &local;
+  }
+  int main(void) {
+    foo();
+    return result;
+  }],[ ATTRIBUTE_CLEANUP=1 ], 
+     [ ATTRIBUTE_CLEANUP=0 ],
+     [ ATTRIBUTE_CLEANUP=0 ])
+if test "$ATTRIBUTE_CLEANUP" = "0" ; then
+  AC_MSG_RESULT(no) 
+else
+  AC_DEFINE(UPCRI_HAVE_ATTRIBUTE_CLEANUP) 
+  AC_MSG_RESULT(yes) 
+fi
+
+dnl Check for C99 _Bool type
+UPCR_BOOL_TYPE='unsigned char'
+AC_TRY_COMPILE( , [ _Bool b = 1; ], [
+  HAVE_BOOL=1
+  GASNET_CHECK_SIZEOF(_Bool)
+  if test "$SIZEOF__BOOL" -eq "$SIZEOF_LONG_LONG"; then
+    UPCR_BOOL_TYPE='unsigned long long'
+  elif test "$SIZEOF__BOOL" -eq "$SIZEOF_LONG"; then
+    UPCR_BOOL_TYPE='unsigned long'
+  elif test "$SIZEOF__BOOL" -eq "$SIZEOF_INT"; then
+    UPCR_BOOL_TYPE='unsigned int'
+  elif test "$SIZEOF__BOOL" -eq "$SIZEOF_SHORT"; then
+    UPCR_BOOL_TYPE='unsigned short'
+  fi
+], HAVE_BOOL=0)
+AC_SUBST(HAVE_BOOL)
+AC_SUBST(UPCR_BOOL_TYPE)
+
+GASNET_GET_SIG(INT)
+GASNET_GET_SIG(TERM)
+GASNET_GET_SIG(KILL)
+
+dnl ---------------LIBRARY FUNCTIONS---------------
+
+dnl     TODO:  This doesn't check for how you need to perform
+dnl     anonymous shared mmaps
+dnl Do *NOT* call AC_FUNC_MMAP here - this simplistic call overrides the more sophisticated
+dnl processing in gasnet/configure.in (notably the configure override to --disable-mmap).
+dnl AC_FUNC_MMAP
+AC_CHECK_FUNCS([bzero getpagesize], [], [])
+
+GASNET_CHECK_OVERRIDE_PTHREADS
+
+dnl Pthread function probes moved to after GASNet is configured
+
+GASNET_TRY_CACHE_LINK(for __builtin_huge_val, cc_has_builtin_huge_val,
+  [double x = __builtin_huge_val();], [],
+  AC_DEFINE(HAVE_BUILTIN_HUGE_VAL))
+GASNET_TRY_CACHE_LINK(for __builtin_huge_valf, cc_has_builtin_huge_valf,
+  [float x = __builtin_huge_valf();], [],
+  AC_DEFINE(HAVE_BUILTIN_HUGE_VALF))
+GASNET_TRY_CACHE_LINK(for __builtin_huge_vall, cc_has_builtin_huge_vall,
+  [long double x = __builtin_huge_vall();], [],
+  AC_DEFINE(HAVE_BUILTIN_HUGE_VALL))
+GASNET_TRY_CACHE_LINK(for __builtin_inf, cc_has_builtin_inf,
+  [double x = __builtin_inf();], [],
+  AC_DEFINE(HAVE_BUILTIN_INF))
+GASNET_TRY_CACHE_LINK(for __builtin_inff, cc_has_builtin_inff,
+  [float x = __builtin_inff();], [],
+  AC_DEFINE(HAVE_BUILTIN_INFF))
+GASNET_TRY_CACHE_LINK(for __builtin_nan, cc_has_builtin_nan,
+  [double x = __builtin_nan("");], [],
+  AC_DEFINE(HAVE_BUILTIN_NAN))
+GASNET_TRY_CACHE_LINK(for __builtin_nanf, cc_has_builtin_nanf,
+  [float x = __builtin_nanf("");], [],
+  AC_DEFINE(HAVE_BUILTIN_NANF))
+
+#       Adding new printf format specifiers will only work if glibc used
+dnl if test x"$extend_printf" = xyes; then 
+dnl     AC_CHECK_FUNC([register_printf_function], 
+dnl                    [AC_DEFINE(UPCR_EXTEND_PRINTF)],
+dnl                    [GASNET_MSG_WARN("--enable-extend-printf only works with GNU glibc: ignoring")])
+dnl fi
+
+dnl --------------- Magic to ensure gasnet's conduits match runtime's ---------------
+
+# the GASNet conduits, in order of increasingly preferred default conduit...
+# any which GASNet cannot auto-detect should use plain GASNET_IF_ENABLED and
+#   appear BEFORE the auto-conduit-detect description
+
+GASNET_IF_DISABLED(auto-conduit-detect, [Disable automatic detection of supported network conduits. (By default configure tests for the presence of each network listed below.)])
+
+AC_DEFUN([UPCR_CONDUIT],[
+GASNET_IF_ENABLED_WITH_AUTO($1, [support running over $2])
+])
+
+UPCR_CONDUIT(udp, [UDP (portable, low-performance conduit) ])
+UPCR_CONDUIT(smp, [smp loopback (no network) ])
+UPCR_CONDUIT(mpi, [MPI 1.1/2.x (portable, low-performance conduit) ])
+UPCR_CONDUIT(shmem, [SHMEM ])
+UPCR_CONDUIT(ibv, [OpenIB/OpenFabrics IB Verbs ])
+UPCR_CONDUIT(ofi, [OpenFabric Interfaces (aka libfabric)])
+UPCR_CONDUIT(mxm, [Mellanox MXM ])
+UPCR_CONDUIT(pami, [IBM PAMI ])
+UPCR_CONDUIT(portals4, [Portals4 ])
+UPCR_CONDUIT(gemini, [Cray Gemini ])
+UPCR_CONDUIT(aries, [Cray Aries ])
+
+echo "--------------------- Configuring GASNet -------------------------"
+CONDUIT_LIST=$TOP_BUILDDIR/.upcr-conduit-list.tmp
+CONDUIT_LIST_SUPPRESS=yes
+export CONDUIT_LIST
+export CONDUIT_LIST_SUPPRESS
+GASNET_SUBCONFIGURE_INVOKE(gasnet)
+
+echo "--------------- Completing UPCR configure --------------------"
+
+dnl    ######## START of FCA config
+
+GASNET_SUBCONFIGURE_EXTRACT(gasnet, FCA_ENABLED)
+if test "$FCA_ENABLED" = "yes"; then
+		CONF_FCA_ENABLED=1
+		AC_DEFINE(UPCRI_FCA)
+else
+		CONF_FCA_ENABLED=0
+fi
+AC_SUBST([CONF_FCA_ENABLED])
+AM_CONDITIONAL(FCA_ENABLED, test "$FCA_ENABLED" = "yes")
+
+GASNET_WITH(fca-enabled-by-default,
+            [Enable FCA support for collective operations by default],
+            [enable_fca_by_default="$withval"],
+            [enable_fca_by_default=no],
+            [enable_fca_by_default=yes])
+if [test "$enable_fca_by_default" = "yes"]; then
+		ENABLE_FCA_BY_DEFAULT=1
+else
+		ENABLE_FCA_BY_DEFAULT=0
+fi
+AC_SUBST([ENABLE_FCA_BY_DEFAULT])
+
+dnl    ######## END of FCA config
+
+dnl    Extract the list of supported conduits
+GASNET_SUBCONFIGURE_EXTRACT(gasnet, CONDUITS)
+# trim space
+CONDUITS=`echo $CONDUITS`
+if test "$CONDUITS" = "" ; then
+  cat $CONDUIT_LIST
+  AC_MSG_ERROR([No GASNet conduit support found!])
+fi
+
+AC_MSG_CHECKING([for default conduit])
+DEFAULT_CONDUIT='none'
+GASNET_WITH(default-network, [default network conduit (default is platform dependent)],
+  [if test "$withval" = 'yes'; then
+     conduit_error="--with-default-network requires an argument."
+   else
+     conduit_error="--with-default-network argument '$withval' is not a supported network."
+     for conduit in $CONDUITS; do
+       if test "$withval" = "$conduit"; then
+         DEFAULT_CONDUIT="$withval"
+         break
+       fi
+     done
+   fi],
+  [conduit_error="--without-default-network is not a legal option."],
+  [DEFAULT_CONDUIT=`echo "$CONDUITS" | $AWK -F' ' '{print \$NF}'`]
+)
+AC_MSG_RESULT([$DEFAULT_CONDUIT])
+if test "$DEFAULT_CONDUIT" = 'none'; then
+  AC_MSG_ERROR([$conduit_error   GASNet found support for the following conduits: $CONDUITS])
+fi
+
+GASNET_SUBCONFIGURE_EXTRACT(gasnet, PTHREADS)
+if test "$PARSEQ" = "par seq" -a "$PTHREADS" != "yes" ; then
+  PARSEQ="seq" # pthreads missing - disable support
+fi
+if test "$PARSEQ$PARSEQ_force" = "seqyes" ; then
+  AC_MSG_ERROR([--enable-par passed, but insufficient pthreads support found])
+fi
+
+# Learn more about the pthreads implementation if present
+if test "$PARSEQ" = "par seq"; then
+  GASNET_SUBCONFIGURE_EXTRACT(gasnet, GASNET_THREAD_DEFINES)
+  GASNET_SUBCONFIGURE_EXTRACT(gasnet, GASNET_THREAD_LIBS)
+
+  GASNET_PUSHVAR(CFLAGS,"$CFLAGS $GASNET_THREAD_DEFINES")
+  GASNET_PUSHVAR(LIBS,"$LIBS $GASNET_THREAD_LIBS")
+  AC_CHECK_FUNCS([pthread_setconcurrency pthread_attr_setguardsize])
+
+  GASNET_TRY_CACHE_RUN_WITHCC(
+    [for working pthread_mutexattr_setpshared],
+    [pthread_mutexattr_setpshared], [
+        #include <pthread.h>
+    ],[
+        pthread_mutexattr_t attr;
+        pthread_mutex_t mutex;
+
+        return (pthread_mutexattr_init(&attr) ||
+                pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED) ||
+                pthread_mutex_init(&mutex, &attr));
+    ],[AC_DEFINE(HAVE_PTHREAD_MUTEXATTR_SETPSHARED)])
+
+  # see if new linux pthreads lib is used
+  AC_CHECK_FUNC(pthread_setaffinity_np, AC_DEFINE(HAVE_PTHREADS_NPTL))
+  GASNET_POPVAR(LIBS)
+  GASNET_POPVAR(CFLAGS)
+fi
+
+# Check GASNet for PSHM support
+GASNET_SUBCONFIGURE_EXTRACT(gasnet, GASNET_PSHM_ENABLED)
+PSHM_SUPPORT="$GASNET_PSHM_ENABLED"
+AC_SUBST(PSHM_SUPPORT)
+
+# Construct UPCR_EXTRA_CFLAGS, which may require
+# checking GASNet's CFLAGS for problematic options
+UPCR_EXTRA_CFLAGS=''
+if test "$USING_CUPC2C" = "yes"; then
+  UPCR_EXTRA_CFLAGS="$UPCR_C99_FLAG"
+  GASNET_PUSHVAR(CFLAGS,"")
+  GASNET_SUBCONFIGURE_EXTRACT(gasnet, CFLAGS)
+  # -Wdeclaration-after-statement # would disallow valid C99 syntax
+  if echo "$CFLAGS" | grep 'Xcompiler -Wdeclaration-after-statement' >/dev/null 2>/dev/null; then
+    UPCR_EXTRA_CFLAGS="$UPCR_EXTRA_CFLAGS -Xcompiler -Wno-declaration-after-statement"
+  elif echo "$CFLAGS" | grep 'Wdeclaration-after-statement' >/dev/null 2>/dev/null; then
+    UPCR_EXTRA_CFLAGS="$UPCR_EXTRA_CFLAGS -Wno-declaration-after-statement"
+  fi
+  GASNET_POPVAR(CFLAGS)
+  case "$CC_FAMILY" in
+       Sun) # Dislikes passing NULL as function pointer (e.g. reduce and prefix_reduce)
+            UPCR_EXTRA_CFLAGS="$UPCR_EXTRA_CFLAGS -erroff=E_ARG_INCOMPATIBLE_WITH_ARG_L"
+            ;;
+     Intel) # Dislikes final UPCR_EXIT_FUNCTION() w/o a following return statement
+            UPCR_EXTRA_CFLAGS="$UPCR_EXTRA_CFLAGS -wd1011"
+            ;;
+      Cray) # Dislikes the potentially-unreachable UPCR_EXIT_FUNCTION()
+            UPCR_EXTRA_CFLAGS="$UPCR_EXTRA_CFLAGS -hnomessage=128"
+            ;;
+    Open64|Pathscale)
+            # Dislike do-nothing left-hand sides for comma operator.
+            # We use them in many places, including UPCR_BEGIN_FUNCTION().
+            UPCR_EXTRA_CFLAGS="$UPCR_EXTRA_CFLAGS -Wno-unused-value"
+            ;;
+  esac
+fi
+AC_SUBST(UPCR_EXTRA_CFLAGS)
+
+# Construct UPCR_EXTRA_LDFLAGS, which may require
+# checking GASNet's LDFLAGS for problematic options
+UPCR_EXTRA_LDFLAGS=''
+case "$target_os" in
+  openbsd*)
+    # Linker segment address must not be zero (bug 3248)
+    if test "$USING_CUPC" = 'yes' || test "$USING_GCCUPC" = 'yes' ; then
+      extra_ldflags='-Wl,--section-start,upc_shared=0x1000'
+      GASNET_PUSHVAR(LDFLAGS,"$LDFLAGS $extra_ldflags")
+      GASNET_TRY_CACHE_LINK(if linker supports '$extra_ldflags', ld_use_section_start,
+        [[
+          char __upc_shared_start[0x10000] __attribute__((section("upc_shared")));
+          char __upc_shared_end[] __attribute__((section("upc_shared"))) = {};
+        ]], [],
+        [UPCR_EXTRA_LDFLAGS="$extra_ldflags"])
+      GASNET_POPVAR(LDFLAGS)
+    fi
+    ;;
+esac
+AC_SUBST([UPCR_EXTRA_LDFLAGS])
+
+# Determine which libraries are to be built
+# - each conduit also has a Totalview upcr and assistant library (seq only)
+TARGETLIBS=
+ASSISTANTLIBS=
+for conduit in $CONDUITS; do
+    if test $conduit = "shmem"; then
+        conduit_parseq=seq
+    else
+        conduit_parseq="$PARSEQ"
+    fi
+    for parseq in $conduit_parseq; do
+        TARGETLIBS="libupcr-$conduit-$parseq.a $TARGETLIBS"
+    done
+    if test "$conduit_parseq" = "par seq"; then
+        TARGETLIBS="libupcr-$conduit-thr.a $TARGETLIBS"
+    fi
+    # Totalview upcr and assistant library
+    if test "$TOTALVIEW_ENABLED" = "yes"; then
+        TARGETLIBS="libupcr-$conduit-tv.a $TARGETLIBS"
+        ASSISTANTLIBS="libupcda-$conduit-tv.la $ASSISTANTLIBS"
+    fi
+done
+
+AC_SUBST(CONDUITS)
+AC_SUBST(DEFAULT_CONDUIT)
+AC_SUBST(PTHREADS)
+AC_SUBST(PARSEQ)
+AC_SUBST(TARGETLIBS)
+AC_SUBST(ASSISTANTLIBS)
+AM_CONDITIONAL(HAVE_PTHREAD, test "$PTHREADS" = "yes")
+
+# determine if/how to activate platform's debug malloc
+  GASNET_SUBCONFIGURE_EXTRACT(gasnet, DEBUGMALLOC)
+  if test "$DEBUGMALLOC" = yes; then
+    GASNET_SUBCONFIGURE_EXTRACT(gasnet, DEBUGMALLOC_VAR)
+    GASNET_SUBCONFIGURE_EXTRACT(gasnet, DEBUGMALLOC_VAL)
+  fi
+AC_SUBST(DEBUGMALLOC)
+AC_SUBST(DEBUGMALLOC_VAR)
+AC_SUBST(DEBUGMALLOC_VAL)
+
+if test "$TOTALVIEW_SUBDIR" != ""; then
+  echo "--------------------- Configuring Totalview -------------------------"
+  export ASSISTANTLIBS
+  GASNET_SUBCONFIGURE_INVOKE($TOTALVIEW_SUBDIR) 
+fi
+
+dnl ---------------OUTPUT---------------
+
+dnl     Work around automake intercepting all 'include's in Makefile.am
+MAKE_INCLUDE="include"
+
+AM_CONDITIONAL(USE_GNU_PREPROC, test "$USE_GNU_PREPROC" = "yes")
+AM_CONDITIONAL(BLD_IN_SRCDIR, test "$TOP_SRCDIR" = "$TOP_BUILDDIR")
+
+# Pick some values out of a hat for shared heap size/offset.
+#  - These are deliberately low by default, just so they will
+#    work out of the box on almost any machine.  It's up to the 
+#    sysadmin to set correct limits as part of install process.
+#  - offset should be 0 on all known platforms at present.
+SHARED_HEAP_SIZE="64MB"
+SHARED_HEAP_OFFSET="0"
+
+case "$target_os" in
+  hpux*)
+     if test "$target_cpu" = "ia64" ; then
+	# keep translator from choking on some compiler built-in types 
+        # that unfortunately appear in the common system headers
+	PRETRANS_CPPFLAGS="-D__float80='long double' -D__fpreg='long double' -D__va_list__='char *'"
+     fi
+  ;;
+  darwin*)
+     # Disable Apple "blocks" language extension which chokes the translator
+     GASNET_IFDEF([__BLOCKS__],[PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -U__BLOCKS__"])
+  ;;
+  solaris*)
+     # Disable "__thread" extension which chokes the translator
+     GASNET_IFDEF([__SUNPRO_C],[PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -D__thread=''"])
+  ;;
+  freebsd*)
+     if test "$USING_BUPC" = 'yes' ; then
+       # Disable use of C11's _Thread_local (e.g. in runetype.h), which chokes BUPC translator
+       PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -D_Thread_local=''"
+     fi
+  ;;
+  netbsd*)
+     # Disable inlined ctypes which may lead to excessive warnings
+     PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -D_CTYPE_NOINLINE"
+  ;;
+esac
+# keep translator from choking on gcc builtins used in glibc headers
+# these can potentially appear with any compiler that defines __GNUC__
+GASNET_IFDEF([__GNUC__], [
+  PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -D__NO_STRING_INLINES -D__NO_MATH_INLINES -D__NO_INLINE__"
+],[
+  # XLC+Linux defines __GNUC__ via $GCC_AS_CC (see gcc_as_cc.pl for details) and
+  # alse uses these same defines to control use of builtins in its private headers.
+  case "$CC_FAMILY:$target_os" in
+    XLC:linux*) PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -D__NO_STRING_INLINES -D__NO_MATH_INLINES -D__NO_INLINE__" ;;
+  esac
+])
+# Disable (in preprocess only) string.h functions that have missing or mismatched prototypes
+PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
+# Try to disable (in preprocess only) Apple's __attribute__((availability(*))) magic
+# because prior to 2.22.0, our translator's front-end could not parse it correctly.
+dnl  NOTE that a buggy autoconf-2.13 dies if literal "AC_" appears, thinking it is
+dnl  an undefined autoconf macro.  So, we "disguise" both instances of "MAC_OS".
+GASNET_IFDEF([__ENVIRONMENT_MAC][_OS_X_VERSION_MIN_REQUIRED__],[
+ PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -U__ENVIRONMENT_MAC""_OS_X_VERSION_MIN_REQUIRED__"
+])
+GASNET_IFDEF([__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__], [
+  # Not supported yet, but no harm in being prepared.
+  PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -U__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__"
+])
+GASNET_IFDEF([__ENVIRONMENT_WATCH_OS_VERSION_MIN_REQUIRED__], [
+  # Not supported yet, but no harm in being prepared.
+  PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -U__ENVIRONMENT_WATCH_OS_VERSION_MIN_REQUIRED__"
+])
+GASNET_IFDEF([_QPXINTRIN_H_INCLUDED], [
+  # qpxintrin.h uses __attribute__(__overloadable__) which chokes translator
+  PRETRANS_CPPFLAGS="$PRETRANS_CPPFLAGS -D_QPXINTRIN_H_INCLUDED"
+])
+AC_SUBST(PRETRANS_CPPFLAGS)
+
+dnl     Figure out how to install config files
+GASNET_SET_INSTALL_CMD
+
+dnl     Variables we wish to export
+AC_SUBST(MAKE_INCLUDE)
+AC_SUBST(SHARED_HEAP_SIZE)
+AC_SUBST(SHARED_HEAP_OFFSET)
+
+dnl     Record our multiconf config, if any
+MULTICONF_NAME="$with_multiconf_magic"
+AC_SUBST(MULTICONF_NAME)
+
+PERLSTART=$TOP_BUILDDIR/gasnet/other/perlstart
+AC_SUBST_FILE(PERLSTART)
+
+GASNET_FIX_EXEC(upcc)
+GASNET_FIX_EXEC(upcrun)
+GASNET_FIX_EXEC(contrib/upcdecl/upcdecl)
+GASNET_FIX_EXEC(detect-upc/upcppp)
+GASNET_FIX_EXEC(harness/harness)
+GASNET_FIX_EXEC(harness/runjobs)
+GASNET_FIX_EXEC(harness/checkfail)
+GASNET_FIX_EXEC(harness/tune_max_compile_jobs)
+
+dnl     This must be at end of file--generates Makefile
+GASNET_END_CONFIGURE([])
+AC_OUTPUT(
+        Makefile
+        CTestTop.mak
+        CTestBottom.mak
+        config-aux/Makefile
+        docs/Makefile
+        man/Makefile
+        umalloc/Makefile
+        contrib/Makefile
+        contrib/upcdecl/Makefile
+        contrib/upcdecl/upcdecl
+        contrib/upcc_CGI/Makefile
+	profile/Makefile
+        upcr_geninclude/Makefile
+        upcr_geninclude/byteswap.h
+        upcr_geninclude/alloca.h
+        upcr_geninclude/ctype.h
+        upcr_geninclude/fenv.h
+        upcr_geninclude/inttypes.h
+        upcr_geninclude/iso646.h
+        upcr_geninclude/limits.h
+        upcr_geninclude/stdint.h
+        upcr_geninclude/stdlib.h
+        upcr_geninclude/stdio.h
+        upcr_geninclude/string.h
+        upcr_geninclude/stdbool.h
+        upcr_geninclude/stddef.h
+        upcr_geninclude/stdarg.h
+        upcr_geninclude/math.h
+        upcr_geninclude/time.h
+        upcr_geninclude/sys/Makefile
+        upcr_geninclude/sys/stat.h
+        upcr_geninclude2/Makefile
+        upcr_geninclude2/stdlib.h
+        upcr_geninclude2/math.h
+        upcr_preinclude/Makefile
+        upcr_postinclude/Makefile
+	upcr_extinclude/Makefile
+        detect-upc/Makefile
+	upcc
+	upcrun
+        upcc.mak
+        upcc.conf
+        upcr.mak
+        upcrun.conf
+        detect-upc/upcppp
+	harness/Makefile
+	harness/harness
+	harness/runjobs
+	harness/checkfail
+	harness/tune_max_compile_jobs
+	harness/compiler.spec
+	harness/gupc-upcr.spec
+	harness/cupc-upcr.spec
+	harness/cupc2c.spec
+, 
+GASNET_FIX_EXEC_OUTPUT()
+GASNET_SANITIZE_PACKAGE(upcr_config.h)
+GASNET_MSG_WARN_FINISH()
+CONDUIT_LIST=.upcr-conduit-list.tmp
+if test -f "$CONDUIT_LIST" ; then
+  cat $CONDUIT_LIST
+  rm -f $CONDUIT_LIST
+fi
+, 
+GASNET_FIX_EXEC_SETUP()
+)
+

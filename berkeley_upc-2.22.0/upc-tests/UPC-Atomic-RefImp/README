@@ -1,0 +1,94 @@
+UPC-Atomic-RefImp README
+Written by Dan Bonachea
+Copyright 2013, The Regents of the University of California 
+See LICENSE.TXT for licensing information.
+http://upc.lbl.gov
+====================================================
+
+Overview
+========
+UPC-Atomic-RefImp is a functionally-complete reference implementation of the
+UPC atomics API introduced in the optional library section of UPC Spec 1.3.  
+It is implemented entirely in UPC using the UPC lock libary, and is designed to
+work in any UPC 1.2 compliant compiler (regardless of whether it provides a
+built-in implementation of upc_atomic.h). 
+
+Performance Note
+================
+The goal of this implementation is correctness, completeness and error
+checking.  Atomicity is achieved using upc_lock_t and several
+potentially-remote accesses per atomic op, so PERFORMANCE IS EXPECTED TO BE
+POOR, relative to native solutions or even app-specific UPC code using locks.
+This is especially true on distributed-memory systems.
+
+Basic Usage
+===========
+* Application code should #include <upc_atomic.h> and use the API as per the
+  UPC 1.3 spec (available at http://upc-lang.org). See atomic_test_simple.upc for
+  a simple example.
+
+* When compiling an application, one needs to pass an
+  -I/path/to/UPC-Atomic-RefImp option to the UPC compiler, telling it the
+  location of the files in this directory. One must also compile and link in the
+  upc_atomics.upc file which implements the library. Some UPC compilers may
+  support creating a *.a library file for that purpose, but it's equally easy
+  (and more portable) to simply add the library source file to your UPC
+  compilation command. Eg: 
+    upcc -o myapp -I/path/to/UPC-Atomic-RefImp myapp.upc /path/to/UPC-Atomic-RefImp/upc_atomic.upc
+
+Advanced Options
+================
+The upc_atomic.upc library implementation has a few compile-time options,
+controlled via -D preprocessor options:
+
+-DDEBUG  : Enables extensive debug checking of client calls, at some performance cost. Enabled by default.
+-DNDEBUG : Disables debug mode checking. Can also use -DFORCE_NDEBUG.
+
+The implementation includes several strategies for organizing the upc_lock
+objects used to acheive atomicity, trading off memory and concurrency versus
+communication latency. The following mutually exclusive options select the 
+locking algorithm (the descriptions below assume a straightforward
+implementation of upc_lock_t, as in Berkeley UPC):
+
+-DLOCK_CENTRAL : Uses a single, centralized upc_lock_t per atomic domain. This
+  minimizes library memory utilization, but sacrifices concurrency and incurs
+  communication costs for atomic operations performed on data with affinity to
+  the calling thread.
+
+-DLOCK_NODIR : Each thread maintains a separate upc_lock_t in each atomic
+  domain, controlling access to data with affinity to that thread.  This slightly
+  increases memory utilization, but improves concurrency and in particular
+  should allow atomic operations on local data to proceed without communication.
+  Atomics on remote data incur a round-trip communication to fetch the reference
+  to the remote lock, in addition to the communication to acquire/release the
+  lock and perform the atomic operation. This is the default implementation when
+  a shared-memory system is detected.
+
+-DLOCK_FULLDIR : Similar to LOCK_NODIR, but additionally each thread caches a
+  (lazily-populated) full directory of the remote lock objects, thus avoiding the
+  additional round-trip latency to fetch that information in steady-state
+  operation. This incurs the highest library memory utilization, which may be too
+  costly at very large scale (depending on how many domain objects are in use).
+  This is the default implementation for most systems.
+
+-DLOCK_DIR=<N> : This is similar to LOCK_FULLDIR, but limits the lock directory
+  size to N cache entries, thus providing more scalable library memory
+  utilization, at a communication cost when the working set of remote threads
+  targeted by the AMOs issued by a given thread exceeds N. So for example, if
+  threads in a large-scale application typically only issue AMOs to their
+  adjacent neighbors in a 2-D thread layout, one might pass -DLOCK_DIR=4.
+
+Mixing With a Built-in Atomics Library
+======================================
+This library implementation is designed to also function within a UPC compiler
+that already provides a built-in atomics library. In DEBUG mode, this
+implementation includes extensive debug checking that can help detect usage
+errors in the client code, and can provide a sanity check for testing purposes,
+etc. Symbols in this implementation are internally prefixed with rupc_ to
+prevent linker conflicts, and it should even possible to link and use both
+implementations within a single UPC application; however note that any single
+compilation unit (ie .upc file) should only include the header for one
+upc_atomic.h implementation (probably via appropriate choice of -I option), and
+upc_atomicdomain_t objects are not cross-compatible across implementations.
+
+

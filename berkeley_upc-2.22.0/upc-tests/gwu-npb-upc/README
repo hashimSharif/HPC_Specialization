@@ -1,0 +1,139 @@
+             GWU - UPC NPB Benchmark Suite
+            ===============================
+
+The George Washington University - High Performance Computing Laboratory
+    - http://hpcl.gwu.edu/
+
+Work done under the GWU UPC Project, supervised by Professor Tarek El-Ghazawi
+    - tarek@gwu.edu
+
+Project website :
+    - http://threads.hpcl.gwu.edu/sites/npb-upc
+    - SVN repository of the code, bug reports, ...
+
+I) Presentation and remarks
+---------------------------
+  The following kernels are available:
+
+    - CG - Conjugate Gradient: This benchmark computes an approximation to the
+        smallest eigenvalue of symmetric positive definite matrix. This kernel
+        features unstructured grid computations requiring irregular long-range
+        communications.
+    - EP - Embarrassingly Parallel: This benchmark can run on any number of
+        processors with little communication. It estimates the upper achievable
+        limits for floating point performance of a parallel computer. This
+        kernel generates pairs of Gaussian random deviates according to a
+        specific scheme and tabulates the number of pairs in successive annuli.
+    - FT - Fast Fourier Transform: This benchmark solves a 3D partial
+        differential equation using an FFT-based spectral method, also
+        requiring long range communication. FT performs three one-dimensional
+        (1-D) FFT's, one for each dimension.
+    - IS - Integer Sort: This benchmark is a parallel sorting program based on
+        the bucket sort. It requires a lot of total exchange communication.
+    - MG - MultiGrid: This benchmark uses a V-cycle multigrid method to compute
+        the solution of the 3-D scalar Poisson equation. It performs both short
+        and long range communications that are highly structured.
+    - BTIO - Test of different parallel I/O techniques
+
+II) Content of the distribution
+-------------------------------
+  Follows a short-description of the structure of the NAS NPB UPC distribution:
+
+  README    <- This file
+  CG/       <- contains the CG kernel and Makefile files
+  EP/       <- contains the EP kernel and Makefile files
+  FT/       <- contains the FT kernel and Makefile files
+  IS/       <- contains the IS kernel and Makefile files
+  MG/       <- contains the MG kernel global.h and Makefile files
+  ??/variants/  <- gathers different UPC variants of the ?? problem, including
+        a dynamic memory allocated O0 version, a static memory allocated O3
+        version (and sometimes even a dynamic memory allocated O1 version) (for
+        details over variants O0, O1 and O3, please check the notes)
+  bin/      <- executables will be built in this directory
+  common/   <- common files (C files)
+  config/   <- Configuration files
+               (See section III: Building instructions)
+  sys/      <- C file to create the npbparams.h for each workload
+
+  Notes:
+    - The notations O0, O1 and O3 are referring to the paper "UPC Benchmarking
+        Issues" (Tarek El-Ghazawi, Sebastien Chauvin, 30th Annual Conference
+        IEEE International Conference on Parallel Processing, 2001 (ICPP01) 
+        Pages 365-372).
+
+        O0: No privatization, no prefetching
+        O1: Privatization hand-optimization implemented (local shared accesses
+            converted as much as possible to private accesses)
+        O2: No privatization but prefetching implemented (prefetching of block
+            of shared references) (NOTE: There is no O2 version of any 
+            NPB workload)
+        O3: Privatization and prefetching hand-coded.
+
+    - All these problems have been implemented using dynamically allocated
+        shared memory. Several (CG, FT, IS) have a statically allocated shared
+        memory variant.
+
+
+III) Building instructions
+--------------------------
+ a) The built need to be configured for your specific UPC compiler.
+    Some defaults are set in the config/Makefile.default file.
+    config/Makefile.in will replace those defaults;
+        cp config/Makefile.default config/Makefile.in
+        vim config/Makefile.in  (Configure it for your specific compiler)
+    More advanced options are located in config/make.def 
+ b) Go to the workload directory (e.g. cd CG)
+ c) Clean the current binaries files present in the workload directory (e.g.
+    gmake clean)
+ d) Make the binary for the CLASS and Number of Processors chosen using the
+    most optimized UPC version (e.g. gmake CLASS=A NP=4)
+
+ Make options:
+ ------------
+    * VARIANT: can be specified during compilation to use a different UPC
+        variant of a given workload (gmake CLASS=A NP=4 VARIANT=O1).
+       It can be O0, O1, O1static, O3 and O3static, depending on the available
+        implementations of a given workload.
+    * CLASS: can be S, W, A, B or C (smaller to larger sizes). A larger CLASS
+        (CLASS D) is even present in the NPB2.4 workloads (except IS).
+    * NP: Number of threads (limited by the type of workload and the number of
+        CPU present).
+    * USE_MONOTONIC_CLOCK=1: Make use of the system monotonic clock for more
+        precise timing results.
+
+ e) Run the UPC Binary file created
+
+
+V) Revision History
+-------------------
+ v1.00: Initial Effort - Implemented in a way similar to MPI. The distribution
+    is no longer available on the web. 
+ v2.00: First Release - May 9th 2003
+ v2.01: Minor Changes - Improvement of the Makefiles in order to avoid to do a
+    'make clean' before each compilation - May 13th 2003
+ v2.02: Bug fix       - Do a single useful upc_all_lock_alloc() call instead of
+    two (FT workload) - May 16th 2003
+ v2.03: New Workload  - CG added to the kernels (O0, O1, O3) - May 19th 2003
+ v2.04: New Workload  - IS added to the kernels (O0, O1) - May 29th 2003
+ v2.05: Started conjoint development of NAS 2.4 - CG, EP, FT, IS kernels - 
+    June 5th 2003
+ v2.06: New Workload  - MG added to the kernels (O0, O1, O3) - June 26th 2003
+ v2.07: New Makefile accepting VARIANT flag, new template for Berkeley UPC
+    Compiler available in config/models/ - July 14th 2003
+ v2.08: Portability of the support/ scripts over HP Tru64 Unix sh shell - 
+    July 15th 2003
+ v2.09: Various bugfix over CG and MG, implementation of a file_output for MG -
+    November 2004
+
+ v2.20 and later release : Please consult the ChangeLog file
+
+ After version 2.20, the version numbering scheme changed as follow :
+    npb-NASVERSION-YY.MM.tar.gz
+    So, npb-upc-2.4-11.02.tar.gz stands for NAS Parallel Benchmarks for
+        the 2.4 NAS specification, released February 2011.
+
+VI) Acknowledgements
+--------------------
+  Please consult the AUTHORS file for the complete list of people having
+contributed to this software.
+

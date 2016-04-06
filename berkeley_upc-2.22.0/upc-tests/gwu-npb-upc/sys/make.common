@@ -1,0 +1,68 @@
+PROGRAM  = $(BENCHMARK).$(CLASS)
+FCOMPILE = $(F77) -c $(F_INC) $(FFLAGS)
+CCOMPILE = $(CC)  -c $(C_INC) $(CFLAGS)
+#$(UPCC_STAT_THREADS)${NP}
+
+# Class "U" is used internally by the setparams program to mean
+# "unknown". This means that if you don't specify CLASS=
+# on the command line, you'll get an error. It would be nice
+# to be able to avoid this, but we'd have to get information
+# from the setparams back to the make program, which isn't easy. 
+CLASS=U
+
+default:: ${PROGRAM}
+
+# This makes sure the configuration utility setparams 
+# is up to date. 
+# Note that this must be run every time, which is why the
+# target does not exist and is not created. 
+# If you create a file called "config" you will break things. 
+.NOTPARALLEL:
+.PHONY: config
+config:
+	@cd ../sys; ${MAKE} all
+	../sys/setparams ${BENCHMARK} ${CLASS} ${NP}
+
+COMMON=../common
+${COMMON}/c_${RAND}.o: ${COMMON}/c_${RAND}.c
+	cd ${COMMON}; ${UCC} -c c_${RAND}.c
+
+${COMMON}/c_print_results.o: ${COMMON}/c_print_results.c
+	cd ${COMMON}; ${UCC} -c c_print_results.c
+
+# For most machines or CRAY or IBM
+#	cd ${COMMON}; ${CCOMPILE} ${MACHINE} ${COMMON}/wtime.c
+# For a precise timer on an SGI Power Challenge, try:
+#	cd ${COMMON}; ${CCOMPILE} -o wtime.o ${COMMON}/wtime_sgi64.c
+
+${COMMON}/c_wtime.o: ${COMMON}/${WTIME}
+	cd ${COMMON}; ${UCC} -c -o c_wtime.o ${WTIME}
+
+# Normally setparams updates npbparams.h only if the settings (CLASS)
+# have changed. However, we also want to update if the compile options
+# may have changed (set in ../config/make.def). 
+npbparams.h: ../config/make.def force
+	@ echo make.def modified. Rebuilding npbparams.h just in case
+	echo F77=$(F77) > ../config/last_parameters
+	echo FLINK=$(FLINK) >> ../config/last_parameters
+	echo F_LIB=$(F_LIB) >> ../config/last_parameters
+	echo F_INC=$(F_INC) >> ../config/last_parameters
+	echo FFLAGS=$(FFLAGS) >> ../config/last_parameters
+	echo FLINKFLAGS=$(FLINKFLAGS) >> ../config/last_parameters
+	echo RAND=$(RAND) >> ../config/last_parameters
+	echo CC=$(CC) >> ../config/last_parameters
+	echo CFLAGS=$(CFLAGS) >> ../config/last_parameters
+	echo CLINK=$(CLINK) >> ../config/last_parameters
+	echo CLINKFLAGS=$(CLINKFLAGS) >> ../config/last_parameters
+	echo C_LIB=$(C_LIB) >> ../config/last_parameters
+	echo C_INC=$(C_INC) >> ../config/last_parameters
+	rm -f npbparams.h
+	../sys/setparams ${BENCHMARK} ${CLASS} ${NP}
+
+# So that "make benchmark-name" works
+${BENCHMARK}:  default
+${BENCHMARKU}: default
+
+force: ;
+
+

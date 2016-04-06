@@ -1,0 +1,62 @@
+#!/bin/sh
+
+########################################################################
+# Remove all automake detritus, leaving just
+# configure.in and Makefile.am
+#
+# This script assumes you use 'config-aux' to store temporary autoconf
+# files in.  See comment in 'autoboot'.
+########################################################################
+
+set -x 
+
+if test -f Makefile ; then
+    gmake distclean
+    rm -f Makefile
+fi
+
+# Remove standard autoconf detritus
+rm -Rf autom4te*.cache 
+rm -f \
+    aclocal.m4                      \
+    config-aux/Makefile.in          \
+    config-aux/compile              \
+    config-aux/ylwrap               \
+    config.cache                    \
+    config.log                      \
+    config.status                   \
+    configure                       \
+    configure.scan                  \
+    contrib/Makefile.in             \
+    contrib/upcc_CGI/Makefile.in    \
+    contrib/upcdecl/Makefile.in     \
+    detect-upc/Makefile.in          \
+    docs/Makefile.in                \
+    harness/Makefile.in             \
+    Makefile.in                     \
+    man/Makefile.in                 \
+    profile/Makefile.in             \
+    stamp-h.in                      \
+    test/Makefile.in                \
+    umalloc/Makefile.in             \
+    upc_include/Makefile.in         \
+    upcr_config.h.in                \
+    upcr_extinclude/Makefile.in     \
+    upcr_geninclude/Makefile.in     \
+    upcr_geninclude/sys/Makefile.in \
+    upcr_geninclude2/Makefile.in    \
+    upcr_postinclude/Makefile.in    \
+    upcr_preinclude/Makefile.in     \
+
+# Remove 'config-aux' dir only if it exists and is not empty
+#   -- may contain user M4 macro files
+rmdir config-aux 2>/dev/null
+
+if test -d totalview; then
+    ( cd totalview && ./unBootstrap )
+fi
+
+if test -d gasnet; then
+    ( cd gasnet && ./unBootstrap )
+fi
+

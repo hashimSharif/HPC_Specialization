@@ -1,0 +1,11 @@
+#----------------------------------------------------
+#
+# Prologue tcl code for Berkeley UPC
+#
+
+# The translator changes the user "main" to "user_main".
+# Make user_main be the main function.
+#
+dset ::TV::Private::main_names user_main:$TV::Private::main_names
+
+TV::symbol set $s2s_image_id uninteresting_filter "(^_bupc_)"

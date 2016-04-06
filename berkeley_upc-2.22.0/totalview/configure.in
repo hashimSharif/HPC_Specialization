@@ -1,0 +1,164 @@
+
+AC_INIT(assistant/bupc_assistant.h)
+AC_PREREQ(2.13)
+
+dnl     Store autoconf temp files in 'config' directory instead of root
+AC_CONFIG_AUX_DIR(config-aux)
+dnl     And same for libtool 2.x m4 goop
+ifdef([AC_CONFIG_MACRO_DIR],[AC_CONFIG_MACRO_DIR(config-aux)])
+
+AC_CANONICAL_SYSTEM
+AC_VALIDATE_CACHED_SYSTEM_TUPLE
+
+AM_INIT_AUTOMAKE(bupc_totalview, UPCR_VERSION_LIT, no-define)
+if test "" ; then
+  dnl workaround a bug in aclocal 1.4
+  AM_INIT_AUTOMAKE(x,x,no-define) 
+fi
+
+GASNET_START_CONFIGURE([])
+
+GASNET_PROG_CPP
+GASNET_PROG_CC
+
+# if cross-compiling, everything in totalview uses the host compiler
+if test "$CROSS_COMPILING" = "1" ; then
+  GASNET_PROG_HOSTCC
+  GASNET_HOSTCC_BEGIN
+  ac_cv_c_compiler_gnu=yes
+fi
+
+dnl     God help us, it's libtool.  Used only if Totalview support enabled
+
+# <PATHSCALE_HACK>: in upcr/gasnet's configure.in, we make sure that we only
+# set ac_cv_c_compiler_gnu=yes when the real GCC is used.  But for libtool's
+# purposes, some compilers (such as pathscale) really are GCC, so let it think
+# so (really what appears to be going on is that libtool doesn't have any
+# rules for pathcc yet, but it operates enough like gcc to work).
+# - GCC also needs to be set here, since it will have been set already from
+#   upcr's cached ac_cv_c_compiler_gnu value
+# - NOTE: we need to make sure that GASNET_POPVAR is called to restore the original
+#   values before this configure.in returns to upcr's.
+case "$upcr_cv_cc_family" in
+ Pathscale)  
+    GASNET_PUSHVAR(ac_cv_c_compiler_gnu, "yes")
+    GASNET_PUSHVAR(GCC, "yes")
+    ;; # lie to libtool
+ *) GASNET_PUSHVAR(ac_cv_c_compiler_gnu, "$ac_cv_c_compiler_gnu") 
+    GASNET_PUSHVAR(GCC, "$GCC")
+     ;;
+esac
+AC_DISABLE_STATIC
+AC_PROG_LIBTOOL
+
+# ENSURE LIBTOOL SCRIPT EXISTS
+#
+# In libtool-2 generation of the libtool script is done via AC_CONFIG_COMMANDS,
+# which means it doesn't exist quite yet.  Fortunately, the libtool folks are
+# aware that some packages need to run libtool at configure time, and provide
+# a LT_OUTPUT macro to create the libtool script now.
+# Of course, no such macro existed in libtool-1.x.
+ifdef([LT_OUTPUT],[LT_OUTPUT])
+
+#
+# LIBTOOL --tag WORKAROUND
+#
+# recent libtool versions (1.5.x) use a wobbly set of heuristics to determine if
+# the C compiler is being used:  they appear to include
+# - the name of the executable: alas, depending on how libtool was configured
+#   itself, 'gcc' can be recognized, while '/usr/bin/gcc' won't (and a gcc-based
+#   'mpicc' definitely won't).
+# - flags like '-g' or '-O2' seem to make it assume C is being used, but only if
+#   they appear early on in the arguments?
+# - a known configuration can be passed in with '--tag=NAME'.  There is no
+#   documentation on this, but libtool appears to use 'CC' for C, 'CXX' for C++
+#   and 'F77' for FORTAN.  How it is supposed to handle different C compilers
+#   with a single 'CC' config is beyond me:  it looks like CC assumes gcc-ish
+#   semantics for things like creating shared libs.
+#
+# Alas, libtool drops dead if it doesn't detect a C compilation.  Oddly enough,
+# passing --tag=ANYTHING will workaround this (an 'unknown tag' error message is
+# emitted, but then CC mode is apparently assumed).
+#
+# Our current heuristic is to see if --tag=CC is supported (older versions
+# don't have it, and die if it's passed), and always use it if it is.  I'm
+# not happy with this, as it would be nice to only use --tag if necessary, but
+# it's very hard to know at config time whether it will be necessary or not 
+# (for instance, if CC doesn't need --tag=CC, but MPI_CC does).
+#
+# We also make sure that libtool can use CC to create shared libraries, to try
+# to avoid errors at build time for users.  There is still the possibility that
+# MPI_CC will barf when it's time to create the assistant library, but since
+# upcr's config often gets MPI_CC from gasnet, there's nothing that can be done
+# about this at configure time.
+libtool_testname=mylibtool_conftest
+libtool_testfile=${libtool_testname}.c
+libtool_lofile=${libtool_testname}.lo
+libtool_lafile=lib${libtool_testname}.la
+libtool_compile="./libtool --tag=CC --mode=compile $CC -c -o $libtool_lofile $libtool_testfile"
+AC_MSG_CHECKING(libtool works)
+cat > $libtool_testfile <<EOF
+#include <stdio.h>
+int foo() { return 0; }
+EOF
+GASNET_TRY_RUNCMD([$libtool_compile], [libtool_use_tag=yes], [libtool_use_tag=yes], 
+                  [libtool_use_tag=no])
+if test "$libtool_use_tag" = yes; then
+    UPCR_LIBTOOL_TAG="--tag=CC"
+else
+    # try w/o --tag
+    #libtool_compile="./libtool --mode=compile $CC -c -o $libtool_lofile $libtool_testfile"
+    libtool_compile="./libtool --mode=compile $CC -c $libtool_testfile"
+    GASNET_TRY_RUNCMD([$libtool_compile], [libtool_compiles=yes], [libtool_compiles=yes], 
+                      [libtool_compiles=no])
+    if test "$libtool_compiles" = no; then
+       AC_MSG_RESULT([no])
+       AC_MSG_ERROR([libtool can't compile with your C compiler ($CC): try again without --enable-totalview])
+    fi
+fi
+# Now see if libtool will link a shared lib correctly
+libtool_mklib="./libtool $UPCR_LIBTOOL_TAG --mode=link $CC -no-undefined -rpath /usr/lib -o $libtool_lafile $libtool_lofile"
+GASNET_TRY_RUNCMD([$libtool_mklib], [libtool_links=yes], [libtool_links=yes], 
+                  [libtool_links=no])
+if test "$libtool_links" = no; then
+    AC_MSG_RESULT([no])
+    AC_MSG_ERROR([libtool can't link with your C compiler ($CC): try again without --enable-totalview])
+fi
+# Appalling: even with AC_DISABLE_STATIC set, libtool will 'succeed' so long as
+# compiler builds static archives, even if it fails to build shared lib.  So
+# check to make the shared lib was really created.
+if test -f .libs/libmylibtool_conftest.so -o -f .libs/libmylibtool_conftest.so.0; then :; else
+    AC_MSG_RESULT([no])
+    AC_MSG_ERROR([libtool can't build shared libraries with your C compiler ($CC): try again without --enable-totalview])
+fi
+rm -rf $libtool_testname.* $libtool_lafile .libs 
+
+AC_MSG_RESULT([ok])
+AC_SUBST(UPCR_LIBTOOL_TAG)
+
+dnl     Work around automake intercepting all 'include's in Makefile.am
+MAKE_INCLUDE="include"
+AC_SUBST(MAKE_INCLUDE)
+
+# this gets passed-in by upcr's configure
+GASNET_ENV_DEFAULT(ASSISTANTLIBS,)
+if test -z "$ASSISTANTLIBS"; then
+  AC_MSG_ERROR([internal error: ASSISTANTLIBS setting is missing!])
+fi
+AC_SUBST(ASSISTANTLIBS)
+
+# </PATHSCALE_HACK>: restore overridden values 
+GASNET_POPVAR(ac_cv_c_compiler_gnu)
+GASNET_POPVAR(GCC)
+
+if test "$CROSS_COMPILING" = "1" ; then
+  GASNET_HOSTCC_END
+fi
+
+AC_OUTPUT(
+            Makefile
+            config-aux/Makefile
+            assistant/Makefile
+            tcl/Makefile,
+GASNET_MSG_WARN_FINISH()
+         )
