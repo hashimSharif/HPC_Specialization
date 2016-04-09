@@ -140,36 +140,41 @@ VOID Fini(INT32 code, VOID *v)
     for (RTN_COUNT * rc = RtnList; rc; rc = rc->_next)
     {
         if (rc->_icount > 0)
-            outFile << setw(23) << rc->_name << " "
-                  << setw(15) << rc->_image << " "
+	{
+                  outFile << setw(23) << rc->_name << " "
+	          << setw(15) << rc->_image << " "
                   << setw(18) << hex << rc->_address << dec <<" "
                   << setw(12) << rc->_rtnCount << " "
                   << setw(12) << rc->_icount << " "
                   << setw(12) << rc->_atomic << endl;
 
-        if(rc->_atomic > 0){
-            atomicOutFile << setw(23) << rc->_name << " "
-              << setw(15) << rc->_image << " "
-              << setw(12) << rc->_rtnCount << " "
-              << setw(12) << rc->_icount << " "
-              << setw(12) << rc->_atomic << endl;
+		  if(rc->_atomic > 0){
+		    atomicOutFile << setw(23) << rc->_name << " "
+				  << setw(15) << rc->_image << " "
+				  << setw(12) << rc->_rtnCount << " "
+				  << setw(12) << rc->_icount << " "
+				  << setw(12) << rc->_atomic << endl;
 
-              if(libInstCount.find(rc->_image) == libInstCount.end())
-                  libInstCount[rc->_image] = rc->_atomic;
-              else 
-                  libInstCount[rc->_image] += rc->_atomic;                
-        }
+		    if(libInstCount.find(rc->_image) == libInstCount.end())
+		      libInstCount[rc->_image] = rc->_atomic;
+		    else 
+		      libInstCount[rc->_image] += rc->_atomic;                
+		  }
 
-        if(rc->_fences > 0){
-            fenceFile << setw(23) << rc->_name << " "
-              << setw(15) << rc->_image << " "
-              << setw(12) << rc->_rtnCount << " "
-              << setw(12) << rc->_atomic << " " 
-              << setw(12) << rc->_fences << endl;
+		  if(rc->_fences > 0)
+		  {
+		    fenceFile << setw(23) << rc->_name << " "
+			      << setw(15) << rc->_image << " "
+			      << setw(12) << rc->_rtnCount << " "
+			      << setw(12) << rc->_atomic << " " 
+			      << setw(12) << rc->_fences << endl;
 	    
-	    totalStaticFences += rc->_fences;
-            totalDynamicFences += rc->_rtnCount * rc->_fences;
-        }
+		    totalStaticFences += rc->_fences;
+		    totalDynamicFences += rc->_rtnCount * rc->_fences;
+		  
+		  }
+
+	}
 
     }
 
