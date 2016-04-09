@@ -37,9 +37,12 @@ END_LEGAL */
 #include <iomanip>
 #include <iostream>
 #include <string.h>
+#include <map>
 #include "pin.H"
 
 ofstream outFile;
+ofstream atomicOutFile;
+ofstream fenceFile;
 
 // Holds instruction count for a single procedure
 typedef struct RtnCount
@@ -51,6 +54,7 @@ typedef struct RtnCount
     UINT64 _rtnCount;
     UINT64 _icount;
     UINT64 _atomic;
+    UINT64 _fences;
     struct RtnCount * _next;
 } RTN_COUNT;
 
@@ -60,6 +64,7 @@ RTN_COUNT * RtnList = 0;
 // This function is called before every instruction is executed
 VOID docount(UINT64 * counter)
 {
+  // prinf()
     (*counter)++;
 }
     
@@ -87,6 +92,7 @@ VOID Routine(RTN rtn, VOID *v)
     rc->_icount = 0;
     rc->_rtnCount = 0;
     rc->_atomic = 0;
+    rc->_fences = 0;
 
     // Add to list of routines
     rc->_next = RtnList;
@@ -105,6 +111,11 @@ VOID Routine(RTN rtn, VOID *v)
         if(INS_IsAtomicUpdate(ins)){
             rc->_atomic++;
         }
+        
+        if(INS_Opcode(ins) == XED_ICLASS_MFENCE){
+            rc->_fences++;
+        }
+               
     }
 
     
@@ -115,6 +126,10 @@ VOID Routine(RTN rtn, VOID *v)
 // It prints the name and count for each procedure
 VOID Fini(INT32 code, VOID *v)
 {
+   
+    unsigned int totalStaticFences = 0;
+    unsigned int totalDynamicFences = 0;
+    map<string, int> libInstCount;
     outFile << setw(23) << "Procedure" << " "
           << setw(15) << "Image" << " "
           << setw(18) << "Address" << " "
@@ -131,7 +146,49 @@ VOID Fini(INT32 code, VOID *v)
                   << setw(12) << rc->_rtnCount << " "
                   << setw(12) << rc->_icount << " "
                   << setw(12) << rc->_atomic << endl;
+
+        if(rc->_atomic > 0){
+            atomicOutFile << setw(23) << rc->_name << " "
+              << setw(15) << rc->_image << " "
+              << setw(12) << rc->_rtnCount << " "
+              << setw(12) << rc->_icount << " "
+              << setw(12) << rc->_atomic << endl;
+
+              if(libInstCount.find(rc->_image) == libInstCount.end())
+                  libInstCount[rc->_image] = rc->_atomic;
+              else 
+                  libInstCount[rc->_image] += rc->_atomic;                
+        }
+
+        if(rc->_fences > 0){
+            fenceFile << setw(23) << rc->_name << " "
+              << setw(15) << rc->_image << " "
+              << setw(12) << rc->_rtnCount << " "
+              << setw(12) << rc->_atomic << " " 
+              << setw(12) << rc->_fences << endl;
+	    
+	    totalStaticFences += rc->_fences;
+            totalDynamicFences += rc->_rtnCount * rc->_fences;
+        }
+
     }
+
+
+    atomicOutFile<<"\n\n\n Summary \n\n ";
+    atomicOutFile<<"image\tcount\n\n\n ";   
+    for( map<string, int>::const_iterator it = libInstCount.begin(); it != libInstCount.end(); ++it )
+    {
+      string key = it->first;
+      int value = it->second;
+      atomicOutFile<<key<<"\t"<<value<<"\n";  
+    }
+      
+    atomicOutFile.close();
+
+    fenceFile<<"\n\n Summary \n\n";
+    fenceFile<<"Total Static Fences: "<<totalStaticFences<<"\n";
+    fenceFile<<"Total Dynamic Fences: "<<totalDynamicFences<<"\n";  
+    fenceFile.close();
 
 }
 
@@ -156,7 +213,11 @@ int main(int argc, char * argv[])
     // Initialize symbol table code, needed for rtn instrumentation
     PIN_InitSymbols();
 
-    outFile.open("proccount.out");
+    printf("PIN tool called \n\n");
+    
+    outFile.open("proccount.out");  
+    atomicOutFile.open("atomics.out");
+    fenceFile.open("fences.txt");
 
     // Initialize pin
     if (PIN_Init(argc, argv)) return Usage();
