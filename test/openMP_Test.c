@@ -7,6 +7,15 @@
 
 int main (int argc, char *argv[]) 
 {
+
+
+ #pragma omp parallel
+ {
+    // Code inside this region runs in parallel.
+    printf("Hello!\n");
+ }
+
+
 int nthreads, tid, i, chunk;
 float a[N], b[N], c[N];
 
@@ -20,6 +29,8 @@ chunk = CHUNKSIZE;
   tid = omp_get_thread_num();
   if (tid == 0)
     {
+    #pragma omp barrier    
+    //#pragma omp flush    
     nthreads = omp_get_num_threads();
     printf("Number of threads = %d\n", nthreads);
     }
@@ -31,6 +42,7 @@ chunk = CHUNKSIZE;
     c[i] = a[i] + b[i];
     printf("Thread %d: c[%d]= %f\n",tid,i,c[i]);
     }
+
 
   }  /* end of parallel section */
 
