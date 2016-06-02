@@ -1,0 +1,95 @@
+
+
+ifeq ("$(shell hostname)", "mobra")
+  COND=smp
+else
+  COND=ibv
+endif
+
+CC=cc
+UPCC=upcc  -g -network $(COND)
+MG_OPTS=-D__PRINT_NORM -D__PRINT_COMMUNICATION_BREAKDOWN -D_USE_GET
+#MG_OPTS=-D__PRINT_COMMUNICATION_BREAKDOWN
+DS_OPTS=-D_USE_GET
+
+
+ifdef NO_CA
+  MG_OPTS+=-DMG_NO_CA
+endif
+
+ifdef NO_COMPUTE
+  MG_OPTS+=-DNO_COMPUTE
+endif
+
+ifdef PROFILE
+  UPCC+=-trace
+  MG_OPTS+=-DMG_NO_WARMUP
+endif
+
+ifdef DEBUG
+  UPCC+=-g -D_DEBUG
+  CC+=-g -D_DEBUG
+  CC_OPTS+=-fkeep-inline-functions
+  UPCC_OPTS+=-Wc,-fkeep-inline-functions
+endif
+
+INCL:=-I.
+MAK_VER=seq
+OBJS=
+
+ifdef DS # dispatch server
+THOR_SRC=~/THOR/upc_runtime/thor
+  INCL:=-I$(THOR_SRC) $(INCL)	
+  OBJS+=$(THOR_SRC)/dispatch_server.o $(THOR_SRC)/support.o $(THOR_SRC)/dispatch_client.o
+MG_OPTS+=-DTHOR_ENABLED
+  THREADS?=4		
+#  UPCC+=-T$(THREADS) --uses-threads
+  MAK_VER=seq
+  ifeq ("$(DS)", "verbose")
+    DS_OPTS+=-DVERBOSE_OUTPUT
+  endif
+else
+  INCL:= $(INCL)
+  ifdef THREADS
+#    UPCC+=-T$(THREADS)
+  endif
+endif
+
+UPC_INCL:=$(shell $(UPCC) -print-include-dir)
+UPC_INST:=$(UPC_INCL)/../..
+include $(UPC_INCL)/$(COND)-conduit/$(COND)-$(MAK_VER).mak
+C_INCL=$(INCL) -I$(UPC_INST) -I$(UPC_INCL) -I$(UPC_INCL)/upcr_geninclude -I$(UPC_INCL)/upcr_postinclude $(GASNET_CPPFLAGS)
+
+
+CC_OPTS=$(GASNET_DEFINES) -fopenmp
+
+bar=_BARRIER_SYNC
+pc=PC_NO_DB
+pcdb=PC_DB
+
+
+export CC
+export UPCC
+export DS_OPTS
+
+default: upcagg_bar upcagg_pc upcagg_pcdb
+default2: upcagg_bar upcimm_bar upcimm_pc
+
+
+upcagg_%: bench.c mg.c box.c operators.native.c operators.upc/exchange_boundary.aggregate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c
+	@printf '\n\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n\n\n'
+#$(CC) -D_MY_GUPC $(CC_OPTS) $(MG_OPTS) $(C_INCL) -D_UPCR  -c operators.native.c -D$($*) -D__BERKELEY_UPC_ONLY_PREPROCESS__ -DUPCRI_USING_GCCUP 
+	$(UPCC) -c -D_MY_GUPC $(MG_OPTS) $(INCL) -D_UPC -c operators.native.c -D$($*)
+	@printf '\n\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n'
+	$(CC) -D_MY_GUPC $(CC_OPTS) $(MG_OPTS) $(C_INCL) -D_UPCR -c mg.c box.c bench.c timer.x86.c -D$($*)
+	$(UPCC) -D_MY_GUPC $(INCL) -D_UPC -c operators.upc/max_norm_upc.c operators.upc/bench_upc.c -D$($*)
+	$(UPCC) bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o bench_upc.o -o $@ -lgomp
+
+upcimm_%: bench.c mg.c box.c operators.native.c operators.upc/exchange_boundary.immediate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c
+	$(CC) -D_MY_GUPC -DNO_PACK $(CC_OPTS) $(MG_OPTS) $(C_INCL) -D_UPCR -c  mg.c box.c bench.c timer.x86.c -D$($*)
+	$(UPCC) -c -D_MY_GUPC -DNO_PACK $(MG_OPTS) $(INCL) -D_UPC -c operators.native.c -D$($*)
+	$(UPCC) -DNO_PACK -D_MY_GUPC $(INCL) -D_UPC -c operators.upc/max_norm_upc.c operators.upc/bench_upc.c -D$($*)
+	$(UPCC) bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o bench_upc.o -o $@ -lgomp
+
+clean:
+	rm -fr *.B *.t *.i *.trans.c *_temps *~ *.N *.o upcagg_* upcimm_*

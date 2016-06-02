@@ -1,0 +1,90 @@
+#!/bin/bash
+#SBATCH -N 64
+#SBATCH --ntasks-per-node=1
+#SBATCH -p debug
+#SBATCH -t 00:10:00
+#SBATCH --job-name=thor
+
+JOBSIZE=64
+SLURM_JOB_NUM_NODES=64
+
+#export GASNET_BACKTRACE=1
+
+export UPC_SHARED_HEAP_SIZE=1G
+
+#export THOR_ENABLED=1
+export THOR_USE_PTHREADS=1
+
+# want 1 thread and 1 server per domain
+export THOR_SERVERS_PER_DOMAIN=1
+export UPC_SERVERS_PER_DOMAIN=$THOR_SERVERS_PER_DOMAIN
+
+export THOR_CORES_PER_NODE=24
+export THOR_CORES_PER_NUMA_DOMAIN=12
+#export THOR_CORES_PER_NUMA_DOMAIN=$(($THOR_CORES_PER_NODE/$JOBSIZE))
+
+# the following is not actually used, but is checked for !0
+export THOR_CORES_PER_DOMAIN=$THOR_CORES_PER_NUMA_DOMAIN
+
+# both have to match np argument
+export THOR_DOMAIN_COUNT=$JOBSIZE
+export UPC_DOMAIN_COUNT=$JOBSIZE
+
+# has to be <= than $JOBSIZE or will end up killing
+#   thor_physical_nodes = thor_domain_count / thor_domains_per_node;
+# -> used to (integer) divide THREADS to calculate thread indices
+#
+# has to comply with:
+#   THREADS/thorstats_node_count() == thor_domains_per_node
+export THOR_DOMAINS_PER_NODE=1
+
+# use the whole machine (leave cores for THOR)
+export OMP_NUM_THREADS=$(($THOR_CORES_PER_NODE-2*$JOBSIZE/$SLURM_JOB_NUM_NODES))
+#export KMP_AFFINITY="explicit,proclist=[0,4,5,6,7,8,9,10,11],verbose"
+#export OMP_NUM_THREADS=1
+
+# following not relevant unless --enable-gni-multi-domain
+# used at configure time (not the case)
+#export GASNET_DOMAIN_COUNT=$JOBSIZE
+#export GASNET_DOMAIN_COUNT=$THOR_SERVERS_PER_DOMAIN
+
+# args: log2BoxSize [BoxesPerProcess_i BoxesPerProcess_j BoxesPerProcess_k] [Processes_i Processes_j Processes_k]
+# note: 2**7 (first arg == 7) is largest box size
+# note: must be cubical, so must have:
+#  'BoxesPerProcess_i*Processes_i == BoxesPerProcess_j*Processes_j == BoxesPerProcess_k*Processes_k
+#
+# Example: 
+MYTESTPROGRAM="/global/homes/h/hashim/ALLVM/bin/upccagg_pc"
+MYTESTCOMPARISON="global/homes/h/hashim/ALLVM/bin/upccagg_bar"
+#MYTESTPROGRAM="/global/homes/w/wlav/nick/test/bin/upcagg_bar_thor_noreorder"
+#MYTESTPROGRAM="/global/homes/w/wlav/nick/test/bin/upcagg_bar_orig"
+#MYTESTPROGRAM="/global/homes/w/wlav/nick/test/bin/upcagg_bar_thor_reorder_8bundle"
+#MYTESTPROGRAM="/global/homes/w/wlav/nick/test/bin/upcagg_bar_thor_reorder_8bundle_reverse"
+#MYTESTPROGRAM="/global/homes/w/wlav/nick/test/bin/upcagg_bar_test"
+#MYTESTPROGRAM="/global/homes/w/wlav/nick/test/bin/thor-upcagg-bar-put-aries"
+echo "RUNNING: " $MYTESTPROGRAM $MYTESTCOMPARISON
+#RUN_COMMAND="upcrun -localhost -np $JOBSIZE $MYTESTPROGRAM"
+RUN_COMMAND="srun -n $JOBSIZE -N $SLURM_JOB_NUM_NODES"
+case $JOBSIZE in
+    64)
+        $RUN_COMMAND $MYTESTPROGRAM    7  1 1 1  4 4 4        
+        ;;
+    16)
+        $RUN_COMMAND 7  4 4 1  1 4 4
+        ;;
+    8)
+        #$RUN_COMMAND 7  2 4 8  4 2 1
+        $RUN_COMMAND 7  1 1 1  2 2 2
+        ;;
+    4)
+        $RUN_COMMAND 7  1 1 2  2 2 1
+        ;;
+    2)
+        $RUN_COMMAND 2  1 2 2  2 1 1
+        ;;
+    *)
+        echo "UNKNOWN JOBSIZE:" $JOBSIZE
+        ;;
+esac
+
+rm -f hostfile.$SLURM_JOB_ID

@@ -1,0 +1,17 @@
+#include smp-seq.mak #so far the dbg copied over
+include mpi-seq.mak #so far the dbg copied over
+CC = gcc -g 
+CC_OPTS = $(GASNET_CFLAGS) -fopenmp  
+MG_OPTS =   -D__PRINT_NORM 
+UPCC = upcc -network mpi 
+UPC_INST = /home/ciancu/HABANERO-UPC/upcr
+C_INCL =  -I$(UPC_INST)/upcr_geninclude -I$(UPC_INST)/dbg/upcr_geninclude  -I$(UPC_INST) -I$(UPC_INST)/dbg -I$(UPC_INST)/upcr_postinclude -I. $(GASNET_CPPFLAGS)
+
+runupc: bench.c mg.c box.c operators.c.upc operators.upc/exchange_boundary.aggregate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c
+	$(CC) $(CC_OPTS) $(MG_OPTS) $(C_INCL)  -D_UPCR -c operators.native.c  mg.c box.c bench.c timer.x86.c
+	$(UPCC) $(C_INCL)  -D_UPC -trans  operators.upc/max_norm_upc.c operators.upc/bench_upc.c  
+	$(UPCC) $(C_INCL)  -c  max_norm_upc.trans.c  bench_upc.trans.c	 
+	$(UPCC) -D_UPCR   bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o  bench_upc.o  -orunupc  -lgomp  
+
+clean:
+	rm -fr *.B *.t *.i *.trans.c *_temps *~ *.N *.o runupc

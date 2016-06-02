@@ -1,0 +1,85 @@
+From: Sam Williams <swwilliams@lbl.gov>
+Subject: openmp tasks
+Date: March 11, 2013 10:35:02 AM PDT
+To: Costin Iancu <CCIancu@lbl.gov>
+
+smooth.c:
+
+//------------------------------------------------------------------------------------------------------------------------------
+#define BlockJ 16
+#define BlockK 4
+#define MAX(a, b)  (((a) > (b)) ? (a) : (b))
+#define MIN(a, b)  (((a) < (b)) ? (a) : (b))
+void __box_smooth_GSRB_multiple(box_type *box, int phi_id, int rhs_id, double a, double b, double h, int sweep){
+ int jj,kk;
+ int pencil = box->pencil;
+ int plane = box->plane;
+ int ghosts = box->ghosts;
+  double h2inv = 1.0/(h*h);
+  double * __restrict__ phi    = box->grids[  phi_id] + ghosts*plane + ghosts*pencil + ghosts; // i.e. [0] = first non ghost zone point
+  double * __restrict__ rhs    = box->grids[  rhs_id] + ghosts*plane + ghosts*pencil + ghosts;
+  double * __restrict__ alpha  = box->grids[__alpha ] + ghosts*plane + ghosts*pencil + ghosts;
+  double * __restrict__ beta_i = box->grids[__beta_i] + ghosts*plane + ghosts*pencil + ghosts;
+  double * __restrict__ beta_j = box->grids[__beta_j] + ghosts*plane + ghosts*pencil + ghosts;
+  double * __restrict__ beta_k = box->grids[__beta_k] + ghosts*plane + ghosts*pencil + ghosts;
+  double * __restrict__ lambda = box->grids[__lambda] + ghosts*plane + ghosts*pencil + ghosts;
+ uint64_t* __restrict__   mask = box->RedBlack_64bMask               + ghosts*pencil + ghosts;
+ int color; //  0=red, 1=black
+ int ghostsToOperateOn=ghosts-1;
+ int s;
+ int big_box=0;
+ if(box->dim.k>4)big_box=1;
+ if(box->dim.j>4)big_box=1;
+ for(s=0,color=sweep;s<ghosts;s++,color++,ghostsToOperateOn--){
+
+ for(kk=0-ghostsToOperateOn;kk<box->dim.k+ghostsToOperateOn;kk+=BlockK){
+ for(jj=0-ghostsToOperateOn;jj<box->dim.j+ghostsToOperateOn;jj+=BlockJ){
+ #pragma omp task if(big_box)
+ {
+   int i,j,k;
+   int highK,highJ;
+   highK = MIN(kk+BlockK,box->dim.k+ghostsToOperateOn);
+   highJ = MIN(jj+BlockJ,box->dim.j+ghostsToOperateOn);
+   for(k=kk;k<highK;k++){
+   for(j=jj;j<highJ;j++){
+   for(i=0-ghostsToOperateOn;i<box->dim.i+ghostsToOperateOn;i++){
+     if((i^j^k^color^1)&1){ // looks very clean when [0] is i,j,k=0,0,0 
+       int ijk = i + j*pencil + k*plane;
+       double helmholtz =  a*alpha[ijk]*phi[ijk]
+                          -b*h2inv*(
+                             beta_i[ijk+1     ]*( phi[ijk+1     ]-phi[ijk       ] )
+                            -beta_i[ijk       ]*( phi[ijk       ]-phi[ijk-1     ] )
+                            +beta_j[ijk+pencil]*( phi[ijk+pencil]-phi[ijk       ] )
+                            -beta_j[ijk       ]*( phi[ijk       ]-phi[ijk-pencil] )
+                            +beta_k[ijk+plane ]*( phi[ijk+plane ]-phi[ijk       ] )
+                            -beta_k[ijk       ]*( phi[ijk       ]-phi[ijk-plane ] )
+                           );
+       phi[ijk] = phi[ijk] - lambda[ijk]*(helmholtz-rhs[ijk]);
+   }}}}
+ }
+ }}
+
+ if(ghostsToOperateOn>0){
+ #pragma omp taskwait
+ }
+ } // sweep
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------
+void smooth(domain_type * domain, int level, int phi_id, int rhs_id, double a, double b, double hLevel, int sweep){
+ #pragma omp parallel
+ {
+   //#pragma omp single nowait
+   {
+     int box;
+     #pragma omp for private(box) nowait
+     for(box=0;box<domain->numsubdomains;box++){
+       //#pragma omp task
+       __box_smooth_GSRB_multiple(&domain->subdomains[box].levels[level],phi_id,rhs_id,a,b,hLevel,sweep);
+     }
+   }
+ }
+}
+
+

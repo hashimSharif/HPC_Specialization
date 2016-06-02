@@ -1,0 +1,18 @@
+include gemini-seq.mak
+CC = icc
+CC_OPTS =  -O3 -openmp -fno-alias -fno-fnalias -msse3   $(GASNET_DEFINES)
+MG_OPTS =   -D__PRINT_NORM
+UPCC = upcc --nightly -network gemini
+UPC_INST = /global/u2/c/ciancu/UPC/upc_runtime
+C_INCL =  -I$(UPC_INST)/upcr_geninclude -I$(UPC_INST)/opt/upcr_geninclude -I$(UPC_INST)/gasnet -I$(UPC_INST)/gasnet/smp-conduit -I$(UPC_INST)/gasnet/other -I$(UPC_INST)/gasnet/extended-ref -I$(UPC_INST)/opt/gasnet -I$(UPC_INST) -I$(UPC_INST)/opt -I$(UPC_INST)/upcr_postinclude $(GASNET_INCLUDES) -I.
+UPC_INCL = -I.
+
+runupc: bench.c mg.c box.c operators.c.upc operators.upc/exchange_boundary.aggregate.c operators.upc/bench_upc.c
+        $(CC) $(CC_OPTS) $(MG_OPTS) $(C_INCL)  -D_UPCR -c operators.native.c  mg.c box.c bench.c timer.x86.c
+        $(UPCC) $(C_INCL)  -D_UPC -trans  operators.upc/max_norm_upc.c operators.upc/bench_upc.c
+        $(UPCC) $(UPC_INCL)  -c  max_norm_upc.trans.c  bench_upc.trans.c        
+        $(UPCC) -D_UPCR   -nochecks  bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o  bench_upc.o  -orunupc
+
+clean:
+        rm -fr *.B *.t *.i *.trans.c *_temps *~ *.N *.o runupc
+

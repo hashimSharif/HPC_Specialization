@@ -1,0 +1,14 @@
+ON Carver:
+===============
+Original code:
+qsub -I  -V -q interactive -l nodes=2:ppn=1 -l walltime=00:30:00
+OMP_NUM_THREADS = 4
+ upcrun -np 2  upcagg_bar 6 4 4 4 1 1 2
+
+
+THOR
+make DS=1 OPT_VER=opt
+source the appropriate env file
+qsub and run...
+carver-1-2-2
+ upcrun -np 6  upcagg_bar 6 4 4 4 1 1 2

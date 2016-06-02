@@ -1,0 +1,110 @@
+ifeq ("$(shell hostname)", "mobra")
+  COND=smp
+else
+  COND=aries
+endif
+BYPASS?=
+CC=icc -xSSE3 -fno-alias -fno-fnalias  -O3  $(BYPASS)
+##CC=gcc -msse3 -O3  $(BYPASS)
+UPCC=upcc -network $(COND) -g
+DS_OPTS= #-DMG_NO_CA #-D_USE_GET #-D_UPC_OUTSEG 
+MG_OPTS=  -D__PRINT_NORM -D__PRINT_COMMUNICATION_BREAKDOWN -D__FUSION_RESIDUAL_RESTRICTION -D__COLLABORATIVE_THREADING=6   -D__PREFETCH_NEXT_PLANE_FROM_DRAM_INTERLEAVED  $(DS_OPTS)
+#MG_OPTS=-D__PRINT_COMMUNICATION_BREAKDOWN
+
+
+ifdef USE_GET
+	DS_OPTS+=-D_USE_GET
+endif
+
+ifdef NO_CA
+  MG_OPTS+=-DMG_NO_CA
+endif
+
+ifdef NO_COMPUTE
+  MG_OPTS+=-DNO_COMPUTE
+endif
+
+ifdef PROFILE
+  UPCC+=-trace
+  MG_OPTS+=-DMG_NO_WARMUP
+endif
+
+ifdef DEBUG
+  UPCC+=-g -D_DEBUG
+  CC+=-g -D_DEBUG
+  CC_OPTS+=-fkeep-inline-functions
+  UPCC_OPTS+=-Wc,-fkeep-inline-functions
+endif
+
+INCL:=-I.
+MAK_VER=seq
+OBJS=
+
+
+ifdef DS # dispatch server
+ifdef PTH
+  THOR_SRC=/global/u2/w/wlav/nick/upc-runtime-thor/thor_pth
+  UPCC+= --uses-threads
+  MAK_VER=par
+else
+  THOR_SRC=/global/u2/w/wlav/nick/upc-runtime-thor/thor
+  MAK_VER=seq
+endif
+  INCL:=-I$(THOR_SRC) $(INCL)	
+  OBJS+=$(THOR_SRC)/dispatch_server.o $(THOR_SRC)/support.o $(THOR_SRC)/dispatch_client.o
+MG_OPTS+=-DTHOR_ENABLED
+  #THREADS?=4		
+  ifeq ("$(DS)", "verbose")
+    DS_OPTS+=-DVERBOSE_OUTPUT
+  endif
+else
+  INCL:=-I$(THOR_SRC)/dummy $(INCL)
+  ifdef THREADS
+	    UPCC+=-T$(THREADS)
+  endif
+endif
+
+ifeq ("$(USER)","cciancu")
+  UPC_INST = /home/ciancu/HABANERO-UPC/upcr
+  include $(UPC_INST)/dbg/gasnet/$(COND)-conduit/$(COND)-$(MAK_VER).mak
+  C_INCL =   $(INCL) -I$(UPC_INST) -I$(UPC_INST)/dbg -I$(UPC_INST)/dbg/upcr_geninclude  -I$(UPC_INST)/dbg/upcr_postinclude -I. $(GASNET_CPPFLAGS)
+else
+  UPC_INCL:=$(shell $(UPCC) -print-include-dir)
+  UPC_INST:=$(UPC_INCL)/../..
+  include $(UPC_INCL)/$(COND)-conduit/$(COND)-$(MAK_VER).mak
+  C_INCL=$(INCL) -I$(UPC_INST) -I$(UPC_INCL) -I$(UPC_INCL)/upcr_geninclude -I$(UPC_INCL)/upcr_postinclude $(GASNET_CPPFLAGS)
+endif
+
+CC_OPTS=$(GASNET_DEFINES) -openmp
+##CC_OPTS=$(GASNET_DEFINES) -fopenmp
+
+bar=_BARRIER_SYNC
+pc=PC_NO_DB
+pcdb=PC_DB
+
+
+export CC
+export UPCC
+export DS_OPTS
+
+default: upcagg_bar upcagg_pc upcagg_pcdb
+default2: upcimm_bar upcimm_pc
+
+upcagg_%: bench.c mg.c box.c operators.native.c operators.upc/exchange_boundary.aggregate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c $(OBJS)
+	$(CC) $(CC_OPTS) $(MG_OPTS) $(C_INCL) -D_UPCR -c operators.native.c mg.c box.c bench.c timer.x86.c -D$($*)
+	$(UPCC) $(INCL) $(DS_OPTS) -D_UPC -trans operators.upc/max_norm_upc.c operators.upc/bench_upc.c -D$($*)
+	$(UPCC) $(INCL) -c -D_UPC_DI max_norm_upc.trans.c bench_upc.trans.c --uses-mpi
+	$(UPCC) bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o bench_upc.o -o $@ -liomp5 $(OBJS) --uses-mpi
+
+upcimm_%: bench.c mg.c box.c operators.native.c operators.upc/exchange_boundary.immediate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c $(OBJS)
+	$(CC) $(CC_OPTS) $(MG_OPTS) $(C_INCL) -DNO_PACK -D_UPCR -c operators.native.c mg.c box.c bench.c timer.x86.c -D$($*)
+	$(UPCC) $(INCL) -DNO_PACK -D_UPC -trans operators.upc/max_norm_upc.c operators.upc/bench_upc.c -D$($*)
+	$(UPCC) $(INCL) -DNO_PACK -D_UPC_DI -c max_norm_upc.trans.c bench_upc.trans.c --uses-mpi
+	$(UPCC) bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o bench_upc.o -o $@ -liomp5 $(OBJS) --uses-mpi
+
+$(THOR_SRC)/%.o:
+	make -f Makefile.edison CONDUIT=$(COND) OPT=$(OPT_VER) UPC_INST=$(UPC_INCL) UPC_PATH=$(UPC_INST)  -C $(THOR_SRC) $*.o
+
+clean:
+	rm -fr *.B *.t *.i *.trans.c *_temps *~ *.N *.o upcagg_* upcimm_*
+	rm -f $(THOR_SRC)/*.o

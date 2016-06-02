@@ -1,0 +1,88 @@
+MYCONDUIT?= mpi
+OPT?= dbg
+MAK_VER?=seq
+
+CONDUIT = $(MYCONDUIT)
+UPC_INST?=$(shell upcc -print-include-dir)
+include $(UPC_INST)/$(CONDUIT)-conduit/$(CONDUIT)-$(MAK_VER).mak
+C_INCL =    -I$(UPC_INST)  -I$(UPC_INST)/upcr_geninclude  -I$(UPC_INST)/upcr_postinclude -I. $(GASNET_CPPFLAGS)
+
+UPCC = $(shell which upcc) -network $(CONDUIT) -Wc,-fPIC -Wc,-g -Wc,-fno-omit-frame-pointer -Wc,-Wno-deprecated-declarations -Wc,-fopenmp --uses-mpi
+OBJS=$(SRCS:c=o)
+#UPC_INCL=$(shell $(UPCC) -print-include-dir)
+UPC_INCL=
+V_OPTS=-DVERBOSE_OUTPUT -D_VERBOSE_OUTPUT
+OPTS=-D_GNU_SOURCE $(DS_OPTS) #$(V_OPTS)
+#CCOPT?=-O3
+CCOPT?=-fPIC -g -fno-omit-frame-pointer -Wno-deprecated-declarations $(GASNET_DEFINES) -fopenmp
+
+THOR_DIR=$(HOME)/reorder/thor_reorder_pth
+THOR_LIB=thor_reorder
+
+BYPASS?=-Wno-cpp
+##CC=icc -xSSE3 -fno-alias -fno-fnalias  -O3  $(BYPASS)
+CC=gcc -msse3 -O0  $(BYPASS)
+DS_OPTS= #-DMG_NO_CA #-D_USE_GET #-D_UPC_OUTSEG 
+MG_OPTS=  -D__PRINT_NORM -D__PRINT_COMMUNICATION_BREAKDOWN -D__FUSION_RESIDUAL_RESTRICTION -D__COLLABORATIVE_THREADING=6   -D__PREFETCH_NEXT_PLANE_FROM_DRAM_INTERLEAVED  $(DS_OPTS)
+#MG_OPTS=-D__PRINT_COMMUNICATION_BREAKDOWN
+
+MG_OPTS+=-DTHOR_ENABLED
+
+ifdef USE_GET
+	DS_OPTS+=-D_USE_GET
+endif
+
+ifdef NO_CA
+  MG_OPTS+=-DMG_NO_CA
+endif
+
+ifdef NO_COMPUTE
+  MG_OPTS+=-DNO_COMPUTE
+endif
+
+ifdef PROFILE
+  UPCC+=-trace
+  MG_OPTS+=-DMG_NO_WARMUP
+endif
+
+ifdef DEBUG
+  UPCC+=-g -D_DEBUG
+  CC+=-g -D_DEBUG
+  CC_OPTS+=-fkeep-inline-functions
+  UPCC_OPTS+=-Wc,-fkeep-inline-functions
+endif
+
+INCL:=-I.
+MAK_VER=seq
+OBJS=
+
+THOR_SRC=$(THOR_DIR)
+INCL:=-I$(THOR_SRC) $(INCL)
+OBJS+=$(THOR_SRC)/dispatch_server.o $(THOR_SRC)/support.o $(THOR_SRC)/dispatch_client.o
+
+bar=_BARRIER_SYNC
+pc=PC_NO_DB
+pcdb=PC_DB
+
+
+export CC
+export UPCC
+export DS_OPTS
+
+default: upcagg_bar upcagg_pc upcagg_pcdb
+default2: upcimm_bar upcimm_pc
+
+upcagg_%: bench.c mg.c box.c operators.native.c operators.upc/exchange_boundary.aggregate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c $(OBJS) Makefile.shared
+	$(CC) $(CCOPT) $(MG_OPTS) $(C_INCL) -D_UPCR -c operators.native.c mg.c box.c bench.c timer.x86.c -D$($*)
+	$(UPCC) $(INCL) $(DS_OPTS) -D_UPC -trans operators.upc/max_norm_upc.c operators.upc/bench_upc.c -D$($*)
+	$(UPCC) $(INCL) -c -D_UPC_DI max_norm_upc.trans.c bench_upc.trans.c
+	$(UPCC) bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o bench_upc.o -o $@ -Wl,-fopenmp $(OBJS)
+
+upcimm_%: bench.c mg.c box.c operators.native.c operators.upc/exchange_boundary.immediate.c operators.upc/bench_upc.c operators.upc/max_norm_upc.c $(OBJS) Makefile.shared
+	$(CC) $(CCOPT) $(MG_OPTS) $(C_INCL) -DNO_PACK -D_UPCR -c operators.native.c mg.c box.c bench.c timer.x86.c -D$($*)
+	$(UPCC) $(INCL) -DNO_PACK -D_UPC -trans operators.upc/max_norm_upc.c operators.upc/bench_upc.c -D$($*)
+	$(UPCC) $(INCL) -DNO_PACK -D_UPC_DI -c max_norm_upc.trans.c bench_upc.trans.c
+	$(UPCC) bench.o mg.o box.o operators.native.o timer.x86.o max_norm_upc.o bench_upc.o -o $@ -Wl,-fopenmp $(OBJS)
+
+clean:
+	rm -fr *.B *.t *.i *.trans.c *_temps *~ *.N *.o upcagg_* upcimm_*
