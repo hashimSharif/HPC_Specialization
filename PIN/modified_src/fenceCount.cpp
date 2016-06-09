@@ -55,6 +55,8 @@ typedef struct RtnCount
     UINT64 _icount;
     UINT64 _atomic;
     UINT64 _fences;
+    UINT64 _sfences;
+    UINT64 _lfences;
     struct RtnCount * _next;
 } RTN_COUNT;
 
@@ -64,7 +66,6 @@ RTN_COUNT * RtnList = 0;
 // This function is called before every instruction is executed
 VOID docount(UINT64 * counter)
 {
-  // prinf()
     (*counter)++;
 }
     
@@ -77,10 +78,10 @@ const char * StripPath(const char * path)
         return path;
 }
 
+
 // Pin calls this function every time a new rtn is executed
 VOID Routine(RTN rtn, VOID *v)
-{
-    
+{    
     // Allocate a counter for this routine
     RTN_COUNT * rc = new RTN_COUNT;
 
@@ -93,6 +94,8 @@ VOID Routine(RTN rtn, VOID *v)
     rc->_rtnCount = 0;
     rc->_atomic = 0;
     rc->_fences = 0;
+    rc->_sfences = 0;
+    rc->_lfences = 0;
 
     // Add to list of routines
     rc->_next = RtnList;
@@ -115,10 +118,14 @@ VOID Routine(RTN rtn, VOID *v)
         if(INS_Opcode(ins) == XED_ICLASS_MFENCE){
             rc->_fences++;
         }
-               
+        if(INS_Opcode(ins) == XED_ICLASS_SFENCE){
+            rc->_sfences++;
+        }
+        if(INS_Opcode(ins) == XED_ICLASS_LFENCE){
+            rc->_lfences++;
+        }               
     }
-
-    
+   
     RTN_Close(rtn);
 }
 
@@ -127,8 +134,17 @@ VOID Routine(RTN rtn, VOID *v)
 VOID Fini(INT32 code, VOID *v)
 {
    
-    unsigned int totalStaticFences = 0;
-    unsigned int totalDynamicFences = 0;
+    unsigned int totalMfences = 0;
+    unsigned int totalLfences = 0;
+    unsigned int totalSfences = 0; 
+   
+    unsigned int gasnetFences = 0;
+    unsigned int GNIFences = 0;
+
+    unsigned int gasnetFunctions = 0;
+    unsigned int GNIFunctions = 0;
+
+    //unsigned int totalDynamicFences = 0;
     map<string, int> libInstCount;
     outFile << setw(23) << "Procedure" << " "
           << setw(15) << "Image" << " "
@@ -161,16 +177,32 @@ VOID Fini(INT32 code, VOID *v)
 	       }
 
 	       
-               if(rc->_fences > 0)
+	      if((rc->_fences > 0 || rc->_lfences > 0 || rc->_sfences > 0) && rc->_rtnCount > 0)
 	       {
 		    fenceFile << setw(23) << rc->_name << " "
 			      << setw(15) << rc->_image << " "
-			      << setw(12) << rc->_rtnCount << " "
-			      << setw(12) << rc->_atomic << " " 
-			      << setw(12) << rc->_fences << endl;
+			      << setw(12) << rc->_lfences << " "
+			      << setw(12) << rc->_sfences << " " 
+			      << setw(12) << rc->_fences << " "
+                              << setw(12) << rc->_rtnCount << " " << endl;
 	    
-		    totalStaticFences += rc->_fences;
-		    totalDynamicFences += rc->_rtnCount * rc->_fences;
+		    //totalStaticFences += rc->_fences;
+		    totalMfences += rc->_rtnCount * rc->_fences;
+                    totalLfences += rc->_rtnCount * rc->_lfences;
+                    totalSfences += rc->_rtnCount * rc->_sfences; 
+
+                    if(rc->_name.find("GNI") != std::string::npos)
+		    {
+                      GNIFunctions++;
+                      GNIFences += rc->_rtnCount * (rc->_fences + rc->_lfences + rc->_sfences);
+                    } 
+
+                    if(rc->_name.find("gasnet") != std::string::npos)
+		    {
+                      gasnetFunctions++; 
+                      gasnetFences += rc->_rtnCount * (rc->_fences + rc->_lfences + rc->_sfences);
+                    }
+                   
 	       }
 
     }
@@ -187,11 +219,15 @@ VOID Fini(INT32 code, VOID *v)
       
     atomicOutFile.close();
 
-    fenceFile<<"\n\n Summary \n\n";
-    fenceFile<<"Total Static Fences: "<<totalStaticFences<<"\n";
-    fenceFile<<"Total Dynamic Fences: "<<totalDynamicFences<<"\n";  
+    fenceFile<<"\n\nTotal mfence : "<<totalMfences<<"\n";
+    fenceFile<<"\nTotal lfence : "<<totalLfences<<"\n";  
+    fenceFile<<"\nTotal sfence : "<<totalSfences<<"\n";   
+    fenceFile<<"GNI functions"<<GNIFunctions<<"\n";
+    fenceFile<<"GNI fences: "<<GNIFences<<"\n";
+    fenceFile<<"Gasnet functions: "<<gasnetFunctions<<"\n";
+    fenceFile<<"Gasnet fences: "<<gasnetFences<<"\n";
     fenceFile.close();
-
+    
 }
 
 /* ===================================================================== */
