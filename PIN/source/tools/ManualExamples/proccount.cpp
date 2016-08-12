@@ -139,8 +139,7 @@ VOID Fini(INT32 code, VOID *v)
 
     for (RTN_COUNT * rc = RtnList; rc; rc = rc->_next)
     {
-        if (rc->_icount > 0)
-	{
+             if (rc->_icount > 0)
                   outFile << setw(23) << rc->_name << " "
 	          << setw(15) << rc->_image << " "
                   << setw(18) << hex << rc->_address << dec <<" "
@@ -148,7 +147,7 @@ VOID Fini(INT32 code, VOID *v)
                   << setw(12) << rc->_icount << " "
                   << setw(12) << rc->_atomic << endl;
 
-		  if(rc->_atomic > 0){
+	      if(rc->_atomic > 0){
 		    atomicOutFile << setw(23) << rc->_name << " "
 				  << setw(15) << rc->_image << " "
 				  << setw(12) << rc->_rtnCount << " "
@@ -159,10 +158,11 @@ VOID Fini(INT32 code, VOID *v)
 		      libInstCount[rc->_image] = rc->_atomic;
 		    else 
 		      libInstCount[rc->_image] += rc->_atomic;                
-		  }
+	       }
 
-		  if(rc->_fences > 0)
-		  {
+	       
+               if(rc->_fences > 0)
+	       {
 		    fenceFile << setw(23) << rc->_name << " "
 			      << setw(15) << rc->_image << " "
 			      << setw(12) << rc->_rtnCount << " "
@@ -171,10 +171,7 @@ VOID Fini(INT32 code, VOID *v)
 	    
 		    totalStaticFences += rc->_fences;
 		    totalDynamicFences += rc->_rtnCount * rc->_fences;
-		  
-		  }
-
-	}
+	       }
 
     }
 

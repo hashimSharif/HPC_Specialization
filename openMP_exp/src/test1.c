@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
   for(int i = 0; i < 100; i++){
  
-    #pragma omp parallel default(shared) private(iam, np)
+    #pragma omp parallel default(shared)
     {
       printf("Hello from thread \n");  
     }
