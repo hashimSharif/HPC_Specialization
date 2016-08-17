@@ -1,0 +1,621 @@
+\hypertarget{kmp__environment_8c}{\section{kmp\-\_\-environment.\-c File Reference}
+\label{kmp__environment_8c}\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp\-\_\-environment.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-os.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-str.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{kmp__environment_8c_af14a9691dc9a7183854097ac113c3d9b}{allocate} (size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+char $\ast$ \hyperlink{kmp__environment_8c_a8ca0c26acad07b836fc8d8013979e8cd}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-get} (char const $\ast$\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_a0ba2f8c7661ee48940e90124d415b1cf}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-free} (char const $\ast$$\ast$value)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__environment_8c_a6fe53462a302972de5fc323b08b94b27}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-exists} (char const $\ast$\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_aed66640640fce6ae13a8ada9e032b9c4}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-set} (char const $\ast$\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, char const $\ast$value, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} overwrite)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_af0715e0365570b19fd22c7370e3d4938}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-unset} (char const $\ast$\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name})
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_a2428037b603785283e4e2504519382a2}{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string} (\hyperlink{kmp__environment_8h_a95e2cc0f05c836a2714f0f3b60504c66}{kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$block, char const $\ast$env)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_a3a8a75cabe6c97ce35095ebaf53e0c79}{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix} (\hyperlink{kmp__environment_8h_a95e2cc0f05c836a2714f0f3b60504c66}{kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$block, char $\ast$$\ast$env)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_aa420b8c5efd33fc4b4924c2ee162c3f7}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init} (\hyperlink{kmp__environment_8h_a95e2cc0f05c836a2714f0f3b60504c66}{kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$block, char const $\ast$bulk)
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__environment_8c_a3eab4185290446c2ab5bb043ca356365}{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp} (\hyperlink{kmp__environment_8h_a53889221cab0cfddd3d03b701552bf26}{kmp\-\_\-env\-\_\-var\-\_\-t} const $\ast$lhs, \hyperlink{kmp__environment_8h_a53889221cab0cfddd3d03b701552bf26}{kmp\-\_\-env\-\_\-var\-\_\-t} const $\ast$rhs)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_a460281f0f51a658a257203ac490e870d}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort} (\hyperlink{kmp__environment_8h_a95e2cc0f05c836a2714f0f3b60504c66}{kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$block)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__environment_8c_aaad1c1e70e34249d79fd588a2e87ed97}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free} (\hyperlink{kmp__environment_8h_a95e2cc0f05c836a2714f0f3b60504c66}{kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$block)
+\item 
+char const $\ast$ \hyperlink{kmp__environment_8c_a0c01807eb080937047652334e1d185c6}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var} (\hyperlink{kmp__environment_8h_a95e2cc0f05c836a2714f0f3b60504c66}{kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$block, char const $\ast$\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__environment_8c_a2428037b603785283e4e2504519382a2}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string@{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string}}
+\index{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string@{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$}]{block, }
+\item[{char const $\ast$}]{env}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__environment_8c_a2428037b603785283e4e2504519382a2}
+
+
+Definition at line 300 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init().
+
+
+\begin{DoxyCode}
+303   \{
+304 
+305     \textcolor{keywordtype}{char} \textcolor{keyword}{const} chr\_delimiter   = \textcolor{charliteral}{'|'};
+306     \textcolor{keywordtype}{char} \textcolor{keyword}{const} str\_delimiter[] = \{ chr\_delimiter, 0 \};
+307 
+308     \textcolor{keywordtype}{char} *          bulk       = NULL;
+309     \hyperlink{struct____kmp__env__var}{kmp\_env\_var\_t} * vars       = NULL;
+310     \textcolor{keywordtype}{int}             \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count}      = 0;  \textcolor{comment}{// Number of used elements in vars array.}
+311     \textcolor{keywordtype}{int}             delimiters = 0;  \textcolor{comment}{// Number of delimiters in input string.}
+312 
+313     \textcolor{comment}{// Copy original string, we will modify the copy.}
+314     bulk = \hyperlink{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\_\_kmp\_str\_format}( \textcolor{stringliteral}{"%s"}, env );
+315 
+316     \textcolor{comment}{// Loop thru all the vars in environment block. Count delimiters (maximum number of variables}
+317     \textcolor{comment}{// is number of delimiters plus one).}
+318     \{
+319         \textcolor{keywordtype}{char} \textcolor{keyword}{const} * ptr = bulk;
+320         \textcolor{keywordflow}{for} ( ; ; ) \{
+321             ptr = strchr( ptr, chr\_delimiter );
+322             \textcolor{keywordflow}{if} ( ptr == NULL ) \{
+323                 \textcolor{keywordflow}{break};
+324             \}; \textcolor{comment}{// if}
+325             ++ delimiters;
+326             ptr += 1;
+327         \}; \textcolor{comment}{// forever}
+328     \}
+329 
+330     \textcolor{comment}{// Allocate vars array.}
+331     vars = (\hyperlink{struct____kmp__env__var}{kmp\_env\_var\_t} *) \hyperlink{kmp__environment_8c_af14a9691dc9a7183854097ac113c3d9b}{allocate}( ( delimiters + 1 ) * \textcolor{keyword}{sizeof}( 
+      \hyperlink{kmp__environment_8h_a53889221cab0cfddd3d03b701552bf26}{kmp\_env\_var\_t} ) );
+332 
+333     \textcolor{comment}{// Loop thru all the variables.}
+334     \{
+335         \textcolor{keywordtype}{char} * var;     \textcolor{comment}{// Pointer to variable (both name and value).}
+336         \textcolor{keywordtype}{char} * \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name};    \textcolor{comment}{// Pointer to name of variable.}
+337         \textcolor{keywordtype}{char} * value;   \textcolor{comment}{// Pointer to value.}
+338         \textcolor{keywordtype}{char} * buf;     \textcolor{comment}{// Buffer for \_\_kmp\_str\_token() function.}
+339         var = \hyperlink{kmp__str_8c_a08f9617493c1f84e965707cd6b944ac0}{\_\_kmp\_str\_token}( bulk, str\_delimiter, & buf );      \textcolor{comment}{// Get the first var.}
+340         \textcolor{keywordflow}{while} ( var != NULL ) \{
+341             \textcolor{comment}{// Save found variable in vars array.}
+342             \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( var, \textcolor{charliteral}{'='}, & name, & value );
+343             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( count < delimiters + 1 );
+344             vars[ \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count} ].\hyperlink{struct____kmp__env__var_a439c7b2401d48121f1f02c19cad675dc}{name}  = \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name};
+345             vars[ \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count} ].\hyperlink{struct____kmp__env__var_aab9326e41f54696bffe90343f68780e9}{value} = value;
+346             ++ \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count};
+347             \textcolor{comment}{// Get the next var.}
+348             var = \hyperlink{kmp__str_8c_a08f9617493c1f84e965707cd6b944ac0}{\_\_kmp\_str\_token}( NULL, str\_delimiter, & buf );
+349         \}; \textcolor{comment}{// while}
+350     \}
+351 
+352     \textcolor{comment}{// Fill out result.}
+353     block->\hyperlink{struct____kmp__env__blk_af711e9d15e00ff7c58f5ca691d3bc4dc}{bulk}  = bulk;
+354     block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars}  = vars;
+355     block->\hyperlink{struct____kmp__env__blk_a857a76ec0e363dbd587b0f5f0b57c886}{count} = \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count};
+356 
+357 \}; \textcolor{comment}{// \_\_\_kmp\_env\_blk\_parse\_string}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a3a8a75cabe6c97ce35095ebaf53e0c79}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix@{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix}}
+\index{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix@{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$}]{block, }
+\item[{char $\ast$$\ast$}]{env}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__environment_8c_a3a8a75cabe6c97ce35095ebaf53e0c79}
+
+
+Definition at line 449 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init().
+
+
+\begin{DoxyCode}
+452   \{
+453 
+454     \textcolor{keywordtype}{char} *          bulk  = NULL;
+455     \hyperlink{struct____kmp__env__var}{kmp\_env\_var\_t} * vars  = NULL;
+456     \textcolor{keywordtype}{int}             \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count} = 0;
+457     \textcolor{keywordtype}{int}             \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}  = 0;    \textcolor{comment}{// Size of bulk.}
+458 
+459     \textcolor{comment}{// Count number of variables and length of required bulk.}
+460     \{
+461         count = 0;
+462         size  = 0;
+463         \textcolor{keywordflow}{while} ( env[ count ] != NULL ) \{
+464             size += \hyperlink{kmp__safe__c__api_8h_aed00d2e557c56addc50caedca2ae595c}{KMP\_STRLEN}( env[ count ] ) + 1;
+465             ++ \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count};
+466         \}; \textcolor{comment}{// while}
+467     \}
+468 
+469     \textcolor{comment}{// Allocate memory.}
+470     bulk = (\textcolor{keywordtype}{char} *) \hyperlink{kmp__environment_8c_af14a9691dc9a7183854097ac113c3d9b}{allocate}( size );
+471     vars = (\hyperlink{struct____kmp__env__var}{kmp\_env\_var\_t} *) \hyperlink{kmp__environment_8c_af14a9691dc9a7183854097ac113c3d9b}{allocate}( count * \textcolor{keyword}{sizeof}( 
+      \hyperlink{struct____kmp__env__var}{kmp\_env\_var\_t} ) );
+472 
+473     \textcolor{comment}{// Loop thru all the vars.}
+474     \{
+475         \textcolor{keywordtype}{char} * var;     \textcolor{comment}{// Pointer to beginning of var.}
+476         \textcolor{keywordtype}{char} * \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name};    \textcolor{comment}{// Pointer to name of variable.}
+477         \textcolor{keywordtype}{char} * value;   \textcolor{comment}{// Pointer to value.}
+478         \textcolor{keywordtype}{int}    \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len};     \textcolor{comment}{// Length of variable.}
+479         \textcolor{keywordtype}{int}    \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+480         var = bulk;
+481         \textcolor{keywordflow}{for} ( i = 0; i < \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count}; ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ) \{
+482             \textcolor{comment}{// Copy variable to bulk.}
+483             len = \hyperlink{kmp__safe__c__api_8h_aed00d2e557c56addc50caedca2ae595c}{KMP\_STRLEN}( env[ i ] );
+484             \hyperlink{kmp__safe__c__api_8h_abbf1dc5ebfe437e02858f8a119d8377d}{KMP\_MEMCPY\_S}( var, size, env[ i ], len + 1 );
+485             \textcolor{comment}{// Save found variable in vars array.}
+486             \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( var, \textcolor{charliteral}{'='}, & name, & value );
+487             vars[ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ].\hyperlink{struct____kmp__env__var_a439c7b2401d48121f1f02c19cad675dc}{name}  = \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name};
+488             vars[ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ].\hyperlink{struct____kmp__env__var_aab9326e41f54696bffe90343f68780e9}{value} = value;
+489             \textcolor{comment}{// Move pointer.}
+490             var += len + 1;
+491         \}; \textcolor{comment}{// for}
+492     \}
+493 
+494     \textcolor{comment}{// Fill out result.}
+495     block->\hyperlink{struct____kmp__env__blk_af711e9d15e00ff7c58f5ca691d3bc4dc}{bulk}  = bulk;
+496     block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars}  = vars;
+497     block->\hyperlink{struct____kmp__env__blk_a857a76ec0e363dbd587b0f5f0b57c886}{count} = \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count};
+498 
+499 \}; \textcolor{comment}{// \_\_\_kmp\_env\_blk\_parse\_unix}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a3eab4185290446c2ab5bb043ca356365}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp@{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp}}
+\index{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp@{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-var\-\_\-cmp (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-var\-\_\-t} const $\ast$}]{lhs, }
+\item[{{\bf kmp\-\_\-env\-\_\-var\-\_\-t} const $\ast$}]{rhs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__environment_8c_a3eab4185290446c2ab5bb043ca356365}
+
+
+Definition at line 540 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort().
+
+
+\begin{DoxyCode}
+543   \{
+544     \textcolor{keywordflow}{return} strcmp( lhs->name, rhs->name );
+545 \}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_aaad1c1e70e34249d79fd588a2e87ed97}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_aaad1c1e70e34249d79fd588a2e87ed97}
+
+
+Definition at line 564 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print(), and \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2().
+
+
+\begin{DoxyCode}
+566   \{
+567 
+568     \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( (\textcolor{keywordtype}{void} *) block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars} );
+569     \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( (\textcolor{keywordtype}{void} *) block->\hyperlink{struct____kmp__env__blk_af711e9d15e00ff7c58f5ca691d3bc4dc}{bulk} );
+570 
+571     block->\hyperlink{struct____kmp__env__blk_a857a76ec0e363dbd587b0f5f0b57c886}{count} = 0;
+572     block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars}  = NULL;
+573     block->\hyperlink{struct____kmp__env__blk_af711e9d15e00ff7c58f5ca691d3bc4dc}{bulk}  = NULL;
+574 
+575 \} \textcolor{comment}{// \_\_kmp\_env\_blk\_free}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_aa420b8c5efd33fc4b4924c2ee162c3f7}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$}]{block, }
+\item[{char const $\ast$}]{bulk}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_aa420b8c5efd33fc4b4924c2ee162c3f7}
+
+
+Definition at line 504 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print(), and \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2().
+
+
+\begin{DoxyCode}
+507   \{
+508 
+509     \textcolor{keywordflow}{if} ( bulk != NULL ) \{
+510         \hyperlink{kmp__environment_8c_a2428037b603785283e4e2504519382a2}{\_\_\_kmp\_env\_blk\_parse\_string}( block, bulk );
+511     \} \textcolor{keywordflow}{else} \{
+512 \textcolor{preprocessor}{        #if KMP\_OS\_UNIX}
+513 \textcolor{preprocessor}{}            \hyperlink{kmp__environment_8c_a3a8a75cabe6c97ce35095ebaf53e0c79}{\_\_\_kmp\_env\_blk\_parse\_unix}( block, environ );
+514 \textcolor{preprocessor}{        #elif KMP\_OS\_WINDOWS}
+515 \textcolor{preprocessor}{}            \{
+516                 \textcolor{keywordtype}{char} * mem = GetEnvironmentStrings();
+517                 \textcolor{keywordflow}{if} ( mem == NULL ) \{
+518                     DWORD error = GetLastError();
+519                     \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+520                         \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+521                         \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantGetEnvironment ),
+522                         \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+523                         \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+524                     );
+525                 \}; \textcolor{comment}{// if}
+526                 \_\_\_kmp\_env\_blk\_parse\_windows( block, mem );
+527                 FreeEnvironmentStrings( mem );
+528             \}
+529 \textcolor{preprocessor}{        #else}
+530 \textcolor{preprocessor}{}\textcolor{preprocessor}{            #error Unknown or unsupported OS.}
+531 \textcolor{preprocessor}{}\textcolor{preprocessor}{        #endif}
+532 \textcolor{preprocessor}{}    \}; \textcolor{comment}{// if}
+533 
+534 \} \textcolor{comment}{// \_\_kmp\_env\_blk\_init}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a460281f0f51a658a257203ac490e870d}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-sort (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_a460281f0f51a658a257203ac490e870d}
+
+
+Definition at line 548 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-print(), and \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2().
+
+
+\begin{DoxyCode}
+550   \{
+551 
+552     qsort(
+553         (\textcolor{keywordtype}{void} *) block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars},
+554         block->\hyperlink{struct____kmp__env__blk_a857a76ec0e363dbd587b0f5f0b57c886}{count},
+555         \textcolor{keyword}{sizeof}( \hyperlink{struct____kmp__env__var}{kmp\_env\_var\_t} ),
+556         ( \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} ( * )( \textcolor{keywordtype}{void} \textcolor{keyword}{const} *, \textcolor{keywordtype}{void} \textcolor{keyword}{const} * ) ) & \hyperlink{kmp__environment_8c_a3eab4185290446c2ab5bb043ca356365}{\_\_\_kmp\_env\_var\_cmp}
+557     );
+558 
+559 \} \textcolor{comment}{// \_\_kmp\_env\_block\_sort}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a0c01807eb080937047652334e1d185c6}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-env\-\_\-blk\-\_\-t} $\ast$}]{block, }
+\item[{char const $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_a0c01807eb080937047652334e1d185c6}
+
+
+Definition at line 580 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize().
+
+
+\begin{DoxyCode}
+583   \{
+584 
+585     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+586     \textcolor{keywordflow}{for} ( i = 0; i < block->\hyperlink{struct____kmp__env__blk_a857a76ec0e363dbd587b0f5f0b57c886}{count}; ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ) \{
+587         \textcolor{keywordflow}{if} ( strcmp( block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars}[ i ].\hyperlink{struct____kmp__env__var_a439c7b2401d48121f1f02c19cad675dc}{name}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ) == 0 ) \{
+588             \textcolor{keywordflow}{return} block->\hyperlink{struct____kmp__env__blk_af6ab63dec994b80f1d4029b447b6e435}{vars}[ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ].\hyperlink{struct____kmp__env__var_aab9326e41f54696bffe90343f68780e9}{value};
+589         \}; \textcolor{comment}{// if}
+590     \}; \textcolor{comment}{// for}
+591     \textcolor{keywordflow}{return} NULL;
+592 
+593 \} \textcolor{comment}{// \_\_kmp\_env\_block\_var}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a6fe53462a302972de5fc323b08b94b27}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-exists@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-exists}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-exists@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-exists}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-exists}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-exists (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_a6fe53462a302972de5fc323b08b94b27}
+
+
+Definition at line 179 of file kmp\-\_\-environment.\-c.
+
+
+\begin{DoxyCode}
+179                                       \{
+180 
+181 \textcolor{preprocessor}{    #if KMP\_OS\_UNIX}
+182 \textcolor{preprocessor}{}        \textcolor{keywordtype}{char} \textcolor{keyword}{const} * value = getenv( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} );
+183         \textcolor{keywordflow}{return} ( ( value == NULL ) ? ( 0 ) : ( 1 ) );
+184 \textcolor{preprocessor}{    #elif KMP\_OS\_WINDOWS}
+185 \textcolor{preprocessor}{}        DWORD rc;
+186         rc = GetEnvironmentVariable( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, NULL, 0 );
+187         \textcolor{keywordflow}{if} ( rc == 0 ) \{
+188             DWORD error = GetLastError();
+189             \textcolor{keywordflow}{if} ( error != ERROR\_ENVVAR\_NOT\_FOUND ) \{
+190                 \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+191                     \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+192                     \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantGetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+193                     \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+194                     \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+195                 );
+196             \}; \textcolor{comment}{// if}
+197             \textcolor{keywordflow}{return} 0;
+198         \}; \textcolor{comment}{// if}
+199         \textcolor{keywordflow}{return} 1;
+200 \textcolor{preprocessor}{    #else}
+201 \textcolor{preprocessor}{}\textcolor{preprocessor}{        #error Unknown or unsupported OS.}
+202 \textcolor{preprocessor}{}\textcolor{preprocessor}{    #endif}
+203 \textcolor{preprocessor}{}
+204 \} \textcolor{comment}{// func \_\_kmp\_env\_exists}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a0ba2f8c7661ee48940e90124d415b1cf}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-free}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-env\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$$\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_a0ba2f8c7661ee48940e90124d415b1cf}
+
+
+Definition at line 168 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+
+\begin{DoxyCode}
+168                                        \{
+169 
+170     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( value != NULL );
+171     \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( (\textcolor{keywordtype}{void} *) * value );
+172     * value = NULL;
+173 
+174 \} \textcolor{comment}{// func \_\_kmp\_env\_free}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_a8ca0c26acad07b836fc8d8013979e8cd}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-get@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-get}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-get@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-get}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \-\_\-\-\_\-kmp\-\_\-env\-\_\-get (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_a8ca0c26acad07b836fc8d8013979e8cd}
+
+
+Definition at line 96 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup(), and \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-library().
+
+
+\begin{DoxyCode}
+96                                    \{
+97 
+98     \textcolor{keywordtype}{char} * result = NULL;
+99 
+100 \textcolor{preprocessor}{    #if KMP\_OS\_UNIX}
+101 \textcolor{preprocessor}{}        \textcolor{keywordtype}{char} \textcolor{keyword}{const} * value = getenv( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} );
+102         \textcolor{keywordflow}{if} ( value != NULL ) \{
+103             \textcolor{keywordtype}{size\_t} \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} = \hyperlink{kmp__safe__c__api_8h_aed00d2e557c56addc50caedca2ae595c}{KMP\_STRLEN}( value ) + 1;
+104             result = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( len );
+105             \textcolor{keywordflow}{if} ( result == NULL ) \{
+106                 \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+107             \}; \textcolor{comment}{// if}
+108             \hyperlink{kmp__safe__c__api_8h_a4fbbdb06dd5ae6bce158bb85be109864}{KMP\_STRNCPY\_S}( result, len, value, len );
+109         \}; \textcolor{comment}{// if}
+110 \textcolor{preprocessor}{    #elif KMP\_OS\_WINDOWS}
+111 \textcolor{preprocessor}{}        \textcolor{comment}{/*}
+112 \textcolor{comment}{            We use GetEnvironmentVariable for Windows* OS instead of getenv because the act of}
+113 \textcolor{comment}{            loading a DLL on Windows* OS makes any user-set environment variables (i.e. with putenv())}
+114 \textcolor{comment}{            unavailable.  getenv() apparently gets a clean copy of the env variables as they existed}
+115 \textcolor{comment}{            at the start of the run.}
+116 \textcolor{comment}{            JH 12/23/2002}
+117 \textcolor{comment}{        */}
+118         DWORD rc;
+119         rc = GetEnvironmentVariable( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, NULL, 0 );
+120         \textcolor{keywordflow}{if} ( ! rc ) \{
+121             DWORD error = GetLastError();
+122             \textcolor{keywordflow}{if} ( error != ERROR\_ENVVAR\_NOT\_FOUND ) \{
+123                 \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+124                     \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+125                     \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantGetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+126                     \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+127                     \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+128                 );
+129             \}; \textcolor{comment}{// if}
+130             \textcolor{comment}{// Variable is not found, it's ok, just continue.}
+131         \} \textcolor{keywordflow}{else} \{
+132             DWORD len = rc;
+133             result = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( len );
+134             \textcolor{keywordflow}{if} ( result == NULL ) \{
+135                 \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+136             \}; \textcolor{comment}{// if}
+137             rc = GetEnvironmentVariable( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, result, len );
+138             \textcolor{keywordflow}{if} ( ! rc ) \{
+139                 \textcolor{comment}{// GetEnvironmentVariable() may return 0 if variable is empty.}
+140                 \textcolor{comment}{// In such a case GetLastError() returns ERROR\_SUCCESS.}
+141                 DWORD error = GetLastError();
+142                 \textcolor{keywordflow}{if} ( error != ERROR\_SUCCESS ) \{
+143                     \textcolor{comment}{// Unexpected error. The variable should be in the environment,}
+144                     \textcolor{comment}{// and buffer should be large enough.}
+145                     \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+146                         \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+147                         \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantGetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+148                         \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+149                         \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+150                     );
+151                     \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( (\textcolor{keywordtype}{void} *) result );
+152                     result = NULL;
+153                 \}; \textcolor{comment}{// if}
+154             \}; \textcolor{comment}{// if}
+155         \}; \textcolor{comment}{// if}
+156 \textcolor{preprocessor}{    #else}
+157 \textcolor{preprocessor}{}\textcolor{preprocessor}{        #error Unknown or unsupported OS.}
+158 \textcolor{preprocessor}{}\textcolor{preprocessor}{    #endif}
+159 \textcolor{preprocessor}{}
+160     \textcolor{keywordflow}{return} result;
+161 
+162 \} \textcolor{comment}{// func \_\_kmp\_env\_get}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_aed66640640fce6ae13a8ada9e032b9c4}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-set@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-set}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-set@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-set}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-env\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{name, }
+\item[{char const $\ast$}]{value, }
+\item[{{\bf int}}]{overwrite}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_aed66640640fce6ae13a8ada9e032b9c4}
+
+
+Definition at line 209 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup().
+
+
+\begin{DoxyCode}
+209                                                                       \{
+210 
+211 \textcolor{preprocessor}{    #if KMP\_OS\_UNIX}
+212 \textcolor{preprocessor}{}        \textcolor{keywordtype}{int} rc = setenv( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, value, overwrite );
+213         \textcolor{keywordflow}{if} ( rc != 0 ) \{
+214             \textcolor{comment}{// Dead code. I tried to put too many variables into Linux* OS}
+215             \textcolor{comment}{// environment on IA-32 architecture. When application consumes}
+216             \textcolor{comment}{// more than ~2.5 GB of memory, entire system feels bad. Sometimes}
+217             \textcolor{comment}{// application is killed (by OS?), sometimes system stops }
+218             \textcolor{comment}{// responding... But this error message never appears. --ln}
+219             \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+220                 \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+221                 \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantSetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+222                 \hyperlink{kmp__i18n_8h_ac5fe3f32cfaa3b9268776d372a0f09c4}{KMP\_HNT}( NotEnoughMemory ),
+223                 \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+224             );
+225         \}; \textcolor{comment}{// if}
+226 \textcolor{preprocessor}{    #elif KMP\_OS\_WINDOWS}
+227 \textcolor{preprocessor}{}        BOOL rc;
+228         \textcolor{keywordflow}{if} ( ! overwrite ) \{
+229             rc = GetEnvironmentVariable( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, NULL, 0 );
+230             \textcolor{keywordflow}{if} ( rc ) \{
+231                 \textcolor{comment}{// Variable exists, do not overwrite.}
+232                 \textcolor{keywordflow}{return};
+233             \}; \textcolor{comment}{// if}
+234             DWORD error = GetLastError();
+235             \textcolor{keywordflow}{if} ( error != ERROR\_ENVVAR\_NOT\_FOUND ) \{
+236                 \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+237                     \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+238                     \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantGetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+239                     \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+240                     \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+241                 );
+242             \}; \textcolor{comment}{// if}
+243         \}; \textcolor{comment}{// if}
+244         rc = SetEnvironmentVariable( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, value );
+245         \textcolor{keywordflow}{if} ( ! rc ) \{
+246             DWORD error = GetLastError();
+247             \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+248                 \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+249                 \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantSetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+250                 \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+251                 \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+252             );
+253         \}; \textcolor{comment}{// if}
+254 \textcolor{preprocessor}{    #else}
+255 \textcolor{preprocessor}{}\textcolor{preprocessor}{        #error Unknown or unsupported OS.}
+256 \textcolor{preprocessor}{}\textcolor{preprocessor}{    #endif}
+257 \textcolor{preprocessor}{}
+258 \} \textcolor{comment}{// func \_\_kmp\_env\_set}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_af0715e0365570b19fd22c7370e3d4938}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-unset@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-unset}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-unset@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-unset}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-unset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-env\-\_\-unset (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{kmp__environment_8c_af0715e0365570b19fd22c7370e3d4938}
+
+
+Definition at line 263 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup(), and \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-library().
+
+
+\begin{DoxyCode}
+263                                      \{
+264 
+265 \textcolor{preprocessor}{    #if KMP\_OS\_UNIX}
+266 \textcolor{preprocessor}{}        unsetenv( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} );
+267 \textcolor{preprocessor}{    #elif KMP\_OS\_WINDOWS}
+268 \textcolor{preprocessor}{}        BOOL rc = SetEnvironmentVariable( \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, NULL );
+269         \textcolor{keywordflow}{if} ( ! rc ) \{
+270             DWORD error = GetLastError();
+271             \hyperlink{kmp__i18n_8c_adeba56c5fec6ef3d5a6eae2c8785dd01}{\_\_kmp\_msg}(
+272                 \hyperlink{kmp__i18n_8h_a7c4bb6100d3330d1491644b331ed8060aac29006d355ede42e04f48ccd9c23f98}{kmp\_ms\_fatal},
+273                 \hyperlink{kmp__i18n_8h_a6e819105ffc76141b666a1c784e6b5ab}{KMP\_MSG}( CantSetEnvVar, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ),
+274                 \hyperlink{kmp__i18n_8h_afcd232d6d16e604027d95243c6211e95}{KMP\_ERR}( error ),
+275                 \hyperlink{kmp__i18n_8c_a4b36bb61ac53271694e7e36bd166a600}{\_\_kmp\_msg\_null}
+276             );
+277         \}; \textcolor{comment}{// if}
+278 \textcolor{preprocessor}{    #else}
+279 \textcolor{preprocessor}{}\textcolor{preprocessor}{        #error Unknown or unsupported OS.}
+280 \textcolor{preprocessor}{}\textcolor{preprocessor}{    #endif}
+281 \textcolor{preprocessor}{}
+282 \} \textcolor{comment}{// func \_\_kmp\_env\_unset}
+\end{DoxyCode}
+\hypertarget{kmp__environment_8c_af14a9691dc9a7183854097ac113c3d9b}{\index{kmp\-\_\-environment.\-c@{kmp\-\_\-environment.\-c}!allocate@{allocate}}
+\index{allocate@{allocate}!kmp_environment.c@{kmp\-\_\-environment.\-c}}
+\subsubsection[{allocate}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void}$\ast$ allocate (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{kmp__environment_8c_af14a9691dc9a7183854097ac113c3d9b}
+
+
+Definition at line 84 of file kmp\-\_\-environment.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string(), and \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix().
+
+
+\begin{DoxyCode}
+86   \{
+87     \textcolor{keywordtype}{void} * ptr = \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} );
+88     \textcolor{keywordflow}{if} ( ptr == NULL ) \{
+89         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+90     \}; \textcolor{comment}{// if}
+91     \textcolor{keywordflow}{return} ptr;
+92 \} \textcolor{comment}{// allocate}
+\end{DoxyCode}

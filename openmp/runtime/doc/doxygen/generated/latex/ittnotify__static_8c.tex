@@ -1,0 +1,1737 @@
+\hypertarget{ittnotify__static_8c}{\section{ittnotify\-\_\-static.\-c File Reference}
+\label{ittnotify__static_8c}\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp\-\_\-config.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ittnotify\-\_\-config.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}ittnotify.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}legacy/ittnotify.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}disable\-\_\-warnings.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ittnotify\-\_\-static.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct______itt__group__alias}{\-\_\-\-\_\-\-\_\-itt\-\_\-group\-\_\-alias}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{P\-A\-T\-H\-\_\-\-M\-A\-X}~512
+\item 
+\#define \hyperlink{ittnotify__static_8c_a7d3865183864109d47b13d37faeca06b}{I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y}
+\item 
+\#define \hyperlink{ittnotify__static_8c_ab8be960fe921347a39ecb7977e28d84b}{I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E}
+\item 
+\#define \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\-\_\-\-N\-\_\-}(n)~I\-T\-T\-\_\-\-J\-O\-I\-N(I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-P\-R\-E\-F\-I\-X,n)
+\item 
+\#define \hyperlink{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}{L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E}~I\-N\-T\-E\-L\-\_\-\-L\-I\-B\-I\-T\-T\-N\-O\-T\-I\-F\-Y64
+\item 
+\#define \hyperlink{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K}(\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p})
+\item 
+\#define \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name}~\hyperlink{ittnotify__static_8c_a10366a84d461f8a48a7911907c32a58e}{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr}
+\item 
+\#define \hyperlink{ittnotify__static_8c_aa7c8b1868fe3a818cd4937ba8fd9b08b}{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name}~\hyperlink{ittnotify__static_8c_a055953fde384bf0fbcf89de0a4005e33}{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr}
+\item 
+\#define \hyperlink{ittnotify__static_8c_a716f12e002efe994664bb8ed49bc5cdd}{I\-T\-T\-\_\-\-S\-T\-U\-B}(api, \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}, params, ptr, group, format)
+\item 
+\#define \hyperlink{ittnotify__static_8c_a4aca9be7013c2c433451f618254ccc5d}{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}(api, \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}, params, ptr, group, format)
+\item 
+\#define \hyperlink{ittnotify__static_8c_a716f12e002efe994664bb8ed49bc5cdd}{I\-T\-T\-\_\-\-S\-T\-U\-B}(api, \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}, params, ptr, group, format)
+\item 
+\#define \hyperlink{ittnotify__static_8c_a4aca9be7013c2c433451f618254ccc5d}{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}(api, \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}, params, ptr, group, format)
+\item 
+\#define \hyperlink{ittnotify__static_8c_a7b042b59c795483811759f388280adf9}{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}
+\item 
+\#define \hyperlink{ittnotify__static_8c_ae0e1378d8ce651b53690b54e59f0229d}{I\-T\-T\-\_\-\-S\-T\-U\-B}(api, \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}, params, nameindll, group, format)~\{ \hyperlink{ittnotify__static_8c_ad3a46596592a47e2fa57678bd6735236}{I\-T\-T\-\_\-\-T\-O\-\_\-\-S\-T\-R}(I\-T\-T\-\_\-\-J\-O\-I\-N(\-\_\-\-\_\-itt\-\_\-,nameindll)), (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$$\ast$)(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$)\&I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-N\-A\-M\-E(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}), (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$)(size\-\_\-t)\&\hyperlink{ittnotify__static_8c_a8856544417691d8ae6e52a25778d39c5}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}(I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\-\_\-init)), (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$)(size\-\_\-t)\&\hyperlink{ittnotify__static_8c_a8856544417691d8ae6e52a25778d39c5}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}(I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\-\_\-init)), (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\-\_\-\-\_\-itt\-\_\-group\-\_\-id})(group)\},
+\item 
+\#define \hyperlink{ittnotify__static_8c_a2ea04e633e340e6f5a67ef1d3af1b425}{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}~\hyperlink{ittnotify__static_8h_ade54db8ed49244abdb7ca04546549ff2}{I\-T\-T\-\_\-\-S\-T\-U\-B}
+\item 
+\#define \hyperlink{ittnotify__static_8c_a7b042b59c795483811759f388280adf9}{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}
+\item 
+\#define \hyperlink{ittnotify__static_8c_ae0e1378d8ce651b53690b54e59f0229d}{I\-T\-T\-\_\-\-S\-T\-U\-B}(api, \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}, params, nameindll, group, format)~\{\hyperlink{ittnotify__static_8c_ad3a46596592a47e2fa57678bd6735236}{I\-T\-T\-\_\-\-T\-O\-\_\-\-S\-T\-R}(I\-T\-T\-\_\-\-J\-O\-I\-N(\-\_\-\-\_\-itt\-\_\-,nameindll)), (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$$\ast$)(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$)\&I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-N\-A\-M\-E(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}), (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}$\ast$)(size\-\_\-t)\&\hyperlink{ittnotify__static_8c_a8856544417691d8ae6e52a25778d39c5}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}(I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\-\_\-init)), N\-U\-L\-L, (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\-\_\-\-\_\-itt\-\_\-group\-\_\-id})(group)\},
+\item 
+\#define \hyperlink{ittnotify__static_8c_a2ea04e633e340e6f5a67ef1d3af1b425}{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}~\hyperlink{ittnotify__static_8h_ade54db8ed49244abdb7ca04546549ff2}{I\-T\-T\-\_\-\-S\-T\-U\-B}
+\item 
+\#define \hyperlink{ittnotify__static_8c_a3f09a8f682d6fccd1ba566c3ea91e95b}{M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E}~4086
+\item 
+\#define \hyperlink{ittnotify__static_8c_ac6afabdc09a49a433ee19d8a9486056d}{min}(a, b)~(a) $<$ (b) ? (a) \-: (b)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int}( \hyperlink{ittnotify__static_8c_a9c8efeea521d0285cc04b4b52045be01}{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t} )(const char $\ast$, \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\-\_\-\-\_\-itt\-\_\-group\-\_\-id})
+\item 
+typedef \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}( \hyperlink{ittnotify__static_8c_a296dec4300652bffe1c87dc256e9ef1a}{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t} )(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+typedef struct \hyperlink{struct______itt__group__alias}{\-\_\-\-\_\-\-\_\-itt\-\_\-group\-\_\-alias} \hyperlink{ittnotify__static_8c_ab3515180b9ad95150a5ba626750b03a9}{\-\_\-\-\_\-itt\-\_\-group\-\_\-alias}
+\item 
+typedef \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}( \hyperlink{ittnotify__static_8c_a7da2817eb46d872e2456df2fdc49fc7d}{\-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t} )(\hyperlink{ittnotify__config_8h_a3c3ec7b7a111c1057b4c9d6b3c6e77f2}{\-\_\-\-\_\-itt\-\_\-global} $\ast$, \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\-\_\-\-\_\-itt\-\_\-group\-\_\-id})
+\item 
+typedef \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}( \hyperlink{ittnotify__static_8c_a3f7c33f93fb55ccfa2893fbb987915e1}{\-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t} )(\hyperlink{ittnotify__config_8h_a3c3ec7b7a111c1057b4c9d6b3c6e77f2}{\-\_\-\-\_\-itt\-\_\-global} $\ast$)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ittnotify__static_8c_a7ec7e36b588179837b6c1de30fecd766}{\-\_\-\-N\-\_\-} (err)=0
+\item 
+\hyperlink{ittnotify__static_8c_a75bd05b58b95269fd7ec2733d198bb5c}{I\-T\-T\-\_\-\-E\-X\-T\-E\-R\-N\-\_\-\-C} \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}() \hyperlink{ittnotify__static_8c_a2d25dd72789f7c4ea1e5878088499c06}{init\-\_\-ittlib} (const char $\ast$, \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\-\_\-\-\_\-itt\-\_\-group\-\_\-id})
+\item 
+\hyperlink{ittnotify__static_8c_a75bd05b58b95269fd7ec2733d198bb5c}{I\-T\-T\-\_\-\-E\-X\-T\-E\-R\-N\-\_\-\-C} \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}() \hyperlink{ittnotify__static_8c_aa918059b71bd077e491ad6f021a64038}{fini\-\_\-ittlib} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8c_ae3e6e91af687a352bda08fbefb7f6135}{I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T} (group\-\_\-list)
+\item 
+\hyperlink{ittnotify__config_8h_a3c3ec7b7a111c1057b4c9d6b3c6e77f2}{\-\_\-\-\_\-itt\-\_\-global} \hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-} (\-\_\-ittapi\-\_\-global)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\-\_\-\-\_\-itt\-\_\-report\-\_\-error} (\-\_\-\-\_\-itt\-\_\-error\-\_\-code code,...)
+\item 
+static \-\_\-\-\_\-itt\-\_\-domain $\ast$I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(domain\-\_\-create\-W), \-\_\-init)) const
+\item 
+static \-\_\-\-\_\-itt\-\_\-domain $\ast$I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_a2adb7d6acc3ea517f0ccd172e06fe333}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(domain\-\_\-create\-A), \-\_\-init)) const
+\item 
+static \-\_\-\-\_\-itt\-\_\-string\-\_\-handle $\ast$I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_a894a13355be4e500808e87071c7b1fa4}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(string\-\_\-handle\-\_\-create\-W), \-\_\-init)) const
+\item 
+static \-\_\-\-\_\-itt\-\_\-string\-\_\-handle $\ast$I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_a506a086c20fdbad9f2dd0971bac0d6d7}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(string\-\_\-handle\-\_\-create\-A), \-\_\-init)) const
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_aff5912ff27b8c8a8b14c0cd91e5dfb80}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(pause), \-\_\-init))
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_af1275659a7b25e792214fd8e2ae58ed9}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(resume), \-\_\-init))
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_a24a88dd741684d9d406c74da6ee1ae96}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(thread\-\_\-set\-\_\-name\-W), \-\_\-init)) const
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_aa3d9932608c35489c4f50b1aaf671d0a}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(thr\-\_\-name\-\_\-set\-W), \-\_\-init)) const
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_a6000ebf02a38a342a5a7f3e2cb428a61}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(thread\-\_\-set\-\_\-name\-A), \-\_\-init)) const
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_aa5677fe8a18047301418deffed6eef86}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(thr\-\_\-name\-\_\-set\-A), \-\_\-init)) const
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_ae41076e0460ba89bd36842796f53a538}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(thread\-\_\-ignore), \-\_\-init))
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_afd9b36cb55cd49329ce7c7d33a3dee35}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(thr\-\_\-ignore), \-\_\-init))
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{ittnotify__static_8c_a8856544417691d8ae6e52a25778d39c5}{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E} (I\-T\-T\-\_\-\-J\-O\-I\-N(\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(enable\-\_\-attach), \-\_\-init))
+\item 
+static const char $\ast$ \hyperlink{ittnotify__static_8c_a103168dbaf82ad9738dcc8a56e23f50c}{\-\_\-\-\_\-itt\-\_\-fsplit} (const char $\ast$\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}, const char $\ast$sep, const char $\ast$$\ast$out, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$\hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len})
+\item 
+static const char $\ast$ \hyperlink{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}{\-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var} (const char $\ast$\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name})
+\item 
+static const char $\ast$ \hyperlink{ittnotify__static_8c_ac750ba596b29bd642672e4f63a9d8bd9}{\-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+static \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\-\_\-\-\_\-itt\-\_\-group\-\_\-id} \hyperlink{ittnotify__static_8c_a373fd46da33ab903956380c407ea6a58}{\-\_\-\-\_\-itt\-\_\-get\-\_\-groups} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ittnotify__static_8c_af457a948cb762564561bdd3636fd29dc}{\-\_\-\-\_\-itt\-\_\-lib\-\_\-version} (\hyperlink{ittnotify__config_8h_a448e158e64bb4009efbe4e949cb16b86}{lib\-\_\-t} lib)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ittnotify__static_8c_adf31a404558bb48da06a5aece609f937}{\-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8c_a75bd05b58b95269fd7ec2733d198bb5c}{I\-T\-T\-\_\-\-E\-X\-T\-E\-R\-N\-\_\-\-C} \\*
+\-\_\-\-\_\-itt\-\_\-error\-\_\-handler\-\_\-t $\ast$\hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}() \hyperlink{ittnotify__static_8c_ae26d2300faa74f1c99adea41d6807348}{set\-\_\-error\-\_\-handler} (\-\_\-\-\_\-itt\-\_\-error\-\_\-handler\-\_\-t $\ast$handler)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char \hyperlink{ittnotify__static_8c_a4da0240b2786d60dab5c93d95797ad20}{api\-\_\-version} \mbox{[}$\,$\mbox{]} = \hyperlink{ittnotify__static_8c_ad97188edfdd667de971027b35330fa41}{A\-P\-I\-\_\-\-V\-E\-R\-S\-I\-O\-N} \char`\"{}\textbackslash{}0\textbackslash{}n@(\#) \$Revision\-: 43375 \$\textbackslash{}n\char`\"{}
+\item 
+static const char $\ast$ \hyperlink{ittnotify__static_8c_af0e89f88ff9ba604e5c6e9b188613fe1}{ittnotify\-\_\-lib\-\_\-name} = \char`\"{}libittnotify.\-dll\char`\"{}
+\item 
+static \hyperlink{ittnotify__static_8c_a9c8efeea521d0285cc04b4b52045be01}{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t} $\ast$ \hyperlink{ittnotify__static_8c_a10366a84d461f8a48a7911907c32a58e}{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr} = \hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(\hyperlink{ittnotify__static_8c_a2d25dd72789f7c4ea1e5878088499c06}{init\-\_\-ittlib})
+\item 
+static \hyperlink{ittnotify__static_8c_a296dec4300652bffe1c87dc256e9ef1a}{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t} $\ast$ \hyperlink{ittnotify__static_8c_a055953fde384bf0fbcf89de0a4005e33}{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr} = \hyperlink{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\-\_\-\-N\-\_\-}(\hyperlink{ittnotify__static_8c_aa918059b71bd077e491ad6f021a64038}{fini\-\_\-ittlib})
+\item 
+static \hyperlink{ittnotify__static_8c_ab3515180b9ad95150a5ba626750b03a9}{\-\_\-\-\_\-itt\-\_\-group\-\_\-alias} \hyperlink{ittnotify__static_8c_a2d1a06f4d5e02af7f565f94ab8ec4f59}{group\-\_\-alias} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{ittnotify__config_8h_a8eaaaf57bd53f0fbf0724e31e3cc9e02}{\-\_\-\-\_\-itt\-\_\-api\-\_\-info} \hyperlink{ittnotify__static_8c_ab3c7c803969b661a142c55f4124d791d}{api\-\_\-list} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{ittnotify__config_8h_a7f42798ea7ba1f97a4bdcef63cf6d3a4}{\-\_\-\-\_\-itt\-\_\-thread\-\_\-info} \hyperlink{ittnotify__static_8c_a1382e1cb95abf8114e66b4f5239c77c9}{init\-\_\-thread\-\_\-info}
+\item 
+static \-\_\-\-\_\-itt\-\_\-domain \hyperlink{ittnotify__static_8c_acbc1a4539faf29c5211652f7b9a00741}{null\-\_\-domain}
+\item 
+static \-\_\-\-\_\-itt\-\_\-string\-\_\-handle \hyperlink{ittnotify__static_8c_a32d6de78b4723dacdab9ce256c981773}{null\-\_\-string\-\_\-handle}
+\item 
+static const char \hyperlink{ittnotify__static_8c_a244ca6c42ef57013995b56f7ab1dc370}{dll\-\_\-path} \mbox{[}\hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{P\-A\-T\-H\-\_\-\-M\-A\-X}\mbox{]} = \{ 0 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{ittnotify__static_8c_aa7c8b1868fe3a818cd4937ba8fd9b08b}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name@{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name}}
+\index{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name@{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-name~{\bf \-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr}}}\label{ittnotify__static_8c_aa7c8b1868fe3a818cd4937ba8fd9b08b}
+
+
+Definition at line 114 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name@{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name}}
+\index{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name@{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-name~{\bf \-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr}}}\label{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}
+
+
+Definition at line 105 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E().
+
+\hypertarget{ittnotify__static_8c_a7b042b59c795483811759f388280adf9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T@{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}}
+\index{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T@{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}}\label{ittnotify__static_8c_a7b042b59c795483811759f388280adf9}
+
+
+Definition at line 161 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a7b042b59c795483811759f388280adf9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T@{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}}
+\index{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T@{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-\-I\-T\-T\-\_\-\-I\-N\-T\-E\-R\-N\-A\-L\-\_\-\-I\-N\-I\-T}}\label{ittnotify__static_8c_a7b042b59c795483811759f388280adf9}
+
+
+Definition at line 161 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-N\-\_\-@{\-\_\-\-N\-\_\-}}
+\index{\-\_\-\-N\-\_\-@{\-\_\-\-N\-\_\-}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-N\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-N\-\_\-(
+\begin{DoxyParamCaption}
+\item[{}]{n}
+\end{DoxyParamCaption}
+)~I\-T\-T\-\_\-\-J\-O\-I\-N(I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-P\-R\-E\-F\-I\-X,n)}}\label{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}
+
+
+Definition at line 35 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers(), \-\_\-\-\_\-itt\-\_\-report\-\_\-error(), fini\-\_\-ittlib(), init\-\_\-ittlib(), I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E(), and set\-\_\-error\-\_\-handler().
+
+\hypertarget{ittnotify__static_8c_ab8be960fe921347a39ecb7977e28d84b}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E@{I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E}}
+\index{I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E@{I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N\-T\-E\-L\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I\-\_\-\-P\-R\-I\-V\-A\-T\-E}}\label{ittnotify__static_8c_ab8be960fe921347a39ecb7977e28d84b}
+
+
+Definition at line 27 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a7d3865183864109d47b13d37faeca06b}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y@{I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y}}
+\index{I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y@{I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-M\-A\-C\-R\-O\-\_\-\-B\-O\-D\-Y}}\label{ittnotify__static_8c_a7d3865183864109d47b13d37faeca06b}
+
+
+Definition at line 26 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K@{I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K}}
+\index{I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K@{I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-\_\-\-A\-N\-D\-\_\-\-L\-O\-C\-K(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf p}}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{                                 \(\backslash\)
+        if (!\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}.mutex\_initialized)                                    \(\backslash\)
+        \{                                                            \(\backslash\)
+            if (\hyperlink{ittnotify__config_8h_a2e7b39e27e42477d1581421a54a41201}{\_\_itt\_interlocked\_increment}(&\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}.atomic\_counter) == 1) \(\backslash\)
+            \{                                                        \hyperlink{ittnotify__static_8c_a1a4c07130cf60b69db89322732a75aac}{\(\backslash\)}
+\hyperlink{ittnotify__static_8c_a1a4c07130cf60b69db89322732a75aac}{                \_\_itt\_mutex\_init}(&\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}.mutex);                          
+      \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{                p}.mutex\_initialized = 1;                             \(\backslash\)
+            \}                                                        \(\backslash\)
+            else                                                     \(\backslash\)
+                while (!\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}.mutex\_initialized)                         \hyperlink{ittnotify__static_8c_a1d159ca76816dc1c09a175b81fdd3e4b}{\(\backslash\)}
+\hyperlink{ittnotify__static_8c_a1d159ca76816dc1c09a175b81fdd3e4b}{                    \_\_itt\_thread\_yield}();                            
+      \(\backslash\)
+        \}                                                            \hyperlink{ittnotify__static_8c_af2b1f6acb3f2fb4f69862d6f63f1d0e7}{\(\backslash\)}
+\hyperlink{ittnotify__static_8c_af2b1f6acb3f2fb4f69862d6f63f1d0e7}{        \_\_itt\_mutex\_lock}(&\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}.mutex);                                  \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 82 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib(), and I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E().
+
+\hypertarget{ittnotify__static_8c_a716f12e002efe994664bb8ed49bc5cdd}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B(
+\begin{DoxyParamCaption}
+\item[{}]{api, }
+\item[{}]{{\bf type}, }
+\item[{}]{{\bf name}, }
+\item[{}]{{\bf args}, }
+\item[{}]{params, }
+\item[{}]{ptr, }
+\item[{}]{group, }
+\item[{}]{format}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a716f12e002efe994664bb8ed49bc5cdd}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keyword}{static} \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_init)) 
+      \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};\(\backslash\)
+typedef \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_t) args;                  \(\backslash\)
+\hyperlink{ittnotify__static_8c_a2e28c9dae912fc76ebbe17b0b0bb980d}{ITT\_EXTERN\_C\_BEGIN} ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_t)* ITTNOTIFY\_NAME(name) = 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init)); \hyperlink{ittnotify__static_8c_a51d9545d045af9bc46ba3538a230c706}{ITT\_EXTERN\_C\_END} \(\backslash\)
+static \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init)) args \(\backslash\)
+\{                                                              \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\(\backslash\)}
+\hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{    \_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});             \(\backslash\)
+    if (ITTNOTIFY\_NAME(name) && ITTNOTIFY\_NAME(name) != \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init))) \(\backslash\)
+        return ITTNOTIFY\_NAME(name) params;                    \(\backslash\)
+    else                                                       \(\backslash\)
+        return (\hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type})0;                                        \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 151 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a716f12e002efe994664bb8ed49bc5cdd}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B(
+\begin{DoxyParamCaption}
+\item[{}]{api, }
+\item[{}]{{\bf type}, }
+\item[{}]{{\bf name}, }
+\item[{}]{{\bf args}, }
+\item[{}]{params, }
+\item[{}]{ptr, }
+\item[{}]{group, }
+\item[{}]{format}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a716f12e002efe994664bb8ed49bc5cdd}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keyword}{static} \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_init)) 
+      \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};\(\backslash\)
+typedef \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_t) args;                  \(\backslash\)
+\hyperlink{ittnotify__static_8c_a2e28c9dae912fc76ebbe17b0b0bb980d}{ITT\_EXTERN\_C\_BEGIN} ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_t)* ITTNOTIFY\_NAME(name) = 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init)); \hyperlink{ittnotify__static_8c_a51d9545d045af9bc46ba3538a230c706}{ITT\_EXTERN\_C\_END}
+\end{DoxyCode}
+
+
+Definition at line 151 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_ae0e1378d8ce651b53690b54e59f0229d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B(
+\begin{DoxyParamCaption}
+\item[{}]{api, }
+\item[{}]{{\bf type}, }
+\item[{}]{{\bf name}, }
+\item[{}]{{\bf args}, }
+\item[{}]{params, }
+\item[{}]{nameindll, }
+\item[{}]{group, }
+\item[{}]{format}
+\end{DoxyParamCaption}
+)~\{ {\bf I\-T\-T\-\_\-\-T\-O\-\_\-\-S\-T\-R}(I\-T\-T\-\_\-\-J\-O\-I\-N(\-\_\-\-\_\-itt\-\_\-,nameindll)), ({\bf void}$\ast$$\ast$)({\bf void}$\ast$)\&I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-N\-A\-M\-E({\bf name}), ({\bf void}$\ast$)(size\-\_\-t)\&{\bf I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}(I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}({\bf name}),\-\_\-init)), ({\bf void}$\ast$)(size\-\_\-t)\&{\bf I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}(I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}({\bf name}),\-\_\-init)), ({\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-id})(group)\},}}\label{ittnotify__static_8c_ae0e1378d8ce651b53690b54e59f0229d}
+
+
+Definition at line 151 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_ae0e1378d8ce651b53690b54e59f0229d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B@{I\-T\-T\-\_\-\-S\-T\-U\-B}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B(
+\begin{DoxyParamCaption}
+\item[{}]{api, }
+\item[{}]{{\bf type}, }
+\item[{}]{{\bf name}, }
+\item[{}]{{\bf args}, }
+\item[{}]{params, }
+\item[{}]{nameindll, }
+\item[{}]{group, }
+\item[{}]{format}
+\end{DoxyParamCaption}
+)~\{{\bf I\-T\-T\-\_\-\-T\-O\-\_\-\-S\-T\-R}(I\-T\-T\-\_\-\-J\-O\-I\-N(\-\_\-\-\_\-itt\-\_\-,nameindll)), ({\bf void}$\ast$$\ast$)({\bf void}$\ast$)\&I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-N\-A\-M\-E({\bf name}), ({\bf void}$\ast$)(size\-\_\-t)\&{\bf I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}(I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}({\bf name}),\-\_\-init)), N\-U\-L\-L, ({\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-id})(group)\},}}\label{ittnotify__static_8c_ae0e1378d8ce651b53690b54e59f0229d}
+
+
+Definition at line 151 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a4aca9be7013c2c433451f618254ccc5d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B\-V(
+\begin{DoxyParamCaption}
+\item[{}]{api, }
+\item[{}]{{\bf type}, }
+\item[{}]{{\bf name}, }
+\item[{}]{{\bf args}, }
+\item[{}]{params, }
+\item[{}]{ptr, }
+\item[{}]{group, }
+\item[{}]{format}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a4aca9be7013c2c433451f618254ccc5d}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keyword}{static} \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_init)) 
+      \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};\(\backslash\)
+typedef \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_t) args;                  \(\backslash\)
+\hyperlink{ittnotify__static_8c_a2e28c9dae912fc76ebbe17b0b0bb980d}{ITT\_EXTERN\_C\_BEGIN} ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_t)* ITTNOTIFY\_NAME(name) = 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init)); \hyperlink{ittnotify__static_8c_a51d9545d045af9bc46ba3538a230c706}{ITT\_EXTERN\_C\_END} \(\backslash\)
+static \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init)) args \(\backslash\)
+\{                                                              \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\(\backslash\)}
+\hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{    \_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});             \(\backslash\)
+    if (ITTNOTIFY\_NAME(name) && ITTNOTIFY\_NAME(name) != \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init))) \(\backslash\)
+        ITTNOTIFY\_NAME(name) params;                           \(\backslash\)
+    else                                                       \(\backslash\)
+        return;                                                \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 156 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a4aca9be7013c2c433451f618254ccc5d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B\-V(
+\begin{DoxyParamCaption}
+\item[{}]{api, }
+\item[{}]{{\bf type}, }
+\item[{}]{{\bf name}, }
+\item[{}]{{\bf args}, }
+\item[{}]{params, }
+\item[{}]{ptr, }
+\item[{}]{group, }
+\item[{}]{format}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a4aca9be7013c2c433451f618254ccc5d}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keyword}{static} \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_init)) 
+      \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};\(\backslash\)
+typedef \hyperlink{ittnotify__static_8h_ad66c62ad96ed5fc5b56ae47779013f23}{type} api ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),\_t) args;                  \(\backslash\)
+\hyperlink{ittnotify__static_8c_a2e28c9dae912fc76ebbe17b0b0bb980d}{ITT\_EXTERN\_C\_BEGIN} ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_t)* ITTNOTIFY\_NAME(name) = 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(name),\_init)); \hyperlink{ittnotify__static_8c_a51d9545d045af9bc46ba3538a230c706}{ITT\_EXTERN\_C\_END}
+\end{DoxyCode}
+
+
+Definition at line 156 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a2ea04e633e340e6f5a67ef1d3af1b425}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B\-V~{\bf I\-T\-T\-\_\-\-S\-T\-U\-B}}}\label{ittnotify__static_8c_a2ea04e633e340e6f5a67ef1d3af1b425}
+
+
+Definition at line 156 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a2ea04e633e340e6f5a67ef1d3af1b425}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}}
+\index{I\-T\-T\-\_\-\-S\-T\-U\-B\-V@{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-S\-T\-U\-B\-V}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-T\-T\-\_\-\-S\-T\-U\-B\-V~{\bf I\-T\-T\-\_\-\-S\-T\-U\-B}}}\label{ittnotify__static_8c_a2ea04e633e340e6f5a67ef1d3af1b425}
+
+
+Definition at line 156 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E@{L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E}}
+\index{L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E@{L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-I\-B\-\_\-\-V\-A\-R\-\_\-\-N\-A\-M\-E~I\-N\-T\-E\-L\-\_\-\-L\-I\-B\-I\-T\-T\-N\-O\-T\-I\-F\-Y64}}\label{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}
+
+
+Definition at line 78 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name(), and I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E().
+
+\hypertarget{ittnotify__static_8c_a3f09a8f682d6fccd1ba566c3ea91e95b}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E@{M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E}}
+\index{M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E@{M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-A\-X\-\_\-\-E\-N\-V\-\_\-\-V\-A\-L\-U\-E\-\_\-\-S\-I\-Z\-E~4086}}\label{ittnotify__static_8c_a3f09a8f682d6fccd1ba566c3ea91e95b}
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var().
+
+\hypertarget{ittnotify__static_8c_ac6afabdc09a49a433ee19d8a9486056d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!min@{min}}
+\index{min@{min}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{min}]{\setlength{\rightskip}{0pt plus 5cm}\#define min(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~(a) $<$ (b) ? (a) \-: (b)}}\label{ittnotify__static_8c_ac6afabdc09a49a433ee19d8a9486056d}
+
+
+Definition at line 802 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-groups(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-int(), statistic\-::add\-Sample(), and statistic\-::operator+=().
+
+\hypertarget{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!P\-A\-T\-H\-\_\-\-M\-A\-X@{P\-A\-T\-H\-\_\-\-M\-A\-X}}
+\index{P\-A\-T\-H\-\_\-\-M\-A\-X@{P\-A\-T\-H\-\_\-\-M\-A\-X}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{P\-A\-T\-H\-\_\-\-M\-A\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\-A\-T\-H\-\_\-\-M\-A\-X~512}}\label{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}
+
+
+Definition at line 15 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{ittnotify__static_8c_a3f7c33f93fb55ccfa2893fbb987915e1}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t@{\-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t}}
+\index{\-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t@{\-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf void}( \-\_\-\-\_\-itt\-\_\-api\-\_\-fini\-\_\-t)({\bf \-\_\-\-\_\-itt\-\_\-global} $\ast$)}}\label{ittnotify__static_8c_a3f7c33f93fb55ccfa2893fbb987915e1}
+
+
+Definition at line 275 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a7da2817eb46d872e2456df2fdc49fc7d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t@{\-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t}}
+\index{\-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t@{\-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf void}( \-\_\-\-\_\-itt\-\_\-api\-\_\-init\-\_\-t)({\bf \-\_\-\-\_\-itt\-\_\-global} $\ast$, {\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-id})}}\label{ittnotify__static_8c_a7da2817eb46d872e2456df2fdc49fc7d}
+
+
+Definition at line 274 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a296dec4300652bffe1c87dc256e9ef1a}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t@{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t}}
+\index{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t@{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf void}( \-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t)({\bf void})}}\label{ittnotify__static_8c_a296dec4300652bffe1c87dc256e9ef1a}
+
+
+Definition at line 108 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_ab3515180b9ad95150a5ba626750b03a9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-group\-\_\-alias@{\-\_\-\-\_\-itt\-\_\-group\-\_\-alias}}
+\index{\-\_\-\-\_\-itt\-\_\-group\-\_\-alias@{\-\_\-\-\_\-itt\-\_\-group\-\_\-alias}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-group\-\_\-alias}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \-\_\-\-\_\-\-\_\-itt\-\_\-group\-\_\-alias}  {\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-alias}}}\label{ittnotify__static_8c_ab3515180b9ad95150a5ba626750b03a9}
+\hypertarget{ittnotify__static_8c_a9c8efeea521d0285cc04b4b52045be01}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t@{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t}}
+\index{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t@{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf int}( \-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t)(const char $\ast$, {\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-id})}}\label{ittnotify__static_8c_a9c8efeea521d0285cc04b4b52045be01}
+
+
+Definition at line 99 of file ittnotify\-\_\-static.\-c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{ittnotify__static_8c_a103168dbaf82ad9738dcc8a56e23f50c}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-fsplit@{\-\_\-\-\_\-itt\-\_\-fsplit}}
+\index{\-\_\-\-\_\-itt\-\_\-fsplit@{\-\_\-\-\_\-itt\-\_\-fsplit}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-fsplit}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ \-\_\-\-\_\-itt\-\_\-fsplit (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{s, }
+\item[{const char $\ast$}]{sep, }
+\item[{const char $\ast$$\ast$}]{out, }
+\item[{{\bf int} $\ast$}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a103168dbaf82ad9738dcc8a56e23f50c}
+
+
+Definition at line 596 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-groups().
+
+
+\begin{DoxyCode}
+597 \{
+598     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+599     \textcolor{keywordtype}{int} j;
+600 
+601     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s} || !sep || !out || !\hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len})
+602         \textcolor{keywordflow}{return} NULL;
+603 
+604     \textcolor{keywordflow}{for} (i = 0; \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; i++)
+605     \{
+606         \textcolor{keywordtype}{int} b = 0;
+607         \textcolor{keywordflow}{for} (j = 0; sep[j]; j++)
+608             \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[i] == sep[j])
+609             \{
+610                 b = 1;
+611                 \textcolor{keywordflow}{break};
+612             \}
+613         \textcolor{keywordflow}{if} (!b)
+614             \textcolor{keywordflow}{break};
+615     \}
+616 
+617     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[i])
+618         \textcolor{keywordflow}{return} NULL;
+619 
+620     *\hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} = 0;
+621     *out = &\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+622 
+623     \textcolor{keywordflow}{for} (; \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; i++, (*len)++)
+624     \{
+625         \textcolor{keywordtype}{int} b = 0;
+626         \textcolor{keywordflow}{for} (j = 0; sep[j]; j++)
+627             \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[i] == sep[j])
+628             \{
+629                 b = 1;
+630                 \textcolor{keywordflow}{break};
+631             \}
+632         \textcolor{keywordflow}{if} (b)
+633             \textcolor{keywordflow}{break};
+634     \}
+635 
+636     \textcolor{keywordflow}{for} (; \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; i++)
+637     \{
+638         \textcolor{keywordtype}{int} b = 0;
+639         \textcolor{keywordflow}{for} (j = 0; sep[j]; j++)
+640             \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[i] == sep[j])
+641             \{
+642                 b = 1;
+643                 \textcolor{keywordflow}{break};
+644             \}
+645         \textcolor{keywordflow}{if} (!b)
+646             \textcolor{keywordflow}{break};
+647     \}
+648 
+649     \textcolor{keywordflow}{return} &\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+650 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var@{\-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var}}
+\index{\-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var@{\-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ \-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}
+
+
+Definition at line 657 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-groups(), and \-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name().
+
+
+\begin{DoxyCode}
+658 \{
+659 \textcolor{preprocessor}{#define MAX\_ENV\_VALUE\_SIZE 4086}
+660 \textcolor{preprocessor}{}    \textcolor{keyword}{static} \textcolor{keywordtype}{char}  env\_buff[\hyperlink{ittnotify__static_8c_a3f09a8f682d6fccd1ba566c3ea91e95b}{MAX\_ENV\_VALUE\_SIZE}];
+661     \textcolor{keyword}{static} \textcolor{keywordtype}{char}* env\_value = (\textcolor{keywordtype}{char}*)env\_buff;
+662 
+663     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} != NULL)
+664     \{
+665 \textcolor{preprocessor}{#if ITT\_PLATFORM==ITT\_PLATFORM\_WIN}
+666 \textcolor{preprocessor}{}        \textcolor{keywordtype}{size\_t} max\_len = \hyperlink{ittnotify__static_8c_a3f09a8f682d6fccd1ba566c3ea91e95b}{MAX\_ENV\_VALUE\_SIZE} - (size\_t)(env\_value - env\_buff);
+667         DWORD rc = GetEnvironmentVariableA(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, env\_value, (DWORD)max\_len);
+668         \textcolor{keywordflow}{if} (rc >= max\_len)
+669             \hyperlink{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\_\_itt\_report\_error}(\_\_itt\_error\_env\_too\_long, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, (\textcolor{keywordtype}{size\_t})rc - 1, (\textcolor{keywordtype}{
+      size\_t})(max\_len - 1));
+670         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rc > 0)
+671         \{
+672             \textcolor{keyword}{const} \textcolor{keywordtype}{char}* ret = (\textcolor{keyword}{const} \textcolor{keywordtype}{char}*)env\_value;
+673             env\_value += rc + 1;
+674             \textcolor{keywordflow}{return} ret;
+675         \}
+676         \textcolor{keywordflow}{else}
+677         \{
+678             \textcolor{comment}{/* If environment variable is empty, GetEnvirornmentVariables()}
+679 \textcolor{comment}{             * returns zero (number of characters (not including terminating null),}
+680 \textcolor{comment}{             * and GetLastError() returns ERROR\_SUCCESS. */}
+681             DWORD err = GetLastError();
+682             \textcolor{keywordflow}{if} (err == ERROR\_SUCCESS)
+683                 \textcolor{keywordflow}{return} env\_value;
+684 
+685             \textcolor{keywordflow}{if} (err != ERROR\_ENVVAR\_NOT\_FOUND)
+686                 \hyperlink{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\_\_itt\_report\_error}(\_\_itt\_error\_cant\_read\_env, 
+      \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, (\textcolor{keywordtype}{int})err);
+687         \}
+688 \textcolor{preprocessor}{#else  }\textcolor{comment}{/* ITT\_PLATFORM!=ITT\_PLATFORM\_WIN */}\textcolor{preprocessor}{}
+689 \textcolor{preprocessor}{}        \textcolor{keywordtype}{char}* env = getenv(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+690         \textcolor{keywordflow}{if} (env != NULL)
+691         \{
+692             \textcolor{keywordtype}{size\_t} \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} = strlen(env);
+693             \textcolor{keywordtype}{size\_t} max\_len = \hyperlink{ittnotify__static_8c_a3f09a8f682d6fccd1ba566c3ea91e95b}{MAX\_ENV\_VALUE\_SIZE} - (size\_t)(env\_value - env\_buff);
+694             \textcolor{keywordflow}{if} (len < max\_len)
+695             \{
+696                 \textcolor{keyword}{const} \textcolor{keywordtype}{char}* ret = (\textcolor{keyword}{const} \textcolor{keywordtype}{char}*)env\_value;
+697                 strncpy(env\_value, env, len + 1);
+698                 env\_value += len + 1;
+699                 \textcolor{keywordflow}{return} ret;
+700             \} \textcolor{keywordflow}{else}
+701                 \hyperlink{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\_\_itt\_report\_error}(\_\_itt\_error\_env\_too\_long, 
+      \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, (\textcolor{keywordtype}{size\_t})len, (\textcolor{keywordtype}{size\_t})(max\_len - 1));
+702         \}
+703 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_PLATFORM==ITT\_PLATFORM\_WIN */}\textcolor{preprocessor}{}
+704 \textcolor{preprocessor}{}    \}
+705     \textcolor{keywordflow}{return} NULL;
+706 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a373fd46da33ab903956380c407ea6a58}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-get\-\_\-groups@{\-\_\-\-\_\-itt\-\_\-get\-\_\-groups}}
+\index{\-\_\-\-\_\-itt\-\_\-get\-\_\-groups@{\-\_\-\-\_\-itt\-\_\-get\-\_\-groups}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-get\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-id} \-\_\-\-\_\-itt\-\_\-get\-\_\-groups (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a373fd46da33ab903956380c407ea6a58}
+
+
+Definition at line 805 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib().
+
+
+\begin{DoxyCode}
+806 \{
+807     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+808     \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id} res = \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a6c548a46381b2987350e54145d283915}{\_\_itt\_group\_none};
+809     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* var\_name  = \textcolor{stringliteral}{"INTEL\_ITTNOTIFY\_GROUPS"};
+810     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* group\_str = \hyperlink{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}{\_\_itt\_get\_env\_var}(var\_name);
+811 
+812     \textcolor{keywordflow}{if} (group\_str != NULL)
+813     \{
+814         \textcolor{keywordtype}{int} \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len};
+815         \textcolor{keywordtype}{char} gr[255];
+816         \textcolor{keyword}{const} \textcolor{keywordtype}{char}* chunk;
+817         \textcolor{keywordflow}{while} ((group\_str = \hyperlink{ittnotify__static_8c_a103168dbaf82ad9738dcc8a56e23f50c}{\_\_itt\_fsplit}(group\_str, \textcolor{stringliteral}{",; "}, &chunk, &len)) != NULL)
+818         \{
+819             \hyperlink{ittnotify__static_8c_a26835f98d59acbf775c23518ade1e0bd}{\_\_itt\_fstrcpyn}(gr, chunk, \textcolor{keyword}{sizeof}(gr) - 1);
+820             gr[\hyperlink{ittnotify__static_8c_ac6afabdc09a49a433ee19d8a9486056d}{min}(len, (\textcolor{keywordtype}{int})(\textcolor{keyword}{sizeof}(gr) - 1))] = 0;
+821 
+822             \textcolor{keywordflow}{for} (i = 0; group\_list[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].name != NULL; i++)
+823             \{
+824                 \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a0c35a1715ab6ced1016470844b504249}{\_\_itt\_fstrcmp}(gr, group\_list[i].\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}))
+825                 \{
+826                     res = (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id})(res | group\_list[i].\textcolor{keywordtype}{id});
+827                     \textcolor{keywordflow}{break};
+828                 \}
+829             \}
+830         \}
+831         \textcolor{comment}{/* TODO: !!! Workaround for bug with warning for unknown group !!!}
+832 \textcolor{comment}{         * Should be fixed in new initialization scheme.}
+833 \textcolor{comment}{         * Now the following groups should be set always. */}
+834         \textcolor{keywordflow}{for} (i = 0; group\_list[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].id != \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a6c548a46381b2987350e54145d283915}{\_\_itt\_group\_none}; i++)
+835             \textcolor{keywordflow}{if} (group\_list[i].\textcolor{keywordtype}{id} != \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all} &&
+836                 group\_list[i].\textcolor{keywordtype}{id} > \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013ac71454cb65ba932335eeb0dfa8ab9cdd}{\_\_itt\_group\_splitter\_min} &&
+837                 group\_list[i].\textcolor{keywordtype}{id} < \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a58835bb64527bffaf809800abf41d9e9}{\_\_itt\_group\_splitter\_max})
+838                 res = (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id})(res | group\_list[i].\textcolor{keywordtype}{id});
+839         \textcolor{keywordflow}{return} res;
+840     \}
+841     \textcolor{keywordflow}{else}
+842     \{
+843         \textcolor{keywordflow}{for} (i = 0; \hyperlink{ittnotify__static_8c_a2d1a06f4d5e02af7f565f94ab8ec4f59}{group\_alias}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].\hyperlink{struct______itt__group__alias_a81ff6c9390e517806319fab580899de4}{env\_var} != NULL; i++)
+844             \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}{\_\_itt\_get\_env\_var}(\hyperlink{ittnotify__static_8c_a2d1a06f4d5e02af7f565f94ab8ec4f59}{group\_alias}[i].env\_var) != NULL)
+845                 \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8c_a2d1a06f4d5e02af7f565f94ab8ec4f59}{group\_alias}[i].groups;
+846     \}
+847 
+848     \textcolor{keywordflow}{return} res;
+849 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_ac750ba596b29bd642672e4f63a9d8bd9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name@{\-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name}}
+\index{\-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name@{\-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ \-\_\-\-\_\-itt\-\_\-get\-\_\-lib\-\_\-name (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_ac750ba596b29bd642672e4f63a9d8bd9}
+
+
+Definition at line 708 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib().
+
+
+\begin{DoxyCode}
+709 \{
+710     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* lib\_name = \hyperlink{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}{\_\_itt\_get\_env\_var}(\hyperlink{ittnotify__static_8c_ad3a46596592a47e2fa57678bd6735236}{ITT\_TO\_STR}(
+      \hyperlink{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}{LIB\_VAR\_NAME}));
+711 
+712 \textcolor{preprocessor}{#ifdef \_\_ANDROID\_\_}
+713 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (lib\_name == NULL)
+714     \{
+715         \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \textcolor{keyword}{const} system\_wide\_marker\_filename = \textcolor{stringliteral}{"/data/local/tmp/com.intel.itt.collector\_lib"};
+716         \textcolor{keywordtype}{int} itt\_marker\_file\_fd = open(system\_wide\_marker\_filename, O\_RDONLY);
+717         ssize\_t res = 0;
+718 
+719         \textcolor{keywordflow}{if} (itt\_marker\_file\_fd == -1)
+720         \{
+721             \textcolor{keyword}{const} pid\_t my\_pid = getpid();
+722             \textcolor{keywordtype}{char} cmdline\_path[\hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX}] = \{0\};
+723             \textcolor{keywordtype}{char} package\_name[\hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX}] = \{0\};
+724             \textcolor{keywordtype}{char} app\_sandbox\_file[\hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX}] = \{0\};
+725             \textcolor{keywordtype}{int} cmdline\_fd = 0;
+726 
+727             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"Unable to open system-wide marker file."});
+728             snprintf(cmdline\_path, \hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX} - 1, \textcolor{stringliteral}{"/proc/%d/cmdline"}, my\_pid);
+729             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"CMD file: %s\(\backslash\)n"}, cmdline\_path);
+730             cmdline\_fd = open(cmdline\_path, O\_RDONLY);
+731             \textcolor{keywordflow}{if} (cmdline\_fd == -1)
+732             \{
+733                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to open %s file!"}, cmdline\_path);
+734                 \textcolor{keywordflow}{return} lib\_name;
+735             \}
+736             res = read(cmdline\_fd, package\_name, \hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX} - 1);
+737             \textcolor{keywordflow}{if} (res == -1)
+738             \{
+739                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to read %s file!"}, cmdline\_path);
+740                 res = close(cmdline\_fd);
+741                 \textcolor{keywordflow}{if} (res == -1)
+742                 \{
+743                     ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to close %s file!"}, cmdline\_path);
+744                 \}
+745                 \textcolor{keywordflow}{return} lib\_name;
+746             \}
+747             res = close(cmdline\_fd);
+748             \textcolor{keywordflow}{if} (res == -1)
+749             \{
+750                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to close %s file!"}, cmdline\_path);
+751                 \textcolor{keywordflow}{return} lib\_name;
+752             \}
+753             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"Package name: %s\(\backslash\)n"}, package\_name);
+754             snprintf(app\_sandbox\_file, \hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX} - 1, \textcolor{stringliteral}{"/data/data/%s/com.intel.itt.collector\_lib"}, 
+      package\_name);
+755             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"Lib marker file name: %s\(\backslash\)n"}, app\_sandbox\_file);
+756             itt\_marker\_file\_fd = open(app\_sandbox\_file, O\_RDONLY);
+757             \textcolor{keywordflow}{if} (itt\_marker\_file\_fd == -1)
+758             \{
+759                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to open app marker file!"});
+760                 \textcolor{keywordflow}{return} lib\_name;
+761             \}
+762         \}
+763 
+764         \{
+765             \textcolor{keywordtype}{char} itt\_lib\_name[\hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX}] = \{0\};
+766 
+767             res = read(itt\_marker\_file\_fd, itt\_lib\_name, \hyperlink{ittnotify__static_8c_ae688d728e1acdfe5988c7db45d6f0166}{PATH\_MAX} - 1);
+768             \textcolor{keywordflow}{if} (res == -1)
+769             \{
+770                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to read %s file!"}, itt\_marker\_file\_fd);
+771                 res = close(itt\_marker\_file\_fd);
+772                 \textcolor{keywordflow}{if} (res == -1)
+773                 \{
+774                     ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to close %s file!"}, itt\_marker\_file\_fd);
+775                 \}
+776                 \textcolor{keywordflow}{return} lib\_name;
+777             \}
+778             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"ITT Lib path: %s"}, itt\_lib\_name);
+779             res = close(itt\_marker\_file\_fd);
+780             \textcolor{keywordflow}{if} (res == -1)
+781             \{
+782                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to close %s file!"}, itt\_marker\_file\_fd);
+783                 \textcolor{keywordflow}{return} lib\_name;
+784             \}
+785             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"Set env"});
+786             res = setenv(\hyperlink{ittnotify__static_8c_ad3a46596592a47e2fa57678bd6735236}{ITT\_TO\_STR}(\hyperlink{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}{LIB\_VAR\_NAME}), itt\_lib\_name, 0);
+787             \textcolor{keywordflow}{if} (res == -1)
+788             \{
+789                 ITT\_ANDROID\_LOGE(\textcolor{stringliteral}{"Unable to set env var!"});
+790                 \textcolor{keywordflow}{return} lib\_name;
+791             \}
+792             lib\_name = \hyperlink{ittnotify__static_8c_a87e96c1072474253abe61776e12745b9}{\_\_itt\_get\_env\_var}(\hyperlink{ittnotify__static_8c_ad3a46596592a47e2fa57678bd6735236}{ITT\_TO\_STR}(
+      \hyperlink{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}{LIB\_VAR\_NAME}));
+793             ITT\_ANDROID\_LOGI(\textcolor{stringliteral}{"ITT Lib path from env: %s"}, itt\_lib\_name);
+794         \}
+795     \}
+796 \textcolor{preprocessor}{#endif}
+797 \textcolor{preprocessor}{}
+798     \textcolor{keywordflow}{return} lib\_name;
+799 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_af457a948cb762564561bdd3636fd29dc}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-lib\-\_\-version@{\-\_\-\-\_\-itt\-\_\-lib\-\_\-version}}
+\index{\-\_\-\-\_\-itt\-\_\-lib\-\_\-version@{\-\_\-\-\_\-itt\-\_\-lib\-\_\-version}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-lib\-\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} \-\_\-\-\_\-itt\-\_\-lib\-\_\-version (
+\begin{DoxyParamCaption}
+\item[{{\bf lib\-\_\-t}}]{lib}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_af457a948cb762564561bdd3636fd29dc}
+
+
+Definition at line 851 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib().
+
+
+\begin{DoxyCode}
+852 \{
+853     \textcolor{keywordflow}{if} (lib == NULL)
+854         \textcolor{keywordflow}{return} 0;
+855     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a6eaa51eb38739316b5b33d124c3219ca}{\_\_itt\_get\_proc}(lib, \textcolor{stringliteral}{"\_\_itt\_api\_init"}))
+856         \textcolor{keywordflow}{return} 2;
+857     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a6eaa51eb38739316b5b33d124c3219ca}{\_\_itt\_get\_proc}(lib, \textcolor{stringliteral}{"\_\_itt\_api\_version"}))
+858         \textcolor{keywordflow}{return} 1;
+859     \textcolor{keywordflow}{return} 0;
+860 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_adf31a404558bb48da06a5aece609f937}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers@{\-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers}}
+\index{\-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers@{\-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_adf31a404558bb48da06a5aece609f937}
+
+
+Definition at line 872 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by fini\-\_\-ittlib(), and init\-\_\-ittlib().
+
+
+\begin{DoxyCode}
+873 \{
+874     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+875     \textcolor{comment}{/* Nulify all pointers except domain\_create and string\_handle\_create */}
+876     \textcolor{keywordflow}{for} (i = 0; \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].name != NULL; i++)
+877         *\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[
+      \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].null\_func;
+878 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-report\-\_\-error@{\-\_\-\-\_\-itt\-\_\-report\-\_\-error}}
+\index{\-\_\-\-\_\-itt\-\_\-report\-\_\-error@{\-\_\-\-\_\-itt\-\_\-report\-\_\-error}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-report\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-itt\-\_\-report\-\_\-error (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-itt\-\_\-error\-\_\-code}]{code, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}
+
+
+Definition at line 288 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-get\-\_\-env\-\_\-var(), and init\-\_\-ittlib().
+
+
+\begin{DoxyCode}
+289 \{
+290     va\_list \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};
+291     va\_start(args, code);
+292     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).error\_handler != NULL)
+293     \{
+294         \_\_itt\_error\_handler\_t* handler = (\_\_itt\_error\_handler\_t*)(\textcolor{keywordtype}{size\_t})\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).
+      error\_handler;
+295         handler(code, args);
+296     \}
+297 \textcolor{preprocessor}{#ifdef ITT\_NOTIFY\_EXT\_REPORT}
+298 \textcolor{preprocessor}{}    \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(error\_handler)(code, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args});
+299 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_NOTIFY\_EXT\_REPORT */}\textcolor{preprocessor}{}
+300 \textcolor{preprocessor}{}    va\_end(args);
+301 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a7ec7e36b588179837b6c1de30fecd766}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-N\-\_\-@{\-\_\-\-N\-\_\-}}
+\index{\-\_\-\-N\-\_\-@{\-\_\-\-N\-\_\-}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-N\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf int} \-\_\-\-N\-\_\- (
+\begin{DoxyParamCaption}
+\item[{err}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{ittnotify__static_8c_a7ec7e36b588179837b6c1de30fecd766}
+\hypertarget{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-N\-\_\-@{\-\_\-\-N\-\_\-}}
+\index{\-\_\-\-N\-\_\-@{\-\_\-\-N\-\_\-}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-N\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-global} \-\_\-\-N\-\_\- (
+\begin{DoxyParamCaption}
+\item[{\-\_\-ittapi\-\_\-global}]{}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a356d8d88f3ec992898c23767170837e4}
+\hypertarget{ittnotify__static_8c_aa918059b71bd077e491ad6f021a64038}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!fini\-\_\-ittlib@{fini\-\_\-ittlib}}
+\index{fini\-\_\-ittlib@{fini\-\_\-ittlib}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{fini\-\_\-ittlib}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\-T\-T\-\_\-\-E\-X\-T\-E\-R\-N\-\_\-\-C} {\bf void} {\bf \-\_\-\-N\-\_\-}() fini\-\_\-ittlib (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_aa918059b71bd077e491ad6f021a64038}
+
+
+Definition at line 886 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib().
+
+
+\begin{DoxyCode}
+887 \{
+888     \hyperlink{ittnotify__static_8c_a3f7c33f93fb55ccfa2893fbb987915e1}{\_\_itt\_api\_fini\_t}* \_\_itt\_api\_fini\_ptr;
+889     \textcolor{keyword}{static} \textcolor{keyword}{volatile} \hyperlink{ittnotify__config_8h_a29a5bb118e7357976d9168d5cccfb0ce}{TIDT} current\_thread = 0;
+890 
+891     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized)
+892     \{
+893         \hyperlink{ittnotify__static_8c_af2b1f6acb3f2fb4f69862d6f63f1d0e7}{\_\_itt\_mutex\_lock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+894         \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized)
+895         \{
+896             \textcolor{keywordflow}{if} (current\_thread == 0)
+897             \{
+898                 current\_thread = \hyperlink{ittnotify__static_8c_a6e1b64acdf2bf87fb41805830c917c4b}{\_\_itt\_thread\_id}();
+899                 \_\_itt\_api\_fini\_ptr = (\hyperlink{ittnotify__static_8c_a3f7c33f93fb55ccfa2893fbb987915e1}{\_\_itt\_api\_fini\_t}*)(\textcolor{keywordtype}{size\_t})
+      \hyperlink{ittnotify__static_8c_a6eaa51eb38739316b5b33d124c3219ca}{\_\_itt\_get\_proc}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).lib, \textcolor{stringliteral}{"\_\_itt\_api\_fini"});
+900                 \textcolor{keywordflow}{if} (\_\_itt\_api\_fini\_ptr)
+901                     \_\_itt\_api\_fini\_ptr(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global));
+902 
+903                 \hyperlink{ittnotify__static_8c_adf31a404558bb48da06a5aece609f937}{\_\_itt\_nullify\_all\_pointers}();
+904 
+905  \textcolor{comment}{/* TODO: !!! not safe !!! don't support unload so far.}
+906 \textcolor{comment}{  *             if (\_N\_(\_ittapi\_global).lib != NULL)}
+907 \textcolor{comment}{  *                 \_\_itt\_unload\_lib(\_N\_(\_ittapi\_global).lib);}
+908 \textcolor{comment}{  *             \_N\_(\_ittapi\_global).lib = NULL;}
+909 \textcolor{comment}{  */}
+910                 \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized = 0;
+911                 current\_thread = 0;
+912             \}
+913         \}
+914         \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+915     \}
+916 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a2d25dd72789f7c4ea1e5878088499c06}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!init\-\_\-ittlib@{init\-\_\-ittlib}}
+\index{init\-\_\-ittlib@{init\-\_\-ittlib}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{init\-\_\-ittlib}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\-T\-T\-\_\-\-E\-X\-T\-E\-R\-N\-\_\-\-C} {\bf int} {\bf \-\_\-\-N\-\_\-}() init\-\_\-ittlib (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{lib\-\_\-name, }
+\item[{{\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-id}}]{init\-\_\-groups}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_a2d25dd72789f7c4ea1e5878088499c06}
+
+
+Definition at line 918 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+919 \{
+920     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+921     \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id} groups;
+922 \textcolor{preprocessor}{#ifdef ITT\_COMPLETE\_GROUP}
+923 \textcolor{preprocessor}{}    \hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id} zero\_group = \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a6c548a46381b2987350e54145d283915}{\_\_itt\_group\_none};
+924 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_COMPLETE\_GROUP */}\textcolor{preprocessor}{}
+925 \textcolor{preprocessor}{}    \textcolor{keyword}{static} \textcolor{keyword}{volatile} \hyperlink{ittnotify__config_8h_a29a5bb118e7357976d9168d5cccfb0ce}{TIDT} current\_thread = 0;
+926 
+927     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized)
+928     \{
+929 \textcolor{preprocessor}{#ifndef ITT\_SIMPLE\_INIT}
+930 \textcolor{preprocessor}{}        \hyperlink{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{ITT\_MUTEX\_INIT\_AND\_LOCK}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global));
+931 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_SIMPLE\_INIT */}\textcolor{preprocessor}{}
+932 \textcolor{preprocessor}{}
+933         \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized)
+934         \{
+935             \textcolor{keywordflow}{if} (current\_thread == 0)
+936             \{
+937                 current\_thread = \hyperlink{ittnotify__static_8c_a6e1b64acdf2bf87fb41805830c917c4b}{\_\_itt\_thread\_id}();
+938                 \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid = current\_thread;
+939                 \textcolor{keywordflow}{if} (lib\_name == NULL)
+940                     lib\_name = \hyperlink{ittnotify__static_8c_ac750ba596b29bd642672e4f63a9d8bd9}{\_\_itt\_get\_lib\_name}();
+941                 groups = \hyperlink{ittnotify__static_8c_a373fd46da33ab903956380c407ea6a58}{\_\_itt\_get\_groups}();
+942                 \textcolor{keywordflow}{if} (groups != \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a6c548a46381b2987350e54145d283915}{\_\_itt\_group\_none} || lib\_name != NULL)
+943                 \{
+944                     \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).lib = \hyperlink{ittnotify__static_8c_af600a4ce0b76f80aebc8659fe52cd906}{\_\_itt\_load\_lib}((lib\_name == NULL) ? 
+      \hyperlink{ittnotify__static_8c_af0e89f88ff9ba604e5c6e9b188613fe1}{ittnotify\_lib\_name} : lib\_name);
+945 
+946                     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).lib != NULL)
+947                     \{
+948                         \hyperlink{ittnotify__static_8c_a7da2817eb46d872e2456df2fdc49fc7d}{\_\_itt\_api\_init\_t}* \_\_itt\_api\_init\_ptr;
+949                         \textcolor{keywordtype}{int} lib\_version = \hyperlink{ittnotify__static_8c_af457a948cb762564561bdd3636fd29dc}{\_\_itt\_lib\_version}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).lib);
+950 
+951                         \textcolor{keywordflow}{switch} (lib\_version) \{
+952                         \textcolor{keywordflow}{case} 0:
+953                             groups = \hyperlink{ittnotify__static_8h_ad1aaf444603d18db15139f0df6c0a416}{\_\_itt\_group\_legacy};
+954                         \textcolor{keywordflow}{case} 1:
+955                             \textcolor{comment}{/* Fill all pointers from dynamic library */}
+956                             \textcolor{keywordflow}{for} (i = 0; \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].name != NULL; i++)
+957                             \{
+958                                 \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].group & groups & init\_groups)
+959                                 \{
+960                                     *\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr = (\textcolor{keywordtype}{void}*)
+      \hyperlink{ittnotify__static_8c_a6eaa51eb38739316b5b33d124c3219ca}{\_\_itt\_get\_proc}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).lib, \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[
+      \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].name);
+961                                     \textcolor{keywordflow}{if} (*\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr == NULL)
+962                                     \{
+963                                         \textcolor{comment}{/* Restore pointers for function with static implementation */}
+964                                         *\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr = 
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].null\_func;
+965                                         \hyperlink{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\_\_itt\_report\_error}(\_\_itt\_error\_no\_symbol, 
+      lib\_name, \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[i].\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+966 \textcolor{preprocessor}{#ifdef ITT\_COMPLETE\_GROUP}
+967 \textcolor{preprocessor}{}                                        zero\_group = (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id})(zero\_group | 
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].group);
+968 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_COMPLETE\_GROUP */}\textcolor{preprocessor}{}
+969 \textcolor{preprocessor}{}                                    \}
+970                                 \}
+971                                 \textcolor{keywordflow}{else}
+972                                     *\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr = 
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].null\_func;
+973                             \}
+974 
+975                             \textcolor{keywordflow}{if} (groups == \hyperlink{ittnotify__static_8h_ad1aaf444603d18db15139f0df6c0a416}{\_\_itt\_group\_legacy})
+976                             \{
+977                                 \textcolor{comment}{/* Compatibility with legacy tools */}
+978                                 ITTNOTIFY\_NAME(thread\_ignore)  = ITTNOTIFY\_NAME(thr\_ignore);
+979 \textcolor{preprocessor}{#if ITT\_PLATFORM==ITT\_PLATFORM\_WIN}
+980 \textcolor{preprocessor}{}                                ITTNOTIFY\_NAME(sync\_createA)   = ITTNOTIFY\_NAME(
+      \hyperlink{ittnotify__static_8h_a327249c39436e02c10662b75e8e73b6d}{sync\_set\_nameA});
+981                                 ITTNOTIFY\_NAME(\hyperlink{ittnotify__static_8h_a8d0616e4a745996d174d59fe1804801c}{sync\_createW})   = ITTNOTIFY\_NAME(sync\_set\_nameW)
+      ;
+982 \textcolor{preprocessor}{#else  }\textcolor{comment}{/* ITT\_PLATFORM!=ITT\_PLATFORM\_WIN */}\textcolor{preprocessor}{}
+983 \textcolor{preprocessor}{}                                ITTNOTIFY\_NAME(sync\_create)    = ITTNOTIFY\_NAME(sync\_set\_name);
+984 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_PLATFORM==ITT\_PLATFORM\_WIN */}\textcolor{preprocessor}{}
+985 \textcolor{preprocessor}{}                                ITTNOTIFY\_NAME(\hyperlink{ittnotify__static_8h_adeb94782d5331e1ea1c3c2f0abd38d67}{sync\_prepare})   = ITTNOTIFY\_NAME(
+      \hyperlink{ittnotify__static_8h_a71f63702100f22f3f8021e500257c919}{notify\_sync\_prepare});
+986                                 ITTNOTIFY\_NAME(sync\_cancel)    = ITTNOTIFY\_NAME(notify\_sync\_cancel);
+987                                 ITTNOTIFY\_NAME(\hyperlink{ittnotify__static_8h_a84c05553dc59b154f74501873fd06dcc}{sync\_acquired})  = ITTNOTIFY\_NAME(
+      \hyperlink{ittnotify__static_8h_afccaa8fce8d63c9859543e794d4e5989}{notify\_sync\_acquired});
+988                                 ITTNOTIFY\_NAME(sync\_releasing) = ITTNOTIFY\_NAME(notify\_sync\_releasing);
+989                             \}
+990 
+991 \textcolor{preprocessor}{#ifdef ITT\_COMPLETE\_GROUP}
+992 \textcolor{preprocessor}{}                            \textcolor{keywordflow}{for} (i = 0; \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].name != NULL; i++)
+993                                 \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].group & zero\_group)
+994                                     *\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr = 
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].null\_func;
+995 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_COMPLETE\_GROUP */}\textcolor{preprocessor}{}
+996 \textcolor{preprocessor}{}                            \textcolor{keywordflow}{break};
+997                         \textcolor{keywordflow}{case} 2:
+998                             \_\_itt\_api\_init\_ptr = (\hyperlink{ittnotify__static_8c_a7da2817eb46d872e2456df2fdc49fc7d}{\_\_itt\_api\_init\_t}*)(\textcolor{keywordtype}{size\_t})
+      \hyperlink{ittnotify__static_8c_a6eaa51eb38739316b5b33d124c3219ca}{\_\_itt\_get\_proc}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).lib, \textcolor{stringliteral}{"\_\_itt\_api\_init"});
+999                             \textcolor{keywordflow}{if} (\_\_itt\_api\_init\_ptr)
+1000                                 \_\_itt\_api\_init\_ptr(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global), init\_groups);
+1001                             \textcolor{keywordflow}{break};
+1002                         \}
+1003                     \}
+1004                     \textcolor{keywordflow}{else}
+1005                     \{
+1006                         \hyperlink{ittnotify__static_8c_adf31a404558bb48da06a5aece609f937}{\_\_itt\_nullify\_all\_pointers}();
+1007 
+1008                         \hyperlink{ittnotify__static_8c_ad5ffb80db656773be5c3b9b27a2d76cf}{\_\_itt\_report\_error}(\_\_itt\_error\_no\_module, lib\_name,
+1009 #\textcolor{keywordflow}{if} ITT\_PLATFORM==ITT\_PLATFORM\_WIN
+1010                             \hyperlink{ittnotify__static_8c_aa3a1a68f607818255e587eb7cfad0ff4}{\_\_itt\_system\_error}()
+1011 #\textcolor{keywordflow}{else}  \textcolor{comment}{/* ITT\_PLATFORM==ITT\_PLATFORM\_WIN */}
+1012                             dlerror()
+1013 #endif \textcolor{comment}{/* ITT\_PLATFORM==ITT\_PLATFORM\_WIN */}
+1014                         );
+1015                     \}
+1016                 \}
+1017                 \textcolor{keywordflow}{else}
+1018                 \{
+1019                     \hyperlink{ittnotify__static_8c_adf31a404558bb48da06a5aece609f937}{\_\_itt\_nullify\_all\_pointers}();
+1020                 \}
+1021                 \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized = 1;
+1022                 current\_thread = 0;
+1023                 \textcolor{comment}{/* !!! Just to avoid unused code elimination !!! */}
+1024                 \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8c_a055953fde384bf0fbcf89de0a4005e33}{\_\_itt\_fini\_ittlib\_ptr} == \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(
+      \hyperlink{ittnotify__static_8c_aa918059b71bd077e491ad6f021a64038}{fini\_ittlib})) current\_thread = 0;
+1025             \}
+1026         \}
+1027 
+1028 \textcolor{preprocessor}{#ifndef ITT\_SIMPLE\_INIT}
+1029 \textcolor{preprocessor}{}        \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+1030 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_SIMPLE\_INIT */}\textcolor{preprocessor}{}
+1031 \textcolor{preprocessor}{}    \}
+1032 
+1033     \textcolor{comment}{/* Evaluating if any function ptr is non empty and it's in init\_groups */}
+1034     \textcolor{keywordflow}{for} (i = 0; \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].name != NULL; i++)
+1035         \textcolor{keywordflow}{if} (*\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].func\_ptr != \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[
+      \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].null\_func &&
+1036             \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_list\_ptr[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].group & init\_groups)
+1037             \textcolor{keywordflow}{return} 1;
+1038     \textcolor{keywordflow}{return} 0;
+1039 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_ae3e6e91af687a352bda08fbefb7f6135}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T@{I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T}}
+\index{I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T@{I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}I\-T\-T\-\_\-\-G\-R\-O\-U\-P\-\_\-\-L\-I\-S\-T (
+\begin{DoxyParamCaption}
+\item[{group\-\_\-list}]{}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_ae3e6e91af687a352bda08fbefb7f6135}
+\hypertarget{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-itt\-\_\-domain$\ast$ I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(domain\-\_\-create\-W), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}
+
+
+Definition at line 308 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E().
+
+
+\begin{DoxyCode}
+309 \{
+310     \_\_itt\_domain *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+311 
+312     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+313     \{
+314         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+315         \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(domain\_createW) && ITTNOTIFY\_NAME(domain\_createW) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(domain\_createW),\_init)))
+316             \textcolor{keywordflow}{return} ITTNOTIFY\_NAME(domain\_createW)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+317     \}
+318 
+319     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} == NULL)
+320         \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).domain\_list;
+321 
+322     \hyperlink{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{ITT\_MUTEX\_INIT\_AND\_LOCK}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global));
+323     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).domain\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->next)
+324         \textcolor{keywordflow}{if} (h->nameW != NULL && !wcscmp(h->nameW, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}))
+325             \textcolor{keywordflow}{break};
+326     \textcolor{keywordflow}{if} (h == NULL) \{
+327         \hyperlink{ittnotify__static_8c_a11ead54b98e3cb2ca8f413161a3dead2}{NEW\_DOMAIN\_W}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global),h,h\_tail,\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+328     \}
+329     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+330     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+331 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a2adb7d6acc3ea517f0ccd172e06fe333}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-itt\-\_\-domain$\ast$ I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(domain\-\_\-create\-A), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a2adb7d6acc3ea517f0ccd172e06fe333}
+
+
+Definition at line 333 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+337 \{
+338     \_\_itt\_domain *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+339 
+340     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+341     \{
+342         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+343 \textcolor{preprocessor}{#if ITT\_PLATFORM==ITT\_PLATFORM\_WIN}
+344 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(domain\_createA) && ITTNOTIFY\_NAME(domain\_createA) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(domain\_createA),\_init)))
+345             \textcolor{keywordflow}{return} ITTNOTIFY\_NAME(domain\_createA)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+346 \textcolor{preprocessor}{#else}
+347 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(domain\_create) && ITTNOTIFY\_NAME(domain\_create) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(domain\_create),\_init)))
+348             \textcolor{keywordflow}{return} ITTNOTIFY\_NAME(domain\_create)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+349 \textcolor{preprocessor}{#endif}
+350 \textcolor{preprocessor}{}    \}
+351 
+352     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} == NULL)
+353         \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).domain\_list;
+354 
+355     \hyperlink{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{ITT\_MUTEX\_INIT\_AND\_LOCK}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global));
+356     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).domain\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->next)
+357         \textcolor{keywordflow}{if} (h->nameA != NULL && !\hyperlink{ittnotify__static_8c_a0c35a1715ab6ced1016470844b504249}{\_\_itt\_fstrcmp}(h->nameA, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}))
+358             \textcolor{keywordflow}{break};
+359     \textcolor{keywordflow}{if} (h == NULL) \{
+360         \hyperlink{ittnotify__static_8c_ac4ec9cf84054012a85f691fff671df65}{NEW\_DOMAIN\_A}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global),h,h\_tail,\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+361     \}
+362     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+363     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+364 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a894a13355be4e500808e87071c7b1fa4}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-itt\-\_\-string\-\_\-handle$\ast$ I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(string\-\_\-handle\-\_\-create\-W), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a894a13355be4e500808e87071c7b1fa4}
+
+
+Definition at line 367 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+368 \{
+369     \_\_itt\_string\_handle *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+370 
+371     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+372     \{
+373         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+374         \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(string\_handle\_createW) && ITTNOTIFY\_NAME(string\_handle\_createW) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(string\_handle\_createW),\_init)))
+375             \textcolor{keywordflow}{return} ITTNOTIFY\_NAME(string\_handle\_createW)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+376     \}
+377 
+378     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} == NULL)
+379         \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).string\_list;
+380 
+381     \hyperlink{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{ITT\_MUTEX\_INIT\_AND\_LOCK}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global));
+382     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).string\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->next)
+383         \textcolor{keywordflow}{if} (h->strW != NULL && !wcscmp(h->strW, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}))
+384             \textcolor{keywordflow}{break};
+385     \textcolor{keywordflow}{if} (h == NULL) \{
+386         \hyperlink{ittnotify__static_8c_af91755d48940633714d800b175cd6952}{NEW\_STRING\_HANDLE\_W}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global),h,h\_tail,
+      \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+387     \}
+388     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+389     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+390 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a506a086c20fdbad9f2dd0971bac0d6d7}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-itt\-\_\-string\-\_\-handle$\ast$ I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(string\-\_\-handle\-\_\-create\-A), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a506a086c20fdbad9f2dd0971bac0d6d7}
+
+
+Definition at line 392 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+396 \{
+397     \_\_itt\_string\_handle *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+398 
+399     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+400     \{
+401         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+402 \textcolor{preprocessor}{#if ITT\_PLATFORM==ITT\_PLATFORM\_WIN}
+403 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(string\_handle\_createA) && ITTNOTIFY\_NAME(string\_handle\_createA) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(string\_handle\_createA),\_init)))
+404             \textcolor{keywordflow}{return} ITTNOTIFY\_NAME(string\_handle\_createA)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+405 \textcolor{preprocessor}{#else}
+406 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(string\_handle\_create) && ITTNOTIFY\_NAME(string\_handle\_create) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(string\_handle\_create),\_init)))
+407             \textcolor{keywordflow}{return} ITTNOTIFY\_NAME(string\_handle\_create)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+408 \textcolor{preprocessor}{#endif}
+409 \textcolor{preprocessor}{}    \}
+410 
+411     \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} == NULL)
+412         \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).string\_list;
+413 
+414     \hyperlink{ittnotify__static_8c_a511da537a51b17f5369c5505de6b20b0}{ITT\_MUTEX\_INIT\_AND\_LOCK}(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global));
+415     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).string\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->next)
+416         \textcolor{keywordflow}{if} (h->strA != NULL && !\hyperlink{ittnotify__static_8c_a0c35a1715ab6ced1016470844b504249}{\_\_itt\_fstrcmp}(h->strA, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}))
+417             \textcolor{keywordflow}{break};
+418     \textcolor{keywordflow}{if} (h == NULL) \{
+419         \hyperlink{ittnotify__static_8c_aa630359e8e9e85284805df1f7ccbfd63}{NEW\_STRING\_HANDLE\_A}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global),h,h\_tail,
+      \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+420     \}
+421     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+422     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+423 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_aff5912ff27b8c8a8b14c0cd91e5dfb80}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(pause), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_aff5912ff27b8c8a8b14c0cd91e5dfb80}
+
+
+Definition at line 427 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+428 \{
+429     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+430     \{
+431         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+432         \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(pause) && ITTNOTIFY\_NAME(pause) != \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(pause),\_init)))
+433         \{
+434             ITTNOTIFY\_NAME(pause)();
+435             \textcolor{keywordflow}{return};
+436         \}
+437     \}
+438     \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).state = \hyperlink{ittnotify__config_8h_a162a939cdea17dc0fbccab33e9f7d107a169b5c38f20730f8b10225c0d609dfef}{\_\_itt\_collection\_paused};
+439 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_af1275659a7b25e792214fd8e2ae58ed9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(resume), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_af1275659a7b25e792214fd8e2ae58ed9}
+
+
+Definition at line 441 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+442 \{
+443     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+444     \{
+445         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+446         \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(resume) && ITTNOTIFY\_NAME(resume) != \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(
+      \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(resume),\_init)))
+447         \{
+448             ITTNOTIFY\_NAME(resume)();
+449             \textcolor{keywordflow}{return};
+450         \}
+451     \}
+452     \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).state = \hyperlink{ittnotify__config_8h_a162a939cdea17dc0fbccab33e9f7d107a2268a3383aff47cdb3521ee179f6416b}{\_\_itt\_collection\_normal};
+453 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a24a88dd741684d9d406c74da6ee1ae96}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(thread\-\_\-set\-\_\-name\-W), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a24a88dd741684d9d406c74da6ee1ae96}
+
+
+Definition at line 456 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+457 \{
+458     \hyperlink{ittnotify__config_8h_a29a5bb118e7357976d9168d5cccfb0ce}{TIDT} tid = \hyperlink{ittnotify__static_8c_a6e1b64acdf2bf87fb41805830c917c4b}{\_\_itt\_thread\_id}();
+459     \hyperlink{struct______itt__thread__info}{\_\_itt\_thread\_info} *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+460 
+461     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+462     \{
+463         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+464         \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(thread\_set\_nameW) && ITTNOTIFY\_NAME(thread\_set\_nameW) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_set\_nameW),\_init)))
+465         \{
+466             ITTNOTIFY\_NAME(thread\_set\_nameW)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+467             \textcolor{keywordflow}{return};
+468         \}
+469     \}
+470 
+471     \hyperlink{ittnotify__static_8c_af2b1f6acb3f2fb4f69862d6f63f1d0e7}{\_\_itt\_mutex\_lock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+472     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->\hyperlink{struct______itt__thread__info_a1c1665afb537536190a66931a94ccae8}{next})
+473         \textcolor{keywordflow}{if} (h->tid == tid)
+474             \textcolor{keywordflow}{break};
+475     \textcolor{keywordflow}{if} (h == NULL) \{
+476         \hyperlink{ittnotify__static_8c_afa25850d2fdf5547ab14b6c2ec2f25a4}{NEW\_THREAD\_INFO\_W}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global), h, h\_tail, tid, 
+      \hyperlink{ittnotify__config_8h_a0f5df24d0c9150a5b08d6d701060ba27a5c38a8888ffca1bf714ef49ffe79f08d}{\_\_itt\_thread\_normal}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+477     \}
+478     \textcolor{keywordflow}{else}
+479     \{
+480         h->nameW = \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ? \_wcsdup(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}) : NULL;
+481     \}
+482     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+483 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_aa3d9932608c35489c4f50b1aaf671d0a}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(thr\-\_\-name\-\_\-set\-W), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_aa3d9932608c35489c4f50b1aaf671d0a}
+
+
+Definition at line 485 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+486 \{
+487     \hyperlink{ittnotify__static_8h_ad09d4488ac9ab9e8311005b45b81f4f2}{namelen} = \hyperlink{ittnotify__static_8h_ad09d4488ac9ab9e8311005b45b81f4f2}{namelen};
+488     \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_set\_nameW),\_init))(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+489     \textcolor{keywordflow}{return} 0;
+490 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a6000ebf02a38a342a5a7f3e2cb428a61}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(thread\-\_\-set\-\_\-name\-A), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a6000ebf02a38a342a5a7f3e2cb428a61}
+
+
+Definition at line 492 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+496 \{
+497     \hyperlink{ittnotify__config_8h_a29a5bb118e7357976d9168d5cccfb0ce}{TIDT} tid = \hyperlink{ittnotify__static_8c_a6e1b64acdf2bf87fb41805830c917c4b}{\_\_itt\_thread\_id}();
+498     \hyperlink{struct______itt__thread__info}{\_\_itt\_thread\_info} *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+499 
+500     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+501     \{
+502         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+503 \textcolor{preprocessor}{#if ITT\_PLATFORM==ITT\_PLATFORM\_WIN}
+504 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(thread\_set\_nameA) && ITTNOTIFY\_NAME(thread\_set\_nameA) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_set\_nameA),\_init)))
+505         \{
+506             ITTNOTIFY\_NAME(thread\_set\_nameA)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+507             \textcolor{keywordflow}{return};
+508         \}
+509 \textcolor{preprocessor}{#else  }\textcolor{comment}{/* ITT\_PLATFORM==ITT\_PLATFORM\_WIN */}\textcolor{preprocessor}{}
+510 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(thread\_set\_name) && ITTNOTIFY\_NAME(thread\_set\_name) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_set\_name),\_init)))
+511         \{
+512             ITTNOTIFY\_NAME(thread\_set\_name)(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+513             \textcolor{keywordflow}{return};
+514         \}
+515 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ITT\_PLATFORM==ITT\_PLATFORM\_WIN */}\textcolor{preprocessor}{}
+516 \textcolor{preprocessor}{}    \}
+517 
+518     \hyperlink{ittnotify__static_8c_af2b1f6acb3f2fb4f69862d6f63f1d0e7}{\_\_itt\_mutex\_lock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+519     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->\hyperlink{struct______itt__thread__info_a1c1665afb537536190a66931a94ccae8}{next})
+520         \textcolor{keywordflow}{if} (h->tid == tid)
+521             \textcolor{keywordflow}{break};
+522     \textcolor{keywordflow}{if} (h == NULL) \{
+523         \hyperlink{ittnotify__static_8c_a7872a1704345b6f53c4241fb3037b1cc}{NEW\_THREAD\_INFO\_A}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global), h, h\_tail, tid, 
+      \hyperlink{ittnotify__config_8h_a0f5df24d0c9150a5b08d6d701060ba27a5c38a8888ffca1bf714ef49ffe79f08d}{\_\_itt\_thread\_normal}, \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+524     \}
+525     \textcolor{keywordflow}{else}
+526     \{
+527         h->nameA = \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} ? \hyperlink{ittnotify__static_8c_af58839bcc8715c36ee89d502fe5140fa}{\_\_itt\_fstrdup}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}) : NULL;
+528     \}
+529     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+530 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_aa5677fe8a18047301418deffed6eef86}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(thr\-\_\-name\-\_\-set\-A), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_aa5677fe8a18047301418deffed6eef86}
+
+
+Definition at line 533 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+534 \{
+535     \hyperlink{ittnotify__static_8h_ad09d4488ac9ab9e8311005b45b81f4f2}{namelen} = \hyperlink{ittnotify__static_8h_ad09d4488ac9ab9e8311005b45b81f4f2}{namelen};
+536     \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_set\_nameA),\_init))(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name});
+537     \textcolor{keywordflow}{return} 0;
+538 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_ae41076e0460ba89bd36842796f53a538}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(thread\-\_\-ignore), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_ae41076e0460ba89bd36842796f53a538}
+
+
+Definition at line 548 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+549 \{
+550     \hyperlink{ittnotify__config_8h_a29a5bb118e7357976d9168d5cccfb0ce}{TIDT} tid = \hyperlink{ittnotify__static_8c_a6e1b64acdf2bf87fb41805830c917c4b}{\_\_itt\_thread\_id}();
+551     \hyperlink{struct______itt__thread__info}{\_\_itt\_thread\_info} *h\_tail, *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+552 
+553     \textcolor{keywordflow}{if} (!\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).api\_initialized && \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list->tid == 0)
+554     \{
+555         \hyperlink{ittnotify__static_8c_a4931d3d4b629d4c0e2f8ecbf6ae9f63e}{\_\_itt\_init\_ittlib\_name}(NULL, \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013aed3e44e1ea491695f95f14ddb95824ed}{\_\_itt\_group\_all});
+556         \textcolor{keywordflow}{if} (ITTNOTIFY\_NAME(thread\_ignore) && ITTNOTIFY\_NAME(thread\_ignore) != 
+      \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_ignore),\_init)))
+557         \{
+558             ITTNOTIFY\_NAME(thread\_ignore)();
+559             \textcolor{keywordflow}{return};
+560         \}
+561     \}
+562 
+563     \hyperlink{ittnotify__static_8c_af2b1f6acb3f2fb4f69862d6f63f1d0e7}{\_\_itt\_mutex\_lock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+564     \textcolor{keywordflow}{for} (h\_tail = NULL, h = \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).thread\_list; h != NULL; h\_tail = 
+      \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, h = h->\hyperlink{struct______itt__thread__info_a1c1665afb537536190a66931a94ccae8}{next})
+565         \textcolor{keywordflow}{if} (h->tid == tid)
+566             \textcolor{keywordflow}{break};
+567     \textcolor{keywordflow}{if} (h == NULL) \{
+568         \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} = \textcolor{stringliteral}{"unknown"};
+569         \hyperlink{ittnotify__static_8c_a7872a1704345b6f53c4241fb3037b1cc}{NEW\_THREAD\_INFO\_A}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global), h, h\_tail, tid, 
+      \hyperlink{ittnotify__config_8h_a0f5df24d0c9150a5b08d6d701060ba27ac38dfd646f4f57a13dd7dc426be89350}{\_\_itt\_thread\_ignored}, name);
+570     \}
+571     \textcolor{keywordflow}{else}
+572     \{
+573         h->state = \hyperlink{ittnotify__config_8h_a0f5df24d0c9150a5b08d6d701060ba27ac38dfd646f4f57a13dd7dc426be89350}{\_\_itt\_thread\_ignored};
+574     \}
+575     \hyperlink{ittnotify__static_8c_a3f37b6b3252f44bfb43bdf459ea9977a}{\_\_itt\_mutex\_unlock}(&\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).mutex);
+576 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_afd9b36cb55cd49329ce7c7d33a3dee35}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(thr\-\_\-ignore), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_afd9b36cb55cd49329ce7c7d33a3dee35}
+
+
+Definition at line 578 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+579 \{
+580     \hyperlink{ittnotify__static_8c_abb0b03b0d464d5a00040af895e824129}{ITT\_VERSIONIZE}(ITT\_JOIN(\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(thread\_ignore),\_init))();
+581 \}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_a8856544417691d8ae6e52a25778d39c5}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}}
+\index{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E@{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} I\-T\-T\-A\-P\-I I\-T\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N\-I\-Z\-E (
+\begin{DoxyParamCaption}
+\item[{I\-T\-T\-\_\-\-J\-O\-I\-N({\bf \-\_\-\-N\-\_\-}(enable\-\_\-attach), \-\_\-init)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a8856544417691d8ae6e52a25778d39c5}
+
+
+Definition at line 583 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+584 \{
+585 \textcolor{preprocessor}{#ifdef \_\_ANDROID\_\_}
+586 \textcolor{preprocessor}{}    \textcolor{comment}{/*}
+587 \textcolor{comment}{     * if LIB\_VAR\_NAME env variable were set before then stay previous value}
+588 \textcolor{comment}{     * else set default path}
+589 \textcolor{comment}{    */}
+590     setenv(\hyperlink{ittnotify__static_8c_ad3a46596592a47e2fa57678bd6735236}{ITT\_TO\_STR}(\hyperlink{ittnotify__static_8c_a6385890f0e3f353c77218b008ee7b929}{LIB\_VAR\_NAME}), ANDROID\_ITTNOTIFY\_DEFAULT\_PATH, 0);
+591 \textcolor{preprocessor}{#endif}
+592 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{ittnotify__static_8c_ae26d2300faa74f1c99adea41d6807348}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!set\-\_\-error\-\_\-handler@{set\-\_\-error\-\_\-handler}}
+\index{set\-\_\-error\-\_\-handler@{set\-\_\-error\-\_\-handler}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{set\-\_\-error\-\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\-T\-T\-\_\-\-E\-X\-T\-E\-R\-N\-\_\-\-C} \-\_\-\-\_\-itt\-\_\-error\-\_\-handler\-\_\-t$\ast$ {\bf \-\_\-\-N\-\_\-}() set\-\_\-error\-\_\-handler (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-itt\-\_\-error\-\_\-handler\-\_\-t $\ast$}]{handler}
+\end{DoxyParamCaption}
+)}}\label{ittnotify__static_8c_ae26d2300faa74f1c99adea41d6807348}
+
+
+Definition at line 1041 of file ittnotify\-\_\-static.\-c.
+
+
+\begin{DoxyCode}
+1042 \{
+1043     \_\_itt\_error\_handler\_t* prev = (\_\_itt\_error\_handler\_t*)(\textcolor{keywordtype}{size\_t})\hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).error\_handler;
+1044     \hyperlink{ittnotify__static_8c_a2c8daf9ed0696813fb3e438ead27ae5e}{\_N\_}(\_ittapi\_global).error\_handler = (\textcolor{keywordtype}{void}*)(\textcolor{keywordtype}{size\_t})handler;
+1045     \textcolor{keywordflow}{return} prev;
+1046 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{ittnotify__static_8c_a055953fde384bf0fbcf89de0a4005e33}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr@{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr}}
+\index{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr@{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-t}$\ast$ \-\_\-\-\_\-itt\-\_\-fini\-\_\-ittlib\-\_\-ptr = {\bf \-\_\-\-N\-\_\-}({\bf fini\-\_\-ittlib})\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a055953fde384bf0fbcf89de0a4005e33}
+
+
+Definition at line 113 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib().
+
+\hypertarget{ittnotify__static_8c_a10366a84d461f8a48a7911907c32a58e}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr@{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr}}
+\index{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr@{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-t}$\ast$ \-\_\-\-\_\-itt\-\_\-init\-\_\-ittlib\-\_\-ptr = {\bf \-\_\-\-N\-\_\-}({\bf init\-\_\-ittlib})\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a10366a84d461f8a48a7911907c32a58e}
+
+
+Definition at line 104 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_ab3c7c803969b661a142c55f4124d791d}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!api\-\_\-list@{api\-\_\-list}}
+\index{api\-\_\-list@{api\-\_\-list}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{api\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-api\-\_\-info} api\-\_\-list\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_ab3c7c803969b661a142c55f4124d791d}
+
+
+Definition at line 189 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a4da0240b2786d60dab5c93d95797ad20}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!api\-\_\-version@{api\-\_\-version}}
+\index{api\-\_\-version@{api\-\_\-version}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{api\-\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}const char api\-\_\-version\mbox{[}$\,$\mbox{]} = {\bf A\-P\-I\-\_\-\-V\-E\-R\-S\-I\-O\-N} \char`\"{}\textbackslash{}0\textbackslash{}n@(\#) \$Revision\-: 43375 \$\textbackslash{}n\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a4da0240b2786d60dab5c93d95797ad20}
+
+
+Definition at line 33 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a244ca6c42ef57013995b56f7ab1dc370}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!dll\-\_\-path@{dll\-\_\-path}}
+\index{dll\-\_\-path@{dll\-\_\-path}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{dll\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}const char dll\-\_\-path\mbox{[}{\bf P\-A\-T\-H\-\_\-\-M\-A\-X}\mbox{]} = \{ 0 \}\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a244ca6c42ef57013995b56f7ab1dc370}
+
+
+Definition at line 253 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a2d1a06f4d5e02af7f565f94ab8ec4f59}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!group\-\_\-alias@{group\-\_\-alias}}
+\index{group\-\_\-alias@{group\-\_\-alias}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{group\-\_\-alias}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-group\-\_\-alias} group\-\_\-alias\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a2d1a06f4d5e02af7f565f94ab8ec4f59}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    \{ \textcolor{stringliteral}{"KMP\_FOR\_TPROFILE"}, (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id})(\hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a76647fa9c77a1d98604ee9887dba456b}{\_\_itt\_group\_control} | 
+      \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013ac6423392a482373f089763f2b5fec395}{\_\_itt\_group\_thread} | \hyperlink{ittnotify__static_8h_a736b6a96caab32f4117bef17d15439bf}{\_\_itt\_group\_sync}  | 
+      \hyperlink{ittnotify__static_8h_a493c6adf30f51e95f245a15496756249}{\_\_itt\_group\_mark}) \},
+    \{ \textcolor{stringliteral}{"KMP\_FOR\_TCHECK"},   (\hyperlink{ittnotify__types_8h_ab43d42e38047ed421321091868ff992b}{\_\_itt\_group\_id})(\hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a76647fa9c77a1d98604ee9887dba456b}{\_\_itt\_group\_control} | 
+      \hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013ac6423392a482373f089763f2b5fec395}{\_\_itt\_group\_thread} | \hyperlink{ittnotify__static_8h_a736b6a96caab32f4117bef17d15439bf}{\_\_itt\_group\_sync}  | 
+      \hyperlink{ittnotify__static_8h_aa89b70242df37f7872e963b6240df9ce}{\_\_itt\_group\_fsync} | \hyperlink{ittnotify__static_8h_a493c6adf30f51e95f245a15496756249}{\_\_itt\_group\_mark} | 
+      \hyperlink{ittnotify__static_8h_a73f7c9f25601eba1a158b0f515fa415d}{\_\_itt\_group\_suppress}) \},
+    \{ NULL,               (\hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a6c548a46381b2987350e54145d283915}{\_\_itt\_group\_none}) \},
+    \{ \hyperlink{ittnotify__static_8c_a4da0240b2786d60dab5c93d95797ad20}{api\_version},        (\hyperlink{ittnotify__types_8h_a0198eaa61a096e2b322d33cd52c5a013a6c548a46381b2987350e54145d283915}{\_\_itt\_group\_none}) \} 
+\}
+\end{DoxyCode}
+
+
+Definition at line 175 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a1382e1cb95abf8114e66b4f5239c77c9}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!init\-\_\-thread\-\_\-info@{init\-\_\-thread\-\_\-info}}
+\index{init\-\_\-thread\-\_\-info@{init\-\_\-thread\-\_\-info}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{init\-\_\-thread\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-thread\-\_\-info} init\-\_\-thread\-\_\-info\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a1382e1cb95abf8114e66b4f5239c77c9}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    (\textcolor{keyword}{const} \textcolor{keywordtype}{char}*)NULL,                        
+
+
+
+    (\textcolor{keywordtype}{void}*)NULL,                              
+
+    0,                                        
+    \hyperlink{ittnotify__config_8h_a0f5df24d0c9150a5b08d6d701060ba27a5c38a8888ffca1bf714ef49ffe79f08d}{\_\_itt\_thread\_normal},                      
+    0,                                        
+    (\textcolor{keywordtype}{void}*)NULL,                              
+    (\hyperlink{struct______itt__thread__info}{\_\_itt\_thread\_info}*)NULL                  
+\}
+\end{DoxyCode}
+
+
+Definition at line 212 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_af0e89f88ff9ba604e5c6e9b188613fe1}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!ittnotify\-\_\-lib\-\_\-name@{ittnotify\-\_\-lib\-\_\-name}}
+\index{ittnotify\-\_\-lib\-\_\-name@{ittnotify\-\_\-lib\-\_\-name}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{ittnotify\-\_\-lib\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ ittnotify\-\_\-lib\-\_\-name = \char`\"{}libittnotify.\-dll\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_af0e89f88ff9ba604e5c6e9b188613fe1}
+
+
+Definition at line 38 of file ittnotify\-\_\-static.\-c.
+
+
+
+Referenced by init\-\_\-ittlib().
+
+\hypertarget{ittnotify__static_8c_acbc1a4539faf29c5211652f7b9a00741}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!null\-\_\-domain@{null\-\_\-domain}}
+\index{null\-\_\-domain@{null\-\_\-domain}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{null\-\_\-domain}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-itt\-\_\-domain null\-\_\-domain\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_acbc1a4539faf29c5211652f7b9a00741}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    0,                                        
+    (\textcolor{keyword}{const} \textcolor{keywordtype}{char}*)NULL,                        
+
+
+
+    (\textcolor{keywordtype}{void}*)NULL,                              
+
+    0,                                        
+    (\textcolor{keywordtype}{void}*)NULL,                              
+    (\_\_itt\_domain*)NULL                       
+\}
+\end{DoxyCode}
+
+
+Definition at line 227 of file ittnotify\-\_\-static.\-c.
+
+\hypertarget{ittnotify__static_8c_a32d6de78b4723dacdab9ce256c981773}{\index{ittnotify\-\_\-static.\-c@{ittnotify\-\_\-static.\-c}!null\-\_\-string\-\_\-handle@{null\-\_\-string\-\_\-handle}}
+\index{null\-\_\-string\-\_\-handle@{null\-\_\-string\-\_\-handle}!ittnotify_static.c@{ittnotify\-\_\-static.\-c}}
+\subsubsection[{null\-\_\-string\-\_\-handle}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-itt\-\_\-string\-\_\-handle null\-\_\-string\-\_\-handle\hspace{0.3cm}{\ttfamily [static]}}}\label{ittnotify__static_8c_a32d6de78b4723dacdab9ce256c981773}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    (\textcolor{keyword}{const} \textcolor{keywordtype}{char}*)NULL,                        
+
+
+
+    (\textcolor{keywordtype}{void}*)NULL,                              
+
+    0,                                        
+    (\textcolor{keywordtype}{void}*)NULL,                              
+    (\_\_itt\_string\_handle*)NULL                
+\}
+\end{DoxyCode}
+
+
+Definition at line 241 of file ittnotify\-\_\-static.\-c.
+

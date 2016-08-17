@@ -1,0 +1,188 @@
+\hypertarget{classcounter}{\section{counter Class Reference}
+\label{classcounter}\index{counter@{counter}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-stats.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcounter_aaf68422e2ecf60e236b21bc407d43f05}{counter} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classcounter_a869c4acb9046b43421790d994a374d7e}{increment} ()
+\item 
+uint64\-\_\-t \hyperlink{classcounter_ac90fe351c0596fcddf14ffb3e8742fa1}{get\-Value} () const 
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classcounter_a93af6caf9e9fc2a6d235ca16f5fab6b7}{reset} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{classcounter_a47381a4ed766e73be894b74078391a05}{name} (\hyperlink{kmp__stats_8h_a369a3f9687663102f214798ed3915336}{counter\-\_\-e} e)
+\item 
+static bool \hyperlink{classcounter_ab69639dd9dbdfbb04fc594e431beda1c}{master\-Only} (\hyperlink{kmp__stats_8h_a369a3f9687663102f214798ed3915336}{counter\-\_\-e} e)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint64\-\_\-t \hyperlink{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}{value}
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const \hyperlink{structstatInfo}{stat\-Info} \hyperlink{classcounter_ad82a016108023b47028bb79151ab960f}{counter\-Info} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 320 of file kmp\-\_\-stats.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcounter_aaf68422e2ecf60e236b21bc407d43f05}{\index{counter@{counter}!counter@{counter}}
+\index{counter@{counter}!counter@{counter}}
+\subsubsection[{counter}]{\setlength{\rightskip}{0pt plus 5cm}counter\-::counter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcounter_aaf68422e2ecf60e236b21bc407d43f05}
+
+
+Definition at line 326 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+326 : \hyperlink{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}{value}(0) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcounter_ac90fe351c0596fcddf14ffb3e8742fa1}{\index{counter@{counter}!get\-Value@{get\-Value}}
+\index{get\-Value@{get\-Value}!counter@{counter}}
+\subsubsection[{get\-Value}]{\setlength{\rightskip}{0pt plus 5cm}uint64\-\_\-t counter\-::get\-Value (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcounter_ac90fe351c0596fcddf14ffb3e8742fa1}
+
+
+Definition at line 328 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Counters().
+
+
+\begin{DoxyCode}
+328 \{ \textcolor{keywordflow}{return} \hyperlink{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}{value}; \}
+\end{DoxyCode}
+\hypertarget{classcounter_a869c4acb9046b43421790d994a374d7e}{\index{counter@{counter}!increment@{increment}}
+\index{increment@{increment}!counter@{counter}}
+\subsubsection[{increment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} counter\-::increment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcounter_a869c4acb9046b43421790d994a374d7e}
+
+
+Definition at line 327 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+327 \{ \hyperlink{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}{value}++; \}
+\end{DoxyCode}
+\hypertarget{classcounter_ab69639dd9dbdfbb04fc594e431beda1c}{\index{counter@{counter}!master\-Only@{master\-Only}}
+\index{master\-Only@{master\-Only}!counter@{counter}}
+\subsubsection[{master\-Only}]{\setlength{\rightskip}{0pt plus 5cm}static bool counter\-::master\-Only (
+\begin{DoxyParamCaption}
+\item[{{\bf counter\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classcounter_ab69639dd9dbdfbb04fc594e431beda1c}
+
+
+Definition at line 331 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats().
+
+
+\begin{DoxyCode}
+331 \{ \textcolor{keywordflow}{return} \hyperlink{classcounter_ad82a016108023b47028bb79151ab960f}{counterInfo}[e].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} & \hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3ab1b2cd818808a4ee2cc1720286fbc51d}{stats\_flags\_e::onlyInMaster}; \}
+\end{DoxyCode}
+\hypertarget{classcounter_a47381a4ed766e73be894b74078391a05}{\index{counter@{counter}!name@{name}}
+\index{name@{name}!counter@{counter}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ counter\-::name (
+\begin{DoxyParamCaption}
+\item[{{\bf counter\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classcounter_a47381a4ed766e73be894b74078391a05}
+
+
+Definition at line 330 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Counters(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Counter\-Stats().
+
+
+\begin{DoxyCode}
+330 \{ \textcolor{keywordflow}{return} \hyperlink{classcounter_ad82a016108023b47028bb79151ab960f}{counterInfo}[e].\hyperlink{structstatInfo_a83052615f9578ba88744140093a18f37}{name}; \}
+\end{DoxyCode}
+\hypertarget{classcounter_a93af6caf9e9fc2a6d235ca16f5fab6b7}{\index{counter@{counter}!reset@{reset}}
+\index{reset@{reset}!counter@{counter}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} counter\-::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcounter_a93af6caf9e9fc2a6d235ca16f5fab6b7}
+
+
+Definition at line 329 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+329 \{ \hyperlink{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}{value} = 0; \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classcounter_ad82a016108023b47028bb79151ab960f}{\index{counter@{counter}!counter\-Info@{counter\-Info}}
+\index{counter\-Info@{counter\-Info}!counter@{counter}}
+\subsubsection[{counter\-Info}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf stat\-Info} counter\-::counter\-Info\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{classcounter_ad82a016108023b47028bb79151ab960f}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{group__STATS__GATHERING_ga49fb18e6ba9abac7dcf1f9a202741b66}{KMP\_FOREACH\_COUNTER}(\hyperlink{kmp__stats_8cpp_a17949c412e2b08e907236b2d496ed7c1}{expandName},0)
+    \{0,0\}
+\}
+\end{DoxyCode}
+
+
+Definition at line 323 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by master\-Only(), and name().
+
+\hypertarget{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}{\index{counter@{counter}!value@{value}}
+\index{value@{value}!counter@{counter}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}uint64\-\_\-t counter\-::value\hspace{0.3cm}{\ttfamily [private]}}}\label{classcounter_a86ec46cd3be151acee603a8cd9c93a4e}
+
+
+Definition at line 322 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by get\-Value(), increment(), and reset().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__stats_8h}{kmp\-\_\-stats.\-h}\item 
+\hyperlink{kmp__stats_8cpp}{kmp\-\_\-stats.\-cpp}\end{DoxyCompactItemize}

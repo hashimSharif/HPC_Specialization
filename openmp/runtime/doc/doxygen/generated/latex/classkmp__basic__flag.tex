@@ -1,0 +1,457 @@
+\hypertarget{classkmp__basic__flag}{\section{kmp\-\_\-basic\-\_\-flag$<$ Flag\-Type $>$ Class Template Reference}
+\label{classkmp__basic__flag}\index{kmp\-\_\-basic\-\_\-flag$<$ Flag\-Type $>$@{kmp\-\_\-basic\-\_\-flag$<$ Flag\-Type $>$}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-wait\-\_\-release.\-h$>$}
+
+Inheritance diagram for kmp\-\_\-basic\-\_\-flag$<$ Flag\-Type $>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classkmp__basic__flag}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkmp__basic__flag_aa3f040aef2c063781419ab49285d4b6a}{kmp\-\_\-basic\-\_\-flag} (volatile Flag\-Type $\ast$\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p})
+\item 
+\hyperlink{classkmp__basic__flag_a94bd75692e97fbbf547981f74a19286b}{kmp\-\_\-basic\-\_\-flag} (volatile Flag\-Type $\ast$\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thr)
+\item 
+\hyperlink{classkmp__basic__flag_a74d7dcf67d8fd1d67848a14eeb534654}{kmp\-\_\-basic\-\_\-flag} (volatile Flag\-Type $\ast$\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, Flag\-Type c)
+\item 
+\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$ \hyperlink{classkmp__basic__flag_a9bda9152e187ebdd45ddce7fb4e70bbf}{get\-\_\-waiter} (kmp\-\_\-uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+\item 
+kmp\-\_\-uint32 \hyperlink{classkmp__basic__flag_ab1d3109c504f00e97e72e2ce7c109781}{get\-\_\-num\-\_\-waiters} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classkmp__basic__flag_a594260bd4ea158ba17bf17a9358ef3d4}{set\-\_\-waiter} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thr)
+\item 
+bool \hyperlink{classkmp__basic__flag_a2478619a6645b7d93cacadd3843149a8}{done\-\_\-check} ()
+\item 
+bool \hyperlink{classkmp__basic__flag_a4c3c9eb8b025aa26b047b96de2331286}{done\-\_\-check\-\_\-val} (Flag\-Type old\-\_\-loc)
+\item 
+bool \hyperlink{classkmp__basic__flag_aa3981ca4f1534af0c3302a4950c7b51c}{notdone\-\_\-check} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classkmp__basic__flag_aa238982a2c6f8357f7e98ebb304a18d1}{internal\-\_\-release} ()
+\item 
+Flag\-Type \hyperlink{classkmp__basic__flag_adad239a48ed436a6e109fbb15c17306c}{set\-\_\-sleeping} ()
+\item 
+Flag\-Type \hyperlink{classkmp__basic__flag_a6867e3744945bc7dd573c65684695a22}{unset\-\_\-sleeping} ()
+\item 
+bool \hyperlink{classkmp__basic__flag_ace5db2765c8401a9f19ba2d39942baf4}{is\-\_\-sleeping\-\_\-val} (Flag\-Type old\-\_\-loc)
+\item 
+bool \hyperlink{classkmp__basic__flag_a7a24177cc9ee6800ba0b9ec3b32e7e3c}{is\-\_\-sleeping} ()
+\item 
+bool \hyperlink{classkmp__basic__flag_a316cabead194d9e904c0e2277c008587}{is\-\_\-any\-\_\-sleeping} ()
+\item 
+kmp\-\_\-uint8 $\ast$ \hyperlink{classkmp__basic__flag_ac49c9ce721d91f321d1cfccc06a685cf}{get\-\_\-stolen} ()
+\item 
+enum \hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cf}{barrier\-\_\-type} \hyperlink{classkmp__basic__flag_abe1042797aee6220578ad29522b2e956}{get\-\_\-bt} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{structflag__traits}{flag\-\_\-traits}$<$ Flag\-Type $>$ \hyperlink{classkmp__basic__flag_a219ab80d54e50ffdd6db76d698b74246}{traits\-\_\-type}
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Flag\-Type \hyperlink{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}{checker}
+\item 
+\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$ \hyperlink{classkmp__basic__flag_a7011d738e46e39cd78dfad7eed5e79d5}{waiting\-\_\-threads} \mbox{[}1\mbox{]}
+\item 
+kmp\-\_\-uint32 \hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\-\_\-waiting\-\_\-threads}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Flag\-Type$>$class kmp\-\_\-basic\-\_\-flag$<$ Flag\-Type $>$}
+
+
+
+Definition at line 341 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+\subsection{Member Typedef Documentation}
+\hypertarget{classkmp__basic__flag_a219ab80d54e50ffdd6db76d698b74246}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!traits\-\_\-type@{traits\-\_\-type}}
+\index{traits\-\_\-type@{traits\-\_\-type}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{traits\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ typedef {\bf flag\-\_\-traits}$<$Flag\-Type$>$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::{\bf traits\-\_\-type}\hspace{0.3cm}{\ttfamily [private]}}}\label{classkmp__basic__flag_a219ab80d54e50ffdd6db76d698b74246}
+
+
+Definition at line 342 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classkmp__basic__flag_aa3f040aef2c063781419ab49285d4b6a}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}}
+\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{kmp\-\_\-basic\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::{\bf kmp\-\_\-basic\-\_\-flag} (
+\begin{DoxyParamCaption}
+\item[{volatile Flag\-Type $\ast$}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_aa3f040aef2c063781419ab49285d4b6a}
+
+
+Definition at line 347 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+347 : \hyperlink{classkmp__flag}{kmp\_flag<FlagType>}(\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, traits\_type::t), \hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\_waiting\_threads}(0) \{\}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a94bd75692e97fbbf547981f74a19286b}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}}
+\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{kmp\-\_\-basic\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::{\bf kmp\-\_\-basic\-\_\-flag} (
+\begin{DoxyParamCaption}
+\item[{volatile Flag\-Type $\ast$}]{p, }
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a94bd75692e97fbbf547981f74a19286b}
+
+
+Definition at line 348 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+348                                                           : \hyperlink{classkmp__flag}{kmp\_flag<FlagType>}(
+      \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, traits\_type::t), \hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\_waiting\_threads}(1) \{
+349         \hyperlink{classkmp__basic__flag_a7011d738e46e39cd78dfad7eed5e79d5}{waiting\_threads}[0] = thr; 
+350     \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a74d7dcf67d8fd1d67848a14eeb534654}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}}
+\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{kmp\-\_\-basic\-\_\-flag}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::{\bf kmp\-\_\-basic\-\_\-flag} (
+\begin{DoxyParamCaption}
+\item[{volatile Flag\-Type $\ast$}]{p, }
+\item[{Flag\-Type}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a74d7dcf67d8fd1d67848a14eeb534654}
+
+
+Definition at line 351 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+351 : \hyperlink{classkmp__flag}{kmp\_flag<FlagType>}(\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, traits\_type::t), \hyperlink{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}{checker}(c), 
+      \hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\_waiting\_threads}(0) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classkmp__basic__flag_a2478619a6645b7d93cacadd3843149a8}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!done\-\_\-check@{done\-\_\-check}}
+\index{done\-\_\-check@{done\-\_\-check}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{done\-\_\-check}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ bool {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::done\-\_\-check (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a2478619a6645b7d93cacadd3843149a8}
+\begin{DoxyReturn}{Returns}
+true if the flag object has been released. 
+\end{DoxyReturn}
+
+
+Definition at line 376 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+376 \{ \textcolor{keywordflow}{return} traits\_type::tcr(*(this->\textcolor{keyword}{get}())) == \hyperlink{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}{checker}; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a4c3c9eb8b025aa26b047b96de2331286}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!done\-\_\-check\-\_\-val@{done\-\_\-check\-\_\-val}}
+\index{done\-\_\-check\-\_\-val@{done\-\_\-check\-\_\-val}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{done\-\_\-check\-\_\-val}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ bool {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::done\-\_\-check\-\_\-val (
+\begin{DoxyParamCaption}
+\item[{Flag\-Type}]{old\-\_\-loc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a4c3c9eb8b025aa26b047b96de2331286}
+
+\begin{DoxyParams}{Parameters}
+{\em old\-\_\-loc} & in old value of flag \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the flag's old value indicates it was released. 
+\end{DoxyReturn}
+
+
+Definition at line 381 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+381 \{ \textcolor{keywordflow}{return} old\_loc == \hyperlink{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}{checker}; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_abe1042797aee6220578ad29522b2e956}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!get\-\_\-bt@{get\-\_\-bt}}
+\index{get\-\_\-bt@{get\-\_\-bt}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{get\-\_\-bt}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ enum {\bf barrier\-\_\-type} {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::get\-\_\-bt (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_abe1042797aee6220578ad29522b2e956}
+
+
+Definition at line 422 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+422 \{ \textcolor{keywordflow}{return} \hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\_last\_barrier}; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_ab1d3109c504f00e97e72e2ce7c109781}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!get\-\_\-num\-\_\-waiters@{get\-\_\-num\-\_\-waiters}}
+\index{get\-\_\-num\-\_\-waiters@{get\-\_\-num\-\_\-waiters}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{get\-\_\-num\-\_\-waiters}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ kmp\-\_\-uint32 {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::get\-\_\-num\-\_\-waiters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_ab1d3109c504f00e97e72e2ce7c109781}
+\begin{DoxyReturn}{Returns}
+num\-\_\-waiting\-\_\-threads 
+\end{DoxyReturn}
+
+
+Definition at line 363 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+363 \{ \textcolor{keywordflow}{return} \hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\_waiting\_threads}; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_ac49c9ce721d91f321d1cfccc06a685cf}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!get\-\_\-stolen@{get\-\_\-stolen}}
+\index{get\-\_\-stolen@{get\-\_\-stolen}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{get\-\_\-stolen}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ kmp\-\_\-uint8$\ast$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::get\-\_\-stolen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_ac49c9ce721d91f321d1cfccc06a685cf}
+
+
+Definition at line 421 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+421 \{ \textcolor{keywordflow}{return} NULL; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a9bda9152e187ebdd45ddce7fb4e70bbf}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!get\-\_\-waiter@{get\-\_\-waiter}}
+\index{get\-\_\-waiter@{get\-\_\-waiter}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{get\-\_\-waiter}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf kmp\-\_\-info\-\_\-t}$\ast$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::get\-\_\-waiter (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-uint32}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a9bda9152e187ebdd45ddce7fb4e70bbf}
+param i in index into waiting\-\_\-threads \begin{DoxyReturn}{Returns}
+the thread that is waiting at index i 
+\end{DoxyReturn}
+
+
+Definition at line 356 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+356                                           \{ 
+357         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<\hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\_waiting\_threads});
+358         \textcolor{keywordflow}{return} \hyperlink{classkmp__basic__flag_a7011d738e46e39cd78dfad7eed5e79d5}{waiting\_threads}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; 
+359     \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_aa238982a2c6f8357f7e98ebb304a18d1}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!internal\-\_\-release@{internal\-\_\-release}}
+\index{internal\-\_\-release@{internal\-\_\-release}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{internal\-\_\-release}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf void} {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::internal\-\_\-release (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_aa238982a2c6f8357f7e98ebb304a18d1}
+\begin{DoxyReturn}{Returns}
+Actual flag value before release was applied. Trigger all waiting threads to run by modifying flag to release state. 
+\end{DoxyReturn}
+
+
+Definition at line 394 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+394                             \{
+395         (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) traits\_type::test\_then\_add4((\textcolor{keyword}{volatile} FlagType *)this->\textcolor{keyword}{get}());
+396     \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a316cabead194d9e904c0e2277c008587}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!is\-\_\-any\-\_\-sleeping@{is\-\_\-any\-\_\-sleeping}}
+\index{is\-\_\-any\-\_\-sleeping@{is\-\_\-any\-\_\-sleeping}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{is\-\_\-any\-\_\-sleeping}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ bool {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::is\-\_\-any\-\_\-sleeping (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a316cabead194d9e904c0e2277c008587}
+
+
+Definition at line 420 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+420 \{ \textcolor{keywordflow}{return} \hyperlink{classkmp__basic__flag_ace5db2765c8401a9f19ba2d39942baf4}{is\_sleeping\_val}(*(this->\textcolor{keyword}{get}())); \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a7a24177cc9ee6800ba0b9ec3b32e7e3c}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!is\-\_\-sleeping@{is\-\_\-sleeping}}
+\index{is\-\_\-sleeping@{is\-\_\-sleeping}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{is\-\_\-sleeping}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ bool {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::is\-\_\-sleeping (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a7a24177cc9ee6800ba0b9ec3b32e7e3c}
+Test whether there are threads sleeping on the flag. 
+
+Definition at line 419 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+419 \{ \textcolor{keywordflow}{return} \hyperlink{classkmp__basic__flag_ace5db2765c8401a9f19ba2d39942baf4}{is\_sleeping\_val}(*(this->\textcolor{keyword}{get}())); \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_ace5db2765c8401a9f19ba2d39942baf4}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!is\-\_\-sleeping\-\_\-val@{is\-\_\-sleeping\-\_\-val}}
+\index{is\-\_\-sleeping\-\_\-val@{is\-\_\-sleeping\-\_\-val}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{is\-\_\-sleeping\-\_\-val}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ bool {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::is\-\_\-sleeping\-\_\-val (
+\begin{DoxyParamCaption}
+\item[{Flag\-Type}]{old\-\_\-loc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_ace5db2765c8401a9f19ba2d39942baf4}
+
+\begin{DoxyParams}{Parameters}
+{\em old\-\_\-loc} & in old value of flag Test whether there are threads sleeping on the flag's old value in old\-\_\-loc. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 415 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::is\-\_\-any\-\_\-sleeping(), and kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::is\-\_\-sleeping().
+
+
+\begin{DoxyCode}
+415 \{ \textcolor{keywordflow}{return} old\_loc & \hyperlink{kmp_8h_a5aea6667969b3c0ec527b73b22aa71e2}{KMP\_BARRIER\_SLEEP\_STATE}; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_aa3981ca4f1534af0c3302a4950c7b51c}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!notdone\-\_\-check@{notdone\-\_\-check}}
+\index{notdone\-\_\-check@{notdone\-\_\-check}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{notdone\-\_\-check}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ bool {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::notdone\-\_\-check (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_aa3981ca4f1534af0c3302a4950c7b51c}
+\begin{DoxyReturn}{Returns}
+true if the flag object is not yet released. Used in \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template like\-: 
+\begin{DoxyCode}
+\textcolor{keywordflow}{while} (flag.notdone\_check()) \{ pause(); \}
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+
+
+Definition at line 389 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+389 \{ \textcolor{keywordflow}{return} traits\_type::tcr(*(this->\textcolor{keyword}{get}())) != \hyperlink{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}{checker}; \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_adad239a48ed436a6e109fbb15c17306c}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!set\-\_\-sleeping@{set\-\_\-sleeping}}
+\index{set\-\_\-sleeping@{set\-\_\-sleeping}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{set\-\_\-sleeping}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ Flag\-Type {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::set\-\_\-sleeping (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_adad239a48ed436a6e109fbb15c17306c}
+\begin{DoxyReturn}{Returns}
+Actual flag value before sleep bit(s) set. Notes that there is at least one thread sleeping on the flag by setting sleep bit(s). 
+\end{DoxyReturn}
+
+
+Definition at line 401 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+401                             \{ 
+402         \textcolor{keywordflow}{return} traits\_type::test\_then\_or((\textcolor{keyword}{volatile} FlagType *)this->\textcolor{keyword}{get}(), 
+      \hyperlink{kmp_8h_a5aea6667969b3c0ec527b73b22aa71e2}{KMP\_BARRIER\_SLEEP\_STATE});
+403     \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a594260bd4ea158ba17bf17a9358ef3d4}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!set\-\_\-waiter@{set\-\_\-waiter}}
+\index{set\-\_\-waiter@{set\-\_\-waiter}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{set\-\_\-waiter}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf void} {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::set\-\_\-waiter (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a594260bd4ea158ba17bf17a9358ef3d4}
+
+\begin{DoxyParams}{Parameters}
+{\em thr} & in the thread which is now waiting\\
+\hline
+\end{DoxyParams}
+Insert a waiting thread at index 0. 
+
+Definition at line 369 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-hyper\-\_\-barrier\-\_\-gather().
+
+
+\begin{DoxyCode}
+369                                      \{ 
+370         \hyperlink{classkmp__basic__flag_a7011d738e46e39cd78dfad7eed5e79d5}{waiting\_threads}[0] = thr; 
+371         \hyperlink{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{num\_waiting\_threads} = 1;
+372     \}
+\end{DoxyCode}
+\hypertarget{classkmp__basic__flag_a6867e3744945bc7dd573c65684695a22}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!unset\-\_\-sleeping@{unset\-\_\-sleeping}}
+\index{unset\-\_\-sleeping@{unset\-\_\-sleeping}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{unset\-\_\-sleeping}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ Flag\-Type {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::unset\-\_\-sleeping (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classkmp__basic__flag_a6867e3744945bc7dd573c65684695a22}
+\begin{DoxyReturn}{Returns}
+Actual flag value before sleep bit(s) cleared. Notes that there are no longer threads sleeping on the flag by clearing sleep bit(s). 
+\end{DoxyReturn}
+
+
+Definition at line 408 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+\begin{DoxyCode}
+408                               \{ 
+409         \textcolor{keywordflow}{return} traits\_type::test\_then\_and((\textcolor{keyword}{volatile} FlagType *)this->\textcolor{keyword}{get}(), ~
+      \hyperlink{kmp_8h_a5aea6667969b3c0ec527b73b22aa71e2}{KMP\_BARRIER\_SLEEP\_STATE});
+410     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!checker@{checker}}
+\index{checker@{checker}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{checker}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ Flag\-Type {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::checker\hspace{0.3cm}{\ttfamily [private]}}}\label{classkmp__basic__flag_ab23a153efd5b913c52cfe0999722812f}
+Value to compare flag to to check if flag has been released. 
+
+Definition at line 343 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::done\-\_\-check(), kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::done\-\_\-check\-\_\-val(), and kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::notdone\-\_\-check().
+
+\hypertarget{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!num\-\_\-waiting\-\_\-threads@{num\-\_\-waiting\-\_\-threads}}
+\index{num\-\_\-waiting\-\_\-threads@{num\-\_\-waiting\-\_\-threads}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{num\-\_\-waiting\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ kmp\-\_\-uint32 {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::num\-\_\-waiting\-\_\-threads\hspace{0.3cm}{\ttfamily [private]}}}\label{classkmp__basic__flag_a71d958593d12ea5389ca5a32864d276c}
+Number of threads sleeping on this thread. 
+
+Definition at line 345 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::get\-\_\-num\-\_\-waiters(), kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::get\-\_\-waiter(), and kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::set\-\_\-waiter().
+
+\hypertarget{classkmp__basic__flag_a7011d738e46e39cd78dfad7eed5e79d5}{\index{kmp\-\_\-basic\-\_\-flag@{kmp\-\_\-basic\-\_\-flag}!waiting\-\_\-threads@{waiting\-\_\-threads}}
+\index{waiting\-\_\-threads@{waiting\-\_\-threads}!kmp_basic_flag@{kmp\-\_\-basic\-\_\-flag}}
+\subsubsection[{waiting\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Flag\-Type$>$ {\bf kmp\-\_\-info\-\_\-t}$\ast$ {\bf kmp\-\_\-basic\-\_\-flag}$<$ Flag\-Type $>$\-::waiting\-\_\-threads\mbox{[}1\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}}\label{classkmp__basic__flag_a7011d738e46e39cd78dfad7eed5e79d5}
+Array of threads sleeping on this thread. 
+
+Definition at line 344 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::get\-\_\-waiter(), kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::kmp\-\_\-basic\-\_\-flag(), and kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::set\-\_\-waiter().
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__wait__release_8h}{kmp\-\_\-wait\-\_\-release.\-h}\end{DoxyCompactItemize}

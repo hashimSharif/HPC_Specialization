@@ -1,0 +1,55 @@
+\hypertarget{group__legacy__control}{\section{Collection Control}
+\label{group__legacy__control}\index{Collection Control@{Collection Control}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__legacy__control_gad78ccc44054839ddacb2f9c6a1db05f0}{\-\_\-\-\_\-itt\-\_\-pause} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\begin{DoxyCompactList}\small\item\em Pause collection. \end{DoxyCompactList}\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__legacy__control_ga49d9a951d74ef2fe9f93d2a60adfe0e9}{\-\_\-\-\_\-itt\-\_\-resume} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\begin{DoxyCompactList}\small\item\em Resume collection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+General behavior\-: application continues to run, but no profiling information is being collected
+
+Pausing occurs not only for the current thread but for all process as well as spawned processes
+\begin{DoxyItemize}
+\item Intel(\-R) Parallel Inspector and Intel(\-R) Inspector X\-E\-:
+\begin{DoxyItemize}
+\item Does not analyze or report errors that involve memory access.
+\item Other errors are reported as usual. Pausing data collection in Intel(\-R) Parallel Inspector and Intel(\-R) Inspector X\-E only pauses tracing and analyzing memory access. It does not pause tracing or analyzing threading A\-P\-Is.
+\end{DoxyItemize}
+\item Intel(\-R) Parallel Amplifier and Intel(\-R) V\-Tune(\-T\-M) Amplifier X\-E\-:
+\begin{DoxyItemize}
+\item Does continue to record when new threads are started.
+\end{DoxyItemize}
+\item Other effects\-:
+\begin{DoxyItemize}
+\item Possible reduction of runtime overhead.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection{Function Documentation}
+\hypertarget{group__legacy__control_gad78ccc44054839ddacb2f9c6a1db05f0}{\index{Collection Control@{Collection Control}!\-\_\-\-\_\-itt\-\_\-pause@{\-\_\-\-\_\-itt\-\_\-pause}}
+\index{\-\_\-\-\_\-itt\-\_\-pause@{\-\_\-\-\_\-itt\-\_\-pause}!Collection Control@{Collection Control}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-pause}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-pause (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{group__legacy__control_gad78ccc44054839ddacb2f9c6a1db05f0}
+
+
+Pause collection. 
+
+\hypertarget{group__legacy__control_ga49d9a951d74ef2fe9f93d2a60adfe0e9}{\index{Collection Control@{Collection Control}!\-\_\-\-\_\-itt\-\_\-resume@{\-\_\-\-\_\-itt\-\_\-resume}}
+\index{\-\_\-\-\_\-itt\-\_\-resume@{\-\_\-\-\_\-itt\-\_\-resume}!Collection Control@{Collection Control}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-resume}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-resume (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{group__legacy__control_ga49d9a951d74ef2fe9f93d2a60adfe0e9}
+
+
+Resume collection. 
+

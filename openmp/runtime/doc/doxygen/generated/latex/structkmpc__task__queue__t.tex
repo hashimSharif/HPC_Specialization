@@ -1,0 +1,361 @@
+\hypertarget{structkmpc__task__queue__t}{\section{kmpc\-\_\-task\-\_\-queue\-\_\-t Struct Reference}
+\label{structkmpc__task__queue__t}\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+}
+
+
+{\ttfamily \#include $<$kmp.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__lock_8h_ad1928c8c2d45f7848000a372ec4fde54}{kmp\-\_\-lock\-\_\-t} \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\-\_\-link\-\_\-lck}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} $\ast$ \hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}\\
+\>struct \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} $\ast$ \hyperlink{structkmpc__task__queue__t_a1ed21643e12300700496257e9d543351}{tq\_next\_free}\\
+\} \hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}\\
+
+\end{tabbing}\item 
+volatile struct \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\-\_\-first\-\_\-child}
+\item 
+struct \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\-\_\-next\-\_\-child}
+\item 
+struct \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\-\_\-prev\-\_\-child}
+\item 
+volatile kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\-\_\-ref\-\_\-count}
+\item 
+struct \hyperlink{structkmpc__aligned__shared__vars__t}{kmpc\-\_\-aligned\-\_\-shared\-\_\-vars\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\-\_\-shareds}
+\item 
+kmp\-\_\-uint32 \hyperlink{structkmpc__task__queue__t_a7b1cdbff4f4f72e05cdf28dbb0b25cc9}{tq\-\_\-tasknum\-\_\-queuing}
+\item 
+volatile kmp\-\_\-uint32 \hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\-\_\-tasknum\-\_\-serving}
+\item 
+\hyperlink{kmp__lock_8h_ad1928c8c2d45f7848000a372ec4fde54}{kmp\-\_\-lock\-\_\-t} \hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\-\_\-free\-\_\-thunks\-\_\-lck}
+\item 
+struct \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\-\_\-free\-\_\-thunks}
+\item 
+struct \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_a2ba2f7f3ea4c47df06f7220d66a9064e}{tq\-\_\-thunk\-\_\-space}
+\item 
+\hyperlink{kmp__lock_8h_ad1928c8c2d45f7848000a372ec4fde54}{kmp\-\_\-lock\-\_\-t} \hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\-\_\-queue\-\_\-lck}
+\item 
+\hyperlink{structkmpc__aligned__queue__slot__t}{kmpc\-\_\-aligned\-\_\-queue\-\_\-slot\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{tq\-\_\-queue}
+\item 
+volatile struct \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\-\_\-taskq\-\_\-slot}
+\item 
+kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\-\_\-nslots}
+\item 
+kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{tq\-\_\-head}
+\item 
+kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{tq\-\_\-tail}
+\item 
+volatile kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\-\_\-nfull}
+\item 
+kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_aeda8f2eb9c68ba154a41c7c839473fec}{tq\-\_\-hiwat}
+\item 
+volatile kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\-\_\-flags}
+\item 
+struct \hyperlink{structkmpc__aligned__int32__t}{kmpc\-\_\-aligned\-\_\-int32\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\-\_\-th\-\_\-thunks}
+\item 
+kmp\-\_\-int32 \hyperlink{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{tq\-\_\-nproc}
+\item 
+\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$ \hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\-\_\-loc}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1316 of file kmp.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq@{tq}}
+\index{tq@{tq}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq}}\label{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-first\-\_\-child@{tq\-\_\-first\-\_\-child}}
+\index{tq\-\_\-first\-\_\-child@{tq\-\_\-first\-\_\-child}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-first\-\_\-child}]{\setlength{\rightskip}{0pt plus 5cm}volatile struct {\bf kmpc\-\_\-task\-\_\-queue\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-first\-\_\-child}}\label{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}
+
+
+Definition at line 1323 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-flags@{tq\-\_\-flags}}
+\index{tq\-\_\-flags@{tq\-\_\-flags}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-flags}}\label{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}
+
+
+Definition at line 1352 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-free\-\_\-thunks@{tq\-\_\-free\-\_\-thunks}}
+\index{tq\-\_\-free\-\_\-thunks@{tq\-\_\-free\-\_\-thunks}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-free\-\_\-thunks}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-free\-\_\-thunks}}\label{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}
+
+
+Definition at line 1340 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-free\-\_\-thunks\-\_\-lck@{tq\-\_\-free\-\_\-thunks\-\_\-lck}}
+\index{tq\-\_\-free\-\_\-thunks\-\_\-lck@{tq\-\_\-free\-\_\-thunks\-\_\-lck}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-free\-\_\-thunks\-\_\-lck}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-lock\-\_\-t} kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-free\-\_\-thunks\-\_\-lck}}\label{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}
+
+
+Definition at line 1339 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), and \-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk().
+
+\hypertarget{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-head@{tq\-\_\-head}}
+\index{tq\-\_\-head@{tq\-\_\-head}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-head}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-head}}\label{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}
+
+
+Definition at line 1348 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_aeda8f2eb9c68ba154a41c7c839473fec}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-hiwat@{tq\-\_\-hiwat}}
+\index{tq\-\_\-hiwat@{tq\-\_\-hiwat}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-hiwat}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-hiwat}}\label{structkmpc__task__queue__t_aeda8f2eb9c68ba154a41c7c839473fec}
+
+
+Definition at line 1351 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-link\-\_\-lck@{tq\-\_\-link\-\_\-lck}}
+\index{tq\-\_\-link\-\_\-lck@{tq\-\_\-link\-\_\-lck}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-link\-\_\-lck}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-lock\-\_\-t} kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-link\-\_\-lck}}\label{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}
+
+
+Definition at line 1318 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-loc@{tq\-\_\-loc}}
+\index{tq\-\_\-loc@{tq\-\_\-loc}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-loc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ident\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-loc}}\label{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}
+
+
+Definition at line 1359 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-next\-\_\-child@{tq\-\_\-next\-\_\-child}}
+\index{tq\-\_\-next\-\_\-child@{tq\-\_\-next\-\_\-child}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-next\-\_\-child}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-task\-\_\-queue\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-next\-\_\-child}}\label{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}
+
+
+Definition at line 1324 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a1ed21643e12300700496257e9d543351}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-next\-\_\-free@{tq\-\_\-next\-\_\-free}}
+\index{tq\-\_\-next\-\_\-free@{tq\-\_\-next\-\_\-free}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-next\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-task\-\_\-queue\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-next\-\_\-free}}\label{structkmpc__task__queue__t_a1ed21643e12300700496257e9d543351}
+
+
+Definition at line 1321 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), and \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-nfull@{tq\-\_\-nfull}}
+\index{tq\-\_\-nfull@{tq\-\_\-nfull}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-nfull}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-nfull}}\label{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}
+
+
+Definition at line 1350 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-task(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-nproc@{tq\-\_\-nproc}}
+\index{tq\-\_\-nproc@{tq\-\_\-nproc}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-nproc}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-nproc}}\label{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}
+
+
+Definition at line 1356 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), and \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished().
+
+\hypertarget{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-nslots@{tq\-\_\-nslots}}
+\index{tq\-\_\-nslots@{tq\-\_\-nslots}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-nslots}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-nslots}}\label{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}
+
+
+Definition at line 1347 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-parent@{tq\-\_\-parent}}
+\index{tq\-\_\-parent@{tq\-\_\-parent}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-parent}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-task\-\_\-queue\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-parent}}\label{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}
+
+
+Definition at line 1320 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-prev\-\_\-child@{tq\-\_\-prev\-\_\-child}}
+\index{tq\-\_\-prev\-\_\-child@{tq\-\_\-prev\-\_\-child}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-prev\-\_\-child}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-task\-\_\-queue\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-prev\-\_\-child}}\label{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}
+
+
+Definition at line 1325 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-queue@{tq\-\_\-queue}}
+\index{tq\-\_\-queue@{tq\-\_\-queue}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmpc\-\_\-aligned\-\_\-queue\-\_\-slot\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-queue}}\label{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}
+
+
+Definition at line 1345 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task(), and \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-queue\-\_\-lck@{tq\-\_\-queue\-\_\-lck}}
+\index{tq\-\_\-queue\-\_\-lck@{tq\-\_\-queue\-\_\-lck}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-queue\-\_\-lck}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-lock\-\_\-t} kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-queue\-\_\-lck}}\label{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}
+
+
+Definition at line 1344 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task().
+
+\hypertarget{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-ref\-\_\-count@{tq\-\_\-ref\-\_\-count}}
+\index{tq\-\_\-ref\-\_\-count@{tq\-\_\-ref\-\_\-count}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-ref\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-ref\-\_\-count}}\label{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}
+
+
+Definition at line 1326 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-shareds@{tq\-\_\-shareds}}
+\index{tq\-\_\-shareds@{tq\-\_\-shareds}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-shareds}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-aligned\-\_\-shared\-\_\-vars\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-shareds}}\label{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}
+
+
+Definition at line 1331 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-tail@{tq\-\_\-tail}}
+\index{tq\-\_\-tail@{tq\-\_\-tail}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-tail}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-tail}}\label{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}
+
+
+Definition at line 1349 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a7b1cdbff4f4f72e05cdf28dbb0b25cc9}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-tasknum\-\_\-queuing@{tq\-\_\-tasknum\-\_\-queuing}}
+\index{tq\-\_\-tasknum\-\_\-queuing@{tq\-\_\-tasknum\-\_\-queuing}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-tasknum\-\_\-queuing}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-tasknum\-\_\-queuing}}\label{structkmpc__task__queue__t_a7b1cdbff4f4f72e05cdf28dbb0b25cc9}
+
+
+Definition at line 1335 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-task(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-tasknum\-\_\-serving@{tq\-\_\-tasknum\-\_\-serving}}
+\index{tq\-\_\-tasknum\-\_\-serving@{tq\-\_\-tasknum\-\_\-serving}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-tasknum\-\_\-serving}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-uint32 kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-tasknum\-\_\-serving}}\label{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}
+
+
+Definition at line 1336 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-taskq\-\_\-slot@{tq\-\_\-taskq\-\_\-slot}}
+\index{tq\-\_\-taskq\-\_\-slot@{tq\-\_\-taskq\-\_\-slot}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-taskq\-\_\-slot}]{\setlength{\rightskip}{0pt plus 5cm}volatile struct {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-taskq\-\_\-slot}}\label{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}
+
+
+Definition at line 1346 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task().
+
+\hypertarget{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-th\-\_\-thunks@{tq\-\_\-th\-\_\-thunks}}
+\index{tq\-\_\-th\-\_\-thunks@{tq\-\_\-th\-\_\-thunks}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-th\-\_\-thunks}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-aligned\-\_\-int32\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-th\-\_\-thunks}}\label{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}
+
+
+Definition at line 1355 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+\hypertarget{structkmpc__task__queue__t_a2ba2f7f3ea4c47df06f7220d66a9064e}{\index{kmpc\-\_\-task\-\_\-queue\-\_\-t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}!tq\-\_\-thunk\-\_\-space@{tq\-\_\-thunk\-\_\-space}}
+\index{tq\-\_\-thunk\-\_\-space@{tq\-\_\-thunk\-\_\-space}!kmpc_task_queue_t@{kmpc\-\_\-task\-\_\-queue\-\_\-t}}
+\subsubsection[{tq\-\_\-thunk\-\_\-space}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ kmpc\-\_\-task\-\_\-queue\-\_\-t\-::tq\-\_\-thunk\-\_\-space}}\label{structkmpc__task__queue__t_a2ba2f7f3ea4c47df06f7220d66a9064e}
+
+
+Definition at line 1341 of file kmp.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), and \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq().
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp_8h}{kmp.\-h}\end{DoxyCompactItemize}

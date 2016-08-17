@@ -1,0 +1,360 @@
+\hypertarget{kmp__cancel_8cpp}{\section{kmp\-\_\-cancel.\-cpp File Reference}
+\label{kmp__cancel_8cpp}\index{kmp\-\_\-cancel.\-cpp@{kmp\-\_\-cancel.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-io.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-str.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__cancel_8cpp_af2c0d54dfa18f36c17cd9b4659adb858}{\-\_\-\-\_\-kmpc\-\_\-cancel} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-int32 cncl\-\_\-kind)
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__cancel_8cpp_a1cc2bf9431ce18c4437401c2a866781c}{\-\_\-\-\_\-kmpc\-\_\-cancellationpoint} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-int32 cncl\-\_\-kind)
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__cancel_8cpp_ad9df98c9cc81f24f8aa58d83c1d01245}{\-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__cancel_8cpp_a1ceea880fffcc1da39f9c35cce3f3bf3}{\-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} cancel\-\_\-kind)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__cancel_8cpp_a1ceea880fffcc1da39f9c35cce3f3bf3}{\index{kmp\-\_\-cancel.\-cpp@{kmp\-\_\-cancel.\-cpp}!\-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status@{\-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status}}
+\index{\-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status@{\-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status}!kmp_cancel.cpp@{kmp\-\_\-cancel.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{cancel\-\_\-kind}
+\end{DoxyParamCaption}
+)}}\label{kmp__cancel_8cpp_a1ceea880fffcc1da39f9c35cce3f3bf3}
+
+\begin{DoxyParams}{Parameters}
+{\em loc\-\_\-ref} & location of the original task directive \\
+\hline
+{\em gtid} & Global thread I\-D of encountering thread\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if a matching cancellation request has been flagged in the R\-T\-L and the encountering thread has to cancel..
+\end{DoxyReturn}
+Query function to query the current status of cancellation requests. Can be used to implement the following pattern\-:
+
+if (kmp\-\_\-get\-\_\-cancellation\-\_\-status(kmp\-\_\-cancel\-\_\-parallel)) \{ perform\-\_\-cleanup(); \#pragma omp cancellation point parallel \} 
+
+Definition at line 256 of file kmp\-\_\-cancel.\-cpp.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-S\-T\-A\-T\-U\-S().
+
+
+\begin{DoxyCode}
+256                                                    \{
+257     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+258         \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *this\_thr = \hyperlink{kmp_8h_ab5c65087a44197c3b69cd133df0d6f85}{\_\_kmp\_entry\_thread}();
+259         
+260         \textcolor{keywordflow}{switch} (cancel\_kind) \{
+261         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel}:
+262         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop}:
+263         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections}:
+264             \{
+265                 \hyperlink{unionkmp__team}{kmp\_team\_t} *this\_team = this\_thr->th.th\_team;
+266                 \textcolor{keywordflow}{return} this\_team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request == cancel\_kind;
+267             \}
+268         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup}:
+269             \{
+270                 \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t}*  \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}; 
+271                 \hyperlink{structkmp__taskgroup}{kmp\_taskgroup\_t}* taskgroup;
+272                 task = this\_thr->th.th\_current\_task;
+273                 taskgroup = task->\hyperlink{structkmp__taskdata_a568185a9e8c23a1682491fa55973d61c}{td\_taskgroup};
+274                 \textcolor{keywordflow}{return} taskgroup && taskgroup->\hyperlink{structkmp__taskgroup_a0775c7306150a24b509b4f897be92bce}{cancel\_request};
+275             \}
+276         \}
+277     \}
+278 
+279     \textcolor{keywordflow}{return} 0 \textcolor{comment}{/* false */};
+280 \}
+\end{DoxyCode}
+\hypertarget{kmp__cancel_8cpp_af2c0d54dfa18f36c17cd9b4659adb858}{\index{kmp\-\_\-cancel.\-cpp@{kmp\-\_\-cancel.\-cpp}!\-\_\-\-\_\-kmpc\-\_\-cancel@{\-\_\-\-\_\-kmpc\-\_\-cancel}}
+\index{\-\_\-\-\_\-kmpc\-\_\-cancel@{\-\_\-\-\_\-kmpc\-\_\-cancel}!kmp_cancel.cpp@{kmp\-\_\-cancel.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-cancel}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-cancel (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{kmp\-\_\-int32}]{cncl\-\_\-kind}
+\end{DoxyParamCaption}
+)}}\label{kmp__cancel_8cpp_af2c0d54dfa18f36c17cd9b4659adb858}
+
+\begin{DoxyParams}{Parameters}
+{\em loc\-\_\-ref} & location of the original task directive \\
+\hline
+{\em gtid} & Global thread I\-D of encountering thread \\
+\hline
+{\em cncl\-\_\-kind} & Cancellation kind (parallel, for, sections, taskgroup)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if the cancellation request has been activated and the execution thread needs to proceed to the end of the canceled region.
+\end{DoxyReturn}
+Request cancellation of the binding Open\-M\-P region. 
+
+Definition at line 30 of file kmp\-\_\-cancel.\-cpp.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L().
+
+
+\begin{DoxyCode}
+30                                                                                \{
+31     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *this\_thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads} [ gtid ];
+32     
+33     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_cancel: T#%d request %d OMP\_CANCELLATION=%d\(\backslash\)n"}, gtid, cncl\_kind, 
+      \hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) );
+34 
+35     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(cncl\_kind != \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq});
+36     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(cncl\_kind == \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel} || cncl\_kind == 
+      \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop} || 
+37                      cncl\_kind == \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections} || cncl\_kind == 
+      \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup}); 
+38     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}() == gtid);
+39 
+40     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+41         \textcolor{keywordflow}{switch} (cncl\_kind) \{
+42         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel}:
+43         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop}:
+44         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections}:
+45             \textcolor{comment}{// cancellation requests for parallel and worksharing constructs}
+46             \textcolor{comment}{// are handled through the team structure}
+47             \{
+48                 \hyperlink{unionkmp__team}{kmp\_team\_t} *this\_team = this\_thr->th.th\_team;
+49                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(this\_team);
+50                 kmp\_int32 old = \hyperlink{kmp__os_8h_a67a9c509745e1b1a75c5ec9dc3a03b81}{KMP\_COMPARE\_AND\_STORE\_RET32}(&(this\_team->
+      \hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request), \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq}, cncl\_kind);
+51                 \textcolor{keywordflow}{if} (old == \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq} || old == cncl\_kind) \{
+52                     \textcolor{comment}{//printf("\_\_kmpc\_cancel: this\_team->t.t\_cancel\_request=%d @ %p\(\backslash\)n", }
+53                     \textcolor{comment}{//       this\_team->t.t\_cancel\_request, &(this\_team->t.t\_cancel\_request));}
+54                     \textcolor{comment}{// we do not have a cancellation request in this team or we do have one}
+55                     \textcolor{comment}{// that matches the current request -> cancel}
+56                     \textcolor{keywordflow}{return} 1 \textcolor{comment}{/* true */};
+57                 \}
+58                 \textcolor{keywordflow}{break};
+59             \}
+60         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup}:
+61             \textcolor{comment}{// cancellation requests for a task group}
+62             \textcolor{comment}{// are handled through the taskgroup structure}
+63             \{
+64                 \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t}*  \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}; 
+65                 \hyperlink{structkmp__taskgroup}{kmp\_taskgroup\_t}* taskgroup;
+66                 
+67                 task = this\_thr->th.th\_current\_task;
+68                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( task );
+69                 
+70                 taskgroup = task->\hyperlink{structkmp__taskdata_a568185a9e8c23a1682491fa55973d61c}{td\_taskgroup};
+71                 \textcolor{keywordflow}{if} (taskgroup) \{
+72                     kmp\_int32 old = \hyperlink{kmp__os_8h_a67a9c509745e1b1a75c5ec9dc3a03b81}{KMP\_COMPARE\_AND\_STORE\_RET32}(&(taskgroup->
+      \hyperlink{structkmp__taskgroup_a0775c7306150a24b509b4f897be92bce}{cancel\_request}), \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq}, cncl\_kind);
+73                     \textcolor{keywordflow}{if} (old == \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq} || old == cncl\_kind) \{
+74                         \textcolor{comment}{// we do not have a cancellation request in this taskgroup or we do have one}
+75                         \textcolor{comment}{// that matches the current request -> cancel}
+76                         \textcolor{keywordflow}{return} 1 \textcolor{comment}{/* true */};
+77                     \}
+78                 \}
+79                 \textcolor{keywordflow}{else} \{
+80                     \textcolor{comment}{// TODO: what needs to happen here?}
+81                     \textcolor{comment}{// the specification disallows cancellation w/o taskgroups}
+82                     \textcolor{comment}{// so we might do anything here, let's abort for now}
+83                     \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}( 0 \textcolor{comment}{/* false */});
+84                 \}
+85             \}
+86             \textcolor{keywordflow}{break};
+87         \textcolor{keywordflow}{default}:
+88             \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT} (0 \textcolor{comment}{/* false */});
+89         \}
+90     \}
+91 
+92     \textcolor{comment}{// ICV OMP\_CANCELLATION=false, so we ignored this cancel request}
+93     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(!\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation});
+94     \textcolor{keywordflow}{return} 0 \textcolor{comment}{/* false */};
+95 \}
+\end{DoxyCode}
+\hypertarget{kmp__cancel_8cpp_ad9df98c9cc81f24f8aa58d83c1d01245}{\index{kmp\-\_\-cancel.\-cpp@{kmp\-\_\-cancel.\-cpp}!\-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier@{\-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier}}
+\index{\-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier@{\-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier}!kmp_cancel.cpp@{kmp\-\_\-cancel.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{kmp__cancel_8cpp_ad9df98c9cc81f24f8aa58d83c1d01245}
+
+\begin{DoxyParams}{Parameters}
+{\em loc\-\_\-ref} & location of the original task directive \\
+\hline
+{\em gtid} & Global thread I\-D of encountering thread\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if a matching cancellation request has been flagged in the R\-T\-L and the encountering thread has to cancel..
+\end{DoxyReturn}
+Barrier with cancellation point to send threads from the barrier to the end of the parallel region. Needs a special code pattern as documented in the design document for the cancellation feature. 
+
+Definition at line 189 of file kmp\-\_\-cancel.\-cpp.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L().
+
+
+\begin{DoxyCode}
+189                                                     \{
+190     \textcolor{keywordtype}{int} ret = 0 \textcolor{comment}{/* false */};
+191     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *this\_thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads} [ gtid ];
+192     \hyperlink{unionkmp__team}{kmp\_team\_t} *this\_team = this\_thr->th.th\_team;
+193 
+194     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}() == gtid);
+195 
+196     \textcolor{comment}{// call into the standard barrier}
+197     \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\_\_kmpc\_barrier}(loc, gtid);
+198 
+199     \textcolor{comment}{// if cancellation is active, check cancellation flag}
+200     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+201         \textcolor{comment}{// depending on which construct to cancel, check the flag and}
+202         \textcolor{comment}{// reset the flag}
+203         \textcolor{keywordflow}{switch} (this\_team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request) \{
+204         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel}:
+205             ret = 1;
+206             \textcolor{comment}{// ensure that threads have checked the flag, when}
+207             \textcolor{comment}{// leaving the above barrier}
+208             \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\_\_kmpc\_barrier}(loc, gtid);
+209             this\_team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request = \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq};
+210             \textcolor{comment}{// the next barrier is the fork/join barrier, which}
+211             \textcolor{comment}{// synchronizes the threads leaving here        }
+212             \textcolor{keywordflow}{break};
+213         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop}:
+214         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections}:
+215             ret = 1;
+216             \textcolor{comment}{// ensure that threads have checked the flag, when}
+217             \textcolor{comment}{// leaving the above barrier}
+218             \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\_\_kmpc\_barrier}(loc, gtid);
+219             this\_team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request = \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq};
+220             \textcolor{comment}{// synchronize the threads again to make sure we}
+221             \textcolor{comment}{// do not have any run-away threads that cause a race}
+222             \textcolor{comment}{// on the cancellation flag}
+223             \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\_\_kmpc\_barrier}(loc, gtid);
+224             \textcolor{keywordflow}{break};
+225         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup}:
+226             \textcolor{comment}{// this case should not occur}
+227             \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT} (0 \textcolor{comment}{/* false */} );
+228             \textcolor{keywordflow}{break};
+229         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq}:
+230             \textcolor{comment}{// do nothing}
+231             \textcolor{keywordflow}{break};
+232         \textcolor{keywordflow}{default}:
+233             \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT} ( 0 \textcolor{comment}{/* false */});
+234         \}
+235     \}
+236     
+237     \textcolor{keywordflow}{return} ret;
+238 \}
+\end{DoxyCode}
+\hypertarget{kmp__cancel_8cpp_a1cc2bf9431ce18c4437401c2a866781c}{\index{kmp\-\_\-cancel.\-cpp@{kmp\-\_\-cancel.\-cpp}!\-\_\-\-\_\-kmpc\-\_\-cancellationpoint@{\-\_\-\-\_\-kmpc\-\_\-cancellationpoint}}
+\index{\-\_\-\-\_\-kmpc\-\_\-cancellationpoint@{\-\_\-\-\_\-kmpc\-\_\-cancellationpoint}!kmp_cancel.cpp@{kmp\-\_\-cancel.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-cancellationpoint}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-cancellationpoint (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{kmp\-\_\-int32}]{cncl\-\_\-kind}
+\end{DoxyParamCaption}
+)}}\label{kmp__cancel_8cpp_a1cc2bf9431ce18c4437401c2a866781c}
+
+\begin{DoxyParams}{Parameters}
+{\em loc\-\_\-ref} & location of the original task directive \\
+\hline
+{\em gtid} & Global thread I\-D of encountering thread \\
+\hline
+{\em cncl\-\_\-kind} & Cancellation kind (parallel, for, sections, taskgroup)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if a matching cancellation request has been flagged in the R\-T\-L and the encountering thread has to cancel..
+\end{DoxyReturn}
+Cancellation point for the encountering thread. 
+
+Definition at line 108 of file kmp\-\_\-cancel.\-cpp.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T().
+
+
+\begin{DoxyCode}
+108                                                                                           \{
+109     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *this\_thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads} [ gtid ];
+110 
+111     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_cancellationpoint: T#%d request %d OMP\_CANCELLATION=%d\(\backslash\)n"}, gtid, 
+      cncl\_kind, \hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) );
+112 
+113     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(cncl\_kind != \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0}{cancel\_noreq});
+114     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(cncl\_kind == \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel} || cncl\_kind == 
+      \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop} || 
+115                      cncl\_kind == \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections} || cncl\_kind == 
+      \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup}); 
+116     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}() == gtid);
+117 
+118     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+119         \textcolor{keywordflow}{switch} (cncl\_kind) \{
+120         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel}:
+121         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop}:
+122         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections}:
+123             \textcolor{comment}{// cancellation requests for parallel and worksharing constructs}
+124             \textcolor{comment}{// are handled through the team structure}
+125             \{
+126                 \hyperlink{unionkmp__team}{kmp\_team\_t} *this\_team = this\_thr->th.th\_team;
+127                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(this\_team);
+128                 \textcolor{keywordflow}{if} (this\_team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request) \{
+129                     \textcolor{keywordflow}{if} (cncl\_kind == this\_team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_cancel\_request) \{
+130                         \textcolor{comment}{// the request in the team structure matches the type of}
+131                         \textcolor{comment}{// cancellation point so we can cancel}
+132                         \textcolor{keywordflow}{return} 1 \textcolor{comment}{/* true */};
+133                     \}
+134                     \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}( 0 \textcolor{comment}{/* false */});
+135                 \}
+136                 \textcolor{keywordflow}{else} \{
+137                     \textcolor{comment}{// we do not have a cancellation request pending, so we just}
+138                     \textcolor{comment}{// ignore this cancellation point}
+139                     \textcolor{keywordflow}{return} 0;
+140                 \}
+141                 \textcolor{keywordflow}{break};
+142             \}
+143         \textcolor{keywordflow}{case} \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup}:
+144             \textcolor{comment}{// cancellation requests for a task group}
+145             \textcolor{comment}{// are handled through the taskgroup structure}
+146             \{
+147                 \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t}*  \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}; 
+148                 \hyperlink{structkmp__taskgroup}{kmp\_taskgroup\_t}* taskgroup;
+149                 
+150                 task = this\_thr->th.th\_current\_task;
+151                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( task );
+152                 
+153                 taskgroup = task->\hyperlink{structkmp__taskdata_a568185a9e8c23a1682491fa55973d61c}{td\_taskgroup};
+154                 \textcolor{keywordflow}{if} (taskgroup) \{
+155                     \textcolor{comment}{// return the current status of cancellation for the }
+156                     \textcolor{comment}{// taskgroup}
+157                     \textcolor{keywordflow}{return} !!taskgroup->\hyperlink{structkmp__taskgroup_a0775c7306150a24b509b4f897be92bce}{cancel\_request};
+158                 \}
+159                 \textcolor{keywordflow}{else} \{
+160                     \textcolor{comment}{// if a cancellation point is encountered by a task}
+161                     \textcolor{comment}{// that does not belong to a taskgroup, it is OK}
+162                     \textcolor{comment}{// to ignore it}
+163                     \textcolor{keywordflow}{return} 0 \textcolor{comment}{/* false */};
+164                 \}
+165             \}
+166         \textcolor{keywordflow}{default}:
+167             \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT} (0 \textcolor{comment}{/* false */});
+168         \}
+169     \}
+170 
+171     \textcolor{comment}{// ICV OMP\_CANCELLATION=false, so we ignore the cancellation point}
+172     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(!\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation});
+173     \textcolor{keywordflow}{return} 0 \textcolor{comment}{/* false */};
+174 \}
+\end{DoxyCode}

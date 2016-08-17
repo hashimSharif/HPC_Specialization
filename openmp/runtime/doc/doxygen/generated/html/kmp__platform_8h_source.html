@@ -37,8 +37,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,12 +59,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">kmp_platform.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<a href="kmp__platform_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * kmp_platform.h -- header for determining operating system and architecture</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
@@ -99,13 +107,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">/* ---------------------- Operating system recognition ------------------- */</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define KMP_OS_LINUX    0</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_FREEBSD  0</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_NETBSD   0</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_DARWIN   0</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_WINDOWS  0</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_CNK      0</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_UNIX     0  </span><span class="comment">/* disjunction of KMP_OS_LINUX, KMP_OS_DARWIN etc. */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a08355ecda6b7d50d12e62476c0727cba">   19</a></span>&#160;<span class="preprocessor">#define KMP_OS_LINUX    0</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a395be6631b1617bdcc9d3b6e11f22162">   20</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_FREEBSD  0</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#abfb1618ddbc5b48da8b576790d291501">   21</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_NETBSD   0</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a644e9181d42bc2ef24b7fd80374f17d6">   22</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_DARWIN   0</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a2f83e9196e077cc3cf8ec514a0996cdd">   23</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_WINDOWS  0</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a6c443b283098c350ee384692e4188b1f">   24</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_CNK      0</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a845dd308187475fbbd914efed55502c9">   25</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_OS_UNIX     0  </span><span class="comment">/* disjunction of KMP_OS_LINUX, KMP_OS_DARWIN etc. */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
@@ -154,12 +162,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/* ---------------------- Architecture recognition ------------------- */</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#define KMP_ARCH_X86        0</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_X86_64     0</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_AARCH64    0</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_PPC64_BE   0</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_PPC64_LE   0</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_PPC64 (KMP_ARCH_PPC64_LE || KMP_ARCH_PPC64_BE)</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a065490c327caaba8f6e59443d5afce7e">   74</a></span>&#160;<span class="preprocessor">#define KMP_ARCH_X86        0</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a4bbc822bf311c981aab5b1704c1566ab">   75</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_X86_64     0</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#ac8a9f5686f72dd943400cd0e44eea79e">   76</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_AARCH64    0</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#ae94c41ce17bc3fda2516a56e542f2164">   77</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_PPC64_BE   0</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a303b3499c825924554534d7c45fba6ef">   78</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_PPC64_LE   0</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#af0b8957fbd8c4775f6b212cd64d75f31">   79</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define KMP_ARCH_PPC64 (KMP_ARCH_PPC64_LE || KMP_ARCH_PPC64_BE)</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#if KMP_OS_WINDOWS</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># if defined _M_AMD64</span></div>
@@ -238,13 +246,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define KMP_MIC2 0</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># endif</span></div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MIC  0</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MIC1 0</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MIC2 0</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a2da7e6a8e5a77bf88b6e935f8c928248">  158</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MIC  0</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a85a50d5f0f09360281483d5d09b5e5fa">  159</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MIC1 0</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#affd96be089706d6879bdf5f3111119f7">  160</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MIC2 0</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">/* Specify 32 bit architectures here */</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#define KMP_32_BIT_ARCH (KMP_ARCH_X86 || KMP_ARCH_ARM)</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="kmp__platform_8h.html#a055ffa85f3d57a8056af4d500cb2ccc4">  164</a></span>&#160;<span class="preprocessor">#define KMP_32_BIT_ARCH (KMP_ARCH_X86 || KMP_ARCH_ARM)</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">// TODO: Fixme - This is clever, but really fugly</span></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#if (1 != KMP_ARCH_X86 + KMP_ARCH_X86_64 + KMP_ARCH_ARM + KMP_ARCH_PPC64 + KMP_ARCH_AARCH64)</span></div>
@@ -255,7 +263,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2016 21:30:29 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 17 2016 17:14:04 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

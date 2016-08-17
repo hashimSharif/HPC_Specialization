@@ -1,0 +1,262 @@
+\hypertarget{kmp__stats_8cpp}{\section{kmp\-\_\-stats.\-cpp File Reference}
+\label{kmp__stats_8cpp}\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-str.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-lock.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-stats.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$sstream$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$ctime$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__stats_8cpp_a07adf97daf307190d143f32b213f2dad}{S\-T\-R\-I\-N\-G\-I\-Z\-E2}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x})~\#\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x}
+\item 
+\#define \hyperlink{kmp__stats_8cpp_a3428692efe6051ef30016ffde1a9f7bb}{S\-T\-R\-I\-N\-G\-I\-Z\-E}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x})~\hyperlink{kmp__stats_8cpp_a07adf97daf307190d143f32b213f2dad}{S\-T\-R\-I\-N\-G\-I\-Z\-E2}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x})
+\item 
+\#define \hyperlink{kmp__stats_8cpp_a17949c412e2b08e907236b2d496ed7c1}{expand\-Name}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}, flags, ignore)~\{\hyperlink{kmp__stats_8cpp_a3428692efe6051ef30016ffde1a9f7bb}{S\-T\-R\-I\-N\-G\-I\-Z\-E}(\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name}),flags\},
+\item 
+\#define \hyperlink{kmp__stats_8cpp_ae480cd960a5af34a190b99eb9d57b71d}{expand\-Name}(ignore1, ignore2, ignore3)~\{0.\-0,0.\-0,0.\-0\},
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stats_8cpp_a03149d6f07c69340c9a230882f740fed}{compare\-\_\-two\-\_\-events} (const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$event1, const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$event2)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stats_8cpp_a85312f129dd8fb3e3471780d096c3023}{\-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stats_8cpp_a8f778eb03e6aaddd5cfaa09629b17537}{\-\_\-\-\_\-kmp\-\_\-output\-\_\-stats} (const char $\ast$heading)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stats_8cpp_abf4b218473f9d0bf9e4bade280e20a57}{\-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stats_8cpp_a09d4c024310a94eb1f5953c600ad8672}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-init} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static uint32\-\_\-t \hyperlink{kmp__stats_8cpp_ad9658e13d6c6c3903f25e21c226979dd}{stats\-Printed} = 0
+\item 
+static \hyperlink{classkmp__stats__output__module}{kmp\-\_\-stats\-\_\-output\-\_\-module} \hyperlink{kmp__stats_8cpp_ad41cd8fb35fb8f90a8b6d8bc5295f04f}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Statistics gathering and processing. 
+
+Definition in file \hyperlink{kmp__stats_8cpp_source}{kmp\-\_\-stats.\-cpp}.
+
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__stats_8cpp_a17949c412e2b08e907236b2d496ed7c1}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!expand\-Name@{expand\-Name}}
+\index{expand\-Name@{expand\-Name}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{expand\-Name}]{\setlength{\rightskip}{0pt plus 5cm}\#define expand\-Name(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{flags, }
+\item[{}]{ignore}
+\end{DoxyParamCaption}
+)~\{{\bf S\-T\-R\-I\-N\-G\-I\-Z\-E}({\bf name}),flags\},}}\label{kmp__stats_8cpp_a17949c412e2b08e907236b2d496ed7c1}
+
+
+Definition at line 40 of file kmp\-\_\-stats.\-cpp.
+
+\hypertarget{kmp__stats_8cpp_ae480cd960a5af34a190b99eb9d57b71d}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!expand\-Name@{expand\-Name}}
+\index{expand\-Name@{expand\-Name}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{expand\-Name}]{\setlength{\rightskip}{0pt plus 5cm}\#define expand\-Name(
+\begin{DoxyParamCaption}
+\item[{}]{ignore1, }
+\item[{}]{ignore2, }
+\item[{}]{ignore3}
+\end{DoxyParamCaption}
+)~\{0.\-0,0.\-0,0.\-0\},}}\label{kmp__stats_8cpp_ae480cd960a5af34a190b99eb9d57b71d}
+
+
+Definition at line 40 of file kmp\-\_\-stats.\-cpp.
+
+\hypertarget{kmp__stats_8cpp_a3428692efe6051ef30016ffde1a9f7bb}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!S\-T\-R\-I\-N\-G\-I\-Z\-E@{S\-T\-R\-I\-N\-G\-I\-Z\-E}}
+\index{S\-T\-R\-I\-N\-G\-I\-Z\-E@{S\-T\-R\-I\-N\-G\-I\-Z\-E}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{S\-T\-R\-I\-N\-G\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-T\-R\-I\-N\-G\-I\-Z\-E(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf S\-T\-R\-I\-N\-G\-I\-Z\-E2}({\bf x})}}\label{kmp__stats_8cpp_a3428692efe6051ef30016ffde1a9f7bb}
+
+
+Definition at line 27 of file kmp\-\_\-stats.\-cpp.
+
+\hypertarget{kmp__stats_8cpp_a07adf97daf307190d143f32b213f2dad}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!S\-T\-R\-I\-N\-G\-I\-Z\-E2@{S\-T\-R\-I\-N\-G\-I\-Z\-E2}}
+\index{S\-T\-R\-I\-N\-G\-I\-Z\-E2@{S\-T\-R\-I\-N\-G\-I\-Z\-E2}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{S\-T\-R\-I\-N\-G\-I\-Z\-E2}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-T\-R\-I\-N\-G\-I\-Z\-E2(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~\#{\bf x}}}\label{kmp__stats_8cpp_a07adf97daf307190d143f32b213f2dad}
+
+
+Definition at line 26 of file kmp\-\_\-stats.\-cpp.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__stats_8cpp_abf4b218473f9d0bf9e4bade280e20a57}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!\-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit@{\-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit}}
+\index{\-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit@{\-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats_8cpp_abf4b218473f9d0bf9e4bade280e20a57}
+
+
+Definition at line 609 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup().
+
+
+\begin{DoxyCode}
+610 \{
+611     \textcolor{comment}{// Only do this once.}
+612     \textcolor{keywordflow}{if} (\hyperlink{kmp__os_8h_a0bd6a3e6418261340df2c47d3a4ff2c4}{KMP\_XCHG\_FIXED32}(&\hyperlink{kmp__stats_8cpp_ad9658e13d6c6c3903f25e21c226979dd}{statsPrinted}, 1) != 0)
+613         \textcolor{keywordflow}{return};
+614 
+615     \hyperlink{kmp__stats_8cpp_a8f778eb03e6aaddd5cfaa09629b17537}{\_\_kmp\_output\_stats}(\textcolor{stringliteral}{"Statistics on exit"});
+616 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats_8cpp_a8f778eb03e6aaddd5cfaa09629b17537}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!\-\_\-\-\_\-kmp\-\_\-output\-\_\-stats@{\-\_\-\-\_\-kmp\-\_\-output\-\_\-stats}}
+\index{\-\_\-\-\_\-kmp\-\_\-output\-\_\-stats@{\-\_\-\-\_\-kmp\-\_\-output\-\_\-stats}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-output\-\_\-stats}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-output\-\_\-stats (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{heading}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats_8cpp_a8f778eb03e6aaddd5cfaa09629b17537}
+
+
+Definition at line 603 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit().
+
+
+\begin{DoxyCode}
+604 \{
+605     \hyperlink{kmp__stats_8cpp_ad41cd8fb35fb8f90a8b6d8bc5295f04f}{\_\_kmp\_stats\_global\_output}.\hyperlink{classkmp__stats__output__module_a4e2f6da3c56c6d34d6bc13ef056c8372}{outputStats}(heading);
+606     \hyperlink{kmp__stats_8cpp_a85312f129dd8fb3e3471780d096c3023}{\_\_kmp\_reset\_stats}();
+607 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats_8cpp_a85312f129dd8fb3e3471780d096c3023}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!\-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats@{\-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats}}
+\index{\-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats@{\-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats_8cpp_a85312f129dd8fb3e3471780d096c3023}
+
+
+Definition at line 576 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-output\-\_\-stats().
+
+
+\begin{DoxyCode}
+577 \{
+578     \hyperlink{classkmp__stats__list_1_1iterator}{kmp\_stats\_list::iterator} it;
+579     \textcolor{keywordflow}{for}(it = \hyperlink{kmp__global_8c_a4ce412fd3335747984f4b5d8fa62cb98}{\_\_kmp\_stats\_list}.\hyperlink{classkmp__stats__list_af688afb91e7dab63d4b1005d8c2d858e}{begin}(); it != 
+      \hyperlink{kmp__global_8c_a4ce412fd3335747984f4b5d8fa62cb98}{\_\_kmp\_stats\_list}.\hyperlink{classkmp__stats__list_ad0ae8a080fec141c81d3e3454d25c99b}{end}(); it++) \{
+580         \hyperlink{classtimeStat}{timeStat} * timers     = (*it)->getTimers();
+581         \hyperlink{classcounter}{counter} * counters    = (*it)->getCounters();
+582         \hyperlink{classexplicitTimer}{explicitTimer} * eTimers = (*it)->getExplicitTimers();
+583 
+584         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} t = 0; t<TIMER\_LAST; t++)
+585             timers[t].reset();
+586 
+587         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} c = 0; c<COUNTER\_LAST; c++)
+588             counters[c].reset();
+589 
+590         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} t=0; t<EXPLICIT\_TIMER\_LAST; t++)
+591             eTimers[t].reset();
+592 
+593         \textcolor{comment}{// reset the event vector so all previous events are "erased"}
+594         (*it)->resetEventVector();
+595 
+596         \textcolor{comment}{// May need to restart the explicit timers in thread zero?}
+597     \}
+598     \hyperlink{group__STATS__GATHERING_ga8b26485fe6ad4f74b63e54c42fcfd875}{KMP\_START\_EXPLICIT\_TIMER}(OMP\_serial);
+599     \hyperlink{group__STATS__GATHERING_ga8b26485fe6ad4f74b63e54c42fcfd875}{KMP\_START\_EXPLICIT\_TIMER}(OMP\_start\_end);
+600 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats_8cpp_a09d4c024310a94eb1f5953c600ad8672}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!\-\_\-\-\_\-kmp\-\_\-stats\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-init}}
+\index{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-init}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-stats\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats_8cpp_a09d4c024310a94eb1f5953c600ad8672}
+
+
+Definition at line 618 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker().
+
+
+\begin{DoxyCode}
+619 \{
+620 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats_8cpp_a03149d6f07c69340c9a230882f740fed}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!compare\-\_\-two\-\_\-events@{compare\-\_\-two\-\_\-events}}
+\index{compare\-\_\-two\-\_\-events@{compare\-\_\-two\-\_\-events}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{compare\-\_\-two\-\_\-events}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} compare\-\_\-two\-\_\-events (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{event1, }
+\item[{const {\bf void} $\ast$}]{event2}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats_8cpp_a03149d6f07c69340c9a230882f740fed}
+
+
+Definition at line 199 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-event\-\_\-vector\-::sort().
+
+
+\begin{DoxyCode}
+199                                                                \{
+200     \hyperlink{classkmp__stats__event}{kmp\_stats\_event}* ev1 = (\hyperlink{classkmp__stats__event}{kmp\_stats\_event}*)event1;
+201     \hyperlink{classkmp__stats__event}{kmp\_stats\_event}* ev2 = (\hyperlink{classkmp__stats__event}{kmp\_stats\_event}*)event2;
+202 
+203     \textcolor{keywordflow}{if}(ev1->\hyperlink{classkmp__stats__event_acc3ddb03443fbc33aa998b7cc7a45e1b}{getStart}() < ev2->\hyperlink{classkmp__stats__event_acc3ddb03443fbc33aa998b7cc7a45e1b}{getStart}()) \textcolor{keywordflow}{return} -1;
+204     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(ev1->\hyperlink{classkmp__stats__event_acc3ddb03443fbc33aa998b7cc7a45e1b}{getStart}() > ev2->\hyperlink{classkmp__stats__event_acc3ddb03443fbc33aa998b7cc7a45e1b}{getStart}()) \textcolor{keywordflow}{return} 1;
+205     \textcolor{keywordflow}{else} \textcolor{keywordflow}{return} 0;
+206 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__stats_8cpp_ad41cd8fb35fb8f90a8b6d8bc5295f04f}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!\-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output}}
+\index{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-stats\-\_\-output\-\_\-module} \-\_\-\-\_\-kmp\-\_\-stats\-\_\-global\-\_\-output\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stats_8cpp_ad41cd8fb35fb8f90a8b6d8bc5295f04f}
+
+
+Definition at line 74 of file kmp\-\_\-stats.\-cpp.
+
+\hypertarget{kmp__stats_8cpp_ad9658e13d6c6c3903f25e21c226979dd}{\index{kmp\-\_\-stats.\-cpp@{kmp\-\_\-stats.\-cpp}!stats\-Printed@{stats\-Printed}}
+\index{stats\-Printed@{stats\-Printed}!kmp_stats.cpp@{kmp\-\_\-stats.\-cpp}}
+\subsubsection[{stats\-Printed}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t stats\-Printed = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stats_8cpp_ad9658e13d6c6c3903f25e21c226979dd}
+
+
+Definition at line 71 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-accumulate\-\_\-stats\-\_\-at\-\_\-exit().
+

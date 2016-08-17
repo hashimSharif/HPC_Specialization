@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['sched_5ftype',['sched_type',['../group__WORK__SHARING.html#gadcaf200537aaa0218a60c398438f81be',1,'kmp.h']]],
-  ['stats_5fflags_5fe',['stats_flags_e',['../group__STATS__GATHERING.html#ga438c2840cc2d516238ea3eb0f4c116b3',1,'kmp_stats.h']]]
+  ['barrier_5ftype',['barrier_type',['../kmp_8h.html#ad0f7c21f2f1d446087ef5714eb0fd8cf',1,'kmp.h']]],
+  ['bget_5fmode',['bget_mode',['../kmp__alloc_8c.html#a847afd2013b1ea12c5cd7a6612e91981',1,'kmp_alloc.c']]]
 ];

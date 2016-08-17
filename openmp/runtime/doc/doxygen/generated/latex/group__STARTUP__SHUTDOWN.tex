@@ -4,9 +4,9 @@
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\-\_\-\-\_\-kmpc\-\_\-begin} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 flags)
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\-\_\-\-\_\-kmpc\-\_\-begin} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 flags)
 \item 
-void \hyperlink{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\-\_\-\-\_\-kmpc\-\_\-end} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\-\_\-\-\_\-kmpc\-\_\-end} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
 \end{DoxyCompactItemize}
 
 
@@ -16,7 +16,7 @@ These functions are for library initialization and shutdown.
 \subsection{Function Documentation}
 \hypertarget{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\index{Startup and Shutdown@{Startup and Shutdown}!\-\_\-\-\_\-kmpc\-\_\-begin@{\-\_\-\-\_\-kmpc\-\_\-begin}}
 \index{\-\_\-\-\_\-kmpc\-\_\-begin@{\-\_\-\-\_\-kmpc\-\_\-begin}!Startup and Shutdown@{Startup and Shutdown}}
-\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-begin}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-begin (
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-begin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-begin (
 \begin{DoxyParamCaption}
 \item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
 \item[{kmp\-\_\-int32}]{flags}
@@ -33,9 +33,20 @@ Initialize the runtime library. This call is optional; if it is not made then it
 
 Definition at line 46 of file kmp\-\_\-csupport.\-c.
 
+
+\begin{DoxyCode}
+47 \{
+48     \textcolor{comment}{// By default \_\_kmp\_ignore\_mppbeg() returns TRUE.}
+49     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a9f825530c4d005a17b222607db3db40f}{\_\_kmp\_ignore\_mppbeg}() == \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) \{
+50         \hyperlink{kmp_8h_ae46804a9f563aa89ebb2c15a412d9f82}{\_\_kmp\_internal\_begin}();
+51 
+52         \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_begin: called\(\backslash\)n"} ) );
+53     \}
+54 \}
+\end{DoxyCode}
 \hypertarget{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\index{Startup and Shutdown@{Startup and Shutdown}!\-\_\-\-\_\-kmpc\-\_\-end@{\-\_\-\-\_\-kmpc\-\_\-end}}
 \index{\-\_\-\-\_\-kmpc\-\_\-end@{\-\_\-\-\_\-kmpc\-\_\-end}!Startup and Shutdown@{Startup and Shutdown}}
-\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-end (
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-end (
 \begin{DoxyParamCaption}
 \item[{{\bf ident\-\_\-t} $\ast$}]{loc}
 \end{DoxyParamCaption}
@@ -49,3 +60,18 @@ Shutdown the runtime library. This is also optional, and even if called will not
 
 Definition at line 64 of file kmp\-\_\-csupport.\-c.
 
+
+\begin{DoxyCode}
+65 \{
+66     \textcolor{comment}{// By default, \_\_kmp\_ignore\_mppend() returns TRUE which makes \_\_kmpc\_end() call no-op.}
+67     \textcolor{comment}{// However, this can be overridden with KMP\_IGNORE\_MPPEND environment variable.}
+68     \textcolor{comment}{// If KMP\_IGNORE\_MPPEND is 0, \_\_kmp\_ignore\_mppend() returns FALSE and \_\_kmpc\_end()}
+69     \textcolor{comment}{// will unregister this root (it can cause library shut down).}
+70     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_af5c4899a5713f6d8c209fc1bfb57d07b}{\_\_kmp\_ignore\_mppend}() == \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) \{
+71         \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end: called\(\backslash\)n"} ) );
+72         \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}( 30, (\textcolor{stringliteral}{"\_\_kmpc\_end\(\backslash\)n"} ));
+73 
+74         \hyperlink{kmp_8h_a646b72cce4c269157b34badbcececa9f}{\_\_kmp\_internal\_end\_thread}( -1 );
+75     \}
+76 \}
+\end{DoxyCode}

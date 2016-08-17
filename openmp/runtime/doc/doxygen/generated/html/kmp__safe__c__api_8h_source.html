@@ -37,8 +37,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,12 +59,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">kmp_safe_c_api.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<a href="kmp__safe__c__api_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//===----------------------------------------------------------------------===//</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//                     The LLVM Compiler Infrastructure</span></div>
@@ -129,16 +137,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">// For now, these macros use the existing API.</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"># define KMP_ALLOCA                         alloca</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MEMCPY_S(dst, bsz, src, cnt)   memcpy(dst, src, cnt)</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_SNPRINTF                       snprintf</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_SSCANF                         sscanf</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRCPY_S(dst, bsz, src)        strcpy(dst, src) </span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRNCPY_S(dst, bsz, src, cnt)  strncpy(dst, src, cnt)</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_VSNPRINTF                      vsnprintf</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRNCPY                        strncpy</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRLEN                         strlen</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MEMCPY                         memcpy</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#a2280690d07037589e6ac2faf9e9a2b28">   49</a></span>&#160;<span class="preprocessor"># define KMP_ALLOCA                         alloca</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#abbf1dc5ebfe437e02858f8a119d8377d">   50</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MEMCPY_S(dst, bsz, src, cnt)   memcpy(dst, src, cnt)</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#a69d5e0c1eb5568cc66b5faf64a772617">   51</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_SNPRINTF                       snprintf</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#a70e17572e3cba886b748509b25f14af5">   52</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_SSCANF                         sscanf</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#a56e348ecf429c2c9583d4e4a02eeeb76">   53</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRCPY_S(dst, bsz, src)        strcpy(dst, src) </span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#a4fbbdb06dd5ae6bce158bb85be109864">   54</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRNCPY_S(dst, bsz, src, cnt)  strncpy(dst, src, cnt)</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#a237c79a38f4ed1c10f2a1283e0cd9321">   55</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_VSNPRINTF                      vsnprintf</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#aaffd79ca83bda59bc57750db3bb8bd28">   56</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRNCPY                        strncpy</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#aed00d2e557c56addc50caedca2ae595c">   57</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_STRLEN                         strlen</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="kmp__safe__c__api_8h.html#ab63a75e8bb537bb3ae55c05d0a3b7ca0">   58</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor"># define KMP_MEMCPY                         memcpy</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif // KMP_OS_WINDOWS</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor"></span></div>
@@ -146,7 +154,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2016 21:30:30 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 17 2016 17:14:04 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -1,0 +1,93 @@
+\hypertarget{kmp__affinity_8cpp}{\section{kmp\-\_\-affinity.\-cpp File Reference}
+\label{kmp__affinity_8cpp}\index{kmp\-\_\-affinity.\-cpp@{kmp\-\_\-affinity.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-io.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-str.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-wrapper\-\_\-getpid.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-affinity.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__affinity_8cpp_ae1270304d33ab083a416e67cab92dafc}{\-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__affinity_8cpp_a3e762a8f344dc00cf1b1d9026919d3cb}{\-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy} (kmp\-\_\-uint32 nproc, \hyperlink{kmp_8h_a1493aa680c299d09746e1edfc9116b24}{kmp\-\_\-bstate\-\_\-t} $\ast$thr\-\_\-bar)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classhierarchy__info}{hierarchy\-\_\-info} \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\-\_\-hierarchy}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__affinity_8cpp_ae1270304d33ab083a416e67cab92dafc}{\index{kmp\-\_\-affinity.\-cpp@{kmp\-\_\-affinity.\-cpp}!\-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy@{\-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy}}
+\index{\-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy@{\-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy}!kmp_affinity.cpp@{kmp\-\_\-affinity.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kmp__affinity_8cpp_ae1270304d33ab083a416e67cab92dafc}
+
+
+Definition at line 26 of file kmp\-\_\-affinity.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup().
+
+
+\begin{DoxyCode}
+26                                \{
+27     \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_a6bd94261d14cd3644006557a49cd4a11}{fini}();
+28 \}
+\end{DoxyCode}
+\hypertarget{kmp__affinity_8cpp_a3e762a8f344dc00cf1b1d9026919d3cb}{\index{kmp\-\_\-affinity.\-cpp@{kmp\-\_\-affinity.\-cpp}!\-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy@{\-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy}}
+\index{\-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy@{\-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy}!kmp_affinity.cpp@{kmp\-\_\-affinity.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-uint32}]{nproc, }
+\item[{{\bf kmp\-\_\-bstate\-\_\-t} $\ast$}]{thr\-\_\-bar}
+\end{DoxyParamCaption}
+)}}\label{kmp__affinity_8cpp_a3e762a8f344dc00cf1b1d9026919d3cb}
+
+
+Definition at line 30 of file kmp\-\_\-affinity.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-init\-\_\-hierarchical\-\_\-barrier\-\_\-thread().
+
+
+\begin{DoxyCode}
+30                                                                   \{
+31     kmp\_uint32 depth;
+32     \textcolor{comment}{// The test below is true if affinity is available, but set to "none". Need to init on first use of
+       hierarchical barrier.}
+33     \textcolor{keywordflow}{if} (\hyperlink{kmp__os_8h_a33c84284b0f734b18cd53b0166240fcc}{TCR\_1}(\hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized}))
+34         \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_a812ad40d00a154a8ecdee9e9daa546a5}{init}(NULL, nproc);
+35 
+36     \textcolor{comment}{// Adjust the hierarchy in case num threads exceeds original}
+37     \textcolor{keywordflow}{if} (nproc > \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{base\_num\_threads})
+38         \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_a85116254d0daac14aa741e3cdb213f8b}{resize}(nproc);
+39 
+40     depth = \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth};
+41     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(depth > 0);
+42 
+43     thr\_bar->depth = depth;
+44     thr\_bar->base\_leaf\_kids = (kmp\_uint8)\hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.
+      \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[0]-1;
+45     thr\_bar->skip\_per\_level = \hyperlink{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{machine\_hierarchy}.\hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel};
+46 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}{\index{kmp\-\_\-affinity.\-cpp@{kmp\-\_\-affinity.\-cpp}!machine\-\_\-hierarchy@{machine\-\_\-hierarchy}}
+\index{machine\-\_\-hierarchy@{machine\-\_\-hierarchy}!kmp_affinity.cpp@{kmp\-\_\-affinity.\-cpp}}
+\subsubsection[{machine\-\_\-hierarchy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf hierarchy\-\_\-info} machine\-\_\-hierarchy\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__affinity_8cpp_a220a6a3e44183b9cbec97133690c9cfc}
+
+
+Definition at line 24 of file kmp\-\_\-affinity.\-cpp.
+

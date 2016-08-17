@@ -1,0 +1,384 @@
+\hypertarget{extractExternal_8cpp}{\section{extract\-External.\-cpp File Reference}
+\label{extractExternal_8cpp}\index{extract\-External.\-cpp@{extract\-External.\-cpp}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$strstream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classSymbol}{Symbol}
+\item 
+class \hyperlink{class__rstream}{\-\_\-rstream}
+\item 
+class \hyperlink{classrstream}{rstream}
+\item 
+class \hyperlink{classStringTable}{String\-Table}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop} (char $\ast$error\-Msg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{extractExternal_8cpp_a71eba6268e559b91214206f9b2b9457f}{compute\-External\-Symbols} (const char $\ast$file\-Name, set$<$ string $>$ $\ast$defined, set$<$ string $>$ $\ast$undefined)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{extractExternal_8cpp_a36cbffb86ff69fb607c00695012a880a}{hide\-Symbols} (char $\ast$file\-Name, const set$<$ string $>$ \&hide)
+\item 
+{\footnotesize template$<$class T $>$ }\\bool \hyperlink{extractExternal_8cpp_acab2b3768df4fbc4dd834cf540908ba1}{is\-Disjoint} (const set$<$ T $>$ \&a, const set$<$ T $>$ \&b)
+\item 
+set$<$ \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $>$ $\ast$ \hyperlink{extractExternal_8cpp_a2f990269527c60cb43e541c9041d3690}{find\-Required\-External} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} n\-External, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} n\-Total, set$<$ string $>$ $\ast$defined, set$<$ string $>$ $\ast$undefined)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{extractExternal_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{extractExternal_8cpp_a71eba6268e559b91214206f9b2b9457f}{\index{extract\-External.\-cpp@{extract\-External.\-cpp}!compute\-External\-Symbols@{compute\-External\-Symbols}}
+\index{compute\-External\-Symbols@{compute\-External\-Symbols}!extractExternal.cpp@{extract\-External.\-cpp}}
+\subsubsection[{compute\-External\-Symbols}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} compute\-External\-Symbols (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file\-Name, }
+\item[{set$<$ string $>$ $\ast$}]{defined, }
+\item[{set$<$ string $>$ $\ast$}]{undefined}
+\end{DoxyParamCaption}
+)}}\label{extractExternal_8cpp_a71eba6268e559b91214206f9b2b9457f}
+
+
+Definition at line 254 of file extract\-External.\-cpp.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+254                                                                                                \{
+255     streampos fileSize;
+256     \textcolor{keywordtype}{size\_t} strTabStart;
+257     \textcolor{keywordtype}{unsigned} symTabStart, symNEntries;
+258     \hyperlink{classrstream}{rstream} f(fileName);
+259 
+260     f.seekg(0,ios::end);
+261     fileSize = f.tellg();
+262 
+263     f.seekg(8);
+264     f >> symTabStart >> symNEntries;
+265     \textcolor{comment}{// seek to the string table}
+266     f.seekg(strTabStart = symTabStart + 18 * (\textcolor{keywordtype}{size\_t})symNEntries);
+267     \textcolor{keywordflow}{if}(f.eof()) \{
+268         printf(\textcolor{stringliteral}{"computeExternalSymbols: fileName='%s', fileSize = %lu, symTabStart = %u, symNEntries = %u\(\backslash\)n
+      "},
+269                fileName, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long}) fileSize, symTabStart, symNEntries);
+270         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"computeExternalSymbols: Unexpected EOF 1"});
+271     \}
+272     \hyperlink{classStringTable}{StringTable} stringTable(f); \textcolor{comment}{// read the string table}
+273     \textcolor{keywordflow}{if}(f.tellg() != fileSize)
+274         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"computeExternalSymbols: Unexpected data after string table"});
+275 
+276     f.clear();
+277     f.seekg(symTabStart); \textcolor{comment}{// seek to the symbol table}
+278 
+279     defined->clear(); undefined->clear();
+280     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < symNEntries; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+281         \textcolor{comment}{// process each entry}
+282         \hyperlink{classSymbol}{Symbol} e;
+283 
+284         \textcolor{keywordflow}{if}(f.eof())
+285             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"computeExternalSymbols: Unexpected EOF 2"});
+286         f>>e;
+287         \textcolor{keywordflow}{if}(f.fail())
+288             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"computeExternalSymbols: File read error"});
+289         \textcolor{keywordflow}{if}(e.nAux) \{ \textcolor{comment}{// auxiliary entry: skip}
+290             f.seekg(e.nAux * 18, ios::cur);
+291             \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} += e.nAux;
+292         \}
+293         \textcolor{comment}{// if symbol is extern and defined in the current file, insert it}
+294         \textcolor{keywordflow}{if}(e.storageClass == 2)
+295             \textcolor{keywordflow}{if}(e.sectionNum)
+296                 defined->insert(stringTable.decode(e.name));
+297             \textcolor{keywordflow}{else}
+298                 undefined->insert(stringTable.decode(e.name));
+299     \}
+300 \}
+\end{DoxyCode}
+\hypertarget{extractExternal_8cpp_a2f990269527c60cb43e541c9041d3690}{\index{extract\-External.\-cpp@{extract\-External.\-cpp}!find\-Required\-External@{find\-Required\-External}}
+\index{find\-Required\-External@{find\-Required\-External}!extractExternal.cpp@{extract\-External.\-cpp}}
+\subsubsection[{find\-Required\-External}]{\setlength{\rightskip}{0pt plus 5cm}set$<${\bf int}$>$$\ast$ find\-Required\-External (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{n\-External, }
+\item[{{\bf int}}]{n\-Total, }
+\item[{set$<$ string $>$ $\ast$}]{defined, }
+\item[{set$<$ string $>$ $\ast$}]{undefined}
+\end{DoxyParamCaption}
+)}}\label{extractExternal_8cpp_a2f990269527c60cb43e541c9041d3690}
+
+
+Definition at line 417 of file extract\-External.\-cpp.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+417                                                                                                         \{
+418     set<int> *required = \textcolor{keyword}{new} set<int>;
+419     set<int> fresh[2];
+420     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}, cur = 0;
+421     \textcolor{keywordtype}{bool} changed;
+422 
+423     \textcolor{keywordflow}{for}(i = nTotal - 1; i >= nExternal; --\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+424         fresh[cur].insert(i);
+425     \textcolor{keywordflow}{do} \{
+426         changed = \textcolor{keyword}{false};
+427         \textcolor{keywordflow}{for}(set<int>::iterator it = fresh[cur].begin(); it != fresh[cur].end(); ++it) \{
+428             set<string> &\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s} = undefined[*it];
+429 
+430             \textcolor{keywordflow}{for}(i = 0; i < nExternal; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+431                 \textcolor{keywordflow}{if}(required->find(i) == required->end()) \{
+432                     \textcolor{keywordflow}{if}(!\hyperlink{extractExternal_8cpp_acab2b3768df4fbc4dd834cf540908ba1}{isDisjoint}(defined[i], s)) \{
+433                         \textcolor{comment}{// found a new qualifying element}
+434                         required->insert(i);
+435                         fresh[1 - cur].insert(i);
+436                         changed = \textcolor{keyword}{true};
+437                     \}
+438                 \}
+439             \}
+440         \}
+441         fresh[cur].clear();
+442         cur = 1 - cur;
+443     \} \textcolor{keywordflow}{while}(changed);
+444     \textcolor{keywordflow}{return} required;
+445 \}
+\end{DoxyCode}
+\hypertarget{extractExternal_8cpp_a36cbffb86ff69fb607c00695012a880a}{\index{extract\-External.\-cpp@{extract\-External.\-cpp}!hide\-Symbols@{hide\-Symbols}}
+\index{hide\-Symbols@{hide\-Symbols}!extractExternal.cpp@{extract\-External.\-cpp}}
+\subsubsection[{hide\-Symbols}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} hide\-Symbols (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file\-Name, }
+\item[{const set$<$ string $>$ \&}]{hide}
+\end{DoxyParamCaption}
+)}}\label{extractExternal_8cpp_a36cbffb86ff69fb607c00695012a880a}
+
+
+Definition at line 306 of file extract\-External.\-cpp.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+306                                                           \{
+307     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{string} prefix(\textcolor{stringliteral}{"\_\_kmp\_external\_"});
+308     set<string> strings; \textcolor{comment}{// set of all occurring symbols, appropriately prefixed}
+309     streampos fileSize;
+310     \textcolor{keywordtype}{size\_t} strTabStart;
+311     \textcolor{keywordtype}{unsigned} symTabStart, symNEntries;
+312     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+313     \hyperlink{classrstream}{rstream} in(fileName);
+314 
+315     in.seekg(0,ios::end);
+316     fileSize = in.tellg();
+317 
+318     in.seekg(8);
+319     in >> symTabStart >> symNEntries;
+320     in.seekg(strTabStart = symTabStart + 18 * (\textcolor{keywordtype}{size\_t})symNEntries);
+321     \textcolor{keywordflow}{if}(in.eof())
+322         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: Unexpected EOF"});
+323     \hyperlink{classStringTable}{StringTable} stringTableOld(in); \textcolor{comment}{// read original string table}
+324 
+325     \textcolor{keywordflow}{if}(in.tellg() != fileSize)
+326         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: Unexpected data after string table"});
+327 
+328     \textcolor{comment}{// compute set of occurring strings with prefix added}
+329     \textcolor{keywordflow}{for}(i = 0; i < symNEntries; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+330         \hyperlink{classSymbol}{Symbol} e;
+331 
+332         in.seekg(symTabStart + i * 18);
+333         \textcolor{keywordflow}{if}(in.eof())
+334             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: Unexpected EOF"});
+335         in >> e;
+336         \textcolor{keywordflow}{if}(in.fail())
+337             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: File read error"});
+338         \textcolor{keywordflow}{if}(e.nAux)
+339             i += e.nAux;
+340         \textcolor{keyword}{const} \textcolor{keywordtype}{string} &\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s} = stringTableOld.decode(e.name);
+341         \textcolor{comment}{// if symbol is extern and found in <hide>, prefix and insert into strings,}
+342         \textcolor{comment}{// otherwise, just insert into strings without prefix}
+343         strings.insert( (e.storageClass == 2 && hide.find(s) != hide.end()) ?
+344                         prefix + s : s);
+345     \}
+346 
+347     ofstream out(fileName, ios::trunc | ios::out | ios::binary);
+348     \textcolor{keywordflow}{if}(!out.is\_open())
+349         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: Error opening output file"});
+350 
+351     \textcolor{comment}{// make new string table from string set}
+352     \hyperlink{classStringTable}{StringTable} stringTableNew = \hyperlink{classStringTable}{StringTable}(strings);
+353 
+354     \textcolor{comment}{// copy input file to output file up to just before the symbol table}
+355     in.seekg(0);
+356     \textcolor{keywordtype}{char} *buf = \textcolor{keyword}{new} \textcolor{keywordtype}{char}[symTabStart];
+357     in.read(buf, symTabStart);
+358     out.write(buf, symTabStart);
+359     \textcolor{keyword}{delete} []buf;
+360 
+361     \textcolor{comment}{// copy input symbol table to output symbol table with name translation}
+362     \textcolor{keywordflow}{for}(i = 0; i < symNEntries; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+363         \hyperlink{classSymbol}{Symbol} e;
+364 
+365         in.seekg(symTabStart + i*18);
+366         \textcolor{keywordflow}{if}(in.eof())
+367             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: Unexpected EOF"});
+368         in >> e;
+369         \textcolor{keywordflow}{if}(in.fail())
+370             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: File read error"});
+371         \textcolor{keyword}{const} \textcolor{keywordtype}{string} &s = stringTableOld.decode(e.name);
+372         out.seekp(symTabStart + i*18);
+373         e.name = stringTableNew.\hyperlink{classStringTable_a8974f81180f04c03f4e7a6f96d3a6859}{encode}( (e.storageClass == 2 && hide.find(s) != hide.end()) ?
+374                                         prefix + s : s);
+375         out.write((\textcolor{keywordtype}{char}*)&e, 18);
+376         \textcolor{keywordflow}{if}(out.fail())
+377             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"hideSymbols: File write error"});
+378         \textcolor{keywordflow}{if}(e.nAux) \{
+379             \textcolor{comment}{// copy auxiliary symbol table entries}
+380             \textcolor{keywordtype}{int} nAux = e.nAux;
+381             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 1; j <= nAux; ++j) \{
+382                 in >> e;
+383                 out.seekp(symTabStart + (i + j) * 18);
+384                 out.write((\textcolor{keywordtype}{char}*)&e, 18);
+385             \}
+386             i += nAux;
+387         \}
+388     \}
+389     \textcolor{comment}{// output string table}
+390     stringTableNew.\hyperlink{classStringTable_a5723e0a1a205d8ec1efaf4ee831eda6f}{write}(out);
+391 \}
+\end{DoxyCode}
+\hypertarget{extractExternal_8cpp_acab2b3768df4fbc4dd834cf540908ba1}{\index{extract\-External.\-cpp@{extract\-External.\-cpp}!is\-Disjoint@{is\-Disjoint}}
+\index{is\-Disjoint@{is\-Disjoint}!extractExternal.cpp@{extract\-External.\-cpp}}
+\subsubsection[{is\-Disjoint}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool is\-Disjoint (
+\begin{DoxyParamCaption}
+\item[{const set$<$ T $>$ \&}]{a, }
+\item[{const set$<$ T $>$ \&}]{b}
+\end{DoxyParamCaption}
+)}}\label{extractExternal_8cpp_acab2b3768df4fbc4dd834cf540908ba1}
+
+
+Definition at line 395 of file extract\-External.\-cpp.
+
+
+
+Referenced by find\-Required\-External().
+
+
+\begin{DoxyCode}
+395                                                   \{
+396     set<T>::const\_iterator ita, itb;
+397 
+398     \textcolor{keywordflow}{for}(ita = a.begin(), itb = b.begin(); ita != a.end() && itb != b.end();) \{
+399         \textcolor{keyword}{const} T &ta = *ita, &tb = *itb;
+400         \textcolor{keywordflow}{if}(ta < tb)
+401             ++ita;
+402         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (tb < ta)
+403             ++itb;
+404         \textcolor{keywordflow}{else}
+405             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+406     \}
+407     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+408 \}
+\end{DoxyCode}
+\hypertarget{extractExternal_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{\index{extract\-External.\-cpp@{extract\-External.\-cpp}!main@{main}}
+\index{main@{main}!extractExternal.cpp@{extract\-External.\-cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} main (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{extractExternal_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 447 of file extract\-External.\-cpp.
+
+
+\begin{DoxyCode}
+447                                 \{
+448     \textcolor{keywordtype}{int} nExternal, nInternal, \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+449     set<string> *defined, *undefined;
+450     set<int>::iterator it;
+451 
+452     \textcolor{keywordflow}{if}(argc < 3)
+453         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"Please specify a positive integer followed by a list of object filenames"});
+454     nExternal = atoi(argv[1]);
+455     \textcolor{keywordflow}{if}(nExternal <= 0)
+456         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"Please specify a positive integer followed by a list of object filenames"});
+457     \textcolor{keywordflow}{if}(nExternal +  2 > argc)
+458         \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"Too few external objects"});
+459     nInternal = argc - nExternal - 2;
+460     defined = \textcolor{keyword}{new} set<string>[argc - 2];
+461     undefined = \textcolor{keyword}{new} set<string>[argc - 2];
+462 
+463     \textcolor{comment}{// determine the set of defined and undefined external symbols}
+464     \textcolor{keywordflow}{for}(i = 2; i < argc; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+465         \hyperlink{extractExternal_8cpp_a71eba6268e559b91214206f9b2b9457f}{computeExternalSymbols}(argv[i], defined + i - 2, undefined + i - 2);
+466 
+467     \textcolor{comment}{// determine the set of required external files}
+468     set<int> *requiredExternal = \hyperlink{extractExternal_8cpp_a2f990269527c60cb43e541c9041d3690}{findRequiredExternal}(nExternal, argc - 2, defined, 
+      undefined);
+469     set<string> hide;
+470 
+471     \textcolor{comment}{/* determine the set of symbols to hide--namely defined external symbols of the}
+472 \textcolor{comment}{       required external files}
+473 \textcolor{comment}{    */}
+474     \textcolor{keywordflow}{for}(it = requiredExternal->begin(); it != requiredExternal->end(); ++it) \{
+475         \textcolor{keywordtype}{int} idx = *it;
+476         set<string>::iterator it2;
+477         \textcolor{comment}{/* We have to insert one element at a time instead of inserting a range because}
+478 \textcolor{comment}{           the insert member function taking a range doesn't exist on Windows* OS, at least}
+479 \textcolor{comment}{           at the time of this writing.}
+480 \textcolor{comment}{        */}
+481         \textcolor{keywordflow}{for}(it2 = defined[idx].begin(); it2 != defined[idx].end(); ++it2)
+482             hide.insert(*it2);
+483     \}
+484 
+485     \textcolor{comment}{/* process the external files--removing those that are not required and hiding}
+486 \textcolor{comment}{       the appropriate symbols in the others}
+487 \textcolor{comment}{    */}
+488     \textcolor{keywordflow}{for}(i = 0; i < nExternal; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+489         \textcolor{keywordflow}{if}(requiredExternal->find(i) != requiredExternal->end())
+490             \hyperlink{extractExternal_8cpp_a36cbffb86ff69fb607c00695012a880a}{hideSymbols}(argv[2 + i], hide);
+491         \textcolor{keywordflow}{else}
+492             \textcolor{keyword}{remove}(argv[2 + \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]);
+493     \textcolor{comment}{// hide the appropriate symbols in the internal files}
+494     \textcolor{keywordflow}{for}(i = nExternal + 2; i < argc; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+495         \hyperlink{extractExternal_8cpp_a36cbffb86ff69fb607c00695012a880a}{hideSymbols}(argv[i], hide);
+496     \textcolor{keywordflow}{return} 0;
+497 \}
+\end{DoxyCode}
+\hypertarget{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{\index{extract\-External.\-cpp@{extract\-External.\-cpp}!stop@{stop}}
+\index{stop@{stop}!extractExternal.cpp@{extract\-External.\-cpp}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} stop (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{error\-Msg}
+\end{DoxyParamCaption}
+)}}\label{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}
+
+
+Definition at line 39 of file extract\-External.\-cpp.
+
+
+
+Referenced by compute\-External\-Symbols(), String\-Table\-::decode(), String\-Table\-::encode(), rstream\-::get\-Buf(), hide\-Symbols(), String\-Table\-::init(), main(), and String\-Table\-::\-String\-Table().
+
+
+\begin{DoxyCode}
+39                           \{
+40     printf(\textcolor{stringliteral}{"%s\(\backslash\)n"}, errorMsg);
+41     exit(1);
+42 \}
+\end{DoxyCode}

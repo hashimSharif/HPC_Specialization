@@ -1,0 +1,679 @@
+\hypertarget{ompt-specific_8c}{\section{ompt-\/specific.c File Reference}
+\label{ompt-specific_8c}\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ompt-\/internal.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ompt-\/specific.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ompt-specific_8c_a8d6947d5f3a5a21112fcb8bb678fc5bc}{G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D}(\hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id})~((ompt\-\_\-thread\-\_\-id\-\_\-t) (\hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id} $>$=0) ? \hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id} + 1\-: 0)
+\item 
+\#define \hyperlink{ompt-specific_8c_a9dc12459c8279002a0191618e32c5366}{L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M}(team)~(team)-\/$>$t.\-ompt\-\_\-serialized\-\_\-team\-\_\-info;
+\item 
+\#define \hyperlink{ompt-specific_8c_a685ad6ac6170937d5a5d596af276b42a}{O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S}~16
+\item 
+\#define \hyperlink{ompt-specific_8c_acb567df2f081ca57ef1be6e2adb72512}{N\-E\-X\-T\-\_\-\-I\-D}(id\-\_\-ptr, tid)~(\hyperlink{kmp__os_8h_aee7d2212f088bf506be1b14d6d41de36}{K\-M\-P\-\_\-\-T\-E\-S\-T\-\_\-\-T\-H\-E\-N\-\_\-\-I\-N\-C64}((volatile kmp\-\_\-int64 $\ast$)id\-\_\-ptr))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structompt__team__info__t}{ompt\-\_\-team\-\_\-info\-\_\-t} $\ast$ \hyperlink{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{structompt__task__info__t}{ompt\-\_\-task\-\_\-info\-\_\-t} $\ast$ \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+ompt\-\_\-parallel\-\_\-id\-\_\-t \hyperlink{ompt-specific_8c_a20defde93de9c4e3d89e2761c2804342}{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-specific_8c_ac67291ade668df85fa534e15aa1041e6}{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin} (ompt\-\_\-thread\-\_\-type\-\_\-t thread\-\_\-type, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-specific_8c_a6df3ac9845bff98373f885b319bc2e38}{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-end} (ompt\-\_\-thread\-\_\-type\-\_\-t thread\-\_\-type, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid)
+\item 
+ompt\-\_\-thread\-\_\-id\-\_\-t \hyperlink{ompt-specific_8c_a1457c80054745fe7a7a7cfbc79d5fa09}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-specific_8c_a0d15ff86baf709cfb2701472bf0acf8b}{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$variable)
+\item 
+ompt\-\_\-state\-\_\-t \hyperlink{ompt-specific_8c_a635eaf6bb94d21b06530f1e9773401e6}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal} (ompt\-\_\-wait\-\_\-id\-\_\-t $\ast$ompt\-\_\-wait\-\_\-id)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{ompt-specific_8c_a4c44e8a74cf840619c14fe4ba381a2fd}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+ompt\-\_\-parallel\-\_\-id\-\_\-t \hyperlink{ompt-specific_8c_a541d97d3f1e1d09a459326dd60c630ce}{\-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{ompt-specific_8c_ad89dd862500b2e6384515b537f60b249}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+ompt\-\_\-parallel\-\_\-id\-\_\-t \hyperlink{ompt-specific_8c_a030a00d9dd5d82e4a488dd3da4ad2cd3}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ompt-specific_8c_a7f28079891fe51d35e74a3b69e9d40e9}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-specific_8c_aa3b1a660dbaf7d2a72732e1eebc4d3db}{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init} (\hyperlink{ompt-internal_8h_a9efdb170346e988130296a7bb0cb861c}{ompt\-\_\-lw\-\_\-taskteam\-\_\-t} $\ast$lwt, \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thr, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$microtask, ompt\-\_\-parallel\-\_\-id\-\_\-t ompt\-\_\-pid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-specific_8c_a3272fe5fad9706e746997b6c6aa55458}{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link} (\hyperlink{ompt-internal_8h_a9efdb170346e988130296a7bb0cb861c}{ompt\-\_\-lw\-\_\-taskteam\-\_\-t} $\ast$lwt, \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thr)
+\item 
+\hyperlink{ompt-internal_8h_a9efdb170346e988130296a7bb0cb861c}{ompt\-\_\-lw\-\_\-taskteam\-\_\-t} $\ast$ \hyperlink{ompt-specific_8c_a08e5e3e94237b2bf04a271d942936eef}{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thr)
+\item 
+ompt\-\_\-task\-\_\-id\-\_\-t \hyperlink{ompt-specific_8c_a00dc76b44da40dee97e27a16c472e0ca}{\-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid)
+\item 
+ompt\-\_\-task\-\_\-id\-\_\-t \hyperlink{ompt-specific_8c_a18b0095c57b9a12664adf9ac87a52062}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{ompt-specific_8c_a8c743629ff6dbc64481588682dcf3fd4}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+ompt\-\_\-frame\-\_\-t $\ast$ \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} depth)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-specific_8c_a42b74b829cdbf17b033acb9f5e2cdd2b}{\-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id} (\hyperlink{kmp_8h_a95f7a64bda9b774add6c27c4a7b2a143}{kmp\-\_\-team\-\_\-t} $\ast$team, ompt\-\_\-parallel\-\_\-id\-\_\-t ompt\-\_\-pid)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{ompt-specific_8c_a8d6947d5f3a5a21112fcb8bb678fc5bc}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D@{G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D}}
+\index{G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D@{G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\-T\-I\-D\-\_\-\-T\-O\-\_\-\-O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf id}}
+\end{DoxyParamCaption}
+)~((ompt\-\_\-thread\-\_\-id\-\_\-t) ({\bf id} $>$=0) ? {\bf id} + 1\-: 0)}}\label{ompt-specific_8c_a8d6947d5f3a5a21112fcb8bb678fc5bc}
+
+
+Definition at line 13 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal(), \-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin(), and \-\_\-\-\_\-ompt\-\_\-thread\-\_\-end().
+
+\hypertarget{ompt-specific_8c_a9dc12459c8279002a0191618e32c5366}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M@{L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M}}
+\index{L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M@{L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-W\-T\-\_\-\-F\-R\-O\-M\-\_\-\-T\-E\-A\-M(
+\begin{DoxyParamCaption}
+\item[{}]{team}
+\end{DoxyParamCaption}
+)~(team)-\/$>$t.\-ompt\-\_\-serialized\-\_\-team\-\_\-info;}}\label{ompt-specific_8c_a9dc12459c8279002a0191618e32c5366}
+
+
+Definition at line 15 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo(), and \-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo().
+
+\hypertarget{ompt-specific_8c_acb567df2f081ca57ef1be6e2adb72512}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!N\-E\-X\-T\-\_\-\-I\-D@{N\-E\-X\-T\-\_\-\-I\-D}}
+\index{N\-E\-X\-T\-\_\-\-I\-D@{N\-E\-X\-T\-\_\-\-I\-D}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{N\-E\-X\-T\-\_\-\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\-E\-X\-T\-\_\-\-I\-D(
+\begin{DoxyParamCaption}
+\item[{}]{id\-\_\-ptr, }
+\item[{}]{tid}
+\end{DoxyParamCaption}
+)~({\bf K\-M\-P\-\_\-\-T\-E\-S\-T\-\_\-\-T\-H\-E\-N\-\_\-\-I\-N\-C64}((volatile kmp\-\_\-int64 $\ast$)id\-\_\-ptr))}}\label{ompt-specific_8c_acb567df2f081ca57ef1be6e2adb72512}
+
+
+Definition at line 32 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new(), \-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new(), and \-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new().
+
+\hypertarget{ompt-specific_8c_a685ad6ac6170937d5a5d596af276b42a}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S@{O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S}}
+\index{O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S@{O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-M\-P\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-I\-D\-\_\-\-B\-I\-T\-S~16}}\label{ompt-specific_8c_a685ad6ac6170937d5a5d596af276b42a}
+
+
+Definition at line 17 of file ompt-\/specific.\-c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{ompt-specific_8c_a4c44e8a74cf840619c14fe4ba381a2fd}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ \-\_\-\-\_\-ompt\-\_\-get\-\_\-idle\-\_\-frame\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a4c44e8a74cf840619c14fe4ba381a2fd}
+
+
+Definition at line 199 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-idle\-\_\-frame().
+
+
+\begin{DoxyCode}
+200 \{
+201     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *ti = \hyperlink{ompt-specific_8h_ae3f900aeae1828089c356b1db2be6fee}{ompt\_get\_thread}();
+202     \textcolor{keywordflow}{return} ti ? ti->th.ompt\_thread\_info.idle\_frame : NULL;
+203 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_ad89dd862500b2e6384515b537f60b249}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ \-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_ad89dd862500b2e6384515b537f60b249}
+
+
+Definition at line 219 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-parallel\-\_\-function().
+
+
+\begin{DoxyCode}
+220 \{
+221     \hyperlink{structompt__team__info__t}{ompt\_team\_info\_t} *info = \hyperlink{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\_\_ompt\_get\_teaminfo}(depth, NULL);
+222     \textcolor{keywordtype}{void} *\textcolor{keyword}{function} = info ? info->\hyperlink{structompt__team__info__t_a8fa76f60a770055c3f0bed45a7120cd6}{microtask} : NULL;
+223     \textcolor{keywordflow}{return} \textcolor{keyword}{function};
+224 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a030a00d9dd5d82e4a488dd3da4ad2cd3}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-parallel\-\_\-id\-\_\-t \-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a030a00d9dd5d82e4a488dd3da4ad2cd3}
+
+
+Definition at line 228 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-parallel\-\_\-id().
+
+
+\begin{DoxyCode}
+229 \{
+230     \hyperlink{structompt__team__info__t}{ompt\_team\_info\_t} *info = \hyperlink{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\_\_ompt\_get\_teaminfo}(depth, NULL);
+231     ompt\_parallel\_id\_t \textcolor{keywordtype}{id} = info ? info->\hyperlink{structompt__team__info__t_aea8969d8ca37577c35b466c675a7a241}{parallel\_id} : 0;
+232     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id};
+233 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a7f28079891fe51d35e74a3b69e9d40e9}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a7f28079891fe51d35e74a3b69e9d40e9}
+
+
+Definition at line 237 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size().
+
+
+\begin{DoxyCode}
+238 \{
+239     \textcolor{comment}{// initialize the return value with the error value.}
+240     \textcolor{comment}{// if there is a team at the specified depth, the default}
+241     \textcolor{comment}{// value will be overwritten the size of that team.}
+242     \textcolor{keywordtype}{int} \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} = -1;
+243     (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) \hyperlink{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\_\_ompt\_get\_teaminfo}(depth, &size);
+244     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size};
+245 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a635eaf6bb94d21b06530f1e9773401e6}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-state\-\_\-t \-\_\-\-\_\-ompt\-\_\-get\-\_\-state\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{ompt\-\_\-wait\-\_\-id\-\_\-t $\ast$}]{ompt\-\_\-wait\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a635eaf6bb94d21b06530f1e9773401e6}
+
+
+Definition at line 182 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-state().
+
+
+\begin{DoxyCode}
+183 \{
+184     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *ti = \hyperlink{ompt-specific_8h_ae3f900aeae1828089c356b1db2be6fee}{ompt\_get\_thread}();
+185 
+186     \textcolor{keywordflow}{if} (ti) \{
+187         \textcolor{keywordflow}{if} (ompt\_wait\_id)
+188             *ompt\_wait\_id = ti->th.ompt\_thread\_info.wait\_id;
+189         \textcolor{keywordflow}{return} ti->th.ompt\_thread\_info.state;
+190     \}
+191     \textcolor{keywordflow}{return} ompt\_state\_undefined;
+192 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-frame\-\_\-t$\ast$ \-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}
+
+
+Definition at line 316 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T(), and ompt\-\_\-get\-\_\-task\-\_\-frame().
+
+
+\begin{DoxyCode}
+317 \{
+318     \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *info = \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(depth);
+319     ompt\_frame\_t *\hyperlink{ittnotify__static_8h_af16c2c7e1ae3ca168c49206b9609496b}{frame} = info ? frame = &info->\hyperlink{structompt__task__info__t_ab4b3a1c10b649c40015c133ea25fc3ae}{frame} : NULL;
+320     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_af16c2c7e1ae3ca168c49206b9609496b}{frame};
+321 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a8c743629ff6dbc64481588682dcf3fd4}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ \-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a8c743629ff6dbc64481588682dcf3fd4}
+
+
+Definition at line 307 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-task\-\_\-function().
+
+
+\begin{DoxyCode}
+308 \{
+309     \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *info = \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(depth);
+310     \textcolor{keywordtype}{void} *\textcolor{keyword}{function} = info ? info->\hyperlink{structompt__task__info__t_ac4cc016e1565bdd8732975f81facfe47}{function} : NULL;
+311     \textcolor{keywordflow}{return} \textcolor{keyword}{function};
+312 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a18b0095c57b9a12664adf9ac87a52062}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-task\-\_\-id\-\_\-t \-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a18b0095c57b9a12664adf9ac87a52062}
+
+
+Definition at line 298 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), and ompt\-\_\-get\-\_\-task\-\_\-id().
+
+
+\begin{DoxyCode}
+299 \{
+300     \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *info = \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(depth);
+301     ompt\_task\_id\_t task\_id = info ?  info->\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id} : 0;
+302     \textcolor{keywordflow}{return} task\_id;
+303 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ompt\-\_\-task\-\_\-info\-\_\-t}$\ast$ \-\_\-\-\_\-ompt\-\_\-get\-\_\-taskinfo (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a31168da811886ba5fef353af949900b3}
+
+
+Definition at line 88 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), \-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-frame\-\_\-internal(), \-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-function\-\_\-internal(), \-\_\-\-\_\-ompt\-\_\-get\-\_\-task\-\_\-id\-\_\-internal(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D().
+
+
+\begin{DoxyCode}
+89 \{
+90     \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *info = NULL;
+91     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr = \hyperlink{ompt-specific_8h_ae3f900aeae1828089c356b1db2be6fee}{ompt\_get\_thread}();
+92 
+93     \textcolor{keywordflow}{if} (thr) \{
+94         \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t}  *taskdata = thr->th.th\_current\_task;
+95         \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *lwt = \hyperlink{ompt-specific_8c_a9dc12459c8279002a0191618e32c5366}{LWT\_FROM\_TEAM}(taskdata->
+      \hyperlink{structkmp__taskdata_a2ca48086b6f95cea53c615b83a94e424}{td\_team});
+96 
+97         \textcolor{keywordflow}{while} (depth > 0) \{
+98             \textcolor{comment}{// next lightweight team (if any)}
+99             \textcolor{keywordflow}{if} (lwt) lwt = lwt->\hyperlink{structompt__lw__taskteam__s_ac945aa2df678ab63f63a5f23ea796974}{parent};
+100 
+101             \textcolor{comment}{// next heavyweight team (if any) after}
+102             \textcolor{comment}{// lightweight teams are exhausted}
+103             \textcolor{keywordflow}{if} (!lwt && taskdata) \{
+104                 taskdata = taskdata->\hyperlink{structkmp__taskdata_a47e9134b90866241cb795112acf9dabb}{td\_parent};
+105                 \textcolor{keywordflow}{if} (taskdata) \{
+106                     lwt = \hyperlink{ompt-specific_8c_a9dc12459c8279002a0191618e32c5366}{LWT\_FROM\_TEAM}(taskdata->\hyperlink{structkmp__taskdata_a2ca48086b6f95cea53c615b83a94e424}{td\_team});
+107                 \}
+108             \}
+109             depth--;
+110         \}
+111 
+112         \textcolor{keywordflow}{if} (lwt) \{
+113             info = &lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info};
+114         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (taskdata) \{
+115             info = &taskdata->ompt\_task\_info;
+116         \}
+117     \}
+118 
+119     \textcolor{keywordflow}{return} info;
+120 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ompt\-\_\-team\-\_\-info\-\_\-t}$\ast$ \-\_\-\-\_\-ompt\-\_\-get\-\_\-teaminfo (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{depth, }
+\item[{{\bf int} $\ast$}]{size}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}
+
+
+Definition at line 47 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call(), \-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-function\-\_\-internal(), \-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-id\-\_\-internal(), \-\_\-\-\_\-ompt\-\_\-get\-\_\-parallel\-\_\-team\-\_\-size\-\_\-internal(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D().
+
+
+\begin{DoxyCode}
+48 \{
+49     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr = \hyperlink{ompt-specific_8h_ae3f900aeae1828089c356b1db2be6fee}{ompt\_get\_thread}();
+50 
+51     \textcolor{keywordflow}{if} (thr) \{
+52         \hyperlink{unionkmp__team}{kmp\_team} *team = thr->th.th\_team;
+53         \textcolor{keywordflow}{if} (team == NULL) \textcolor{keywordflow}{return} NULL;
+54 
+55         \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *lwt = \hyperlink{ompt-specific_8c_a9dc12459c8279002a0191618e32c5366}{LWT\_FROM\_TEAM}(team);
+56 
+57         \textcolor{keywordflow}{while}(depth > 0) \{
+58             \textcolor{comment}{// next lightweight team (if any)}
+59             \textcolor{keywordflow}{if} (lwt) lwt = lwt->\hyperlink{structompt__lw__taskteam__s_ac945aa2df678ab63f63a5f23ea796974}{parent};
+60 
+61             \textcolor{comment}{// next heavyweight team (if any) after}
+62             \textcolor{comment}{// lightweight teams are exhausted}
+63             \textcolor{keywordflow}{if} (!lwt && team) team=team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_parent;
+64 
+65             depth--;
+66         \}
+67 
+68         \textcolor{keywordflow}{if} (lwt) \{
+69             \textcolor{comment}{// lightweight teams have one task}
+70             \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}) *\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} = 1;
+71 
+72             \textcolor{comment}{// return team info for lightweight team}
+73             \textcolor{keywordflow}{return} &lwt->\hyperlink{structompt__lw__taskteam__s_a548ab004e1bed7cea20532f1e168ce3d}{ompt\_team\_info};
+74         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (team) \{
+75             \textcolor{comment}{// extract size from heavyweight team}
+76             \textcolor{keywordflow}{if} (\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}) *\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} = team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.t\_nproc;
+77 
+78             \textcolor{comment}{// return team info for heavyweight team}
+79             \textcolor{keywordflow}{return} &team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.ompt\_team\_info;
+80         \}
+81     \}
+82 
+83     \textcolor{keywordflow}{return} NULL;
+84 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a1457c80054745fe7a7a7cfbc79d5fa09}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal}}
+\index{\-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal@{\-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-thread\-\_\-id\-\_\-t \-\_\-\-\_\-ompt\-\_\-get\-\_\-thread\-\_\-id\-\_\-internal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a1457c80054745fe7a7a7cfbc79d5fa09}
+
+
+Definition at line 156 of file ompt-\/specific.\-c.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-thread\-\_\-id().
+
+
+\begin{DoxyCode}
+157 \{
+158     \textcolor{comment}{// FIXME}
+159     \textcolor{comment}{// until we have a better way of assigning ids, use \_\_kmp\_get\_gtid}
+160     \textcolor{comment}{// since the return value might be negative, we need to test that before}
+161     \textcolor{comment}{// assigning it to an ompt\_thread\_id\_t, which is unsigned.}
+162     \textcolor{keywordtype}{int} \textcolor{keywordtype}{id} = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+163     assert(\textcolor{keywordtype}{id} >= 0);
+164 
+165     \textcolor{keywordflow}{return} \hyperlink{ompt-specific_8c_a8d6947d5f3a5a21112fcb8bb678fc5bc}{GTID\_TO\_OMPT\_THREAD\_ID}(\textcolor{keywordtype}{id});
+166 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_aa3b1a660dbaf7d2a72732e1eebc4d3db}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init@{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init}}
+\index{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init@{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf ompt\-\_\-lw\-\_\-taskteam\-\_\-t} $\ast$}]{lwt, }
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thr, }
+\item[{{\bf int}}]{gtid, }
+\item[{{\bf void} $\ast$}]{microtask, }
+\item[{ompt\-\_\-parallel\-\_\-id\-\_\-t}]{ompt\-\_\-pid}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_aa3b1a660dbaf7d2a72732e1eebc4d3db}
+
+
+Definition at line 253 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), and \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel().
+
+
+\begin{DoxyCode}
+256 \{
+257     lwt->\hyperlink{structompt__lw__taskteam__s_a548ab004e1bed7cea20532f1e168ce3d}{ompt\_team\_info}.\hyperlink{structompt__team__info__t_aea8969d8ca37577c35b466c675a7a241}{parallel\_id} = ompt\_pid;
+258     lwt->\hyperlink{structompt__lw__taskteam__s_a548ab004e1bed7cea20532f1e168ce3d}{ompt\_team\_info}.\hyperlink{structompt__team__info__t_a8fa76f60a770055c3f0bed45a7120cd6}{microtask} = microtask;
+259     lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id} = 0;
+260     lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_ab4b3a1c10b649c40015c133ea25fc3ae}{frame}.reenter\_runtime\_frame = 0;
+261     lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_ab4b3a1c10b649c40015c133ea25fc3ae}{frame}.exit\_runtime\_frame = 0;
+262     lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_ac4cc016e1565bdd8732975f81facfe47}{function} = NULL;
+263     lwt->\hyperlink{structompt__lw__taskteam__s_ac945aa2df678ab63f63a5f23ea796974}{parent} = 0;
+264 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a3272fe5fad9706e746997b6c6aa55458}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link@{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link}}
+\index{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link@{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-link (
+\begin{DoxyParamCaption}
+\item[{{\bf ompt\-\_\-lw\-\_\-taskteam\-\_\-t} $\ast$}]{lwt, }
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thr}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a3272fe5fad9706e746997b6c6aa55458}
+
+
+Definition at line 268 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), and \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel().
+
+
+\begin{DoxyCode}
+269 \{
+270     \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *my\_parent = thr->th.th\_team->t.ompt\_serialized\_team\_info;
+271     lwt->\hyperlink{structompt__lw__taskteam__s_ac945aa2df678ab63f63a5f23ea796974}{parent} = my\_parent;
+272     thr->th.th\_team->t.ompt\_serialized\_team\_info = lwt;
+273 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a08e5e3e94237b2bf04a271d942936eef}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink@{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink}}
+\index{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink@{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ompt\-\_\-lw\-\_\-taskteam\-\_\-t}$\ast$ \-\_\-\-\_\-ompt\-\_\-lw\-\_\-taskteam\-\_\-unlink (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thr}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a08e5e3e94237b2bf04a271d942936eef}
+
+
+Definition at line 277 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D().
+
+
+\begin{DoxyCode}
+278 \{
+279     \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *lwtask = thr->th.th\_team->t.ompt\_serialized\_team\_info;
+280     \textcolor{keywordflow}{if} (lwtask) thr->th.th\_team->t.ompt\_serialized\_team\_info = lwtask->\hyperlink{structompt__lw__taskteam__s_ac945aa2df678ab63f63a5f23ea796974}{parent};
+281     \textcolor{keywordflow}{return} lwtask;
+282 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a541d97d3f1e1d09a459326dd60c630ce}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new@{\-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new}}
+\index{\-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new@{\-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-parallel\-\_\-id\-\_\-t \-\_\-\-\_\-ompt\-\_\-parallel\-\_\-id\-\_\-new (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a541d97d3f1e1d09a459326dd60c630ce}
+
+
+Definition at line 211 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), and \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel().
+
+
+\begin{DoxyCode}
+212 \{
+213     \textcolor{keyword}{static} uint64\_t ompt\_parallel\_id = 1;
+214     \textcolor{keywordflow}{return} gtid >= 0 ? \hyperlink{ompt-specific_8c_acb567df2f081ca57ef1be6e2adb72512}{NEXT\_ID}(&ompt\_parallel\_id, gtid) : 0;
+215 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a00dc76b44da40dee97e27a16c472e0ca}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new@{\-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new}}
+\index{\-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new@{\-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-task\-\_\-id\-\_\-t \-\_\-\-\_\-ompt\-\_\-task\-\_\-id\-\_\-new (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a00dc76b44da40dee97e27a16c472e0ca}
+
+
+Definition at line 290 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), and \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread().
+
+
+\begin{DoxyCode}
+291 \{
+292     \textcolor{keyword}{static} uint64\_t ompt\_task\_id = 1;
+293     \textcolor{keywordflow}{return} \hyperlink{ompt-specific_8c_acb567df2f081ca57ef1be6e2adb72512}{NEXT\_ID}(&ompt\_task\_id, gtid);
+294 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a42b74b829cdbf17b033acb9f5e2cdd2b}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id@{\-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id}}
+\index{\-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id@{\-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-ompt\-\_\-team\-\_\-assign\-\_\-id (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-team\-\_\-t} $\ast$}]{team, }
+\item[{ompt\-\_\-parallel\-\_\-id\-\_\-t}]{ompt\-\_\-pid}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a42b74b829cdbf17b033acb9f5e2cdd2b}
+
+
+Definition at line 329 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-team(), and \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel().
+
+
+\begin{DoxyCode}
+330 \{
+331     team->\hyperlink{unionkmp__team_a87cf4571108a61b446e809094f8c0362}{t}.ompt\_team\_info.parallel\_id = ompt\_pid;
+332 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a0d15ff86baf709cfb2701472bf0acf8b}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id}}
+\index{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-ompt\-\_\-thread\-\_\-assign\-\_\-wait\-\_\-id (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{variable}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a0d15ff86baf709cfb2701472bf0acf8b}
+
+
+Definition at line 173 of file ompt-\/specific.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T().
+
+
+\begin{DoxyCode}
+174 \{
+175     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a6f6175733adad71e903b95b0339f1f3b}{\_\_kmp\_gtid\_get\_specific}();
+176     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *ti = \hyperlink{ompt-specific_8h_ad45cea0d0edab64c7c1059332cba7bc9}{ompt\_get\_thread\_gtid}(gtid);
+177 
+178     ti->th.ompt\_thread\_info.wait\_id = (ompt\_wait\_id\_t) variable;
+179 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_ac67291ade668df85fa534e15aa1041e6}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin}}
+\index{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin (
+\begin{DoxyParamCaption}
+\item[{ompt\-\_\-thread\-\_\-type\-\_\-t}]{thread\-\_\-type, }
+\item[{{\bf int}}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_ac67291ade668df85fa534e15aa1041e6}
+
+
+Definition at line 140 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread().
+
+
+\begin{DoxyCode}
+141 \{
+142     \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_thread\_begin)(
+143         thread\_type, \hyperlink{ompt-specific_8c_a8d6947d5f3a5a21112fcb8bb678fc5bc}{GTID\_TO\_OMPT\_THREAD\_ID}(gtid));
+144 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a6df3ac9845bff98373f885b319bc2e38}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-thread\-\_\-end@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-end}}
+\index{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-end@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-end}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-ompt\-\_\-thread\-\_\-end (
+\begin{DoxyParamCaption}
+\item[{ompt\-\_\-thread\-\_\-type\-\_\-t}]{thread\-\_\-type, }
+\item[{{\bf int}}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a6df3ac9845bff98373f885b319bc2e38}
+
+
+Definition at line 148 of file ompt-\/specific.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), and \-\_\-\-\_\-kmp\-\_\-reset\-\_\-root().
+
+
+\begin{DoxyCode}
+149 \{
+150     \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_thread\_end)(
+151         thread\_type, \hyperlink{ompt-specific_8c_a8d6947d5f3a5a21112fcb8bb678fc5bc}{GTID\_TO\_OMPT\_THREAD\_ID}(gtid));
+152 \}
+\end{DoxyCode}
+\hypertarget{ompt-specific_8c_a20defde93de9c4e3d89e2761c2804342}{\index{ompt-\/specific.\-c@{ompt-\/specific.\-c}!\-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new}}
+\index{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new@{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new}!ompt-specific.c@{ompt-\/specific.\-c}}
+\subsubsection[{\-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}ompt\-\_\-parallel\-\_\-id\-\_\-t \-\_\-\-\_\-ompt\-\_\-thread\-\_\-id\-\_\-new (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ompt-specific_8c_a20defde93de9c4e3d89e2761c2804342}
+
+
+Definition at line 133 of file ompt-\/specific.\-c.
+
+
+\begin{DoxyCode}
+134 \{
+135     \textcolor{keyword}{static} uint64\_t ompt\_thread\_id = 1;
+136     \textcolor{keywordflow}{return} \hyperlink{ompt-specific_8c_acb567df2f081ca57ef1be6e2adb72512}{NEXT\_ID}(&ompt\_thread\_id, 0);
+137 \}
+\end{DoxyCode}

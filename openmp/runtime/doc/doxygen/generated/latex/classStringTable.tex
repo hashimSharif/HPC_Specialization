@@ -1,0 +1,320 @@
+\hypertarget{classStringTable}{\section{String\-Table Class Reference}
+\label{classStringTable}\index{String\-Table@{String\-Table}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classStringTable_a7b1d10b164ac537427f69b8f74e82f0e}{String\-Table} (\hyperlink{classrstream}{rstream} \&f)
+\item 
+\hyperlink{classStringTable_a3cfd042bd8bc8cdbd7605239483ab6f0}{String\-Table} (const set$<$ string $>$ \&strings)
+\item 
+\hyperlink{classStringTable_a1772239d39a3e9c1a190774d827c276a}{$\sim$\-String\-Table} ()
+\item 
+\-\_\-\-\_\-int64 \hyperlink{classStringTable_a8974f81180f04c03f4e7a6f96d3a6859}{encode} (const string \&\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str})
+\item 
+string \hyperlink{classStringTable_a4c854682a6ad18571c5c982463623ea3}{decode} (\-\_\-\-\_\-int64 \hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x}) const 
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classStringTable_a5723e0a1a205d8ec1efaf4ee831eda6f}{write} (ostream \&os)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classStringTable_a21adcf6465a0ee5cdd803bb01a1340d6}{make\-Directory} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classStringTable_a23dbfe4ddeb01a618c0680da9891c88c}{init} (const char $\ast$\-\_\-data)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+map$<$ string, unsigned $>$ \hyperlink{classStringTable_aae367f0869109a838ade94339db9eb2d}{directory}
+\item 
+size\-\_\-t \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length}
+\item 
+char $\ast$ \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 113 of file extract\-External.\-cpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classStringTable_a7b1d10b164ac537427f69b8f74e82f0e}{\index{String\-Table@{String\-Table}!String\-Table@{String\-Table}}
+\index{String\-Table@{String\-Table}!StringTable@{String\-Table}}
+\subsubsection[{String\-Table}]{\setlength{\rightskip}{0pt plus 5cm}String\-Table\-::\-String\-Table (
+\begin{DoxyParamCaption}
+\item[{{\bf rstream} \&}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStringTable_a7b1d10b164ac537427f69b8f74e82f0e}
+
+
+Definition at line 147 of file extract\-External.\-cpp.
+
+
+\begin{DoxyCode}
+147                             \{
+148         \textcolor{comment}{/* Construct string table by reading from f.}
+149 \textcolor{comment}{         */}
+150         streampos \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s};
+151         \textcolor{keywordtype}{unsigned} strSize;
+152         \textcolor{keywordtype}{char} *strData;
+153 
+154         s = f.tellg();
+155         f>>strSize;
+156         \textcolor{keywordflow}{if}(strSize < \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}))
+157             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable: Invalid string table"});
+158         strData = \textcolor{keyword}{new} \textcolor{keywordtype}{char}[strSize];
+159         *(\textcolor{keywordtype}{unsigned}*)strData = strSize;
+160         \textcolor{comment}{// read the raw data into <strData>}
+161         f.read(strData + \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}), strSize - \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}));
+162         s = f.tellg() - \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s};
+163         \textcolor{keywordflow}{if}(s < strSize)
+164             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable: Unexpected EOF"});
+165         \hyperlink{classStringTable_a23dbfe4ddeb01a618c0680da9891c88c}{init}(strData);
+166         \textcolor{keyword}{delete}[]strData;
+167     \}
+\end{DoxyCode}
+\hypertarget{classStringTable_a3cfd042bd8bc8cdbd7605239483ab6f0}{\index{String\-Table@{String\-Table}!String\-Table@{String\-Table}}
+\index{String\-Table@{String\-Table}!StringTable@{String\-Table}}
+\subsubsection[{String\-Table}]{\setlength{\rightskip}{0pt plus 5cm}String\-Table\-::\-String\-Table (
+\begin{DoxyParamCaption}
+\item[{const set$<$ string $>$ \&}]{strings}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStringTable_a3cfd042bd8bc8cdbd7605239483ab6f0}
+
+
+Definition at line 168 of file extract\-External.\-cpp.
+
+
+\begin{DoxyCode}
+168                                             \{
+169         \textcolor{comment}{/* Construct string table from given strings.}
+170 \textcolor{comment}{         */}
+171         \textcolor{keywordtype}{char} *\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p};
+172         set<string>::const\_iterator it;
+173         \textcolor{keywordtype}{size\_t} \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s};
+174 
+175         \textcolor{comment}{// count required size for data}
+176         \textcolor{keywordflow}{for}(\hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length} = \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}), it = strings.begin(); it != strings.end(); ++it) \{
+177             \textcolor{keywordtype}{size\_t} l = (*it).size();
+178 
+179             \textcolor{keywordflow}{if}(l > (\textcolor{keywordtype}{unsigned}) 0xFFFFFFFF)
+180                 \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable: String too long"});
+181             \textcolor{keywordflow}{if}(l > 8) \{
+182                 \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length} += l + 1;
+183                 \textcolor{keywordflow}{if}(\hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length} > (\textcolor{keywordtype}{unsigned}) 0xFFFFFFFF)
+184                     \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable: Symbol table too long"});
+185             \}
+186         \}
+187         \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} = \textcolor{keyword}{new} \textcolor{keywordtype}{char}[\hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length}];
+188         *(\textcolor{keywordtype}{unsigned}*)\hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} = \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length};
+189         \textcolor{comment}{// populate data and directory}
+190         \textcolor{keywordflow}{for}(p = \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} + \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}), it = strings.begin(); it != strings.end(); ++it) \{
+191             \textcolor{keyword}{const} \textcolor{keywordtype}{string} &\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} = *it;
+192             \textcolor{keywordtype}{size\_t} l = str.size();
+193             \textcolor{keywordflow}{if}(l > 8) \{
+194                 \hyperlink{classStringTable_aae367f0869109a838ade94339db9eb2d}{directory}.insert(make\_pair(str, p - \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data}));
+195                 \hyperlink{kmp__safe__c__api_8h_ab63a75e8bb537bb3ae55c05d0a3b7ca0}{KMP\_MEMCPY}(p, str.c\_str(), l);
+196                 p[l] = 0;
+197                 p += l + 1;
+198             \}
+199         \}
+200     \}
+\end{DoxyCode}
+\hypertarget{classStringTable_a1772239d39a3e9c1a190774d827c276a}{\index{String\-Table@{String\-Table}!$\sim$\-String\-Table@{$\sim$\-String\-Table}}
+\index{$\sim$\-String\-Table@{$\sim$\-String\-Table}!StringTable@{String\-Table}}
+\subsubsection[{$\sim$\-String\-Table}]{\setlength{\rightskip}{0pt plus 5cm}String\-Table\-::$\sim$\-String\-Table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStringTable_a1772239d39a3e9c1a190774d827c276a}
+
+
+Definition at line 201 of file extract\-External.\-cpp.
+
+
+\begin{DoxyCode}
+201                    \{
+202         \textcolor{keyword}{delete}[] \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data};
+203     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classStringTable_a4c854682a6ad18571c5c982463623ea3}{\index{String\-Table@{String\-Table}!decode@{decode}}
+\index{decode@{decode}!StringTable@{String\-Table}}
+\subsubsection[{decode}]{\setlength{\rightskip}{0pt plus 5cm}string String\-Table\-::decode (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-int64}]{x}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStringTable_a4c854682a6ad18571c5c982463623ea3}
+
+
+Definition at line 230 of file extract\-External.\-cpp.
+
+
+
+Referenced by compute\-External\-Symbols(), and hide\-Symbols().
+
+
+\begin{DoxyCode}
+230                                    \{
+231         \textcolor{keywordflow}{if}(*(\textcolor{keywordtype}{unsigned}*)&\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x} == 0) \{
+232             \textcolor{comment}{// represented as index into table}
+233             \textcolor{keywordtype}{unsigned} &\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p} = ((\textcolor{keywordtype}{unsigned}*)&\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x})[1];
+234             \textcolor{keywordflow}{if}(p >= \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length})
+235                 \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable::decode: Invalid string table lookup"});
+236             \textcolor{keywordflow}{return} string(\hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} + p);
+237         \} \textcolor{keywordflow}{else} \{
+238             \textcolor{comment}{// encoded directly}
+239             \textcolor{keywordtype}{char} *p = (\textcolor{keywordtype}{char}*)&\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x};
+240             \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+241 
+242             \textcolor{keywordflow}{for}(i = 0; i < 8 && p[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i});
+243             \textcolor{keywordflow}{return} string(p, i);
+244         \}
+245     \}
+\end{DoxyCode}
+\hypertarget{classStringTable_a8974f81180f04c03f4e7a6f96d3a6859}{\index{String\-Table@{String\-Table}!encode@{encode}}
+\index{encode@{encode}!StringTable@{String\-Table}}
+\subsubsection[{encode}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-int64 String\-Table\-::encode (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStringTable_a8974f81180f04c03f4e7a6f96d3a6859}
+
+
+Definition at line 208 of file extract\-External.\-cpp.
+
+
+
+Referenced by hide\-Symbols().
+
+
+\begin{DoxyCode}
+208                                       \{
+209         \_\_int64 r;
+210 
+211         \textcolor{keywordflow}{if}(\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}.size() <= 8) \{
+212             \textcolor{comment}{// encoded directly}
+213             ((\textcolor{keywordtype}{char}*)&r)[7] = 0;
+214             \hyperlink{kmp__safe__c__api_8h_a4fbbdb06dd5ae6bce158bb85be109864}{KMP\_STRNCPY\_S}((\textcolor{keywordtype}{char}*)&r, \textcolor{keyword}{sizeof}(r), \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}.c\_str(), 8);
+215             \textcolor{keywordflow}{return} r;
+216         \} \textcolor{keywordflow}{else} \{
+217             \textcolor{comment}{// represented as index into table}
+218             map<string,unsigned>::const\_iterator it = \hyperlink{classStringTable_aae367f0869109a838ade94339db9eb2d}{directory}.find(
+      \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str});
+219             \textcolor{keywordflow}{if}(it == \hyperlink{classStringTable_aae367f0869109a838ade94339db9eb2d}{directory}.end())
+220                 \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable::encode: String now found in string table"});
+221             ((\textcolor{keywordtype}{unsigned}*)&r)[0] = 0;
+222             ((\textcolor{keywordtype}{unsigned}*)&r)[1] = (*it).second;
+223             \textcolor{keywordflow}{return} r;
+224         \}
+225     \}
+\end{DoxyCode}
+\hypertarget{classStringTable_a23dbfe4ddeb01a618c0680da9891c88c}{\index{String\-Table@{String\-Table}!init@{init}}
+\index{init@{init}!StringTable@{String\-Table}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} String\-Table\-::init (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{\-\_\-data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}}\label{classStringTable_a23dbfe4ddeb01a618c0680da9891c88c}
+
+
+Definition at line 129 of file extract\-External.\-cpp.
+
+
+\begin{DoxyCode}
+129                                  \{
+130         \textcolor{keywordtype}{unsigned} \_length = *(\textcolor{keywordtype}{unsigned}*)\_data;
+131 
+132         \textcolor{keywordflow}{if}(\_length < \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}) || \_length != *(\textcolor{keywordtype}{unsigned}*)\_data)
+133             \hyperlink{extractExternal_8cpp_aaabd632593ae454ee6ac33cc02d1d215}{stop}(\textcolor{stringliteral}{"StringTable.init: Invalid symbol table"});
+134         \textcolor{keywordflow}{if}(\_data[\_length - 1]) \{
+135             \textcolor{comment}{// to prevent runaway strings, make sure the data ends with a zero}
+136             \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} = \textcolor{keyword}{new} \textcolor{keywordtype}{char}[\hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length} = \_length + 1];
+137             \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data}[\_length] = 0;
+138         \} \textcolor{keywordflow}{else} \{
+139             \hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} = \textcolor{keyword}{new} \textcolor{keywordtype}{char}[\hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length} = \_length];
+140         \}
+141         *(\textcolor{keywordtype}{unsigned}*)\hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} = \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length};
+142         \hyperlink{kmp__safe__c__api_8h_ab63a75e8bb537bb3ae55c05d0a3b7ca0}{KMP\_MEMCPY}(\hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} + \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}), \_data + \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}),
+143                    \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length} - \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}));
+144         \hyperlink{classStringTable_a21adcf6465a0ee5cdd803bb01a1340d6}{makeDirectory}();
+145     \}
+\end{DoxyCode}
+\hypertarget{classStringTable_a21adcf6465a0ee5cdd803bb01a1340d6}{\index{String\-Table@{String\-Table}!make\-Directory@{make\-Directory}}
+\index{make\-Directory@{make\-Directory}!StringTable@{String\-Table}}
+\subsubsection[{make\-Directory}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} String\-Table\-::make\-Directory (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}}\label{classStringTable_a21adcf6465a0ee5cdd803bb01a1340d6}
+
+
+Definition at line 120 of file extract\-External.\-cpp.
+
+
+\begin{DoxyCode}
+120                              \{
+121         \textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 4;
+122         \textcolor{keywordflow}{while}(i < \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length}) \{
+123             \textcolor{keywordtype}{string} \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s} = string(\hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data} + i);
+124             \hyperlink{classStringTable_aae367f0869109a838ade94339db9eb2d}{directory}.insert(make\_pair(s, i));
+125             i += s.size() + 1;
+126         \}
+127     \}
+\end{DoxyCode}
+\hypertarget{classStringTable_a5723e0a1a205d8ec1efaf4ee831eda6f}{\index{String\-Table@{String\-Table}!write@{write}}
+\index{write@{write}!StringTable@{String\-Table}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} String\-Table\-::write (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{os}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStringTable_a5723e0a1a205d8ec1efaf4ee831eda6f}
+
+
+Definition at line 246 of file extract\-External.\-cpp.
+
+
+
+Referenced by hide\-Symbols().
+
+
+\begin{DoxyCode}
+246                             \{
+247         os.write(\hyperlink{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{data}, \hyperlink{classStringTable_a0990f0196e8550c5040393f30888eb61}{length});
+248     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classStringTable_a5f15a003fff4c6086ab9b8888daee316}{\index{String\-Table@{String\-Table}!data@{data}}
+\index{data@{data}!StringTable@{String\-Table}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ String\-Table\-::data\hspace{0.3cm}{\ttfamily [private]}}}\label{classStringTable_a5f15a003fff4c6086ab9b8888daee316}
+
+
+Definition at line 117 of file extract\-External.\-cpp.
+
+\hypertarget{classStringTable_aae367f0869109a838ade94339db9eb2d}{\index{String\-Table@{String\-Table}!directory@{directory}}
+\index{directory@{directory}!StringTable@{String\-Table}}
+\subsubsection[{directory}]{\setlength{\rightskip}{0pt plus 5cm}map$<$string, unsigned$>$ String\-Table\-::directory\hspace{0.3cm}{\ttfamily [private]}}}\label{classStringTable_aae367f0869109a838ade94339db9eb2d}
+
+
+Definition at line 115 of file extract\-External.\-cpp.
+
+\hypertarget{classStringTable_a0990f0196e8550c5040393f30888eb61}{\index{String\-Table@{String\-Table}!length@{length}}
+\index{length@{length}!StringTable@{String\-Table}}
+\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t String\-Table\-::length\hspace{0.3cm}{\ttfamily [private]}}}\label{classStringTable_a0990f0196e8550c5040393f30888eb61}
+
+
+Definition at line 116 of file extract\-External.\-cpp.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{extractExternal_8cpp}{extract\-External.\-cpp}\end{DoxyCompactItemize}

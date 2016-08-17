@@ -37,8 +37,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,12 +59,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">kmp_cancel.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<a href="kmp__cancel_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//===----------------------------------------------------------------------===//</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//                     The LLVM Compiler Infrastructure</span></div>
@@ -92,35 +100,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//===----------------------------------------------------------------------===//</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;kmp.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;kmp_i18n.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;kmp_io.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;kmp_str.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="kmp_8h.html">kmp.h</a>&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="kmp__i18n_8h.html">kmp_i18n.h</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="kmp__io_8h.html">kmp_io.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="kmp__str_8h.html">kmp_str.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#if OMP_40_ENABLED</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;kmp_int32 __kmpc_cancel(<a class="code" href="structident.html">ident_t</a>* loc_ref, kmp_int32 gtid, kmp_int32 cncl_kind) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    kmp_info_t *this_thr = __kmp_threads [ gtid ];</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="comment"></span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">/*!</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">@ingroup CANCELLATION</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">@param loc_ref location of the original task directive</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">@param gtid Global thread ID of encountering thread</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">@param cncl_kind Cancellation kind (parallel, for, sections, taskgroup)</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">@return returns true if the cancellation request has been activated and the execution thread</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">needs to proceed to the end of the canceled region.</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">Request cancellation of the binding OpenMP region.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="kmp__cancel_8cpp.html#af2c0d54dfa18f36c17cd9b4659adb858">   30</a></span>&#160;kmp_int32 <a class="code" href="kmp__cancel_8cpp.html#af2c0d54dfa18f36c17cd9b4659adb858">__kmpc_cancel</a>(<a class="code" href="structident.html">ident_t</a>* loc_ref, kmp_int32 gtid, kmp_int32 cncl_kind) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="kmp_8h.html#a194859801fe16b326efe34501a37c30a">kmp_info_t</a> *this_thr = <a class="code" href="kmp_8h.html#a8ba907eb5a2568ff55a49a1504cd3624">__kmp_threads</a> [ gtid ];</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    KC_TRACE( 10, (<span class="stringliteral">&quot;__kmpc_cancel: T#%d request %d OMP_CANCELLATION=%d\n&quot;</span>, gtid, cncl_kind, __kmp_omp_cancellation) );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="kmp__debug_8h.html#ab49eefbf8c74cfe98a90ce7ec8864add">KC_TRACE</a>( 10, (<span class="stringliteral">&quot;__kmpc_cancel: T#%d request %d OMP_CANCELLATION=%d\n&quot;</span>, gtid, cncl_kind, <a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>) );</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    KMP_DEBUG_ASSERT(cncl_kind != cancel_noreq);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    KMP_DEBUG_ASSERT(cncl_kind == cancel_parallel || cncl_kind == cancel_loop || </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                     cncl_kind == cancel_sections || cncl_kind == cancel_taskgroup); </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    KMP_DEBUG_ASSERT(__kmp_get_gtid() == gtid);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(cncl_kind != <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a> || cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a> || </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                     cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a> || cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a>); </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(<a class="code" href="kmp_8h.html#ad9b4e1a8a911f57a29a75f7536e5200c">__kmp_get_gtid</a>() == gtid);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (__kmp_omp_cancellation) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>) {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">switch</span> (cncl_kind) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">case</span> cancel_parallel:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">case</span> cancel_loop:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">case</span> cancel_sections:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a>:</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="comment">// cancellation requests for parallel and worksharing constructs</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="comment">// are handled through the team structure</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                kmp_team_t *this_team = this_thr-&gt;th.th_team;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                KMP_DEBUG_ASSERT(this_team);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                kmp_int32 old = KMP_COMPARE_AND_STORE_RET32(&amp;(this_team-&gt;t.t_cancel_request), cancel_noreq, cncl_kind);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="keywordflow">if</span> (old == cancel_noreq || old == cncl_kind) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <a class="code" href="unionkmp__team.html">kmp_team_t</a> *this_team = this_thr-&gt;th.th_team;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(this_team);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                kmp_int32 old = <a class="code" href="kmp__os_8h.html#a67a9c509745e1b1a75c5ec9dc3a03b81">KMP_COMPARE_AND_STORE_RET32</a>(&amp;(this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request), <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>, cncl_kind);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="keywordflow">if</span> (old == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a> || old == cncl_kind) {</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    <span class="comment">//printf(&quot;__kmpc_cancel: this_team-&gt;t.t_cancel_request=%d @ %p\n&quot;, </span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    <span class="comment">//       this_team-&gt;t.t_cancel_request, &amp;(this_team-&gt;t.t_cancel_request));</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    <span class="comment">// we do not have a cancellation request in this team or we do have one</span></div>
@@ -129,20 +148,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">case</span> cancel_taskgroup:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a>:</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="comment">// cancellation requests for a task group</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="comment">// are handled through the taskgroup structure</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                kmp_taskdata_t*  task; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                kmp_taskgroup_t* taskgroup;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <a class="code" href="structkmp__taskdata.html">kmp_taskdata_t</a>*  <a class="code" href="ittnotify__static_8h.html#aed9673d42c4239c5498e39aad80df904">task</a>; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <a class="code" href="structkmp__taskgroup.html">kmp_taskgroup_t</a>* taskgroup;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                task = this_thr-&gt;th.th_current_task;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                KMP_DEBUG_ASSERT( task );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>( task );</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                taskgroup = task-&gt;td_taskgroup;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                taskgroup = task-&gt;<a class="code" href="structkmp__taskdata.html#a568185a9e8c23a1682491fa55973d61c">td_taskgroup</a>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">if</span> (taskgroup) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    kmp_int32 old = KMP_COMPARE_AND_STORE_RET32(&amp;(taskgroup-&gt;cancel_request), cancel_noreq, cncl_kind);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    <span class="keywordflow">if</span> (old == cancel_noreq || old == cncl_kind) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    kmp_int32 old = <a class="code" href="kmp__os_8h.html#a67a9c509745e1b1a75c5ec9dc3a03b81">KMP_COMPARE_AND_STORE_RET32</a>(&amp;(taskgroup-&gt;<a class="code" href="structkmp__taskgroup.html#a0775c7306150a24b509b4f897be92bce">cancel_request</a>), <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>, cncl_kind);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    <span class="keywordflow">if</span> (old == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a> || old == cncl_kind) {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                        <span class="comment">// we do not have a cancellation request in this taskgroup or we do have one</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                        <span class="comment">// that matches the current request -&gt; cancel</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                        <span class="keywordflow">return</span> 1 <span class="comment">/* true */</span>;</div>
@@ -152,47 +171,58 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    <span class="comment">// TODO: what needs to happen here?</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    <span class="comment">// the specification disallows cancellation w/o taskgroups</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    <span class="comment">// so we might do anything here, let&#39;s abort for now</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    KMP_ASSERT( 0 <span class="comment">/* false */</span>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    <a class="code" href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a>( 0 <span class="comment">/* false */</span>);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                }</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            }</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            KMP_ASSERT (0 <span class="comment">/* false */</span>);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <a class="code" href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a> (0 <span class="comment">/* false */</span>);</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// ICV OMP_CANCELLATION=false, so we ignored this cancel request</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    KMP_DEBUG_ASSERT(!__kmp_omp_cancellation);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(!<a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> 0 <span class="comment">/* false */</span>;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;kmp_int32 __kmpc_cancellationpoint(<a class="code" href="structident.html">ident_t</a>* loc_ref, kmp_int32 gtid, kmp_int32 cncl_kind) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    kmp_info_t *this_thr = __kmp_threads [ gtid ];</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">/*!</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">@ingroup CANCELLATION</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">@param loc_ref location of the original task directive</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">@param gtid Global thread ID of encountering thread</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">@param cncl_kind Cancellation kind (parallel, for, sections, taskgroup)</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">@return returns true if a matching cancellation request has been flagged in the RTL and the </span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">encountering thread has to cancel..</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">Cancellation point for the encountering thread.</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="kmp__cancel_8cpp.html#a1cc2bf9431ce18c4437401c2a866781c">  108</a></span>&#160;kmp_int32 <a class="code" href="kmp__cancel_8cpp.html#a1cc2bf9431ce18c4437401c2a866781c">__kmpc_cancellationpoint</a>(<a class="code" href="structident.html">ident_t</a>* loc_ref, kmp_int32 gtid, kmp_int32 cncl_kind) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="kmp_8h.html#a194859801fe16b326efe34501a37c30a">kmp_info_t</a> *this_thr = <a class="code" href="kmp_8h.html#a8ba907eb5a2568ff55a49a1504cd3624">__kmp_threads</a> [ gtid ];</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    KC_TRACE( 10, (<span class="stringliteral">&quot;__kmpc_cancellationpoint: T#%d request %d OMP_CANCELLATION=%d\n&quot;</span>, gtid, cncl_kind, __kmp_omp_cancellation) );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="kmp__debug_8h.html#ab49eefbf8c74cfe98a90ce7ec8864add">KC_TRACE</a>( 10, (<span class="stringliteral">&quot;__kmpc_cancellationpoint: T#%d request %d OMP_CANCELLATION=%d\n&quot;</span>, gtid, cncl_kind, <a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>) );</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    KMP_DEBUG_ASSERT(cncl_kind != cancel_noreq);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    KMP_DEBUG_ASSERT(cncl_kind == cancel_parallel || cncl_kind == cancel_loop || </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                     cncl_kind == cancel_sections || cncl_kind == cancel_taskgroup); </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    KMP_DEBUG_ASSERT(__kmp_get_gtid() == gtid);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(cncl_kind != <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a> || cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a> || </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                     cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a> || cncl_kind == <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a>); </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(<a class="code" href="kmp_8h.html#ad9b4e1a8a911f57a29a75f7536e5200c">__kmp_get_gtid</a>() == gtid);</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> (__kmp_omp_cancellation) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>) {</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">switch</span> (cncl_kind) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">case</span> cancel_parallel:</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">case</span> cancel_loop:</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">case</span> cancel_sections:</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a>:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a>:</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a>:</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="comment">// cancellation requests for parallel and worksharing constructs</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="comment">// are handled through the team structure</span></div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                kmp_team_t *this_team = this_thr-&gt;th.th_team;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                KMP_DEBUG_ASSERT(this_team);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                <span class="keywordflow">if</span> (this_team-&gt;t.t_cancel_request) {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    <span class="keywordflow">if</span> (cncl_kind == this_team-&gt;t.t_cancel_request) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                <a class="code" href="unionkmp__team.html">kmp_team_t</a> *this_team = this_thr-&gt;th.th_team;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(this_team);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                <span class="keywordflow">if</span> (this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    <span class="keywordflow">if</span> (cncl_kind == this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request) {</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                        <span class="comment">// the request in the team structure matches the type of</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        <span class="comment">// cancellation point so we can cancel</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                        <span class="keywordflow">return</span> 1 <span class="comment">/* true */</span>;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                    }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                    KMP_ASSERT( 0 <span class="comment">/* false */</span>);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                    <a class="code" href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a>( 0 <span class="comment">/* false */</span>);</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                }</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                    <span class="comment">// we do not have a cancellation request pending, so we just</span></div>
@@ -201,21 +231,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                }</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            }</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">case</span> cancel_taskgroup:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a>:</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="comment">// cancellation requests for a task group</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="comment">// are handled through the taskgroup structure</span></div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                kmp_taskdata_t*  task; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                kmp_taskgroup_t* taskgroup;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                <a class="code" href="structkmp__taskdata.html">kmp_taskdata_t</a>*  <a class="code" href="ittnotify__static_8h.html#aed9673d42c4239c5498e39aad80df904">task</a>; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                <a class="code" href="structkmp__taskgroup.html">kmp_taskgroup_t</a>* taskgroup;</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                </div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                task = this_thr-&gt;th.th_current_task;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                KMP_DEBUG_ASSERT( task );</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>( task );</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                taskgroup = task-&gt;td_taskgroup;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                taskgroup = task-&gt;<a class="code" href="structkmp__taskdata.html#a568185a9e8c23a1682491fa55973d61c">td_taskgroup</a>;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="keywordflow">if</span> (taskgroup) {</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                    <span class="comment">// return the current status of cancellation for the </span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                    <span class="comment">// taskgroup</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    <span class="keywordflow">return</span> !!taskgroup-&gt;cancel_request;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    <span class="keywordflow">return</span> !!taskgroup-&gt;<a class="code" href="structkmp__taskgroup.html#a0775c7306150a24b509b4f897be92bce">cancel_request</a>;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                }</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <span class="comment">// if a cancellation point is encountered by a task</span></div>
@@ -225,86 +255,114 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                }</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            }</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            KMP_ASSERT (0 <span class="comment">/* false */</span>);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            <a class="code" href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a> (0 <span class="comment">/* false */</span>);</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        }</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="comment">// ICV OMP_CANCELLATION=false, so we ignore the cancellation point</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    KMP_DEBUG_ASSERT(!__kmp_omp_cancellation);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(!<a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>);</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">return</span> 0 <span class="comment">/* false */</span>;</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">/*!</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">@ingroup CANCELLATION</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">@param loc_ref location of the original task directive</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">@param gtid Global thread ID of encountering thread</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">@return returns true if a matching cancellation request has been flagged in the RTL and the </span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">encountering thread has to cancel..</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">Barrier with cancellation point to send threads from the barrier to the</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">end of the parallel region.  Needs a special code pattern as documented </span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">in the design document for the cancellation feature.</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;kmp_int32</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;__kmpc_cancel_barrier(<a class="code" href="structident.html">ident_t</a> *loc, kmp_int32 gtid) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="kmp__cancel_8cpp.html#ad9df98c9cc81f24f8aa58d83c1d01245">  189</a></span>&#160;<a class="code" href="kmp__cancel_8cpp.html#ad9df98c9cc81f24f8aa58d83c1d01245">__kmpc_cancel_barrier</a>(<a class="code" href="structident.html">ident_t</a> *loc, kmp_int32 gtid) {</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordtype">int</span> ret = 0 <span class="comment">/* false */</span>;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    kmp_info_t *this_thr = __kmp_threads [ gtid ];</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    kmp_team_t *this_team = this_thr-&gt;th.th_team;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <a class="code" href="kmp_8h.html#a194859801fe16b326efe34501a37c30a">kmp_info_t</a> *this_thr = <a class="code" href="kmp_8h.html#a8ba907eb5a2568ff55a49a1504cd3624">__kmp_threads</a> [ gtid ];</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <a class="code" href="unionkmp__team.html">kmp_team_t</a> *this_team = this_thr-&gt;th.th_team;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    KMP_DEBUG_ASSERT(__kmp_get_gtid() == gtid);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <a class="code" href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a>(<a class="code" href="kmp_8h.html#ad9b4e1a8a911f57a29a75f7536e5200c">__kmp_get_gtid</a>() == gtid);</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="comment">// call into the standard barrier</span></div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="group__SYNCHRONIZATION.html#ga84b2ebeef737395dddd8ef446c071760">__kmpc_barrier</a>(loc, gtid);</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="comment">// if cancellation is active, check cancellation flag</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">if</span> (__kmp_omp_cancellation) {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>) {</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="comment">// depending on which construct to cancel, check the flag and</span></div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="comment">// reset the flag</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keywordflow">switch</span> (this_team-&gt;t.t_cancel_request) {</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">case</span> cancel_parallel:</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keywordflow">switch</span> (this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request) {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a>:</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            ret = 1;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="comment">// ensure that threads have checked the flag, when</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <span class="comment">// leaving the above barrier</span></div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <a class="code" href="group__SYNCHRONIZATION.html#ga84b2ebeef737395dddd8ef446c071760">__kmpc_barrier</a>(loc, gtid);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            this_team-&gt;t.t_cancel_request = cancel_noreq;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request = <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="comment">// the next barrier is the fork/join barrier, which</span></div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            <span class="comment">// synchronizes the threads leaving here        </span></div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">case</span> cancel_loop:</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">case</span> cancel_sections:</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a>:</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a>:</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            ret = 1;</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            <span class="comment">// ensure that threads have checked the flag, when</span></div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            <span class="comment">// leaving the above barrier</span></div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            <a class="code" href="group__SYNCHRONIZATION.html#ga84b2ebeef737395dddd8ef446c071760">__kmpc_barrier</a>(loc, gtid);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            this_team-&gt;t.t_cancel_request = cancel_noreq;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request = <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            <span class="comment">// synchronize the threads again to make sure we</span></div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            <span class="comment">// do not have any run-away threads that cause a race</span></div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            <span class="comment">// on the cancellation flag</span></div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            <a class="code" href="group__SYNCHRONIZATION.html#ga84b2ebeef737395dddd8ef446c071760">__kmpc_barrier</a>(loc, gtid);</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keywordflow">case</span> cancel_taskgroup:</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a>:</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            <span class="comment">// this case should not occur</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            KMP_ASSERT (0 <span class="comment">/* false */</span> );</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <a class="code" href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a> (0 <span class="comment">/* false */</span> );</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">case</span> cancel_noreq:</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a>:</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            <span class="comment">// do nothing</span></div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            KMP_ASSERT ( 0 <span class="comment">/* false */</span>);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <a class="code" href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a> ( 0 <span class="comment">/* false */</span>);</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        }</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    }</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    </div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="keywordtype">int</span> __kmp_get_cancellation_status(<span class="keywordtype">int</span> cancel_kind) {</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">if</span> (__kmp_omp_cancellation) {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        kmp_info_t *this_thr = __kmp_entry_thread();</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment">/*!</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="comment">@ingroup CANCELLATION</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="comment">@param loc_ref location of the original task directive</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="comment">@param gtid Global thread ID of encountering thread</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="comment">@return returns true if a matching cancellation request has been flagged in the RTL and the </span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="comment">encountering thread has to cancel..</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">Query function to query the current status of cancellation requests.</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="comment">Can be used to implement the following pattern:</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="comment"> </span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="comment">if (kmp_get_cancellation_status(kmp_cancel_parallel)) {</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="comment">    perform_cleanup();</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment">    #pragma omp cancellation point parallel      </span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="kmp__cancel_8cpp.html#a1ceea880fffcc1da39f9c35cce3f3bf3">  256</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="kmp__cancel_8cpp.html#a1ceea880fffcc1da39f9c35cce3f3bf3">__kmp_get_cancellation_status</a>(<span class="keywordtype">int</span> cancel_kind) {</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a>) {</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <a class="code" href="kmp_8h.html#a194859801fe16b326efe34501a37c30a">kmp_info_t</a> *this_thr = <a class="code" href="kmp_8h.html#ab5c65087a44197c3b69cd133df0d6f85">__kmp_entry_thread</a>();</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        </div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">switch</span> (cancel_kind) {</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keywordflow">case</span> cancel_parallel:</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">case</span> cancel_loop:</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">case</span> cancel_sections:</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a>:</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a>:</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a>:</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            {</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                kmp_team_t *this_team = this_thr-&gt;th.th_team;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                <span class="keywordflow">return</span> this_team-&gt;t.t_cancel_request == cancel_kind;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                <a class="code" href="unionkmp__team.html">kmp_team_t</a> *this_team = this_thr-&gt;th.th_team;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                <span class="keywordflow">return</span> this_team-&gt;<a class="code" href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">t</a>.t_cancel_request == cancel_kind;</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            }</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">case</span> cancel_taskgroup:</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a>:</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                kmp_taskdata_t*  task; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                kmp_taskgroup_t* taskgroup;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                <a class="code" href="structkmp__taskdata.html">kmp_taskdata_t</a>*  <a class="code" href="ittnotify__static_8h.html#aed9673d42c4239c5498e39aad80df904">task</a>; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                <a class="code" href="structkmp__taskgroup.html">kmp_taskgroup_t</a>* taskgroup;</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                task = this_thr-&gt;th.th_current_task;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                taskgroup = task-&gt;td_taskgroup;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                <span class="keywordflow">return</span> taskgroup &amp;&amp; taskgroup-&gt;cancel_request;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                taskgroup = task-&gt;<a class="code" href="structkmp__taskdata.html#a568185a9e8c23a1682491fa55973d61c">td_taskgroup</a>;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                <span class="keywordflow">return</span> taskgroup &amp;&amp; taskgroup-&gt;<a class="code" href="structkmp__taskgroup.html#a0775c7306150a24b509b4f897be92bce">cancel_request</a>;</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            }</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        }</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    }</div>
@@ -313,12 +371,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="structkmp__taskgroup_html"><div class="ttname"><a href="structkmp__taskgroup.html">kmp_taskgroup</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02067">kmp.h:2067</a></div></div>
+<div class="ttc" id="kmp__debug_8h_html_ad766efc30e33e28634691088e80cdf08"><div class="ttname"><a href="kmp__debug_8h.html#ad766efc30e33e28634691088e80cdf08">KMP_DEBUG_ASSERT</a></div><div class="ttdeci">#define KMP_DEBUG_ASSERT(cond)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__debug_8h_source.html#l00074">kmp_debug.h:74</a></div></div>
+<div class="ttc" id="kmp__i18n_8h_html"><div class="ttname"><a href="kmp__i18n_8h.html">kmp_i18n.h</a></div></div>
+<div class="ttc" id="kmp__cancel_8cpp_html_a1cc2bf9431ce18c4437401c2a866781c"><div class="ttname"><a href="kmp__cancel_8cpp.html#a1cc2bf9431ce18c4437401c2a866781c">__kmpc_cancellationpoint</a></div><div class="ttdeci">kmp_int32 __kmpc_cancellationpoint(ident_t *loc_ref, kmp_int32 gtid, kmp_int32 cncl_kind)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__cancel_8cpp_source.html#l00108">kmp_cancel.cpp:108</a></div></div>
+<div class="ttc" id="structkmp__taskdata_html"><div class="ttname"><a href="structkmp__taskdata.html">kmp_taskdata</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02183">kmp.h:2183</a></div></div>
+<div class="ttc" id="kmp__cancel_8cpp_html_a1ceea880fffcc1da39f9c35cce3f3bf3"><div class="ttname"><a href="kmp__cancel_8cpp.html#a1ceea880fffcc1da39f9c35cce3f3bf3">__kmp_get_cancellation_status</a></div><div class="ttdeci">int __kmp_get_cancellation_status(int cancel_kind)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__cancel_8cpp_source.html#l00256">kmp_cancel.cpp:256</a></div></div>
+<div class="ttc" id="kmp__os_8h_html_a67a9c509745e1b1a75c5ec9dc3a03b81"><div class="ttname"><a href="kmp__os_8h.html#a67a9c509745e1b1a75c5ec9dc3a03b81">KMP_COMPARE_AND_STORE_RET32</a></div><div class="ttdeci">#define KMP_COMPARE_AND_STORE_RET32(p, cv, sv)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__os_8h_source.html#l00440">kmp_os.h:440</a></div></div>
+<div class="ttc" id="kmp__io_8h_html"><div class="ttname"><a href="kmp__io_8h.html">kmp_io.h</a></div></div>
+<div class="ttc" id="kmp_8h_html_ab5c65087a44197c3b69cd133df0d6f85"><div class="ttname"><a href="kmp_8h.html#ab5c65087a44197c3b69cd133df0d6f85">__kmp_entry_thread</a></div><div class="ttdeci">static kmp_info_t * __kmp_entry_thread()</div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02949">kmp.h:2949</a></div></div>
+<div class="ttc" id="kmp_8h_html_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103"><div class="ttname"><a href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103">cancel_loop</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00910">kmp.h:910</a></div></div>
+<div class="ttc" id="kmp_8h_html_a194859801fe16b326efe34501a37c30a"><div class="ttname"><a href="kmp_8h.html#a194859801fe16b326efe34501a37c30a">kmp_info_t</a></div><div class="ttdeci">union KMP_ALIGN_CACHE kmp_info kmp_info_t</div></div>
+<div class="ttc" id="kmp_8h_html_a44033de9713edf20b0c77706153df1d2"><div class="ttname"><a href="kmp_8h.html#a44033de9713edf20b0c77706153df1d2">__kmp_omp_cancellation</a></div><div class="ttdeci">int __kmp_omp_cancellation</div><div class="ttdef"><b>Definition:</b> <a href="kmp__global_8c_source.html#l00195">kmp_global.c:195</a></div></div>
+<div class="ttc" id="ittnotify__static_8h_html_aed9673d42c4239c5498e39aad80df904"><div class="ttname"><a href="ittnotify__static_8h.html#aed9673d42c4239c5498e39aad80df904">task</a></div><div class="ttdeci">void const wchar_t const wchar_t int ITT_FORMAT __itt_group_sync x void const wchar_t ITT_FORMAT __itt_group_sync S void ITT_FORMAT p void ITT_FORMAT p unsigned int ITT_FORMAT p __itt_suppress_mode_t unsigned int void size_t ITT_FORMAT d void ITT_FORMAT p void ITT_FORMAT p __itt_model_site __itt_model_site_instance const char ITT_FORMAT s __itt_model_task * task</div><div class="ttdef"><b>Definition:</b> <a href="ittnotify__static_8h_source.html#l00095">ittnotify_static.h:95</a></div></div>
+<div class="ttc" id="unionkmp__team_html"><div class="ttname"><a href="unionkmp__team.html">kmp_team</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02553">kmp.h:2553</a></div></div>
+<div class="ttc" id="kmp_8h_html_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0"><div class="ttname"><a href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0">cancel_sections</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00911">kmp.h:911</a></div></div>
+<div class="ttc" id="kmp_8h_html_ad9b4e1a8a911f57a29a75f7536e5200c"><div class="ttname"><a href="kmp_8h.html#ad9b4e1a8a911f57a29a75f7536e5200c">__kmp_get_gtid</a></div><div class="ttdeci">#define __kmp_get_gtid()</div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00937">kmp.h:937</a></div></div>
+<div class="ttc" id="kmp_8h_html_a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0"><div class="ttname"><a href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfeaf5b4fc915ab576dd1e7d4ad12b5dc6c0">cancel_noreq</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00908">kmp.h:908</a></div></div>
+<div class="ttc" id="kmp_8h_html_a8ba907eb5a2568ff55a49a1504cd3624"><div class="ttname"><a href="kmp_8h.html#a8ba907eb5a2568ff55a49a1504cd3624">__kmp_threads</a></div><div class="ttdeci">kmp_info_t ** __kmp_threads</div><div class="ttdef"><b>Definition:</b> <a href="kmp__global_8c_source.html#l00360">kmp_global.c:360</a></div></div>
+<div class="ttc" id="unionkmp__team_html_a87cf4571108a61b446e809094f8c0362"><div class="ttname"><a href="unionkmp__team.html#a87cf4571108a61b446e809094f8c0362">kmp_team::t</a></div><div class="ttdeci">kmp_base_team_t t</div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02554">kmp.h:2554</a></div></div>
+<div class="ttc" id="kmp__cancel_8cpp_html_ad9df98c9cc81f24f8aa58d83c1d01245"><div class="ttname"><a href="kmp__cancel_8cpp.html#ad9df98c9cc81f24f8aa58d83c1d01245">__kmpc_cancel_barrier</a></div><div class="ttdeci">kmp_int32 __kmpc_cancel_barrier(ident_t *loc, kmp_int32 gtid)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__cancel_8cpp_source.html#l00189">kmp_cancel.cpp:189</a></div></div>
 <div class="ttc" id="structident_html"><div class="ttname"><a href="structident.html">ident</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00200">kmp.h:200</a></div></div>
+<div class="ttc" id="kmp__debug_8h_html_ab49eefbf8c74cfe98a90ce7ec8864add"><div class="ttname"><a href="kmp__debug_8h.html#ab49eefbf8c74cfe98a90ce7ec8864add">KC_TRACE</a></div><div class="ttdeci">#define KC_TRACE(d, x)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__debug_8h_source.html#l00112">kmp_debug.h:112</a></div></div>
+<div class="ttc" id="kmp__str_8h_html"><div class="ttname"><a href="kmp__str_8h.html">kmp_str.h</a></div></div>
+<div class="ttc" id="structkmp__taskgroup_html_a0775c7306150a24b509b4f897be92bce"><div class="ttname"><a href="structkmp__taskgroup.html#a0775c7306150a24b509b4f897be92bce">kmp_taskgroup::cancel_request</a></div><div class="ttdeci">kmp_int32 cancel_request</div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02069">kmp.h:2069</a></div></div>
 <div class="ttc" id="group__SYNCHRONIZATION_html_ga84b2ebeef737395dddd8ef446c071760"><div class="ttname"><a href="group__SYNCHRONIZATION.html#ga84b2ebeef737395dddd8ef446c071760">__kmpc_barrier</a></div><div class="ttdeci">KMP_EXPORT void __kmpc_barrier(ident_t *, kmp_int32 global_tid)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__csupport_8c_source.html#l00697">kmp_csupport.c:697</a></div></div>
+<div class="ttc" id="kmp_8h_html_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b"><div class="ttname"><a href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b">cancel_parallel</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00909">kmp.h:909</a></div></div>
+<div class="ttc" id="kmp__cancel_8cpp_html_af2c0d54dfa18f36c17cd9b4659adb858"><div class="ttname"><a href="kmp__cancel_8cpp.html#af2c0d54dfa18f36c17cd9b4659adb858">__kmpc_cancel</a></div><div class="ttdeci">kmp_int32 __kmpc_cancel(ident_t *loc_ref, kmp_int32 gtid, kmp_int32 cncl_kind)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__cancel_8cpp_source.html#l00030">kmp_cancel.cpp:30</a></div></div>
+<div class="ttc" id="structkmp__taskdata_html_a568185a9e8c23a1682491fa55973d61c"><div class="ttname"><a href="structkmp__taskdata.html#a568185a9e8c23a1682491fa55973d61c">kmp_taskdata::td_taskgroup</a></div><div class="ttdeci">kmp_taskgroup_t * td_taskgroup</div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l02200">kmp.h:2200</a></div></div>
+<div class="ttc" id="kmp__debug_8h_html_a5323a368e8ba273b17c46906dd9ec78c"><div class="ttname"><a href="kmp__debug_8h.html#a5323a368e8ba273b17c46906dd9ec78c">KMP_ASSERT</a></div><div class="ttdeci">#define KMP_ASSERT(cond)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__debug_8h_source.html#l00072">kmp_debug.h:72</a></div></div>
+<div class="ttc" id="kmp_8h_html_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8"><div class="ttname"><a href="kmp_8h.html#a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8">cancel_taskgroup</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp_8h_source.html#l00912">kmp.h:912</a></div></div>
+<div class="ttc" id="kmp_8h_html"><div class="ttname"><a href="kmp_8h.html">kmp.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2016 21:30:29 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 17 2016 17:14:03 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

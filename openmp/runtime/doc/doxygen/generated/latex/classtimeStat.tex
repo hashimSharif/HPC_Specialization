@@ -1,0 +1,232 @@
+\hypertarget{classtimeStat}{\section{time\-Stat Class Reference}
+\label{classtimeStat}\index{time\-Stat@{time\-Stat}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-stats.\-h$>$}
+
+Inheritance diagram for time\-Stat\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classtimeStat}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtimeStat_ad35b7334bdf79aa157d0a6d959353a47}{time\-Stat} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{classtimeStat_a4e32a7a1f0685df9f75f837eead8b7be}{name} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} e)
+\item 
+static bool \hyperlink{classtimeStat_a3c545325fae636418538c3ab7cff2f18}{no\-Total} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} e)
+\item 
+static bool \hyperlink{classtimeStat_a062cb0effb2bca43a2d85accaf5cbe08}{master\-Only} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} e)
+\item 
+static bool \hyperlink{classtimeStat_a5a871113709bc14925c6d60f637e03b6}{worker\-Only} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} e)
+\item 
+static bool \hyperlink{classtimeStat_a5af620a2fff9ca3b1b758d106633e5b6}{no\-Units} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} e)
+\item 
+static bool \hyperlink{classtimeStat_ab45f55ba382e1ac2018ed6ab3612d3b1}{log\-Event} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} e)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classtimeStat_a1ee4b834f58f4f104d3c1e0a3f253e9a}{clear\-Event\-Flags} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structstatInfo}{stat\-Info} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timer\-Info} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 271 of file kmp\-\_\-stats.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classtimeStat_ad35b7334bdf79aa157d0a6d959353a47}{\index{time\-Stat@{time\-Stat}!time\-Stat@{time\-Stat}}
+\index{time\-Stat@{time\-Stat}!timeStat@{time\-Stat}}
+\subsubsection[{time\-Stat}]{\setlength{\rightskip}{0pt plus 5cm}time\-Stat\-::time\-Stat (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classtimeStat_ad35b7334bdf79aa157d0a6d959353a47}
+
+
+Definition at line 276 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+276 : \hyperlink{classstatistic_a3f28cad0a4699e3f2db3892b5556f4e7}{statistic}() \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classtimeStat_a1ee4b834f58f4f104d3c1e0a3f253e9a}{\index{time\-Stat@{time\-Stat}!clear\-Event\-Flags@{clear\-Event\-Flags}}
+\index{clear\-Event\-Flags@{clear\-Event\-Flags}!timeStat@{time\-Stat}}
+\subsubsection[{clear\-Event\-Flags}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} time\-Stat\-::clear\-Event\-Flags (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_a1ee4b834f58f4f104d3c1e0a3f253e9a}
+
+
+Definition at line 283 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::init().
+
+
+\begin{DoxyCode}
+283                                         \{
+284         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=0;\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<TIMER\_LAST;\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++) \{
+285             \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} &= (~(\hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3a53d50e56126850e531164b0bb1848c5e}{stats\_flags\_e::logEvent}));
+286         \}
+287     \}
+\end{DoxyCode}
+\hypertarget{classtimeStat_ab45f55ba382e1ac2018ed6ab3612d3b1}{\index{time\-Stat@{time\-Stat}!log\-Event@{log\-Event}}
+\index{log\-Event@{log\-Event}!timeStat@{time\-Stat}}
+\subsubsection[{log\-Event}]{\setlength{\rightskip}{0pt plus 5cm}static bool time\-Stat\-::log\-Event (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_ab45f55ba382e1ac2018ed6ab3612d3b1}
+
+
+Definition at line 282 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Ploticus\-File(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::setup\-Event\-Colors(), explicit\-Timer\-::start(), and explicit\-Timer\-::stop().
+
+
+\begin{DoxyCode}
+282 \{ \textcolor{keywordflow}{return} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[e].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} & \hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3a53d50e56126850e531164b0bb1848c5e}{stats\_flags\_e::logEvent};     \}
+\end{DoxyCode}
+\hypertarget{classtimeStat_a062cb0effb2bca43a2d85accaf5cbe08}{\index{time\-Stat@{time\-Stat}!master\-Only@{master\-Only}}
+\index{master\-Only@{master\-Only}!timeStat@{time\-Stat}}
+\subsubsection[{master\-Only}]{\setlength{\rightskip}{0pt plus 5cm}static bool time\-Stat\-::master\-Only (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_a062cb0effb2bca43a2d85accaf5cbe08}
+
+
+Definition at line 279 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats().
+
+
+\begin{DoxyCode}
+279 \{ \textcolor{keywordflow}{return} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[e].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} & \hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3ab1b2cd818808a4ee2cc1720286fbc51d}{stats\_flags\_e::onlyInMaster}; \}
+\end{DoxyCode}
+\hypertarget{classtimeStat_a4e32a7a1f0685df9f75f837eead8b7be}{\index{time\-Stat@{time\-Stat}!name@{name}}
+\index{name@{name}!timeStat@{time\-Stat}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ time\-Stat\-::name (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_a4e32a7a1f0685df9f75f837eead8b7be}
+
+
+Definition at line 277 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Events(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Ploticus\-File(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Timer\-Stats().
+
+
+\begin{DoxyCode}
+277 \{ \textcolor{keywordflow}{return} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[e].\hyperlink{structstatInfo_a83052615f9578ba88744140093a18f37}{name}; \}
+\end{DoxyCode}
+\hypertarget{classtimeStat_a3c545325fae636418538c3ab7cff2f18}{\index{time\-Stat@{time\-Stat}!no\-Total@{no\-Total}}
+\index{no\-Total@{no\-Total}!timeStat@{time\-Stat}}
+\subsubsection[{no\-Total}]{\setlength{\rightskip}{0pt plus 5cm}static bool time\-Stat\-::no\-Total (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_a3c545325fae636418538c3ab7cff2f18}
+
+
+Definition at line 278 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Timer\-Stats().
+
+
+\begin{DoxyCode}
+278 \{ \textcolor{keywordflow}{return} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[e].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} & \hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3ab0da7f248271bb150e59d37370c799b7}{stats\_flags\_e::noTotal};      \}
+\end{DoxyCode}
+\hypertarget{classtimeStat_a5af620a2fff9ca3b1b758d106633e5b6}{\index{time\-Stat@{time\-Stat}!no\-Units@{no\-Units}}
+\index{no\-Units@{no\-Units}!timeStat@{time\-Stat}}
+\subsubsection[{no\-Units}]{\setlength{\rightskip}{0pt plus 5cm}static bool time\-Stat\-::no\-Units (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_a5af620a2fff9ca3b1b758d106633e5b6}
+
+
+Definition at line 281 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Timer\-Stats().
+
+
+\begin{DoxyCode}
+281 \{ \textcolor{keywordflow}{return} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[e].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} & \hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3a1c30b5719af4df0bdc7206f20559c6dc}{stats\_flags\_e::noUnits};      \}
+\end{DoxyCode}
+\hypertarget{classtimeStat_a5a871113709bc14925c6d60f637e03b6}{\index{time\-Stat@{time\-Stat}!worker\-Only@{worker\-Only}}
+\index{worker\-Only@{worker\-Only}!timeStat@{time\-Stat}}
+\subsubsection[{worker\-Only}]{\setlength{\rightskip}{0pt plus 5cm}static bool time\-Stat\-::worker\-Only (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classtimeStat_a5a871113709bc14925c6d60f637e03b6}
+
+
+Definition at line 280 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats().
+
+
+\begin{DoxyCode}
+280 \{ \textcolor{keywordflow}{return} \hyperlink{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{timerInfo}[e].\hyperlink{structstatInfo_a590c3b9a2b0786720e9a53b0dd6071fd}{flags} & \hyperlink{group__STATS__GATHERING_gga438c2840cc2d516238ea3eb0f4c116b3a0939773e208cb608fe78bc80a4197523}{stats\_flags\_e::notInMaster};  \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}{\index{time\-Stat@{time\-Stat}!timer\-Info@{timer\-Info}}
+\index{timer\-Info@{timer\-Info}!timeStat@{time\-Stat}}
+\subsubsection[{timer\-Info}]{\setlength{\rightskip}{0pt plus 5cm}{\bf stat\-Info} time\-Stat\-::timer\-Info\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{classtimeStat_ab2fce6fab263ba89a398acf2dbe5b0d3}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{kmp__stats_8h_accf71030e44454acab22210bb4a89d1b}{KMP\_FOREACH\_TIMER}(\hyperlink{kmp__stats_8cpp_a17949c412e2b08e907236b2d496ed7c1}{expandName},0)
+    \{0,0\}
+\}
+\end{DoxyCode}
+
+
+Definition at line 273 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by clear\-Event\-Flags(), log\-Event(), master\-Only(), name(), no\-Total(), no\-Units(), and worker\-Only().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__stats_8h}{kmp\-\_\-stats.\-h}\item 
+\hyperlink{kmp__stats_8cpp}{kmp\-\_\-stats.\-cpp}\end{DoxyCompactItemize}

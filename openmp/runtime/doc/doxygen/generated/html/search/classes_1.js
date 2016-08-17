@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ident',['ident',['../structident.html',1,'']]]
+  ['address',['Address',['../classAddress.html',1,'']]],
+  ['addrunspair',['AddrUnsPair',['../classAddrUnsPair.html',1,'']]]
 ];

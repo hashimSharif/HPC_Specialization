@@ -1,0 +1,746 @@
+\hypertarget{kmp__taskdeps_8cpp}{\section{kmp\-\_\-taskdeps.\-cpp File Reference}
+\label{kmp__taskdeps_8cpp}\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-io.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-wait\-\_\-release.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__taskdeps_8cpp_a15366f7a75356a8c6707a8b2da2ee895}{K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}(gtid, n)~\hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-lock}(\&(n)-\/$>$\hyperlink{ittnotify__static_8h_ac33a428b292b874e62e0f98c2326b2c7}{dn.\-lock},(gtid))
+\item 
+\#define \hyperlink{kmp__taskdeps_8cpp_a6a2f4e12e22432948555e575a5f69820}{K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}(gtid, n)~\hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\-\_\-\-\_\-kmp\-\_\-release\-\_\-lock}(\&(n)-\/$>$\hyperlink{ittnotify__static_8h_ac33a428b292b874e62e0f98c2326b2c7}{dn.\-lock},(gtid))
+\item 
+\#define \hyperlink{kmp__taskdeps_8cpp_aa585999671d92d06e72ff64b02d7741b}{N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}~(false)
+\item 
+\#define \hyperlink{kmp__taskdeps_8cpp_a5641cef54853049ed2dabd0143ecbd86}{D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}~(true)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600ab5f26f0136d51ef9935879bf2b8f2730}{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-O\-T\-H\-E\-R\-\_\-\-S\-I\-Z\-E} = 97, 
+\hyperlink{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600a95ce8f2653f48a37edf5bfa84d429218}{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-M\-A\-S\-T\-E\-R\-\_\-\-S\-I\-Z\-E} = 997
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskdeps_8cpp_a071ab81c9fcbb82f0d78b38e814a5cbb}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-node} (\hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$node)
+\item 
+static \hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$ \hyperlink{kmp__taskdeps_8cpp_a5e165ca71abb79016f6fd49bb6ae6410}{\-\_\-\-\_\-kmp\-\_\-node\-\_\-ref} (\hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$node)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\-\_\-\-\_\-kmp\-\_\-node\-\_\-deref} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thread, \hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$node)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskdeps_8cpp_a3d2145571abf2369f7882cc583902eef}{\-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thread, \hyperlink{structkmp__depnode__list}{kmp\-\_\-depnode\-\_\-list} $\ast$list)
+\item 
+static kmp\-\_\-int32 \hyperlink{kmp__taskdeps_8cpp_a5f71d26c4c55ebed44dbd80f6d6459e5}{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash} (\hyperlink{kmp__os_8h_a43fe09095a192381a5e7c93d20a3a2f9}{kmp\-\_\-intptr\-\_\-t} \hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr}, size\-\_\-t hsize)
+\item 
+static \hyperlink{kmp_8h_a29db3e0a660b708279b843cd5c1b7d2d}{kmp\-\_\-dephash\-\_\-t} $\ast$ \hyperlink{kmp__taskdeps_8cpp_a0d86f5a20b0781cca078b6a2c4d6ba53}{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thread, \hyperlink{kmp_8h_af73aa077ec760ca83750f8144a5e65fb}{kmp\-\_\-taskdata\-\_\-t} $\ast$current\-\_\-task)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskdeps_8cpp_a07104c23ee7cf6503efdbd95b9b11dc5}{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thread, \hyperlink{kmp_8h_a29db3e0a660b708279b843cd5c1b7d2d}{kmp\-\_\-dephash\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h})
+\item 
+static \hyperlink{structkmp__dephash__entry}{kmp\-\_\-dephash\-\_\-entry} $\ast$ \hyperlink{kmp__taskdeps_8cpp_acfa64f5e17e6d8451570cef187aef854}{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thread, \hyperlink{kmp_8h_a29db3e0a660b708279b843cd5c1b7d2d}{kmp\-\_\-dephash\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h}, \hyperlink{kmp__os_8h_a43fe09095a192381a5e7c93d20a3a2f9}{kmp\-\_\-intptr\-\_\-t} \hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr})
+\item 
+static \hyperlink{kmp_8h_a877b10d3438c1c7864488165c95be189}{kmp\-\_\-depnode\-\_\-list\-\_\-t} $\ast$ \hyperlink{kmp__taskdeps_8cpp_ae6e72e3d4f4e3b5c8e55954fcce53778}{\-\_\-\-\_\-kmp\-\_\-add\-\_\-node} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$thread, \hyperlink{kmp_8h_a877b10d3438c1c7864488165c95be189}{kmp\-\_\-depnode\-\_\-list\-\_\-t} $\ast$list, \hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$node)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskdeps_8cpp_a34c0d1512a461bff0b62a7ca3aa1a423}{\-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence} (\hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$source, \hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$sink, \hyperlink{group__BASIC__TYPES_ga2783514e154e897944132a3ba6ed8789}{kmp\-\_\-task\-\_\-t} $\ast$sink\-\_\-task)
+\item 
+{\footnotesize template$<$bool filter$>$ }\\static kmp\-\_\-int32 \hyperlink{kmp__taskdeps_8cpp_a18cc32af2fca8b6ffe934526bc191f8d}{\-\_\-\-\_\-kmp\-\_\-process\-\_\-deps} (kmp\-\_\-int32 gtid, \hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$node, \hyperlink{kmp_8h_a29db3e0a660b708279b843cd5c1b7d2d}{kmp\-\_\-dephash\-\_\-t} $\ast$hash, bool dep\-\_\-barrier, kmp\-\_\-int32 ndeps, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$dep\-\_\-list, \hyperlink{group__BASIC__TYPES_ga2783514e154e897944132a3ba6ed8789}{kmp\-\_\-task\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})
+\item 
+static bool \hyperlink{kmp__taskdeps_8cpp_aa9a60ae78b4c85746fef2074b08dbb65}{\-\_\-\-\_\-kmp\-\_\-check\-\_\-deps} (kmp\-\_\-int32 gtid, \hyperlink{kmp_8h_a5197537dbef055a1d52ecdcbf5578098}{kmp\-\_\-depnode\-\_\-t} $\ast$node, \hyperlink{group__BASIC__TYPES_ga2783514e154e897944132a3ba6ed8789}{kmp\-\_\-task\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}, \hyperlink{kmp_8h_a29db3e0a660b708279b843cd5c1b7d2d}{kmp\-\_\-dephash\-\_\-t} $\ast$hash, bool dep\-\_\-barrier, kmp\-\_\-int32 ndeps, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$noalias\-\_\-dep\-\_\-list)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskdeps_8cpp_a68130554d0ae8970e6817c0bbd12c8bd}{\-\_\-\-\_\-kmp\-\_\-release\-\_\-deps} (kmp\-\_\-int32 gtid, \hyperlink{kmp_8h_af73aa077ec760ca83750f8144a5e65fb}{kmp\-\_\-taskdata\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})
+\item 
+kmp\-\_\-int32 \hyperlink{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, \hyperlink{group__BASIC__TYPES_ga2783514e154e897944132a3ba6ed8789}{kmp\-\_\-task\-\_\-t} $\ast$new\-\_\-task, kmp\-\_\-int32 ndeps, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$noalias\-\_\-dep\-\_\-list)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__TASKING_gab53273918f995639450c4dcbed02df88}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-int32 ndeps, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$noalias\-\_\-dep\-\_\-list)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__taskdeps_8cpp_a5641cef54853049ed2dabd0143ecbd86}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R@{D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}}
+\index{D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R@{D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R~(true)}}\label{kmp__taskdeps_8cpp_a5641cef54853049ed2dabd0143ecbd86}
+
+
+Definition at line 308 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps().
+
+\hypertarget{kmp__taskdeps_8cpp_a15366f7a75356a8c6707a8b2da2ee895}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E@{K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}}
+\index{K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E@{K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-A\-C\-Q\-U\-I\-R\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E(
+\begin{DoxyParamCaption}
+\item[{}]{gtid, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)~{\bf \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-lock}(\&(n)-\/$>${\bf dn.\-lock},(gtid))}}\label{kmp__taskdeps_8cpp_a15366f7a75356a8c6707a8b2da2ee895}
+
+
+Definition at line 70 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps(), and \-\_\-\-\_\-kmp\-\_\-release\-\_\-deps().
+
+\hypertarget{kmp__taskdeps_8cpp_a6a2f4e12e22432948555e575a5f69820}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E@{K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}}
+\index{K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E@{K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-R\-E\-L\-E\-A\-S\-E\-\_\-\-D\-E\-P\-N\-O\-D\-E(
+\begin{DoxyParamCaption}
+\item[{}]{gtid, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)~{\bf \-\_\-\-\_\-kmp\-\_\-release\-\_\-lock}(\&(n)-\/$>${\bf dn.\-lock},(gtid))}}\label{kmp__taskdeps_8cpp_a6a2f4e12e22432948555e575a5f69820}
+
+
+Definition at line 71 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps(), and \-\_\-\-\_\-kmp\-\_\-release\-\_\-deps().
+
+\hypertarget{kmp__taskdeps_8cpp_aa585999671d92d06e72ff64b02d7741b}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R@{N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}}
+\index{N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R@{N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\-O\-\_\-\-D\-E\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R~(false)}}\label{kmp__taskdeps_8cpp_aa585999671d92d06e72ff64b02d7741b}
+
+
+Definition at line 307 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps().
+
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-O\-T\-H\-E\-R\-\_\-\-S\-I\-Z\-E@{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-O\-T\-H\-E\-R\-\_\-\-S\-I\-Z\-E}!kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}}\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-O\-T\-H\-E\-R\-\_\-\-S\-I\-Z\-E@{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-O\-T\-H\-E\-R\-\_\-\-S\-I\-Z\-E}}\item[{\em 
+\hypertarget{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600ab5f26f0136d51ef9935879bf2b8f2730}{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-O\-T\-H\-E\-R\-\_\-\-S\-I\-Z\-E}\label{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600ab5f26f0136d51ef9935879bf2b8f2730}
+}]\index{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-M\-A\-S\-T\-E\-R\-\_\-\-S\-I\-Z\-E@{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-M\-A\-S\-T\-E\-R\-\_\-\-S\-I\-Z\-E}!kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}}\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-M\-A\-S\-T\-E\-R\-\_\-\-S\-I\-Z\-E@{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-M\-A\-S\-T\-E\-R\-\_\-\-S\-I\-Z\-E}}\item[{\em 
+\hypertarget{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600a95ce8f2653f48a37edf5bfa84d429218}{K\-M\-P\-\_\-\-D\-E\-P\-H\-A\-S\-H\-\_\-\-M\-A\-S\-T\-E\-R\-\_\-\-S\-I\-Z\-E}\label{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600a95ce8f2653f48a37edf5bfa84d429218}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 76 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+\begin{DoxyCode}
+76      \{
+77     \hyperlink{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600ab5f26f0136d51ef9935879bf2b8f2730}{KMP\_DEPHASH\_OTHER\_SIZE} = 97,
+78     \hyperlink{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600a95ce8f2653f48a37edf5bfa84d429218}{KMP\_DEPHASH\_MASTER\_SIZE} = 997
+79 \};
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__taskdeps_8cpp_ae6e72e3d4f4e3b5c8e55954fcce53778}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-add\-\_\-node@{\-\_\-\-\_\-kmp\-\_\-add\-\_\-node}}
+\index{\-\_\-\-\_\-kmp\-\_\-add\-\_\-node@{\-\_\-\-\_\-kmp\-\_\-add\-\_\-node}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-add\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmp\-\_\-depnode\-\_\-list\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-add\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thread, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-list\-\_\-t} $\ast$}]{list, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_ae6e72e3d4f4e3b5c8e55954fcce53778}
+
+
+Definition at line 176 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps().
+
+
+\begin{DoxyCode}
+177 \{
+178     \hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t} *new\_head;
+179 
+180 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+181 \textcolor{preprocessor}{}    new\_head = (\hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t} *) \hyperlink{kmp_8h_a2adbf8a689a0e42c899bde3d997ac1c0}{\_\_kmp\_fast\_allocate}(thread,\textcolor{keyword}{
+      sizeof}(\hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t}));
+182 \textcolor{preprocessor}{#else}
+183 \textcolor{preprocessor}{}    new\_head = (\hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t} *) \hyperlink{kmp_8h_a83a0d4c2333a2ee3931cba6b12e0d5a6}{\_\_kmp\_thread\_malloc}(thread,\textcolor{keyword}{
+      sizeof}(\hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t}));
+184 \textcolor{preprocessor}{#endif}
+185 \textcolor{preprocessor}{}
+186     new\_head->\hyperlink{structkmp__depnode__list_a8873aa1231cab49fdd5ca6dc3b89eca4}{node} = \hyperlink{kmp__taskdeps_8cpp_a5e165ca71abb79016f6fd49bb6ae6410}{\_\_kmp\_node\_ref}(node);
+187     new\_head->\hyperlink{structkmp__depnode__list_a17c86246d585f456214601ceecc1bd0e}{next} = list;
+188 
+189     \textcolor{keywordflow}{return} new\_head;
+190 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_aa9a60ae78b4c85746fef2074b08dbb65}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-check\-\_\-deps@{\-\_\-\-\_\-kmp\-\_\-check\-\_\-deps}}
+\index{\-\_\-\-\_\-kmp\-\_\-check\-\_\-deps@{\-\_\-\-\_\-kmp\-\_\-check\-\_\-deps}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-check\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}static bool \-\_\-\-\_\-kmp\-\_\-check\-\_\-deps (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{node, }
+\item[{{\bf kmp\-\_\-task\-\_\-t} $\ast$}]{task, }
+\item[{{\bf kmp\-\_\-dephash\-\_\-t} $\ast$}]{hash, }
+\item[{bool}]{dep\-\_\-barrier, }
+\item[{kmp\-\_\-int32}]{ndeps, }
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{dep\-\_\-list, }
+\item[{kmp\-\_\-int32}]{ndeps\-\_\-noalias, }
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{noalias\-\_\-dep\-\_\-list}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_aa9a60ae78b4c85746fef2074b08dbb65}
+
+
+Definition at line 312 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps(), and \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps().
+
+
+\begin{DoxyCode}
+315 \{
+316     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+317 
+318 \textcolor{preprocessor}{#if KMP\_DEBUG}
+319 \textcolor{preprocessor}{}    \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * taskdata = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(task);
+320 \textcolor{preprocessor}{#endif}
+321 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_check\_deps: T#%d checking dependencies for task %p : %d possibly aliased
+       dependencies, %d non-aliased depedencies : dep\_barrier=%d .\(\backslash\)n"}, gtid, taskdata, ndeps, ndeps\_noalias, 
+      dep\_barrier ) );
+322 
+323     \textcolor{comment}{// Filter deps in dep\_list}
+324     \textcolor{comment}{// TODO: Different algorithm for large dep\_list ( > 10 ? )}
+325     \textcolor{keywordflow}{for} ( i = 0; i < ndeps; i ++ ) \{
+326         \textcolor{keywordflow}{if} ( dep\_list[i].base\_addr != 0 )
+327             \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{int} j = i+1; j < ndeps; j++ )
+328                 \textcolor{keywordflow}{if} ( dep\_list[i].base\_addr == dep\_list[j].base\_addr ) \{
+329                     dep\_list[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in} |= dep\_list[j].\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in};
+330                     dep\_list[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out} |= dep\_list[j].\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out};
+331                     dep\_list[j].\hyperlink{structkmp__depend__info_a4b110a3ef2f123f550be5ecfcc51d50a}{base\_addr} = 0; \textcolor{comment}{// Mark j element as void}
+332                 \}
+333     \}
+334 
+335     \textcolor{comment}{// doesn't need to be atomic as no other thread is going to be accessing this node just yet}
+336     \textcolor{comment}{// npredecessors is set -1 to ensure that none of the releasing tasks queues this task before we have
+       finished processing all the dependencies}
+337     node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a1b12c30275179b5b16a90959858f2969}{npredecessors} = -1;
+338 
+339     \textcolor{comment}{// used to pack all npredecessors additions into a single atomic operation at the end}
+340     \textcolor{keywordtype}{int} npredecessors;
+341 
+342     npredecessors = \_\_kmp\_process\_deps<true>(gtid, node, hash, dep\_barrier,
+343       ndeps, dep\_list, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task});
+344     npredecessors += \_\_kmp\_process\_deps<false>(gtid, node, hash, dep\_barrier,
+345       ndeps\_noalias, noalias\_dep\_list, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task});
+346 
+347     node->dn.task = \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task};
+348     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+349 
+350     \textcolor{comment}{// Account for our initial fake value}
+351     npredecessors++;
+352 
+353     \textcolor{comment}{// Update predecessors and obtain current value to check if there are still any outstandig dependences
+       (some tasks may have finished while we processed the dependences)}
+354     npredecessors = \hyperlink{kmp__os_8h_a009e079b11c506ce9b753668a38af7ff}{KMP\_TEST\_THEN\_ADD32}(&node->dn.npredecessors, npredecessors) + 
+      npredecessors;
+355 
+356     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_check\_deps: T#%d found %d predecessors for task %p \(\backslash\)n"}, gtid, 
+      npredecessors, taskdata ) );
+357 
+358     \textcolor{comment}{// beyond this point the task could be queued (and executed) by a releasing task...}
+359     \textcolor{keywordflow}{return} npredecessors > 0 ? \textcolor{keyword}{true} : \textcolor{keyword}{false};
+360 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a0d86f5a20b0781cca078b6a2c4d6ba53}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create}}
+\index{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmp\-\_\-dephash\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thread, }
+\item[{{\bf kmp\-\_\-taskdata\-\_\-t} $\ast$}]{current\-\_\-task}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a0d86f5a20b0781cca078b6a2c4d6ba53}
+
+
+Definition at line 89 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps().
+
+
+\begin{DoxyCode}
+90 \{
+91     \hyperlink{structkmp__dephash}{kmp\_dephash\_t} *\hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+92 
+93     \textcolor{keywordtype}{size\_t} h\_size;
+94 
+95     \textcolor{keywordflow}{if} ( current\_task->\hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_ac102ec6051f4b30f0e81c0f3b5d9e84a}{tasktype} == \hyperlink{kmp_8h_a756ac44f6ffa658c995af306d38b2879}{TASK\_IMPLICIT} )
+96         h\_size = \hyperlink{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600a95ce8f2653f48a37edf5bfa84d429218}{KMP\_DEPHASH\_MASTER\_SIZE};
+97     \textcolor{keywordflow}{else}
+98         h\_size = \hyperlink{kmp__taskdeps_8cpp_abed82baf7f470b522273a3e37c24c600ab5f26f0136d51ef9935879bf2b8f2730}{KMP\_DEPHASH\_OTHER\_SIZE};
+99 
+100     kmp\_int32 \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} = h\_size * \textcolor{keyword}{sizeof}(\hyperlink{kmp_8h_ae26b65abb82278a8c3dc261171d399d5}{kmp\_dephash\_entry\_t}) + \textcolor{keyword}{sizeof}(
+      \hyperlink{structkmp__dephash}{kmp\_dephash\_t});
+101 
+102 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+103 \textcolor{preprocessor}{}    h = (\hyperlink{structkmp__dephash}{kmp\_dephash\_t} *) \hyperlink{kmp_8h_a2adbf8a689a0e42c899bde3d997ac1c0}{\_\_kmp\_fast\_allocate}( thread, size );
+104 \textcolor{preprocessor}{#else}
+105 \textcolor{preprocessor}{}    h = (\hyperlink{structkmp__dephash}{kmp\_dephash\_t} *) \hyperlink{kmp_8h_a83a0d4c2333a2ee3931cba6b12e0d5a6}{\_\_kmp\_thread\_malloc}( thread, size );
+106 \textcolor{preprocessor}{#endif}
+107 \textcolor{preprocessor}{}    h->\hyperlink{structkmp__dephash_a6c2dd618cc89b336b65c9e8b822aac5c}{size} = h\_size;
+108 
+109 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+110 \textcolor{preprocessor}{}    h->nelements = 0;
+111     h->nconflicts = 0;
+112 \textcolor{preprocessor}{#endif}
+113 \textcolor{preprocessor}{}    h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets} = (\hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry} **)(h+1);
+114 
+115     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{size\_t} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < h\_size; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++ )
+116         h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 0;
+117 
+118     \textcolor{keywordflow}{return} h;
+119 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_acfa64f5e17e6d8451570cef187aef854}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find}}
+\index{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmp\-\_\-dephash\-\_\-entry}$\ast$ \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thread, }
+\item[{{\bf kmp\-\_\-dephash\-\_\-t} $\ast$}]{h, }
+\item[{{\bf kmp\-\_\-intptr\-\_\-t}}]{addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_acfa64f5e17e6d8451570cef187aef854}
+
+
+Definition at line 147 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps().
+
+
+\begin{DoxyCode}
+148 \{
+149     kmp\_int32 bucket = \hyperlink{kmp__taskdeps_8cpp_a5f71d26c4c55ebed44dbd80f6d6459e5}{\_\_kmp\_dephash\_hash}(\hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr},h->\hyperlink{structkmp__dephash_a6c2dd618cc89b336b65c9e8b822aac5c}{size});
+150 
+151     \hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t} *entry;
+152     \textcolor{keywordflow}{for} ( entry = h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets}[bucket]; entry; entry = entry->
+      \hyperlink{structkmp__dephash__entry_a2708bddc7160e13ec29ba5f36cd37e1a}{next\_in\_bucket} )
+153         \textcolor{keywordflow}{if} ( entry->\hyperlink{structkmp__dephash__entry_a6bddf4b7f2ea115a0bed6b8caa791ef1}{addr} == \hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr} ) \textcolor{keywordflow}{break};
+154 
+155     \textcolor{keywordflow}{if} ( entry == NULL ) \{
+156         \textcolor{comment}{// create entry. This is only done by one thread so no locking required}
+157 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+158 \textcolor{preprocessor}{}        entry = (\hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t} *) \hyperlink{kmp_8h_a2adbf8a689a0e42c899bde3d997ac1c0}{\_\_kmp\_fast\_allocate}( thread, \textcolor{keyword}{
+      sizeof}(\hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t}) );
+159 \textcolor{preprocessor}{#else}
+160 \textcolor{preprocessor}{}        entry = (\hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t} *) \hyperlink{kmp_8h_a83a0d4c2333a2ee3931cba6b12e0d5a6}{\_\_kmp\_thread\_malloc}( thread, \textcolor{keyword}{
+      sizeof}(\hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t}) );
+161 \textcolor{preprocessor}{#endif}
+162 \textcolor{preprocessor}{}        entry->\hyperlink{structkmp__dephash__entry_a6bddf4b7f2ea115a0bed6b8caa791ef1}{addr} = \hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr};
+163         entry->\hyperlink{structkmp__dephash__entry_a0ae786669b6c8b01605717a93f8c2c33}{last\_out} = NULL;
+164         entry->\hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins} = NULL;
+165         entry->\hyperlink{structkmp__dephash__entry_a2708bddc7160e13ec29ba5f36cd37e1a}{next\_in\_bucket} = h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets}[bucket];
+166         h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets}[bucket] = entry;
+167 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+168 \textcolor{preprocessor}{}        h->nelements++;
+169         \textcolor{keywordflow}{if} ( entry->\hyperlink{structkmp__dephash__entry_a2708bddc7160e13ec29ba5f36cd37e1a}{next\_in\_bucket} ) h->nconflicts++;
+170 \textcolor{preprocessor}{#endif}
+171 \textcolor{preprocessor}{}    \}
+172     \textcolor{keywordflow}{return} entry;
+173 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a07104c23ee7cf6503efdbd95b9b11dc5}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thread, }
+\item[{{\bf kmp\-\_\-dephash\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a07104c23ee7cf6503efdbd95b9b11dc5}
+
+
+Definition at line 122 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-release\-\_\-deps().
+
+
+\begin{DoxyCode}
+123 \{
+124     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{size\_t} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < h->\hyperlink{structkmp__dephash_a6c2dd618cc89b336b65c9e8b822aac5c}{size}; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++ ) \{
+125         \textcolor{keywordflow}{if} ( h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] ) \{
+126             \hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t} *next;
+127             \textcolor{keywordflow}{for} ( \hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t} *entry = h->\hyperlink{structkmp__dephash_a06e58d9ddec4328db119b478c7bff4f5}{buckets}[
+      \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; entry; entry = next ) \{
+128                 next = entry->\hyperlink{structkmp__dephash__entry_a2708bddc7160e13ec29ba5f36cd37e1a}{next\_in\_bucket};
+129                 \hyperlink{kmp__taskdeps_8cpp_a3d2145571abf2369f7882cc583902eef}{\_\_kmp\_depnode\_list\_free}(thread,entry->last\_ins);
+130                 \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\_\_kmp\_node\_deref}(thread,entry->last\_out);
+131 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+132 \textcolor{preprocessor}{}                \hyperlink{kmp_8h_a9056ae93bbe8c65605e59d1e4dd93255}{\_\_kmp\_fast\_free}(thread,entry);
+133 \textcolor{preprocessor}{#else}
+134 \textcolor{preprocessor}{}                \hyperlink{kmp_8h_aff8d21963670e8e527cb6e30a200bb97}{\_\_kmp\_thread\_free}(thread,entry);
+135 \textcolor{preprocessor}{#endif}
+136 \textcolor{preprocessor}{}            \}
+137         \}
+138     \}
+139 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+140 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_a9056ae93bbe8c65605e59d1e4dd93255}{\_\_kmp\_fast\_free}(thread,h);
+141 \textcolor{preprocessor}{#else}
+142 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_aff8d21963670e8e527cb6e30a200bb97}{\_\_kmp\_thread\_free}(thread,h);
+143 \textcolor{preprocessor}{#endif}
+144 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a5f71d26c4c55ebed44dbd80f6d6459e5}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash}}
+\index{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash@{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash}]{\setlength{\rightskip}{0pt plus 5cm}static kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-hash (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-intptr\-\_\-t}}]{addr, }
+\item[{size\-\_\-t}]{hsize}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a5f71d26c4c55ebed44dbd80f6d6459e5}
+
+
+Definition at line 82 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-find().
+
+
+\begin{DoxyCode}
+83 \{
+84     \textcolor{comment}{//TODO alternate to try: set = (((Addr64)(addrUsefulBits * 9.618)) % m\_num\_sets );}
+85     \textcolor{keywordflow}{return} ((\hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr} >> 6) ^ (\hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr} >> 2)) % hsize;
+86 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a3d2145571abf2369f7882cc583902eef}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thread, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-list} $\ast$}]{list}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a3d2145571abf2369f7882cc583902eef}
+
+
+Definition at line 193 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free(), and \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps().
+
+
+\begin{DoxyCode}
+194 \{
+195     \hyperlink{structkmp__depnode__list}{kmp\_depnode\_list} *next;
+196 
+197     \textcolor{keywordflow}{for} ( ; list ; list = next ) \{
+198         next = list->\hyperlink{structkmp__depnode__list_a17c86246d585f456214601ceecc1bd0e}{next};
+199 
+200         \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\_\_kmp\_node\_deref}(thread,list->\hyperlink{structkmp__depnode__list_a8873aa1231cab49fdd5ca6dc3b89eca4}{node});
+201 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+202 \textcolor{preprocessor}{}        \hyperlink{kmp_8h_a9056ae93bbe8c65605e59d1e4dd93255}{\_\_kmp\_fast\_free}(thread,list);
+203 \textcolor{preprocessor}{#else}
+204 \textcolor{preprocessor}{}        \hyperlink{kmp_8h_aff8d21963670e8e527cb6e30a200bb97}{\_\_kmp\_thread\_free}(thread,list);
+205 \textcolor{preprocessor}{#endif}
+206 \textcolor{preprocessor}{}    \}
+207 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a071ab81c9fcbb82f0d78b38e814a5cbb}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-node@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-node}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-node@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-node}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-init\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a071ab81c9fcbb82f0d78b38e814a5cbb}
+
+
+Definition at line 36 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps(), and \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps().
+
+
+\begin{DoxyCode}
+37 \{
+38     node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} = NULL; \textcolor{comment}{// set to null initially, it will point to the right task once dependences
+       have been processed}
+39     node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_afdece27522eff7b332a209348f2f85e4}{successors} = NULL;
+40     \hyperlink{kmp__lock_8h_a44d857bfef49fda9213da11d71aae54e}{\_\_kmp\_init\_lock}(&node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_ad087d258955483cb697e77f5f8575227}{lock});
+41     node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a03def393dd90934e18d8d64491919f5e}{nrefs} = 1; \textcolor{comment}{// init creates the first reference to the node}
+42 \textcolor{preprocessor}{#ifdef KMP\_SUPPORT\_GRAPH\_OUTPUT}
+43 \textcolor{preprocessor}{}    node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.id = \hyperlink{kmp__os_8h_a201982f51ff23ad84ae6781ad4265e3a}{KMP\_TEST\_THEN\_INC32}(&kmp\_node\_id\_seed);
+44 \textcolor{preprocessor}{#endif}
+45 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-node\-\_\-deref@{\-\_\-\-\_\-kmp\-\_\-node\-\_\-deref}}
+\index{\-\_\-\-\_\-kmp\-\_\-node\-\_\-deref@{\-\_\-\-\_\-kmp\-\_\-node\-\_\-deref}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-node\-\_\-deref}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-node\-\_\-deref (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{thread, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}
+
+
+Definition at line 55 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free(), \-\_\-\-\_\-kmp\-\_\-depnode\-\_\-list\-\_\-free(), \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps(), and \-\_\-\-\_\-kmp\-\_\-release\-\_\-deps().
+
+
+\begin{DoxyCode}
+56 \{
+57     \textcolor{keywordflow}{if} (!node) \textcolor{keywordflow}{return};
+58 
+59     kmp\_int32 n = \hyperlink{kmp__os_8h_a5b23523b95ee4b2307a8f344cbbe8050}{KMP\_TEST\_THEN\_DEC32}(&node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a03def393dd90934e18d8d64491919f5e}{nrefs}) - 1;
+60     \textcolor{keywordflow}{if} ( n == 0 ) \{
+61         \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}(node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a03def393dd90934e18d8d64491919f5e}{nrefs} == 0);
+62 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+63 \textcolor{preprocessor}{}        \hyperlink{kmp_8h_a9056ae93bbe8c65605e59d1e4dd93255}{\_\_kmp\_fast\_free}(thread,node);
+64 \textcolor{preprocessor}{#else}
+65 \textcolor{preprocessor}{}        \hyperlink{kmp_8h_aff8d21963670e8e527cb6e30a200bb97}{\_\_kmp\_thread\_free}(thread,node);
+66 \textcolor{preprocessor}{#endif}
+67 \textcolor{preprocessor}{}    \}
+68 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a5e165ca71abb79016f6fd49bb6ae6410}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-node\-\_\-ref@{\-\_\-\-\_\-kmp\-\_\-node\-\_\-ref}}
+\index{\-\_\-\-\_\-kmp\-\_\-node\-\_\-ref@{\-\_\-\-\_\-kmp\-\_\-node\-\_\-ref}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-node\-\_\-ref}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmp\-\_\-depnode\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-node\-\_\-ref (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a5e165ca71abb79016f6fd49bb6ae6410}
+
+
+Definition at line 48 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-add\-\_\-node(), and \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps().
+
+
+\begin{DoxyCode}
+49 \{
+50     \hyperlink{kmp__os_8h_a201982f51ff23ad84ae6781ad4265e3a}{KMP\_TEST\_THEN\_INC32}(&node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a03def393dd90934e18d8d64491919f5e}{nrefs});
+51     \textcolor{keywordflow}{return} node;
+52 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a18cc32af2fca8b6ffe934526bc191f8d}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-process\-\_\-deps@{\-\_\-\-\_\-kmp\-\_\-process\-\_\-deps}}
+\index{\-\_\-\-\_\-kmp\-\_\-process\-\_\-deps@{\-\_\-\-\_\-kmp\-\_\-process\-\_\-deps}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-process\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}template$<$bool filter$>$ static kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{node, }
+\item[{{\bf kmp\-\_\-dephash\-\_\-t} $\ast$}]{hash, }
+\item[{bool}]{dep\-\_\-barrier, }
+\item[{kmp\-\_\-int32}]{ndeps, }
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{dep\-\_\-list, }
+\item[{{\bf kmp\-\_\-task\-\_\-t} $\ast$}]{task}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a18cc32af2fca8b6ffe934526bc191f8d}
+
+
+Definition at line 237 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+\begin{DoxyCode}
+240 \{
+241     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(30, (\textcolor{stringliteral}{"\_\_kmp\_process\_deps<%d>: T#%d processing %d depencies : dep\_barrier = %d\(\backslash\)n"}, 
+      filter, gtid, ndeps, dep\_barrier ) );
+242     
+243     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ];
+244     kmp\_int32 npredecessors=0;
+245     \textcolor{keywordflow}{for} ( kmp\_int32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < ndeps ; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++ ) \{
+246         \textcolor{keyword}{const} \hyperlink{structkmp__depend__info}{kmp\_depend\_info\_t} * dep = &dep\_list[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+247 
+248         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(dep->\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in});
+249 
+250         \textcolor{keywordflow}{if} ( filter && dep->\hyperlink{structkmp__depend__info_a4b110a3ef2f123f550be5ecfcc51d50a}{base\_addr} == 0 ) \textcolor{keywordflow}{continue}; \textcolor{comment}{// skip filtered entries}
+251 
+252         \hyperlink{structkmp__dephash__entry}{kmp\_dephash\_entry\_t} *info = \hyperlink{kmp__taskdeps_8cpp_acfa64f5e17e6d8451570cef187aef854}{\_\_kmp\_dephash\_find}(thread,hash,dep
+      ->\hyperlink{structkmp__depend__info_a4b110a3ef2f123f550be5ecfcc51d50a}{base\_addr});
+253         \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *last\_out = info->\hyperlink{structkmp__dephash__entry_a0ae786669b6c8b01605717a93f8c2c33}{last\_out};
+254 
+255         \textcolor{keywordflow}{if} ( dep->\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out} && info->\hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins} ) \{
+256             \textcolor{keywordflow}{for} ( \hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t} * \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p} = info->\hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins}; 
+      \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}; \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p} = \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}->next ) \{
+257                 \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} * indep = \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}->node;
+258                 \textcolor{keywordflow}{if} ( indep->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} ) \{
+259                     \hyperlink{kmp__taskdeps_8cpp_a15366f7a75356a8c6707a8b2da2ee895}{KMP\_ACQUIRE\_DEPNODE}(gtid,indep);
+260                     \textcolor{keywordflow}{if} ( indep->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} ) \{
+261                         \hyperlink{kmp__taskdeps_8cpp_a34c0d1512a461bff0b62a7ca3aa1a423}{\_\_kmp\_track\_dependence}(indep,node,task);
+262                         indep->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_afdece27522eff7b332a209348f2f85e4}{successors} = \hyperlink{kmp__taskdeps_8cpp_ae6e72e3d4f4e3b5c8e55954fcce53778}{\_\_kmp\_add\_node}(thread, indep->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_afdece27522eff7b332a209348f2f85e4}{successors}, node);
+263                         \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(40,(\textcolor{stringliteral}{"\_\_kmp\_process\_deps<%d>: T#%d adding dependence from %p to %p
+      \(\backslash\)n"},
+264                                  filter,gtid, \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(indep->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task}), \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task})));
+265                         npredecessors++;
+266                     \}
+267                     \hyperlink{kmp__taskdeps_8cpp_a6a2f4e12e22432948555e575a5f69820}{KMP\_RELEASE\_DEPNODE}(gtid,indep);
+268                 \}
+269             \}
+270 
+271             \hyperlink{kmp__taskdeps_8cpp_a3d2145571abf2369f7882cc583902eef}{\_\_kmp\_depnode\_list\_free}(thread,info->\hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins});
+272             info->\hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins} = NULL;
+273 
+274         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( last\_out && last\_out->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} ) \{
+275             \hyperlink{kmp__taskdeps_8cpp_a15366f7a75356a8c6707a8b2da2ee895}{KMP\_ACQUIRE\_DEPNODE}(gtid,last\_out);
+276             \textcolor{keywordflow}{if} ( last\_out->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} ) \{
+277                 \hyperlink{kmp__taskdeps_8cpp_a34c0d1512a461bff0b62a7ca3aa1a423}{\_\_kmp\_track\_dependence}(last\_out,node,task);
+278                 last\_out->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_afdece27522eff7b332a209348f2f85e4}{successors} = \hyperlink{kmp__taskdeps_8cpp_ae6e72e3d4f4e3b5c8e55954fcce53778}{\_\_kmp\_add\_node}(thread, last\_out->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_afdece27522eff7b332a209348f2f85e4}{successors}, node);
+279                 \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(40,(\textcolor{stringliteral}{"\_\_kmp\_process\_deps<%d>: T#%d adding dependence from %p to %p\(\backslash\)n"}, 
+280                              filter,gtid, \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(last\_out->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task}), \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task})));
+281                 
+282                 npredecessors++;
+283             \}
+284             \hyperlink{kmp__taskdeps_8cpp_a6a2f4e12e22432948555e575a5f69820}{KMP\_RELEASE\_DEPNODE}(gtid,last\_out);
+285         \}
+286 
+287         \textcolor{keywordflow}{if} ( dep\_barrier ) \{
+288             \textcolor{comment}{// if this is a sync point in the serial sequence, then the previous outputs are guaranteed to
+       be completed after}
+289             \textcolor{comment}{// the execution of this task so the previous output nodes can be cleared.}
+290             \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\_\_kmp\_node\_deref}(thread,last\_out);
+291             info->\hyperlink{structkmp__dephash__entry_a0ae786669b6c8b01605717a93f8c2c33}{last\_out} = NULL;
+292         \} \textcolor{keywordflow}{else} \{
+293             \textcolor{keywordflow}{if} ( dep->\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out} ) \{
+294                 \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\_\_kmp\_node\_deref}(thread,last\_out);
+295                 info->\hyperlink{structkmp__dephash__entry_a0ae786669b6c8b01605717a93f8c2c33}{last\_out} = \hyperlink{kmp__taskdeps_8cpp_a5e165ca71abb79016f6fd49bb6ae6410}{\_\_kmp\_node\_ref}(node);
+296             \} \textcolor{keywordflow}{else}
+297                 info->\hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins} = \hyperlink{kmp__taskdeps_8cpp_ae6e72e3d4f4e3b5c8e55954fcce53778}{\_\_kmp\_add\_node}(thread, info->
+      \hyperlink{structkmp__dephash__entry_ad54a7a6e0b862b27750bed4730e2d9b0}{last\_ins}, node);
+298         \}
+299 
+300     \}
+301 
+302     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(30, (\textcolor{stringliteral}{"\_\_kmp\_process\_deps<%d>: T#%d found %d predecessors\(\backslash\)n"}, filter, gtid, 
+      npredecessors ) );
+303 
+304     \textcolor{keywordflow}{return} npredecessors;
+305 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a68130554d0ae8970e6817c0bbd12c8bd}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-release\-\_\-deps@{\-\_\-\-\_\-kmp\-\_\-release\-\_\-deps}}
+\index{\-\_\-\-\_\-kmp\-\_\-release\-\_\-deps@{\-\_\-\-\_\-kmp\-\_\-release\-\_\-deps}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-release\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-release\-\_\-deps (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf kmp\-\_\-taskdata\-\_\-t} $\ast$}]{task}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskdeps_8cpp_a68130554d0ae8970e6817c0bbd12c8bd}
+
+
+Definition at line 363 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-task\-\_\-finish().
+
+
+\begin{DoxyCode}
+364 \{
+365     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ];
+366     \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *node = task->\hyperlink{structkmp__taskdata_a877878bd557ba3bdc7749e531cb845b3}{td\_depnode};
+367 
+368     \textcolor{keywordflow}{if} ( task->\hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash} ) \{
+369         \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(40, (\textcolor{stringliteral}{"\_\_kmp\_realease\_deps: T#%d freeing dependencies hash of task %p.\(\backslash\)n"}, gtid, 
+      task ) );
+370         \hyperlink{kmp__taskdeps_8cpp_a07104c23ee7cf6503efdbd95b9b11dc5}{\_\_kmp\_dephash\_free}(thread,task->\hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash});
+371     \}
+372 
+373     \textcolor{keywordflow}{if} ( !node ) \textcolor{keywordflow}{return};
+374 
+375     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_realease\_deps: T#%d notifying succesors of task %p.\(\backslash\)n"}, gtid, task ) );
+376     
+377     \hyperlink{kmp__taskdeps_8cpp_a15366f7a75356a8c6707a8b2da2ee895}{KMP\_ACQUIRE\_DEPNODE}(gtid,node);
+378     node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} = NULL; \textcolor{comment}{// mark this task as finished, so no new dependencies are generated}
+379     \hyperlink{kmp__taskdeps_8cpp_a6a2f4e12e22432948555e575a5f69820}{KMP\_RELEASE\_DEPNODE}(gtid,node);
+380 
+381     \hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t} *next;
+382     \textcolor{keywordflow}{for} ( \hyperlink{structkmp__depnode__list}{kmp\_depnode\_list\_t} *\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p} = node->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_afdece27522eff7b332a209348f2f85e4}{successors}; 
+      \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}; \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p} = next ) \{
+383         \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *successor = \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}->node;
+384         kmp\_int32 npredecessors = \hyperlink{kmp__os_8h_a5b23523b95ee4b2307a8f344cbbe8050}{KMP\_TEST\_THEN\_DEC32}(&successor->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a1b12c30275179b5b16a90959858f2969}{npredecessors}) - 1;
+385 
+386         \textcolor{comment}{// successor task can be NULL for wait\_depends or because deps are still being processed}
+387         \textcolor{keywordflow}{if} ( npredecessors == 0 ) \{
+388             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+389             \textcolor{keywordflow}{if} ( successor->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task} ) \{            
+390                 \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_realease\_deps: T#%d successor %p of %p scheduled for
+       execution.\(\backslash\)n"}, gtid, successor->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task}, task ) );
+391                 \hyperlink{kmp_8h_ae2e47b86ed1dc13258c5969b02b4c971}{\_\_kmp\_omp\_task}(gtid,successor->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task},\textcolor{keyword}{false});
+392             \}
+393         \}
+394 
+395         next = \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}->next;
+396         \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\_\_kmp\_node\_deref}(thread,\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}->node);
+397 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+398 \textcolor{preprocessor}{}        \hyperlink{kmp_8h_a9056ae93bbe8c65605e59d1e4dd93255}{\_\_kmp\_fast\_free}(thread,\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p});
+399 \textcolor{preprocessor}{#else}
+400 \textcolor{preprocessor}{}        \hyperlink{kmp_8h_aff8d21963670e8e527cb6e30a200bb97}{\_\_kmp\_thread\_free}(thread,\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p});
+401 \textcolor{preprocessor}{#endif}
+402 \textcolor{preprocessor}{}    \}
+403 
+404     \hyperlink{kmp__taskdeps_8cpp_a56ca01e5d85dacf22dd3e06bf341ae87}{\_\_kmp\_node\_deref}(thread,node);
+405 
+406     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_realease\_deps: T#%d all successors of %p notified of completation\(\backslash\)n"}, gtid
+      , task ) );
+407 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskdeps_8cpp_a34c0d1512a461bff0b62a7ca3aa1a423}{\index{kmp\-\_\-taskdeps.\-cpp@{kmp\-\_\-taskdeps.\-cpp}!\-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence@{\-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence}}
+\index{\-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence@{\-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence}!kmp_taskdeps.cpp@{kmp\-\_\-taskdeps.\-cpp}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{source, }
+\item[{{\bf kmp\-\_\-depnode\-\_\-t} $\ast$}]{sink, }
+\item[{{\bf kmp\-\_\-task\-\_\-t} $\ast$}]{sink\-\_\-task}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{kmp__taskdeps_8cpp_a34c0d1512a461bff0b62a7ca3aa1a423}
+
+
+Definition at line 210 of file kmp\-\_\-taskdeps.\-cpp.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps().
+
+
+\begin{DoxyCode}
+212 \{
+213 \textcolor{preprocessor}{#ifdef KMP\_SUPPORT\_GRAPH\_OUTPUT}
+214 \textcolor{preprocessor}{}    \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * task\_source = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(source->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task});
+215     \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * task\_sink = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(sink->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task});    \textcolor{comment}{// this can be NULL when if(0) ...}
+216 
+217     \hyperlink{kmp__io_8c_ac0b96ed999ee9819c544e6f24057da91}{\_\_kmp\_printf}(\textcolor{stringliteral}{"%d(%s) -> %d(%s)\(\backslash\)n"}, source->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.id, task\_source->
+      \hyperlink{structkmp__taskdata_a80a962f07e81cde9797d70decdd6119d}{td\_ident}->\hyperlink{structident_a8c2ccc106967f36d7191d59d4d5a65dc}{psource}, sink->\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.id, task\_sink->\hyperlink{structkmp__taskdata_a80a962f07e81cde9797d70decdd6119d}{td\_ident}->
+      \hyperlink{structident_a8c2ccc106967f36d7191d59d4d5a65dc}{psource});
+218 \textcolor{preprocessor}{#endif}
+219 \textcolor{preprocessor}{}\textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+220 \textcolor{preprocessor}{}    \textcolor{comment}{/* OMPT tracks dependences between task (a=source, b=sink) in which}
+221 \textcolor{comment}{       task a blocks the execution of b through the ompt\_new\_dependence\_callback */}
+222     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+223         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_task\_dependence\_pair))
+224     \{
+225         \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * task\_source = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(source->
+      \hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_af23437a6227f2cad37c90e7320d9bdb9}{task});
+226         \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * task\_sink = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(sink\_task);
+227 
+228         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_task\_dependence\_pair)(
+229           task\_source->ompt\_task\_info.task\_id,
+230           task\_sink->ompt\_task\_info.task\_id);
+231     \}
+232 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* OMPT\_SUPPORT && OMPT\_TRACE */}\textcolor{preprocessor}{}
+233 \textcolor{preprocessor}{}\}
+\end{DoxyCode}

@@ -1,0 +1,204 @@
+\hypertarget{classexplicitTimer}{\section{explicit\-Timer Class Reference}
+\label{classexplicitTimer}\index{explicit\-Timer@{explicit\-Timer}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-stats.\-h$>$}
+
+Inheritance diagram for explicit\-Timer\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classexplicitTimer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classexplicitTimer_a6c4946c5479d998e1e12610cd8ca2fe6}{explicit\-Timer} ()
+\item 
+\hyperlink{classexplicitTimer_ab52fc729eb83047573b962d5b7485098}{explicit\-Timer} (\hyperlink{classtimeStat}{time\-Stat} $\ast$\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classexplicitTimer_aacaaa414c0d68d0ba3cab075036baf63}{set\-Stat} (\hyperlink{classtimeStat}{time\-Stat} $\ast$\hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classexplicitTimer_a0650affa704a742ae6aae4bf569e964c}{start} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} timer\-Enum\-Value)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classexplicitTimer_a1a3507bd5e0661935ee7766580244051}{stop} (\hyperlink{kmp__stats_8h_ae03f1e0ff609f86afa9b7167a12c6c06}{timer\-\_\-e} timer\-Enum\-Value)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classexplicitTimer_a29a8aeb9f1f2b5abcd70fc6d6c02eda9}{reset} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtimeStat}{time\-Stat} $\ast$ \hyperlink{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}{stat}
+\item 
+\hyperlink{classtsc__tick__count}{tsc\-\_\-tick\-\_\-count} \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{start\-Time}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 293 of file kmp\-\_\-stats.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classexplicitTimer_a6c4946c5479d998e1e12610cd8ca2fe6}{\index{explicit\-Timer@{explicit\-Timer}!explicit\-Timer@{explicit\-Timer}}
+\index{explicit\-Timer@{explicit\-Timer}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{explicit\-Timer}]{\setlength{\rightskip}{0pt plus 5cm}explicit\-Timer\-::explicit\-Timer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classexplicitTimer_a6c4946c5479d998e1e12610cd8ca2fe6}
+
+
+Definition at line 299 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+299 : \hyperlink{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}{stat}(0), \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime}(0) \{ \}
+\end{DoxyCode}
+\hypertarget{classexplicitTimer_ab52fc729eb83047573b962d5b7485098}{\index{explicit\-Timer@{explicit\-Timer}!explicit\-Timer@{explicit\-Timer}}
+\index{explicit\-Timer@{explicit\-Timer}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{explicit\-Timer}]{\setlength{\rightskip}{0pt plus 5cm}explicit\-Timer\-::explicit\-Timer (
+\begin{DoxyParamCaption}
+\item[{{\bf time\-Stat} $\ast$}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classexplicitTimer_ab52fc729eb83047573b962d5b7485098}
+
+
+Definition at line 300 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+300 : \hyperlink{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}{stat}(s), \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime}() \{ \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classexplicitTimer_a29a8aeb9f1f2b5abcd70fc6d6c02eda9}{\index{explicit\-Timer@{explicit\-Timer}!reset@{reset}}
+\index{reset@{reset}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} explicit\-Timer\-::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classexplicitTimer_a29a8aeb9f1f2b5abcd70fc6d6c02eda9}
+
+
+Definition at line 305 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+305 \{ \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime} = 0; \}
+\end{DoxyCode}
+\hypertarget{classexplicitTimer_aacaaa414c0d68d0ba3cab075036baf63}{\index{explicit\-Timer@{explicit\-Timer}!set\-Stat@{set\-Stat}}
+\index{set\-Stat@{set\-Stat}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{set\-Stat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} explicit\-Timer\-::set\-Stat (
+\begin{DoxyParamCaption}
+\item[{{\bf time\-Stat} $\ast$}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classexplicitTimer_aacaaa414c0d68d0ba3cab075036baf63}
+
+
+Definition at line 302 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+302 \{ \hyperlink{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}{stat} = \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s}; \}
+\end{DoxyCode}
+\hypertarget{classexplicitTimer_a0650affa704a742ae6aae4bf569e964c}{\index{explicit\-Timer@{explicit\-Timer}!start@{start}}
+\index{start@{start}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} explicit\-Timer\-::start (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{timer\-Enum\-Value}
+\end{DoxyParamCaption}
+)}}\label{classexplicitTimer_a0650affa704a742ae6aae4bf569e964c}
+
+
+Definition at line 158 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by block\-Timer\-::block\-Timer().
+
+
+\begin{DoxyCode}
+158                                                 \{ 
+159     \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime} = \hyperlink{classtsc__tick__count_a0caca1efab64714976683134bcdd99b4}{tsc\_tick\_count::now}(); 
+160     \textcolor{keywordflow}{if}(\hyperlink{classtimeStat_ab45f55ba382e1ac2018ed6ab3612d3b1}{timeStat::logEvent}(timerEnumValue)) \{
+161         \hyperlink{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}{\_\_kmp\_stats\_thread\_ptr}->\hyperlink{classkmp__stats__list_ab2bd44c00fe33e5a053cce45d3547625}{incrementNestValue}();
+162     \}
+163     \textcolor{keywordflow}{return};
+164 \}
+\end{DoxyCode}
+\hypertarget{classexplicitTimer_a1a3507bd5e0661935ee7766580244051}{\index{explicit\-Timer@{explicit\-Timer}!stop@{stop}}
+\index{stop@{stop}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} explicit\-Timer\-::stop (
+\begin{DoxyParamCaption}
+\item[{{\bf timer\-\_\-e}}]{timer\-Enum\-Value}
+\end{DoxyParamCaption}
+)}}\label{classexplicitTimer_a1a3507bd5e0661935ee7766580244051}
+
+
+Definition at line 166 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by block\-Timer\-::$\sim$block\-Timer().
+
+
+\begin{DoxyCode}
+166                                                \{
+167     \textcolor{keywordflow}{if} (\hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime}.\hyperlink{classtsc__tick__count_a88c80c6a9d8b3b0d76b45cef2d3bc36b}{getValue}() == 0)
+168         \textcolor{keywordflow}{return};
+169 
+170     \hyperlink{classtsc__tick__count}{tsc\_tick\_count} finishTime = \hyperlink{classtsc__tick__count_a0caca1efab64714976683134bcdd99b4}{tsc\_tick\_count::now}();
+171 
+172     \textcolor{comment}{//stat->addSample ((tsc\_tick\_count::now() - startTime).ticks());}
+173     \hyperlink{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}{stat}->\hyperlink{classstatistic_a608058fd5fac27c72c6019c607f38688}{addSample} ((finishTime - \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime}).ticks());
+174 
+175     \textcolor{keywordflow}{if}(\hyperlink{classtimeStat_ab45f55ba382e1ac2018ed6ab3612d3b1}{timeStat::logEvent}(timerEnumValue)) \{
+176         \hyperlink{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}{\_\_kmp\_stats\_thread\_ptr}->\hyperlink{classkmp__stats__list_aa342e93ee4681eae6f8ab145ead4c31f}{push\_event}(
+      \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime}.\hyperlink{classtsc__tick__count_a88c80c6a9d8b3b0d76b45cef2d3bc36b}{getValue}() - \hyperlink{kmp__global_8c_a12d1cf26d9330e0eb6361b6d67086d1d}{\_\_kmp\_stats\_start\_time}.
+      \hyperlink{classtsc__tick__count_a88c80c6a9d8b3b0d76b45cef2d3bc36b}{getValue}(), finishTime.\hyperlink{classtsc__tick__count_a88c80c6a9d8b3b0d76b45cef2d3bc36b}{getValue}() - \hyperlink{kmp__global_8c_a12d1cf26d9330e0eb6361b6d67086d1d}{\_\_kmp\_stats\_start\_time}.
+      \hyperlink{classtsc__tick__count_a88c80c6a9d8b3b0d76b45cef2d3bc36b}{getValue}(), \hyperlink{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}{\_\_kmp\_stats\_thread\_ptr}->\hyperlink{classkmp__stats__list_ad84d6680e0777851ae04a175f858addc}{getNestValue}(), 
+      timerEnumValue); 
+177         \hyperlink{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}{\_\_kmp\_stats\_thread\_ptr}->\hyperlink{classkmp__stats__list_a9a27398f0f242283d1f9c8afa1b32bab}{decrementNestValue}();
+178     \}
+179 
+180     \textcolor{comment}{/* We accept the risk that we drop a sample because it really did start at t==0. */}
+181     \hyperlink{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{startTime} = 0; 
+182     \textcolor{keywordflow}{return};
+183 \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}{\index{explicit\-Timer@{explicit\-Timer}!start\-Time@{start\-Time}}
+\index{start\-Time@{start\-Time}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{start\-Time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tsc\-\_\-tick\-\_\-count} explicit\-Timer\-::start\-Time\hspace{0.3cm}{\ttfamily [private]}}}\label{classexplicitTimer_ad457d205b0b6d5309f65514e438992d2}
+
+
+Definition at line 296 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by reset(), start(), and stop().
+
+\hypertarget{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}{\index{explicit\-Timer@{explicit\-Timer}!stat@{stat}}
+\index{stat@{stat}!explicitTimer@{explicit\-Timer}}
+\subsubsection[{stat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf time\-Stat}$\ast$ explicit\-Timer\-::stat\hspace{0.3cm}{\ttfamily [private]}}}\label{classexplicitTimer_afba814013964a74c3142ffde95f8ba1f}
+
+
+Definition at line 295 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by set\-Stat(), and stop().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__stats_8h}{kmp\-\_\-stats.\-h}\item 
+\hyperlink{kmp__stats_8cpp}{kmp\-\_\-stats.\-cpp}\end{DoxyCompactItemize}

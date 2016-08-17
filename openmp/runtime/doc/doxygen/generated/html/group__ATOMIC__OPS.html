@@ -37,8 +37,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -63,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -77,10 +79,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Atomic Operations</div>  </div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="memitem:ga934bb88de29998410569745b7fd2c2e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ittnotify__static_8h.html#a8b8dcd723308a8cb5d84277c7a3fff70">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ATOMIC__OPS.html#ga934bb88de29998410569745b7fd2c2e6">__kmp_atomic_mode</a> = 1</td></tr>
+<tr class="separator:ga934bb88de29998410569745b7fd2c2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>These functions are used for implementing the many different varieties of atomic operations.</p>
 <p>The compiler is at liberty to inline atomic operations that are naturally supported by the target architecture. For instance on IA-32 architecture an atomic like this can be inlined </p>
-<div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">int</span> s = 0;</div>
+<div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="ittnotify__static_8h.html#a110bd9ede250f97ce56d81bb3c7b171d">s</a> = 0;</div>
 <div class="line"><span class="preprocessor">#pragma omp atomic</span></div>
 <div class="line"><span class="preprocessor">    s++;</span></div>
 </div><!-- fragment --><p> using the single instruction: <code>lock; incl s</code></p>
@@ -183,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </dl>
 <p>The one set of exceptions to this is the <code>complex&lt;float&gt;</code> type where the value is not returned, rather an extra argument pointer is passed.</p>
 <p>They look like </p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> __kmpc_atomic_cmplx4_&lt;op&gt;_cpt(  <a class="code" href="structident.html">ident_t</a> *id_ref, <span class="keywordtype">int</span> gtid, kmp_cmplx32 * lhs, kmp_cmplx32 rhs, kmp_cmplx32 * out, <span class="keywordtype">int</span> flag );</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> __kmpc_atomic_cmplx4_&lt;op&gt;_cpt(  <a class="code" href="structident.html">ident_t</a> *id_ref, <span class="keywordtype">int</span> gtid, <a class="code" href="kmp__atomic_8h.html#ad8a8cb75fe83ea104b69764b8d14ece6">kmp_cmplx32</a> * lhs, <a class="code" href="kmp__atomic_8h.html#ad8a8cb75fe83ea104b69764b8d14ece6">kmp_cmplx32</a> rhs, <a class="code" href="kmp__atomic_8h.html#ad8a8cb75fe83ea104b69764b8d14ece6">kmp_cmplx32</a> * out, <span class="keywordtype">int</span> flag );</div>
 </div><!-- fragment --><h1>Read and Write Operations </h1>
 <p>The OpenMP<sup>*</sup> standard now supports atomic operations that simply ensure that the value is read or written atomically, with no modification performed. In many cases on IA-32 architecture these operations can be inlined since the architecture guarantees that no tearing occurs on aligned objects accessed with a single memory operation of up to 64 bits in size.</p>
 <p>The general form of the read operations is </p>
@@ -194,295 +200,295 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This leads to the generation of 376 atomic functions, as follows.</p>
 <h2>Functons for integers </h2>
 <p>There are versions here for integers of size 1,2,4 and 8 bytes both signed and unsigned (where that matters). </p>
-<div class="fragment"><div class="line">__kmpc_atomic_fixed1_add</div>
+<div class="fragment"><div class="line"><a class="code" href="kmp__atomic_8h.html#a95740b35a6142a3795821e04a3203037">__kmpc_atomic_fixed1_add</a></div>
 <div class="line">__kmpc_atomic_fixed1_add_cpt</div>
 <div class="line">__kmpc_atomic_fixed1_add_fp</div>
-<div class="line">__kmpc_atomic_fixed1_andb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a8a3946fc7bd2e3e0f8cc6564f61dea6e">__kmpc_atomic_fixed1_andb</a></div>
 <div class="line">__kmpc_atomic_fixed1_andb_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_andl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#af5a5916109cdfb27a59e26f211c94910">__kmpc_atomic_fixed1_andl</a></div>
 <div class="line">__kmpc_atomic_fixed1_andl_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae0cae3c153642500cd7778b9b9cef0c1">__kmpc_atomic_fixed1_div</a></div>
 <div class="line">__kmpc_atomic_fixed1_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed1_div_cpt_rev</div>
-<div class="line">__kmpc_atomic_fixed1_div_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ab73acb4e17255c5ed203fdf19d1ddbce">__kmpc_atomic_fixed1_div_float8</a></div>
 <div class="line">__kmpc_atomic_fixed1_div_fp</div>
 <div class="line">__kmpc_atomic_fixed1_div_rev</div>
-<div class="line">__kmpc_atomic_fixed1_eqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aba067df5aa37ab348898ef5dd6327f0c">__kmpc_atomic_fixed1_eqv</a></div>
 <div class="line">__kmpc_atomic_fixed1_eqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_max</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ab5cedbc082714698a47a8989ae727b63">__kmpc_atomic_fixed1_max</a></div>
 <div class="line">__kmpc_atomic_fixed1_max_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_min</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ac4dd20089ab2dda56bc8fadaee38981b">__kmpc_atomic_fixed1_min</a></div>
 <div class="line">__kmpc_atomic_fixed1_min_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a698c90f980b78656865b9f43e451ea6c">__kmpc_atomic_fixed1_mul</a></div>
 <div class="line">__kmpc_atomic_fixed1_mul_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_mul_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a015565a1ba1a189ca50eca182b697359">__kmpc_atomic_fixed1_mul_float8</a></div>
 <div class="line">__kmpc_atomic_fixed1_mul_fp</div>
-<div class="line">__kmpc_atomic_fixed1_neqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a3a42fae93ba0eb180ea2e368154f2051">__kmpc_atomic_fixed1_neqv</a></div>
 <div class="line">__kmpc_atomic_fixed1_neqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_orb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a0312064bedbffd386a42e3899aec07bd">__kmpc_atomic_fixed1_orb</a></div>
 <div class="line">__kmpc_atomic_fixed1_orb_cpt</div>
-<div class="line">__kmpc_atomic_fixed1_orl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ad636f7a8e31d520815645133e5a95101">__kmpc_atomic_fixed1_orl</a></div>
 <div class="line">__kmpc_atomic_fixed1_orl_cpt</div>
 <div class="line">__kmpc_atomic_fixed1_rd</div>
-<div class="line">__kmpc_atomic_fixed1_shl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aaf12441595e83e82cafb1ab5b47d77f8">__kmpc_atomic_fixed1_shl</a></div>
 <div class="line">__kmpc_atomic_fixed1_shl_cpt</div>
 <div class="line">__kmpc_atomic_fixed1_shl_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed1_shl_rev</div>
-<div class="line">__kmpc_atomic_fixed1_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a482eeace06964d2edefcc77e1c637e7c">__kmpc_atomic_fixed1_shr</a></div>
 <div class="line">__kmpc_atomic_fixed1_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed1_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed1_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed1_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ac55f0017cd1948e589d5079aa31747fb">__kmpc_atomic_fixed1_sub</a></div>
 <div class="line">__kmpc_atomic_fixed1_sub_cpt</div>
 <div class="line">__kmpc_atomic_fixed1_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed1_sub_fp</div>
 <div class="line">__kmpc_atomic_fixed1_sub_rev</div>
 <div class="line">__kmpc_atomic_fixed1_swp</div>
 <div class="line">__kmpc_atomic_fixed1_wr</div>
-<div class="line">__kmpc_atomic_fixed1_xor</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ab69e9a4da2388f5bcde98fc33431b1cb">__kmpc_atomic_fixed1_xor</a></div>
 <div class="line">__kmpc_atomic_fixed1_xor_cpt</div>
-<div class="line">__kmpc_atomic_fixed1u_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae42139bdc5ff48a8baebf15b79e6085d">__kmpc_atomic_fixed1u_div</a></div>
 <div class="line">__kmpc_atomic_fixed1u_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed1u_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed1u_div_fp</div>
 <div class="line">__kmpc_atomic_fixed1u_div_rev</div>
-<div class="line">__kmpc_atomic_fixed1u_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a27a54184b3c961c53c3ec582fae6ecda">__kmpc_atomic_fixed1u_shr</a></div>
 <div class="line">__kmpc_atomic_fixed1u_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed1u_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed1u_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed2_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a8922a9c7fb8b0684741b633adba11eb0">__kmpc_atomic_fixed2_add</a></div>
 <div class="line">__kmpc_atomic_fixed2_add_cpt</div>
 <div class="line">__kmpc_atomic_fixed2_add_fp</div>
-<div class="line">__kmpc_atomic_fixed2_andb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae8b650c32279fbd16de9f49ce71a4339">__kmpc_atomic_fixed2_andb</a></div>
 <div class="line">__kmpc_atomic_fixed2_andb_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_andl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a7017f5946a18b163d9292d45e33c3d90">__kmpc_atomic_fixed2_andl</a></div>
 <div class="line">__kmpc_atomic_fixed2_andl_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae2603ed2b5dd46b4412e4339ef8be8e8">__kmpc_atomic_fixed2_div</a></div>
 <div class="line">__kmpc_atomic_fixed2_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed2_div_cpt_rev</div>
-<div class="line">__kmpc_atomic_fixed2_div_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a37fb2522ebc4076453e37c6f35f99ace">__kmpc_atomic_fixed2_div_float8</a></div>
 <div class="line">__kmpc_atomic_fixed2_div_fp</div>
 <div class="line">__kmpc_atomic_fixed2_div_rev</div>
-<div class="line">__kmpc_atomic_fixed2_eqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ac8a265db8602aa1f49cf7ef07fa5b667">__kmpc_atomic_fixed2_eqv</a></div>
 <div class="line">__kmpc_atomic_fixed2_eqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_max</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ad7f3d9ba4489f7d60569fb0e3720d90d">__kmpc_atomic_fixed2_max</a></div>
 <div class="line">__kmpc_atomic_fixed2_max_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_min</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a6681658a7fd2e1bc17692fb0b61e6175">__kmpc_atomic_fixed2_min</a></div>
 <div class="line">__kmpc_atomic_fixed2_min_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ad2ad655a2fc82c0d6a98e4103c822b80">__kmpc_atomic_fixed2_mul</a></div>
 <div class="line">__kmpc_atomic_fixed2_mul_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_mul_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#af6016b314f1b1dcc329cd6cada04116a">__kmpc_atomic_fixed2_mul_float8</a></div>
 <div class="line">__kmpc_atomic_fixed2_mul_fp</div>
-<div class="line">__kmpc_atomic_fixed2_neqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#addb8ad0faa5d0bfc65fd70b1b049e657">__kmpc_atomic_fixed2_neqv</a></div>
 <div class="line">__kmpc_atomic_fixed2_neqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_orb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aa3890e69748eb405442ce3a859c18619">__kmpc_atomic_fixed2_orb</a></div>
 <div class="line">__kmpc_atomic_fixed2_orb_cpt</div>
-<div class="line">__kmpc_atomic_fixed2_orl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a70f73269a0248db0b5f4bbdde5b501b5">__kmpc_atomic_fixed2_orl</a></div>
 <div class="line">__kmpc_atomic_fixed2_orl_cpt</div>
 <div class="line">__kmpc_atomic_fixed2_rd</div>
-<div class="line">__kmpc_atomic_fixed2_shl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a3236d271fb109db4b1153b133c99c187">__kmpc_atomic_fixed2_shl</a></div>
 <div class="line">__kmpc_atomic_fixed2_shl_cpt</div>
 <div class="line">__kmpc_atomic_fixed2_shl_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed2_shl_rev</div>
-<div class="line">__kmpc_atomic_fixed2_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a2f1085184a229e72ad013d9c30aa0ce7">__kmpc_atomic_fixed2_shr</a></div>
 <div class="line">__kmpc_atomic_fixed2_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed2_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed2_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed2_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ac890aceacafc0bc0fd673d5107fe5226">__kmpc_atomic_fixed2_sub</a></div>
 <div class="line">__kmpc_atomic_fixed2_sub_cpt</div>
 <div class="line">__kmpc_atomic_fixed2_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed2_sub_fp</div>
 <div class="line">__kmpc_atomic_fixed2_sub_rev</div>
 <div class="line">__kmpc_atomic_fixed2_swp</div>
 <div class="line">__kmpc_atomic_fixed2_wr</div>
-<div class="line">__kmpc_atomic_fixed2_xor</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae5aaefafa4c78317b55ab12e1493ea63">__kmpc_atomic_fixed2_xor</a></div>
 <div class="line">__kmpc_atomic_fixed2_xor_cpt</div>
-<div class="line">__kmpc_atomic_fixed2u_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aee13e51d32f819381cbba00c3b26b607">__kmpc_atomic_fixed2u_div</a></div>
 <div class="line">__kmpc_atomic_fixed2u_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed2u_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed2u_div_fp</div>
 <div class="line">__kmpc_atomic_fixed2u_div_rev</div>
-<div class="line">__kmpc_atomic_fixed2u_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ad984775f5efdce37aac6fa29c25ae4c1">__kmpc_atomic_fixed2u_shr</a></div>
 <div class="line">__kmpc_atomic_fixed2u_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed2u_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed2u_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed4_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#af3d1bb6747eb9ae36458f5aee2b41d17">__kmpc_atomic_fixed4_add</a></div>
 <div class="line">__kmpc_atomic_fixed4_add_cpt</div>
 <div class="line">__kmpc_atomic_fixed4_add_fp</div>
-<div class="line">__kmpc_atomic_fixed4_andb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a2b0ca2e58dd7582202438dd90cae9056">__kmpc_atomic_fixed4_andb</a></div>
 <div class="line">__kmpc_atomic_fixed4_andb_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_andl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a14731c60b5778b62db6a852f1ebb2a6a">__kmpc_atomic_fixed4_andl</a></div>
 <div class="line">__kmpc_atomic_fixed4_andl_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aa79d19da90b26da64f6ee2753816c6f7">__kmpc_atomic_fixed4_div</a></div>
 <div class="line">__kmpc_atomic_fixed4_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed4_div_cpt_rev</div>
-<div class="line">__kmpc_atomic_fixed4_div_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a8c0c50f04317dcb0334f598e2e5a5468">__kmpc_atomic_fixed4_div_float8</a></div>
 <div class="line">__kmpc_atomic_fixed4_div_fp</div>
 <div class="line">__kmpc_atomic_fixed4_div_rev</div>
-<div class="line">__kmpc_atomic_fixed4_eqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a0e6bf41dcfa99396fef9df16b3dbeb0e">__kmpc_atomic_fixed4_eqv</a></div>
 <div class="line">__kmpc_atomic_fixed4_eqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_max</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a30a769d5b309a9ac57db52b90fa35aa1">__kmpc_atomic_fixed4_max</a></div>
 <div class="line">__kmpc_atomic_fixed4_max_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_min</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a94966285e25b05a35096394b1f59ce01">__kmpc_atomic_fixed4_min</a></div>
 <div class="line">__kmpc_atomic_fixed4_min_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a3f90f415a8f9969747412d8fb2f58bd2">__kmpc_atomic_fixed4_mul</a></div>
 <div class="line">__kmpc_atomic_fixed4_mul_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_mul_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ac39427607cd7b0954c284101bee94caa">__kmpc_atomic_fixed4_mul_float8</a></div>
 <div class="line">__kmpc_atomic_fixed4_mul_fp</div>
-<div class="line">__kmpc_atomic_fixed4_neqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a5f2288f05f2dac7bc06820cede332834">__kmpc_atomic_fixed4_neqv</a></div>
 <div class="line">__kmpc_atomic_fixed4_neqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_orb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a519579d278b4ad80ddcfe3d6a280f996">__kmpc_atomic_fixed4_orb</a></div>
 <div class="line">__kmpc_atomic_fixed4_orb_cpt</div>
-<div class="line">__kmpc_atomic_fixed4_orl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a1db253710493d1721db2465a55c8421f">__kmpc_atomic_fixed4_orl</a></div>
 <div class="line">__kmpc_atomic_fixed4_orl_cpt</div>
 <div class="line">__kmpc_atomic_fixed4_rd</div>
-<div class="line">__kmpc_atomic_fixed4_shl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae77d94bfe3312a003fdfb1072e097f31">__kmpc_atomic_fixed4_shl</a></div>
 <div class="line">__kmpc_atomic_fixed4_shl_cpt</div>
 <div class="line">__kmpc_atomic_fixed4_shl_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed4_shl_rev</div>
-<div class="line">__kmpc_atomic_fixed4_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a6bd55b80cac511e482403f856c166c4e">__kmpc_atomic_fixed4_shr</a></div>
 <div class="line">__kmpc_atomic_fixed4_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed4_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed4_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed4_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a892f03ec5ebc2a98432d6a95573264ae">__kmpc_atomic_fixed4_sub</a></div>
 <div class="line">__kmpc_atomic_fixed4_sub_cpt</div>
 <div class="line">__kmpc_atomic_fixed4_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed4_sub_fp</div>
 <div class="line">__kmpc_atomic_fixed4_sub_rev</div>
 <div class="line">__kmpc_atomic_fixed4_swp</div>
 <div class="line">__kmpc_atomic_fixed4_wr</div>
-<div class="line">__kmpc_atomic_fixed4_xor</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ac360976e328e1ffb921c8c4eb28afb29">__kmpc_atomic_fixed4_xor</a></div>
 <div class="line">__kmpc_atomic_fixed4_xor_cpt</div>
-<div class="line">__kmpc_atomic_fixed4u_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a286022c4f10fd528c19538febc7750a7">__kmpc_atomic_fixed4u_div</a></div>
 <div class="line">__kmpc_atomic_fixed4u_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed4u_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed4u_div_fp</div>
 <div class="line">__kmpc_atomic_fixed4u_div_rev</div>
-<div class="line">__kmpc_atomic_fixed4u_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a420d2da3519e75855a1f8b0f1fe8a7c2">__kmpc_atomic_fixed4u_shr</a></div>
 <div class="line">__kmpc_atomic_fixed4u_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed4u_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed4u_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed8_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aafd282554e5b424314426ff86fa424f0">__kmpc_atomic_fixed8_add</a></div>
 <div class="line">__kmpc_atomic_fixed8_add_cpt</div>
 <div class="line">__kmpc_atomic_fixed8_add_fp</div>
-<div class="line">__kmpc_atomic_fixed8_andb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a130ecd6b1b9fc357a2b9a3528c33d4e7">__kmpc_atomic_fixed8_andb</a></div>
 <div class="line">__kmpc_atomic_fixed8_andb_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_andl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a4c157dcf6502a6dac67b84134b0dbb8f">__kmpc_atomic_fixed8_andl</a></div>
 <div class="line">__kmpc_atomic_fixed8_andl_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ab5315ca10b987c2749fd67c7cbbba4a8">__kmpc_atomic_fixed8_div</a></div>
 <div class="line">__kmpc_atomic_fixed8_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed8_div_cpt_rev</div>
-<div class="line">__kmpc_atomic_fixed8_div_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aff060723e3c3d7497c9ef40bae1f22c1">__kmpc_atomic_fixed8_div_float8</a></div>
 <div class="line">__kmpc_atomic_fixed8_div_fp</div>
 <div class="line">__kmpc_atomic_fixed8_div_rev</div>
-<div class="line">__kmpc_atomic_fixed8_eqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a59130dbc730a9f722bcb329089a2ad01">__kmpc_atomic_fixed8_eqv</a></div>
 <div class="line">__kmpc_atomic_fixed8_eqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_max</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a84d84daec8f1d227b69876ce37174343">__kmpc_atomic_fixed8_max</a></div>
 <div class="line">__kmpc_atomic_fixed8_max_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_min</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a1943a1522545338a453bb57f8081ee99">__kmpc_atomic_fixed8_min</a></div>
 <div class="line">__kmpc_atomic_fixed8_min_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#af49b13c11c3c994857f64886f2760f7e">__kmpc_atomic_fixed8_mul</a></div>
 <div class="line">__kmpc_atomic_fixed8_mul_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_mul_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a4e74b2701825780b4cc6ec0b7828c395">__kmpc_atomic_fixed8_mul_float8</a></div>
 <div class="line">__kmpc_atomic_fixed8_mul_fp</div>
-<div class="line">__kmpc_atomic_fixed8_neqv</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a0027ddb9639bceaf5f5e85a41e719624">__kmpc_atomic_fixed8_neqv</a></div>
 <div class="line">__kmpc_atomic_fixed8_neqv_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_orb</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a7a22eea6f822219e0efa4e4879a0127a">__kmpc_atomic_fixed8_orb</a></div>
 <div class="line">__kmpc_atomic_fixed8_orb_cpt</div>
-<div class="line">__kmpc_atomic_fixed8_orl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ad40cc22147d89d3892f7631ee2177a34">__kmpc_atomic_fixed8_orl</a></div>
 <div class="line">__kmpc_atomic_fixed8_orl_cpt</div>
 <div class="line">__kmpc_atomic_fixed8_rd</div>
-<div class="line">__kmpc_atomic_fixed8_shl</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a8ca3bee7ae9322aa7e1b2187b2d7782f">__kmpc_atomic_fixed8_shl</a></div>
 <div class="line">__kmpc_atomic_fixed8_shl_cpt</div>
 <div class="line">__kmpc_atomic_fixed8_shl_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed8_shl_rev</div>
-<div class="line">__kmpc_atomic_fixed8_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae836ff943a8fe23b1ccba852becaf121">__kmpc_atomic_fixed8_shr</a></div>
 <div class="line">__kmpc_atomic_fixed8_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed8_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed8_shr_rev</div>
-<div class="line">__kmpc_atomic_fixed8_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ab7a80feb604c27c37689bfbaebefc720">__kmpc_atomic_fixed8_sub</a></div>
 <div class="line">__kmpc_atomic_fixed8_sub_cpt</div>
 <div class="line">__kmpc_atomic_fixed8_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed8_sub_fp</div>
 <div class="line">__kmpc_atomic_fixed8_sub_rev</div>
 <div class="line">__kmpc_atomic_fixed8_swp</div>
 <div class="line">__kmpc_atomic_fixed8_wr</div>
-<div class="line">__kmpc_atomic_fixed8_xor</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a5462c195fb7b57c2348aba92593cc1eb">__kmpc_atomic_fixed8_xor</a></div>
 <div class="line">__kmpc_atomic_fixed8_xor_cpt</div>
-<div class="line">__kmpc_atomic_fixed8u_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a969d2072905d38235df1f18a995b5468">__kmpc_atomic_fixed8u_div</a></div>
 <div class="line">__kmpc_atomic_fixed8u_div_cpt</div>
 <div class="line">__kmpc_atomic_fixed8u_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed8u_div_fp</div>
 <div class="line">__kmpc_atomic_fixed8u_div_rev</div>
-<div class="line">__kmpc_atomic_fixed8u_shr</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a4b2cc40d5a9e65c04db1c2e1e50b58b8">__kmpc_atomic_fixed8u_shr</a></div>
 <div class="line">__kmpc_atomic_fixed8u_shr_cpt</div>
 <div class="line">__kmpc_atomic_fixed8u_shr_cpt_rev</div>
 <div class="line">__kmpc_atomic_fixed8u_shr_rev</div>
 </div><!-- fragment --><h2>Functions for floating point </h2>
 <p>There are versions here for floating point numbers of size 4, 8, 10 and 16 bytes. (Ten byte floats are used by X87, but are now rare). </p>
-<div class="fragment"><div class="line">__kmpc_atomic_float4_add</div>
+<div class="fragment"><div class="line"><a class="code" href="kmp__atomic_8h.html#a486e892588a8765e61a869c39abce441">__kmpc_atomic_float4_add</a></div>
 <div class="line">__kmpc_atomic_float4_add_cpt</div>
-<div class="line">__kmpc_atomic_float4_add_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a59632da2a647b4c6f8590f5bd0d80613">__kmpc_atomic_float4_add_float8</a></div>
 <div class="line">__kmpc_atomic_float4_add_fp</div>
-<div class="line">__kmpc_atomic_float4_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aed85e1b7130f883d993cdab037efc51d">__kmpc_atomic_float4_div</a></div>
 <div class="line">__kmpc_atomic_float4_div_cpt</div>
 <div class="line">__kmpc_atomic_float4_div_cpt_rev</div>
-<div class="line">__kmpc_atomic_float4_div_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a8d63a56b5f7abc38a0b6dfaa315d60bc">__kmpc_atomic_float4_div_float8</a></div>
 <div class="line">__kmpc_atomic_float4_div_fp</div>
 <div class="line">__kmpc_atomic_float4_div_rev</div>
-<div class="line">__kmpc_atomic_float4_max</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#adb68ad8ccf01bd41f130bc38260454a6">__kmpc_atomic_float4_max</a></div>
 <div class="line">__kmpc_atomic_float4_max_cpt</div>
-<div class="line">__kmpc_atomic_float4_min</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a416c90256aa4d78b48ccef7ced47b9af">__kmpc_atomic_float4_min</a></div>
 <div class="line">__kmpc_atomic_float4_min_cpt</div>
-<div class="line">__kmpc_atomic_float4_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#afddefd621f62ee0ec603031a6a83def4">__kmpc_atomic_float4_mul</a></div>
 <div class="line">__kmpc_atomic_float4_mul_cpt</div>
-<div class="line">__kmpc_atomic_float4_mul_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aa152347bbdc07e4959a9a2a6fc6c6904">__kmpc_atomic_float4_mul_float8</a></div>
 <div class="line">__kmpc_atomic_float4_mul_fp</div>
 <div class="line">__kmpc_atomic_float4_rd</div>
-<div class="line">__kmpc_atomic_float4_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a12d9b6940ecaeba04d2b6648f57ca4fb">__kmpc_atomic_float4_sub</a></div>
 <div class="line">__kmpc_atomic_float4_sub_cpt</div>
 <div class="line">__kmpc_atomic_float4_sub_cpt_rev</div>
-<div class="line">__kmpc_atomic_float4_sub_float8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a8fb8b665be66e153854ae703a187f3a3">__kmpc_atomic_float4_sub_float8</a></div>
 <div class="line">__kmpc_atomic_float4_sub_fp</div>
 <div class="line">__kmpc_atomic_float4_sub_rev</div>
 <div class="line">__kmpc_atomic_float4_swp</div>
 <div class="line">__kmpc_atomic_float4_wr</div>
-<div class="line">__kmpc_atomic_float8_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae0b0c600fb7be900dd1c2adff396c4f9">__kmpc_atomic_float8_add</a></div>
 <div class="line">__kmpc_atomic_float8_add_cpt</div>
 <div class="line">__kmpc_atomic_float8_add_fp</div>
-<div class="line">__kmpc_atomic_float8_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a2bfec17c472e75bf4dd06351e128863d">__kmpc_atomic_float8_div</a></div>
 <div class="line">__kmpc_atomic_float8_div_cpt</div>
 <div class="line">__kmpc_atomic_float8_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_float8_div_fp</div>
 <div class="line">__kmpc_atomic_float8_div_rev</div>
-<div class="line">__kmpc_atomic_float8_max</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a1ca40ba475fbc83850dd49246b7663ae">__kmpc_atomic_float8_max</a></div>
 <div class="line">__kmpc_atomic_float8_max_cpt</div>
-<div class="line">__kmpc_atomic_float8_min</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a4447c48168cbb3409a96be59f6bdce26">__kmpc_atomic_float8_min</a></div>
 <div class="line">__kmpc_atomic_float8_min_cpt</div>
-<div class="line">__kmpc_atomic_float8_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a7307faed059b9e1fadcbb6402524d260">__kmpc_atomic_float8_mul</a></div>
 <div class="line">__kmpc_atomic_float8_mul_cpt</div>
 <div class="line">__kmpc_atomic_float8_mul_fp</div>
 <div class="line">__kmpc_atomic_float8_rd</div>
-<div class="line">__kmpc_atomic_float8_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a51c989b18ff1a9d09281a00451fdf0b4">__kmpc_atomic_float8_sub</a></div>
 <div class="line">__kmpc_atomic_float8_sub_cpt</div>
 <div class="line">__kmpc_atomic_float8_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_float8_sub_fp</div>
 <div class="line">__kmpc_atomic_float8_sub_rev</div>
 <div class="line">__kmpc_atomic_float8_swp</div>
 <div class="line">__kmpc_atomic_float8_wr</div>
-<div class="line">__kmpc_atomic_float10_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a9f441825b60fdbf38b4f584e93908ddb">__kmpc_atomic_float10_add</a></div>
 <div class="line">__kmpc_atomic_float10_add_cpt</div>
 <div class="line">__kmpc_atomic_float10_add_fp</div>
-<div class="line">__kmpc_atomic_float10_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#aeb5254f5f5c849948bcd4a7307291f42">__kmpc_atomic_float10_div</a></div>
 <div class="line">__kmpc_atomic_float10_div_cpt</div>
 <div class="line">__kmpc_atomic_float10_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_float10_div_fp</div>
 <div class="line">__kmpc_atomic_float10_div_rev</div>
-<div class="line">__kmpc_atomic_float10_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a1129729ff46010b600cf2dc55870fd8b">__kmpc_atomic_float10_mul</a></div>
 <div class="line">__kmpc_atomic_float10_mul_cpt</div>
 <div class="line">__kmpc_atomic_float10_mul_fp</div>
 <div class="line">__kmpc_atomic_float10_rd</div>
-<div class="line">__kmpc_atomic_float10_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a3453a5d1175a6e6445848cf2eb038069">__kmpc_atomic_float10_sub</a></div>
 <div class="line">__kmpc_atomic_float10_sub_cpt</div>
 <div class="line">__kmpc_atomic_float10_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_float10_sub_fp</div>
@@ -510,50 +516,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">__kmpc_atomic_float16_wr</div>
 </div><!-- fragment --><h2>Functions for Complex types </h2>
 <p>Functions for complex types whose component floating point variables are of size 4,8,10 or 16 bytes. The names here are based on the size of the component float, <em>not</em> the size of the complex type. So <code>__kmpc_atomc_cmplx8_add</code> is an operation on a <code>complex&lt;double&gt;</code> or <code>complex(kind=8)</code>, <em>not</em> <code>complex&lt;float&gt;</code>.</p>
-<div class="fragment"><div class="line">__kmpc_atomic_cmplx4_add</div>
-<div class="line">__kmpc_atomic_cmplx4_add_cmplx8</div>
+<div class="fragment"><div class="line"><a class="code" href="kmp__atomic_8h.html#af98f89feb10c6c893e3824520f0f99ca">__kmpc_atomic_cmplx4_add</a></div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a37f581a0a5f0888b0f165d1df796bbbe">__kmpc_atomic_cmplx4_add_cmplx8</a></div>
 <div class="line">__kmpc_atomic_cmplx4_add_cpt</div>
-<div class="line">__kmpc_atomic_cmplx4_div</div>
-<div class="line">__kmpc_atomic_cmplx4_div_cmplx8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a5f586bffee841cd1f958dc82b04a428b">__kmpc_atomic_cmplx4_div</a></div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a3f9c5cf4e414356f394ab3107e9203ca">__kmpc_atomic_cmplx4_div_cmplx8</a></div>
 <div class="line">__kmpc_atomic_cmplx4_div_cpt</div>
 <div class="line">__kmpc_atomic_cmplx4_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx4_div_rev</div>
-<div class="line">__kmpc_atomic_cmplx4_mul</div>
-<div class="line">__kmpc_atomic_cmplx4_mul_cmplx8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a79d14b7237fa5d2bef895a81ae9192fc">__kmpc_atomic_cmplx4_mul</a></div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a62b78b4224f85c804e62e19fe67cdac1">__kmpc_atomic_cmplx4_mul_cmplx8</a></div>
 <div class="line">__kmpc_atomic_cmplx4_mul_cpt</div>
 <div class="line">__kmpc_atomic_cmplx4_rd</div>
-<div class="line">__kmpc_atomic_cmplx4_sub</div>
-<div class="line">__kmpc_atomic_cmplx4_sub_cmplx8</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#ae96b5b6426cd308b3e848af809db6ebd">__kmpc_atomic_cmplx4_sub</a></div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a34cf9c863b698c629b696995cea5a329">__kmpc_atomic_cmplx4_sub_cmplx8</a></div>
 <div class="line">__kmpc_atomic_cmplx4_sub_cpt</div>
 <div class="line">__kmpc_atomic_cmplx4_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx4_sub_rev</div>
 <div class="line">__kmpc_atomic_cmplx4_swp</div>
 <div class="line">__kmpc_atomic_cmplx4_wr</div>
-<div class="line">__kmpc_atomic_cmplx8_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a825ab42a68834efa72914936f503a96e">__kmpc_atomic_cmplx8_add</a></div>
 <div class="line">__kmpc_atomic_cmplx8_add_cpt</div>
-<div class="line">__kmpc_atomic_cmplx8_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a812608a83f9629ddbacbfce7672c773b">__kmpc_atomic_cmplx8_div</a></div>
 <div class="line">__kmpc_atomic_cmplx8_div_cpt</div>
 <div class="line">__kmpc_atomic_cmplx8_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx8_div_rev</div>
-<div class="line">__kmpc_atomic_cmplx8_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a166d7055eeedf15f0d49facdf5dc1559">__kmpc_atomic_cmplx8_mul</a></div>
 <div class="line">__kmpc_atomic_cmplx8_mul_cpt</div>
 <div class="line">__kmpc_atomic_cmplx8_rd</div>
-<div class="line">__kmpc_atomic_cmplx8_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a97e114222415ef9d6a208f64e40ef87a">__kmpc_atomic_cmplx8_sub</a></div>
 <div class="line">__kmpc_atomic_cmplx8_sub_cpt</div>
 <div class="line">__kmpc_atomic_cmplx8_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx8_sub_rev</div>
 <div class="line">__kmpc_atomic_cmplx8_swp</div>
 <div class="line">__kmpc_atomic_cmplx8_wr</div>
-<div class="line">__kmpc_atomic_cmplx10_add</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a68ad2469bd6169d30dac85fd2cb4f93f">__kmpc_atomic_cmplx10_add</a></div>
 <div class="line">__kmpc_atomic_cmplx10_add_cpt</div>
-<div class="line">__kmpc_atomic_cmplx10_div</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a69470d00192095533b6f04530c514342">__kmpc_atomic_cmplx10_div</a></div>
 <div class="line">__kmpc_atomic_cmplx10_div_cpt</div>
 <div class="line">__kmpc_atomic_cmplx10_div_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx10_div_rev</div>
-<div class="line">__kmpc_atomic_cmplx10_mul</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#afe8a6526935f9433ffa89ab525fe3675">__kmpc_atomic_cmplx10_mul</a></div>
 <div class="line">__kmpc_atomic_cmplx10_mul_cpt</div>
 <div class="line">__kmpc_atomic_cmplx10_rd</div>
-<div class="line">__kmpc_atomic_cmplx10_sub</div>
+<div class="line"><a class="code" href="kmp__atomic_8h.html#a61d175b6d9a0fdfa184b02a47f0165b1">__kmpc_atomic_cmplx10_sub</a></div>
 <div class="line">__kmpc_atomic_cmplx10_sub_cpt</div>
 <div class="line">__kmpc_atomic_cmplx10_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx10_sub_rev</div>
@@ -573,10 +579,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">__kmpc_atomic_cmplx16_sub_cpt_rev</div>
 <div class="line">__kmpc_atomic_cmplx16_swp</div>
 <div class="line">__kmpc_atomic_cmplx16_wr</div>
-</div><!-- fragment --> </div><!-- contents -->
+</div><!-- fragment --> <h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ga934bb88de29998410569745b7fd2c2e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ittnotify__static_8h.html#a8b8dcd723308a8cb5d84277c7a3fff70">int</a> __kmp_atomic_mode = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="kmp__atomic_8c_source.html#l00544">544</a> of file <a class="el" href="kmp__atomic_8c_source.html">kmp_atomic.c</a>.</p>
+
+<p>Referenced by <a class="el" href="kmp__settings_8c.html#ab9673512cfb0d30f03f9b4303fb5bcdc">__kmp_stg_parse_atomic_mode()</a>, <a class="el" href="kmp__settings_8c.html#a5bc161a32129503653e8e7447397e64e">__kmp_stg_print_atomic_mode()</a>, <a class="el" href="kmp__atomic_8h.html#affbdcc5eceb23a3a468474d3d8d97c0d">__kmpc_atomic_10()</a>, <a class="el" href="kmp__atomic_8h.html#acede1c11779e4dd09cd50133aa606a00">__kmpc_atomic_16()</a>, <a class="el" href="kmp__atomic_8h.html#a6d9d87ea1a89b83c6ed23e91ad66123e">__kmpc_atomic_2()</a>, <a class="el" href="kmp__atomic_8h.html#afc80b3a741024100aa32083451d4b56b">__kmpc_atomic_20()</a>, <a class="el" href="kmp__atomic_8h.html#ae528f144023a073b7b1d54435161f0d2">__kmpc_atomic_32()</a>, <a class="el" href="kmp__atomic_8h.html#a8ee79e52139355b09e6d5cfe8334930f">__kmpc_atomic_4()</a>, <a class="el" href="kmp__atomic_8h.html#af53b9d1f6560dec47b7e83488d96544b">__kmpc_atomic_8()</a>, and <a class="el" href="kmp__atomic_8c.html#ac92fc947261232e168ef70adb244a37a">ATOMIC_FIXED_ADD()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2016 21:30:30 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 17 2016 17:14:09 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

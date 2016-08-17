@@ -1,0 +1,1837 @@
+\hypertarget{kmp__csupport_8c}{\section{kmp\-\_\-csupport.\-c File Reference}
+\label{kmp__csupport_8c}\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}}
+}
+{\ttfamily \#include \char`\"{}omp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-itt.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-error.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-stats.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a8cea0c1cc1fc60a52e79998580bbf1a7}{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}~512
+\item 
+\#define \hyperlink{kmp__csupport_8c_ac4faae1387a817dc0be319e019ff2f28}{I\-N\-I\-T\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a9205ca1ef5ae0d5f88426771e3e6b19a}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a37a0237bd8d01b09260565372867f97e}{I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_acf9e8af4b4bb7b977b62b1c4dfa51e88}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_ac67b99891fc453415c5572bacc07dda6}{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a4108cfdc1683e412faec3f160905c92a}{\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a2a4b680902f7adda3da53cb43e0ece70}{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}~\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks\-\_\-timed
+\item 
+\#define \hyperlink{kmp__csupport_8c_ab9412b495e4112738cf87f7df3db0ea2}{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a05d856573d6a78a8e0f8b897acda257a}{\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a370262fa40ed6248171ad7a158e1fc11}{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}~\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks\-\_\-timed
+\item 
+\#define \hyperlink{kmp__csupport_8c_af2366647a94f8205b0d21bb526896baa}{R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a2515506a08d3db8c5b5514d6e21b1bc7}{\-\_\-\-\_\-kmp\-\_\-release\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_aa3aef724b3e350f0e3cced15b973427f}{R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a451c13c9a366c96ec46526d615d28a9d}{\-\_\-\-\_\-kmp\-\_\-release\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a69569f0556cb9e113568856ab1a45066}{T\-E\-S\-T\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a24ea7d7324f66edf9361c13737d5f39d}{\-\_\-\-\_\-kmp\-\_\-test\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_aefd36d05f80d81259def2446725efaf1}{T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a6ccce075b15dfe2cda3355394b4968a4}{\-\_\-\-\_\-kmp\-\_\-test\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a46cb44b7c9f10cc97821fb30313f0bf1}{D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a8e724cd1a4dc3703964ed0f6de64b05f}{\-\_\-\-\_\-kmp\-\_\-destroy\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a705442fbf2591fcc0e3f3d747aef840d}{D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}~\hyperlink{kmp__lock_8h_a44efcb4552ddd426a0641abfcbcb6f22}{\-\_\-\-\_\-kmp\-\_\-destroy\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}
+\item 
+\#define \hyperlink{kmp__csupport_8c_a7a13f1fc7eb548d763de215bd7cdcf51}{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}(gtid, rmethod)~( ( \hyperlink{kmp__global_8c_a90f61e035ac299853fda087d99e00510}{\-\_\-\-\_\-kmp\-\_\-threads}\mbox{[} ( gtid ) \mbox{]} -\/$>$ th.\-th\-\_\-local.\-packed\-\_\-reduction\-\_\-method ) = ( rmethod ) )
+\item 
+\#define \hyperlink{kmp__csupport_8c_a1f238c550ed76a4c6ce263adba8c3524}{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}(gtid)~( \hyperlink{kmp__global_8c_a90f61e035ac299853fda087d99e00510}{\-\_\-\-\_\-kmp\-\_\-threads}\mbox{[} ( gtid ) \mbox{]} -\/$>$ th.\-th\-\_\-local.\-packed\-\_\-reduction\-\_\-method )
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__STARTUP__SHUTDOWN_ga53f4ef16321f42eeb3b8dd463b51f112}{\-\_\-\-\_\-kmpc\-\_\-begin} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 flags)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__STARTUP__SHUTDOWN_gacdedfb2c01fe256ad6c75507644bdfed}{\-\_\-\-\_\-kmpc\-\_\-end} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga39488769ed881a75703495759c0f109f}{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga127cc7161bbef3ccd2446a9405973192}{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga9a981e3dcd9264c2cf5bd8a8cc6f16af}{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_gadcc691c6c7695988deba68a2de817a66}{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__DEPRECATED_ga27292e41af4c26e0bdf45b12b1f76d5a}{\-\_\-\-\_\-kmpc\-\_\-ok\-\_\-to\-\_\-fork} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga5c4aad6e2e289283e9c58031f7c4e228}{\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__PARALLEL_ga345b3a5866deefefc91ae1e8958f49f4}{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-num\-\_\-threads} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 num\-\_\-threads)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ab05f2b36ae8d524e1aaa6931bc3bc42d}{\-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ab6e1cafc9208ac0e02672c14f7563275}{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 proc\-\_\-bind)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__PARALLEL_gac2b7cc2fa78dde5381bcf00cfc48d124}{\-\_\-\-\_\-kmpc\-\_\-fork\-\_\-call} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 argc, \hyperlink{group__PARALLEL_gab49014fb4572e7d0f308fd9b1824daf7}{kmpc\-\_\-micro} microtask,...)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__PARALLEL_gaae9462b03457d809faeb3e767a5b2283}{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-num\-\_\-teams} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 num\-\_\-teams, kmp\-\_\-int32 num\-\_\-threads)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__PARALLEL_ga1cab712d076ba1d2758b0c3bf5ffe38a}{\-\_\-\-\_\-kmpc\-\_\-fork\-\_\-teams} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 argc, \hyperlink{group__PARALLEL_gab49014fb4572e7d0f308fd9b1824daf7}{kmpc\-\_\-micro} microtask,...)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_ab5a59ef3b03ba68ea82c282f5bdee903}{\-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__PARALLEL_ga7b1ba1cc8d9d2fea8654bbb1e59f079e}{\-\_\-\-\_\-kmpc\-\_\-serialized\-\_\-parallel} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__PARALLEL_gac341818e68b06d910111e4cf08bb54dd}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-serialized\-\_\-parallel} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__SYNCHRONIZATION_ga90f0e4bf417a06cff2a4f895daa4ff37}{\-\_\-\-\_\-kmpc\-\_\-flush} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\-\_\-\-\_\-kmpc\-\_\-barrier} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+kmp\-\_\-int32 \hyperlink{group__WORK__SHARING_ga721f06c8017479ccc6cb46ae0552b597}{\-\_\-\-\_\-kmpc\-\_\-master} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_gaa290fe71698081e26ec234a234d2fdcc}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-master} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_gada4a8fc8b0a17d3109acdeaf2c9443ea}{\-\_\-\-\_\-kmpc\-\_\-ordered} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_ga06dfab09153c455fcaa609e97846b0d5}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-ordered} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid)
+\item 
+static \hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\-\_\-user\-\_\-lock\-\_\-p} \hyperlink{kmp__csupport_8c_a0c2f457d045ac42586443ccf8dd48e54}{\-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr} (\hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$crit, \hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} const $\ast$loc, kmp\-\_\-int32 gtid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_gafc4e7d07089576fe946c42777ef191cc}{\-\_\-\-\_\-kmpc\-\_\-critical} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$crit)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_ga134f0e9d82a69403d9e167dbbf7ae731}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-critical} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$crit)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_gacea2959cabb92c4a941087e524c5f3d5}{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__SYNCHRONIZATION_ga35415691dad1e3430caa78c9d4b34cb3}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-barrier\-\_\-master} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_ga5a51fa2c8f61d807895e377d6c732b16}{\-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+kmp\-\_\-int32 \hyperlink{group__WORK__SHARING_ga794e820b3c076c766cef93bb414908cc}{\-\_\-\-\_\-kmpc\-\_\-single} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_gaa7d615b194c12278b00841852b0dff2b}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-single} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WORK__SHARING_ga4bec24e63a011cc0bfca98e79f3c0b93}{\-\_\-\-\_\-kmpc\-\_\-for\-\_\-static\-\_\-fini} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ae2c6bff229becc2ba608026ff6bb862a}{ompc\-\_\-set\-\_\-num\-\_\-threads} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a0c4ccdba0a7b8d164c8dcac78aa9d86d}{ompc\-\_\-set\-\_\-dynamic} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} flag)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ac5acbcca779643988d6c2ee576ef5fd8}{ompc\-\_\-set\-\_\-nested} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} flag)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_adb4b13610c699df81712d20421b31b75}{ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} max\-\_\-active\-\_\-levels)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a7295fde0fb4c0737d13c926e65d38d0c}{ompc\-\_\-set\-\_\-schedule} (\hyperlink{kmp_8h_ab769cd28f876c6f973de1356e3d167c7}{omp\-\_\-sched\-\_\-t} kind, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} modifier)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_a423fbbeae6014dbcc3249ebfbc398acd}{ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} level)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_a966f31be4f70afbcaaf62e4a16c00055}{ompc\-\_\-get\-\_\-team\-\_\-size} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} level)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a6d4199e4a8f13fecabb97cb0e38207fa}{kmpc\-\_\-set\-\_\-stacksize} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a4957b8c1e27f64d49e623d3f732b230b}{kmpc\-\_\-set\-\_\-stacksize\-\_\-s} (size\-\_\-t arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a7642be84bc8698c0058bb9f356969c69}{kmpc\-\_\-set\-\_\-blocktime} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a64f335df813329ff7ade6c97f143e1b1}{kmpc\-\_\-set\-\_\-library} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a7a9b8294df45f617b93c3f66ac5e45cc}{kmpc\-\_\-set\-\_\-defaults} (char const $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_a636c5383acbe154bcd256de944a6f6c2}{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} proc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$\hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_a1924c84b1cdfb4ac9e786eb791ca279c}{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} proc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$\hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_a9e2fedf0ecbf2cb302d1bd98b397797f}{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} proc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$\hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__THREADPRIVATE_ga1453eca6136fd77e5de88ea0e78cc7a4}{\-\_\-\-\_\-kmpc\-\_\-copyprivate} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, size\-\_\-t cpy\-\_\-size, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$cpy\-\_\-data, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$cpy\-\_\-func)(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), kmp\-\_\-int32 didit)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a8b9a6aae87ca876232a432b97045e72c}{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ab7ff221270a994c2e3913f7a86797bb7}{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_aad203357920e68b766321b67b18380b8}{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a268f6fd6b2c422e36ab8d6dc51e9b704}{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a8cd261feeca00bfb88cc58f85790701d}{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a69e49c9e1d94590e39f2bb73e3d9abf3}{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ab66c29235d1534ac1c82551d6a66ef88}{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a223e2fc3d30c116fc6254cddda359b90}{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_afec81c32073d610029d1d8e5385f31ed}{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__csupport_8c_aa5c4b17dac31bc0c64ba8f9e7145f6d2}{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$user\-\_\-lock)
+\item 
+static \-\_\-\-\_\-forceinline \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_ad97140748ff9336db068d58f950a4850}{\-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$crit)
+\item 
+static \-\_\-\-\_\-forceinline \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a601983b17f27442206a77b8781579708}{\-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$crit)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_gafc5438d4c4f01dcd347d9bfde27f68e1}{\-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 num\-\_\-vars, size\-\_\-t reduce\-\_\-size, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$reduce\-\_\-data, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$reduce\-\_\-func)(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$lhs\-\_\-data, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$rhs\-\_\-data), \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$lck)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__SYNCHRONIZATION_ga5c40184c6babbe35c50d43a47573c5c5}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$lck)
+\item 
+kmp\-\_\-int32 \hyperlink{group__SYNCHRONIZATION_ga6a08af1c559012315e7e5be69f7fe608}{\-\_\-\-\_\-kmpc\-\_\-reduce} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, kmp\-\_\-int32 num\-\_\-vars, size\-\_\-t reduce\-\_\-size, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$reduce\-\_\-data, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$reduce\-\_\-func)(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$lhs\-\_\-data, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$rhs\-\_\-data), \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$lck)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__SYNCHRONIZATION_ga2ead7ca8fe9886581c216ca8006ae3c9}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$lck)
+\item 
+kmp\-\_\-uint64 \hyperlink{kmp__csupport_8c_a95bb5221ba3dedf24923a07c0793780b}{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid} ()
+\item 
+kmp\-\_\-uint64 \hyperlink{kmp__csupport_8c_ae05d754e1b1bd15143e2bc905ee2bb74}{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__csupport_8c_a75e1918250b1a2b352ad706545c1d614}{\-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} n\-S, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} s\-O, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} n\-C, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} c\-O, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} n\-T)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__csupport_8c_a1f238c550ed76a4c6ce263adba8c3524}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D@{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}}
+\index{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D@{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-\-K\-M\-P\-\_\-\-G\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D(
+\begin{DoxyParamCaption}
+\item[{}]{gtid}
+\end{DoxyParamCaption}
+)~( {\bf \-\_\-\-\_\-kmp\-\_\-threads}\mbox{[} ( gtid ) \mbox{]} -\/$>$ th.\-th\-\_\-local.\-packed\-\_\-reduction\-\_\-method )}}\label{kmp__csupport_8c_a1f238c550ed76a4c6ce263adba8c3524}
+
+
+Definition at line 2541 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait().
+
+\hypertarget{kmp__csupport_8c_a7a13f1fc7eb548d763de215bd7cdcf51}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D@{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}}
+\index{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D@{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-\-K\-M\-P\-\_\-\-S\-E\-T\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D(
+\begin{DoxyParamCaption}
+\item[{}]{gtid, }
+\item[{}]{rmethod}
+\end{DoxyParamCaption}
+)~( ( {\bf \-\_\-\-\_\-kmp\-\_\-threads}\mbox{[} ( gtid ) \mbox{]} -\/$>$ th.\-th\-\_\-local.\-packed\-\_\-reduction\-\_\-method ) = ( rmethod ) )}}\label{kmp__csupport_8c_a7a13f1fc7eb548d763de215bd7cdcf51}
+
+
+Definition at line 2538 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-reduce(), and \-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait().
+
+\hypertarget{kmp__csupport_8c_ac67b99891fc453415c5572bacc07dda6}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K}}
+\index{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_ac67b99891fc453415c5572bacc07dda6}
+
+
+Definition at line 1805 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_a2a4b680902f7adda3da53cb43e0ece70}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}}
+\index{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-C\-Q\-U\-I\-R\-E\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D~\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks\-\_\-timed}}\label{kmp__csupport_8c_a2a4b680902f7adda3da53cb43e0ece70}
+
+
+Definition at line 1806 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{kmp__csupport_8c_ab9412b495e4112738cf87f7df3db0ea2}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}}
+\index{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_ab9412b495e4112738cf87f7df3db0ea2}
+
+
+Definition at line 1807 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_a370262fa40ed6248171ad7a158e1fc11}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}}
+\index{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D@{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\-C\-Q\-U\-I\-R\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K\-\_\-\-T\-I\-M\-E\-D~\-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks\-\_\-timed}}\label{kmp__csupport_8c_a370262fa40ed6248171ad7a158e1fc11}
+
+
+Definition at line 1808 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{kmp__csupport_8c_a46cb44b7c9f10cc97821fb30313f0bf1}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K@{D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K}}
+\index{D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K@{D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_a46cb44b7c9f10cc97821fb30313f0bf1}
+
+
+Definition at line 1813 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_a705442fbf2591fcc0e3f3d747aef840d}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}}
+\index{D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_a705442fbf2591fcc0e3f3d747aef840d}
+
+
+Definition at line 1814 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_ac4faae1387a817dc0be319e019ff2f28}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!I\-N\-I\-T\-\_\-\-L\-O\-C\-K@{I\-N\-I\-T\-\_\-\-L\-O\-C\-K}}
+\index{I\-N\-I\-T\-\_\-\-L\-O\-C\-K@{I\-N\-I\-T\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{I\-N\-I\-T\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N\-I\-T\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_ac4faae1387a817dc0be319e019ff2f28}
+
+
+Definition at line 1803 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_a37a0237bd8d01b09260565372867f97e}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}}
+\index{I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-init\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_a37a0237bd8d01b09260565372867f97e}
+
+
+Definition at line 1804 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_a8cea0c1cc1fc60a52e79998580bbf1a7}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E@{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}}
+\index{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E@{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E~512}}\label{kmp__csupport_8c_a8cea0c1cc1fc60a52e79998580bbf1a7}
+
+
+Definition at line 28 of file kmp\-\_\-csupport.\-c.
+
+\hypertarget{kmp__csupport_8c_af2366647a94f8205b0d21bb526896baa}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K@{R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K}}
+\index{R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K@{R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-E\-L\-E\-A\-S\-E\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-release\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_af2366647a94f8205b0d21bb526896baa}
+
+
+Definition at line 1809 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_aa3aef724b3e350f0e3cced15b973427f}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}}
+\index{R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-E\-L\-E\-A\-S\-E\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-release\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_aa3aef724b3e350f0e3cced15b973427f}
+
+
+Definition at line 1810 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_a69569f0556cb9e113568856ab1a45066}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!T\-E\-S\-T\-\_\-\-L\-O\-C\-K@{T\-E\-S\-T\-\_\-\-L\-O\-C\-K}}
+\index{T\-E\-S\-T\-\_\-\-L\-O\-C\-K@{T\-E\-S\-T\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{T\-E\-S\-T\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-E\-S\-T\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-test\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_a69569f0556cb9e113568856ab1a45066}
+
+
+Definition at line 1811 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock().
+
+\hypertarget{kmp__csupport_8c_aefd36d05f80d81259def2446725efaf1}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}}
+\index{T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K@{T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-E\-D\-\_\-\-L\-O\-C\-K~{\bf \-\_\-\-\_\-kmp\-\_\-test\-\_\-nested\-\_\-user\-\_\-lock\-\_\-with\-\_\-checks}}}\label{kmp__csupport_8c_aefd36d05f80d81259def2446725efaf1}
+
+
+Definition at line 1812 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__csupport_8c_a601983b17f27442206a77b8781579708}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block@{\-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block}}
+\index{\-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block@{\-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-forceinline {\bf void} \-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmp\-\_\-critical\-\_\-name} $\ast$}]{crit}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__csupport_8c_a601983b17f27442206a77b8781579708}
+
+
+Definition at line 2610 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait().
+
+
+\begin{DoxyCode}
+2610                                                                                                          \{
+2611 
+2612     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2613 
+2614 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2615 \textcolor{preprocessor}{}
+2616     \textcolor{keywordflow}{if} (KMP\_IS\_D\_LOCK(\_\_kmp\_user\_lock\_seq)) \{
+2617         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})crit;
+2618         \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check})
+2619             \hyperlink{kmp__error_8c_ab716717d70650eeeb205b057232d7c1c}{\_\_kmp\_pop\_sync}(global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a99f163854d01ce42ec99e6353d3907c6}{ct\_critical}, loc);
+2620         KMP\_D\_LOCK\_FUNC(lck, unset)((kmp\_dyna\_lock\_t *)lck, global\_tid);
+2621     \} \textcolor{keywordflow}{else} \{
+2622         kmp\_indirect\_lock\_t *ilk = (kmp\_indirect\_lock\_t *)\hyperlink{kmp__os_8h_a6e40f65c18c7b47fb612607b9bf8fdfc}{TCR\_PTR}(*((kmp\_indirect\_lock\_t **)crit));
+2623         \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check})
+2624             \hyperlink{kmp__error_8c_ab716717d70650eeeb205b057232d7c1c}{\_\_kmp\_pop\_sync}(global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a99f163854d01ce42ec99e6353d3907c6}{ct\_critical}, loc);
+2625         KMP\_I\_LOCK\_FUNC(ilk, unset)(ilk->lock, global\_tid);
+2626     \}
+2627 
+2628 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2629 \textcolor{preprocessor}{}
+2630     \textcolor{comment}{// We know that the fast reduction code is only emitted by Intel compilers with 32 byte critical}
+2631     \textcolor{comment}{// sections. If there isn't enough space, then we have to use a pointer.}
+2632     \textcolor{keywordflow}{if} ( \hyperlink{kmp__lock_8cpp_a05a5cc3f683df5a1edfe173e6fc3e0fd}{\_\_kmp\_base\_user\_lock\_size} > 32 ) \{
+2633         lck = *( (\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} *) crit );
+2634         \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}( lck != NULL );
+2635     \} \textcolor{keywordflow}{else} \{
+2636         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p}) crit;
+2637     \}
+2638 
+2639     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+2640         \hyperlink{kmp__error_8c_ab716717d70650eeeb205b057232d7c1c}{\_\_kmp\_pop\_sync}( global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a99f163854d01ce42ec99e6353d3907c6}{ct\_critical}, loc );
+2641 
+2642     \hyperlink{kmp__lock_8h_a2515506a08d3db8c5b5514d6e21b1bc7}{\_\_kmp\_release\_user\_lock\_with\_checks}( lck, global\_tid );
+2643 
+2644 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2645 \textcolor{preprocessor}{}\} \textcolor{comment}{// \_\_kmp\_end\_critical\_section\_reduce\_block}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ad97140748ff9336db068d58f950a4850}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block@{\-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block}}
+\index{\-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block@{\-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-forceinline {\bf void} \-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmp\-\_\-critical\-\_\-name} $\ast$}]{crit}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__csupport_8c_ad97140748ff9336db068d58f950a4850}
+
+
+Definition at line 2549 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-reduce(), and \-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait().
+
+
+\begin{DoxyCode}
+2549                                                                                                            
+      \{
+2550 
+2551     \textcolor{comment}{// this lock was visible to a customer and to the threading profile tool as a serial overhead span}
+2552     \textcolor{comment}{//            (although it's used for an internal purpose only)}
+2553     \textcolor{comment}{//            why was it visible in previous implementation?}
+2554     \textcolor{comment}{//            should we keep it visible in new reduce block?}
+2555     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2556 
+2557 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2558 \textcolor{preprocessor}{}
+2559     kmp\_dyna\_lock\_t *lk = (kmp\_dyna\_lock\_t *)crit;
+2560     \textcolor{comment}{// Check if it is initialized.}
+2561     \textcolor{keywordflow}{if} (*lk == 0) \{
+2562         \textcolor{keywordflow}{if} (KMP\_IS\_D\_LOCK(\_\_kmp\_user\_lock\_seq)) \{
+2563             \hyperlink{kmp__os_8h_ae2107985ffcede8039b92405b7153954}{KMP\_COMPARE\_AND\_STORE\_ACQ32}((\textcolor{keyword}{volatile} kmp\_int32 *)crit, 0, 
+      KMP\_GET\_D\_TAG(\_\_kmp\_user\_lock\_seq));
+2564         \} \textcolor{keywordflow}{else} \{
+2565             \_\_kmp\_init\_indirect\_csptr(crit, loc, global\_tid, KMP\_GET\_I\_TAG(\_\_kmp\_user\_lock\_seq));
+2566         \}
+2567     \}
+2568     \textcolor{comment}{// Branch for accessing the actual lock object and set operation. This branching is inevitable since}
+2569     \textcolor{comment}{// this lock initialization does not follow the normal dispatch path (lock table is not used).}
+2570     \textcolor{keywordflow}{if} (KMP\_EXTRACT\_D\_TAG(lk) != 0) \{
+2571         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})lk;
+2572         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(lck != NULL);
+2573         \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2574             \hyperlink{kmp__error_8c_a17886697972a1ad707cb5797332a7229}{\_\_kmp\_push\_sync}(global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a99f163854d01ce42ec99e6353d3907c6}{ct\_critical}, loc, lck, 
+      \_\_kmp\_user\_lock\_seq);
+2575         \}
+2576         KMP\_D\_LOCK\_FUNC(lk, set)(lk, global\_tid);
+2577     \} \textcolor{keywordflow}{else} \{
+2578         kmp\_indirect\_lock\_t *ilk = *((kmp\_indirect\_lock\_t **)lk);
+2579         lck = ilk->lock;
+2580         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(lck != NULL);
+2581         \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2582             \hyperlink{kmp__error_8c_a17886697972a1ad707cb5797332a7229}{\_\_kmp\_push\_sync}(global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a99f163854d01ce42ec99e6353d3907c6}{ct\_critical}, loc, lck, 
+      \_\_kmp\_user\_lock\_seq);
+2583         \}
+2584         KMP\_I\_LOCK\_FUNC(ilk, set)(lck, global\_tid);
+2585     \}
+2586 
+2587 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2588 \textcolor{preprocessor}{}
+2589     \textcolor{comment}{// We know that the fast reduction code is only emitted by Intel compilers}
+2590     \textcolor{comment}{// with 32 byte critical sections. If there isn't enough space, then we}
+2591     \textcolor{comment}{// have to use a pointer.}
+2592     \textcolor{keywordflow}{if} ( \hyperlink{kmp__lock_8cpp_a05a5cc3f683df5a1edfe173e6fc3e0fd}{\_\_kmp\_base\_user\_lock\_size} <= 
+      \hyperlink{kmp__lock_8h_a14ef6f9d64a97f5fb701fe7efa78da8e}{INTEL\_CRITICAL\_SIZE} ) \{
+2593         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})crit;
+2594     \}
+2595     \textcolor{keywordflow}{else} \{
+2596         lck = \hyperlink{kmp__csupport_8c_a0c2f457d045ac42586443ccf8dd48e54}{\_\_kmp\_get\_critical\_section\_ptr}( crit, loc, global\_tid );
+2597     \}
+2598     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( lck != NULL );
+2599 
+2600     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+2601         \hyperlink{kmp__error_8c_a17886697972a1ad707cb5797332a7229}{\_\_kmp\_push\_sync}( global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a99f163854d01ce42ec99e6353d3907c6}{ct\_critical}, loc, lck );
+2602 
+2603     \hyperlink{kmp__lock_8h_a4108cfdc1683e412faec3f160905c92a}{\_\_kmp\_acquire\_user\_lock\_with\_checks}( lck, global\_tid );
+2604 
+2605 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2606 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a0c2f457d045ac42586443ccf8dd48e54}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr@{\-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr}}
+\index{\-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr@{\-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmp\-\_\-user\-\_\-lock\-\_\-p} \-\_\-\-\_\-kmp\-\_\-get\-\_\-critical\-\_\-section\-\_\-ptr (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-critical\-\_\-name} $\ast$}]{crit, }
+\item[{{\bf ident\-\_\-t} const $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__csupport_8c_a0c2f457d045ac42586443ccf8dd48e54}
+
+
+Definition at line 1048 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block(), and \-\_\-\-\_\-kmpc\-\_\-critical().
+
+
+\begin{DoxyCode}
+1049 \{
+1050     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} *lck\_pp = (\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} *)crit;
+1051 
+1052     \textcolor{comment}{//}
+1053     \textcolor{comment}{// Because of the double-check, the following load}
+1054     \textcolor{comment}{// doesn't need to be volatile.}
+1055     \textcolor{comment}{//}
+1056     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})\hyperlink{kmp__os_8h_a6e40f65c18c7b47fb612607b9bf8fdfc}{TCR\_PTR}( *lck\_pp );
+1057 
+1058     \textcolor{keywordflow}{if} ( lck == NULL ) \{
+1059         \textcolor{keywordtype}{void} * idx;
+1060 
+1061         \textcolor{comment}{// Allocate & initialize the lock.}
+1062         \textcolor{comment}{// Remember allocated locks in table in order to free them in \_\_kmp\_cleanup()}
+1063         lck = \hyperlink{kmp__lock_8cpp_a10c0876b4da16c6b3a6ff43e08dce1bc}{\_\_kmp\_user\_lock\_allocate}( &idx, gtid, 
+      \hyperlink{kmp__lock_8h_a97a187446f4ef8a2116c4b8a191d5fce}{kmp\_lf\_critical\_section} );
+1064         \hyperlink{kmp__lock_8h_a9205ca1ef5ae0d5f88426771e3e6b19a}{\_\_kmp\_init\_user\_lock\_with\_checks}( lck );
+1065         \hyperlink{kmp__lock_8h_a9d0bf4782be0d349c50d7d6833827fe0}{\_\_kmp\_set\_user\_lock\_location}( lck, loc );
+1066 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+1067 \textcolor{preprocessor}{}        \_\_kmp\_itt\_critical\_creating( lck );
+1068             \textcolor{comment}{// \_\_kmp\_itt\_critical\_creating() should be called *before* the first usage of underlying}
+1069             \textcolor{comment}{// lock. It is the only place where we can guarantee it. There are chances the lock will}
+1070             \textcolor{comment}{// destroyed with no usage, but it is not a problem, because this is not real event seen}
+1071             \textcolor{comment}{// by user but rather setting name for object (lock). See more details in kmp\_itt.h.}
+1072 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+1073 \textcolor{preprocessor}{}
+1074         \textcolor{comment}{//}
+1075         \textcolor{comment}{// Use a cmpxchg instruction to slam the start of the critical}
+1076         \textcolor{comment}{// section with the lock pointer.  If another thread beat us}
+1077         \textcolor{comment}{// to it, deallocate the lock, and use the lock that the other}
+1078         \textcolor{comment}{// thread allocated.}
+1079         \textcolor{comment}{//}
+1080         \textcolor{keywordtype}{int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status} = \hyperlink{kmp__os_8h_af92c76f93de0f7d6809bf8962ea04ca0}{KMP\_COMPARE\_AND\_STORE\_PTR}( lck\_pp, 0, lck );
+1081 
+1082         \textcolor{keywordflow}{if} ( status == 0 ) \{
+1083             \textcolor{comment}{// Deallocate the lock and reload the value.}
+1084 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+1085 \textcolor{preprocessor}{}            \_\_kmp\_itt\_critical\_destroyed( lck );
+1086                 \textcolor{comment}{// Let ITT know the lock is destroyed and the same memory location may be reused for}
+1087                 \textcolor{comment}{// another purpose.}
+1088 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+1089 \textcolor{preprocessor}{}            \hyperlink{kmp__lock_8h_a8e724cd1a4dc3703964ed0f6de64b05f}{\_\_kmp\_destroy\_user\_lock\_with\_checks}( lck );
+1090             \hyperlink{kmp__lock_8cpp_a89dbafea8bd238f6be92af997e823f60}{\_\_kmp\_user\_lock\_free}( &idx, gtid, lck );
+1091             lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})\hyperlink{kmp__os_8h_a6e40f65c18c7b47fb612607b9bf8fdfc}{TCR\_PTR}( *lck\_pp );
+1092             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( lck != NULL );
+1093         \}
+1094     \}
+1095     \textcolor{keywordflow}{return} lck;
+1096 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_aad203357920e68b766321b67b18380b8}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_aad203357920e68b766321b67b18380b8}
+
+
+Definition at line 2017 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-D\-E\-S\-T\-R\-O\-Y\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2017                                                                         \{
+2018 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2019 \textcolor{preprocessor}{}
+2020 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2021 \textcolor{preprocessor}{}    \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2022     \textcolor{keywordflow}{if} (KMP\_EXTRACT\_D\_TAG(user\_lock) == 0) \{
+2023         lck = ((kmp\_indirect\_lock\_t *)KMP\_LOOKUP\_I\_LOCK(user\_lock))->\hyperlink{ittnotify__static_8h_ac33a428b292b874e62e0f98c2326b2c7}{lock};
+2024     \} \textcolor{keywordflow}{else} \{
+2025         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2026     \}
+2027     \_\_kmp\_itt\_lock\_destroyed(lck);
+2028 \textcolor{preprocessor}{# endif}
+2029 \textcolor{preprocessor}{}    KMP\_D\_LOCK\_FUNC(user\_lock, destroy)((kmp\_dyna\_lock\_t *)user\_lock);
+2030 \textcolor{preprocessor}{#else}
+2031 \textcolor{preprocessor}{}    \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2032 
+2033     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} )
+2034       && ( \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2035         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2036     \}
+2037 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2038 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2039       && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2040         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2041     \}
+2042 \textcolor{preprocessor}{#endif}
+2043 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2044         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_destroy\_lock"} );
+2045     \}
+2046 
+2047 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+2048 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+2049         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_destroy\_lock)) \{
+2050         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_destroy\_lock)((uint64\_t) lck);
+2051     \}
+2052 \textcolor{preprocessor}{#endif}
+2053 \textcolor{preprocessor}{}
+2054 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2055 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_destroyed( lck );
+2056 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2057 \textcolor{preprocessor}{}    \hyperlink{kmp__csupport_8c_a46cb44b7c9f10cc97821fb30313f0bf1}{DESTROY\_LOCK}( lck );
+2058 
+2059     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} )
+2060       && ( \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2061         ;
+2062     \}
+2063 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2064 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2065       && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2066         ;
+2067     \}
+2068 \textcolor{preprocessor}{#endif}
+2069 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2070         \hyperlink{kmp__lock_8cpp_a89dbafea8bd238f6be92af997e823f60}{\_\_kmp\_user\_lock\_free}( user\_lock, gtid, lck );
+2071     \}
+2072 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2073 \textcolor{preprocessor}{}\} \textcolor{comment}{// \_\_kmpc\_destroy\_lock}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a268f6fd6b2c422e36ab8d6dc51e9b704}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a268f6fd6b2c422e36ab8d6dc51e9b704}
+
+
+Definition at line 2077 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-D\-E\-S\-T\-R\-O\-Y\-\_\-\-N\-E\-S\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2077                                                                              \{
+2078 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2079 \textcolor{preprocessor}{}
+2080 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2081 \textcolor{preprocessor}{}    kmp\_indirect\_lock\_t *ilk = KMP\_LOOKUP\_I\_LOCK(user\_lock);
+2082     \_\_kmp\_itt\_lock\_destroyed(ilk->lock);
+2083 \textcolor{preprocessor}{# endif}
+2084 \textcolor{preprocessor}{}    KMP\_D\_LOCK\_FUNC(user\_lock, destroy)((kmp\_dyna\_lock\_t *)user\_lock);
+2085 
+2086 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2087 \textcolor{preprocessor}{}
+2088     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2089 
+2090     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} ) && ( \textcolor{keyword}{sizeof}( lck->
+      \hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} )
+2091       + \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked} ) <= 
+      \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2092         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2093     \}
+2094 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2095 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2096      && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) + \textcolor{keyword}{sizeof}( lck->futex.lk.depth\_locked )
+2097      <= \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2098         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2099     \}
+2100 \textcolor{preprocessor}{#endif}
+2101 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2102         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_destroy\_nest\_lock"} );
+2103     \}
+2104 
+2105 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+2106 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+2107         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_destroy\_nest\_lock)) \{
+2108         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_destroy\_nest\_lock)((uint64\_t) lck);
+2109     \}
+2110 \textcolor{preprocessor}{#endif}
+2111 \textcolor{preprocessor}{}
+2112 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2113 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_destroyed( lck );
+2114 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2115 \textcolor{preprocessor}{}
+2116     \hyperlink{kmp__csupport_8c_a705442fbf2591fcc0e3f3d747aef840d}{DESTROY\_NESTED\_LOCK}( lck );
+2117 
+2118     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} ) && ( \textcolor{keyword}{sizeof}( lck->
+      \hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} )
+2119      + \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked} ) <= 
+      \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2120         ;
+2121     \}
+2122 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2123 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2124      && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) + \textcolor{keyword}{sizeof}( lck->futex.lk.depth\_locked )
+2125      <= \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2126         ;
+2127     \}
+2128 \textcolor{preprocessor}{#endif}
+2129 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2130         \hyperlink{kmp__lock_8cpp_a89dbafea8bd238f6be92af997e823f60}{\_\_kmp\_user\_lock\_free}( user\_lock, gtid, lck );
+2131     \}
+2132 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2133 \textcolor{preprocessor}{}\} \textcolor{comment}{// \_\_kmpc\_destroy\_nest\_lock}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ae05d754e1b1bd15143e2bc905ee2bb74}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid@{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid}}
+\index{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid@{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint64 \-\_\-\-\_\-kmpc\-\_\-get\-\_\-parent\-\_\-taskid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ae05d754e1b1bd15143e2bc905ee2bb74}
+
+
+Definition at line 3028 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+3028                            \{
+3029 
+3030     kmp\_int32        gtid;
+3031     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *     thread;
+3032     \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * parent\_task;
+3033 
+3034     gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+3035     \textcolor{keywordflow}{if} ( gtid < 0 ) \{
+3036         \textcolor{keywordflow}{return} 0;
+3037     \}; \textcolor{comment}{// if}
+3038     thread      = \hyperlink{kmp_8h_a1626e286e4eb82742a397442009721e6}{\_\_kmp\_thread\_from\_gtid}( gtid );
+3039     parent\_task = thread->th.th\_current\_task->\hyperlink{structkmp__taskdata_a47e9134b90866241cb795112acf9dabb}{td\_parent};
+3040     \textcolor{keywordflow}{return} ( parent\_task == NULL ? 0 : parent\_task->\hyperlink{structkmp__taskdata_a5e7bd3946ccea8fd5789f703a628344f}{td\_task\_id} );
+3041 
+3042 \} \textcolor{comment}{// \_\_kmpc\_get\_parent\_taskid}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a95bb5221ba3dedf24923a07c0793780b}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid@{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid}}
+\index{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid@{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint64 \-\_\-\-\_\-kmpc\-\_\-get\-\_\-taskid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a95bb5221ba3dedf24923a07c0793780b}
+
+
+Definition at line 3012 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+3012                     \{
+3013 
+3014     kmp\_int32    gtid;
+3015     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} * thread;
+3016 
+3017     gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+3018     \textcolor{keywordflow}{if} ( gtid < 0 ) \{
+3019         \textcolor{keywordflow}{return} 0;
+3020     \}; \textcolor{comment}{// if}
+3021     thread = \hyperlink{kmp_8h_a1626e286e4eb82742a397442009721e6}{\_\_kmp\_thread\_from\_gtid}( gtid );
+3022     \textcolor{keywordflow}{return} thread->th.th\_current\_task->td\_task\_id;
+3023 
+3024 \} \textcolor{comment}{// \_\_kmpc\_get\_taskid}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a8b9a6aae87ca876232a432b97045e72c}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a8b9a6aae87ca876232a432b97045e72c}
+
+
+Definition at line 1907 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-I\-N\-I\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+1907                                                                       \{
+1908 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+1909 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp_8h_aee22cd19970207e05e9c86cc0a802f9c}{\_\_kmp\_init\_serial});
+1910     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} && user\_lock == NULL) \{
+1911         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(LockIsUninitialized, \textcolor{stringliteral}{"omp\_init\_lock"});
+1912     \}
+1913     \_\_kmp\_init\_lock\_with\_hint(loc, user\_lock, \_\_kmp\_user\_lock\_seq);
+1914 
+1915 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+1916 \textcolor{preprocessor}{}
+1917     \textcolor{keyword}{static} \textcolor{keywordtype}{char} \textcolor{keyword}{const} * \textcolor{keyword}{const} func = \textcolor{stringliteral}{"omp\_init\_lock"};
+1918     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+1919     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp_8h_aee22cd19970207e05e9c86cc0a802f9c}{\_\_kmp\_init\_serial} );
+1920 
+1921     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} ) \{
+1922         \textcolor{keywordflow}{if} ( user\_lock == NULL ) \{
+1923             \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( LockIsUninitialized, func );
+1924         \}
+1925     \}
+1926 
+1927     \hyperlink{kmp__lock_8h_a1fe7b593db0b08058d9faa009deb6467}{KMP\_CHECK\_USER\_LOCK\_INIT}();
+1928 
+1929     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} )
+1930       && ( \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+1931         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+1932     \}
+1933 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+1934 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+1935       && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+1936         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+1937     \}
+1938 \textcolor{preprocessor}{#endif}
+1939 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+1940         lck = \hyperlink{kmp__lock_8cpp_a10c0876b4da16c6b3a6ff43e08dce1bc}{\_\_kmp\_user\_lock\_allocate}( user\_lock, gtid, 0 );
+1941     \}
+1942     \hyperlink{kmp__csupport_8c_ac4faae1387a817dc0be319e019ff2f28}{INIT\_LOCK}( lck );
+1943     \hyperlink{kmp__lock_8h_a9d0bf4782be0d349c50d7d6833827fe0}{\_\_kmp\_set\_user\_lock\_location}( lck, loc );
+1944 
+1945 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+1946 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+1947         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_init\_lock)) \{
+1948         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_init\_lock)((uint64\_t) lck);
+1949     \}
+1950 \textcolor{preprocessor}{#endif}
+1951 \textcolor{preprocessor}{}
+1952 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+1953 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_creating( lck );
+1954 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+1955 \textcolor{preprocessor}{}
+1956 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+1957 \textcolor{preprocessor}{}\} \textcolor{comment}{// \_\_kmpc\_init\_lock}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ab7ff221270a994c2e3913f7a86797bb7}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ab7ff221270a994c2e3913f7a86797bb7}
+
+
+Definition at line 1961 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-I\-N\-I\-T\-\_\-\-N\-E\-S\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+1961                                                                           \{
+1962 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+1963 \textcolor{preprocessor}{}
+1964     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp_8h_aee22cd19970207e05e9c86cc0a802f9c}{\_\_kmp\_init\_serial});
+1965     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} && user\_lock == NULL) \{
+1966         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(LockIsUninitialized, \textcolor{stringliteral}{"omp\_init\_nest\_lock"});
+1967     \}
+1968     \_\_kmp\_init\_nest\_lock\_with\_hint(loc, user\_lock, \_\_kmp\_user\_lock\_seq);
+1969 
+1970 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+1971 \textcolor{preprocessor}{}
+1972     \textcolor{keyword}{static} \textcolor{keywordtype}{char} \textcolor{keyword}{const} * \textcolor{keyword}{const} func = \textcolor{stringliteral}{"omp\_init\_nest\_lock"};
+1973     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+1974     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp_8h_aee22cd19970207e05e9c86cc0a802f9c}{\_\_kmp\_init\_serial} );
+1975 
+1976     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} ) \{
+1977         \textcolor{keywordflow}{if} ( user\_lock == NULL ) \{
+1978             \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( LockIsUninitialized, func );
+1979         \}
+1980     \}
+1981 
+1982     \hyperlink{kmp__lock_8h_a1fe7b593db0b08058d9faa009deb6467}{KMP\_CHECK\_USER\_LOCK\_INIT}();
+1983 
+1984     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} ) && ( \textcolor{keyword}{sizeof}( lck->
+      \hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} )
+1985       + \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked} ) <= 
+      \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+1986         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+1987     \}
+1988 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+1989 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+1990      && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) + \textcolor{keyword}{sizeof}( lck->futex.lk.depth\_locked )
+1991      <= \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+1992         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+1993     \}
+1994 \textcolor{preprocessor}{#endif}
+1995 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+1996         lck = \hyperlink{kmp__lock_8cpp_a10c0876b4da16c6b3a6ff43e08dce1bc}{\_\_kmp\_user\_lock\_allocate}( user\_lock, gtid, 0 );
+1997     \}
+1998 
+1999     \hyperlink{kmp__csupport_8c_a37a0237bd8d01b09260565372867f97e}{INIT\_NESTED\_LOCK}( lck );
+2000     \hyperlink{kmp__lock_8h_a9d0bf4782be0d349c50d7d6833827fe0}{\_\_kmp\_set\_user\_lock\_location}( lck, loc );
+2001 
+2002 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+2003 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+2004         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_init\_nest\_lock)) \{
+2005         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_init\_nest\_lock)((uint64\_t) lck);
+2006     \}
+2007 \textcolor{preprocessor}{#endif}
+2008 \textcolor{preprocessor}{}
+2009 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2010 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_creating( lck );
+2011 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2012 \textcolor{preprocessor}{}
+2013 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2014 \textcolor{preprocessor}{}\} \textcolor{comment}{// \_\_kmpc\_init\_nest\_lock}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ab5a59ef3b03ba68ea82c282f5bdee903}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func@{\-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func}}
+\index{\-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func@{\-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmpc\-\_\-invoke\-\_\-task\-\_\-func (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ab5a59ef3b03ba68ea82c282f5bdee903}
+
+
+Definition at line 456 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+457 \{
+458     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_ac3c18dacc189c300ca06e4ab033fc211}{\_\_kmp\_invoke\_task\_func}( gtid );
+459 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a75e1918250b1a2b352ad706545c1d614}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads}}
+\index{\-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{n\-S, }
+\item[{{\bf int}}]{s\-O, }
+\item[{{\bf int}}]{n\-C, }
+\item[{{\bf int}}]{c\-O, }
+\item[{{\bf int}}]{n\-T}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a75e1918250b1a2b352ad706545c1d614}
+
+
+Definition at line 3044 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+3045 \{
+3046     \textcolor{keywordflow}{if} ( ! \hyperlink{kmp_8h_aee22cd19970207e05e9c86cc0a802f9c}{\_\_kmp\_init\_serial} ) \{
+3047         \hyperlink{kmp_8h_adc4261d970464abd5acafefe3a030132}{\_\_kmp\_serial\_initialize}();
+3048     \}
+3049     \hyperlink{kmp_8h_ae605f67e5a66b2ca27da5dcd9c625f30}{\_\_kmp\_place\_num\_sockets} = nS;
+3050     \hyperlink{kmp_8h_a0e52a4058a39a695f03b75616d67cfce}{\_\_kmp\_place\_socket\_offset} = sO;
+3051     \hyperlink{kmp_8h_ac65d2f4b8f37ccf1def371957a20e681}{\_\_kmp\_place\_num\_cores} = nC;
+3052     \hyperlink{kmp_8h_aff177db4ec33ce10b3ff5f835ba15290}{\_\_kmp\_place\_core\_offset} = cO;
+3053     \hyperlink{kmp_8h_abbc9a8bcd49754dea176a2b0269e2ea2}{\_\_kmp\_place\_num\_threads\_per\_core} = nT;
+3054 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ab05f2b36ae8d524e1aaa6931bc3bc42d}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads}}
+\index{\-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-pop\-\_\-num\-\_\-threads (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ab05f2b36ae8d524e1aaa6931bc3bc42d}
+
+
+Definition at line 249 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+250 \{
+251     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}( 20, (\textcolor{stringliteral}{"\_\_kmpc\_pop\_num\_threads: enter\(\backslash\)n"} ) );
+252 
+253     \textcolor{comment}{/* the num\_threads are automatically popped */}
+254 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ab6e1cafc9208ac0e02672c14f7563275}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind}}
+\index{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-push\-\_\-proc\-\_\-bind (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{kmp\-\_\-int32}]{proc\-\_\-bind}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ab6e1cafc9208ac0e02672c14f7563275}
+
+
+Definition at line 260 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+261 \{
+262     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}( 20, (\textcolor{stringliteral}{"\_\_kmpc\_push\_proc\_bind: enter T#%d proc\_bind=%d\(\backslash\)n"},
+263       global\_tid, proc\_bind ) );
+264 
+265     \hyperlink{kmp_8h_abaf4b010de81892f2d8e8946959f7595}{\_\_kmp\_push\_proc\_bind}( loc, global\_tid, (\hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241}{kmp\_proc\_bind\_t})proc\_bind );
+266 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a8cd261feeca00bfb88cc58f85790701d}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a8cd261feeca00bfb88cc58f85790701d}
+
+
+Definition at line 2136 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2136                                                                     \{
+2137     \hyperlink{group__STATS__GATHERING_ga7fa64ec62947bf0b97f3f4778dd22196}{KMP\_COUNT\_BLOCK}(OMP\_set\_lock);
+2138 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2139 \textcolor{preprocessor}{}    \textcolor{keywordtype}{int} tag = KMP\_EXTRACT\_D\_TAG(user\_lock);
+2140 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2141 \textcolor{preprocessor}{}   \_\_kmp\_itt\_lock\_acquiring((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock); \textcolor{comment}{// itt function will get to the
+       right lock object.}
+2142 \textcolor{preprocessor}{# endif}
+2143 \textcolor{preprocessor}{}\textcolor{preprocessor}{# if KMP\_USE\_INLINED\_TAS}
+2144 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (tag == locktag\_tas && !\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2145         KMP\_ACQUIRE\_TAS\_LOCK(user\_lock, gtid);
+2146     \} \textcolor{keywordflow}{else}
+2147 \textcolor{preprocessor}{# elif KMP\_USE\_INLINED\_FUTEX}
+2148 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (tag == locktag\_futex && !\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2149         KMP\_ACQUIRE\_FUTEX\_LOCK(user\_lock, gtid);
+2150     \} \textcolor{keywordflow}{else}
+2151 \textcolor{preprocessor}{# endif}
+2152 \textcolor{preprocessor}{}    \{
+2153         \_\_kmp\_direct\_set[tag]((kmp\_dyna\_lock\_t *)user\_lock, gtid);
+2154     \}
+2155 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2156 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquired((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2157 \textcolor{preprocessor}{# endif}
+2158 \textcolor{preprocessor}{}
+2159 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2160 \textcolor{preprocessor}{}
+2161     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2162 
+2163     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} )
+2164       && ( \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2165         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2166     \}
+2167 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2168 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2169       && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2170         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2171     \}
+2172 \textcolor{preprocessor}{#endif}
+2173 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2174         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_set\_lock"} );
+2175     \}
+2176 
+2177 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2178 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring( lck );
+2179 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2180 \textcolor{preprocessor}{}
+2181     \hyperlink{kmp__csupport_8c_ac67b99891fc453415c5572bacc07dda6}{ACQUIRE\_LOCK}( lck, gtid );
+2182 
+2183 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2184 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquired( lck );
+2185 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2186 \textcolor{preprocessor}{}
+2187 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+2188 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+2189         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_acquired\_lock)) \{
+2190         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_acquired\_lock)((uint64\_t) lck);
+2191     \}
+2192 \textcolor{preprocessor}{#endif}
+2193 \textcolor{preprocessor}{}
+2194 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2195 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a69e49c9e1d94590e39f2bb73e3d9abf3}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a69e49c9e1d94590e39f2bb73e3d9abf3}
+
+
+Definition at line 2198 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-N\-E\-S\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2198                                                                          \{
+2199 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2200 \textcolor{preprocessor}{}
+2201 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2202 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2203 \textcolor{preprocessor}{# endif}
+2204 \textcolor{preprocessor}{}    KMP\_D\_LOCK\_FUNC(user\_lock, set)((kmp\_dyna\_lock\_t *)user\_lock, gtid);
+2205 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2206 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquired((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2207 \textcolor{preprocessor}{#endif}
+2208 \textcolor{preprocessor}{}
+2209 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+2210 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+2211         \textcolor{comment}{// missing support here: need to know whether acquired first or not}
+2212     \}
+2213 \textcolor{preprocessor}{#endif}
+2214 \textcolor{preprocessor}{}
+2215 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2216 \textcolor{preprocessor}{}    \textcolor{keywordtype}{int} acquire\_status;
+2217     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2218 
+2219     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} ) && ( \textcolor{keyword}{sizeof}( lck->
+      \hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} )
+2220       + \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked} ) <= 
+      \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2221         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2222     \}
+2223 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2224 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2225      && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) + \textcolor{keyword}{sizeof}( lck->futex.lk.depth\_locked )
+2226      <= \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2227         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2228     \}
+2229 \textcolor{preprocessor}{#endif}
+2230 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2231         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_set\_nest\_lock"} );
+2232     \}
+2233 
+2234 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2235 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring( lck );
+2236 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2237 \textcolor{preprocessor}{}
+2238     \hyperlink{kmp__csupport_8c_ab9412b495e4112738cf87f7df3db0ea2}{ACQUIRE\_NESTED\_LOCK}( lck, gtid, &acquire\_status );
+2239 
+2240 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2241 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquired( lck );
+2242 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2243 \textcolor{preprocessor}{}
+2244 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+2245 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+2246         \textcolor{keywordflow}{if} (acquire\_status == \hyperlink{kmp__lock_8h_ab89de822d157d9ec1573337ec7f414bc}{KMP\_LOCK\_ACQUIRED\_FIRST}) \{
+2247            \textcolor{keywordflow}{if}(\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_acquired\_nest\_lock\_first))
+2248               \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_acquired\_nest\_lock\_first)((uint64\_t) 
+      lck);
+2249         \} \textcolor{keywordflow}{else} \{
+2250            \textcolor{keywordflow}{if}(\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_acquired\_nest\_lock\_next))
+2251               \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_acquired\_nest\_lock\_next)((uint64\_t) lck
+      );
+2252         \}
+2253     \}
+2254 \textcolor{preprocessor}{#endif}
+2255 \textcolor{preprocessor}{}
+2256 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2257 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_afec81c32073d610029d1d8e5385f31ed}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_afec81c32073d610029d1d8e5385f31ed}
+
+
+Definition at line 2398 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-T\-E\-S\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2399 \{
+2400     \hyperlink{group__STATS__GATHERING_ga7fa64ec62947bf0b97f3f4778dd22196}{KMP\_COUNT\_BLOCK}(OMP\_test\_lock);
+2401 
+2402 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2403 \textcolor{preprocessor}{}    \textcolor{keywordtype}{int} rc;
+2404     \textcolor{keywordtype}{int} tag = KMP\_EXTRACT\_D\_TAG(user\_lock);
+2405 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2406 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2407 \textcolor{preprocessor}{# endif}
+2408 \textcolor{preprocessor}{}\textcolor{preprocessor}{# if KMP\_USE\_INLINED\_TAS}
+2409 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (tag == locktag\_tas && !\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2410         KMP\_TEST\_TAS\_LOCK(user\_lock, gtid, rc);
+2411     \} \textcolor{keywordflow}{else}
+2412 \textcolor{preprocessor}{# elif KMP\_USE\_INLINED\_FUTEX}
+2413 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (tag == locktag\_futex && !\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2414         KMP\_TEST\_FUTEX\_LOCK(user\_lock, gtid, rc);
+2415     \} \textcolor{keywordflow}{else}
+2416 \textcolor{preprocessor}{# endif}
+2417 \textcolor{preprocessor}{}    \{
+2418         rc = \_\_kmp\_direct\_test[tag]((kmp\_dyna\_lock\_t *)user\_lock, gtid);
+2419     \}
+2420     \textcolor{keywordflow}{if} (rc) \{
+2421 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2422 \textcolor{preprocessor}{}        \_\_kmp\_itt\_lock\_acquired((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2423 \textcolor{preprocessor}{# endif}
+2424 \textcolor{preprocessor}{}        \textcolor{keywordflow}{return} \hyperlink{kmp__os_8h_a1043ce08dc7a180b31f7d2c1dda14b94}{FTN\_TRUE};
+2425     \} \textcolor{keywordflow}{else} \{
+2426 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2427 \textcolor{preprocessor}{}        \_\_kmp\_itt\_lock\_cancelled((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2428 \textcolor{preprocessor}{# endif}
+2429 \textcolor{preprocessor}{}        \textcolor{keywordflow}{return} \hyperlink{kmp__os_8h_ab810be972549f8fae3c29c3e68d3d97e}{FTN\_FALSE};
+2430     \}
+2431 
+2432 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2433 \textcolor{preprocessor}{}
+2434     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2435     \textcolor{keywordtype}{int}          rc;
+2436 
+2437     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} )
+2438       && ( \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2439         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2440     \}
+2441 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2442 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2443       && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2444         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2445     \}
+2446 \textcolor{preprocessor}{#endif}
+2447 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2448         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_test\_lock"} );
+2449     \}
+2450 
+2451 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2452 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring( lck );
+2453 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2454 \textcolor{preprocessor}{}
+2455     rc = \hyperlink{kmp__csupport_8c_a69569f0556cb9e113568856ab1a45066}{TEST\_LOCK}( lck, gtid );
+2456 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2457 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} ( rc ) \{
+2458         \_\_kmp\_itt\_lock\_acquired( lck );
+2459     \} \textcolor{keywordflow}{else} \{
+2460         \_\_kmp\_itt\_lock\_cancelled( lck );
+2461     \}
+2462 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2463 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} ( rc ? \hyperlink{kmp__os_8h_a1043ce08dc7a180b31f7d2c1dda14b94}{FTN\_TRUE} : \hyperlink{kmp__os_8h_ab810be972549f8fae3c29c3e68d3d97e}{FTN\_FALSE} );
+2464 
+2465     \textcolor{comment}{/* Can't use serial interval since not block structured */}
+2466 
+2467 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2468 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_aa5c4b17dac31bc0c64ba8f9e7145f6d2}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmpc\-\_\-test\-\_\-nest\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_aa5c4b17dac31bc0c64ba8f9e7145f6d2}
+
+
+Definition at line 2472 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-T\-E\-S\-T\-\_\-\-N\-E\-S\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2473 \{
+2474 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2475 \textcolor{preprocessor}{}    \textcolor{keywordtype}{int} rc;
+2476 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2477 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2478 \textcolor{preprocessor}{# endif}
+2479 \textcolor{preprocessor}{}    rc = KMP\_D\_LOCK\_FUNC(user\_lock, test)((kmp\_dyna\_lock\_t *)user\_lock, gtid);
+2480 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2481 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (rc) \{
+2482         \_\_kmp\_itt\_lock\_acquired((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2483     \} \textcolor{keywordflow}{else} \{
+2484         \_\_kmp\_itt\_lock\_cancelled((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2485     \}
+2486 \textcolor{preprocessor}{# endif}
+2487 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} rc;
+2488 
+2489 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2490 \textcolor{preprocessor}{}
+2491     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2492     \textcolor{keywordtype}{int}          rc;
+2493 
+2494     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} ) && ( \textcolor{keyword}{sizeof}( lck->
+      \hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} )
+2495       + \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked} ) <= 
+      \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2496         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2497     \}
+2498 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2499 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2500      && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) + \textcolor{keyword}{sizeof}( lck->futex.lk.depth\_locked )
+2501      <= \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2502         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2503     \}
+2504 \textcolor{preprocessor}{#endif}
+2505 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2506         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_test\_nest\_lock"} );
+2507     \}
+2508 
+2509 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2510 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_acquiring( lck );
+2511 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2512 \textcolor{preprocessor}{}
+2513     rc = \hyperlink{kmp__csupport_8c_aefd36d05f80d81259def2446725efaf1}{TEST\_NESTED\_LOCK}( lck, gtid );
+2514 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2515 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} ( rc ) \{
+2516         \_\_kmp\_itt\_lock\_acquired( lck );
+2517     \} \textcolor{keywordflow}{else} \{
+2518         \_\_kmp\_itt\_lock\_cancelled( lck );
+2519     \}
+2520 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2521 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} rc;
+2522 
+2523     \textcolor{comment}{/* Can't use serial interval since not block structured */}
+2524 
+2525 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2526 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ab66c29235d1534ac1c82551d6a66ef88}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ab66c29235d1534ac1c82551d6a66ef88}
+
+
+Definition at line 2260 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-U\-N\-S\-E\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2261 \{
+2262 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2263 \textcolor{preprocessor}{}
+2264     \textcolor{keywordtype}{int} tag = KMP\_EXTRACT\_D\_TAG(user\_lock);
+2265 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2266 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_releasing((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2267 \textcolor{preprocessor}{# endif}
+2268 \textcolor{preprocessor}{}\textcolor{preprocessor}{# if KMP\_USE\_INLINED\_TAS}
+2269 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (tag == locktag\_tas && !\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2270         KMP\_RELEASE\_TAS\_LOCK(user\_lock, gtid);
+2271     \} \textcolor{keywordflow}{else}
+2272 \textcolor{preprocessor}{# elif KMP\_USE\_INLINED\_FUTEX}
+2273 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (tag == locktag\_futex && !\hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check}) \{
+2274         KMP\_RELEASE\_FUTEX\_LOCK(user\_lock, gtid);
+2275     \} \textcolor{keywordflow}{else}
+2276 \textcolor{preprocessor}{# endif}
+2277 \textcolor{preprocessor}{}    \{
+2278         \_\_kmp\_direct\_unset[tag]((kmp\_dyna\_lock\_t *)user\_lock, gtid);
+2279     \}
+2280 
+2281 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2282 \textcolor{preprocessor}{}
+2283     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2284 
+2285     \textcolor{comment}{/* Can't use serial interval since not block structured */}
+2286     \textcolor{comment}{/* release the lock */}
+2287 
+2288     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} )
+2289       && ( \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2290 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2291 \textcolor{preprocessor}{}        \textcolor{comment}{// "fast" path implemented to fix customer performance issue}
+2292 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2293 \textcolor{preprocessor}{}        \_\_kmp\_itt\_lock\_releasing( (\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock );
+2294 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2295 \textcolor{preprocessor}{}        \hyperlink{kmp__os_8h_ae67779cc7794b5dd7eee4c7f2c7789d4}{TCW\_4}(((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock)->tas.lk.poll, 0);
+2296         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+2297         \textcolor{keywordflow}{return};
+2298 \textcolor{preprocessor}{#else}
+2299 \textcolor{preprocessor}{}        lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2300 \textcolor{preprocessor}{#endif}
+2301 \textcolor{preprocessor}{}    \}
+2302 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2303 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2304       && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) <= \hyperlink{kmp__lock_8h_a9da0f9668c9ff09182c7bb87408231cb}{OMP\_LOCK\_T\_SIZE} ) ) \{
+2305         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2306     \}
+2307 \textcolor{preprocessor}{#endif}
+2308 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2309         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_unset\_lock"} );
+2310     \}
+2311 
+2312 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2313 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_releasing( lck );
+2314 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2315 \textcolor{preprocessor}{}
+2316     \hyperlink{kmp__csupport_8c_af2366647a94f8205b0d21bb526896baa}{RELEASE\_LOCK}( lck, gtid );
+2317 
+2318 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_BLAME}
+2319 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+2320         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_release\_lock)) \{
+2321         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_release\_lock)((uint64\_t) lck);
+2322     \}
+2323 \textcolor{preprocessor}{#endif}
+2324 \textcolor{preprocessor}{}
+2325 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2326 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a223e2fc3d30c116fc6254cddda359b90}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock}}
+\index{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock@{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void} $\ast$$\ast$}]{user\-\_\-lock}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a223e2fc3d30c116fc6254cddda359b90}
+
+
+Definition at line 2330 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-U\-N\-S\-E\-T\-\_\-\-N\-E\-S\-T\-\_\-\-L\-O\-C\-K().
+
+
+\begin{DoxyCode}
+2331 \{
+2332 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+2333 \textcolor{preprocessor}{}
+2334 \textcolor{preprocessor}{# if USE\_ITT\_BUILD}
+2335 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_releasing((\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock);
+2336 \textcolor{preprocessor}{# endif}
+2337 \textcolor{preprocessor}{}    KMP\_D\_LOCK\_FUNC(user\_lock, unset)((kmp\_dyna\_lock\_t *)user\_lock, gtid);
+2338 
+2339 \textcolor{preprocessor}{#else // KMP\_USE\_DYNAMIC\_LOCK}
+2340 \textcolor{preprocessor}{}
+2341     \hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p} lck;
+2342 
+2343     \textcolor{comment}{/* Can't use serial interval since not block structured */}
+2344 
+2345     \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == \hyperlink{kmp__lock_8h_a8311c5b02d0737c62b10926473f6c51eae38ddd756bdb44cee826f0c40f1b32ba}{lk\_tas} ) && ( \textcolor{keyword}{sizeof}( lck->
+      \hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll} )
+2346       + \textcolor{keyword}{sizeof}( lck->\hyperlink{unionkmp__user__lock_ac0b526819ee392b205697ed5786ccf3f}{tas}.\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked} ) <= 
+      \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2347 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2348 \textcolor{preprocessor}{}        \textcolor{comment}{// "fast" path implemented to fix customer performance issue}
+2349         \hyperlink{unionkmp__tas__lock}{kmp\_tas\_lock\_t} *tl = (\hyperlink{unionkmp__tas__lock}{kmp\_tas\_lock\_t}*)user\_lock;
+2350 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2351 \textcolor{preprocessor}{}        \_\_kmp\_itt\_lock\_releasing( (\hyperlink{unionkmp__user__lock}{kmp\_user\_lock\_p})user\_lock );
+2352 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2353 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} ( --(tl->\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a78d8935d7c7391732f7e6ff82ee8da15}{depth\_locked}) == 0 ) \{
+2354             \hyperlink{kmp__os_8h_ae67779cc7794b5dd7eee4c7f2c7789d4}{TCW\_4}(tl->\hyperlink{unionkmp__tas__lock_ad51358485337a210e18f4ea9cbe6477a}{lk}.\hyperlink{structkmp__base__tas__lock_a32c35f002d15ce50345770498ab6b0c0}{poll}, 0);
+2355         \}
+2356         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+2357         \textcolor{keywordflow}{return};
+2358 \textcolor{preprocessor}{#else}
+2359 \textcolor{preprocessor}{}        lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2360 \textcolor{preprocessor}{#endif}
+2361 \textcolor{preprocessor}{}    \}
+2362 \textcolor{preprocessor}{#if KMP\_OS\_LINUX && (KMP\_ARCH\_X86 || KMP\_ARCH\_X86\_64 || KMP\_ARCH\_ARM || KMP\_ARCH\_AARCH64)}
+2363 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( ( \hyperlink{kmp__lock_8cpp_a0e6c33ed4cfc6430f93288ca2c2bfebe}{\_\_kmp\_user\_lock\_kind} == lk\_futex )
+2364      && ( \textcolor{keyword}{sizeof}( lck->futex.lk.poll ) + \textcolor{keyword}{sizeof}( lck->futex.lk.depth\_locked )
+2365      <= \hyperlink{kmp__lock_8h_a1e31686dfa709a9c5e5b27d7136057a6}{OMP\_NEST\_LOCK\_T\_SIZE} ) ) \{
+2366         lck = (\hyperlink{kmp__lock_8h_a35c88b3ea74b2a8d633ec8156c1c4670}{kmp\_user\_lock\_p})user\_lock;
+2367     \}
+2368 \textcolor{preprocessor}{#endif}
+2369 \textcolor{preprocessor}{}    \textcolor{keywordflow}{else} \{
+2370         lck = \hyperlink{kmp__lock_8cpp_a9f1ad5ed1f7644fa070c0952a8b62e67}{\_\_kmp\_lookup\_user\_lock}( user\_lock, \textcolor{stringliteral}{"omp\_unset\_nest\_lock"} );
+2371     \}
+2372 
+2373 \textcolor{preprocessor}{#if USE\_ITT\_BUILD}
+2374 \textcolor{preprocessor}{}    \_\_kmp\_itt\_lock\_releasing( lck );
+2375 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_ITT\_BUILD */}\textcolor{preprocessor}{}
+2376 \textcolor{preprocessor}{}
+2377     \textcolor{keywordtype}{int} release\_status;
+2378     release\_status = \hyperlink{kmp__csupport_8c_aa3aef724b3e350f0e3cced15b973427f}{RELEASE\_NESTED\_LOCK}( lck, gtid );
+2379 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_BLAME}
+2380 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+2381         \textcolor{keywordflow}{if} (release\_status == \hyperlink{kmp__lock_8h_a812b22744c448300aed0e24edead448e}{KMP\_LOCK\_RELEASED}) \{
+2382             \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_release\_nest\_lock\_last)) \{
+2383                 \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_release\_nest\_lock\_last)(
+2384                     (uint64\_t) lck);
+2385             \}
+2386         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_release\_nest\_lock\_prev)) \{
+2387             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_release\_nest\_lock\_prev)(
+2388                 (uint64\_t) lck);
+2389         \}
+2390     \}
+2391 \textcolor{preprocessor}{#endif}
+2392 \textcolor{preprocessor}{}
+2393 \textcolor{preprocessor}{#endif // KMP\_USE\_DYNAMIC\_LOCK}
+2394 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a9e2fedf0ecbf2cb302d1bd98b397797f}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc}}
+\index{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{proc, }
+\item[{{\bf void} $\ast$$\ast$}]{mask}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a9e2fedf0ecbf2cb302d1bd98b397797f}
+
+
+Definition at line 1709 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1710 \{
+1711 \textcolor{preprocessor}{#if defined(KMP\_STUB) || !KMP\_AFFINITY\_SUPPORTED}
+1712 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} -1;
+1713 \textcolor{preprocessor}{#else}
+1714 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} ( ! \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a70576d967f407af9d2ecb6174c1c7add}{\_\_kmp\_init\_middle}) ) \{
+1715         \hyperlink{kmp_8h_a86759bf6b8380906f716603052f60fc9}{\_\_kmp\_middle\_initialize}();
+1716     \}
+1717     \textcolor{keywordflow}{return} \_\_kmp\_aux\_get\_affinity\_mask\_proc( proc, \hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask} );
+1718 \textcolor{preprocessor}{#endif}
+1719 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a636c5383acbe154bcd256de944a6f6c2}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc}}
+\index{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{proc, }
+\item[{{\bf void} $\ast$$\ast$}]{mask}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a636c5383acbe154bcd256de944a6f6c2}
+
+
+Definition at line 1683 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1684 \{
+1685 \textcolor{preprocessor}{#if defined(KMP\_STUB) || !KMP\_AFFINITY\_SUPPORTED}
+1686 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} -1;
+1687 \textcolor{preprocessor}{#else}
+1688 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} ( ! \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a70576d967f407af9d2ecb6174c1c7add}{\_\_kmp\_init\_middle}) ) \{
+1689         \hyperlink{kmp_8h_a86759bf6b8380906f716603052f60fc9}{\_\_kmp\_middle\_initialize}();
+1690     \}
+1691     \textcolor{keywordflow}{return} \_\_kmp\_aux\_set\_affinity\_mask\_proc( proc, \hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask} );
+1692 \textcolor{preprocessor}{#endif}
+1693 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a7642be84bc8698c0058bb9f356969c69}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-set\-\_\-blocktime@{kmpc\-\_\-set\-\_\-blocktime}}
+\index{kmpc\-\_\-set\-\_\-blocktime@{kmpc\-\_\-set\-\_\-blocktime}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmpc\-\_\-set\-\_\-blocktime (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a7642be84bc8698c0058bb9f356969c69}
+
+
+Definition at line 1656 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize().
+
+
+\begin{DoxyCode}
+1657 \{
+1658     \textcolor{keywordtype}{int} gtid, tid;
+1659     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread;
+1660 
+1661     gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+1662     tid = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}(gtid);
+1663     thread = \hyperlink{kmp_8h_a1626e286e4eb82742a397442009721e6}{\_\_kmp\_thread\_from\_gtid}(gtid);
+1664 
+1665     \hyperlink{kmp_8h_aff85f87b246c4b825005df4d1ba0bb5c}{\_\_kmp\_aux\_set\_blocktime}( arg, thread, tid );
+1666 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a7a9b8294df45f617b93c3f66ac5e45cc}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-set\-\_\-defaults@{kmpc\-\_\-set\-\_\-defaults}}
+\index{kmpc\-\_\-set\-\_\-defaults@{kmpc\-\_\-set\-\_\-defaults}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-defaults}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmpc\-\_\-set\-\_\-defaults (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a7a9b8294df45f617b93c3f66ac5e45cc}
+
+
+Definition at line 1676 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1677 \{
+1678     \textcolor{comment}{// \_\_kmp\_aux\_set\_defaults initializes the library if needed}
+1679     \hyperlink{kmp_8h_a191f7bdba5a1490b964492e96f16a7c9}{\_\_kmp\_aux\_set\_defaults}( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, \hyperlink{kmp__safe__c__api_8h_aed00d2e557c56addc50caedca2ae595c}{KMP\_STRLEN}( 
+      \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} ) );
+1680 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a64f335df813329ff7ade6c97f143e1b1}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-set\-\_\-library@{kmpc\-\_\-set\-\_\-library}}
+\index{kmpc\-\_\-set\-\_\-library@{kmpc\-\_\-set\-\_\-library}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmpc\-\_\-set\-\_\-library (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a64f335df813329ff7ade6c97f143e1b1}
+
+
+Definition at line 1669 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1670 \{
+1671     \textcolor{comment}{// \_\_kmp\_user\_set\_library initializes the library if needed}
+1672     \hyperlink{kmp_8h_a6a533c08740e41e820de3564c7f72029}{\_\_kmp\_user\_set\_library}( (\textcolor{keyword}{enum} \hyperlink{kmp_8h_aee0cf894df4706d555a64e6d5b51599d}{library\_type})arg );
+1673 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a6d4199e4a8f13fecabb97cb0e38207fa}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-set\-\_\-stacksize@{kmpc\-\_\-set\-\_\-stacksize}}
+\index{kmpc\-\_\-set\-\_\-stacksize@{kmpc\-\_\-set\-\_\-stacksize}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-stacksize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmpc\-\_\-set\-\_\-stacksize (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a6d4199e4a8f13fecabb97cb0e38207fa}
+
+
+Definition at line 1642 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1643 \{
+1644     \textcolor{comment}{// \_\_kmp\_aux\_set\_stacksize initializes the library if needed}
+1645     \hyperlink{kmp_8h_aa73b3aab19c0682debc4fb436f19c233}{\_\_kmp\_aux\_set\_stacksize}( arg );
+1646 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a4957b8c1e27f64d49e623d3f732b230b}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-set\-\_\-stacksize\-\_\-s@{kmpc\-\_\-set\-\_\-stacksize\-\_\-s}}
+\index{kmpc\-\_\-set\-\_\-stacksize\-\_\-s@{kmpc\-\_\-set\-\_\-stacksize\-\_\-s}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-stacksize\-\_\-s}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmpc\-\_\-set\-\_\-stacksize\-\_\-s (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a4957b8c1e27f64d49e623d3f732b230b}
+
+
+Definition at line 1649 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1650 \{
+1651     \textcolor{comment}{// \_\_kmp\_aux\_set\_stacksize initializes the library if needed}
+1652     \hyperlink{kmp_8h_aa73b3aab19c0682debc4fb436f19c233}{\_\_kmp\_aux\_set\_stacksize}( arg );
+1653 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a1924c84b1cdfb4ac9e786eb791ca279c}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc}}
+\index{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{proc, }
+\item[{{\bf void} $\ast$$\ast$}]{mask}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a1924c84b1cdfb4ac9e786eb791ca279c}
+
+
+Definition at line 1696 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1697 \{
+1698 \textcolor{preprocessor}{#if defined(KMP\_STUB) || !KMP\_AFFINITY\_SUPPORTED}
+1699 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} -1;
+1700 \textcolor{preprocessor}{#else}
+1701 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} ( ! \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a70576d967f407af9d2ecb6174c1c7add}{\_\_kmp\_init\_middle}) ) \{
+1702         \hyperlink{kmp_8h_a86759bf6b8380906f716603052f60fc9}{\_\_kmp\_middle\_initialize}();
+1703     \}
+1704     \textcolor{keywordflow}{return} \_\_kmp\_aux\_unset\_affinity\_mask\_proc( proc, \hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask} );
+1705 \textcolor{preprocessor}{#endif}
+1706 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a423fbbeae6014dbcc3249ebfbc398acd}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num@{ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}}
+\index{ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num@{ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{level}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a423fbbeae6014dbcc3249ebfbc398acd}
+
+
+Definition at line 1630 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1631 \{
+1632     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a82039234188b257e6943ece1824ebbdf}{\_\_kmp\_get\_ancestor\_thread\_num}( 
+      \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}(), level );
+1633 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a966f31be4f70afbcaaf62e4a16c00055}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-get\-\_\-team\-\_\-size@{ompc\-\_\-get\-\_\-team\-\_\-size}}
+\index{ompc\-\_\-get\-\_\-team\-\_\-size@{ompc\-\_\-get\-\_\-team\-\_\-size}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-get\-\_\-team\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} ompc\-\_\-get\-\_\-team\-\_\-size (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{level}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a966f31be4f70afbcaaf62e4a16c00055}
+
+
+Definition at line 1636 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1637 \{
+1638     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a4baac334ea2302a23b0ddfed6bfee3db}{\_\_kmp\_get\_team\_size}( \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}(), level );
+1639 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a0c4ccdba0a7b8d164c8dcac78aa9d86d}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-set\-\_\-dynamic@{ompc\-\_\-set\-\_\-dynamic}}
+\index{ompc\-\_\-set\-\_\-dynamic@{ompc\-\_\-set\-\_\-dynamic}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-set\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompc\-\_\-set\-\_\-dynamic (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{flag}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a0c4ccdba0a7b8d164c8dcac78aa9d86d}
+
+
+Definition at line 1587 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize().
+
+
+\begin{DoxyCode}
+1588 \{
+1589     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread;
+1590 
+1591     \textcolor{comment}{/* For the thread-private implementation of the internal controls */}
+1592     thread = \hyperlink{kmp_8h_ab5c65087a44197c3b69cd133df0d6f85}{\_\_kmp\_entry\_thread}();
+1593 
+1594     \hyperlink{kmp_8h_acf1e2ef819ba73965651e8bb56462750}{\_\_kmp\_save\_internal\_controls}( thread );
+1595 
+1596     \hyperlink{kmp_8h_a5d01ba6afa915e41bfcaf3c4ccf9ca72}{set\_\_dynamic}( thread, flag ? \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} );
+1597 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_adb4b13610c699df81712d20421b31b75}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels@{ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}}
+\index{ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels@{ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{max\-\_\-active\-\_\-levels}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_adb4b13610c699df81712d20421b31b75}
+
+
+Definition at line 1613 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1614 \{
+1615     \textcolor{comment}{/* TO DO */}
+1616     \textcolor{comment}{/* we want per-task implementation of this internal control */}
+1617 
+1618     \textcolor{comment}{/* For the per-thread internal controls implementation */}
+1619     \hyperlink{kmp_8h_a5ff976d6b52b3ed1fbf20efb14a29bb6}{\_\_kmp\_set\_max\_active\_levels}( \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}(), 
+      max\_active\_levels );
+1620 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ac5acbcca779643988d6c2ee576ef5fd8}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-set\-\_\-nested@{ompc\-\_\-set\-\_\-nested}}
+\index{ompc\-\_\-set\-\_\-nested@{ompc\-\_\-set\-\_\-nested}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-set\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompc\-\_\-set\-\_\-nested (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{flag}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ac5acbcca779643988d6c2ee576ef5fd8}
+
+
+Definition at line 1600 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize().
+
+
+\begin{DoxyCode}
+1601 \{
+1602     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread;
+1603 
+1604     \textcolor{comment}{/* For the thread-private internal controls implementation */}
+1605     thread = \hyperlink{kmp_8h_ab5c65087a44197c3b69cd133df0d6f85}{\_\_kmp\_entry\_thread}();
+1606 
+1607     \hyperlink{kmp_8h_acf1e2ef819ba73965651e8bb56462750}{\_\_kmp\_save\_internal\_controls}( thread );
+1608 
+1609     \hyperlink{kmp_8h_a6ebc34f0cf7dc3ce99dac8c6822338d3}{set\_\_nested}( thread, flag ? \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} );
+1610 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_ae2c6bff229becc2ba608026ff6bb862a}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-set\-\_\-num\-\_\-threads@{ompc\-\_\-set\-\_\-num\-\_\-threads}}
+\index{ompc\-\_\-set\-\_\-num\-\_\-threads@{ompc\-\_\-set\-\_\-num\-\_\-threads}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-set\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompc\-\_\-set\-\_\-num\-\_\-threads (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_ae2c6bff229becc2ba608026ff6bb862a}
+
+
+Definition at line 1580 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize().
+
+
+\begin{DoxyCode}
+1581 \{
+1582 \textcolor{comment}{// !!!!! TODO: check the per-task binding}
+1583     \hyperlink{kmp_8h_a7120d169a8fbd79e5140bfa0b2d93a3b}{\_\_kmp\_set\_num\_threads}( arg, \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}() );
+1584 \}
+\end{DoxyCode}
+\hypertarget{kmp__csupport_8c_a7295fde0fb4c0737d13c926e65d38d0c}{\index{kmp\-\_\-csupport.\-c@{kmp\-\_\-csupport.\-c}!ompc\-\_\-set\-\_\-schedule@{ompc\-\_\-set\-\_\-schedule}}
+\index{ompc\-\_\-set\-\_\-schedule@{ompc\-\_\-set\-\_\-schedule}!kmp_csupport.c@{kmp\-\_\-csupport.\-c}}
+\subsubsection[{ompc\-\_\-set\-\_\-schedule}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompc\-\_\-set\-\_\-schedule (
+\begin{DoxyParamCaption}
+\item[{{\bf omp\-\_\-sched\-\_\-t}}]{kind, }
+\item[{{\bf int}}]{modifier}
+\end{DoxyParamCaption}
+)}}\label{kmp__csupport_8c_a7295fde0fb4c0737d13c926e65d38d0c}
+
+
+Definition at line 1623 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+1624 \{
+1625 \textcolor{comment}{// !!!!! TODO: check the per-task binding}
+1626     \hyperlink{kmp_8h_a121506f52c114733ad1f405219ed6592}{\_\_kmp\_set\_schedule}( \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}(), ( 
+      \hyperlink{kmp_8h_a781573148b50d6afafb6f332d9477eef}{kmp\_sched\_t} ) kind, modifier );
+1627 \}
+\end{DoxyCode}

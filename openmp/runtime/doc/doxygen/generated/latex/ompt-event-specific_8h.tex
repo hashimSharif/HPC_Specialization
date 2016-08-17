@@ -1,0 +1,671 @@
+\hypertarget{ompt-event-specific_8h}{\section{ompt-\/event-\/specific.h File Reference}
+\label{ompt-event-specific_8h}\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}}
+}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a164da313e074d6ea064ada353b36475d}{\-\_\-ompt\-\_\-tokenpaste\-\_\-helper}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x}, y)~\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x} \#\# y
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aa58ed940a7c79f423856cf6e19aa7544}{\-\_\-ompt\-\_\-tokenpaste}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x}, y)~\hyperlink{ompt-event-specific_8h_a164da313e074d6ea064ada353b36475d}{\-\_\-ompt\-\_\-tokenpaste\-\_\-helper}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x},y)
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a4566bae53765ccb37e5a8f1cb7b9cc99}{ompt\-\_\-event\-\_\-implementation\-\_\-status}(e)~\hyperlink{ompt-event-specific_8h_aa58ed940a7c79f423856cf6e19aa7544}{\-\_\-ompt\-\_\-tokenpaste}(e,\-\_\-implemented)
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a20ce2d68a628f39fd7c0d3413e860641}{ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R}~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-never\-\_\-occurs
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-may\-\_\-occur\-\_\-no\-\_\-callback
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ac90b1cf76e06d7fcbed9abf431841cbd}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T}~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-may\-\_\-occur\-\_\-callback\-\_\-some
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-may\-\_\-occur\-\_\-callback\-\_\-always
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a4abd674123d98567d555df272dd21488}{ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ad0eca7eec9a34b5851b319d0b5f2617b}{ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a448fa1348f93610b50e4c3d7d253ff58}{ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a9af6c1df8ff45eb91a4498f9ef71bb6a}{ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a722209782b01dfedd5a5ca290535d002}{ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aca5e53faa4517642fdf2a14214acf5a9}{ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aacb64e7e982664eb79211c4df9ff3ac2}{ompt\-\_\-event\-\_\-control\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ac9cfd9935bf59d3ae248ca21038b1add}{ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ad21947e7a4fdf48b5f2fdb59010c962e}{ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a4948de512dd43629af551a60aeb61c6c}{ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a9f1d43fd1be45f4e2d24105d3c0c3afc}{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a4018f88dabb105322c005580f3ed55d2}{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_afedae293444d1e6c03bcc5ce66b373a7}{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_adaf3be4e35013e0e68ab16c30868b01a}{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a65ac1dd22df8ab75028b34f197ec5416}{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a9e8481cddc28288f581829742f759a40}{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a50047f862997bd4bbfd25becd8289fb5}{ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ac3d7eb46e01e54281e1b65ebbb0ab214}{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a2a9b781af42739c3fd42a0a3f6057ce9}{ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a09f06c17ab3c3d83be293afd77c59107}{ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aef13f68ababea41e315591dca6cdb230}{ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a07d69345c7f13010aafcbd3dcbc4062d}{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_acefc74b81d1b94f2e43292b62d627c5e}{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aec50ed43a91c582866e767f9fd2a18dd}{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a8af18e42e9e32223808312e8b1e57776}{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ac4112e4950b04d29cf19cc8ff69088e8}{ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ab530c44febe3332687e1cc8ae71b166b}{ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a54f81460a3869f31b11af17d619b4242}{ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ac2e0213ada27e4698b72c6f4fe321f5d}{ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a5f4e2bf60610bfcb9039ce2ff4d58199}{ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ad2883ccb09b0ba1d82430995c70a714d}{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a7d4d53915945bd562edb8cd5cd41633c}{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a42a6b224b8a6f478ec7db11cef8789f9}{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a1e37416b2e0c1b2e5b9a79d98e660e85}{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a829fe75c89308c1b6e8f3b4436400040}{ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a53322076dea4504077de34b9eab73aaa}{ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a3bade306ef69896fb63fdf64a256977c}{ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_abd67f196b736d3e3481f7d8180a9e39d}{ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a3d5bc5fa84dd329c1a76c72d3d1012f3}{ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a5fd5a81cfe38123422d94d6b6973f1be}{ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_afa788ee7beee2a97a19adeca23b3865c}{ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a4810dc839ce06ed6245eb3bab1d82a49}{ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ac176607a57eb9561636a387337053475}{ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a2405139752aba688ea3be729bcc6adcf}{ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_abfa449e7631b118d924b7e4340fa30c7}{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a195e2a9c96ca51f746ef3e4497951ff7}{ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a288449a38cf490ea8f7f406dec34af0f}{ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aa1fb38801e586b0f641c210b426e664c}{ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ae25c672fecb70d4c104c7b141cb845d0}{ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a2700e8a9a1d49b921ffa1385d02dd47b}{ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a71f68129e0c8a7347cc3fa5ff3e33c61}{ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a641b24dcfd785a3952af825df59e795d}{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a8efdc3c6e6a78fbb4453a10d5e43c81e}{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ada1f66f789752fc48d51a6aeeed2e740}{ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a760d3c216dcbc2d4637d73d7da9c1195}{ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a337ae971f785872ce689ea67cfe7deae}{ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_ae0dfaca8eb234c6104bbd116f7ccf420}{ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a11a1812ef4fbddc76fb54aa302a9361c}{ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a59548df7cea7950fb7621716c89d5f46}{ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a8804e42303b5e72ddf4e41a93af1c2a8}{ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a85b26190f3db8f57b2cdd188b53c969a}{ompt\-\_\-event\-\_\-flush\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_a066a95e0c3534140847f7f5c023197e0}{ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\item 
+\#define \hyperlink{ompt-event-specific_8h_aaa3a35e4499573e68b7c801ad743659d}{ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented}~\hyperlink{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{ompt-event-specific_8h_aa58ed940a7c79f423856cf6e19aa7544}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!\-\_\-ompt\-\_\-tokenpaste@{\-\_\-ompt\-\_\-tokenpaste}}
+\index{\-\_\-ompt\-\_\-tokenpaste@{\-\_\-ompt\-\_\-tokenpaste}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{\-\_\-ompt\-\_\-tokenpaste}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-ompt\-\_\-tokenpaste(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~{\bf \-\_\-ompt\-\_\-tokenpaste\-\_\-helper}({\bf x},y)}}\label{ompt-event-specific_8h_aa58ed940a7c79f423856cf6e19aa7544}
+
+
+Definition at line 14 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a164da313e074d6ea064ada353b36475d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!\-\_\-ompt\-\_\-tokenpaste\-\_\-helper@{\-\_\-ompt\-\_\-tokenpaste\-\_\-helper}}
+\index{\-\_\-ompt\-\_\-tokenpaste\-\_\-helper@{\-\_\-ompt\-\_\-tokenpaste\-\_\-helper}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{\-\_\-ompt\-\_\-tokenpaste\-\_\-helper}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-ompt\-\_\-tokenpaste\-\_\-helper(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~{\bf x} \#\# y}}\label{ompt-event-specific_8h_a164da313e074d6ea064ada353b36475d}
+
+
+Definition at line 13 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a760d3c216dcbc2d4637d73d7da9c1195}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-acquired\-\_\-atomic\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a760d3c216dcbc2d4637d73d7da9c1195}
+
+
+Definition at line 133 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ada1f66f789752fc48d51a6aeeed2e740}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-acquired\-\_\-critical\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_ada1f66f789752fc48d51a6aeeed2e740}
+
+
+Definition at line 132 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a71f68129e0c8a7347cc3fa5ff3e33c61}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-acquired\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a71f68129e0c8a7347cc3fa5ff3e33c61}
+
+
+Definition at line 129 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a641b24dcfd785a3952af825df59e795d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-first\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a641b24dcfd785a3952af825df59e795d}
+
+
+Definition at line 130 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a8efdc3c6e6a78fbb4453a10d5e43c81e}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-acquired\-\_\-nest\-\_\-lock\-\_\-next\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a8efdc3c6e6a78fbb4453a10d5e43c81e}
+
+
+Definition at line 131 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a337ae971f785872ce689ea67cfe7deae}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented@{ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-acquired\-\_\-ordered\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a337ae971f785872ce689ea67cfe7deae}
+
+
+Definition at line 134 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a3d5bc5fa84dd329c1a76c72d3d1012f3}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-barrier\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a3d5bc5fa84dd329c1a76c72d3d1012f3}
+
+
+Definition at line 113 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a5fd5a81cfe38123422d94d6b6973f1be}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-barrier\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a5fd5a81cfe38123422d94d6b6973f1be}
+
+
+Definition at line 114 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_aacb64e7e982664eb79211c4df9ff3ac2}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-control\-\_\-implemented@{ompt\-\_\-event\-\_\-control\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-control\-\_\-implemented@{ompt\-\_\-event\-\_\-control\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-control\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-control\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_aacb64e7e982664eb79211c4df9ff3ac2}
+
+
+Definition at line 56 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a59548df7cea7950fb7621716c89d5f46}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-destroy\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a59548df7cea7950fb7621716c89d5f46}
+
+
+Definition at line 139 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a8804e42303b5e72ddf4e41a93af1c2a8}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-destroy\-\_\-nest\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a8804e42303b5e72ddf4e41a93af1c2a8}
+
+
+Definition at line 140 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a85b26190f3db8f57b2cdd188b53c969a}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-flush\-\_\-implemented@{ompt\-\_\-event\-\_\-flush\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-flush\-\_\-implemented@{ompt\-\_\-event\-\_\-flush\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-flush\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-flush\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a85b26190f3db8f57b2cdd188b53c969a}
+
+
+Definition at line 142 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ad21947e7a4fdf48b5f2fdb59010c962e}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-idle\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_ad21947e7a4fdf48b5f2fdb59010c962e}
+
+
+Definition at line 65 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a4948de512dd43629af551a60aeb61c6c}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-idle\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_a4948de512dd43629af551a60aeb61c6c}
+
+
+Definition at line 66 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a4566bae53765ccb37e5a8f1cb7b9cc99}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-implementation\-\_\-status@{ompt\-\_\-event\-\_\-implementation\-\_\-status}}
+\index{ompt\-\_\-event\-\_\-implementation\-\_\-status@{ompt\-\_\-event\-\_\-implementation\-\_\-status}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-implementation\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-implementation\-\_\-status(
+\begin{DoxyParamCaption}
+\item[{}]{e}
+\end{DoxyParamCaption}
+)~{\bf \-\_\-ompt\-\_\-tokenpaste}(e,\-\_\-implemented)}}\label{ompt-event-specific_8h_a4566bae53765ccb37e5a8f1cb7b9cc99}
+
+
+Definition at line 15 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a07d69345c7f13010aafcbd3dcbc4062d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a07d69345c7f13010aafcbd3dcbc4062d}
+
+
+Definition at line 88 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_acefc74b81d1b94f2e43292b62d627c5e}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-implicit\-\_\-task\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_acefc74b81d1b94f2e43292b62d627c5e}
+
+
+Definition at line 89 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ae0dfaca8eb234c6104bbd116f7ccf420}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-init\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_ae0dfaca8eb234c6104bbd116f7ccf420}
+
+
+Definition at line 136 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a11a1812ef4fbddc76fb54aa302a9361c}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-init\-\_\-nest\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a11a1812ef4fbddc76fb54aa302a9361c}
+
+
+Definition at line 137 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_aec50ed43a91c582866e767f9fd2a18dd}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_aec50ed43a91c582866e767f9fd2a18dd}
+
+
+Definition at line 91 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a8af18e42e9e32223808312e8b1e57776}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-initial\-\_\-task\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a8af18e42e9e32223808312e8b1e57776}
+
+
+Definition at line 92 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ab530c44febe3332687e1cc8ae71b166b}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-loop\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_ab530c44febe3332687e1cc8ae71b166b}
+
+
+Definition at line 96 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a54f81460a3869f31b11af17d619b4242}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-loop\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a54f81460a3869f31b11af17d619b4242}
+
+
+Definition at line 97 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a3bade306ef69896fb63fdf64a256977c}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-master\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a3bade306ef69896fb63fdf64a256977c}
+
+
+Definition at line 110 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_abd67f196b736d3e3481f7d8180a9e39d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-master\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_abd67f196b736d3e3481f7d8180a9e39d}
+
+
+Definition at line 111 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}
+\index{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-may\-\_\-occur\-\_\-callback\-\_\-always}}\label{ompt-event-specific_8h_a4d43508adffb6fe8f9fe8a520b8142f4}
+
+
+Definition at line 29 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}
+\index{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a7014420b707fad74a0e4a1f14d46067d}
+
+
+Definition at line 40 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}
+\index{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a81d63d53ff090774864cdd033effe56e}
+
+
+Definition at line 34 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ac90b1cf76e06d7fcbed9abf431841cbd}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T}}
+\index{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T@{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-C\-O\-N\-V\-E\-N\-I\-E\-N\-T~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-may\-\_\-occur\-\_\-callback\-\_\-some}}\label{ompt-event-specific_8h_ac90b1cf76e06d7fcbed9abf431841cbd}
+
+
+Definition at line 28 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a20ce2d68a628f39fd7c0d3413e860641}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R@{ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R}}
+\index{ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R@{ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-\-N\-E\-V\-E\-R~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-never\-\_\-occurs}}\label{ompt-event-specific_8h_a20ce2d68a628f39fd7c0d3413e860641}
+
+
+Definition at line 26 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a4abd674123d98567d555df272dd21488}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-parallel\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_a4abd674123d98567d555df272dd21488}
+
+
+Definition at line 47 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ad0eca7eec9a34b5851b319d0b5f2617b}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-parallel\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_ad0eca7eec9a34b5851b319d0b5f2617b}
+
+
+Definition at line 48 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a09f06c17ab3c3d83be293afd77c59107}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-release\-\_\-atomic\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_a09f06c17ab3c3d83be293afd77c59107}
+
+
+Definition at line 80 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a2a9b781af42739c3fd42a0a3f6057ce9}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-release\-\_\-critical\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_a2a9b781af42739c3fd42a0a3f6057ce9}
+
+
+Definition at line 79 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a50047f862997bd4bbfd25becd8289fb5}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-release\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_a50047f862997bd4bbfd25becd8289fb5}
+
+
+Definition at line 77 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ac3d7eb46e01e54281e1b65ebbb0ab214}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-last\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_ac3d7eb46e01e54281e1b65ebbb0ab214}
+
+
+Definition at line 78 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_abfa449e7631b118d924b7e4340fa30c7}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-release\-\_\-nest\-\_\-lock\-\_\-prev\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_abfa449e7631b118d924b7e4340fa30c7}
+
+
+Definition at line 122 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_aef13f68ababea41e315591dca6cdb230}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented@{ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-release\-\_\-ordered\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_aef13f68ababea41e315591dca6cdb230}
+
+
+Definition at line 81 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ac9cfd9935bf59d3ae248ca21038b1add}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented@{ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented@{ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-runtime\-\_\-shutdown\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_ac9cfd9935bf59d3ae248ca21038b1add}
+
+
+Definition at line 58 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ac2e0213ada27e4698b72c6f4fe321f5d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-sections\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_ac2e0213ada27e4698b72c6f4fe321f5d}
+
+
+Definition at line 99 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a5f4e2bf60610bfcb9039ce2ff4d58199}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-sections\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a5f4e2bf60610bfcb9039ce2ff4d58199}
+
+
+Definition at line 100 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ad2883ccb09b0ba1d82430995c70a714d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_ad2883ccb09b0ba1d82430995c70a714d}
+
+
+Definition at line 102 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a7d4d53915945bd562edb8cd5cd41633c}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-single\-\_\-in\-\_\-block\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a7d4d53915945bd562edb8cd5cd41633c}
+
+
+Definition at line 103 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a42a6b224b8a6f478ec7db11cef8789f9}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a42a6b224b8a6f478ec7db11cef8789f9}
+
+
+Definition at line 104 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a1e37416b2e0c1b2e5b9a79d98e660e85}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-single\-\_\-others\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a1e37416b2e0c1b2e5b9a79d98e660e85}
+
+
+Definition at line 105 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a448fa1348f93610b50e4c3d7d253ff58}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-task\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_a448fa1348f93610b50e4c3d7d253ff58}
+
+
+Definition at line 50 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_aaa3a35e4499573e68b7c801ad743659d}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-task\-\_\-dependence\-\_\-pair\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_aaa3a35e4499573e68b7c801ad743659d}
+
+
+Definition at line 146 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a066a95e0c3534140847f7f5c023197e0}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-task\-\_\-dependences\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a066a95e0c3534140847f7f5c023197e0}
+
+
+Definition at line 145 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a9af6c1df8ff45eb91a4498f9ef71bb6a}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-task\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_a9af6c1df8ff45eb91a4498f9ef71bb6a}
+
+
+Definition at line 51 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ac4112e4950b04d29cf19cc8ff69088e8}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented@{ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-task\-\_\-switch\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_ac4112e4950b04d29cf19cc8ff69088e8}
+
+
+Definition at line 94 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ac176607a57eb9561636a387337053475}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-taskgroup\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_ac176607a57eb9561636a387337053475}
+
+
+Definition at line 119 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a2405139752aba688ea3be729bcc6adcf}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-taskgroup\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a2405139752aba688ea3be729bcc6adcf}
+
+
+Definition at line 120 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_afa788ee7beee2a97a19adeca23b3865c}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-taskwait\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_afa788ee7beee2a97a19adeca23b3865c}
+
+
+Definition at line 116 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a4810dc839ce06ed6245eb3bab1d82a49}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-taskwait\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a4810dc839ce06ed6245eb3bab1d82a49}
+
+
+Definition at line 117 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a722209782b01dfedd5a5ca290535d002}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-thread\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_a722209782b01dfedd5a5ca290535d002}
+
+
+Definition at line 53 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_aca5e53faa4517642fdf2a14214acf5a9}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-thread\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S}}}\label{ompt-event-specific_8h_aca5e53faa4517642fdf2a14214acf5a9}
+
+
+Definition at line 54 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D@{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}
+\index{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D@{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D~ompt\-\_\-set\-\_\-result\-\_\-event\-\_\-may\-\_\-occur\-\_\-no\-\_\-callback}}\label{ompt-event-specific_8h_a5719430a79b410eee8d68fcec0fbf8f2}
+
+
+Definition at line 27 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_ae25c672fecb70d4c104c7b141cb845d0}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-atomic\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_ae25c672fecb70d4c104c7b141cb845d0}
+
+
+Definition at line 126 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a9f1d43fd1be45f4e2d24105d3c0c3afc}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_a9f1d43fd1be45f4e2d24105d3c0c3afc}
+
+
+Definition at line 68 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a4018f88dabb105322c005580f3ed55d2}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-barrier\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-B\-L\-A\-M\-E}}}\label{ompt-event-specific_8h_a4018f88dabb105322c005580f3ed55d2}
+
+
+Definition at line 69 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_aa1fb38801e586b0f641c210b426e664c}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-critical\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_aa1fb38801e586b0f641c210b426e664c}
+
+
+Definition at line 125 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a195e2a9c96ca51f746ef3e4497951ff7}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a195e2a9c96ca51f746ef3e4497951ff7}
+
+
+Definition at line 123 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a288449a38cf490ea8f7f406dec34af0f}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-nest\-\_\-lock\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a288449a38cf490ea8f7f406dec34af0f}
+
+
+Definition at line 124 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a2700e8a9a1d49b921ffa1385d02dd47b}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-ordered\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-M\-A\-Y\-\_\-\-A\-L\-W\-A\-Y\-S\-\_\-\-T\-R\-A\-C\-E}}}\label{ompt-event-specific_8h_a2700e8a9a1d49b921ffa1385d02dd47b}
+
+
+Definition at line 127 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a65ac1dd22df8ab75028b34f197ec5416}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a65ac1dd22df8ab75028b34f197ec5416}
+
+
+Definition at line 74 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a9e8481cddc28288f581829742f759a40}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-taskgroup\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a9e8481cddc28288f581829742f759a40}
+
+
+Definition at line 75 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_afedae293444d1e6c03bcc5ce66b373a7}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_afedae293444d1e6c03bcc5ce66b373a7}
+
+
+Definition at line 71 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_adaf3be4e35013e0e68ab16c30868b01a}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-wait\-\_\-taskwait\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_adaf3be4e35013e0e68ab16c30868b01a}
+
+
+Definition at line 72 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a829fe75c89308c1b6e8f3b4436400040}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented@{ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-workshare\-\_\-begin\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a829fe75c89308c1b6e8f3b4436400040}
+
+
+Definition at line 107 of file ompt-\/event-\/specific.\-h.
+
+\hypertarget{ompt-event-specific_8h_a53322076dea4504077de34b9eab73aaa}{\index{ompt-\/event-\/specific.\-h@{ompt-\/event-\/specific.\-h}!ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented}}
+\index{ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented@{ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented}!ompt-event-specific.h@{ompt-\/event-\/specific.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-workshare\-\_\-end\-\_\-implemented~{\bf ompt\-\_\-event\-\_\-\-U\-N\-I\-M\-P\-L\-E\-M\-E\-N\-T\-E\-D}}}\label{ompt-event-specific_8h_a53322076dea4504077de34b9eab73aaa}
+
+
+Definition at line 108 of file ompt-\/event-\/specific.\-h.
+

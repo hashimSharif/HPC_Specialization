@@ -1,0 +1,1102 @@
+\hypertarget{kmp__stub_8c}{\section{kmp\-\_\-stub.\-c File Reference}
+\label{kmp__stub_8c}\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$limits.\-h$>$}\\*
+{\ttfamily \#include $<$errno.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}omp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-stub.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__stub_8c_a09b92574a2264968433d5e40463c574f}{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}~\hyperlink{kmp__csupport_8c_adb4b13610c699df81712d20421b31b75}{ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}
+\item 
+\#define \hyperlink{kmp__stub_8c_a185a998481348550ba8508bb4cba72b1}{omp\-\_\-set\-\_\-schedule}~\hyperlink{kmp__csupport_8c_a7295fde0fb4c0737d13c926e65d38d0c}{ompc\-\_\-set\-\_\-schedule}
+\item 
+\#define \hyperlink{kmp__stub_8c_a67309e270d0d735ce42c21f155662589}{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}~\hyperlink{kmp__csupport_8c_a423fbbeae6014dbcc3249ebfbc398acd}{ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}
+\item 
+\#define \hyperlink{kmp__stub_8c_a66bf4963f956df99e91a3414e54208d1}{omp\-\_\-get\-\_\-team\-\_\-size}~\hyperlink{kmp__csupport_8c_a966f31be4f70afbcaaf62e4a16c00055}{ompc\-\_\-get\-\_\-team\-\_\-size}
+\item 
+\#define \hyperlink{kmp__stub_8c_a1721062b08e51330d5494c907eb6421e}{omp\-\_\-set\-\_\-num\-\_\-threads}~\hyperlink{kmp__csupport_8c_ae2c6bff229becc2ba608026ff6bb862a}{ompc\-\_\-set\-\_\-num\-\_\-threads}
+\item 
+\#define \hyperlink{kmp__stub_8c_a6c97be8162427ee1946241f5991740c7}{omp\-\_\-set\-\_\-dynamic}~\hyperlink{kmp__csupport_8c_a0c4ccdba0a7b8d164c8dcac78aa9d86d}{ompc\-\_\-set\-\_\-dynamic}
+\item 
+\#define \hyperlink{kmp__stub_8c_ac7b2c1e368943d9afd627bd3be82f08b}{omp\-\_\-set\-\_\-nested}~\hyperlink{kmp__csupport_8c_ac5acbcca779643988d6c2ee576ef5fd8}{ompc\-\_\-set\-\_\-nested}
+\item 
+\#define \hyperlink{kmp__stub_8c_aa66d6c931561d46555b26601d104ecf6}{kmp\-\_\-set\-\_\-stacksize}~\hyperlink{kmp__csupport_8c_a6d4199e4a8f13fecabb97cb0e38207fa}{kmpc\-\_\-set\-\_\-stacksize}
+\item 
+\#define \hyperlink{kmp__stub_8c_ab1b71823a960275587f34ebde50d026d}{kmp\-\_\-set\-\_\-stacksize\-\_\-s}~\hyperlink{kmp__csupport_8c_a4957b8c1e27f64d49e623d3f732b230b}{kmpc\-\_\-set\-\_\-stacksize\-\_\-s}
+\item 
+\#define \hyperlink{kmp__stub_8c_a7237d0cb481be9be70ba3f76bf7a9c8e}{kmp\-\_\-set\-\_\-blocktime}~\hyperlink{kmp__csupport_8c_a7642be84bc8698c0058bb9f356969c69}{kmpc\-\_\-set\-\_\-blocktime}
+\item 
+\#define \hyperlink{kmp__stub_8c_a7d93681997dabd61c44ddbb65e0cf7be}{kmp\-\_\-set\-\_\-library}~\hyperlink{kmp__csupport_8c_a64f335df813329ff7ade6c97f143e1b1}{kmpc\-\_\-set\-\_\-library}
+\item 
+\#define \hyperlink{kmp__stub_8c_ad6af6402f6e69c6fe5f80eb259fc5691}{kmp\-\_\-set\-\_\-defaults}~\hyperlink{kmp__csupport_8c_a7a9b8294df45f617b93c3f66ac5e45cc}{kmpc\-\_\-set\-\_\-defaults}
+\item 
+\#define \hyperlink{kmp__stub_8c_ad3d580fa87481dc7cf8d95011af6e903}{kmp\-\_\-malloc}~\hyperlink{kmp__alloc_8c_aaab12aaa8a587464c9490323fdbec216}{kmpc\-\_\-malloc}
+\item 
+\#define \hyperlink{kmp__stub_8c_abef129fd2bf206be9f52bfc76320fcfc}{kmp\-\_\-calloc}~\hyperlink{kmp__alloc_8c_aaff1b5800d2d73bb4af47dcbfd195f47}{kmpc\-\_\-calloc}
+\item 
+\#define \hyperlink{kmp__stub_8c_a5e6c323b17e8b37dae109b165c6059c2}{kmp\-\_\-realloc}~\hyperlink{kmp__alloc_8c_a338e1287ffbce17edcfb69f1b15a5b7b}{kmpc\-\_\-realloc}
+\item 
+\#define \hyperlink{kmp__stub_8c_a4de530339f421db78654ca0318518bab}{kmp\-\_\-free}~\hyperlink{kmp__alloc_8c_a2ef2b82a6d376c70d7bf35498207e0fc}{kmpc\-\_\-free}
+\item 
+\#define \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}~\hyperlink{kmp__stub_8c_a6eea72ccce759cad6898484596fb0efe}{\-\_\-\-\_\-kmps\-\_\-init}();
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static size\-\_\-t \hyperlink{kmp__stub_8c_a6eea72ccce759cad6898484596fb0efe}{\-\_\-\-\_\-kmps\-\_\-init} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_aecaf5d91b6c0f87fdb024cb4f616fe24}{omp\-\_\-set\-\_\-num\-\_\-threads} (omp\-\_\-int\-\_\-t num\-\_\-threads)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a3f294794c9501a58d541ac98e424c412}{omp\-\_\-set\-\_\-dynamic} (omp\-\_\-int\-\_\-t dynamic)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a77c21d219dd10464650ab466e8470b5d}{omp\-\_\-set\-\_\-nested} (omp\-\_\-int\-\_\-t nested)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_acb10515979e4f7550a2f0f3e61b3f5e1}{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels} (omp\-\_\-int\-\_\-t max\-\_\-active\-\_\-levels)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_aa590638046775bf35fc13a2848191dc1}{omp\-\_\-set\-\_\-schedule} (\hyperlink{kmp_8h_ab769cd28f876c6f973de1356e3d167c7}{omp\-\_\-sched\-\_\-t} kind, omp\-\_\-int\-\_\-t modifier)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a9ebdce8ea962612756e99a0200baa3b6}{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num} (omp\-\_\-int\-\_\-t level)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a7c4f1cff24a96d1c44b5539e583d2cc5}{omp\-\_\-get\-\_\-team\-\_\-size} (omp\-\_\-int\-\_\-t level)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a636c5383acbe154bcd256de944a6f6c2}{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} proc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$\hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a1924c84b1cdfb4ac9e786eb791ca279c}{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} proc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$\hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a9e2fedf0ecbf2cb302d1bd98b397797f}{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} proc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$\hyperlink{ittnotify__static_8h_aa2c7de905e06240a7170f2a0da3a5abf}{mask})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a21adb1c4f7bf2442427215c94817ee78}{kmp\-\_\-set\-\_\-stacksize} (omp\-\_\-int\-\_\-t arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a2103414d2b7a64ad4b67effbe27f39b4}{kmp\-\_\-set\-\_\-stacksize\-\_\-s} (size\-\_\-t arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a04dc2c43de8beeed4e93a154b9ea0588}{kmp\-\_\-set\-\_\-blocktime} (omp\-\_\-int\-\_\-t arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a9a8edaf929188c81415418676a0f1a52}{kmp\-\_\-set\-\_\-library} (omp\-\_\-int\-\_\-t arg)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a4af7ed944d77728c9b504dc8d3dd9cfb}{kmp\-\_\-set\-\_\-defaults} (char const $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{kmp__stub_8c_ab5dfa08b1b18d5ab94602f476dac95f2}{kmp\-\_\-malloc} (size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{kmp__stub_8c_a024dc4aaac5f28863d8d7c5cf57c1ff8}{kmp\-\_\-calloc} (size\-\_\-t nelem, size\-\_\-t elsize)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{kmp__stub_8c_aa0da856a785326976d38a86df480ddff}{kmp\-\_\-realloc} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ptr, size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a7e3512de2acc7bdebac244e792e72c9b}{kmp\-\_\-free} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ptr)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a61d4ad3de087fb14023b4f286d8b05e2}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a222b26919cd4eed752eff631c94c4f6d}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a6834033d893f8ec7a091f0e957a7b406}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a3004686ce9c01968eb7306a2cb78ac82}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a07fbe3cc0668f0124afbae5f81bcae87}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-library} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a6eaf4ba3aecb00ad0f16c9f648426b42}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-library} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a20f5f0943431f0d8f40326939f96e12d}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-nested} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a333574fdcb00417b2c69accf99b02169}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-nested} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a61d45b31113a05bc7bc55d0cef518ccf}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} arg)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a1d94065fd8e37f1ae5cae93a7bd6cf17}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_a2ad243e34f46ec89af69c0d7e089fbe5}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule} (\hyperlink{kmp_8h_a781573148b50d6afafb6f332d9477eef}{kmp\-\_\-sched\-\_\-t} kind, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} modifier)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_acda32ed309903784c2065924ea561f9a}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule} (\hyperlink{kmp_8h_a781573148b50d6afafb6f332d9477eef}{kmp\-\_\-sched\-\_\-t} $\ast$kind, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$modifier)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__stub_8c_aa3282fe7347579ff204b31fdd378d0e7}{\-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind} (\hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241}{kmp\-\_\-proc\-\_\-bind\-\_\-t} arg)
+\item 
+\hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241}{kmp\-\_\-proc\-\_\-bind\-\_\-t} \hyperlink{kmp__stub_8c_adece9cf98036f3bddbd600f829f1de6e}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+double \hyperlink{kmp__stub_8c_a166b6ed0df9c7d50ba42d7a77d270baa}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+double \hyperlink{kmp__stub_8c_a8d23c78880b97dee38553ddc6debaddb}{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static double \hyperlink{kmp__stub_8c_a4c45cdff103e6644a620ba5061509f22}{frequency} = 0.\-0
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a0895fb6deb1d83ac170558c4eae9a98d}{\-\_\-\-\_\-kmps\-\_\-blocktime} = I\-N\-T\-\_\-\-M\-A\-X
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a8283d96f195eac070fa64108d13c8832}{\-\_\-\-\_\-kmps\-\_\-dynamic} = 0
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_abd29a9c2e64cfc7d4fbee00ec9b443dd}{\-\_\-\-\_\-kmps\-\_\-library} = 1000
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_ab91809376e621724796ae0eb960f2969}{\-\_\-\-\_\-kmps\-\_\-nested} = 0
+\item 
+static size\-\_\-t \hyperlink{kmp__stub_8c_a583e784e57697691277a56b776d6db21}{\-\_\-\-\_\-kmps\-\_\-stacksize} = \hyperlink{kmp_8h_a6c7fa39148ea938d84c2f61895b7009c}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-T\-K\-S\-I\-Z\-E}
+\item 
+static \hyperlink{kmp_8h_a781573148b50d6afafb6f332d9477eef}{kmp\-\_\-sched\-\_\-t} \hyperlink{kmp__stub_8c_ad7e752cb6f0465c83db2bf2ab4d2f571}{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind} = \hyperlink{kmp__stub_8h_ac150ec15d3fa59f49e4bf27425bc27c3a9d7098449a8c3534d6b7bddd31302dbe}{kmp\-\_\-sched\-\_\-default}
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__stub_8c_a039b7042077275ad56523d9da4552b2f}{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier} = 0
+\item 
+static \hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241}{kmp\-\_\-proc\-\_\-bind\-\_\-t} \hyperlink{kmp__stub_8c_a29b5edf6c9241fceda5e968b096c1cf6}{\-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind} = \hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241a26efad2e13ae31e934f83c4d9a6ceb99}{proc\-\_\-bind\-\_\-false}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!i@{i}}
+\index{i@{i}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{i}]{\setlength{\rightskip}{0pt plus 5cm}\#define i~{\bf \-\_\-\-\_\-kmps\-\_\-init}();}}\label{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}
+
+
+Definition at line 82 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix(), \-\_\-\-\_\-itt\-\_\-fsplit(), \-\_\-\-\_\-itt\-\_\-get\-\_\-groups(), \-\_\-\-\_\-itt\-\_\-nullify\-\_\-all\-\_\-pointers(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-drdpa\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num(), \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels(), \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-team\-\_\-arrays(), \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-check\-\_\-deps(), \-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data(), \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-create(), \-\_\-\-\_\-kmp\-\_\-dephash\-\_\-free(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer(), \-\_\-\-\_\-kmp\-\_\-enable\-\_\-tasking(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-var(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-cons\-\_\-stack(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-team\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-task\-\_\-threads\-\_\-data(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-team\-\_\-arrays(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-load\-\_\-balance(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-hierarchical\-\_\-barrier\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-info(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-fork(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-linear\-\_\-barrier\-\_\-gather(), \-\_\-\-\_\-kmp\-\_\-linear\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-parse\-\_\-nested\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps(), \-\_\-\-\_\-kmp\-\_\-realloc\-\_\-task\-\_\-threads\-\_\-data(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), \-\_\-\-\_\-kmp\-\_\-reset\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-check\-\_\-rivals(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-find(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-pattern(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-branch\-\_\-bit(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-pattern(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-proc\-\_\-bind(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-match(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished(), \-\_\-\-\_\-kmp\-\_\-validate\-\_\-locks(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-library(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-nested(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick(), \-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-library(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-nested(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule(), \-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize(), time\-Stat\-::clear\-Event\-Flags(), compute\-External\-Symbols(), compute\-Last\-In\-Last\-Out\-Interval(), String\-Table\-::decode(), hierarchy\-\_\-info\-::derive\-Levels(), find\-Required\-External(), format\-S\-I(), kmp\-\_\-basic\-\_\-flag$<$ kmp\-\_\-uint32 $>$\-::get\-\_\-waiter(), kmp\-\_\-flag\-\_\-oncore\-::get\-\_\-waiter(), hide\-Symbols(), hierarchy\-\_\-info\-::init(), init\-\_\-ittlib(), Address\-::is\-Close(), kmp\-\_\-calloc(), kmp\-\_\-free(), kmp\-\_\-malloc(), kmp\-\_\-realloc(), kmp\-\_\-set\-\_\-blocktime(), kmp\-\_\-set\-\_\-defaults(), kmp\-\_\-set\-\_\-library(), kmp\-\_\-set\-\_\-stacksize(), kmp\-\_\-set\-\_\-stacksize\-\_\-s(), kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc(), kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc(), kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc(), main(), String\-Table\-::make\-Directory(), omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num(), omp\-\_\-get\-\_\-team\-\_\-size(), omp\-\_\-set\-\_\-dynamic(), omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels(), omp\-\_\-set\-\_\-nested(), omp\-\_\-set\-\_\-num\-\_\-threads(), omp\-\_\-set\-\_\-schedule(), Address\-::operator=(), Address\-::operator==(), Address\-::print(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Events(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Ploticus\-File(), kmp\-\_\-stats\-\_\-event\-\_\-vector\-::push\-\_\-back(), hierarchy\-\_\-info\-::resize(), set\-\_\-thr\-\_\-data(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::setup\-Event\-Colors().
+
+\hypertarget{kmp__stub_8c_abef129fd2bf206be9f52bfc76320fcfc}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-calloc@{kmp\-\_\-calloc}}
+\index{kmp\-\_\-calloc@{kmp\-\_\-calloc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-calloc}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-calloc~{\bf kmpc\-\_\-calloc}}}\label{kmp__stub_8c_abef129fd2bf206be9f52bfc76320fcfc}
+
+
+Definition at line 45 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a4de530339f421db78654ca0318518bab}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-free@{kmp\-\_\-free}}
+\index{kmp\-\_\-free@{kmp\-\_\-free}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-free~{\bf kmpc\-\_\-free}}}\label{kmp__stub_8c_a4de530339f421db78654ca0318518bab}
+
+
+Definition at line 47 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_ad3d580fa87481dc7cf8d95011af6e903}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-malloc@{kmp\-\_\-malloc}}
+\index{kmp\-\_\-malloc@{kmp\-\_\-malloc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-malloc}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-malloc~{\bf kmpc\-\_\-malloc}}}\label{kmp__stub_8c_ad3d580fa87481dc7cf8d95011af6e903}
+
+
+Definition at line 44 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a5e6c323b17e8b37dae109b165c6059c2}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-realloc@{kmp\-\_\-realloc}}
+\index{kmp\-\_\-realloc@{kmp\-\_\-realloc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-realloc}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-realloc~{\bf kmpc\-\_\-realloc}}}\label{kmp__stub_8c_a5e6c323b17e8b37dae109b165c6059c2}
+
+
+Definition at line 46 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a7237d0cb481be9be70ba3f76bf7a9c8e}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-blocktime@{kmp\-\_\-set\-\_\-blocktime}}
+\index{kmp\-\_\-set\-\_\-blocktime@{kmp\-\_\-set\-\_\-blocktime}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-set\-\_\-blocktime~{\bf kmpc\-\_\-set\-\_\-blocktime}}}\label{kmp__stub_8c_a7237d0cb481be9be70ba3f76bf7a9c8e}
+
+
+Definition at line 41 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_ad6af6402f6e69c6fe5f80eb259fc5691}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-defaults@{kmp\-\_\-set\-\_\-defaults}}
+\index{kmp\-\_\-set\-\_\-defaults@{kmp\-\_\-set\-\_\-defaults}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-defaults}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-set\-\_\-defaults~{\bf kmpc\-\_\-set\-\_\-defaults}}}\label{kmp__stub_8c_ad6af6402f6e69c6fe5f80eb259fc5691}
+
+
+Definition at line 43 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a7d93681997dabd61c44ddbb65e0cf7be}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-library@{kmp\-\_\-set\-\_\-library}}
+\index{kmp\-\_\-set\-\_\-library@{kmp\-\_\-set\-\_\-library}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-set\-\_\-library~{\bf kmpc\-\_\-set\-\_\-library}}}\label{kmp__stub_8c_a7d93681997dabd61c44ddbb65e0cf7be}
+
+
+Definition at line 42 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_aa66d6c931561d46555b26601d104ecf6}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-stacksize@{kmp\-\_\-set\-\_\-stacksize}}
+\index{kmp\-\_\-set\-\_\-stacksize@{kmp\-\_\-set\-\_\-stacksize}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-stacksize}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-set\-\_\-stacksize~{\bf kmpc\-\_\-set\-\_\-stacksize}}}\label{kmp__stub_8c_aa66d6c931561d46555b26601d104ecf6}
+
+
+Definition at line 39 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_ab1b71823a960275587f34ebde50d026d}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-stacksize\-\_\-s@{kmp\-\_\-set\-\_\-stacksize\-\_\-s}}
+\index{kmp\-\_\-set\-\_\-stacksize\-\_\-s@{kmp\-\_\-set\-\_\-stacksize\-\_\-s}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-stacksize\-\_\-s}]{\setlength{\rightskip}{0pt plus 5cm}\#define kmp\-\_\-set\-\_\-stacksize\-\_\-s~{\bf kmpc\-\_\-set\-\_\-stacksize\-\_\-s}}}\label{kmp__stub_8c_ab1b71823a960275587f34ebde50d026d}
+
+
+Definition at line 40 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a67309e270d0d735ce42c21f155662589}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num@{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}}
+\index{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num@{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num~{\bf ompc\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}}}\label{kmp__stub_8c_a67309e270d0d735ce42c21f155662589}
+
+
+Definition at line 33 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a66bf4963f956df99e91a3414e54208d1}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-get\-\_\-team\-\_\-size@{omp\-\_\-get\-\_\-team\-\_\-size}}
+\index{omp\-\_\-get\-\_\-team\-\_\-size@{omp\-\_\-get\-\_\-team\-\_\-size}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-get\-\_\-team\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-get\-\_\-team\-\_\-size~{\bf ompc\-\_\-get\-\_\-team\-\_\-size}}}\label{kmp__stub_8c_a66bf4963f956df99e91a3414e54208d1}
+
+
+Definition at line 34 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a6c97be8162427ee1946241f5991740c7}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-dynamic@{omp\-\_\-set\-\_\-dynamic}}
+\index{omp\-\_\-set\-\_\-dynamic@{omp\-\_\-set\-\_\-dynamic}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-set\-\_\-dynamic~{\bf ompc\-\_\-set\-\_\-dynamic}}}\label{kmp__stub_8c_a6c97be8162427ee1946241f5991740c7}
+
+
+Definition at line 37 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a09b92574a2264968433d5e40463c574f}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels@{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}}
+\index{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels@{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels~{\bf ompc\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}}}\label{kmp__stub_8c_a09b92574a2264968433d5e40463c574f}
+
+
+Definition at line 31 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_ac7b2c1e368943d9afd627bd3be82f08b}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-nested@{omp\-\_\-set\-\_\-nested}}
+\index{omp\-\_\-set\-\_\-nested@{omp\-\_\-set\-\_\-nested}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-set\-\_\-nested~{\bf ompc\-\_\-set\-\_\-nested}}}\label{kmp__stub_8c_ac7b2c1e368943d9afd627bd3be82f08b}
+
+
+Definition at line 38 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a1721062b08e51330d5494c907eb6421e}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-num\-\_\-threads@{omp\-\_\-set\-\_\-num\-\_\-threads}}
+\index{omp\-\_\-set\-\_\-num\-\_\-threads@{omp\-\_\-set\-\_\-num\-\_\-threads}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-set\-\_\-num\-\_\-threads~{\bf ompc\-\_\-set\-\_\-num\-\_\-threads}}}\label{kmp__stub_8c_a1721062b08e51330d5494c907eb6421e}
+
+
+Definition at line 36 of file kmp\-\_\-stub.\-c.
+
+\hypertarget{kmp__stub_8c_a185a998481348550ba8508bb4cba72b1}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-schedule@{omp\-\_\-set\-\_\-schedule}}
+\index{omp\-\_\-set\-\_\-schedule@{omp\-\_\-set\-\_\-schedule}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-schedule}]{\setlength{\rightskip}{0pt plus 5cm}\#define omp\-\_\-set\-\_\-schedule~{\bf ompc\-\_\-set\-\_\-schedule}}}\label{kmp__stub_8c_a185a998481348550ba8508bb4cba72b1}
+
+
+Definition at line 32 of file kmp\-\_\-stub.\-c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__stub_8c_a222b26919cd4eed752eff631c94c4f6d}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a222b26919cd4eed752eff631c94c4f6d}
+
+
+Definition at line 116 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E().
+
+
+\begin{DoxyCode}
+116                                  \{
+117     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+118     \textcolor{keywordflow}{return} \hyperlink{kmp__stub_8c_a0895fb6deb1d83ac170558c4eae9a98d}{\_\_kmps\_blocktime};
+119 \} \textcolor{comment}{// \_\_kmps\_get\_blocktime}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a3004686ce9c01968eb7306a2cb78ac82}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a3004686ce9c01968eb7306a2cb78ac82}
+
+
+Definition at line 128 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-D\-Y\-N\-A\-M\-I\-C().
+
+
+\begin{DoxyCode}
+128                                \{
+129     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+130     \textcolor{keywordflow}{return} \hyperlink{kmp__stub_8c_a8283d96f195eac070fa64108d13c8832}{\_\_kmps\_dynamic};
+131 \} \textcolor{comment}{// \_\_kmps\_get\_dynamic}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a6eaf4ba3aecb00ad0f16c9f648426b42}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-library@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-library}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-library@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-library}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-get\-\_\-library (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a6eaf4ba3aecb00ad0f16c9f648426b42}
+
+
+Definition at line 140 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y().
+
+
+\begin{DoxyCode}
+140                                \{
+141     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+142     \textcolor{keywordflow}{return} \hyperlink{kmp__stub_8c_abd29a9c2e64cfc7d4fbee00ec9b443dd}{\_\_kmps\_library};
+143 \} \textcolor{comment}{// \_\_kmps\_get\_library}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a333574fdcb00417b2c69accf99b02169}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-nested@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-nested}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-nested@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-nested}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-get\-\_\-nested (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a333574fdcb00417b2c69accf99b02169}
+
+
+Definition at line 152 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-N\-E\-S\-T\-E\-D().
+
+
+\begin{DoxyCode}
+152                               \{
+153     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+154     \textcolor{keywordflow}{return} \hyperlink{kmp__stub_8c_ab91809376e621724796ae0eb960f2969}{\_\_kmps\_nested};
+155 \} \textcolor{comment}{// \_\_kmps\_get\_nested}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_adece9cf98036f3bddbd600f829f1de6e}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-proc\-\_\-bind\-\_\-t} \-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_adece9cf98036f3bddbd600f829f1de6e}
+
+
+Definition at line 193 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-P\-R\-O\-C\-\_\-\-B\-I\-N\-D().
+
+
+\begin{DoxyCode}
+193                                              \{
+194     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+195     \textcolor{keywordflow}{return} \hyperlink{kmp__stub_8c_a29b5edf6c9241fceda5e968b096c1cf6}{\_\_kmps\_proc\_bind};
+196 \} \textcolor{comment}{// \_\_kmps\_get\_proc\_bind}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_acda32ed309903784c2065924ea561f9a}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-sched\-\_\-t} $\ast$}]{kind, }
+\item[{{\bf int} $\ast$}]{modifier}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_acda32ed309903784c2065924ea561f9a}
+
+
+Definition at line 178 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-C\-H\-E\-D\-U\-L\-E().
+
+
+\begin{DoxyCode}
+178                                                                  \{
+179         \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+180         *kind     = \hyperlink{kmp__stub_8c_ad7e752cb6f0465c83db2bf2ab4d2f571}{\_\_kmps\_sched\_kind};
+181         *modifier = \hyperlink{kmp__stub_8c_a039b7042077275ad56523d9da4552b2f}{\_\_kmps\_sched\_modifier};
+182     \} \textcolor{comment}{// \_\_kmps\_get\_schedule}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a1d94065fd8e37f1ae5cae93a7bd6cf17}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a1d94065fd8e37f1ae5cae93a7bd6cf17}
+
+
+Definition at line 164 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E\-\_\-\-S().
+
+
+\begin{DoxyCode}
+164                                  \{
+165     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+166     \textcolor{keywordflow}{return} \hyperlink{kmp__stub_8c_a583e784e57697691277a56b776d6db21}{\_\_kmps\_stacksize};
+167 \} \textcolor{comment}{// \_\_kmps\_get\_stacksize}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a8d23c78880b97dee38553ddc6debaddb}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick}]{\setlength{\rightskip}{0pt plus 5cm}double \-\_\-\-\_\-kmps\-\_\-get\-\_\-wtick (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a8d23c78880b97dee38553ddc6debaddb}
+
+
+Definition at line 226 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-W\-T\-I\-C\-K().
+
+
+\begin{DoxyCode}
+226                                 \{
+227     \textcolor{comment}{// Number of seconds between successive clock ticks.}
+228     \textcolor{keywordtype}{double} wtick = 0.0;
+229     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+230 \textcolor{preprocessor}{    #if KMP\_OS\_WINDOWS}
+231 \textcolor{preprocessor}{}        \{
+232             DWORD increment;
+233             DWORD adjustment;
+234             BOOL  disabled;
+235             BOOL  rc;
+236             rc = GetSystemTimeAdjustment( & adjustment, & increment, & disabled );
+237             \textcolor{keywordflow}{if} ( rc ) \{
+238                 wtick = 1.0E-07 * (double)( disabled ? increment : adjustment );
+239             \} \textcolor{keywordflow}{else} \{
+240                 \textcolor{comment}{// TODO: Assert or abort here.}
+241                 wtick = 1.0E-03;
+242             \}; \textcolor{comment}{// if}
+243         \}
+244 \textcolor{preprocessor}{    #else}
+245 \textcolor{preprocessor}{}        \textcolor{comment}{// TODO: gettimeofday() returns in microseconds, but what the precision?}
+246         wtick = 1.0E-06;
+247 \textcolor{preprocessor}{    #endif}
+248 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} wtick;
+249 \}; \textcolor{comment}{// \_\_kmps\_get\_wtick}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a166b6ed0df9c7d50ba42d7a77d270baa}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime}}
+\index{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime@{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime}]{\setlength{\rightskip}{0pt plus 5cm}double \-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a166b6ed0df9c7d50ba42d7a77d270baa}
+
+
+Definition at line 200 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-W\-T\-I\-M\-E().
+
+
+\begin{DoxyCode}
+200                                 \{
+201     \textcolor{comment}{// Elapsed wall clock time (in second) from "sometime in the past".}
+202     \textcolor{keywordtype}{double} wtime = 0.0;
+203     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+204 \textcolor{preprocessor}{    #if KMP\_OS\_WINDOWS}
+205 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} ( \hyperlink{kmp__stub_8c_a4c45cdff103e6644a620ba5061509f22}{frequency} > 0.0 ) \{
+206             LARGE\_INTEGER now;
+207             BOOL \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status} = QueryPerformanceCounter( & now );
+208             \textcolor{keywordflow}{if} ( status ) \{
+209                 wtime = double( now.QuadPart ) / \hyperlink{kmp__stub_8c_a4c45cdff103e6644a620ba5061509f22}{frequency};
+210             \}; \textcolor{comment}{// if}
+211         \}; \textcolor{comment}{// if}
+212 \textcolor{preprocessor}{    #else}
+213 \textcolor{preprocessor}{}        \textcolor{comment}{// gettimeofday() returns seconds and microseconds since the Epoch.}
+214         \textcolor{keyword}{struct }timeval  tval;
+215         \textcolor{keywordtype}{int}             rc;
+216         rc = gettimeofday( & tval, NULL );
+217         \textcolor{keywordflow}{if} ( rc == 0 ) \{
+218             wtime = (double)( tval.tv\_sec ) + 1.0E-06 * (double)( tval.tv\_usec );
+219         \} \textcolor{keywordflow}{else} \{
+220             \textcolor{comment}{// TODO: Assert or abort here.}
+221         \}; \textcolor{comment}{// if}
+222 \textcolor{preprocessor}{    #endif}
+223 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} wtime;
+224 \}; \textcolor{comment}{// \_\_kmps\_get\_wtime}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a6eea72ccce759cad6898484596fb0efe}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-init@{\-\_\-\-\_\-kmps\-\_\-init}}
+\index{\-\_\-\-\_\-kmps\-\_\-init@{\-\_\-\-\_\-kmps\-\_\-init}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static size\-\_\-t \-\_\-\-\_\-kmps\-\_\-init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a6eea72ccce759cad6898484596fb0efe}
+
+
+Definition at line 52 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+52                             \{
+53     \textcolor{keyword}{static} \textcolor{keywordtype}{int}    \hyperlink{ittnotify__static_8h_a181e12fe220d6a81f1647c5a39479f8d}{initialized} = 0;
+54     \textcolor{keyword}{static} \textcolor{keywordtype}{size\_t} dummy = 0;
+55     \textcolor{keywordflow}{if} ( ! initialized ) \{
+56 
+57         \textcolor{comment}{// TODO: Analyze KMP\_VERSION environment variable, print \_\_kmp\_version\_copyright and}
+58         \textcolor{comment}{// \_\_kmp\_version\_build\_time.}
+59         \textcolor{comment}{// WARNING: Do not use "fprintf( stderr, ... )" because it will cause unresolved "\_\_iob"}
+60         \textcolor{comment}{// symbol (see C70080). We need to extract \_\_kmp\_printf() stuff from kmp\_runtime.c and use}
+61         \textcolor{comment}{// it.}
+62 
+63         \textcolor{comment}{// Trick with dummy variable forces linker to keep \_\_kmp\_version\_copyright and}
+64         \textcolor{comment}{// \_\_kmp\_version\_build\_time strings in executable file (in case of static linkage).}
+65         \textcolor{comment}{// When KMP\_VERSION analyze is implemented, dummy variable should be deleted, function}
+66         \textcolor{comment}{// should return void.}
+67         dummy = \hyperlink{kmp__version_8c_ab9842e189b12b74ad5f556f0f4ff8a2f}{\_\_kmp\_version\_copyright} - 
+      \hyperlink{kmp__version_8c_a4c216b47b889b0605f9a18c4a21ad36c}{\_\_kmp\_version\_build\_time};
+68 
+69 \textcolor{preprocessor}{        #if KMP\_OS\_WINDOWS}
+70 \textcolor{preprocessor}{}            LARGE\_INTEGER freq;
+71             BOOL \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status} = QueryPerformanceFrequency( & freq );
+72             \textcolor{keywordflow}{if} ( status ) \{
+73                 \hyperlink{kmp__stub_8c_a4c45cdff103e6644a620ba5061509f22}{frequency} = double( freq.QuadPart );
+74             \}; \textcolor{comment}{// if}
+75 \textcolor{preprocessor}{        #endif}
+76 \textcolor{preprocessor}{}
+77         initialized = 1;
+78     \}; \textcolor{comment}{// if}
+79     \textcolor{keywordflow}{return} dummy;
+80 \}; \textcolor{comment}{// \_\_kmps\_init}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a61d4ad3de087fb14023b4f286d8b05e2}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a61d4ad3de087fb14023b4f286d8b05e2}
+
+
+Definition at line 111 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E(), and kmp\-\_\-set\-\_\-blocktime().
+
+
+\begin{DoxyCode}
+111                                      \{
+112     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+113     \hyperlink{kmp__stub_8c_a0895fb6deb1d83ac170558c4eae9a98d}{\_\_kmps\_blocktime} = arg;
+114 \} \textcolor{comment}{// \_\_kmps\_set\_blocktime}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a6834033d893f8ec7a091f0e957a7b406}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a6834033d893f8ec7a091f0e957a7b406}
+
+
+Definition at line 123 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-D\-Y\-N\-A\-M\-I\-C(), and omp\-\_\-set\-\_\-dynamic().
+
+
+\begin{DoxyCode}
+123                                    \{
+124     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+125     \hyperlink{kmp__stub_8c_a8283d96f195eac070fa64108d13c8832}{\_\_kmps\_dynamic} = arg;
+126 \} \textcolor{comment}{// \_\_kmps\_set\_dynamic}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a07fbe3cc0668f0124afbae5f81bcae87}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-library@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-library}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-library@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-library}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-library (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a07fbe3cc0668f0124afbae5f81bcae87}
+
+
+Definition at line 135 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y\-\_\-\-S\-E\-R\-I\-A\-L(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y\-\_\-\-T\-H\-R\-O\-U\-G\-H\-P\-U\-T(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y\-\_\-\-T\-U\-R\-N\-A\-R\-O\-U\-N\-D(), and kmp\-\_\-set\-\_\-library().
+
+
+\begin{DoxyCode}
+135                                    \{
+136     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+137     \hyperlink{kmp__stub_8c_abd29a9c2e64cfc7d4fbee00ec9b443dd}{\_\_kmps\_library} = arg;
+138 \} \textcolor{comment}{// \_\_kmps\_set\_library}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a20f5f0943431f0d8f40326939f96e12d}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-nested@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-nested}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-nested@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-nested}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-nested (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a20f5f0943431f0d8f40326939f96e12d}
+
+
+Definition at line 147 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-N\-E\-S\-T\-E\-D(), and omp\-\_\-set\-\_\-nested().
+
+
+\begin{DoxyCode}
+147                                   \{
+148     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+149     \hyperlink{kmp__stub_8c_ab91809376e621724796ae0eb960f2969}{\_\_kmps\_nested} = arg;
+150 \} \textcolor{comment}{// \_\_kmps\_set\_nested}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_aa3282fe7347579ff204b31fdd378d0e7}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-proc\-\_\-bind\-\_\-t}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_aa3282fe7347579ff204b31fdd378d0e7}
+
+
+Definition at line 188 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+188                                                  \{
+189     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+190     \hyperlink{kmp__stub_8c_a29b5edf6c9241fceda5e968b096c1cf6}{\_\_kmps\_proc\_bind} = arg;
+191 \} \textcolor{comment}{// \_\_kmps\_set\_proc\_bind}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a2ad243e34f46ec89af69c0d7e089fbe5}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-sched\-\_\-t}}]{kind, }
+\item[{{\bf int}}]{modifier}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a2ad243e34f46ec89af69c0d7e089fbe5}
+
+
+Definition at line 172 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-S\-C\-H\-E\-D\-U\-L\-E(), and omp\-\_\-set\-\_\-schedule().
+
+
+\begin{DoxyCode}
+172                                                                \{
+173         \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+174         \hyperlink{kmp__stub_8c_ad7e752cb6f0465c83db2bf2ab4d2f571}{\_\_kmps\_sched\_kind}     = kind;
+175         \hyperlink{kmp__stub_8c_a039b7042077275ad56523d9da4552b2f}{\_\_kmps\_sched\_modifier} = modifier;
+176     \} \textcolor{comment}{// \_\_kmps\_set\_schedule}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a61d45b31113a05bc7bc55d0cef518ccf}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize}}
+\index{\-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize@{\-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a61d45b31113a05bc7bc55d0cef518ccf}
+
+
+Definition at line 159 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E\-\_\-\-S(), kmp\-\_\-set\-\_\-stacksize(), and kmp\-\_\-set\-\_\-stacksize\-\_\-s().
+
+
+\begin{DoxyCode}
+159                                      \{
+160     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+161     \hyperlink{kmp__stub_8c_a583e784e57697691277a56b776d6db21}{\_\_kmps\_stacksize} = arg;
+162 \} \textcolor{comment}{// \_\_kmps\_set\_stacksize}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a024dc4aaac5f28863d8d7c5cf57c1ff8}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-calloc@{kmp\-\_\-calloc}}
+\index{kmp\-\_\-calloc@{kmp\-\_\-calloc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-calloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ kmp\-\_\-calloc (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{nelem, }
+\item[{size\-\_\-t}]{elsize}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a024dc4aaac5f28863d8d7c5cf57c1ff8}
+
+
+Definition at line 105 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+105 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} calloc( nelem, elsize ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a7e3512de2acc7bdebac244e792e72c9b}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-free@{kmp\-\_\-free}}
+\index{kmp\-\_\-free@{kmp\-\_\-free}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a7e3512de2acc7bdebac244e792e72c9b}
+
+
+Definition at line 107 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+107 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; free( ptr ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_ab5dfa08b1b18d5ab94602f476dac95f2}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-malloc@{kmp\-\_\-malloc}}
+\index{kmp\-\_\-malloc@{kmp\-\_\-malloc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-malloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ kmp\-\_\-malloc (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_ab5dfa08b1b18d5ab94602f476dac95f2}
+
+
+Definition at line 104 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+104 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} malloc( \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_aa0da856a785326976d38a86df480ddff}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-realloc@{kmp\-\_\-realloc}}
+\index{kmp\-\_\-realloc@{kmp\-\_\-realloc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-realloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ kmp\-\_\-realloc (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{ptr, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_aa0da856a785326976d38a86df480ddff}
+
+
+Definition at line 106 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+106 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} realloc( ptr, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a04dc2c43de8beeed4e93a154b9ea0588}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-blocktime@{kmp\-\_\-set\-\_\-blocktime}}
+\index{kmp\-\_\-set\-\_\-blocktime@{kmp\-\_\-set\-\_\-blocktime}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-set\-\_\-blocktime (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a04dc2c43de8beeed4e93a154b9ea0588}
+
+
+Definition at line 99 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+99 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a61d4ad3de087fb14023b4f286d8b05e2}{\_\_kmps\_set\_blocktime}( arg ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a4af7ed944d77728c9b504dc8d3dd9cfb}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-defaults@{kmp\-\_\-set\-\_\-defaults}}
+\index{kmp\-\_\-set\-\_\-defaults@{kmp\-\_\-set\-\_\-defaults}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-defaults}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-set\-\_\-defaults (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a4af7ed944d77728c9b504dc8d3dd9cfb}
+
+
+Definition at line 101 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+101 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a9a8edaf929188c81415418676a0f1a52}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-library@{kmp\-\_\-set\-\_\-library}}
+\index{kmp\-\_\-set\-\_\-library@{kmp\-\_\-set\-\_\-library}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-set\-\_\-library (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a9a8edaf929188c81415418676a0f1a52}
+
+
+Definition at line 100 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+100 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a07fbe3cc0668f0124afbae5f81bcae87}{\_\_kmps\_set\_library}( arg ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a21adb1c4f7bf2442427215c94817ee78}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-stacksize@{kmp\-\_\-set\-\_\-stacksize}}
+\index{kmp\-\_\-set\-\_\-stacksize@{kmp\-\_\-set\-\_\-stacksize}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-stacksize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-set\-\_\-stacksize (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a21adb1c4f7bf2442427215c94817ee78}
+
+
+Definition at line 97 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+97 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a61d45b31113a05bc7bc55d0cef518ccf}{\_\_kmps\_set\_stacksize}( arg ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a2103414d2b7a64ad4b67effbe27f39b4}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmp\-\_\-set\-\_\-stacksize\-\_\-s@{kmp\-\_\-set\-\_\-stacksize\-\_\-s}}
+\index{kmp\-\_\-set\-\_\-stacksize\-\_\-s@{kmp\-\_\-set\-\_\-stacksize\-\_\-s}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmp\-\_\-set\-\_\-stacksize\-\_\-s}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-set\-\_\-stacksize\-\_\-s (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{arg}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a2103414d2b7a64ad4b67effbe27f39b4}
+
+
+Definition at line 98 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+98 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a61d45b31113a05bc7bc55d0cef518ccf}{\_\_kmps\_set\_stacksize}( arg ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a9e2fedf0ecbf2cb302d1bd98b397797f}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc}}
+\index{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{proc, }
+\item[{{\bf void} $\ast$$\ast$}]{mask}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a9e2fedf0ecbf2cb302d1bd98b397797f}
+
+
+Definition at line 94 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+94 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} -1; \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a636c5383acbe154bcd256de944a6f6c2}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc}}
+\index{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{proc, }
+\item[{{\bf void} $\ast$$\ast$}]{mask}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a636c5383acbe154bcd256de944a6f6c2}
+
+
+Definition at line 92 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+92 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} -1; \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a1924c84b1cdfb4ac9e786eb791ca279c}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc}}
+\index{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc@{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{proc, }
+\item[{{\bf void} $\ast$$\ast$}]{mask}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a1924c84b1cdfb4ac9e786eb791ca279c}
+
+
+Definition at line 93 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+93 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} -1; \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a9ebdce8ea962612756e99a0200baa3b6}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num@{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}}
+\index{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num@{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} omp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{level}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a9ebdce8ea962612756e99a0200baa3b6}
+
+
+Definition at line 90 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+90 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} ( level ) ? ( -1 ) : ( 0 ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a7c4f1cff24a96d1c44b5539e583d2cc5}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-get\-\_\-team\-\_\-size@{omp\-\_\-get\-\_\-team\-\_\-size}}
+\index{omp\-\_\-get\-\_\-team\-\_\-size@{omp\-\_\-get\-\_\-team\-\_\-size}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-get\-\_\-team\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} omp\-\_\-get\-\_\-team\-\_\-size (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{level}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a7c4f1cff24a96d1c44b5539e583d2cc5}
+
+
+Definition at line 91 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+91 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \textcolor{keywordflow}{return} ( level ) ? ( -1 ) : ( 1 ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a3f294794c9501a58d541ac98e424c412}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-dynamic@{omp\-\_\-set\-\_\-dynamic}}
+\index{omp\-\_\-set\-\_\-dynamic@{omp\-\_\-set\-\_\-dynamic}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} omp\-\_\-set\-\_\-dynamic (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{dynamic}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a3f294794c9501a58d541ac98e424c412}
+
+
+Definition at line 86 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+86 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a6834033d893f8ec7a091f0e957a7b406}{\_\_kmps\_set\_dynamic}( dynamic ); \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_acb10515979e4f7550a2f0f3e61b3f5e1}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels@{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}}
+\index{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels@{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} omp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{max\-\_\-active\-\_\-levels}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_acb10515979e4f7550a2f0f3e61b3f5e1}
+
+
+Definition at line 88 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+88 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_a77c21d219dd10464650ab466e8470b5d}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-nested@{omp\-\_\-set\-\_\-nested}}
+\index{omp\-\_\-set\-\_\-nested@{omp\-\_\-set\-\_\-nested}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} omp\-\_\-set\-\_\-nested (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{nested}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_a77c21d219dd10464650ab466e8470b5d}
+
+
+Definition at line 87 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+87 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a20f5f0943431f0d8f40326939f96e12d}{\_\_kmps\_set\_nested}( nested );   \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_aecaf5d91b6c0f87fdb024cb4f616fe24}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-num\-\_\-threads@{omp\-\_\-set\-\_\-num\-\_\-threads}}
+\index{omp\-\_\-set\-\_\-num\-\_\-threads@{omp\-\_\-set\-\_\-num\-\_\-threads}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} omp\-\_\-set\-\_\-num\-\_\-threads (
+\begin{DoxyParamCaption}
+\item[{omp\-\_\-int\-\_\-t}]{num\-\_\-threads}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_aecaf5d91b6c0f87fdb024cb4f616fe24}
+
+
+Definition at line 85 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+85 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \}
+\end{DoxyCode}
+\hypertarget{kmp__stub_8c_aa590638046775bf35fc13a2848191dc1}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!omp\-\_\-set\-\_\-schedule@{omp\-\_\-set\-\_\-schedule}}
+\index{omp\-\_\-set\-\_\-schedule@{omp\-\_\-set\-\_\-schedule}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{omp\-\_\-set\-\_\-schedule}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} omp\-\_\-set\-\_\-schedule (
+\begin{DoxyParamCaption}
+\item[{{\bf omp\-\_\-sched\-\_\-t}}]{kind, }
+\item[{omp\-\_\-int\-\_\-t}]{modifier}
+\end{DoxyParamCaption}
+)}}\label{kmp__stub_8c_aa590638046775bf35fc13a2848191dc1}
+
+
+Definition at line 89 of file kmp\-\_\-stub.\-c.
+
+
+\begin{DoxyCode}
+89 \{ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}; \hyperlink{kmp__stub_8c_a2ad243e34f46ec89af69c0d7e089fbe5}{\_\_kmps\_set\_schedule}( (\hyperlink{kmp_8h_a781573148b50d6afafb6f332d9477eef}{kmp\_sched\_t})kind, modifier ); \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__stub_8c_a0895fb6deb1d83ac170558c4eae9a98d}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-blocktime@{\-\_\-\-\_\-kmps\-\_\-blocktime}}
+\index{\-\_\-\-\_\-kmps\-\_\-blocktime@{\-\_\-\-\_\-kmps\-\_\-blocktime}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-blocktime = I\-N\-T\-\_\-\-M\-A\-X\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a0895fb6deb1d83ac170558c4eae9a98d}
+
+
+Definition at line 109 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-blocktime(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-blocktime().
+
+\hypertarget{kmp__stub_8c_a8283d96f195eac070fa64108d13c8832}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-dynamic@{\-\_\-\-\_\-kmps\-\_\-dynamic}}
+\index{\-\_\-\-\_\-kmps\-\_\-dynamic@{\-\_\-\-\_\-kmps\-\_\-dynamic}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-dynamic = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a8283d96f195eac070fa64108d13c8832}
+
+
+Definition at line 121 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-dynamic(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-dynamic().
+
+\hypertarget{kmp__stub_8c_abd29a9c2e64cfc7d4fbee00ec9b443dd}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-library@{\-\_\-\-\_\-kmps\-\_\-library}}
+\index{\-\_\-\-\_\-kmps\-\_\-library@{\-\_\-\-\_\-kmps\-\_\-library}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-library = 1000\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_abd29a9c2e64cfc7d4fbee00ec9b443dd}
+
+
+Definition at line 133 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-library(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-library().
+
+\hypertarget{kmp__stub_8c_ab91809376e621724796ae0eb960f2969}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-nested@{\-\_\-\-\_\-kmps\-\_\-nested}}
+\index{\-\_\-\-\_\-kmps\-\_\-nested@{\-\_\-\-\_\-kmps\-\_\-nested}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-nested = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_ab91809376e621724796ae0eb960f2969}
+
+
+Definition at line 145 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-nested(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-nested().
+
+\hypertarget{kmp__stub_8c_a29b5edf6c9241fceda5e968b096c1cf6}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind}}
+\index{\-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-proc\-\_\-bind\-\_\-t} \-\_\-\-\_\-kmps\-\_\-proc\-\_\-bind = {\bf proc\-\_\-bind\-\_\-false}\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a29b5edf6c9241fceda5e968b096c1cf6}
+
+
+Definition at line 186 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-proc\-\_\-bind(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-proc\-\_\-bind().
+
+\hypertarget{kmp__stub_8c_ad7e752cb6f0465c83db2bf2ab4d2f571}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind@{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind}}
+\index{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind@{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-sched\-\_\-t} \-\_\-\-\_\-kmps\-\_\-sched\-\_\-kind = {\bf kmp\-\_\-sched\-\_\-default}\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_ad7e752cb6f0465c83db2bf2ab4d2f571}
+
+
+Definition at line 169 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule().
+
+\hypertarget{kmp__stub_8c_a039b7042077275ad56523d9da4552b2f}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier@{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier}}
+\index{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier@{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmps\-\_\-sched\-\_\-modifier = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a039b7042077275ad56523d9da4552b2f}
+
+
+Definition at line 170 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-schedule(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-schedule().
+
+\hypertarget{kmp__stub_8c_a583e784e57697691277a56b776d6db21}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!\-\_\-\-\_\-kmps\-\_\-stacksize@{\-\_\-\-\_\-kmps\-\_\-stacksize}}
+\index{\-\_\-\-\_\-kmps\-\_\-stacksize@{\-\_\-\-\_\-kmps\-\_\-stacksize}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmps\-\_\-stacksize}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmps\-\_\-stacksize = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-T\-K\-S\-I\-Z\-E}\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a583e784e57697691277a56b776d6db21}
+
+
+Definition at line 157 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-stacksize(), and \-\_\-\-\_\-kmps\-\_\-set\-\_\-stacksize().
+
+\hypertarget{kmp__stub_8c_a4c45cdff103e6644a620ba5061509f22}{\index{kmp\-\_\-stub.\-c@{kmp\-\_\-stub.\-c}!frequency@{frequency}}
+\index{frequency@{frequency}!kmp_stub.c@{kmp\-\_\-stub.\-c}}
+\subsubsection[{frequency}]{\setlength{\rightskip}{0pt plus 5cm}double frequency = 0.\-0\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__stub_8c_a4c45cdff103e6644a620ba5061509f22}
+
+
+Definition at line 49 of file kmp\-\_\-stub.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmps\-\_\-get\-\_\-wtime(), and \-\_\-\-\_\-kmps\-\_\-init().
+

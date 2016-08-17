@@ -7,6 +7,10 @@ enum \hyperlink{group__WAIT__RELEASE_ga507a7197646f995b5529a68c1481e39b}{flag\-\
 \hyperlink{group__WAIT__RELEASE_gga507a7197646f995b5529a68c1481e39ba8b02d824728fb546d43123b8b069ed04}{flag64}, 
 \hyperlink{group__WAIT__RELEASE_gga507a7197646f995b5529a68c1481e39ba9e8f1573ea73441426c6a6dda73b4e49}{flag\-\_\-oncore}
  \}
+\item 
+{\footnotesize template$<$class C $>$ }\\static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WAIT__RELEASE_gabe62fb00e04b4d30528d441232b0e62a}{\-\_\-\-\_\-kmp\-\_\-wait\-\_\-template} (\hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$this\-\_\-thr, C $\ast$flag, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} final\-\_\-spin \hyperlink{kmp__itt_8h_ac31864b9b5b30f5dcac5ab285ee97ae0}{U\-S\-E\-\_\-\-I\-T\-T\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-R\-G}(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$itt\-\_\-sync\-\_\-obj))
+\item 
+{\footnotesize template$<$class C $>$ }\\static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__WAIT__RELEASE_ga69a3eeeb736df0221080fff120336b5a}{\-\_\-\-\_\-kmp\-\_\-release\-\_\-template} (C $\ast$flag)
 \end{DoxyCompactItemize}
 
 
@@ -32,3 +36,275 @@ The flag\-\_\-type describes the storage used for the flag. \begin{Desc}
 
 Definition at line 38 of file kmp\-\_\-wait\-\_\-release.\-h.
 
+
+\begin{DoxyCode}
+38                \{
+39     \hyperlink{group__WAIT__RELEASE_gga507a7197646f995b5529a68c1481e39baa8e37e16d043d78e34da1d19387be5ba}{flag32},        \textcolor{comment}{/**< 32 bit flags */}
+40     \hyperlink{group__WAIT__RELEASE_gga507a7197646f995b5529a68c1481e39ba8b02d824728fb546d43123b8b069ed04}{flag64},        \textcolor{comment}{/**< 64 bit flags */}
+41     \hyperlink{group__WAIT__RELEASE_gga507a7197646f995b5529a68c1481e39ba9e8f1573ea73441426c6a6dda73b4e49}{flag\_oncore}    \textcolor{comment}{/**< special 64-bit flag for on-core barrier (hierarchical) */}
+42 \};
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\hypertarget{group__WAIT__RELEASE_ga69a3eeeb736df0221080fff120336b5a}{\index{Wait/\-Release operations@{Wait/\-Release operations}!\-\_\-\-\_\-kmp\-\_\-release\-\_\-template@{\-\_\-\-\_\-kmp\-\_\-release\-\_\-template}}
+\index{\-\_\-\-\_\-kmp\-\_\-release\-\_\-template@{\-\_\-\-\_\-kmp\-\_\-release\-\_\-template}!Wait/Release operations@{Wait/\-Release operations}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-release\-\_\-template}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class C $>$ static {\bf void} \-\_\-\-\_\-kmp\-\_\-release\-\_\-template (
+\begin{DoxyParamCaption}
+\item[{C $\ast$}]{flag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{group__WAIT__RELEASE_ga69a3eeeb736df0221080fff120336b5a}
+
+
+Definition at line 287 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-release\-\_\-32(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-64(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-oncore(), kmp\-\_\-flag\-\_\-32\-::release(), kmp\-\_\-flag\-\_\-64\-::release(), and kmp\-\_\-flag\-\_\-oncore\-::release().
+
+
+\begin{DoxyCode}
+288 \{
+289 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+290 \textcolor{preprocessor}{}    \textcolor{keywordtype}{int} gtid = \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a3f91f5b94048484e40c6caeb66c60f27}{\_\_kmp\_init\_gtid}) ? \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}() : -1;
+291 \textcolor{preprocessor}{#endif}
+292 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_release: T#%d releasing flag(%x)\(\backslash\)n"}, gtid, flag->get()));
+293     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(flag->get());
+294     \hyperlink{kmp__itt_8h_a321c5d523f392e432350caffc38aecee}{KMP\_FSYNC\_RELEASING}(flag->get());
+295 
+296     flag->internal\_release();
+297 
+298     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"\_\_kmp\_release: T#%d set new spin=%d\(\backslash\)n"}, gtid, flag->get(), *(flag->get())));
+299 
+300     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a3b56e2e90e1539c0b794e4137724bc1c}{\_\_kmp\_dflt\_blocktime} != \hyperlink{kmp_8h_a1ca6c6ce04115f143dc5df627de57958}{KMP\_MAX\_BLOCKTIME}) \{
+301         \textcolor{comment}{// Only need to check sleep stuff if infinite block time not set}
+302         \textcolor{keywordflow}{if} (flag->is\_any\_sleeping()) \{ \textcolor{comment}{// Are *any* of the threads that wait on this flag sleeping?}
+303             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<flag->get\_num\_waiters(); ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+304                 \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} * waiter = flag->get\_waiter(\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}); \textcolor{comment}{// if a sleeping waiter exists at i,
+       sets current\_waiter to i inside the flag}
+305                 \textcolor{keywordflow}{if} (waiter) \{
+306                     \textcolor{keywordtype}{int} wait\_gtid = waiter->th.th\_info.ds.ds\_gtid;
+307                     \textcolor{comment}{// Wake up thread if needed}
+308                     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"\_\_kmp\_release: T#%d waking up thread T#%d since sleep flag(%p)
+       set\(\backslash\)n"},
+309                                   gtid, wait\_gtid, flag->get()));
+310                     flag->resume(wait\_gtid); \textcolor{comment}{// unsets flag's current\_waiter when done}
+311                 \}
+312             \}
+313         \}
+314     \}
+315 \}
+\end{DoxyCode}
+\hypertarget{group__WAIT__RELEASE_gabe62fb00e04b4d30528d441232b0e62a}{\index{Wait/\-Release operations@{Wait/\-Release operations}!\-\_\-\-\_\-kmp\-\_\-wait\-\_\-template@{\-\_\-\-\_\-kmp\-\_\-wait\-\_\-template}}
+\index{\-\_\-\-\_\-kmp\-\_\-wait\-\_\-template@{\-\_\-\-\_\-kmp\-\_\-wait\-\_\-template}!Wait/Release operations@{Wait/\-Release operations}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-wait\-\_\-template}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class C $>$ static {\bf void} \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-info\-\_\-t} $\ast$}]{this\-\_\-thr, }
+\item[{C $\ast$}]{flag, }
+\item[{{\bf int} final\-\_\-spin }]{U\-S\-E\-\_\-\-I\-T\-T\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-R\-Gvoid $\ast$itt\-\_\-sync\-\_\-obj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{group__WAIT__RELEASE_gabe62fb00e04b4d30528d441232b0e62a}
+
+
+Definition at line 90 of file kmp\-\_\-wait\-\_\-release.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-wait\-\_\-32(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-64(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-oncore(), kmp\-\_\-flag\-\_\-32\-::wait(), and kmp\-\_\-flag\-\_\-64\-::wait().
+
+
+\begin{DoxyCode}
+92 \{
+93     \textcolor{comment}{// NOTE: We may not belong to a team at this point.}
+94     \textcolor{keyword}{volatile} \textcolor{keyword}{typename} C::flag\_t *spin = flag->get();
+95     kmp\_uint32 spins;
+96     kmp\_uint32 hibernate;
+97     \textcolor{keywordtype}{int} th\_gtid;
+98     \textcolor{keywordtype}{int} tasks\_completed = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+99 
+100     \hyperlink{kmp__itt_8h_ae9ed9a1ec697c0049760eee81cf6521a}{KMP\_FSYNC\_SPIN\_INIT}(spin, NULL);
+101     \textcolor{keywordflow}{if} (flag->done\_check()) \{
+102         \hyperlink{kmp__itt_8h_a580841033d05175a7d1d36d91bdb9267}{KMP\_FSYNC\_SPIN\_ACQUIRED}(spin);
+103         \textcolor{keywordflow}{return};
+104     \}
+105     th\_gtid = this\_thr->th.th\_info.ds.ds\_gtid;
+106     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_wait\_sleep: T#%d waiting for flag(%p)\(\backslash\)n"}, th\_gtid, flag));
+107 
+108 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_BLAME}
+109 \textcolor{preprocessor}{}    ompt\_state\_t ompt\_state = this\_thr->th.ompt\_thread\_info.state;
+110     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+111         ompt\_state != ompt\_state\_undefined) \{
+112         \textcolor{keywordflow}{if} (ompt\_state == ompt\_state\_idle) \{
+113             \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_idle\_begin)) \{
+114                 \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_idle\_begin)(th\_gtid + 1);
+115             \}
+116         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_wait\_barrier\_begin)) \{
+117             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(ompt\_state == ompt\_state\_wait\_barrier ||
+118                              ompt\_state == ompt\_state\_wait\_barrier\_implicit ||
+119                              ompt\_state == ompt\_state\_wait\_barrier\_explicit);
+120 
+121             \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t}* team = this\_thr->th.th\_team->t.ompt\_serialized\_team\_info;
+122             ompt\_parallel\_id\_t pId;
+123             ompt\_task\_id\_t tId;
+124             \textcolor{keywordflow}{if} (team)\{
+125                 pId = team->\hyperlink{structompt__lw__taskteam__s_a548ab004e1bed7cea20532f1e168ce3d}{ompt\_team\_info}.\hyperlink{structompt__team__info__t_aea8969d8ca37577c35b466c675a7a241}{parallel\_id};
+126                 tId = team->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id};
+127             \} \textcolor{keywordflow}{else} \{
+128                 pId = this\_thr->th.th\_team->t.ompt\_team\_info.parallel\_id;
+129                 tId = this\_thr->th.th\_current\_task->ompt\_task\_info.task\_id;
+130             \}
+131             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_wait\_barrier\_begin)(pId, tId);
+132         \}
+133     \}
+134 \textcolor{preprocessor}{#endif}
+135 \textcolor{preprocessor}{}
+136     \textcolor{comment}{// Setup for waiting}
+137     \hyperlink{kmp_8h_a98cb21bfd34ebd451007a151f135b31c}{KMP\_INIT\_YIELD}(spins);
+138 
+139     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a3b56e2e90e1539c0b794e4137724bc1c}{\_\_kmp\_dflt\_blocktime} != \hyperlink{kmp_8h_a1ca6c6ce04115f143dc5df627de57958}{KMP\_MAX\_BLOCKTIME}) \{
+140         \textcolor{comment}{// The worker threads cannot rely on the team struct existing at this point.}
+141         \textcolor{comment}{// Use the bt values cached in the thread struct instead.}
+142 \textcolor{preprocessor}{#ifdef KMP\_ADJUST\_BLOCKTIME}
+143 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (\_\_kmp\_zero\_bt && !this\_thr->th.th\_team\_bt\_set)
+144             \textcolor{comment}{// Force immediate suspend if not set by user and more threads than available procs}
+145             hibernate = 0;
+146         \textcolor{keywordflow}{else}
+147             hibernate = this\_thr->th.th\_team\_bt\_intervals;
+148 \textcolor{preprocessor}{#else}
+149 \textcolor{preprocessor}{}        hibernate = this\_thr->th.th\_team\_bt\_intervals;
+150 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* KMP\_ADJUST\_BLOCKTIME */}\textcolor{preprocessor}{}
+151 \textcolor{preprocessor}{}
+152         \textcolor{comment}{/* If the blocktime is nonzero, we want to make sure that we spin wait for the entirety}
+153 \textcolor{comment}{           of the specified #intervals, plus up to one interval more.  This increment make}
+154 \textcolor{comment}{           certain that this thread doesn't go to sleep too soon.  */}
+155         \textcolor{keywordflow}{if} (hibernate != 0)
+156             hibernate++;
+157 
+158         \textcolor{comment}{// Add in the current time value.}
+159         hibernate += \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_time.dt.t\_value);
+160         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(20, (\textcolor{stringliteral}{"\_\_kmp\_wait\_sleep: T#%d now=%d, hibernate=%d, intervals=%d\(\backslash\)n"},
+161                       th\_gtid, \hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_time.dt.t\_value, hibernate,
+162                       hibernate - \hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_time.dt.t\_value));
+163     \}
+164 
+165     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+166 
+167     \textcolor{comment}{// Main wait spin loop}
+168     \textcolor{keywordflow}{while} (flag->notdone\_check()) \{
+169         \textcolor{keywordtype}{int} in\_pool;
+170 
+171         \textcolor{comment}{/* If the task team is NULL, it means one of things:}
+172 \textcolor{comment}{           1) A newly-created thread is first being released by \_\_kmp\_fork\_barrier(), and}
+173 \textcolor{comment}{              its task team has not been set up yet.}
+174 \textcolor{comment}{           2) All tasks have been executed to completion, this thread has decremented the task}
+175 \textcolor{comment}{              team's ref ct and possibly deallocated it, and should no longer reference it.}
+176 \textcolor{comment}{           3) Tasking is off for this region.  This could be because we are in a serialized region}
+177 \textcolor{comment}{              (perhaps the outer one), or else tasking was manually disabled (KMP\_TASKING=0).  */}
+178         \hyperlink{unionkmp__task__team}{kmp\_task\_team\_t} * task\_team = NULL;
+179         \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a39e87c52fb75a615c2564a822a013a5a}{\_\_kmp\_tasking\_mode} != \hyperlink{kmp_8h_aad1bdfbfac136cfd92611bcee79ca3f2af827998cf4eb3f61723edc4943b86c98}{tskm\_immediate\_exec}) \{
+180             task\_team = this\_thr->th.th\_task\_team;
+181             \textcolor{keywordflow}{if} (task\_team != NULL) \{
+182                 \textcolor{keywordflow}{if} (\hyperlink{kmp__os_8h_af713939cb15fad1a626c6d8789896feb}{TCR\_SYNC\_4}(task\_team->\hyperlink{unionkmp__task__team_a18728e49ce76f29250a4be77cd7a2ff4}{tt}.\hyperlink{structkmp__base__task__team_aa6e9a8311f759172e980d0f75bf81f7b}{tt\_active})) \{
+183                     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a8b15269c2644fa0ba3ee09b0eb025867}{KMP\_TASKING\_ENABLED}(task\_team))
+184                         flag->execute\_tasks(this\_thr, th\_gtid, final\_spin, &tasks\_completed
+185                                             \hyperlink{kmp__itt_8h_ac31864b9b5b30f5dcac5ab285ee97ae0}{USE\_ITT\_BUILD\_ARG}(itt\_sync\_obj), 0);
+186                 \}
+187                 \textcolor{keywordflow}{else} \{
+188                     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(!\hyperlink{kmp_8h_a7a4e2494d803bbee99f23af2117f6dd8}{KMP\_MASTER\_TID}(this\_thr->th.th\_info.ds.
+      ds\_tid));
+189                     this\_thr->th.th\_task\_team = NULL;
+190                 \}
+191             \} \textcolor{comment}{// if}
+192         \} \textcolor{comment}{// if}
+193 
+194         \hyperlink{kmp__itt_8h_aadbbcf10e55850897e6d495729925851}{KMP\_FSYNC\_SPIN\_PREPARE}(spin);
+195         \textcolor{keywordflow}{if} (\hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_done)) \{
+196             \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_abort)
+197                 \hyperlink{kmp_8h_a3af0772074c6291cf8d346cef0e22c75}{\_\_kmp\_abort\_thread}();
+198             \textcolor{keywordflow}{break};
+199         \}
+200 
+201         \textcolor{comment}{// If we are oversubscribed, or have waited a bit (and KMP\_LIBRARY=throughput), then yield}
+202         \hyperlink{kmp_8h_a9f0d88d1970adda4ad38d272e65d7844}{KMP\_YIELD}(\hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a774ce85ac109df119feaca45ed4e69b1}{\_\_kmp\_nth}) > \hyperlink{kmp_8h_adc73a89e0c77c9b0a3233f9fde48a5b2}{\_\_kmp\_avail\_proc});
+203         \textcolor{comment}{// TODO: Should it be number of cores instead of thread contexts? Like:}
+204         \textcolor{comment}{// KMP\_YIELD(TCR\_4(\_\_kmp\_nth) > \_\_kmp\_ncores);}
+205         \textcolor{comment}{// Need performance improvement data to make the change...}
+206         \hyperlink{kmp_8h_a0b31ac108fea7d8034ea5145d74a7a77}{KMP\_YIELD\_SPIN}(spins);
+207 
+208         \textcolor{comment}{// Check if this thread was transferred from a team}
+209         \textcolor{comment}{// to the thread pool (or vice-versa) while spinning.}
+210         in\_pool = !!\hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(this\_thr->th.th\_in\_pool);
+211         \textcolor{keywordflow}{if} (in\_pool != !!this\_thr->th.th\_active\_in\_pool) \{
+212             \textcolor{keywordflow}{if} (in\_pool) \{ \textcolor{comment}{// Recently transferred from team to pool}
+213                 \hyperlink{kmp__os_8h_a201982f51ff23ad84ae6781ad4265e3a}{KMP\_TEST\_THEN\_INC32}((kmp\_int32 *)&
+      \hyperlink{kmp_8h_adeeafca09cd1560dcc9bc78ee1df217d}{\_\_kmp\_thread\_pool\_active\_nth});
+214                 this\_thr->th.th\_active\_in\_pool = \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+215                 \textcolor{comment}{/* Here, we cannot assert that:}
+216 \textcolor{comment}{                   KMP\_DEBUG\_ASSERT(TCR\_4(\_\_kmp\_thread\_pool\_active\_nth) <= \_\_kmp\_thread\_pool\_nth);}
+217 \textcolor{comment}{                   \_\_kmp\_thread\_pool\_nth is inc/dec'd by the master thread while the fork/join}
+218 \textcolor{comment}{                   lock is held, whereas \_\_kmp\_thread\_pool\_active\_nth is inc/dec'd asynchronously}
+219 \textcolor{comment}{                   by the workers.  The two can get out of sync for brief periods of time.  */}
+220             \}
+221             \textcolor{keywordflow}{else} \{ \textcolor{comment}{// Recently transferred from pool to team}
+222                 \hyperlink{kmp__os_8h_a5b23523b95ee4b2307a8f344cbbe8050}{KMP\_TEST\_THEN\_DEC32}((kmp\_int32 *) &
+      \hyperlink{kmp_8h_adeeafca09cd1560dcc9bc78ee1df217d}{\_\_kmp\_thread\_pool\_active\_nth});
+223                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(
+      \hyperlink{kmp_8h_adeeafca09cd1560dcc9bc78ee1df217d}{\_\_kmp\_thread\_pool\_active\_nth}) >= 0);
+224                 this\_thr->th.th\_active\_in\_pool = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+225             \}
+226         \}
+227 
+228         \textcolor{comment}{// Don't suspend if KMP\_BLOCKTIME is set to "infinite"}
+229         \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a3b56e2e90e1539c0b794e4137724bc1c}{\_\_kmp\_dflt\_blocktime} == \hyperlink{kmp_8h_a1ca6c6ce04115f143dc5df627de57958}{KMP\_MAX\_BLOCKTIME})
+230             \textcolor{keywordflow}{continue};
+231 
+232         \textcolor{comment}{// Don't suspend if there is a likelihood of new tasks being spawned.}
+233         \textcolor{keywordflow}{if} ((task\_team != NULL) && \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(task\_team->\hyperlink{unionkmp__task__team_a18728e49ce76f29250a4be77cd7a2ff4}{tt}.\hyperlink{structkmp__base__task__team_afb1c5ccacb58cdd0dd0895e4d535c120}{tt\_found\_tasks}))
+234             \textcolor{keywordflow}{continue};
+235 
+236         \textcolor{comment}{// If we have waited a bit more, fall asleep}
+237         \textcolor{keywordflow}{if} (\hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_time.dt.t\_value) < hibernate)
+238             \textcolor{keywordflow}{continue};
+239 
+240         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"\_\_kmp\_wait\_sleep: T#%d suspend time reached\(\backslash\)n"}, th\_gtid));
+241 
+242         flag->suspend(th\_gtid);
+243 
+244         \textcolor{keywordflow}{if} (\hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_done)) \{
+245             \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a11b71922a4df46ff9e8dbc68693e8d67}{\_\_kmp\_global}.g.g\_abort)
+246                 \hyperlink{kmp_8h_a3af0772074c6291cf8d346cef0e22c75}{\_\_kmp\_abort\_thread}();
+247             \textcolor{keywordflow}{break};
+248         \}
+249         \textcolor{comment}{// TODO: If thread is done with work and times out, disband/free}
+250     \}
+251 
+252 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_BLAME}
+253 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+254         ompt\_state != ompt\_state\_undefined) \{
+255         \textcolor{keywordflow}{if} (ompt\_state == ompt\_state\_idle) \{
+256             \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_idle\_end)) \{
+257                 \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_idle\_end)(th\_gtid + 1);
+258             \}
+259         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_wait\_barrier\_end)) \{
+260             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(ompt\_state == ompt\_state\_wait\_barrier ||
+261                              ompt\_state == ompt\_state\_wait\_barrier\_implicit ||
+262                              ompt\_state == ompt\_state\_wait\_barrier\_explicit);
+263 
+264             \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t}* team = this\_thr->th.th\_team->t.ompt\_serialized\_team\_info;
+265             ompt\_parallel\_id\_t pId;
+266             ompt\_task\_id\_t tId;
+267             \textcolor{keywordflow}{if} (team)\{
+268                 pId = team->\hyperlink{structompt__lw__taskteam__s_a548ab004e1bed7cea20532f1e168ce3d}{ompt\_team\_info}.\hyperlink{structompt__team__info__t_aea8969d8ca37577c35b466c675a7a241}{parallel\_id};
+269                 tId = team->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id};
+270             \} \textcolor{keywordflow}{else} \{
+271                 pId = this\_thr->th.th\_team->t.ompt\_team\_info.parallel\_id;
+272                 tId = this\_thr->th.th\_current\_task->ompt\_task\_info.task\_id;
+273             \}
+274             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_wait\_barrier\_end)(pId, tId);
+275         \}
+276     \}
+277 \textcolor{preprocessor}{#endif}
+278 \textcolor{preprocessor}{}
+279     \hyperlink{kmp__itt_8h_a580841033d05175a7d1d36d91bdb9267}{KMP\_FSYNC\_SPIN\_ACQUIRED}(spin);
+280 \}
+\end{DoxyCode}

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['parallel_20_28fork_2fjoin_29',['Parallel (fork/join)',['../group__PARALLEL.html',1,'']]]
+  ['deprecated_20functions',['Deprecated Functions',['../group__DEPRECATED.html',1,'']]],
+  ['domains',['Domains',['../group__domains.html',1,'']]]
 ];

@@ -1,0 +1,755 @@
+\hypertarget{kmp__threadprivate_8c}{\section{kmp\-\_\-threadprivate.\-c File Reference}
+\label{kmp__threadprivate_8c}\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-itt.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__threadprivate_8c_a5530e58b7e1260ccae00318a157393b9}{U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N}
+\item 
+\#define \hyperlink{kmp__threadprivate_8c_ac8ace2c18eba5ab8cb129884814e992e}{K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__threadprivate_8c_a497693536a063602f144c2a0a7c4c41f}{kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$pc\-\_\-addr, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$data\-\_\-addr, size\-\_\-t pc\-\_\-size)
+\item 
+struct \hyperlink{structprivate__common}{private\-\_\-common} $\ast$ \hyperlink{kmp__threadprivate_8c_a92b5773796f6d67b45d1f5a4f560a0bf}{kmp\-\_\-threadprivate\-\_\-insert} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$pc\-\_\-addr, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$data\-\_\-addr, size\-\_\-t pc\-\_\-size)
+\item 
+static \-\_\-\-\_\-forceinline struct \\*
+\hyperlink{structprivate__common}{private\-\_\-common} $\ast$ \hyperlink{kmp__threadprivate_8c_a44d92f70642924e926a66ad539633759}{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common} (struct \hyperlink{structcommon__table}{common\-\_\-table} $\ast$tbl, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$pc\-\_\-addr)
+\item 
+static \-\_\-\-\_\-forceinline struct \\*
+\hyperlink{structshared__common}{shared\-\_\-common} $\ast$ \hyperlink{kmp__threadprivate_8c_a89f3380531af4850006d1b7a6d381df3}{\-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common} (struct \hyperlink{structshared__table}{shared\-\_\-table} $\ast$tbl, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$pc\-\_\-addr)
+\item 
+static struct \hyperlink{structprivate__data}{private\-\_\-data} $\ast$ \hyperlink{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$pc\-\_\-addr, size\-\_\-t pc\-\_\-size)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__threadprivate_8c_aa449ccc99adc86bc36ff8200114854d9}{\-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$pc\-\_\-addr, struct \hyperlink{structprivate__data}{private\-\_\-data} $\ast$\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__threadprivate_8c_a17cf47cca5a54cf10174b36475d16e3c}{\-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__threadprivate_8c_a1785b27f3360d664998e2f7bd2ba7d70}{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__threadprivate_8c_ad3ce124dfe851be0147daa831b27af5d}{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__THREADPRIVATE_ga120efa08eb51f45664477d30eff31916}{\-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-register} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{group__THREADPRIVATE_ga0c2f8074a8474eee42bc96a4bdc7679a}{kmpc\-\_\-ctor} ctor, \hyperlink{group__THREADPRIVATE_gab6148c019e88c8853596bf5f516373b4}{kmpc\-\_\-cctor} cctor, \hyperlink{group__THREADPRIVATE_gad8268ac7d007fa1c3351da682c487c0f}{kmpc\-\_\-dtor} dtor)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{kmp__threadprivate_8c_a5af8bf0a1816291e561251e5b9ba0581}{\-\_\-\-\_\-kmpc\-\_\-threadprivate} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{group__THREADPRIVATE_gab4aa3dff2b1b55b1abb002ef69c7efe7}{\-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$$\ast$cache)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__THREADPRIVATE_gaec6e88892a1b0b62287df5173a7f0336}{\-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-register\-\_\-vec} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{group__THREADPRIVATE_gac1f868aef7d531d34b91eaa57e339f21}{kmpc\-\_\-ctor\-\_\-vec} ctor, \hyperlink{group__THREADPRIVATE_gaf9503cacabf6cf90ed34f2727fc480bc}{kmpc\-\_\-cctor\-\_\-vec} cctor, \hyperlink{group__THREADPRIVATE_gab7035b42d465074b31195534efb37e3b}{kmpc\-\_\-dtor\-\_\-vec} dtor, size\-\_\-t vector\-\_\-length)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structshared__table}{shared\-\_\-table} \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__threadprivate_8c_ac8ace2c18eba5ab8cb129884814e992e}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R@{K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R}}
+\index{K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R@{K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-I\-N\-L\-I\-N\-E\-\_\-\-S\-U\-B\-R~1}}\label{kmp__threadprivate_8c_ac8ace2c18eba5ab8cb129884814e992e}
+
+
+Definition at line 25 of file kmp\-\_\-threadprivate.\-c.
+
+\hypertarget{kmp__threadprivate_8c_a5530e58b7e1260ccae00318a157393b9}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N@{U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N}}
+\index{U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N@{U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\-S\-E\-\_\-\-C\-H\-E\-C\-K\-S\-\_\-\-C\-O\-M\-M\-O\-N}}\label{kmp__threadprivate_8c_a5530e58b7e1260ccae00318a157393b9}
+
+
+Definition at line 23 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__threadprivate_8c_a1785b27f3360d664998e2f7bd2ba7d70}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy@{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy}}
+\index{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy@{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__threadprivate_8c_a1785b27f3360d664998e2f7bd2ba7d70}
+
+
+Definition at line 182 of file kmp\-\_\-threadprivate.\-c.
+
+
+\begin{DoxyCode}
+183 \{
+184     \textcolor{keywordflow}{if}( \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a5f3438a34f9250663bc10f78b727dc1a}{\_\_kmp\_init\_common}) ) \{
+185         \textcolor{keywordtype}{int} q;
+186 
+187         \hyperlink{kmp__os_8h_ae67779cc7794b5dd7eee4c7f2c7789d4}{TCW\_4}(\hyperlink{kmp_8h_a5f3438a34f9250663bc10f78b727dc1a}{\_\_kmp\_init\_common}, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+188 
+189         \textcolor{keywordflow}{for} (q = 0; q < \hyperlink{kmp_8h_a18bbfe585fccb920012f9477c07977b7}{KMP\_HASH\_TABLE\_SIZE}; ++q) \{
+190             \textcolor{keywordtype}{int} gtid;
+191             \textcolor{keyword}{struct }\hyperlink{structprivate__common}{private\_common} *tn;
+192             \textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common}  *d\_tn;
+193 
+194             \textcolor{comment}{/*  C++ destructors need to be called once per thread before exiting  */}
+195             \textcolor{comment}{/*  don't call destructors for master thread though unless we used copy constructor */}
+196 
+197             \textcolor{keywordflow}{for} (d\_tn = \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table}.
+      \hyperlink{structshared__table_acbe02cd3db1cddd2f658db7e64c2bfc5}{data}[ q ]; d\_tn; d\_tn = d\_tn->\hyperlink{structshared__common_aa54da923f39ba340f472b4a62205b967}{next}) \{
+198                 \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_affe99e67b32f42b3bae07c95c59d8f24}{is\_vec}) \{
+199                     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a010d4cfee51a4eef6f53edb1dd7be918}{dtorv} != 0) \{
+200                         \textcolor{keywordflow}{for} (gtid = 0; gtid < \hyperlink{kmp_8h_a521a7c7af6217ee75a79b5abd627779c}{\_\_kmp\_all\_nth}; ++gtid) \{
+201                             \textcolor{keywordflow}{if}( \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid] ) \{
+202                                 \textcolor{keywordflow}{if}( (\hyperlink{kmp_8h_accf8ef4eee3a81c4bd08d1cd90893aee}{\_\_kmp\_foreign\_tp}) ? (! 
+      \hyperlink{kmp_8h_a75fb7fe9255d6fe6a9cb61bec1738666}{KMP\_INITIAL\_GTID} (gtid)) :
+203                                                          (! \hyperlink{kmp_8h_a1ad5b094aa539d78ab4155b10b0ced21}{KMP\_UBER\_GTID} (gtid)) ) \{
+204                                     tn = \hyperlink{kmp__threadprivate_8c_a44d92f70642924e926a66ad539633759}{\_\_kmp\_threadprivate\_find\_task\_common}
+      ( \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]->th.th\_pri\_common,
+205                                                                                gtid, d\_tn->
+      \hyperlink{structshared__common_abfaf275dda5ac5223f6e0f0aa333b52b}{gbl\_addr} );
+206                                     \textcolor{keywordflow}{if} (tn) \{
+207                                         (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a010d4cfee51a4eef6f53edb1dd7be918}{dtorv}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+208                                     \}
+209                                 \}
+210                             \}
+211                         \}
+212                         \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} != 0) \{
+213                             (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a010d4cfee51a4eef6f53edb1dd7be918}{dtorv}) (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init}, d\_tn->
+      \hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+214                         \}
+215                     \}
+216                 \} \textcolor{keywordflow}{else} \{
+217                     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a127171cc49794904b593bee96f1b7d04}{dtor} != 0) \{
+218                         \textcolor{keywordflow}{for} (gtid = 0; gtid < \hyperlink{kmp_8h_a521a7c7af6217ee75a79b5abd627779c}{\_\_kmp\_all\_nth}; ++gtid) \{
+219                             \textcolor{keywordflow}{if}( \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid] ) \{
+220                                 \textcolor{keywordflow}{if}( (\hyperlink{kmp_8h_accf8ef4eee3a81c4bd08d1cd90893aee}{\_\_kmp\_foreign\_tp}) ? (! 
+      \hyperlink{kmp_8h_a75fb7fe9255d6fe6a9cb61bec1738666}{KMP\_INITIAL\_GTID} (gtid)) :
+221                                                          (! \hyperlink{kmp_8h_a1ad5b094aa539d78ab4155b10b0ced21}{KMP\_UBER\_GTID} (gtid)) ) \{
+222                                     tn = \hyperlink{kmp__threadprivate_8c_a44d92f70642924e926a66ad539633759}{\_\_kmp\_threadprivate\_find\_task\_common}
+      ( \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]->th.th\_pri\_common,
+223                                                                                gtid, d\_tn->
+      \hyperlink{structshared__common_abfaf275dda5ac5223f6e0f0aa333b52b}{gbl\_addr} );
+224                                     \textcolor{keywordflow}{if} (tn) \{
+225                                         (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a127171cc49794904b593bee96f1b7d04}{dtor}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr});
+226                                     \}
+227                                 \}
+228                             \}
+229                         \}
+230                         \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} != 0) \{
+231                             (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a127171cc49794904b593bee96f1b7d04}{dtor}) (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init});
+232                         \}
+233                     \}
+234                 \}
+235             \}
+236             \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table}.\hyperlink{structshared__table_acbe02cd3db1cddd2f658db7e64c2bfc5}{data}[ q ] = 0;
+237         \}
+238     \}
+239 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_ad3ce124dfe851be0147daa831b27af5d}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid@{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid}}
+\index{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid@{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gtid}
+\end{DoxyParamCaption}
+)}}\label{kmp__threadprivate_8c_ad3ce124dfe851be0147daa831b27af5d}
+
+
+Definition at line 243 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread().
+
+
+\begin{DoxyCode}
+244 \{
+245     \textcolor{keyword}{struct }\hyperlink{structprivate__common}{private\_common} *tn;
+246     \textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common} *d\_tn;
+247 
+248     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmp\_common\_destroy\_gtid: T#%d called\(\backslash\)n"}, gtid ) );
+249     \textcolor{keywordflow}{if}( (\hyperlink{kmp_8h_accf8ef4eee3a81c4bd08d1cd90893aee}{\_\_kmp\_foreign\_tp}) ? (! \hyperlink{kmp_8h_a75fb7fe9255d6fe6a9cb61bec1738666}{KMP\_INITIAL\_GTID} (gtid)) :
+250                              (! \hyperlink{kmp_8h_a1ad5b094aa539d78ab4155b10b0ced21}{KMP\_UBER\_GTID} (gtid)) ) \{
+251 
+252         \textcolor{keywordflow}{if}( \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a5f3438a34f9250663bc10f78b727dc1a}{\_\_kmp\_init\_common}) ) \{
+253 
+254             \textcolor{comment}{/* Cannot do this here since not all threads have destroyed their data */}
+255             \textcolor{comment}{/* TCW\_4(\_\_kmp\_init\_common, FALSE); */}
+256 
+257             \textcolor{keywordflow}{for} (tn = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]->th.th\_pri\_head; tn; tn = tn->
+      \hyperlink{structprivate__common_aaf53273197788a197d0c0498d36ce8f4}{link}) \{
+258 
+259                 d\_tn = \hyperlink{kmp__threadprivate_8c_a89f3380531af4850006d1b7a6d381df3}{\_\_kmp\_find\_shared\_task\_common}( &
+      \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table},
+260                                                       gtid, tn->\hyperlink{structprivate__common_a3568f36c1e149d053e57e9245b93cc1d}{gbl\_addr} );
+261 
+262                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( d\_tn );
+263 
+264                 \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_affe99e67b32f42b3bae07c95c59d8f24}{is\_vec}) \{
+265                     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a010d4cfee51a4eef6f53edb1dd7be918}{dtorv} != 0) \{
+266                         (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a010d4cfee51a4eef6f53edb1dd7be918}{dtorv}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+267                     \}
+268                     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} != 0) \{
+269                         (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a010d4cfee51a4eef6f53edb1dd7be918}{dtorv}) (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init}, d\_tn->
+      \hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+270                     \}
+271                 \} \textcolor{keywordflow}{else} \{
+272                     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a127171cc49794904b593bee96f1b7d04}{dtor} != 0) \{
+273                         (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a127171cc49794904b593bee96f1b7d04}{dtor}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr});
+274                     \}
+275                     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} != 0) \{
+276                         (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_ae1c3740671335275599c29df1f6d71d1}{dt}.\hyperlink{structshared__common_a127171cc49794904b593bee96f1b7d04}{dtor}) (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init});
+277                     \}
+278                 \}
+279             \}
+280             \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 30, (\textcolor{stringliteral}{"\_\_kmp\_common\_destroy\_gtid: T#%d threadprivate destructors complete\(\backslash\)n"},
+281                            gtid ) );
+282         \}
+283     \}
+284 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a17cf47cca5a54cf10174b36475d16e3c}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize@{\-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize}}
+\index{\-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize@{\-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__threadprivate_8c_a17cf47cca5a54cf10174b36475d16e3c}
+
+
+Definition at line 151 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+
+\begin{DoxyCode}
+152 \{
+153     \textcolor{keywordflow}{if}( ! \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a5f3438a34f9250663bc10f78b727dc1a}{\_\_kmp\_init\_common}) ) \{
+154         \textcolor{keywordtype}{int} q;
+155 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+156 \textcolor{preprocessor}{}        \textcolor{keywordtype}{int} gtid;
+157 \textcolor{preprocessor}{#endif}
+158 \textcolor{preprocessor}{}
+159         \hyperlink{kmp_8h_a4ffa887cdb59674790ac14ee4a8228e9}{\_\_kmp\_threadpriv\_cache\_list} = NULL;
+160 
+161 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+162 \textcolor{preprocessor}{}        \textcolor{comment}{/* verify the uber masters were initialized */}
+163         \textcolor{keywordflow}{for}(gtid = 0 ; gtid < \hyperlink{kmp_8h_acae0af8cf6e8a8367b389986b372ab0a}{\_\_kmp\_threads\_capacity}; gtid++ )
+164             \textcolor{keywordflow}{if}( \hyperlink{kmp_8h_aa55bed3b4f4c286e5dd1f23ccda86c65}{\_\_kmp\_root}[gtid] ) \{
+165                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp_8h_aa55bed3b4f4c286e5dd1f23ccda86c65}{\_\_kmp\_root}[gtid]->r.r\_uber\_thread );
+166                 \textcolor{keywordflow}{for} ( q = 0; q< \hyperlink{kmp_8h_a18bbfe585fccb920012f9477c07977b7}{KMP\_HASH\_TABLE\_SIZE}; ++q)
+167                     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( !\hyperlink{kmp_8h_aa55bed3b4f4c286e5dd1f23ccda86c65}{\_\_kmp\_root}[gtid]->r.r\_uber\_thread->th.
+      th\_pri\_common->data[q] );
+168 \textcolor{comment}{/*                    \_\_kmp\_root[ gitd ]-> r.r\_uber\_thread -> th.th\_pri\_common -> data[ q ] = 0;*/}
+169             \}
+170 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* KMP\_DEBUG */}\textcolor{preprocessor}{}
+171 \textcolor{preprocessor}{}
+172         \textcolor{keywordflow}{for} (q = 0; q < \hyperlink{kmp_8h_a18bbfe585fccb920012f9477c07977b7}{KMP\_HASH\_TABLE\_SIZE}; ++q)
+173             \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table}.\hyperlink{structshared__table_acbe02cd3db1cddd2f658db7e64c2bfc5}{data}[ q ] = 0;
+174 
+175         \hyperlink{kmp__os_8h_ae67779cc7794b5dd7eee4c7f2c7789d4}{TCW\_4}(\hyperlink{kmp_8h_a5f3438a34f9250663bc10f78b727dc1a}{\_\_kmp\_init\_common}, \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+176     \}
+177 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_aa449ccc99adc86bc36ff8200114854d9}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data@{\-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data}}
+\index{\-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data@{\-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-copy\-\_\-common\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{pc\-\_\-addr, }
+\item[{struct {\bf private\-\_\-data} $\ast$}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__threadprivate_8c_aa449ccc99adc86bc36ff8200114854d9}
+
+
+Definition at line 130 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by kmp\-\_\-threadprivate\-\_\-insert().
+
+
+\begin{DoxyCode}
+131 \{
+132     \textcolor{keywordtype}{char} *\hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr} = (\textcolor{keywordtype}{char} *) pc\_addr;
+133     \textcolor{keywordtype}{int}   \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}, offset;
+134 
+135     \textcolor{keywordflow}{for} (offset = 0; d != 0; d = d->\hyperlink{structprivate__data_a40405ef18e69262087a4f9430f9cefd2}{next}) \{
+136         \textcolor{keywordflow}{for} (i = d->\hyperlink{structprivate__data_aa451b3e8ec1453affabe40b705a8c0e7}{more}; i > 0; --i) \{
+137             \textcolor{keywordflow}{if} (d->\hyperlink{structprivate__data_a716a7e5f48fe6428b1697a8a54cc1384}{data} == 0)
+138                 memset( & addr[ offset ], \textcolor{charliteral}{'\(\backslash\)0'}, d->\hyperlink{structprivate__data_ace2d127660a34517f0c1b53a2a2203c1}{size} );
+139             \textcolor{keywordflow}{else}
+140                 \hyperlink{kmp__safe__c__api_8h_ab63a75e8bb537bb3ae55c05d0a3b7ca0}{KMP\_MEMCPY}( & addr[ offset ], d->\hyperlink{structprivate__data_a716a7e5f48fe6428b1697a8a54cc1384}{data}, d->\hyperlink{structprivate__data_ace2d127660a34517f0c1b53a2a2203c1}{size} );
+141             offset += d->\hyperlink{structprivate__data_ace2d127660a34517f0c1b53a2a2203c1}{size};
+142         \}
+143     \}
+144 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a89f3380531af4850006d1b7a6d381df3}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common}}
+\index{\-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-forceinline struct {\bf shared\-\_\-common}$\ast$ \-\_\-\-\_\-kmp\-\_\-find\-\_\-shared\-\_\-task\-\_\-common (
+\begin{DoxyParamCaption}
+\item[{struct {\bf shared\-\_\-table} $\ast$}]{tbl, }
+\item[{{\bf int}}]{gtid, }
+\item[{{\bf void} $\ast$}]{pc\-\_\-addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__threadprivate_8c_a89f3380531af4850006d1b7a6d381df3}
+
+
+Definition at line 74 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid(), \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-register(), \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-register\-\_\-vec(), kmp\-\_\-threadprivate\-\_\-insert(), and kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data().
+
+
+\begin{DoxyCode}
+75 \{
+76     \textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common} *tn;
+77 
+78     \textcolor{keywordflow}{for} (tn = tbl->\hyperlink{structshared__table_acbe02cd3db1cddd2f658db7e64c2bfc5}{data}[ \hyperlink{kmp_8h_a81fe0625f28faf8ec00b8cf7820e103b}{KMP\_HASH}(pc\_addr) ]; tn; tn = tn->\hyperlink{structshared__common_aa54da923f39ba340f472b4a62205b967}{next}) \{
+79         \textcolor{keywordflow}{if} (tn->\hyperlink{structshared__common_abfaf275dda5ac5223f6e0f0aa333b52b}{gbl\_addr} == pc\_addr) \{
+80 \textcolor{preprocessor}{#ifdef KMP\_TASK\_COMMON\_DEBUG}
+81 \textcolor{preprocessor}{}            \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"\_\_kmp\_find\_shared\_task\_common: thread#%d, found node %p on list\(\backslash\)n"},
+82                             gtid, pc\_addr ) );
+83 \textcolor{preprocessor}{#endif}
+84 \textcolor{preprocessor}{}            \textcolor{keywordflow}{return} tn;
+85         \}
+86     \}
+87     \textcolor{keywordflow}{return} 0;
+88 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf private\-\_\-data}$\ast$ \-\_\-\-\_\-kmp\-\_\-init\-\_\-common\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{pc\-\_\-addr, }
+\item[{size\-\_\-t}]{pc\-\_\-size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}
+
+
+Definition at line 98 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by kmp\-\_\-threadprivate\-\_\-insert(), and kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data().
+
+
+\begin{DoxyCode}
+99 \{
+100     \textcolor{keyword}{struct }\hyperlink{structprivate__data}{private\_data} *\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d};
+101     \textcolor{keywordtype}{size\_t}       \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+102     \textcolor{keywordtype}{char}        *\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p};
+103 
+104     d = (\textcolor{keyword}{struct }\hyperlink{structprivate__data}{private\_data} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( \textcolor{keyword}{sizeof}( \textcolor{keyword}{struct} 
+      \hyperlink{structprivate__data}{private\_data} ) );
+105 \textcolor{comment}{/*}
+106 \textcolor{comment}{    d->data = 0;  // AC: commented out because \_\_kmp\_allocate zeroes the memory}
+107 \textcolor{comment}{    d->next = 0;}
+108 \textcolor{comment}{*/}
+109     d->\hyperlink{structprivate__data_ace2d127660a34517f0c1b53a2a2203c1}{size} = pc\_size;
+110     d->\hyperlink{structprivate__data_aa451b3e8ec1453affabe40b705a8c0e7}{more} = 1;
+111 
+112     p = (\textcolor{keywordtype}{char}*)pc\_addr;
+113 
+114     \textcolor{keywordflow}{for} (i = pc\_size;  i > 0; --\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+115         \textcolor{keywordflow}{if} (*p++ != \textcolor{charliteral}{'\(\backslash\)0'}) \{
+116             d->\hyperlink{structprivate__data_a716a7e5f48fe6428b1697a8a54cc1384}{data} = \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( pc\_size );
+117             \hyperlink{kmp__safe__c__api_8h_ab63a75e8bb537bb3ae55c05d0a3b7ca0}{KMP\_MEMCPY}( d->\hyperlink{structprivate__data_a716a7e5f48fe6428b1697a8a54cc1384}{data}, pc\_addr, pc\_size );
+118             \textcolor{keywordflow}{break};
+119         \}
+120     \}
+121 
+122     \textcolor{keywordflow}{return} \hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d};
+123 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a44d92f70642924e926a66ad539633759}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common@{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common}}
+\index{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common@{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}static \-\_\-\-\_\-forceinline struct {\bf private\-\_\-common}$\ast$ \-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-find\-\_\-task\-\_\-common (
+\begin{DoxyParamCaption}
+\item[{struct {\bf common\-\_\-table} $\ast$}]{tbl, }
+\item[{{\bf int}}]{gtid, }
+\item[{{\bf void} $\ast$}]{pc\-\_\-addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__threadprivate_8c_a44d92f70642924e926a66ad539633759}
+
+
+Definition at line 46 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy(), and \-\_\-\-\_\-kmpc\-\_\-threadprivate().
+
+
+\begin{DoxyCode}
+48 \{
+49     \textcolor{keyword}{struct }\hyperlink{structprivate__common}{private\_common} *tn;
+50 
+51 \textcolor{preprocessor}{#ifdef KMP\_TASK\_COMMON\_DEBUG}
+52 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"\_\_kmp\_threadprivate\_find\_task\_common: thread#%d, called with address %p\(\backslash\)n"},
+53                     gtid, pc\_addr ) );
+54     dump\_list();
+55 \textcolor{preprocessor}{#endif}
+56 \textcolor{preprocessor}{}
+57     \textcolor{keywordflow}{for} (tn = tbl->\hyperlink{structcommon__table_a87c62cea9e986994ca363b2630291621}{data}[ \hyperlink{kmp_8h_a81fe0625f28faf8ec00b8cf7820e103b}{KMP\_HASH}(pc\_addr) ]; tn; tn = tn->\hyperlink{structprivate__common_a9bbe15e09efcd5af8f569dc983a661bc}{next}) \{
+58         \textcolor{keywordflow}{if} (tn->\hyperlink{structprivate__common_a3568f36c1e149d053e57e9245b93cc1d}{gbl\_addr} == pc\_addr) \{
+59 \textcolor{preprocessor}{#ifdef KMP\_TASK\_COMMON\_DEBUG}
+60 \textcolor{preprocessor}{}            \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"\_\_kmp\_threadprivate\_find\_task\_common: thread#%d, found node %p on list
+      \(\backslash\)n"},
+61                             gtid, pc\_addr ) );
+62 \textcolor{preprocessor}{#endif}
+63 \textcolor{preprocessor}{}            \textcolor{keywordflow}{return} tn;
+64         \}
+65     \}
+66     \textcolor{keywordflow}{return} 0;
+67 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a5af8bf0a1816291e561251e5b9ba0581}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmpc\-\_\-threadprivate@{\-\_\-\-\_\-kmpc\-\_\-threadprivate}}
+\index{\-\_\-\-\_\-kmpc\-\_\-threadprivate@{\-\_\-\-\_\-kmpc\-\_\-threadprivate}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-threadprivate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ \-\_\-\-\_\-kmpc\-\_\-threadprivate (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf void} $\ast$}]{data, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{kmp__threadprivate_8c_a5af8bf0a1816291e561251e5b9ba0581}
+
+
+Definition at line 567 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached().
+
+
+\begin{DoxyCode}
+568 \{
+569     \textcolor{keywordtype}{void} *ret;
+570     \textcolor{keyword}{struct }\hyperlink{structprivate__common}{private\_common} *tn;
+571 
+572     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_threadprivate: T#%d called\(\backslash\)n"}, global\_tid ) );
+573 
+574 \textcolor{preprocessor}{#ifdef USE\_CHECKS\_COMMON}
+575 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (! \hyperlink{kmp_8h_aee22cd19970207e05e9c86cc0a802f9c}{\_\_kmp\_init\_serial})
+576         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( RTLNotInitialized );
+577 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_CHECKS\_COMMON */}\textcolor{preprocessor}{}
+578 \textcolor{preprocessor}{}
+579     \textcolor{keywordflow}{if} ( ! \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_root -> r.r\_active && ! 
+      \hyperlink{kmp_8h_accf8ef4eee3a81c4bd08d1cd90893aee}{\_\_kmp\_foreign\_tp} ) \{
+580         \textcolor{comment}{/* The parallel address will NEVER overlap with the data\_address */}
+581         \textcolor{comment}{/* dkp: 3rd arg to kmp\_threadprivate\_insert\_private\_data() is the data\_address; use data\_address =
+       data */}
+582 
+583         \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 20, (\textcolor{stringliteral}{"\_\_kmpc\_threadprivate: T#%d inserting private data\(\backslash\)n"}, global\_tid ) );
+584         \hyperlink{kmp__threadprivate_8c_a497693536a063602f144c2a0a7c4c41f}{kmp\_threadprivate\_insert\_private\_data}( global\_tid, 
+      \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} );
+585 
+586         ret = \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data};
+587     \}
+588     \textcolor{keywordflow}{else} \{
+589         \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 50, (\textcolor{stringliteral}{"\_\_kmpc\_threadprivate: T#%d try to find private data at address %p\(\backslash\)n"},
+590                        global\_tid, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) );
+591         tn = \hyperlink{kmp__threadprivate_8c_a44d92f70642924e926a66ad539633759}{\_\_kmp\_threadprivate\_find\_task\_common}( 
+      \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ global\_tid ]->th.th\_pri\_common, global\_tid, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} );
+592 
+593         \textcolor{keywordflow}{if} ( tn ) \{
+594             \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 20, (\textcolor{stringliteral}{"\_\_kmpc\_threadprivate: T#%d found data\(\backslash\)n"}, global\_tid ) );
+595 \textcolor{preprocessor}{#ifdef USE\_CHECKS\_COMMON}
+596 \textcolor{preprocessor}{}            \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{size\_t}) \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} > tn->\hyperlink{structprivate__common_a3432e13f45e79ec4d2ccb6bbd9d94256}{cmn\_size}) \{
+597                 \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"THREADPRIVATE: %p (%"} \hyperlink{kmp__os_8h_a716dd0090b3c62cb5a8203b27846585e}{KMP\_UINTPTR\_SPEC} \textcolor{stringliteral}{" ,%"} 
+      \hyperlink{kmp__os_8h_a716dd0090b3c62cb5a8203b27846585e}{KMP\_UINTPTR\_SPEC} \textcolor{stringliteral}{")\(\backslash\)n"},
+598                                 \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, tn->\hyperlink{structprivate__common_a3432e13f45e79ec4d2ccb6bbd9d94256}{cmn\_size} ) );
+599                 \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( TPCommonBlocksInconsist );
+600             \}
+601 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_CHECKS\_COMMON */}\textcolor{preprocessor}{}
+602 \textcolor{preprocessor}{}        \}
+603         \textcolor{keywordflow}{else} \{
+604             \textcolor{comment}{/* The parallel address will NEVER overlap with the data\_address */}
+605             \textcolor{comment}{/* dkp: 3rd arg to kmp\_threadprivate\_insert() is the data\_address; use data\_address = data */}
+606             \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 20, (\textcolor{stringliteral}{"\_\_kmpc\_threadprivate: T#%d inserting data\(\backslash\)n"}, global\_tid ) );
+607             tn = \hyperlink{kmp__threadprivate_8c_a92b5773796f6d67b45d1f5a4f560a0bf}{kmp\_threadprivate\_insert}( global\_tid, 
+      \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} );
+608         \}
+609 
+610         ret = tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr};
+611     \}
+612     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_threadprivate: T#%d exiting; return value = %p\(\backslash\)n"},
+613                    global\_tid, ret ) );
+614 
+615     \textcolor{keywordflow}{return} ret;
+616 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a92b5773796f6d67b45d1f5a4f560a0bf}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!kmp\-\_\-threadprivate\-\_\-insert@{kmp\-\_\-threadprivate\-\_\-insert}}
+\index{kmp\-\_\-threadprivate\-\_\-insert@{kmp\-\_\-threadprivate\-\_\-insert}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{kmp\-\_\-threadprivate\-\_\-insert}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf private\-\_\-common}$\ast$ kmp\-\_\-threadprivate\-\_\-insert (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gtid, }
+\item[{{\bf void} $\ast$}]{pc\-\_\-addr, }
+\item[{{\bf void} $\ast$}]{data\-\_\-addr, }
+\item[{size\-\_\-t}]{pc\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{kmp__threadprivate_8c_a92b5773796f6d67b45d1f5a4f560a0bf}
+
+
+Definition at line 355 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-threadprivate().
+
+
+\begin{DoxyCode}
+356 \{
+357     \textcolor{keyword}{struct }\hyperlink{structprivate__common}{private\_common} *tn, **tt;
+358     \textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common}  *d\_tn;
+359 
+360     \textcolor{comment}{/* +++++++++ START OF CRITICAL SECTION +++++++++ */}
+361 
+362     \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}( & \hyperlink{kmp_8h_a56af8af84b1717817c3abe69ecc8cc18}{\_\_kmp\_global\_lock}, gtid );
+363 
+364     tn = (\textcolor{keyword}{struct }\hyperlink{structprivate__common}{private\_common} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( \textcolor{keyword}{sizeof} (\textcolor{keyword}{struct} 
+      \hyperlink{structprivate__common}{private\_common}) );
+365 
+366     tn->\hyperlink{structprivate__common_a3568f36c1e149d053e57e9245b93cc1d}{gbl\_addr} = pc\_addr;
+367 
+368     d\_tn = \hyperlink{kmp__threadprivate_8c_a89f3380531af4850006d1b7a6d381df3}{\_\_kmp\_find\_shared\_task\_common}( &
+      \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table},
+369                                           gtid, pc\_addr );     \textcolor{comment}{/* Only the MASTER data table exists. */}
+370 
+371     \textcolor{keywordflow}{if} (d\_tn != 0) \{
+372         \textcolor{comment}{/* This threadprivate variable has already been seen. */}
+373 
+374         \textcolor{keywordflow}{if} ( d\_tn->\hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} == 0 && d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} == 0 ) \{
+375             d\_tn->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} = pc\_size;
+376 
+377             \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_affe99e67b32f42b3bae07c95c59d8f24}{is\_vec}) \{
+378                 \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_ac98f8d219b58bb8cb289d896c2328e21}{ct}.\hyperlink{structshared__common_aa82b661dba8988acd64a0d185851efce}{ctorv} != 0) \{
+379                     \textcolor{comment}{/* Construct from scratch so no prototype exists */}
+380                     d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} = 0;
+381                 \}
+382                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a149cfcc7e7cadd6231c21339d9adabea}{cctorv} != 0) \{
+383                     \textcolor{comment}{/* Now data initialize the prototype since it was previously registered */}
+384                     d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} = (\textcolor{keywordtype}{void} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( d\_tn->
+      \hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} );
+385                     (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a149cfcc7e7cadd6231c21339d9adabea}{cctorv}) (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init}, pc\_addr, d\_tn->
+      \hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+386                 \}
+387                 \textcolor{keywordflow}{else} \{
+388                     d\_tn->\hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} = \hyperlink{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}{\_\_kmp\_init\_common\_data}( data\_addr, d\_tn
+      ->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} );
+389                 \}
+390             \} \textcolor{keywordflow}{else} \{
+391                 \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_ac98f8d219b58bb8cb289d896c2328e21}{ct}.\hyperlink{structshared__common_a26bff742774584fe18d5bca4b432b1ed}{ctor} != 0) \{
+392                     \textcolor{comment}{/* Construct from scratch so no prototype exists */}
+393                     d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} = 0;
+394                 \}
+395                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a66f5f4ebb70f7db1a21310d31a387377}{cctor} != 0) \{
+396                     \textcolor{comment}{/* Now data initialize the prototype since it was previously registered */}
+397                     d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init} = (\textcolor{keywordtype}{void} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( d\_tn->
+      \hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} );
+398                     (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a66f5f4ebb70f7db1a21310d31a387377}{cctor}) (d\_tn->\hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init}, pc\_addr);
+399                 \}
+400                 \textcolor{keywordflow}{else} \{
+401                     d\_tn->\hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} = \hyperlink{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}{\_\_kmp\_init\_common\_data}( data\_addr, d\_tn
+      ->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} );
+402                 \}
+403             \}
+404         \}
+405     \}
+406     \textcolor{keywordflow}{else} \{
+407         \textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common} **lnk\_tn;
+408 
+409         d\_tn = (\textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( \textcolor{keyword}{sizeof}( \textcolor{keyword}{struct} 
+      \hyperlink{structshared__common}{shared\_common} ) );
+410         d\_tn->\hyperlink{structshared__common_abfaf275dda5ac5223f6e0f0aa333b52b}{gbl\_addr} = pc\_addr;
+411         d\_tn->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} = pc\_size;
+412         d\_tn->\hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} = \hyperlink{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}{\_\_kmp\_init\_common\_data}( data\_addr, pc\_size );
+413 \textcolor{comment}{/*}
+414 \textcolor{comment}{        d\_tn->obj\_init = 0;  // AC: commented out because \_\_kmp\_allocate zeroes the memory}
+415 \textcolor{comment}{        d\_tn->ct.ctor = 0;}
+416 \textcolor{comment}{        d\_tn->cct.cctor = 0;}
+417 \textcolor{comment}{        d\_tn->dt.dtor = 0;}
+418 \textcolor{comment}{        d\_tn->is\_vec = FALSE;}
+419 \textcolor{comment}{        d\_tn->vec\_len = 0L;}
+420 \textcolor{comment}{*/}
+421         lnk\_tn = &(\hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table}.\hyperlink{structshared__table_acbe02cd3db1cddd2f658db7e64c2bfc5}{data}[ 
+      \hyperlink{kmp_8h_a81fe0625f28faf8ec00b8cf7820e103b}{KMP\_HASH}(pc\_addr) ]);
+422 
+423         d\_tn->\hyperlink{structshared__common_aa54da923f39ba340f472b4a62205b967}{next} = *lnk\_tn;
+424         *lnk\_tn = d\_tn;
+425     \}
+426 
+427     tn->\hyperlink{structprivate__common_a3432e13f45e79ec4d2ccb6bbd9d94256}{cmn\_size} = d\_tn->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size};
+428 
+429     \textcolor{keywordflow}{if} ( (\hyperlink{kmp_8h_accf8ef4eee3a81c4bd08d1cd90893aee}{\_\_kmp\_foreign\_tp}) ? (\hyperlink{kmp_8h_a75fb7fe9255d6fe6a9cb61bec1738666}{KMP\_INITIAL\_GTID} (gtid)) : (
+      \hyperlink{kmp_8h_a1ad5b094aa539d78ab4155b10b0ced21}{KMP\_UBER\_GTID} (gtid)) ) \{
+430         tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr} = (\textcolor{keywordtype}{void} *) pc\_addr;
+431     \}
+432     \textcolor{keywordflow}{else} \{
+433         tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr} = (\textcolor{keywordtype}{void} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( tn->
+      \hyperlink{structprivate__common_a3432e13f45e79ec4d2ccb6bbd9d94256}{cmn\_size} );
+434     \}
+435 
+436     \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}( & \hyperlink{kmp_8h_a56af8af84b1717817c3abe69ecc8cc18}{\_\_kmp\_global\_lock}, gtid );
+437 
+438     \textcolor{comment}{/* +++++++++ END OF CRITICAL SECTION +++++++++ */}
+439 
+440 \textcolor{preprocessor}{#ifdef USE\_CHECKS\_COMMON}
+441 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (pc\_size > d\_tn->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size}) \{
+442             \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"\_\_kmp\_threadprivate\_insert: THREADPRIVATE: %p (%"}
+443                             \hyperlink{kmp__os_8h_a716dd0090b3c62cb5a8203b27846585e}{KMP\_UINTPTR\_SPEC} \textcolor{stringliteral}{" ,%"} 
+      \hyperlink{kmp__os_8h_a716dd0090b3c62cb5a8203b27846585e}{KMP\_UINTPTR\_SPEC} \textcolor{stringliteral}{")\(\backslash\)n"},
+444                             pc\_addr, pc\_size, d\_tn->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} ) );
+445             \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( TPCommonBlocksInconsist );
+446         \}
+447 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_CHECKS\_COMMON */}\textcolor{preprocessor}{}
+448 \textcolor{preprocessor}{}
+449     tt = &(\hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]->th.th\_pri\_common->data[ \hyperlink{kmp_8h_a81fe0625f28faf8ec00b8cf7820e103b}{KMP\_HASH}(pc\_addr) ]);
+450 
+451 \textcolor{preprocessor}{#ifdef KMP\_TASK\_COMMON\_DEBUG}
+452 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (*tt != 0) \{
+453         \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"\_\_kmp\_threadprivate\_insert: WARNING! thread#%d: collision on %p\(\backslash\)n"},
+454                         gtid, pc\_addr ) );
+455     \}
+456 \textcolor{preprocessor}{#endif}
+457 \textcolor{preprocessor}{}    tn->\hyperlink{structprivate__common_a9bbe15e09efcd5af8f569dc983a661bc}{next} = *tt;
+458     *tt = tn;
+459 
+460 \textcolor{preprocessor}{#ifdef KMP\_TASK\_COMMON\_DEBUG}
+461 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, ( \textcolor{stringliteral}{"\_\_kmp\_threadprivate\_insert: thread#%d, inserted node %p on list\(\backslash\)n"},
+462                     gtid, pc\_addr ) );
+463     dump\_list( );
+464 \textcolor{preprocessor}{#endif}
+465 \textcolor{preprocessor}{}
+466     \textcolor{comment}{/* Link the node into a simple list */}
+467 
+468     tn->\hyperlink{structprivate__common_aaf53273197788a197d0c0498d36ce8f4}{link} = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]->th.th\_pri\_head;
+469     \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]->th.th\_pri\_head = tn;
+470 
+471 \textcolor{preprocessor}{#ifdef BUILD\_TV}
+472 \textcolor{preprocessor}{}    \_\_kmp\_tv\_threadprivate\_store( \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ], tn->
+      \hyperlink{structprivate__common_a3568f36c1e149d053e57e9245b93cc1d}{gbl\_addr}, tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr} );
+473 \textcolor{preprocessor}{#endif}
+474 \textcolor{preprocessor}{}
+475     \textcolor{keywordflow}{if}( (\hyperlink{kmp_8h_accf8ef4eee3a81c4bd08d1cd90893aee}{\_\_kmp\_foreign\_tp}) ? (\hyperlink{kmp_8h_a75fb7fe9255d6fe6a9cb61bec1738666}{KMP\_INITIAL\_GTID} (gtid)) : (
+      \hyperlink{kmp_8h_a1ad5b094aa539d78ab4155b10b0ced21}{KMP\_UBER\_GTID} (gtid)) )
+476         \textcolor{keywordflow}{return} tn;
+477 
+478     \textcolor{comment}{/*}
+479 \textcolor{comment}{     * if C++ object with copy constructor, use it;}
+480 \textcolor{comment}{     * else if C++ object with constructor, use it for the non-master copies only;}
+481 \textcolor{comment}{     * else use pod\_init and memcpy}
+482 \textcolor{comment}{     *}
+483 \textcolor{comment}{     * C++ constructors need to be called once for each non-master thread on allocate}
+484 \textcolor{comment}{     * C++ copy constructors need to be called once for each thread on allocate}
+485 \textcolor{comment}{     */}
+486 
+487     \textcolor{comment}{/*}
+488 \textcolor{comment}{     * C++ object with constructors/destructors;}
+489 \textcolor{comment}{     * don't call constructors for master thread though}
+490 \textcolor{comment}{     */}
+491     \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_affe99e67b32f42b3bae07c95c59d8f24}{is\_vec}) \{
+492         \textcolor{keywordflow}{if} ( d\_tn->\hyperlink{structshared__common_ac98f8d219b58bb8cb289d896c2328e21}{ct}.\hyperlink{structshared__common_aa82b661dba8988acd64a0d185851efce}{ctorv} != 0) \{
+493             (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_ac98f8d219b58bb8cb289d896c2328e21}{ct}.\hyperlink{structshared__common_aa82b661dba8988acd64a0d185851efce}{ctorv}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+494         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a149cfcc7e7cadd6231c21339d9adabea}{cctorv} != 0) \{
+495             (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a149cfcc7e7cadd6231c21339d9adabea}{cctorv}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init}, d\_tn->\hyperlink{structshared__common_ae2761da4a704f4f2f377854538ba153c}{vec\_len});
+496         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr} != tn->\hyperlink{structprivate__common_a3568f36c1e149d053e57e9245b93cc1d}{gbl\_addr}) \{
+497             \hyperlink{kmp__threadprivate_8c_aa449ccc99adc86bc36ff8200114854d9}{\_\_kmp\_copy\_common\_data}( tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} );
+498         \}
+499     \} \textcolor{keywordflow}{else} \{
+500         \textcolor{keywordflow}{if} ( d\_tn->\hyperlink{structshared__common_ac98f8d219b58bb8cb289d896c2328e21}{ct}.\hyperlink{structshared__common_a26bff742774584fe18d5bca4b432b1ed}{ctor} != 0 ) \{
+501             (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_ac98f8d219b58bb8cb289d896c2328e21}{ct}.\hyperlink{structshared__common_a26bff742774584fe18d5bca4b432b1ed}{ctor}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr});
+502         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a66f5f4ebb70f7db1a21310d31a387377}{cctor} != 0) \{
+503             (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}) (*d\_tn->\hyperlink{structshared__common_a3292a73e5a3070dfdb448f7b205f68a5}{cct}.\hyperlink{structshared__common_a66f5f4ebb70f7db1a21310d31a387377}{cctor}) (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_a5afc5429e242b0940b1624352aa7df79}{obj\_init});
+504         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr} != tn->\hyperlink{structprivate__common_a3568f36c1e149d053e57e9245b93cc1d}{gbl\_addr}) \{
+505             \hyperlink{kmp__threadprivate_8c_aa449ccc99adc86bc36ff8200114854d9}{\_\_kmp\_copy\_common\_data}( tn->\hyperlink{structprivate__common_af830d32951feb25766b1ed8b973035fe}{par\_addr}, d\_tn->
+      \hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} );
+506         \}
+507     \}
+508 \textcolor{comment}{/* !BUILD\_OPENMP\_C}
+509 \textcolor{comment}{    if (tn->par\_addr != tn->gbl\_addr)}
+510 \textcolor{comment}{        \_\_kmp\_copy\_common\_data( tn->par\_addr, d\_tn->pod\_init ); */}
+511 
+512     \textcolor{keywordflow}{return} tn;
+513 \}
+\end{DoxyCode}
+\hypertarget{kmp__threadprivate_8c_a497693536a063602f144c2a0a7c4c41f}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data@{kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data}}
+\index{kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data@{kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gtid, }
+\item[{{\bf void} $\ast$}]{pc\-\_\-addr, }
+\item[{{\bf void} $\ast$}]{data\-\_\-addr, }
+\item[{size\-\_\-t}]{pc\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{kmp__threadprivate_8c_a497693536a063602f144c2a0a7c4c41f}
+
+
+Definition at line 319 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-threadprivate().
+
+
+\begin{DoxyCode}
+320 \{
+321     \textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common} **lnk\_tn, *d\_tn;
+322     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ] &&
+323             \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ] -> th.th\_root -> r.r\_active == 0 );
+324 
+325     d\_tn = \hyperlink{kmp__threadprivate_8c_a89f3380531af4850006d1b7a6d381df3}{\_\_kmp\_find\_shared\_task\_common}( &
+      \hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table},
+326                                           gtid, pc\_addr );
+327 
+328     \textcolor{keywordflow}{if} (d\_tn == 0) \{
+329         d\_tn = (\textcolor{keyword}{struct }\hyperlink{structshared__common}{shared\_common} *) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( \textcolor{keyword}{sizeof}( \textcolor{keyword}{struct} 
+      \hyperlink{structshared__common}{shared\_common} ) );
+330 
+331         d\_tn->\hyperlink{structshared__common_abfaf275dda5ac5223f6e0f0aa333b52b}{gbl\_addr} = pc\_addr;
+332         d\_tn->\hyperlink{structshared__common_a7609ddff99a7ccff444c4e1f2a7216e1}{pod\_init} = \hyperlink{kmp__threadprivate_8c_a7060d1b7e3e31d4dac1660eeb1f9ba3f}{\_\_kmp\_init\_common\_data}( data\_addr, pc\_size );
+333 \textcolor{comment}{/*}
+334 \textcolor{comment}{        d\_tn->obj\_init = 0;  // AC: commented out because \_\_kmp\_allocate zeroes the memory}
+335 \textcolor{comment}{        d\_tn->ct.ctor = 0;}
+336 \textcolor{comment}{        d\_tn->cct.cctor = 0;;}
+337 \textcolor{comment}{        d\_tn->dt.dtor = 0;}
+338 \textcolor{comment}{        d\_tn->is\_vec = FALSE;}
+339 \textcolor{comment}{        d\_tn->vec\_len = 0L;}
+340 \textcolor{comment}{*/}
+341         d\_tn->\hyperlink{structshared__common_acd7343a82a2dd92f8b7a78eab8429b72}{cmn\_size} = pc\_size;
+342 
+343         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}( &\hyperlink{kmp_8h_a56af8af84b1717817c3abe69ecc8cc18}{\_\_kmp\_global\_lock}, gtid );
+344 
+345         lnk\_tn = &(\hyperlink{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\_\_kmp\_threadprivate\_d\_table}.\hyperlink{structshared__table_acbe02cd3db1cddd2f658db7e64c2bfc5}{data}[ 
+      \hyperlink{kmp_8h_a81fe0625f28faf8ec00b8cf7820e103b}{KMP\_HASH}(pc\_addr) ]);
+346 
+347         d\_tn->\hyperlink{structshared__common_aa54da923f39ba340f472b4a62205b967}{next} = *lnk\_tn;
+348         *lnk\_tn = d\_tn;
+349 
+350         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}( &\hyperlink{kmp_8h_a56af8af84b1717817c3abe69ecc8cc18}{\_\_kmp\_global\_lock}, gtid );
+351     \}
+352 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}{\index{kmp\-\_\-threadprivate.\-c@{kmp\-\_\-threadprivate.\-c}!\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table@{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table}}
+\index{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table@{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table}!kmp_threadprivate.c@{kmp\-\_\-threadprivate.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf shared\-\_\-table} \-\_\-\-\_\-kmp\-\_\-threadprivate\-\_\-d\-\_\-table}}\label{kmp__threadprivate_8c_ac5d665dbab9923a586d0069f809fb1b0}
+
+
+Definition at line 36 of file kmp\-\_\-threadprivate.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize(), \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-register(), \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-register\-\_\-vec(), kmp\-\_\-threadprivate\-\_\-insert(), and kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data().
+

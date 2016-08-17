@@ -37,8 +37,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,12 +59,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -81,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">kmp_environment.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<a href="kmp__environment_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * kmp_environment.h -- Handle environment varoiables OS-independently.</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
@@ -105,17 +113,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Return a copy of the value of environment variable or NULL if the variable does not exist.</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// *Note*: Returned pointed *must* be freed after use with __kmp_env_free().</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">char</span> * __kmp_env_get( <span class="keywordtype">char</span> <span class="keyword">const</span> * name );</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span>   __kmp_env_free( <span class="keywordtype">char</span> <span class="keyword">const</span> * * value );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">char</span> * <a class="code" href="kmp__environment_8h.html#a8ca0c26acad07b836fc8d8013979e8cd">__kmp_env_get</a>( <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="ittnotify__static_8h.html#a1c34b35a4952969fef60192313bba34a">name</a> );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span>   <a class="code" href="kmp__environment_8h.html#a0ba2f8c7661ee48940e90124d415b1cf">__kmp_env_free</a>( <span class="keywordtype">char</span> <span class="keyword">const</span> * * value );</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// Return 1 if the environment variable exists or 0 if does not exist.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">int</span> __kmp_env_exists( <span class="keywordtype">char</span> <span class="keyword">const</span> * name );</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">int</span> <a class="code" href="kmp__environment_8h.html#a6fe53462a302972de5fc323b08b94b27">__kmp_env_exists</a>( <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="ittnotify__static_8h.html#a1c34b35a4952969fef60192313bba34a">name</a> );</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">// Set the environment variable.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> __kmp_env_set( <span class="keywordtype">char</span> <span class="keyword">const</span> * name, <span class="keywordtype">char</span> <span class="keyword">const</span> * value, <span class="keywordtype">int</span> overwrite );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> <a class="code" href="kmp__environment_8h.html#aed66640640fce6ae13a8ada9e032b9c4">__kmp_env_set</a>( <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="ittnotify__static_8h.html#a1c34b35a4952969fef60192313bba34a">name</a>, <span class="keywordtype">char</span> <span class="keyword">const</span> * value, <span class="keywordtype">int</span> overwrite );</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// Unset (remove) environment variable.</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> __kmp_env_unset( <span class="keywordtype">char</span> <span class="keyword">const</span> * name );</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> <a class="code" href="kmp__environment_8h.html#af0715e0365570b19fd22c7370e3d4938">__kmp_env_unset</a>( <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="ittnotify__static_8h.html#a1c34b35a4952969fef60192313bba34a">name</a> );</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">// -------------------------------------------------------------------------------------------------</span></div>
@@ -136,23 +144,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">        __kmp_env_block_free( &amp; block );</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">struct </span>__kmp_env_var {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">char</span> <span class="keyword">const</span> * name;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">char</span> <span class="keyword">const</span> * value;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="struct____kmp__env__var.html">   56</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct____kmp__env__var.html">__kmp_env_var</a> {</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="struct____kmp__env__var.html#a439c7b2401d48121f1f02c19cad675dc">   57</a></span>&#160;    <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="struct____kmp__env__var.html#a439c7b2401d48121f1f02c19cad675dc">name</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="struct____kmp__env__var.html#aab9326e41f54696bffe90343f68780e9">   58</a></span>&#160;    <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="struct____kmp__env__var.html#aab9326e41f54696bffe90343f68780e9">value</a>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>__kmp_env_var kmp_env_var_t;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="kmp__environment_8h.html#a53889221cab0cfddd3d03b701552bf26">   60</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct____kmp__env__var.html">__kmp_env_var</a> <a class="code" href="struct____kmp__env__var.html">kmp_env_var_t</a>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">struct </span>__kmp_env_blk {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">char</span> <span class="keyword">const</span> *          bulk;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    kmp_env_var_t <span class="keyword">const</span> * vars;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">int</span>                   count;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="struct____kmp__env__blk.html">   62</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct____kmp__env__blk.html">__kmp_env_blk</a> {</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="struct____kmp__env__blk.html#af711e9d15e00ff7c58f5ca691d3bc4dc">   63</a></span>&#160;    <span class="keywordtype">char</span> <span class="keyword">const</span> *          <a class="code" href="struct____kmp__env__blk.html#af711e9d15e00ff7c58f5ca691d3bc4dc">bulk</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="struct____kmp__env__blk.html#af6ab63dec994b80f1d4029b447b6e435">   64</a></span>&#160;    <a class="code" href="struct____kmp__env__var.html">kmp_env_var_t</a> <span class="keyword">const</span> * <a class="code" href="struct____kmp__env__blk.html#af6ab63dec994b80f1d4029b447b6e435">vars</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="struct____kmp__env__blk.html#a857a76ec0e363dbd587b0f5f0b57c886">   65</a></span>&#160;    <span class="keywordtype">int</span>                   <a class="code" href="struct____kmp__env__blk.html#a857a76ec0e363dbd587b0f5f0b57c886">count</a>;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>__kmp_env_blk kmp_env_blk_t;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="kmp__environment_8h.html#a95e2cc0f05c836a2714f0f3b60504c66">   67</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct____kmp__env__blk.html">__kmp_env_blk</a> <a class="code" href="struct____kmp__env__blk.html">kmp_env_blk_t</a>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span>         __kmp_env_blk_init( kmp_env_blk_t * block, <span class="keywordtype">char</span> <span class="keyword">const</span> * bulk );</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span>         __kmp_env_blk_free( kmp_env_blk_t * block );</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">void</span>         __kmp_env_blk_sort( kmp_env_blk_t * block );</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">char</span> <span class="keyword">const</span> * __kmp_env_blk_var(  kmp_env_blk_t * block, <span class="keywordtype">char</span> <span class="keyword">const</span> * name );</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span>         <a class="code" href="kmp__environment_8h.html#aa420b8c5efd33fc4b4924c2ee162c3f7">__kmp_env_blk_init</a>( <a class="code" href="struct____kmp__env__blk.html">kmp_env_blk_t</a> * block, <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="struct____kmp__env__blk.html#af711e9d15e00ff7c58f5ca691d3bc4dc">bulk</a> );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span>         <a class="code" href="kmp__environment_8h.html#aaad1c1e70e34249d79fd588a2e87ed97">__kmp_env_blk_free</a>( <a class="code" href="struct____kmp__env__blk.html">kmp_env_blk_t</a> * block );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">void</span>         <a class="code" href="kmp__environment_8h.html#a460281f0f51a658a257203ac490e870d">__kmp_env_blk_sort</a>( <a class="code" href="struct____kmp__env__blk.html">kmp_env_blk_t</a> * block );</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="kmp__environment_8h.html#a0c01807eb080937047652334e1d185c6">__kmp_env_blk_var</a>(  <a class="code" href="struct____kmp__env__blk.html">kmp_env_blk_t</a> * block, <span class="keywordtype">char</span> <span class="keyword">const</span> * <a class="code" href="ittnotify__static_8h.html#a1c34b35a4952969fef60192313bba34a">name</a> );</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor"></span>}</div>
@@ -162,10 +170,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">// end of file //</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="ttc" id="struct____kmp__env__var_html_a439c7b2401d48121f1f02c19cad675dc"><div class="ttname"><a href="struct____kmp__env__var.html#a439c7b2401d48121f1f02c19cad675dc">__kmp_env_var::name</a></div><div class="ttdeci">char const * name</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00057">kmp_environment.h:57</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_a460281f0f51a658a257203ac490e870d"><div class="ttname"><a href="kmp__environment_8h.html#a460281f0f51a658a257203ac490e870d">__kmp_env_blk_sort</a></div><div class="ttdeci">void __kmp_env_blk_sort(kmp_env_blk_t *block)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00548">kmp_environment.c:548</a></div></div>
+<div class="ttc" id="ittnotify__static_8h_html_a1c34b35a4952969fef60192313bba34a"><div class="ttname"><a href="ittnotify__static_8h.html#a1c34b35a4952969fef60192313bba34a">name</a></div><div class="ttdeci">void const wchar_t const wchar_t int ITT_FORMAT __itt_group_sync x void const wchar_t * name</div><div class="ttdef"><b>Definition:</b> <a href="ittnotify__static_8h_source.html#l00071">ittnotify_static.h:71</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_a0ba2f8c7661ee48940e90124d415b1cf"><div class="ttname"><a href="kmp__environment_8h.html#a0ba2f8c7661ee48940e90124d415b1cf">__kmp_env_free</a></div><div class="ttdeci">void __kmp_env_free(char const **value)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00168">kmp_environment.c:168</a></div></div>
+<div class="ttc" id="struct____kmp__env__var_html"><div class="ttname"><a href="struct____kmp__env__var.html">__kmp_env_var</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00056">kmp_environment.h:56</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_aa420b8c5efd33fc4b4924c2ee162c3f7"><div class="ttname"><a href="kmp__environment_8h.html#aa420b8c5efd33fc4b4924c2ee162c3f7">__kmp_env_blk_init</a></div><div class="ttdeci">void __kmp_env_blk_init(kmp_env_blk_t *block, char const *bulk)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00504">kmp_environment.c:504</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_a6fe53462a302972de5fc323b08b94b27"><div class="ttname"><a href="kmp__environment_8h.html#a6fe53462a302972de5fc323b08b94b27">__kmp_env_exists</a></div><div class="ttdeci">int __kmp_env_exists(char const *name)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00179">kmp_environment.c:179</a></div></div>
+<div class="ttc" id="struct____kmp__env__blk_html_af711e9d15e00ff7c58f5ca691d3bc4dc"><div class="ttname"><a href="struct____kmp__env__blk.html#af711e9d15e00ff7c58f5ca691d3bc4dc">__kmp_env_blk::bulk</a></div><div class="ttdeci">char const * bulk</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00063">kmp_environment.h:63</a></div></div>
+<div class="ttc" id="struct____kmp__env__var_html_aab9326e41f54696bffe90343f68780e9"><div class="ttname"><a href="struct____kmp__env__var.html#aab9326e41f54696bffe90343f68780e9">__kmp_env_var::value</a></div><div class="ttdeci">char const * value</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00058">kmp_environment.h:58</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_aaad1c1e70e34249d79fd588a2e87ed97"><div class="ttname"><a href="kmp__environment_8h.html#aaad1c1e70e34249d79fd588a2e87ed97">__kmp_env_blk_free</a></div><div class="ttdeci">void __kmp_env_blk_free(kmp_env_blk_t *block)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00564">kmp_environment.c:564</a></div></div>
+<div class="ttc" id="struct____kmp__env__blk_html_af6ab63dec994b80f1d4029b447b6e435"><div class="ttname"><a href="struct____kmp__env__blk.html#af6ab63dec994b80f1d4029b447b6e435">__kmp_env_blk::vars</a></div><div class="ttdeci">kmp_env_var_t const * vars</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00064">kmp_environment.h:64</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_af0715e0365570b19fd22c7370e3d4938"><div class="ttname"><a href="kmp__environment_8h.html#af0715e0365570b19fd22c7370e3d4938">__kmp_env_unset</a></div><div class="ttdeci">void __kmp_env_unset(char const *name)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00263">kmp_environment.c:263</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_aed66640640fce6ae13a8ada9e032b9c4"><div class="ttname"><a href="kmp__environment_8h.html#aed66640640fce6ae13a8ada9e032b9c4">__kmp_env_set</a></div><div class="ttdeci">void __kmp_env_set(char const *name, char const *value, int overwrite)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00209">kmp_environment.c:209</a></div></div>
+<div class="ttc" id="struct____kmp__env__blk_html_a857a76ec0e363dbd587b0f5f0b57c886"><div class="ttname"><a href="struct____kmp__env__blk.html#a857a76ec0e363dbd587b0f5f0b57c886">__kmp_env_blk::count</a></div><div class="ttdeci">int count</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00065">kmp_environment.h:65</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_a8ca0c26acad07b836fc8d8013979e8cd"><div class="ttname"><a href="kmp__environment_8h.html#a8ca0c26acad07b836fc8d8013979e8cd">__kmp_env_get</a></div><div class="ttdeci">char * __kmp_env_get(char const *name)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00096">kmp_environment.c:96</a></div></div>
+<div class="ttc" id="struct____kmp__env__blk_html"><div class="ttname"><a href="struct____kmp__env__blk.html">__kmp_env_blk</a></div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8h_source.html#l00062">kmp_environment.h:62</a></div></div>
+<div class="ttc" id="kmp__environment_8h_html_a0c01807eb080937047652334e1d185c6"><div class="ttname"><a href="kmp__environment_8h.html#a0c01807eb080937047652334e1d185c6">__kmp_env_blk_var</a></div><div class="ttdeci">char const * __kmp_env_blk_var(kmp_env_blk_t *block, char const *name)</div><div class="ttdef"><b>Definition:</b> <a href="kmp__environment_8c_source.html#l00580">kmp_environment.c:580</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2016 21:30:29 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 17 2016 17:14:03 for LLVM OpenMP* Runtime Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

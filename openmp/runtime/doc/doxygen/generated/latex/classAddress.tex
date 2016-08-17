@@ -1,0 +1,242 @@
+\hypertarget{classAddress}{\section{Address Class Reference}
+\label{classAddress}\index{Address@{Address}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-affinity.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAddress_a50c3a5bb9f60be276f7d425a1b373966}{Address} (unsigned \-\_\-depth)
+\item 
+\hyperlink{classAddress}{Address} \& \hyperlink{classAddress_a16c1cdab8d3345e4237e6209a21422d1}{operator=} (const \hyperlink{classAddress}{Address} \&b)
+\item 
+bool \hyperlink{classAddress_a2daeaeef46aa7d76d9239da5175eba29}{operator==} (const \hyperlink{classAddress}{Address} \&b) const 
+\item 
+bool \hyperlink{classAddress_a67cf8a59b7411a21af96bce3081d32a6}{is\-Close} (const \hyperlink{classAddress}{Address} \&b, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} level) const 
+\item 
+bool \hyperlink{classAddress_a971ef7be92846aca64bfa9d96e5a8006}{operator!=} (const \hyperlink{classAddress}{Address} \&b) const 
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classAddress_a0bd089006498e492db87e3a9a9c6737b}{print} () const 
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels} \mbox{[}\hyperlink{classAddress_a3c90109b9f20aa28996a78712557683c}{max\-Depth}\mbox{]}
+\item 
+unsigned \hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{child\-Nums} \mbox{[}\hyperlink{classAddress_a3c90109b9f20aa28996a78712557683c}{max\-Depth}\mbox{]}
+\item 
+unsigned \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth}
+\item 
+unsigned \hyperlink{classAddress_ab1535594352babbc297fc1d2b5a48c1a}{leader}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const unsigned \hyperlink{classAddress_a3c90109b9f20aa28996a78712557683c}{max\-Depth} = 32
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 20 of file kmp\-\_\-affinity.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAddress_a50c3a5bb9f60be276f7d425a1b373966}{\index{Address@{Address}!Address@{Address}}
+\index{Address@{Address}!Address@{Address}}
+\subsubsection[{Address}]{\setlength{\rightskip}{0pt plus 5cm}Address\-::\-Address (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{\-\_\-depth}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classAddress_a50c3a5bb9f60be276f7d425a1b373966}
+
+
+Definition at line 27 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+28       : \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth}(\_depth), \hyperlink{classAddress_ab1535594352babbc297fc1d2b5a48c1a}{leader}(\hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) \{
+29     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAddress_a67cf8a59b7411a21af96bce3081d32a6}{\index{Address@{Address}!is\-Close@{is\-Close}}
+\index{is\-Close@{is\-Close}!Address@{Address}}
+\subsubsection[{is\-Close}]{\setlength{\rightskip}{0pt plus 5cm}bool Address\-::is\-Close (
+\begin{DoxyParamCaption}
+\item[{const {\bf Address} \&}]{b, }
+\item[{{\bf int}}]{level}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classAddress_a67cf8a59b7411a21af96bce3081d32a6}
+
+
+Definition at line 47 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+47                                                     \{
+48         \textcolor{keywordflow}{if} (\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth} != b.\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth})
+49             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+50         \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{unsigned})level >= \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth})
+51             \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+52         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < (\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth} - level); \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++)
+53             \textcolor{keywordflow}{if}(\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] != b.\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}])
+54                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+55         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+56     \}
+\end{DoxyCode}
+\hypertarget{classAddress_a971ef7be92846aca64bfa9d96e5a8006}{\index{Address@{Address}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!Address@{Address}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Address\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Address} \&}]{b}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classAddress_a971ef7be92846aca64bfa9d96e5a8006}
+
+
+Definition at line 57 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+57                                             \{
+58         \textcolor{keywordflow}{return} !\hyperlink{classAddress_a2daeaeef46aa7d76d9239da5175eba29}{operator==}(b);
+59     \}
+\end{DoxyCode}
+\hypertarget{classAddress_a16c1cdab8d3345e4237e6209a21422d1}{\index{Address@{Address}!operator=@{operator=}}
+\index{operator=@{operator=}!Address@{Address}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Address}\& Address\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Address} \&}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classAddress_a16c1cdab8d3345e4237e6209a21422d1}
+
+
+Definition at line 30 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+30                                          \{
+31         \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth} = b.\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth};
+32         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth}; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++) \{
+33             \hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = b.\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+34             \hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = b.\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+35         \}
+36         \hyperlink{classAddress_ab1535594352babbc297fc1d2b5a48c1a}{leader} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+37         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};
+38     \}
+\end{DoxyCode}
+\hypertarget{classAddress_a2daeaeef46aa7d76d9239da5175eba29}{\index{Address@{Address}!operator==@{operator==}}
+\index{operator==@{operator==}!Address@{Address}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Address\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Address} \&}]{b}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classAddress_a2daeaeef46aa7d76d9239da5175eba29}
+
+
+Definition at line 39 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by operator!=().
+
+
+\begin{DoxyCode}
+39                                             \{
+40         \textcolor{keywordflow}{if} (\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth} != b.\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth})
+41             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+42         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} = 0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} < \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth}; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++)
+43             \textcolor{keywordflow}{if}(\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] != b.\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}])
+44                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+45         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+46     \}
+\end{DoxyCode}
+\hypertarget{classAddress_a0bd089006498e492db87e3a9a9c6737b}{\index{Address@{Address}!print@{print}}
+\index{print@{print}!Address@{Address}}
+\subsubsection[{print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} Address\-::print (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classAddress_a0bd089006498e492db87e3a9a9c6737b}
+
+
+Definition at line 60 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by Addr\-Uns\-Pair\-::print().
+
+
+\begin{DoxyCode}
+60                        \{
+61         \textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+62         printf(\textcolor{stringliteral}{"Depth: %u --- "}, \hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth});
+63         \textcolor{keywordflow}{for}(i=0;i<\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth};i++) \{
+64             printf(\textcolor{stringliteral}{"%u "}, \hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[i]);
+65         \}
+66     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classAddress_aae88cf413f1d90429d34a23387a8fe81}{\index{Address@{Address}!child\-Nums@{child\-Nums}}
+\index{child\-Nums@{child\-Nums}!Address@{Address}}
+\subsubsection[{child\-Nums}]{\setlength{\rightskip}{0pt plus 5cm}unsigned Address\-::child\-Nums\mbox{[}{\bf max\-Depth}\mbox{]}}}\label{classAddress_aae88cf413f1d90429d34a23387a8fe81}
+
+
+Definition at line 24 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num(), hierarchy\-\_\-info\-::derive\-Levels(), and operator=().
+
+\hypertarget{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{\index{Address@{Address}!depth@{depth}}
+\index{depth@{depth}!Address@{Address}}
+\subsubsection[{depth}]{\setlength{\rightskip}{0pt plus 5cm}unsigned Address\-::depth}}\label{classAddress_a1adef13df4b328813a1bf4b92c56ee10}
+
+
+Definition at line 25 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num(), \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels(), hierarchy\-\_\-info\-::derive\-Levels(), is\-Close(), operator=(), operator==(), and print().
+
+\hypertarget{classAddress_a0a5fc0038932317cd8f46d802850996a}{\index{Address@{Address}!labels@{labels}}
+\index{labels@{labels}!Address@{Address}}
+\subsubsection[{labels}]{\setlength{\rightskip}{0pt plus 5cm}unsigned Address\-::labels\mbox{[}{\bf max\-Depth}\mbox{]}}}\label{classAddress_a0a5fc0038932317cd8f46d802850996a}
+
+
+Definition at line 23 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels(), is\-Close(), operator=(), operator==(), and print().
+
+\hypertarget{classAddress_ab1535594352babbc297fc1d2b5a48c1a}{\index{Address@{Address}!leader@{leader}}
+\index{leader@{leader}!Address@{Address}}
+\subsubsection[{leader}]{\setlength{\rightskip}{0pt plus 5cm}unsigned Address\-::leader}}\label{classAddress_ab1535594352babbc297fc1d2b5a48c1a}
+
+
+Definition at line 26 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by operator=().
+
+\hypertarget{classAddress_a3c90109b9f20aa28996a78712557683c}{\index{Address@{Address}!max\-Depth@{max\-Depth}}
+\index{max\-Depth@{max\-Depth}!Address@{Address}}
+\subsubsection[{max\-Depth}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned Address\-::max\-Depth = 32\hspace{0.3cm}{\ttfamily [static]}}}\label{classAddress_a3c90109b9f20aa28996a78712557683c}
+
+
+Definition at line 22 of file kmp\-\_\-affinity.\-h.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__affinity_8h}{kmp\-\_\-affinity.\-h}\end{DoxyCompactItemize}

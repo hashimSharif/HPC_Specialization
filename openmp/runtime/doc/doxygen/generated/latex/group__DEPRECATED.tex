@@ -28,3 +28,66 @@ This function need not be called. It always returns T\-R\-U\-E.
 
 Definition at line 161 of file kmp\-\_\-csupport.\-c.
 
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T().
+
+
+\begin{DoxyCode}
+162 \{
+163 \textcolor{preprocessor}{#ifndef KMP\_DEBUG}
+164 \textcolor{preprocessor}{}
+165     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+166 
+167 \textcolor{preprocessor}{#else}
+168 \textcolor{preprocessor}{}
+169     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *semi2;
+170     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *semi3;
+171     \textcolor{keywordtype}{int} line\_no;
+172 
+173     \textcolor{keywordflow}{if} (\_\_kmp\_par\_range == 0) \{
+174         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+175     \}
+176     semi2 = loc->\hyperlink{structident_a8c2ccc106967f36d7191d59d4d5a65dc}{psource};
+177     \textcolor{keywordflow}{if} (semi2 == NULL) \{
+178         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+179     \}
+180     semi2 = strchr(semi2, \textcolor{charliteral}{';'});
+181     \textcolor{keywordflow}{if} (semi2 == NULL) \{
+182         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+183     \}
+184     semi2 = strchr(semi2 + 1, \textcolor{charliteral}{';'});
+185     \textcolor{keywordflow}{if} (semi2 == NULL) \{
+186         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+187     \}
+188     \textcolor{keywordflow}{if} (\_\_kmp\_par\_range\_filename[0]) \{
+189         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\hyperlink{ittnotify__static_8h_a1c34b35a4952969fef60192313bba34a}{name} = semi2 - 1;
+190         \textcolor{keywordflow}{while} ((name > loc->\hyperlink{structident_a8c2ccc106967f36d7191d59d4d5a65dc}{psource}) && (*name != \textcolor{charliteral}{'/'}) && (*name != \textcolor{charliteral}{';'})) \{
+191             name--;
+192         \}
+193         \textcolor{keywordflow}{if} ((*name == \textcolor{charliteral}{'/'}) || (*name == \textcolor{charliteral}{';'})) \{
+194             name++;
+195         \}
+196         \textcolor{keywordflow}{if} (strncmp(\_\_kmp\_par\_range\_filename, name, semi2 - name)) \{
+197             \textcolor{keywordflow}{return} \_\_kmp\_par\_range < 0;
+198         \}
+199     \}
+200     semi3 = strchr(semi2 + 1, \textcolor{charliteral}{';'});
+201     \textcolor{keywordflow}{if} (\_\_kmp\_par\_range\_routine[0]) \{
+202         \textcolor{keywordflow}{if} ((semi3 != NULL) && (semi3 > semi2)
+203           && (strncmp(\_\_kmp\_par\_range\_routine, semi2 + 1, semi3 - semi2 - 1))) \{
+204             \textcolor{keywordflow}{return} \_\_kmp\_par\_range < 0;
+205         \}
+206     \}
+207     \textcolor{keywordflow}{if} (\hyperlink{kmp__safe__c__api_8h_a70e17572e3cba886b748509b25f14af5}{KMP\_SSCANF}(semi3 + 1, \textcolor{stringliteral}{"%d"}, &line\_no) == 1) \{
+208         \textcolor{keywordflow}{if} ((line\_no >= \_\_kmp\_par\_range\_lb) && (line\_no <= \_\_kmp\_par\_range\_ub)) \{
+209             \textcolor{keywordflow}{return} \_\_kmp\_par\_range > 0;
+210         \}
+211         \textcolor{keywordflow}{return} \_\_kmp\_par\_range < 0;
+212     \}
+213     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+214 
+215 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* KMP\_DEBUG */}\textcolor{preprocessor}{}
+216 \textcolor{preprocessor}{}
+217 \}
+\end{DoxyCode}

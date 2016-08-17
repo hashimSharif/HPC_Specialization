@@ -1,0 +1,2328 @@
+\hypertarget{kmp__taskq_8c}{\section{kmp\-\_\-taskq.\-c File Reference}
+\label{kmp__taskq_8c}\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-io.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-error.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__taskq_8c_a8cea0c1cc1fc60a52e79998580bbf1a7}{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}~512
+\item 
+\#define \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x})~\hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{K\-F\-\_\-\-T\-R\-A\-C\-E}(1, \hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x});
+\item 
+\#define \hyperlink{kmp__taskq_8c_a78a737ea62f27fd3647251a840b7b494}{T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__taskq_8c_a3c92fbf19170f125cfa7425fd96778e7}{in\-\_\-parallel\-\_\-context} (\hyperlink{kmp_8h_a95f7a64bda9b774add6c27c4a7b2a143}{kmp\-\_\-team\-\_\-t} $\ast$team)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_ac3e65df57b606562134811089613d0fa}{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$gtid\-\_\-ref, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$cid\-\_\-ref, \hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_ad71295478d8cf475e04a490a15e14765}{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$gtid\-\_\-ref, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$cid\-\_\-ref, \hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a84807ae43fcdc79de9e37c8ffbb765e1}{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered} (kmp\-\_\-int32 gtid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$thunk)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$ \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate} (size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+static \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_aa694e3ef6c36e868435ec2d6a333d282}{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel, kmp\-\_\-int32 nslots, kmp\-\_\-int32 nthunks, kmp\-\_\-int32 nshareds, kmp\-\_\-int32 nproc, size\-\_\-t sizeof\-\_\-thunk, size\-\_\-t sizeof\-\_\-shareds, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$$\ast$new\-\_\-taskq\-\_\-thunk, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a7b2e501ea7b45a6008f247f5da4f6d5e}{\-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+static \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_a531a5964e2c7038b2237c0bbed44c78c}{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk} (\hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_af18a7f3e829d2dd4457d013728078f7b}{\-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk} (\hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$\hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel, kmp\-\_\-int32 global\-\_\-tid)
+\item 
+static kmp\-\_\-int32 \hyperlink{kmp__taskq_8c_a313550c1dd105735672fdb6a4d562317}{\-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$thunk, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel)
+\item 
+static \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task} (kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel)
+\item 
+static \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_a1b38cf1122a4ed3e0ba1a7edf527c45e}{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue} (kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue)
+\item 
+static \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue} (kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$curr\-\_\-queue)
+\item 
+static \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_aa3982dd97bf3d87a4e78792b47899fb0}{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$curr\-\_\-queue)
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished} (\hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue)
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children} (\hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a4aea2096691f11000aa16fe3eeb61bd0}{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a2805aae190357bb592473d8c48f917c0}{\-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$curr\-\_\-queue)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a056383fd6424d9c8d957654fbb64c7d0}{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__task__queue__t}{kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$queue)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue} (\hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\-\_\-taskq\-\_\-t} $\ast$tq, \hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$thunk, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} in\-\_\-parallel)
+\item 
+\hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_af674ae67625307b7be22a33e54c7fda2}{\-\_\-\-\_\-kmpc\-\_\-taskq} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{kmp_8h_a443fb9b6063601b5a564b4562a836fcf}{kmpc\-\_\-task\-\_\-t} taskq\-\_\-task, size\-\_\-t sizeof\-\_\-thunk, size\-\_\-t sizeof\-\_\-shareds, kmp\-\_\-int32 flags, \hyperlink{structkmpc__shared__vars__t}{kmpc\-\_\-shared\-\_\-vars\-\_\-t} $\ast$$\ast$shareds)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a9bbabae052a2addf8116548cab5edf51}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$taskq\-\_\-thunk)
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__taskq_8c_a84425b84030ba1395b905f9e0fa49666}{\-\_\-\-\_\-kmpc\-\_\-task} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$thunk)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_acaade80b091ed43c0268aad085f79711}{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$thunk, kmp\-\_\-int32 \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__taskq_8c_a119e80f2f455e3b00fef81c67b364c63}{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$thunk)
+\item 
+\hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$ \hyperlink{kmp__taskq_8c_aa614aff71fec0fd9093d511e413f175e}{\-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 global\-\_\-tid, \hyperlink{structkmpc__thunk__t}{kmpc\-\_\-thunk\-\_\-t} $\ast$taskq\-\_\-thunk, \hyperlink{kmp_8h_a443fb9b6063601b5a564b4562a836fcf}{kmpc\-\_\-task\-\_\-t} \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S@{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S}}
+\index{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S@{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-R\-E\-F\-\_\-\-C\-T\-S(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf K\-F\-\_\-\-T\-R\-A\-C\-E}(1, {\bf x});}}\label{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}
+
+
+Definition at line 30 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), and \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+\hypertarget{kmp__taskq_8c_a8cea0c1cc1fc60a52e79998580bbf1a7}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E@{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}}
+\index{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E@{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-A\-X\-\_\-\-M\-E\-S\-S\-A\-G\-E~512}}\label{kmp__taskq_8c_a8cea0c1cc1fc60a52e79998580bbf1a7}
+
+
+Definition at line 21 of file kmp\-\_\-taskq.\-c.
+
+\hypertarget{kmp__taskq_8c_a78a737ea62f27fd3647251a840b7b494}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q@{T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q}}
+\index{T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q@{T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\-H\-R\-E\-A\-D\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-O\-R\-\_\-\-T\-A\-S\-K\-Q}}\label{kmp__taskq_8c_a78a737ea62f27fd3647251a840b7b494}
+
+
+Definition at line 32 of file kmp\-\_\-taskq.\-c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__taskq_8c_aa694e3ef6c36e868435ec2d6a333d282}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq}}
+\index{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmpc\-\_\-task\-\_\-queue\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{{\bf int}}]{in\-\_\-parallel, }
+\item[{kmp\-\_\-int32}]{nslots, }
+\item[{kmp\-\_\-int32}]{nthunks, }
+\item[{kmp\-\_\-int32}]{nshareds, }
+\item[{kmp\-\_\-int32}]{nproc, }
+\item[{size\-\_\-t}]{sizeof\-\_\-thunk, }
+\item[{size\-\_\-t}]{sizeof\-\_\-shareds, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$$\ast$}]{new\-\_\-taskq\-\_\-thunk, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_aa694e3ef6c36e868435ec2d6a333d282}
+
+
+Definition at line 448 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+
+\begin{DoxyCode}
+451 \{
+452     kmp\_int32                  \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+453     \textcolor{keywordtype}{size\_t}                     bytes;
+454     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t}          *new\_queue;
+455     \hyperlink{structkmpc__aligned__shared__vars__t}{kmpc\_aligned\_shared\_vars\_t} *shared\_var\_array;
+456     \textcolor{keywordtype}{char}                       *shared\_var\_storage;
+457     \textcolor{keywordtype}{char}                       *pt; \textcolor{comment}{/* for doing byte-adjusted address computations */}
+458 
+459     \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}( & tq->tq\_freelist\_lck, global\_tid );
+460 
+461     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+462                \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+463 
+464     \textcolor{keywordflow}{if}( tq->tq\_freelist ) \{
+465         new\_queue =  tq -> tq\_freelist;
+466         tq -> tq\_freelist =  tq -> tq\_freelist -> tq.\hyperlink{structkmpc__task__queue__t_a1ed21643e12300700496257e9d543351}{tq\_next\_free};
+467 
+468         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & 
+      \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED});
+469 
+470         new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} = 0;
+471 
+472         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}( & tq->tq\_freelist\_lck, global\_tid );
+473     \}
+474     \textcolor{keywordflow}{else} \{
+475         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}( & tq->tq\_freelist\_lck, global\_tid );
+476 
+477         new\_queue = (\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *) \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\_\_kmp\_taskq\_allocate} (\textcolor{keyword}{sizeof}
+       (\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t}), global\_tid);
+478         new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} = 0;
+479     \}
+480 
+481     \textcolor{comment}{/*  space in the task queue for queue slots (allocate as one big chunk */}
+482     \textcolor{comment}{/* of storage including new\_taskq\_task space)                          */}
+483 
+484     sizeof\_thunk += (\hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE} - (sizeof\_thunk % \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE}));         \textcolor{comment}{/* pad to cache
+       line size */}
+485     pt = (\textcolor{keywordtype}{char} *) \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\_\_kmp\_taskq\_allocate} (nthunks * sizeof\_thunk, global\_tid);
+486     new\_queue->\hyperlink{structkmpc__task__queue__t_a2ba2f7f3ea4c47df06f7220d66a9064e}{tq\_thunk\_space} = (\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)pt;
+487     *new\_taskq\_thunk = (\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)(pt + (nthunks - 1) * sizeof\_thunk);
+488 
+489     \textcolor{comment}{/*  chain the allocated thunks into a freelist for this queue  */}
+490 
+491     new\_queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks} = (\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)pt;
+492 
+493     \textcolor{keywordflow}{for} (i = 0; i < (nthunks - 2); i++) \{
+494         ((\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)(pt+i*sizeof\_thunk))->th.\hyperlink{structkmpc__thunk__t_a8afc990c7593d8046a2f07a2578281db}{th\_next\_free} = (
+      \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)(pt + (i+1)*sizeof\_thunk);
+495 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+496 \textcolor{preprocessor}{}        ((\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)(pt+i*sizeof\_thunk))->th\_flags = 
+      \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+497 \textcolor{preprocessor}{#endif}
+498 \textcolor{preprocessor}{}    \}
+499 
+500     ((\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)(pt+(nthunks-2)*sizeof\_thunk))->th.th\_next\_free = NULL;
+501 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+502 \textcolor{preprocessor}{}    ((\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *)(pt+(nthunks-2)*sizeof\_thunk))->th\_flags = 
+      \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+503 \textcolor{preprocessor}{#endif}
+504 \textcolor{preprocessor}{}
+505     \textcolor{comment}{/* initialize the locks */}
+506 
+507     \textcolor{keywordflow}{if} (in\_parallel) \{
+508         \hyperlink{kmp__lock_8h_a44d857bfef49fda9213da11d71aae54e}{\_\_kmp\_init\_lock}( & new\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck} );
+509         \hyperlink{kmp__lock_8h_a44d857bfef49fda9213da11d71aae54e}{\_\_kmp\_init\_lock}( & new\_queue->\hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\_free\_thunks\_lck} );
+510         \hyperlink{kmp__lock_8h_a44d857bfef49fda9213da11d71aae54e}{\_\_kmp\_init\_lock}( & new\_queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck} );
+511     \}
+512 
+513     \textcolor{comment}{/* now allocate the slots */}
+514 
+515     bytes = nslots * \textcolor{keyword}{sizeof} (\hyperlink{kmp_8h_a5b704a6d870061e3108fb5ba0527b2bf}{kmpc\_aligned\_queue\_slot\_t});
+516     new\_queue->\hyperlink{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{tq\_queue} = (\hyperlink{structkmpc__aligned__queue__slot__t}{kmpc\_aligned\_queue\_slot\_t} *) 
+      \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\_\_kmp\_taskq\_allocate}( bytes, global\_tid );
+517 
+518     \textcolor{comment}{/*  space for array of pointers to shared variable structures */}
+519     sizeof\_shareds += \textcolor{keyword}{sizeof}(\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *);
+520     sizeof\_shareds += (\hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE} - (sizeof\_shareds % \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE}));     \textcolor{comment}{/* pad to cache
+       line size */}
+521 
+522     bytes = nshareds * \textcolor{keyword}{sizeof} (\hyperlink{kmp_8h_ad6c42cffdb091028165ed256e3dfd5c8}{kmpc\_aligned\_shared\_vars\_t});
+523     shared\_var\_array = (\hyperlink{structkmpc__aligned__shared__vars__t}{kmpc\_aligned\_shared\_vars\_t} *) 
+      \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\_\_kmp\_taskq\_allocate} ( bytes, global\_tid);
+524 
+525     bytes = nshareds * sizeof\_shareds;
+526     shared\_var\_storage = (\textcolor{keywordtype}{char} *) \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\_\_kmp\_taskq\_allocate} ( bytes, global\_tid);
+527 
+528     \textcolor{keywordflow}{for} (i=0; i<nshareds; i++) \{
+529         shared\_var\_array[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].\hyperlink{structkmpc__aligned__shared__vars__t_a1b5d58f6227a7718f53797cd653993b2}{ai\_data} = (\hyperlink{structkmpc__shared__vars__t}{kmpc\_shared\_vars\_t} *) (shared\_var\_storage 
+      + i*sizeof\_shareds);
+530         shared\_var\_array[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].\hyperlink{structkmpc__aligned__shared__vars__t_a1b5d58f6227a7718f53797cd653993b2}{ai\_data}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue} = new\_queue;
+531     \}
+532     new\_queue->\hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds} = shared\_var\_array;
+533 
+534 
+535     \textcolor{comment}{/* array for number of outstanding thunks per thread */}
+536 
+537     \textcolor{keywordflow}{if} (in\_parallel) \{
+538         bytes = nproc * \textcolor{keyword}{sizeof}(\hyperlink{kmp_8h_ad91bb2095e8591251c4806327a8e256b}{kmpc\_aligned\_int32\_t});
+539         new\_queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks} = (\hyperlink{structkmpc__aligned__int32__t}{kmpc\_aligned\_int32\_t} *) 
+      \hyperlink{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\_\_kmp\_taskq\_allocate} ( bytes, global\_tid);
+540         new\_queue->\hyperlink{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{tq\_nproc}     = nproc;
+541 
+542         \textcolor{keywordflow}{for} (i=0; i<nproc; i++)
+543             new\_queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[i].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} = 0;
+544     \}
+545 
+546     \textcolor{keywordflow}{return} new\_queue;
+547 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a531a5964e2c7038b2237c0bbed44c78c}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk@{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk}}
+\index{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk@{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-thunk (
+\begin{DoxyParamCaption}
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue, }
+\item[{{\bf int}}]{in\-\_\-parallel, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a531a5964e2c7038b2237c0bbed44c78c}
+
+
+Definition at line 618 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer().
+
+
+\begin{DoxyCode}
+619 \{
+620     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *fl;
+621 
+622     \textcolor{keywordflow}{if} (in\_parallel) \{
+623         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\_free\_thunks\_lck}, global\_tid);
+624 
+625         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+626                    \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+627     \}
+628 
+629     fl = queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks};
+630 
+631     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (fl != NULL);
+632 
+633     queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks} = fl->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a8afc990c7593d8046a2f07a2578281db}{th\_next\_free};
+634     fl->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} = 0;
+635 
+636     \textcolor{keywordflow}{if} (in\_parallel)
+637         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\_free\_thunks\_lck}, global\_tid);
+638 
+639     \textcolor{keywordflow}{return} fl;
+640 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task@{\-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task}}
+\index{\-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task@{\-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-dequeue\-\_\-task (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue, }
+\item[{{\bf int}}]{in\-\_\-parallel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}
+
+
+Definition at line 724 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-task().
+
+
+\begin{DoxyCode}
+725 \{
+726     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *pt;
+727     \textcolor{keywordtype}{int}           tid = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( global\_tid );
+728 
+729     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} > 0);  \textcolor{comment}{/*  check queue not empty  */}
+730 
+731     \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL && in\_parallel) \{
+732         \textcolor{keywordtype}{int} ct;
+733         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+734         ct = ++(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+735         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+736         \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p inc %d\(\backslash\)n"},
+737           \_\_LINE\_\_, global\_tid, queue, ct));
+738     \}
+739 
+740     pt = queue->\hyperlink{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{tq\_queue}[(queue->\hyperlink{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{tq\_tail})++].qs\_thunk;
+741 
+742     \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{tq\_tail} >= queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots})
+743         queue->\hyperlink{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{tq\_tail} = 0;
+744 
+745     \textcolor{keywordflow}{if} (in\_parallel) \{
+746         queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data}++;
+747 
+748         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}(); \textcolor{comment}{/* necessary so ai\_data increment is propagated to other threads immediately
+       (digital) */}
+749 
+750         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(200, (\textcolor{stringliteral}{"\_\_kmp\_dequeue\_task: T#%d(:%d) now has %d outstanding thunks from queue %p\(\backslash\)n
+      "},
+751             global\_tid, tid, queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data}, queue));
+752     \}
+753 
+754     (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull})--;
+755 
+756 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+757 \textcolor{preprocessor}{}    \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+758 
+759     \textcolor{comment}{/* necessary so (queue->tq\_nfull > 0) above succeeds after tq\_nfull is decremented */}
+760 
+761     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} >= 0);
+762 
+763     \textcolor{keywordflow}{if} (in\_parallel) \{
+764         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].
+      \hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} <= \hyperlink{kmp_8h_a9a66421259b6140badf1f22889fa11b8}{\_\_KMP\_TASKQ\_THUNKS\_PER\_TH});
+765     \}
+766 \textcolor{preprocessor}{#endif}
+767 \textcolor{preprocessor}{}
+768     \textcolor{keywordflow}{return} pt;
+769 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a313550c1dd105735672fdb6a4d562317}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task@{\-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task}}
+\index{\-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task@{\-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task}]{\setlength{\rightskip}{0pt plus 5cm}static kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-enqueue\-\_\-task (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{thunk, }
+\item[{{\bf int}}]{in\-\_\-parallel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a313550c1dd105735672fdb6a4d562317}
+
+
+Definition at line 676 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-task().
+
+
+\begin{DoxyCode}
+677 \{
+678     kmp\_int32    ret;
+679 
+680     \textcolor{comment}{/*  dkp: can we get around the lock in the TQF\_RELEASE\_WORKERS case (only the master is executing then)
+        */}
+681     \textcolor{keywordflow}{if} (in\_parallel) \{
+682         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+683 
+684         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+685                    \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+686     \}
+687 
+688     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} < queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots});  \textcolor{comment}{/*  check
+       queue not full  */}
+689 
+690     queue->\hyperlink{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{tq\_queue}[(queue->\hyperlink{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{tq\_head})++].qs\_thunk = thunk;
+691 
+692     \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{tq\_head} >= queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots})
+693         queue->\hyperlink{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{tq\_head} = 0;
+694 
+695     (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull})++;
+696 
+697     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();   \textcolor{comment}{/* to assure that nfull is seen to increase before TQF\_ALL\_TASKS\_QUEUED is set */}
+698 
+699     ret = (in\_parallel) ? (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots}) : 
+      \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+700 
+701     \textcolor{keywordflow}{if} (in\_parallel) \{
+702         \textcolor{comment}{/* don't need to wait until workers are released before unlocking */}
+703         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+704 
+705         \textcolor{keywordflow}{if}( tq->tq\_global\_flags & \hyperlink{kmp_8h_a986d313fb8f4fd3f3e2e5801f2871f2e}{TQF\_RELEASE\_WORKERS} ) \{
+706             \textcolor{comment}{/* If just creating the root queue, the worker threads are waiting at */}
+707             \textcolor{comment}{/* a join barrier until now, when there's something in the queue for  */}
+708             \textcolor{comment}{/* them to do; release them now to do work.                           */}
+709             \textcolor{comment}{/* This should only be done when this is the first task enqueued,     */}
+710             \textcolor{comment}{/* so reset the flag here also.                                       */}
+711 
+712             tq->tq\_global\_flags &= ~\hyperlink{kmp_8h_a986d313fb8f4fd3f3e2e5801f2871f2e}{TQF\_RELEASE\_WORKERS};  \textcolor{comment}{/* no lock needed, workers are
+       still in spin mode */}
+713 
+714             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();   \textcolor{comment}{/* avoid releasing barrier twice if taskq\_task switches threads */}
+715 
+716             \hyperlink{group__SYNCHRONIZATION_ga35415691dad1e3430caa78c9d4b34cb3}{\_\_kmpc\_end\_barrier\_master}( NULL, global\_tid);
+717         \}
+718     \}
+719 
+720     \textcolor{keywordflow}{return} ret;
+721 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue}}
+\index{\-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{thunk, }
+\item[{{\bf int}}]{in\-\_\-parallel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}
+
+
+Definition at line 1231 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-task().
+
+
+\begin{DoxyCode}
+1232 \{
+1233     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue = thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->
+      \hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue};
+1234     kmp\_int32          tid   = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( global\_tid );
+1235 
+1236     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"After dequeueing this Task on (%d):\(\backslash\)n"}, global\_tid));
+1237     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_thunk( tq, thunk, global\_tid ));
+1238     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"Task Queue: %p looks like this (%d):\(\backslash\)n"}, queue, global\_tid));
+1239     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_task\_queue( tq, queue, global\_tid ));
+1240 
+1241     \textcolor{comment}{/*}
+1242 \textcolor{comment}{     * For the taskq task, the curr\_thunk pushes and pop pairs are set up as follows:}
+1243 \textcolor{comment}{     *}
+1244 \textcolor{comment}{     * happens exactly once:}
+1245 \textcolor{comment}{     * 1) \_\_kmpc\_taskq             : push (if returning thunk only)}
+1246 \textcolor{comment}{     * 4) \_\_kmpc\_end\_taskq\_task    : pop}
+1247 \textcolor{comment}{     *}
+1248 \textcolor{comment}{     * optionally happens *each* time taskq task is dequeued/enqueued:}
+1249 \textcolor{comment}{     * 2) \_\_kmpc\_taskq\_task        : pop}
+1250 \textcolor{comment}{     * 3) \_\_kmp\_execute\_task\_from\_queue  : push}
+1251 \textcolor{comment}{     *}
+1252 \textcolor{comment}{     * execution ordering:  1,(2,3)*,4}
+1253 \textcolor{comment}{     */}
+1254 
+1255     \textcolor{keywordflow}{if} (!(thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK})) \{
+1256         kmp\_int32 index = (queue == tq->tq\_root) ? tid : 0;
+1257         thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds} = (\hyperlink{structkmpc__shared__vars__t}{kmpc\_shared\_vars\_t} *) queue->
+      \hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds}[index].\hyperlink{structkmpc__aligned__shared__vars__t_a1b5d58f6227a7718f53797cd653993b2}{ai\_data};
+1258 
+1259         if ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} ) \{
+1260             \hyperlink{kmp__error_8c_a66a32e32866271e32187760f4a9d4e3e}{\_\_kmp\_push\_workshare}( global\_tid,
+1261                     (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a49f8bd516d28e80029bbf093ab1b44b4}{TQF\_IS\_ORDERED}) ? 
+      \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315adb5cae096724ac35c2fdfcd6e634c35f}{ct\_task\_ordered} : \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a0356e5ff2c78b83c2a7c14e0cb70de59}{ct\_task},
+1262                     queue->\hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\_loc} );
+1263         \}
+1264     \}
+1265     \textcolor{keywordflow}{else} \{
+1266         \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+1267             \hyperlink{kmp__error_8c_a66a32e32866271e32187760f4a9d4e3e}{\_\_kmp\_push\_workshare}( global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a671435932198632bc66b96f059a2c9f8}{ct\_taskq}, queue->
+      \hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\_loc} );
+1268     \}
+1269 
+1270     \textcolor{keywordflow}{if} (in\_parallel) \{
+1271         thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = tq->tq\_curr\_thunk[tid];
+1272         tq->tq\_curr\_thunk[tid] = thunk;
+1273 
+1274         \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}( 200, \_\_kmp\_dump\_thunk\_stack( tq->tq\_curr\_thunk[tid], global\_tid ));
+1275     \}
+1276 
+1277     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}( 50, (\textcolor{stringliteral}{"Begin Executing Thunk %p from queue %p on (%d)\(\backslash\)n"}, thunk, queue, global\_tid));
+1278     thunk->\hyperlink{structkmpc__thunk__t_a3bf681925c3209e5fa5d9a6059d4f8e1}{th\_task} (global\_tid, thunk);
+1279     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}( 50, (\textcolor{stringliteral}{"End Executing Thunk %p from queue %p on (%d)\(\backslash\)n"}, thunk, queue, global\_tid));
+1280 
+1281     \textcolor{keywordflow}{if} (!(thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK})) \{
+1282         \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+1283             \hyperlink{kmp__error_8c_a93d9c89e2629352b4db28263a95b80f4}{\_\_kmp\_pop\_workshare}( global\_tid, (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & 
+      \hyperlink{kmp_8h_a49f8bd516d28e80029bbf093ab1b44b4}{TQF\_IS\_ORDERED}) ? \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315adb5cae096724ac35c2fdfcd6e634c35f}{ct\_task\_ordered} : \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a0356e5ff2c78b83c2a7c14e0cb70de59}{ct\_task},
+1284                                  queue->\hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\_loc} );
+1285 
+1286         \textcolor{keywordflow}{if} (in\_parallel) \{
+1287             tq->tq\_curr\_thunk[tid] = thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk};
+1288             thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = NULL;
+1289             \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}( 200, \_\_kmp\_dump\_thunk\_stack( tq->tq\_curr\_thunk[tid], global\_tid ));
+1290         \}
+1291 
+1292         \textcolor{keywordflow}{if} ((thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a49f8bd516d28e80029bbf093ab1b44b4}{TQF\_IS\_ORDERED}) && in\_parallel) \{
+1293             \hyperlink{kmp__taskq_8c_a84807ae43fcdc79de9e37c8ffbb765e1}{\_\_kmp\_taskq\_check\_ordered}(global\_tid, thunk);
+1294         \}
+1295 
+1296         \hyperlink{kmp__taskq_8c_af18a7f3e829d2dd4457d013728078f7b}{\_\_kmp\_free\_thunk} (queue, thunk, in\_parallel, global\_tid);
+1297 
+1298         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"T#%d After freeing thunk: %p, TaskQ looks like this:\(\backslash\)n"}, global\_tid, thunk)
+      );
+1299         \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_task\_queue( tq, queue, global\_tid ));
+1300 
+1301         \textcolor{keywordflow}{if} (in\_parallel) \{
+1302             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();   \textcolor{comment}{/* needed so thunk put on free list before outstanding thunk count is
+       decremented */}
+1303 
+1304             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].
+      \hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} >= 1);
+1305 
+1306             \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}( 200, (\textcolor{stringliteral}{"\_\_kmp\_execute\_task\_from\_queue: T#%d has %d thunks in queue %p\(\backslash\)n"},
+1307                 global\_tid, queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data}-1, queue));
+1308 
+1309             queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data}--;
+1310 
+1311             \textcolor{comment}{/* KMP\_MB(); */}     \textcolor{comment}{/* is MB really necessary ? */}
+1312         \}
+1313 
+1314         \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL && in\_parallel) \{
+1315             \textcolor{keywordtype}{int} ct;
+1316             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1317             ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+1318             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1319             \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+1320               \_\_LINE\_\_, global\_tid, queue, ct));
+1321             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ct >= 0 );
+1322         \}
+1323     \}
+1324 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a2805aae190357bb592473d8c48f917c0}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq}}
+\index{\-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{curr\-\_\-queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a2805aae190357bb592473d8c48f917c0}
+
+
+Definition at line 1132 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+1133 \{
+1134     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue = curr\_queue;
+1135 
+1136     \textcolor{keywordflow}{if} (curr\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} != NULL) \{
+1137         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1138 
+1139         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+1140                    \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+1141 
+1142         queue = (\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *) curr\_queue->
+      \hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child};
+1143         if (queue != NULL) \{
+1144             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1145             \textcolor{keywordflow}{return};
+1146         \}
+1147 
+1148         \textcolor{keywordflow}{while} (queue != NULL)  \{
+1149             \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *next;
+1150             \textcolor{keywordtype}{int} ct = ++(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+1151             \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p inc %d\(\backslash\)n"},
+1152               \_\_LINE\_\_, global\_tid, queue, ct));
+1153 
+1154 
+1155             \textcolor{comment}{/* although reference count stays active during descendant walk, */}
+1156             \textcolor{comment}{/* shouldn't matter since if children still exist, reference     */}
+1157             \textcolor{comment}{/* counts aren't being monitored anyway                          */}
+1158 
+1159             \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_ae0ea5f61def44dbf751ea433f874cb70}{TQF\_IS\_NOWAIT}) \{
+1160                 \hyperlink{kmp__taskq_8c_a2805aae190357bb592473d8c48f917c0}{\_\_kmp\_find\_and\_remove\_finished\_child\_taskq} ( tq, 
+      global\_tid, queue );
+1161 
+1162                 \textcolor{keywordflow}{if} ((queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a7da4632acb9e9db1407b6e686a581ee7}{TQF\_ALL\_TASKS\_QUEUED}) && (queue->
+      \hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == 0) &&
+1163                     \hyperlink{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}{\_\_kmp\_taskq\_tasks\_finished}(queue) && ! 
+      \hyperlink{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}{\_\_kmp\_taskq\_has\_any\_children}(queue)) \{
+1164 
+1165                     \textcolor{comment}{/*}
+1166 \textcolor{comment}{                     Only remove this if we have not already marked it for deallocation.}
+1167 \textcolor{comment}{                     This should prevent multiple threads from trying to free this.}
+1168 \textcolor{comment}{                     */}
+1169 
+1170                     \textcolor{keywordflow}{if} ( \hyperlink{kmp__lock_8h_a4cdf9d41e743f0ba9cf30bdc9f59a9a9}{\_\_kmp\_test\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid) ) \{
+1171                         \textcolor{keywordflow}{if} ( !(queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED}) ) \{
+1172                             queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+1173                             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->
+      \hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1174 
+1175                             \hyperlink{kmp__taskq_8c_a4aea2096691f11000aa16fe3eeb61bd0}{\_\_kmp\_remove\_queue\_from\_tree}( tq, global\_tid, queue
+      , \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+1176 
+1177                             \textcolor{comment}{/* Can't do any more here since can't be sure where sibling queue is so just
+       exit this level */}
+1178                             \textcolor{keywordflow}{return};
+1179                         \}
+1180                         \textcolor{keywordflow}{else} \{
+1181                             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->
+      \hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1182                         \}
+1183                     \}
+1184                     \textcolor{comment}{/* otherwise, just fall through and decrement reference count */}
+1185                 \}
+1186             \}
+1187 
+1188             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1189 
+1190             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+1191                        \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+1192 
+1193             next = queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child};
+1194 
+1195             ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+1196             \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+1197               \_\_LINE\_\_, global\_tid, queue, ct));
+1198             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ct >= 0 );
+1199 
+1200             queue = next;
+1201         \}
+1202 
+1203         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1204     \}
+1205 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_aa3982dd97bf3d87a4e78792b47899fb0}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue}}
+\index{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{curr\-\_\-queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_aa3982dd97bf3d87a4e78792b47899fb0}
+
+
+Definition at line 956 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+957 \{
+958     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue;
+959     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t}      *pt;
+960 
+961     pt = NULL;
+962 
+963     \textcolor{keywordflow}{if} (curr\_queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL) \{
+964         queue = curr\_queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent};
+965 
+966         \textcolor{keywordflow}{while} (queue != NULL) \{
+967             \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL) \{
+968                 \textcolor{keywordtype}{int} ct;
+969                 \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+970 
+971                 \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them 
+      */}
+972                            \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000
+       */}
+973 
+974                 ct = ++(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+975                 \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+976                 \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p inc %d\(\backslash\)n"},
+977                   \_\_LINE\_\_, global\_tid, queue, ct));
+978             \}
+979 
+980             pt = \hyperlink{kmp__taskq_8c_a1b38cf1122a4ed3e0ba1a7edf527c45e}{\_\_kmp\_find\_task\_in\_queue} (global\_tid, queue);
+981             \textcolor{keywordflow}{if} (pt != NULL) \{
+982                 \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL) \{
+983                     \textcolor{keywordtype}{int} ct;
+984                     \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+985 
+986                     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying
+       them   */}
+987                                \textcolor{comment}{/* Seems to work without this call for digital/alpha, needed for IBM/RS6000 
+      */}
+988 
+989                     ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+990                     \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+991                       \_\_LINE\_\_, global\_tid, queue, ct));
+992                     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ct >= 0 );
+993 
+994                     \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+995                 \}
+996 
+997                 \textcolor{keywordflow}{return} pt;
+998             \}
+999 
+1000             \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL) \{
+1001                 \textcolor{keywordtype}{int} ct;
+1002                 \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1003 
+1004                 \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them 
+      */}
+1005                            \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000
+       */}
+1006 
+1007                 ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+1008                 \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+1009                   \_\_LINE\_\_, global\_tid, queue, ct));
+1010                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ct >= 0 );
+1011             \}
+1012             queue = queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent};
+1013 
+1014             \textcolor{keywordflow}{if} (queue != NULL)
+1015                 \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1016         \}
+1017 
+1018     \}
+1019 
+1020     pt = \hyperlink{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\_\_kmp\_find\_task\_in\_descendant\_queue}( global\_tid, tq->tq\_root );
+1021 
+1022     \textcolor{keywordflow}{return} pt;
+1023 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue}}
+\index{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{curr\-\_\-queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}
+
+
+Definition at line 859 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+860 \{
+861     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *pt = NULL;
+862     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue = curr\_queue;
+863 
+864     \textcolor{keywordflow}{if} (curr\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} != NULL) \{
+865         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+866 
+867         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+868                    \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+869 
+870         queue = (\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *) curr\_queue->
+      \hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child};
+871         if (queue == NULL) \{
+872             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+873             \textcolor{keywordflow}{return} NULL;
+874         \}
+875 
+876         \textcolor{keywordflow}{while} (queue != NULL)  \{
+877             \textcolor{keywordtype}{int} ct;
+878             \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *next;
+879 
+880             ct= ++(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+881             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+882             \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p inc %d\(\backslash\)n"},
+883               \_\_LINE\_\_, global\_tid, queue, ct));
+884 
+885             pt = \hyperlink{kmp__taskq_8c_a1b38cf1122a4ed3e0ba1a7edf527c45e}{\_\_kmp\_find\_task\_in\_queue} (global\_tid, queue);
+886 
+887             \textcolor{keywordflow}{if} (pt != NULL) \{
+888                 \textcolor{keywordtype}{int} ct;
+889 
+890                 \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+891 
+892                 \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them 
+      */}
+893                            \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000
+       */}
+894 
+895                 ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+896                 \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+897                   \_\_LINE\_\_, global\_tid, queue, ct));
+898                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count} >= 0 );
+899 
+900                 \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+901 
+902                 \textcolor{keywordflow}{return} pt;
+903             \}
+904 
+905             \textcolor{comment}{/* although reference count stays active during descendant walk, shouldn't matter  */}
+906             \textcolor{comment}{/* since if children still exist, reference counts aren't being monitored anyway   */}
+907 
+908             pt = \hyperlink{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\_\_kmp\_find\_task\_in\_descendant\_queue} (global\_tid, queue)
+      ;
+909 
+910             \textcolor{keywordflow}{if} (pt != NULL) \{
+911                 \textcolor{keywordtype}{int} ct;
+912 
+913                 \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+914 
+915                 \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them 
+      */}
+916                            \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000
+       */}
+917 
+918                 ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+919                 \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+920                   \_\_LINE\_\_, global\_tid, queue, ct));
+921                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ct >= 0 );
+922 
+923                 \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+924 
+925                 \textcolor{keywordflow}{return} pt;
+926             \}
+927 
+928             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+929 
+930             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+931                        \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+932 
+933             next = queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child};
+934 
+935             ct = --(queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count});
+936             \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p dec %d\(\backslash\)n"},
+937               \_\_LINE\_\_, global\_tid, queue, ct));
+938             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ct >= 0 );
+939 
+940             queue = next;
+941         \}
+942 
+943         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+944     \}
+945 
+946     \textcolor{keywordflow}{return} pt;
+947 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a1b38cf1122a4ed3e0ba1a7edf527c45e}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue}}
+\index{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue@{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-queue (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a1b38cf1122a4ed3e0ba1a7edf527c45e}
+
+
+Definition at line 796 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-ancestor\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-find\-\_\-task\-\_\-in\-\_\-descendant\-\_\-queue(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+797 \{
+798     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *pt  = NULL;
+799     \textcolor{keywordtype}{int}           tid = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( global\_tid );
+800 
+801     \textcolor{comment}{/* To prevent deadlock from tq\_queue\_lck if queue already deallocated */}
+802     \textcolor{keywordflow}{if} ( !(queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED}) ) \{
+803 
+804         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+805 
+806         \textcolor{comment}{/* Check again to avoid race in \_\_kmpc\_end\_taskq() */}
+807         \textcolor{keywordflow}{if} ( !(queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED}) ) \{
+808 
+809             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+810                        \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+811 
+812             \textcolor{keywordflow}{if} ((queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} != NULL) && (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} <= queue->
+      \hyperlink{structkmpc__task__queue__t_aeda8f2eb9c68ba154a41c7c839473fec}{tq\_hiwat})) \{
+813                 \textcolor{comment}{/* if there's enough room in the queue and the dispatcher */}
+814                 \textcolor{comment}{/* (taskq task) is available, schedule more tasks         */}
+815                 pt = (\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *) queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot};
+816                 queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} = NULL;
+817             \}
+818             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == 0 ||
+819                      queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[tid].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} >= 
+      \hyperlink{kmp_8h_a9a66421259b6140badf1f22889fa11b8}{\_\_KMP\_TASKQ\_THUNKS\_PER\_TH}) \{
+820                 \textcolor{comment}{/* do nothing if no thunks available or this thread can't */}
+821                 \textcolor{comment}{/* run any because it already is executing too many       */}
+822 
+823                 pt = NULL;
+824             \}
+825             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} > 1) \{
+826                 \textcolor{comment}{/*  always safe to schedule a task even if TQF\_IS\_LASTPRIVATE  */}
+827 
+828                 pt = \hyperlink{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\_\_kmp\_dequeue\_task} (global\_tid, queue, 
+      \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+829             \}
+830             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!(queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a13b91e28af1a62f5083fb2e8eb386440}{TQF\_IS\_LASTPRIVATE})) \{
+831                 \textcolor{comment}{/*  one thing in queue, always safe to schedule if !TQF\_IS\_LASTPRIVATE  */}
+832 
+833                 pt = \hyperlink{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\_\_kmp\_dequeue\_task} (global\_tid, queue, 
+      \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+834             \}
+835             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK}) \{
+836                 \textcolor{comment}{/* TQF\_IS\_LASTPRIVATE, one thing in queue, kmpc\_end\_taskq\_task()   */}
+837                 \textcolor{comment}{/* has been run so this is last task, run with TQF\_IS\_LAST\_TASK so */}
+838                 \textcolor{comment}{/* instrumentation does copy-out.                                  */}
+839 
+840                 pt = \hyperlink{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\_\_kmp\_dequeue\_task} (global\_tid, queue, 
+      \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+841                 pt->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} |= \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK};  \textcolor{comment}{/* don't need test\_then\_or since
+       already locked */}
+842             \}
+843         \}
+844 
+845         \textcolor{comment}{/* GEH - What happens here if is lastprivate, but not last task? */}
+846         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+847     \}
+848 
+849     \textcolor{keywordflow}{return} pt;
+850 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a7b2e501ea7b45a6008f247f5da4f6d5e}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq}}
+\index{\-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{p, }
+\item[{{\bf int}}]{in\-\_\-parallel, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a7b2e501ea7b45a6008f247f5da4f6d5e}
+
+
+Definition at line 550 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+551 \{
+552     \hyperlink{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\_\_kmpc\_taskq\_free}(p->\hyperlink{structkmpc__task__queue__t_a2ba2f7f3ea4c47df06f7220d66a9064e}{tq\_thunk\_space}, global\_tid);
+553     \hyperlink{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\_\_kmpc\_taskq\_free}(p->\hyperlink{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{tq\_queue}, global\_tid);
+554 
+555     \textcolor{comment}{/* free shared var structure storage */}
+556     \hyperlink{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\_\_kmpc\_taskq\_free}((\textcolor{keywordtype}{void} *) p->\hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds}[0].
+      \hyperlink{structkmpc__aligned__shared__vars__t_a1b5d58f6227a7718f53797cd653993b2}{ai\_data}, global\_tid);
+557 
+558     \textcolor{comment}{/* free array of pointers to shared vars storage */}
+559     \hyperlink{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\_\_kmpc\_taskq\_free}(p->\hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds}, global\_tid);
+560 
+561 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+562 \textcolor{preprocessor}{}    p->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} = NULL;
+563     p->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child} = NULL;
+564     p->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child} = NULL;
+565     p->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count} = -10;
+566     p->\hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds} = NULL;
+567     p->\hyperlink{structkmpc__task__queue__t_a7b1cdbff4f4f72e05cdf28dbb0b25cc9}{tq\_tasknum\_queuing} = 0;
+568     p->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving} = 0;
+569     p->\hyperlink{structkmpc__task__queue__t_a6db62429603a5a619eddd61a3734704b}{tq\_queue} = NULL;
+570     p->\hyperlink{structkmpc__task__queue__t_a2ba2f7f3ea4c47df06f7220d66a9064e}{tq\_thunk\_space} = NULL;
+571     p->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} = NULL;
+572     p->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks} = NULL;
+573     p->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots} = 0;
+574     p->\hyperlink{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{tq\_head} = 0;
+575     p->\hyperlink{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{tq\_tail} = 0;
+576     p->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} = 0;
+577     p->\hyperlink{structkmpc__task__queue__t_aeda8f2eb9c68ba154a41c7c839473fec}{tq\_hiwat} = 0;
+578 
+579     \textcolor{keywordflow}{if} (in\_parallel) \{
+580         \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+581 
+582         \textcolor{keywordflow}{for} (i=0; i<p->\hyperlink{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{tq\_nproc}; i++)
+583             p->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[i].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} = 0;
+584     \}
+585     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+586         p->\hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\_loc} = NULL;
+587     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( p->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED} );
+588     p->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} = \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+589 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* KMP\_DEBUG */}\textcolor{preprocessor}{}
+590 \textcolor{preprocessor}{}
+591     \textcolor{keywordflow}{if} (in\_parallel)  \{
+592         \hyperlink{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\_\_kmpc\_taskq\_free}(p->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}, global\_tid);
+593         \hyperlink{kmp__lock_8h_a956beb316c85015e922f400d0297c285}{\_\_kmp\_destroy\_lock}(& p->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck});
+594         \hyperlink{kmp__lock_8h_a956beb316c85015e922f400d0297c285}{\_\_kmp\_destroy\_lock}(& p->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck});
+595         \hyperlink{kmp__lock_8h_a956beb316c85015e922f400d0297c285}{\_\_kmp\_destroy\_lock}(& p->\hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\_free\_thunks\_lck});
+596     \}
+597 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+598 \textcolor{preprocessor}{}    p->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks} = NULL;
+599 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* KMP\_DEBUG */}\textcolor{preprocessor}{}
+600 \textcolor{preprocessor}{}
+601     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+602                \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+603 
+604     \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}( & tq->tq\_freelist\_lck, global\_tid );
+605     p->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a1ed21643e12300700496257e9d543351}{tq\_next\_free} = tq->tq\_freelist;
+606 
+607     tq->tq\_freelist = \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p};
+608     \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}( & tq->tq\_freelist\_lck, global\_tid );
+609 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_af18a7f3e829d2dd4457d013728078f7b}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk@{\-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk}}
+\index{\-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk@{\-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-free\-\_\-thunk (
+\begin{DoxyParamCaption}
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{p, }
+\item[{{\bf int}}]{in\-\_\-parallel, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_af18a7f3e829d2dd4457d013728078f7b}
+
+
+Definition at line 643 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue().
+
+
+\begin{DoxyCode}
+644 \{
+645 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+646 \textcolor{preprocessor}{}    p->\hyperlink{structkmpc__thunk__t_a3bf681925c3209e5fa5d9a6059d4f8e1}{th\_task} = 0;
+647     p->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = 0;
+648     p->\hyperlink{structkmpc__thunk__t_a6e987faf085a9ed1272495eea346c483}{th\_status} = 0;
+649     p->\hyperlink{structkmpc__thunk__t_ae634cea43cfdc789c6cd8c3fafa394ea}{th\_tasknum} = 0;
+650     \textcolor{comment}{/* Also could zero pointers to private vars */}
+651 \textcolor{preprocessor}{#endif}
+652 \textcolor{preprocessor}{}
+653     \textcolor{keywordflow}{if} (in\_parallel) \{
+654         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\_free\_thunks\_lck}, global\_tid);
+655 
+656         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+657                    \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+658     \}
+659 
+660     p->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a8afc990c7593d8046a2f07a2578281db}{th\_next\_free} = queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks};
+661     queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks} = \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p};
+662 
+663 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+664 \textcolor{preprocessor}{}    p->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} = \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+665 \textcolor{preprocessor}{#endif}
+666 \textcolor{preprocessor}{}
+667     \textcolor{keywordflow}{if} (in\_parallel)
+668         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_ac4b6aeafed0e9174aeb3706880b5bc56}{tq\_free\_thunks\_lck}, global\_tid);
+669 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a056383fd6424d9c8d957654fbb64c7d0}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq}}
+\index{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq@{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a056383fd6424d9c8d957654fbb64c7d0}
+
+
+Definition at line 1214 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+1215 \{
+1216     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *next\_child;
+1217 
+1218     queue = (\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *) queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child};
+1219 
+1220     while (queue != NULL)  \{
+1221         \hyperlink{kmp__taskq_8c_a056383fd6424d9c8d957654fbb64c7d0}{\_\_kmp\_remove\_all\_child\_taskq} ( tq, global\_tid, queue );
+1222 
+1223         next\_child = queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child};
+1224         queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+1225         \hyperlink{kmp__taskq_8c_a4aea2096691f11000aa16fe3eeb61bd0}{\_\_kmp\_remove\_queue\_from\_tree} ( tq, global\_tid, queue, 
+      \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} );
+1226         queue = next\_child;
+1227     \}
+1228 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a4aea2096691f11000aa16fe3eeb61bd0}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree@{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree}}
+\index{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree@{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-remove\-\_\-queue\-\_\-from\-\_\-tree (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-taskq\-\_\-t} $\ast$}]{tq, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue, }
+\item[{{\bf int}}]{in\-\_\-parallel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a4aea2096691f11000aa16fe3eeb61bd0}
+
+
+Definition at line 1047 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-all\-\_\-child\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+1048 \{
+1049 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+1050 \textcolor{preprocessor}{}    kmp\_int32     \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+1051     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *thunk;
+1052 \textcolor{preprocessor}{#endif}
+1053 \textcolor{preprocessor}{}
+1054     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Before Deletion of TaskQ at %p on (%d):\(\backslash\)n"}, queue, global\_tid));
+1055     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(50, \_\_kmp\_dump\_task\_queue( tq, queue, global\_tid ));
+1056 
+1057     \textcolor{comment}{/*  sub-queue in a recursion, not the root task queue  */}
+1058     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} != NULL);
+1059 
+1060     \textcolor{keywordflow}{if} (in\_parallel) \{
+1061         \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1062 
+1063         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+1064                    \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+1065     \}
+1066 
+1067     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} == NULL);
+1068 
+1069     \textcolor{comment}{/*  unlink queue from its siblings if any at this level  */}
+1070     \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child} != NULL)
+1071         queue->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child}->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child} = queue->
+      \hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child};
+1072     \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child} != NULL)
+1073         queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child}->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child} = queue->
+      \hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child};
+1074     \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} == queue)
+1075         queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} = queue->
+      \hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child};
+1076 
+1077     queue->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child} = NULL;
+1078     queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child} = NULL;
+1079 
+1080     \textcolor{keywordflow}{if} (in\_parallel) \{
+1081         \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p waiting for ref\_count of %d to reach 1\(\backslash\)n
+      "},
+1082           \_\_LINE\_\_, global\_tid, queue, queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}));
+1083 
+1084         \textcolor{comment}{/* wait until all other threads have stopped accessing this queue */}
+1085         \textcolor{keywordflow}{while} (queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count} > 1) \{
+1086             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1087 
+1088             \hyperlink{kmp__os_8h_a355e68ac2502d05ca4df8c3b20784dae}{KMP\_WAIT\_YIELD}((\textcolor{keyword}{volatile} kmp\_uint32*)&queue->
+      \hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}, 1, \hyperlink{kmp__os_8h_abf37c825c0d2e96d5e77ed04b876af67}{KMP\_LE}, NULL);
+1089 
+1090             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1091 
+1092             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+1093                        \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+1094         \}
+1095 
+1096         \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1097     \}
+1098 
+1099     \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p freeing queue\(\backslash\)n"},
+1100       \_\_LINE\_\_, global\_tid, queue));
+1101 
+1102 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+1103 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & 
+      \hyperlink{kmp_8h_a7da4632acb9e9db1407b6e686a581ee7}{TQF\_ALL\_TASKS\_QUEUED});
+1104     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == 0);
+1105 
+1106     \textcolor{keywordflow}{for} (i=0; i<queue->\hyperlink{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{tq\_nproc}; i++) \{
+1107         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[i].
+      \hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} == 0);
+1108     \}
+1109 
+1110     i = 0;
+1111     \textcolor{keywordflow}{for} (thunk=queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks}; thunk != NULL; thunk=thunk->
+      \hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a8afc990c7593d8046a2f07a2578281db}{th\_next\_free})
+1112         ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+1113 
+1114     \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT} (i == queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots} + (queue->\hyperlink{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{tq\_nproc} * 
+      \hyperlink{kmp_8h_a9a66421259b6140badf1f22889fa11b8}{\_\_KMP\_TASKQ\_THUNKS\_PER\_TH}));
+1115 \textcolor{preprocessor}{#endif}
+1116 \textcolor{preprocessor}{}
+1117     \textcolor{comment}{/*  release storage for queue entry  */}
+1118     \hyperlink{kmp__taskq_8c_a7b2e501ea7b45a6008f247f5da4f6d5e}{\_\_kmp\_free\_taskq} ( tq, queue, \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, global\_tid );
+1119 
+1120     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"After Deletion of TaskQ at %p on (%d):\(\backslash\)n"}, queue, global\_tid));
+1121     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(50, \_\_kmp\_dump\_task\_queue\_tree( tq, tq->tq\_root, global\_tid ));
+1122 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate}}
+\index{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void}$\ast$ \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-allocate (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{size, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_ad6188ff3d4ef1e1dbc30c8bc8970ef8c}
+
+
+Definition at line 391 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-taskq().
+
+
+\begin{DoxyCode}
+392 \{
+393     \textcolor{keywordtype}{void} *\hyperlink{ittnotify__static_8h_a7e21c61c16fffcc27199a9d66ff39ab8}{addr}, *orig\_addr;
+394     \textcolor{keywordtype}{size\_t} bytes;
+395 
+396     \hyperlink{kmp__debug_8h_ae72494bd81caee0c71ad42b658cc351e}{KB\_TRACE}( 5, (\textcolor{stringliteral}{"\_\_kmp\_taskq\_allocate: called size=%d, gtid=%d\(\backslash\)n"}, (\textcolor{keywordtype}{int}) 
+      \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, global\_tid ) );
+397 
+398     bytes = \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void} *) + \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE} + \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size};
+399 
+400 \textcolor{preprocessor}{#ifdef THREAD\_ALLOC\_FOR\_TASKQ}
+401 \textcolor{preprocessor}{}    orig\_addr = (\textcolor{keywordtype}{void} *) \hyperlink{kmp_8h_a83a0d4c2333a2ee3931cba6b12e0d5a6}{\_\_kmp\_thread\_malloc}( 
+      \hyperlink{kmp_8h_a1626e286e4eb82742a397442009721e6}{\_\_kmp\_thread\_from\_gtid}(global\_tid), bytes );
+402 \textcolor{preprocessor}{#else}
+403 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"%%%%%% MALLOC( %d )\(\backslash\)n"}, bytes ) );
+404     orig\_addr = (\textcolor{keywordtype}{void} *) \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( bytes );
+405 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* THREAD\_ALLOC\_FOR\_TASKQ */}\textcolor{preprocessor}{}
+406 \textcolor{preprocessor}{}
+407     \textcolor{keywordflow}{if} (orig\_addr == 0)
+408         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( OutOfHeapMemory );
+409 
+410     addr = orig\_addr;
+411 
+412     \textcolor{keywordflow}{if} (((\hyperlink{kmp__os_8h_aece5d2283ded002ee31aea0b51e13120}{kmp\_uintptr\_t}) addr & ( \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE} - 1 )) != 0) \{
+413         \hyperlink{kmp__debug_8h_ae72494bd81caee0c71ad42b658cc351e}{KB\_TRACE}( 50, (\textcolor{stringliteral}{"\_\_kmp\_taskq\_allocate:  adjust for cache alignment\(\backslash\)n"} ) );
+414         addr = (\textcolor{keywordtype}{void} *) (((\hyperlink{kmp__os_8h_aece5d2283ded002ee31aea0b51e13120}{kmp\_uintptr\_t}) addr + \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE}) & ~( 
+      \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{CACHE\_LINE} - 1 ));
+415     \}
+416 
+417     (* (\textcolor{keywordtype}{void} **) addr) = orig\_addr;
+418 
+419     \hyperlink{kmp__debug_8h_ae72494bd81caee0c71ad42b658cc351e}{KB\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmp\_taskq\_allocate:  allocate: %p, use: %p - %p, size: %d, gtid: %d\(\backslash\)n"},
+420              orig\_addr, ((\textcolor{keywordtype}{void} **) addr) + 1, ((\textcolor{keywordtype}{char} *)(((\textcolor{keywordtype}{void} **) addr) + 1)) + 
+      \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}-1,
+421              (\textcolor{keywordtype}{int}) \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, global\_tid ));
+422 
+423     \textcolor{keywordflow}{return} ( ((\textcolor{keywordtype}{void} **) addr) + 1 );
+424 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a84807ae43fcdc79de9e37c8ffbb765e1}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered}}
+\index{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-check\-\_\-ordered (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{thunk}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a84807ae43fcdc79de9e37c8ffbb765e1}
+
+
+Definition at line 99 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue().
+
+
+\begin{DoxyCode}
+100 \{
+101     kmp\_uint32 my\_token;
+102     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *taskq;
+103 
+104     \textcolor{comment}{/* assume we are always called from an active parallel context */}
+105 
+106     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();       \textcolor{comment}{/* Flush all pending memory write invalidates.  */}
+107 
+108     my\_token =  thunk -> th\_tasknum;
+109 
+110     taskq =  thunk -> th.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds} -> sv\_queue;
+111 
+112     \textcolor{keywordflow}{if}(taskq->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving} <= my\_token) \{
+113         \hyperlink{kmp__os_8h_a355e68ac2502d05ca4df8c3b20784dae}{KMP\_WAIT\_YIELD}(&taskq->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving}, my\_token, 
+      \hyperlink{kmp__os_8h_ad9b0c442dc2aba0e9b2d77803de6342b}{KMP\_GE}, NULL);
+114         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+115         taskq->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving} = my\_token +1;
+116         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+117     \}
+118 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_ac3e65df57b606562134811089613d0fa}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo}}
+\index{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo (
+\begin{DoxyParamCaption}
+\item[{{\bf int} $\ast$}]{gtid\-\_\-ref, }
+\item[{{\bf int} $\ast$}]{cid\-\_\-ref, }
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_ac3e65df57b606562134811089613d0fa}
+
+
+Definition at line 41 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+
+\begin{DoxyCode}
+42 \{
+43     \textcolor{keywordtype}{int}                gtid = *gtid\_ref;
+44     \textcolor{keywordtype}{int}                tid  = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( gtid );
+45     kmp\_uint32         my\_token;
+46     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *taskq;
+47     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}       *tq   = & \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid] -> th.th\_team -> t.t\_taskq;
+48 
+49     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+50 \textcolor{preprocessor}{#if KMP\_USE\_DYNAMIC\_LOCK}
+51 \textcolor{preprocessor}{}        \hyperlink{kmp__error_8c_a17886697972a1ad707cb5797332a7229}{\_\_kmp\_push\_sync}( gtid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a78dff8b5efc65ba5376f199310787d17}{ct\_ordered\_in\_taskq}, loc\_ref, NULL, 0 );
+52 \textcolor{preprocessor}{#else}
+53 \textcolor{preprocessor}{}        \hyperlink{kmp__error_8c_a17886697972a1ad707cb5797332a7229}{\_\_kmp\_push\_sync}( gtid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a78dff8b5efc65ba5376f199310787d17}{ct\_ordered\_in\_taskq}, loc\_ref, NULL );
+54 \textcolor{preprocessor}{#endif}
+55 \textcolor{preprocessor}{}
+56     \textcolor{keywordflow}{if} ( ! \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]-> th.th\_team -> t.t\_serialized ) \{
+57         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();       \textcolor{comment}{/* Flush all pending memory write invalidates.  */}
+58 
+59         \textcolor{comment}{/* GEH - need check here under stats to make sure   */}
+60         \textcolor{comment}{/*       inside task (curr\_thunk[*tid\_ref] != NULL) */}
+61 
+62         my\_token =tq->tq\_curr\_thunk[ tid ]-> th\_tasknum;
+63 
+64         taskq = tq->tq\_curr\_thunk[ tid ]-> th.th\_shareds -> sv\_queue;
+65 
+66         \hyperlink{kmp__os_8h_a355e68ac2502d05ca4df8c3b20784dae}{KMP\_WAIT\_YIELD}(&taskq->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving}, my\_token, 
+      \hyperlink{kmp__os_8h_ac546f755fb26ab453bc8af8e759b3758}{KMP\_EQ}, NULL);
+67         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+68     \}
+69 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children}}
+\index{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-has\-\_\-any\-\_\-children (
+\begin{DoxyParamCaption}
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}
+
+
+Definition at line 1041 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+1042 \{
+1043     \textcolor{keywordflow}{return} (queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} != NULL);
+1044 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished}}
+\index{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-tasks\-\_\-finished (
+\begin{DoxyParamCaption}
+\item[{{\bf kmpc\-\_\-task\-\_\-queue\-\_\-t} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}
+
+
+Definition at line 1026 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-find\-\_\-and\-\_\-remove\-\_\-finished\-\_\-child\-\_\-taskq(), and \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq().
+
+
+\begin{DoxyCode}
+1027 \{
+1028     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+1029 
+1030     \textcolor{comment}{/* KMP\_MB(); */}\textcolor{comment}{/* is this really necessary? */}
+1031 
+1032     \textcolor{keywordflow}{for} (i=0; i<queue->\hyperlink{structkmpc__task__queue__t_af80c168362026e7d13bbbe9fbf1389b7}{tq\_nproc}; i++) \{
+1033         \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[i].\hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} != 0)
+1034             \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1035     \}
+1036 
+1037     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1038 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_ad71295478d8cf475e04a490a15e14765}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo}}
+\index{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo@{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo (
+\begin{DoxyParamCaption}
+\item[{{\bf int} $\ast$}]{gtid\-\_\-ref, }
+\item[{{\bf int} $\ast$}]{cid\-\_\-ref, }
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_ad71295478d8cf475e04a490a15e14765}
+
+
+Definition at line 72 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+
+\begin{DoxyCode}
+73 \{
+74     \textcolor{keywordtype}{int}           gtid = *gtid\_ref;
+75     \textcolor{keywordtype}{int}           tid  = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( gtid );
+76     kmp\_uint32    my\_token;
+77     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}  *tq   = & \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid] -> th.th\_team -> t.t\_taskq;
+78 
+79     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+80         \hyperlink{kmp__error_8c_ab716717d70650eeeb205b057232d7c1c}{\_\_kmp\_pop\_sync}( gtid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a78dff8b5efc65ba5376f199310787d17}{ct\_ordered\_in\_taskq}, loc\_ref );
+81 
+82     \textcolor{keywordflow}{if} ( ! \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ]-> th.th\_team -> t.t\_serialized ) \{
+83         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();       \textcolor{comment}{/* Flush all pending memory write invalidates.  */}
+84 
+85         \textcolor{comment}{/* GEH - need check here under stats to make sure */}
+86         \textcolor{comment}{/*       inside task (curr\_thunk[tid] != NULL)    */}
+87 
+88         my\_token = tq->tq\_curr\_thunk[ tid ]->th\_tasknum;
+89 
+90         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();       \textcolor{comment}{/* Flush all pending memory write invalidates.  */}
+91 
+92         tq->tq\_curr\_thunk[ tid ]-> th.th\_shareds -> sv\_queue -> tq\_tasknum\_serving = my\_token + 1;
+93 
+94         \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();       \textcolor{comment}{/* Flush all pending memory write invalidates.  */}
+95     \}
+96 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a9bbabae052a2addf8116548cab5edf51}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq}}
+\index{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{taskq\-\_\-thunk}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskq_8c_a9bbabae052a2addf8116548cab5edf51}
+
+
+Definition at line 1542 of file kmp\-\_\-taskq.\-c.
+
+
+\begin{DoxyCode}
+1543 \{
+1544 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+1545 \textcolor{preprocessor}{}    kmp\_int32           \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+1546 \textcolor{preprocessor}{#endif}
+1547 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}        *tq;
+1548     \textcolor{keywordtype}{int}                 in\_parallel;
+1549     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t}         *th;
+1550     kmp\_int32           is\_outermost;
+1551     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t}  *queue;
+1552     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t}       *thunk;
+1553     \textcolor{keywordtype}{int}                 nproc;
+1554 
+1555     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq called (%d)\(\backslash\)n"}, global\_tid));
+1556 
+1557     tq = & \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_team -> t.t\_taskq;
+1558     nproc = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_team -> t.t\_nproc;
+1559 
+1560     \textcolor{comment}{/* For the outermost taskq only, all but one thread will have taskq\_thunk == NULL */}
+1561     queue = (taskq\_thunk == NULL) ? tq->tq\_root : taskq\_thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->
+      \hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue};
+1562 
+1563     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 50, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq queue=%p (%d) \(\backslash\)n"}, queue, global\_tid));
+1564     is\_outermost = (queue == tq->tq\_root);
+1565     in\_parallel = (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_ab6b6338c495b4fe85e556f5757185d23}{TQF\_PARALLEL\_CONTEXT});
+1566 
+1567     \textcolor{keywordflow}{if} (in\_parallel) \{
+1568         kmp\_uint32 spins;
+1569 
+1570         \textcolor{comment}{/* this is just a safeguard to release the waiting threads if */}
+1571         \textcolor{comment}{/* the outermost taskq never queues a task                    */}
+1572 
+1573         \textcolor{keywordflow}{if} (is\_outermost && (\hyperlink{kmp_8h_a996fe75425730b06ff88477bf72b8134}{KMP\_MASTER\_GTID}( global\_tid ))) \{
+1574             \textcolor{keywordflow}{if}( tq->tq\_global\_flags & \hyperlink{kmp_8h_a986d313fb8f4fd3f3e2e5801f2871f2e}{TQF\_RELEASE\_WORKERS} ) \{
+1575                 \textcolor{comment}{/* no lock needed, workers are still in spin mode */}
+1576                 tq->tq\_global\_flags &= ~\hyperlink{kmp_8h_a986d313fb8f4fd3f3e2e5801f2871f2e}{TQF\_RELEASE\_WORKERS};
+1577 
+1578                 \hyperlink{kmp_8h_a792560d2e886584b5e616ee68d1c5f8a}{\_\_kmp\_end\_split\_barrier}( \hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, 
+      global\_tid );
+1579             \}
+1580         \}
+1581 
+1582         \textcolor{comment}{/* keep dequeueing work until all tasks are queued and dequeued */}
+1583 
+1584         \textcolor{keywordflow}{do} \{
+1585             \textcolor{comment}{/* wait until something is available to dequeue */}
+1586             \hyperlink{kmp_8h_a98cb21bfd34ebd451007a151f135b31c}{KMP\_INIT\_YIELD}(spins);
+1587 
+1588             \textcolor{keywordflow}{while} ( (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == 0)
+1589                  && (queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} == NULL)
+1590                  && (! \hyperlink{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}{\_\_kmp\_taskq\_has\_any\_children}(queue) )
+1591                  && (! (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a7da4632acb9e9db1407b6e686a581ee7}{TQF\_ALL\_TASKS\_QUEUED}) )
+1592                   ) \{
+1593                 \hyperlink{kmp_8h_a8965b78a46ce852710ee869eee54de1c}{KMP\_YIELD\_WHEN}( \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, spins );
+1594             \}
+1595 
+1596             \textcolor{comment}{/* check to see if we can execute tasks in the queue */}
+1597             \textcolor{keywordflow}{while} ( ( (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} != 0) || (queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} != NULL) )
+1598                  && (thunk = \hyperlink{kmp__taskq_8c_a1b38cf1122a4ed3e0ba1a7edf527c45e}{\_\_kmp\_find\_task\_in\_queue}(global\_tid, queue)) != NULL
+1599                   ) \{
+1600                 \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Found thunk: %p in primary queue %p (%d)\(\backslash\)n"}, thunk, queue, 
+      global\_tid));
+1601                 \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, thunk, 
+      in\_parallel );
+1602             \}
+1603 
+1604             \textcolor{comment}{/* see if work found can be found in a descendant queue */}
+1605             \textcolor{keywordflow}{if} ( (\hyperlink{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}{\_\_kmp\_taskq\_has\_any\_children}(queue))
+1606               && (thunk = \hyperlink{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\_\_kmp\_find\_task\_in\_descendant\_queue}(global\_tid
+      , queue)) != NULL
+1607                ) \{
+1608 
+1609                 \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Stole thunk: %p in descendant queue: %p while waiting in queue: %p
+       (%d)\(\backslash\)n"},
+1610                     thunk, thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue}, queue, global\_tid ));
+1611 
+1612                 \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, thunk, 
+      in\_parallel );
+1613             \}
+1614 
+1615         \} \textcolor{keywordflow}{while} ( (! (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a7da4632acb9e9db1407b6e686a581ee7}{TQF\_ALL\_TASKS\_QUEUED}))
+1616                || (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} != 0)
+1617                 );
+1618 
+1619         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"All tasks queued and dequeued in queue: %p (%d)\(\backslash\)n"}, queue, global\_tid));
+1620 
+1621         \textcolor{comment}{/* wait while all tasks are not finished and more work found}
+1622 \textcolor{comment}{           in descendant queues */}
+1623 
+1624         \textcolor{keywordflow}{while} ( (!\hyperlink{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}{\_\_kmp\_taskq\_tasks\_finished}(queue))
+1625              && (thunk = \hyperlink{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\_\_kmp\_find\_task\_in\_descendant\_queue}(global\_tid,
+       queue)) != NULL
+1626               ) \{
+1627 
+1628             \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Stole thunk: %p in descendant queue: %p while waiting in queue: %p (%d)
+      \(\backslash\)n"},
+1629                 thunk, thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue}, queue, global\_tid));
+1630 
+1631             \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, thunk, 
+      in\_parallel );
+1632         \}
+1633 
+1634         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"No work found in descendent queues or all work finished in queue: %p (%d)\(\backslash\)n"}
+      , queue, global\_tid));
+1635 
+1636         \textcolor{keywordflow}{if} (!is\_outermost) \{
+1637             \textcolor{comment}{/* need to return if NOWAIT present and not outermost taskq */}
+1638 
+1639             \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_ae0ea5f61def44dbf751ea433f874cb70}{TQF\_IS\_NOWAIT}) \{
+1640                 \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1641                 queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}--;
+1642                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count} >= 0 );
+1643                 \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}->
+      \hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1644 
+1645                 \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq return for nowait case (%d)\(\backslash\)n"}, global\_tid));
+1646 
+1647                 \textcolor{keywordflow}{return};
+1648             \}
+1649 
+1650             \hyperlink{kmp__taskq_8c_a2805aae190357bb592473d8c48f917c0}{\_\_kmp\_find\_and\_remove\_finished\_child\_taskq}( tq, 
+      global\_tid, queue );
+1651 
+1652             \textcolor{comment}{/* WAIT until all tasks are finished and no child queues exist before proceeding */}
+1653             \hyperlink{kmp_8h_a98cb21bfd34ebd451007a151f135b31c}{KMP\_INIT\_YIELD}(spins);
+1654 
+1655             \textcolor{keywordflow}{while} (!\hyperlink{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}{\_\_kmp\_taskq\_tasks\_finished}(queue) || 
+      \hyperlink{kmp__taskq_8c_a3d50fb77f2a980d8bff9be4aa059e4ac}{\_\_kmp\_taskq\_has\_any\_children}(queue)) \{
+1656                 thunk = \hyperlink{kmp__taskq_8c_aa3982dd97bf3d87a4e78792b47899fb0}{\_\_kmp\_find\_task\_in\_ancestor\_queue}( tq, global\_tid,
+       queue );
+1657 
+1658                 \textcolor{keywordflow}{if} (thunk != NULL) \{
+1659                     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Stole thunk: %p in ancestor queue: %p while waiting in queue: %p
+       (%d)\(\backslash\)n"},
+1660                                   thunk, thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->
+      \hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue}, queue, global\_tid));
+1661                     \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, thunk,
+       in\_parallel );
+1662                 \}
+1663 
+1664                 \hyperlink{kmp_8h_a8965b78a46ce852710ee869eee54de1c}{KMP\_YIELD\_WHEN}( thunk == NULL, spins );
+1665 
+1666                 \hyperlink{kmp__taskq_8c_a2805aae190357bb592473d8c48f917c0}{\_\_kmp\_find\_and\_remove\_finished\_child\_taskq}( tq, 
+      global\_tid, queue );
+1667             \}
+1668 
+1669             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1670             \textcolor{keywordflow}{if} ( !(queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED}) ) \{
+1671                 queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+1672             \}
+1673             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1674 
+1675             \textcolor{comment}{/* only the allocating thread can deallocate the queue */}
+1676             \textcolor{keywordflow}{if} (taskq\_thunk != NULL) \{
+1677                 \hyperlink{kmp__taskq_8c_a4aea2096691f11000aa16fe3eeb61bd0}{\_\_kmp\_remove\_queue\_from\_tree}( tq, global\_tid, queue, 
+      \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+1678             \}
+1679 
+1680             \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq return for non\_outermost queue, wait case (%d)\(\backslash\)n"}, 
+      global\_tid));
+1681 
+1682             \textcolor{keywordflow}{return};
+1683         \}
+1684 
+1685         \textcolor{comment}{/* Outermost Queue: steal work from descendants until all tasks are finished */}
+1686 
+1687         \hyperlink{kmp_8h_a98cb21bfd34ebd451007a151f135b31c}{KMP\_INIT\_YIELD}(spins);
+1688 
+1689         \textcolor{keywordflow}{while} (!\hyperlink{kmp__taskq_8c_a0cec64511b15492ddc122993c4247769}{\_\_kmp\_taskq\_tasks\_finished}(queue)) \{
+1690             thunk = \hyperlink{kmp__taskq_8c_ab1f8e94afa2b132bb6ae1756e4fd12d8}{\_\_kmp\_find\_task\_in\_descendant\_queue}(global\_tid, 
+      queue);
+1691 
+1692             \textcolor{keywordflow}{if} (thunk != NULL) \{
+1693                 \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Stole thunk: %p in descendant queue: %p while waiting in queue: %p
+       (%d)\(\backslash\)n"},
+1694                     thunk, thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue}, queue, global\_tid));
+1695 
+1696                 \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, thunk, 
+      in\_parallel );
+1697             \}
+1698 
+1699             \hyperlink{kmp_8h_a8965b78a46ce852710ee869eee54de1c}{KMP\_YIELD\_WHEN}( thunk == NULL, spins );
+1700         \}
+1701 
+1702         \textcolor{comment}{/* Need this barrier to prevent destruction of queue before threads have all executed above code */}
+1703         \textcolor{comment}{/* This may need to be done earlier when NOWAIT is implemented for the outermost level */}
+1704 
+1705         \textcolor{keywordflow}{if} ( !\hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}( \hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, global\_tid, 
+      \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 0, NULL, NULL )) \{
+1706             \textcolor{comment}{/* the queue->tq\_flags & TQF\_IS\_NOWAIT case is not yet handled here;   */}
+1707             \textcolor{comment}{/* for right now, everybody waits, and the master thread destroys the  */}
+1708             \textcolor{comment}{/* remaining queues.                                                   */}
+1709 
+1710             \hyperlink{kmp__taskq_8c_a056383fd6424d9c8d957654fbb64c7d0}{\_\_kmp\_remove\_all\_child\_taskq}( tq, global\_tid, queue );
+1711 
+1712             \textcolor{comment}{/* Now destroy the root queue */}
+1713             \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"T#%d Before Deletion of top-level TaskQ at %p:\(\backslash\)n"}, global\_tid, queue ))
+      ;
+1714             \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_task\_queue( tq, queue, global\_tid ));
+1715 
+1716 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+1717 \textcolor{preprocessor}{}            \textcolor{comment}{/*  the root queue entry  */}
+1718             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} ((queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent} == NULL) && (queue->
+      \hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child} == NULL));
+1719 
+1720             \textcolor{comment}{/*  children must all be gone by now because of barrier above */}
+1721             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} == NULL);
+1722 
+1723             \textcolor{keywordflow}{for} (i=0; i<nproc; i++) \{
+1724                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a71cbb7d720973aa2790fbafec688046a}{tq\_th\_thunks}[i].
+      \hyperlink{structkmpc__aligned__int32__t_a7efe129c534cb7eed099a06549c81cfe}{ai\_data} == 0);
+1725             \}
+1726 
+1727             \textcolor{keywordflow}{for} (i=0, thunk=queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks}; thunk != NULL; i++, thunk=thunk->
+      \hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a8afc990c7593d8046a2f07a2578281db}{th\_next\_free});
+1728 
+1729             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (i == queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots} + (nproc * 
+      \hyperlink{kmp_8h_a9a66421259b6140badf1f22889fa11b8}{\_\_KMP\_TASKQ\_THUNKS\_PER\_TH}));
+1730 
+1731             \textcolor{keywordflow}{for} (i = 0; i < nproc; i++) \{
+1732                 \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( ! tq->tq\_curr\_thunk[i] );
+1733             \}
+1734 \textcolor{preprocessor}{#endif}
+1735 \textcolor{preprocessor}{}            \textcolor{comment}{/*  unlink the root queue entry  */}
+1736             tq -> tq\_root =  NULL;
+1737 
+1738             \textcolor{comment}{/*  release storage for root queue entry  */}
+1739             \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"After Deletion of top-level TaskQ at %p on (%d):\(\backslash\)n"}, queue, global\_tid))
+      ;
+1740 
+1741             queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+1742             \hyperlink{kmp__taskq_8c_a7b2e501ea7b45a6008f247f5da4f6d5e}{\_\_kmp\_free\_taskq} ( tq, queue, in\_parallel, global\_tid );
+1743 
+1744             \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(50, \_\_kmp\_dump\_task\_queue\_tree( tq, tq->tq\_root, global\_tid ));
+1745 
+1746             \textcolor{comment}{/* release the workers now that the data structures are up to date */}
+1747             \hyperlink{kmp_8h_a792560d2e886584b5e616ee68d1c5f8a}{\_\_kmp\_end\_split\_barrier}( \hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, global\_tid );
+1748         \}
+1749 
+1750         th = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ global\_tid ];
+1751 
+1752         \textcolor{comment}{/* Reset ORDERED SECTION to parallel version */}
+1753         th->th.th\_dispatch->th\_deo\_fcn = 0;
+1754 
+1755         \textcolor{comment}{/* Reset ORDERED SECTION to parallel version */}
+1756         th->th.th\_dispatch->th\_dxo\_fcn = 0;
+1757     \}
+1758     \textcolor{keywordflow}{else} \{
+1759         \textcolor{comment}{/* in serial execution context, dequeue the last task  */}
+1760         \textcolor{comment}{/* and execute it, if there were any tasks encountered */}
+1761 
+1762         \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} > 0) \{
+1763             \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == 1);
+1764 
+1765             thunk = \hyperlink{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\_\_kmp\_dequeue\_task}(global\_tid, queue, in\_parallel);
+1766 
+1767             \textcolor{keywordflow}{if} (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK}) \{
+1768                 \textcolor{comment}{/* TQF\_IS\_LASTPRIVATE, one thing in queue, \_\_kmpc\_end\_taskq\_task() */}
+1769                 \textcolor{comment}{/* has been run so this is last task, run with TQF\_IS\_LAST\_TASK so */}
+1770                 \textcolor{comment}{/* instrumentation does copy-out.                                  */}
+1771 
+1772                 \textcolor{comment}{/* no need for test\_then\_or call since already locked */}
+1773                 thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} |= \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK};
+1774             \}
+1775 
+1776             \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"T#%d found thunk: %p in serial queue: %p\(\backslash\)n"}, global\_tid, thunk, queue));
+1777 
+1778             \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, thunk, 
+      in\_parallel );
+1779         \}
+1780 
+1781         \textcolor{comment}{/* destroy the unattached serial queue now that there is no more work to do */}
+1782         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"Before Deletion of Serialized TaskQ at %p on (%d):\(\backslash\)n"}, queue, global\_tid));
+1783         \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_task\_queue( tq, queue, global\_tid ));
+1784 
+1785 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+1786 \textcolor{preprocessor}{}        i = 0;
+1787         \textcolor{keywordflow}{for} (thunk=queue->\hyperlink{structkmpc__task__queue__t_ae82f0066062ce0785b5407dcf19b6f5d}{tq\_free\_thunks}; thunk != NULL; thunk=thunk->
+      \hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a8afc990c7593d8046a2f07a2578281db}{th\_next\_free})
+1788             ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+1789         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (i == queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots} + 1);
+1790 \textcolor{preprocessor}{#endif}
+1791 \textcolor{preprocessor}{}        \textcolor{comment}{/*  release storage for unattached serial queue  */}
+1792         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"Serialized TaskQ at %p deleted on (%d).\(\backslash\)n"}, queue, global\_tid));
+1793 
+1794         queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a6205d1d58a7b735c2d949f413b80b816}{TQF\_DEALLOCATED};
+1795         \hyperlink{kmp__taskq_8c_a7b2e501ea7b45a6008f247f5da4f6d5e}{\_\_kmp\_free\_taskq} ( tq, queue, in\_parallel, global\_tid );
+1796     \}
+1797 
+1798     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq return (%d)\(\backslash\)n"}, global\_tid));
+1799 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a119e80f2f455e3b00fef81c67b364c63}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task}}
+\index{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task@{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{thunk}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskq_8c_a119e80f2f455e3b00fef81c67b364c63}
+
+
+Definition at line 1903 of file kmp\-\_\-taskq.\-c.
+
+
+\begin{DoxyCode}
+1904 \{
+1905     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}       *tq;
+1906     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue;
+1907     \textcolor{keywordtype}{int}                in\_parallel;
+1908     \textcolor{keywordtype}{int}                tid;
+1909 
+1910     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq\_task called (%d)\(\backslash\)n"}, global\_tid));
+1911 
+1912     tq          = &\hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_team -> t.t\_taskq;
+1913     queue       = thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue};
+1914     in\_parallel = (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_ab6b6338c495b4fe85e556f5757185d23}{TQF\_PARALLEL\_CONTEXT});
+1915     tid         = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( global\_tid );
+1916 
+1917     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+1918         \hyperlink{kmp__error_8c_a93d9c89e2629352b4db28263a95b80f4}{\_\_kmp\_pop\_workshare}( global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a671435932198632bc66b96f059a2c9f8}{ct\_taskq}, loc );
+1919 
+1920     \textcolor{keywordflow}{if} (in\_parallel) \{
+1921 \textcolor{preprocessor}{#if KMP\_ARCH\_X86 || \(\backslash\)}
+1922 \textcolor{preprocessor}{    KMP\_ARCH\_X86\_64}
+1923 \textcolor{preprocessor}{}
+1924         \hyperlink{kmp__os_8h_a181d2a30bc941dab902d9006c3faa606}{KMP\_TEST\_THEN\_OR32}( &queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags}, (kmp\_int32) 
+      \hyperlink{kmp_8h_a7da4632acb9e9db1407b6e686a581ee7}{TQF\_ALL\_TASKS\_QUEUED} );
+1925 \textcolor{preprocessor}{#else}
+1926 \textcolor{preprocessor}{}        \{
+1927             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1928 
+1929             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+1930                        \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+1931 
+1932             queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a7da4632acb9e9db1407b6e686a581ee7}{TQF\_ALL\_TASKS\_QUEUED};
+1933 
+1934             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1935         \}
+1936 \textcolor{preprocessor}{#endif}
+1937 \textcolor{preprocessor}{}    \}
+1938 
+1939     \textcolor{keywordflow}{if} (thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a13b91e28af1a62f5083fb2e8eb386440}{TQF\_IS\_LASTPRIVATE}) \{
+1940         \textcolor{comment}{/* Normally, \_\_kmp\_find\_task\_in\_queue() refuses to schedule the last task in the */}
+1941         \textcolor{comment}{/* queue if TQF\_IS\_LASTPRIVATE so we can positively identify that last task      */}
+1942         \textcolor{comment}{/* and run it with its TQF\_IS\_LAST\_TASK bit turned on in th\_flags.  When         */}
+1943         \textcolor{comment}{/* \_\_kmpc\_end\_taskq\_task() is called we are done generating all the tasks, so    */}
+1944         \textcolor{comment}{/* we know the last one in the queue is the lastprivate task.  Mark the queue    */}
+1945         \textcolor{comment}{/* as having gotten to this state via tq\_flags & TQF\_IS\_LAST\_TASK; when that     */}
+1946         \textcolor{comment}{/* task actually executes mark it via th\_flags & TQF\_IS\_LAST\_TASK (this th\_flags */}
+1947         \textcolor{comment}{/* bit signals the instrumented code to do copy-outs after execution).           */}
+1948 
+1949         \textcolor{keywordflow}{if} (! in\_parallel) \{
+1950             \textcolor{comment}{/* No synchronization needed for serial context */}
+1951             queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK};
+1952         \}
+1953         \textcolor{keywordflow}{else} \{
+1954 \textcolor{preprocessor}{#if KMP\_ARCH\_X86 || \(\backslash\)}
+1955 \textcolor{preprocessor}{    KMP\_ARCH\_X86\_64}
+1956 \textcolor{preprocessor}{}
+1957             \hyperlink{kmp__os_8h_a181d2a30bc941dab902d9006c3faa606}{KMP\_TEST\_THEN\_OR32}( &queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags}, (kmp\_int32) 
+      \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK} );
+1958 \textcolor{preprocessor}{#else}
+1959 \textcolor{preprocessor}{}            \{
+1960                 \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1961 
+1962                 \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them 
+      */}
+1963                            \textcolor{comment}{/* Seems to work without this call for digital/alpha, needed for IBM/RS6000 */}
+1964 
+1965                 queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} |= \hyperlink{kmp_8h_a79cf17869be5d209983e15019cf606e9}{TQF\_IS\_LAST\_TASK};
+1966 
+1967                 \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& queue->\hyperlink{structkmpc__task__queue__t_a55b6f2614333c7fead5b2e8b60f10078}{tq\_queue\_lck}, global\_tid);
+1968             \}
+1969 \textcolor{preprocessor}{#endif}
+1970 \textcolor{preprocessor}{}            \textcolor{comment}{/* to prevent race condition where last task is dequeued but */}
+1971             \textcolor{comment}{/* flag isn't visible yet (not sure about this)              */}
+1972             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();
+1973         \}
+1974     \}
+1975 
+1976     \textcolor{comment}{/* dequeue taskq thunk from curr\_thunk stack */}
+1977     \textcolor{keywordflow}{if} (in\_parallel) \{
+1978         tq->tq\_curr\_thunk[tid] = thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk};
+1979         thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = NULL;
+1980 
+1981         \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}( 200, \_\_kmp\_dump\_thunk\_stack( tq->tq\_curr\_thunk[tid], global\_tid ));
+1982     \}
+1983 
+1984     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_end\_taskq\_task return (%d)\(\backslash\)n"}, global\_tid));
+1985 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a84425b84030ba1395b905f9e0fa49666}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-task@{\-\_\-\-\_\-kmpc\-\_\-task}}
+\index{\-\_\-\-\_\-kmpc\-\_\-task@{\-\_\-\-\_\-kmpc\-\_\-task}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-task}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-task (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{thunk}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskq_8c_a84425b84030ba1395b905f9e0fa49666}
+
+
+Definition at line 1805 of file kmp\-\_\-taskq.\-c.
+
+
+\begin{DoxyCode}
+1806 \{
+1807     kmp\_int32          ret;
+1808     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue;
+1809     \textcolor{keywordtype}{int}                in\_parallel;
+1810     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}       *tq;
+1811 
+1812     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_task called (%d)\(\backslash\)n"}, global\_tid));
+1813 
+1814     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (!(thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK}));  \textcolor{comment}{/* 
+       thunk->th\_task is a regular task  */}
+1815 
+1816     tq          = &\hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_team -> t.t\_taskq;
+1817     queue       = thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue};
+1818     in\_parallel = (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_ab6b6338c495b4fe85e556f5757185d23}{TQF\_PARALLEL\_CONTEXT});
+1819 
+1820     \textcolor{keywordflow}{if} (in\_parallel && (thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a49f8bd516d28e80029bbf093ab1b44b4}{TQF\_IS\_ORDERED}))
+1821         thunk->\hyperlink{structkmpc__thunk__t_ae634cea43cfdc789c6cd8c3fafa394ea}{th\_tasknum} = ++queue->\hyperlink{structkmpc__task__queue__t_a7b1cdbff4f4f72e05cdf28dbb0b25cc9}{tq\_tasknum\_queuing};
+1822 
+1823     \textcolor{comment}{/* For serial execution dequeue the preceding task and execute it, if one exists */}
+1824     \textcolor{comment}{/* This cannot be the last task.  That one is handled in \_\_kmpc\_end\_taskq */}
+1825 
+1826     if (!in\_parallel && queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} > 0) \{
+1827         \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *prev\_thunk;
+1828 
+1829         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull} == 1);
+1830 
+1831         prev\_thunk = \hyperlink{kmp__taskq_8c_abba1a0c706fc308e6a78696bf616ec48}{\_\_kmp\_dequeue\_task}(global\_tid, queue, in\_parallel);
+1832 
+1833         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(50, (\textcolor{stringliteral}{"T#%d found thunk: %p in serial queue: %p\(\backslash\)n"}, global\_tid, prev\_thunk, queue))
+      ;
+1834 
+1835         \hyperlink{kmp__taskq_8c_ab9d9678cbd29207257156403dad3e7fc}{\_\_kmp\_execute\_task\_from\_queue}( tq, loc, global\_tid, prev\_thunk, 
+      in\_parallel );
+1836     \}
+1837 
+1838     \textcolor{comment}{/* The instrumentation sequence is:  \_\_kmpc\_task\_buffer(), initialize private    */}
+1839     \textcolor{comment}{/* variables, \_\_kmpc\_task().  The \_\_kmpc\_task\_buffer routine checks that the     */}
+1840     \textcolor{comment}{/* task queue is not full and allocates a thunk (which is then passed to         */}
+1841     \textcolor{comment}{/* \_\_kmpc\_task()).  So, the enqueue below should never fail due to a full queue. */}
+1842 
+1843     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"After enqueueing this Task on (%d):\(\backslash\)n"}, global\_tid));
+1844     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_thunk( tq, thunk, global\_tid ));
+1845 
+1846     ret = \hyperlink{kmp__taskq_8c_a313550c1dd105735672fdb6a4d562317}{\_\_kmp\_enqueue\_task} ( tq, global\_tid, queue, thunk, in\_parallel );
+1847 
+1848     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"Task Queue looks like this on (%d):\(\backslash\)n"}, global\_tid));
+1849     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_task\_queue( tq, queue, global\_tid ));
+1850 
+1851     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_task return (%d)\(\backslash\)n"}, global\_tid));
+1852 
+1853     \textcolor{keywordflow}{return} ret;
+1854 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_aa614aff71fec0fd9093d511e413f175e}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer@{\-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer}}
+\index{\-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer@{\-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{taskq\-\_\-thunk, }
+\item[{{\bf kmpc\-\_\-task\-\_\-t}}]{task}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskq_8c_aa614aff71fec0fd9093d511e413f175e}
+
+
+Definition at line 1991 of file kmp\-\_\-taskq.\-c.
+
+
+\begin{DoxyCode}
+1992 \{
+1993     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}       *tq;
+1994     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue;
+1995     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t}      *new\_thunk;
+1996     \textcolor{keywordtype}{int}                in\_parallel;
+1997 
+1998     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_task\_buffer called (%d)\(\backslash\)n"}, global\_tid));
+1999 
+2000     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (taskq\_thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & 
+      \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK});  \textcolor{comment}{/*  taskq\_thunk->th\_task is the taskq\_task  */}
+2001 
+2002     tq          = &\hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_team -> t.t\_taskq;
+2003     queue       = taskq\_thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue};
+2004     in\_parallel = (queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_ab6b6338c495b4fe85e556f5757185d23}{TQF\_PARALLEL\_CONTEXT});
+2005 
+2006     \textcolor{comment}{/* The instrumentation sequence is:  \_\_kmpc\_task\_buffer(), initialize private */}
+2007     \textcolor{comment}{/* variables, \_\_kmpc\_task().  The \_\_kmpc\_task\_buffer routine checks that the  */}
+2008     \textcolor{comment}{/* task queue is not full and allocates a thunk (which is then passed to      */}
+2009     \textcolor{comment}{/* \_\_kmpc\_task()).  So, we can pre-allocate a thunk here assuming it will be  */}
+2010     \textcolor{comment}{/* the next to be enqueued in \_\_kmpc\_task().                                  */}
+2011 
+2012     new\_thunk = \hyperlink{kmp__taskq_8c_a531a5964e2c7038b2237c0bbed44c78c}{\_\_kmp\_alloc\_thunk} (queue, in\_parallel, global\_tid);
+2013     new\_thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds} = (\hyperlink{structkmpc__shared__vars__t}{kmpc\_shared\_vars\_t} *) queue->
+      \hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds}[0].\hyperlink{structkmpc__aligned__shared__vars__t_a1b5d58f6227a7718f53797cd653993b2}{ai\_data};
+2014     new\_thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = NULL;
+2015     new\_thunk->\hyperlink{structkmpc__thunk__t_a3bf681925c3209e5fa5d9a6059d4f8e1}{th\_task}       = \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task};
+2016 
+2017     \textcolor{comment}{/* GEH - shouldn't need to lock the read of tq\_flags here */}
+2018     new\_thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags}      = queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & 
+      \hyperlink{kmp_8h_ac4cfd2564ba2f18e5d0b303277b9f0a1}{TQF\_INTERFACE\_FLAGS};
+2019 
+2020     new\_thunk->\hyperlink{structkmpc__thunk__t_a6e987faf085a9ed1272495eea346c483}{th\_status}     = 0;
+2021 
+2022     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (!(new\_thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & 
+      \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK}));
+2023 
+2024     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"Creating Regular Task on (%d):\(\backslash\)n"}, global\_tid));
+2025     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_thunk( tq, new\_thunk, global\_tid ));
+2026 
+2027     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_task\_buffer return (%d)\(\backslash\)n"}, global\_tid));
+2028 
+2029     \textcolor{keywordflow}{return} new\_thunk;
+2030 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_af674ae67625307b7be22a33e54c7fda2}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-taskq@{\-\_\-\-\_\-kmpc\-\_\-taskq}}
+\index{\-\_\-\-\_\-kmpc\-\_\-taskq@{\-\_\-\-\_\-kmpc\-\_\-taskq}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-taskq}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmpc\-\_\-thunk\-\_\-t}$\ast$ \-\_\-\-\_\-kmpc\-\_\-taskq (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-task\-\_\-t}}]{taskq\-\_\-task, }
+\item[{size\-\_\-t}]{sizeof\-\_\-thunk, }
+\item[{size\-\_\-t}]{sizeof\-\_\-shareds, }
+\item[{kmp\-\_\-int32}]{flags, }
+\item[{{\bf kmpc\-\_\-shared\-\_\-vars\-\_\-t} $\ast$$\ast$}]{shareds}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskq_8c_af674ae67625307b7be22a33e54c7fda2}
+
+
+Definition at line 1332 of file kmp\-\_\-taskq.\-c.
+
+
+\begin{DoxyCode}
+1335 \{
+1336     \textcolor{keywordtype}{int}                  in\_parallel;
+1337     kmp\_int32            nslots, nthunks, nshareds, nproc;
+1338     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t}   *new\_queue, *curr\_queue;
+1339     \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t}        *new\_taskq\_thunk;
+1340     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t}          *th;
+1341     \hyperlink{unionkmp__team}{kmp\_team\_t}          *team;
+1342     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}         *tq;
+1343     kmp\_int32            tid;
+1344 
+1345     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_taskq called (%d)\(\backslash\)n"}, global\_tid));
+1346 
+1347     th = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ global\_tid ];
+1348     team = th -> th.th\_team;
+1349     tq = & team -> t.t\_taskq;
+1350     nproc = team -> t.t\_nproc;
+1351     tid = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( global\_tid );
+1352 
+1353     \textcolor{comment}{/* find out whether this is a parallel taskq or serialized one. */}
+1354     in\_parallel = \hyperlink{kmp__taskq_8c_a3c92fbf19170f125cfa7425fd96778e7}{in\_parallel\_context}( team );
+1355 
+1356     \textcolor{keywordflow}{if}( ! tq->tq\_root ) \{
+1357         \textcolor{keywordflow}{if} (in\_parallel) \{
+1358             \textcolor{comment}{/* Vector ORDERED SECTION to taskq version */}
+1359             th->th.th\_dispatch->th\_deo\_fcn = \hyperlink{kmp__taskq_8c_ac3e65df57b606562134811089613d0fa}{\_\_kmp\_taskq\_eo};
+1360 
+1361             \textcolor{comment}{/* Vector ORDERED SECTION to taskq version */}
+1362             th->th.th\_dispatch->th\_dxo\_fcn = \hyperlink{kmp__taskq_8c_ad71295478d8cf475e04a490a15e14765}{\_\_kmp\_taskq\_xo};
+1363         \}
+1364 
+1365         \textcolor{keywordflow}{if} (in\_parallel) \{
+1366             \textcolor{comment}{/* This shouldn't be a barrier region boundary, it will confuse the user. */}
+1367             \textcolor{comment}{/* Need the boundary to be at the end taskq instead. */}
+1368             \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}( \hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, global\_tid, 
+      \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 0, NULL, NULL )) \{
+1369                 \textcolor{comment}{/* Creating the active root queue, and we are not the master thread. */}
+1370                 \textcolor{comment}{/* The master thread below created the queue and tasks have been     */}
+1371                 \textcolor{comment}{/* enqueued, and the master thread released this barrier.  This      */}
+1372                 \textcolor{comment}{/* worker thread can now proceed and execute tasks.  See also the    */}
+1373                 \textcolor{comment}{/* TQF\_RELEASE\_WORKERS which is used to handle this case.            */}
+1374 
+1375                 *shareds = (\hyperlink{structkmpc__shared__vars__t}{kmpc\_shared\_vars\_t} *) tq->tq\_root->tq\_shareds[tid].ai\_data;
+1376 
+1377                 \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_taskq return (%d)\(\backslash\)n"}, global\_tid));
+1378 
+1379                 \textcolor{keywordflow}{return} NULL;
+1380             \}
+1381         \}
+1382 
+1383         \textcolor{comment}{/* master thread only executes this code */}
+1384 
+1385         \textcolor{keywordflow}{if}( tq->tq\_curr\_thunk\_capacity < nproc ) \{
+1386             \textcolor{keywordflow}{if}(tq->tq\_curr\_thunk)
+1387                 \hyperlink{kmp_8h_a052396231429341ba56a7c1ceacbaa2f}{\_\_kmp\_free}(tq->tq\_curr\_thunk);
+1388             \textcolor{keywordflow}{else} \{
+1389                 \textcolor{comment}{/* only need to do this once at outer level, i.e. when tq\_curr\_thunk is still NULL */}
+1390                 \hyperlink{kmp__lock_8h_a44d857bfef49fda9213da11d71aae54e}{\_\_kmp\_init\_lock}( & tq->tq\_freelist\_lck );
+1391             \}
+1392 
+1393             tq->tq\_curr\_thunk = (\hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} **) \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}( nproc * \textcolor{keyword}{sizeof}(
+      \hyperlink{structkmpc__thunk__t}{kmpc\_thunk\_t} *) );
+1394             tq -> tq\_curr\_thunk\_capacity = nproc;
+1395         \}
+1396 
+1397         \textcolor{keywordflow}{if} (in\_parallel)
+1398             tq->tq\_global\_flags = \hyperlink{kmp_8h_a986d313fb8f4fd3f3e2e5801f2871f2e}{TQF\_RELEASE\_WORKERS};
+1399     \}
+1400 
+1401     \textcolor{comment}{/* dkp: in future, if flags & TQF\_HEURISTICS, will choose nslots based */}
+1402     \textcolor{comment}{/*      on some heuristics (e.g., depth of queue nesting?).            */}
+1403 
+1404     nslots = (in\_parallel) ? (2 * nproc) : 1;
+1405 
+1406     \textcolor{comment}{/* There must be nproc * \_\_KMP\_TASKQ\_THUNKS\_PER\_TH extra slots for pending */}
+1407     \textcolor{comment}{/* jobs being executed by other threads, and one extra for taskq slot          */}
+1408 
+1409     nthunks = (in\_parallel) ? (nslots + (nproc * \hyperlink{kmp_8h_a9a66421259b6140badf1f22889fa11b8}{\_\_KMP\_TASKQ\_THUNKS\_PER\_TH}) + 1) :
+       nslots + 2;
+1410 
+1411     \textcolor{comment}{/* Only the root taskq gets a per-thread array of shareds.       */}
+1412     \textcolor{comment}{/* The rest of the taskq's only get one copy of the shared vars. */}
+1413 
+1414     nshareds = ( !tq->tq\_root && in\_parallel) ? nproc : 1;
+1415 
+1416     \textcolor{comment}{/*  create overall queue data structure and its components that require allocation */}
+1417 
+1418     new\_queue = \hyperlink{kmp__taskq_8c_aa694e3ef6c36e868435ec2d6a333d282}{\_\_kmp\_alloc\_taskq} ( tq, in\_parallel, nslots, nthunks, nshareds, nproc,
+1419         sizeof\_thunk, sizeof\_shareds, &new\_taskq\_thunk, global\_tid );
+1420 
+1421     \textcolor{comment}{/*  rest of new\_queue initializations  */}
+1422 
+1423     new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags}           = flags & \hyperlink{kmp_8h_ac4cfd2564ba2f18e5d0b303277b9f0a1}{TQF\_INTERFACE\_FLAGS};
+1424 
+1425     \textcolor{keywordflow}{if} (in\_parallel) \{
+1426         new\_queue->\hyperlink{structkmpc__task__queue__t_a7b1cdbff4f4f72e05cdf28dbb0b25cc9}{tq\_tasknum\_queuing}  = 0;
+1427         new\_queue->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving}  = 0;
+1428         new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags}           |= \hyperlink{kmp_8h_ab6b6338c495b4fe85e556f5757185d23}{TQF\_PARALLEL\_CONTEXT};
+1429     \}
+1430 
+1431     new\_queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot}   = NULL;
+1432     new\_queue->\hyperlink{structkmpc__task__queue__t_ad2fe4fa78d80aad0000f62780a68f84b}{tq\_nslots}       = nslots;
+1433     new\_queue->\hyperlink{structkmpc__task__queue__t_aeda8f2eb9c68ba154a41c7c839473fec}{tq\_hiwat}        = \hyperlink{kmp_8h_a256140cf6c5889ebba30a5a3656fc72c}{HIGH\_WATER\_MARK} (nslots);
+1434     new\_queue->\hyperlink{structkmpc__task__queue__t_a44546f52b8cb3b1ab9f0819b3a2aacff}{tq\_nfull}        = 0;
+1435     new\_queue->\hyperlink{structkmpc__task__queue__t_a592b2cd324a0ce601c5cc875ccf2ed51}{tq\_head}         = 0;
+1436     new\_queue->\hyperlink{structkmpc__task__queue__t_a9cabfcfff0691551b1b82ac45e3491c6}{tq\_tail}         = 0;
+1437     new\_queue->\hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\_loc}          = loc;
+1438 
+1439     \textcolor{keywordflow}{if} ((new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} & \hyperlink{kmp_8h_a49f8bd516d28e80029bbf093ab1b44b4}{TQF\_IS\_ORDERED}) && in\_parallel) \{
+1440         \textcolor{comment}{/* prepare to serve the first-queued task's ORDERED directive */}
+1441         new\_queue->\hyperlink{structkmpc__task__queue__t_a628cd82e927fca521e942af89f006d59}{tq\_tasknum\_serving} = 1;
+1442 
+1443         \textcolor{comment}{/* Vector ORDERED SECTION to taskq version */}
+1444         th->th.th\_dispatch->th\_deo\_fcn = \hyperlink{kmp__taskq_8c_ac3e65df57b606562134811089613d0fa}{\_\_kmp\_taskq\_eo};
+1445 
+1446         \textcolor{comment}{/* Vector ORDERED SECTION to taskq version */}
+1447         th->th.th\_dispatch->th\_dxo\_fcn = \hyperlink{kmp__taskq_8c_ad71295478d8cf475e04a490a15e14765}{\_\_kmp\_taskq\_xo};
+1448     \}
+1449 
+1450     \textcolor{comment}{/*  create a new thunk for the taskq\_task in the new\_queue  */}
+1451     *shareds = (\hyperlink{structkmpc__shared__vars__t}{kmpc\_shared\_vars\_t} *) new\_queue->\hyperlink{structkmpc__task__queue__t_aa91c6d5fa60d60d24b69726f9e99442e}{tq\_shareds}[0].
+      \hyperlink{structkmpc__aligned__shared__vars__t_a1b5d58f6227a7718f53797cd653993b2}{ai\_data};
+1452 
+1453     new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds} = *shareds;
+1454     new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a3bf681925c3209e5fa5d9a6059d4f8e1}{th\_task}       = taskq\_task;
+1455     new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags}      = new\_queue->\hyperlink{structkmpc__task__queue__t_aa9d9f58c9c437c40f115139fd3e39ef3}{tq\_flags} | 
+      \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK};
+1456     new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a6e987faf085a9ed1272495eea346c483}{th\_status}     = 0;
+1457 
+1458     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & 
+      \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK});
+1459 
+1460     \textcolor{comment}{/* KMP\_MB(); */} \textcolor{comment}{/* make sure these inits complete before threads start using this queue (necessary?) */}
+1461 
+1462     \textcolor{comment}{/* insert the new task queue into the tree, but only after all fields initialized */}
+1463 
+1464     \textcolor{keywordflow}{if} (in\_parallel) \{
+1465         \textcolor{keywordflow}{if}( ! tq->tq\_root ) \{
+1466             new\_queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}   = NULL;
+1467             new\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} = NULL;
+1468             new\_queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child}  = NULL;
+1469             new\_queue->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child}  = NULL;
+1470             new\_queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}   = 1;
+1471             tq->tq\_root = new\_queue;
+1472         \}
+1473         \textcolor{keywordflow}{else} \{
+1474             curr\_queue = tq->tq\_curr\_thunk[tid]->th.th\_shareds->sv\_queue;
+1475             new\_queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}   = curr\_queue;
+1476             new\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} = NULL;
+1477             new\_queue->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child}  = NULL;
+1478             new\_queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}   = 1;      \textcolor{comment}{/* for this the thread that built the queue */}
+1479 
+1480             \hyperlink{kmp__taskq_8c_a6a6e3d211881b3087dd72bb19e762181}{KMP\_DEBUG\_REF\_CTS}((\textcolor{stringliteral}{"line %d gtid %d: Q %p alloc %d\(\backslash\)n"},
+1481               \_\_LINE\_\_, global\_tid, new\_queue, new\_queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}));
+1482 
+1483             \hyperlink{kmp__lock_8h_a0eb3c836f2c88a4b8cad9535b53bafe0}{\_\_kmp\_acquire\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1484 
+1485             \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/* make sure data structures are in consistent state before querying them */}
+1486                        \textcolor{comment}{/* Seems to work fine without this call for digital/alpha, needed for IBM/RS6000 */}
+1487 
+1488             new\_queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child} = (\textcolor{keyword}{struct }\hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *) 
+      curr\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child};
+1489 
+1490             if (curr\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} != NULL)
+1491                 curr\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child}->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child} = new\_queue;
+1492 
+1493             curr\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} = new\_queue;
+1494 
+1495             \hyperlink{kmp__lock_8h_ab32472fcbb6de6d99adb9fbbdaf5a39a}{\_\_kmp\_release\_lock}(& curr\_queue->\hyperlink{structkmpc__task__queue__t_ab58a0e786802a553d6a8982490ec868b}{tq\_link\_lck}, global\_tid);
+1496         \}
+1497 
+1498         \textcolor{comment}{/* set up thunk stack only after code that determines curr\_queue above */}
+1499         new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = tq->tq\_curr\_thunk[tid];
+1500         tq->tq\_curr\_thunk[tid] = new\_taskq\_thunk;
+1501 
+1502         \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}( 200, \_\_kmp\_dump\_thunk\_stack( tq->tq\_curr\_thunk[tid], global\_tid ));
+1503     \}
+1504     \textcolor{keywordflow}{else} \{
+1505         new\_taskq\_thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = 0;
+1506         new\_queue->\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}.\hyperlink{structkmpc__task__queue__t_a6cb2351947e23ee8877b495428f6a59f}{tq\_parent}   = NULL;
+1507         new\_queue->\hyperlink{structkmpc__task__queue__t_ada01d183c36f9a0ed158c8f354c78aa3}{tq\_first\_child} = NULL;
+1508         new\_queue->\hyperlink{structkmpc__task__queue__t_ac3bcbe8f1494d5a1010ff0009aa2d3e7}{tq\_next\_child}  = NULL;
+1509         new\_queue->\hyperlink{structkmpc__task__queue__t_ab120e6e740ddd5e3de6e1df41c43b774}{tq\_prev\_child}  = NULL;
+1510         new\_queue->\hyperlink{structkmpc__task__queue__t_a4df8f484d6a1c247e69c58c80d22fdb1}{tq\_ref\_count}   = 1;
+1511     \}
+1512 
+1513 \textcolor{preprocessor}{#ifdef KMP\_DEBUG}
+1514 \textcolor{preprocessor}{}    \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(150, (\textcolor{stringliteral}{"Creating TaskQ Task on (%d):\(\backslash\)n"}, global\_tid));
+1515     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(150, \_\_kmp\_dump\_thunk( tq, new\_taskq\_thunk, global\_tid ));
+1516 
+1517     \textcolor{keywordflow}{if} (in\_parallel) \{
+1518         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(25, (\textcolor{stringliteral}{"After TaskQ at %p Creation on (%d):\(\backslash\)n"}, new\_queue, global\_tid));
+1519     \} \textcolor{keywordflow}{else} \{
+1520         \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(25, (\textcolor{stringliteral}{"After Serial TaskQ at %p Creation on (%d):\(\backslash\)n"}, new\_queue, global\_tid));
+1521     \}
+1522 
+1523     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(25, \_\_kmp\_dump\_task\_queue( tq, new\_queue, global\_tid ));
+1524 
+1525     \textcolor{keywordflow}{if} (in\_parallel) \{
+1526         \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(50, \_\_kmp\_dump\_task\_queue\_tree( tq, tq->tq\_root, global\_tid ));
+1527     \}
+1528 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* KMP\_DEBUG */}\textcolor{preprocessor}{}
+1529 \textcolor{preprocessor}{}
+1530     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+1531         \hyperlink{kmp__error_8c_a66a32e32866271e32187760f4a9d4e3e}{\_\_kmp\_push\_workshare}( global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a671435932198632bc66b96f059a2c9f8}{ct\_taskq}, new\_queue->
+      \hyperlink{structkmpc__task__queue__t_aea2c340b635e160e01da0567adaf247d}{tq\_loc} );
+1532 
+1533     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_taskq return (%d)\(\backslash\)n"}, global\_tid));
+1534 
+1535     \textcolor{keywordflow}{return} new\_taskq\_thunk;
+1536 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free@{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free}}
+\index{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free@{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{p, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a61d0a440f4af92a6cdd3d4b23d76c8cb}
+
+
+Definition at line 427 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq().
+
+
+\begin{DoxyCode}
+428 \{
+429     \hyperlink{kmp__debug_8h_ae72494bd81caee0c71ad42b658cc351e}{KB\_TRACE}( 5, (\textcolor{stringliteral}{"\_\_kmpc\_taskq\_free: called addr=%p, gtid=%d\(\backslash\)n"}, \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p}, global\_tid ) );
+430 
+431     \hyperlink{kmp__debug_8h_ae72494bd81caee0c71ad42b658cc351e}{KB\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_taskq\_free:  freeing: %p, gtid: %d\(\backslash\)n"}, (*( ((\textcolor{keywordtype}{void} **) 
+      \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p})-1)), global\_tid ));
+432 
+433 \textcolor{preprocessor}{#ifdef THREAD\_ALLOC\_FOR\_TASKQ}
+434 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_aff8d21963670e8e527cb6e30a200bb97}{\_\_kmp\_thread\_free}( \hyperlink{kmp_8h_a1626e286e4eb82742a397442009721e6}{\_\_kmp\_thread\_from\_gtid}(global\_tid), *( ((\textcolor{keywordtype}{void}
+       **) \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p})-1) );
+435 \textcolor{preprocessor}{#else}
+436 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( *( ((\textcolor{keywordtype}{void} **) \hyperlink{ittnotify__static_8h_ab7caea589d3ca96f9f11c78f10bff578}{p})-1) );
+437 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* THREAD\_ALLOC\_FOR\_TASKQ */}\textcolor{preprocessor}{}
+438 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_acaade80b091ed43c0268aad085f79711}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task@{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task}}
+\index{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task@{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{global\-\_\-tid, }
+\item[{{\bf kmpc\-\_\-thunk\-\_\-t} $\ast$}]{thunk, }
+\item[{kmp\-\_\-int32}]{status}
+\end{DoxyParamCaption}
+)}}\label{kmp__taskq_8c_acaade80b091ed43c0268aad085f79711}
+
+
+Definition at line 1860 of file kmp\-\_\-taskq.\-c.
+
+
+\begin{DoxyCode}
+1861 \{
+1862     \hyperlink{structkmpc__task__queue__t}{kmpc\_task\_queue\_t} *queue;
+1863     \hyperlink{kmp_8h_ae207b236f7a3d55695081785fc567eaf}{kmp\_taskq\_t}       *\hyperlink{structkmpc__task__queue__t_a553762c08b35b448cda7d34f5f6047c7}{tq}  = &\hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[global\_tid] -> th.th\_team -> t.
+      t\_taskq;
+1864     \textcolor{keywordtype}{int}                tid = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( global\_tid );
+1865 
+1866     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_taskq\_task called (%d)\(\backslash\)n"}, global\_tid));
+1867     \hyperlink{kmp__debug_8h_aa77d06a01f304e7b70fe1f4b052a1b57}{KF\_TRACE}(100, (\textcolor{stringliteral}{"TaskQ Task argument thunk on (%d):\(\backslash\)n"}, global\_tid));
+1868     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}(100, \_\_kmp\_dump\_thunk( tq, thunk, global\_tid ));
+1869 
+1870     queue = thunk->\hyperlink{structkmpc__thunk__t_a9e3c1d0245bed556c044849352192f7f}{th}.\hyperlink{structkmpc__thunk__t_a481b82a1c9aeb8d9141a04e5d1895147}{th\_shareds}->\hyperlink{structkmpc__shared__vars__t_a580f7b543bc8146cfbb25b5283e5d487}{sv\_queue};
+1871 
+1872     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_ab4062d4f566c901230e51490a8819ba0}{\_\_kmp\_env\_consistency\_check} )
+1873         \hyperlink{kmp__error_8c_a93d9c89e2629352b4db28263a95b80f4}{\_\_kmp\_pop\_workshare}( global\_tid, \hyperlink{kmp_8h_a1582e7ddc609220a660d10244ef3e315a671435932198632bc66b96f059a2c9f8}{ct\_taskq}, loc );
+1874 
+1875     \textcolor{comment}{/*  thunk->th\_task is the taskq\_task  */}
+1876     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (thunk->\hyperlink{structkmpc__thunk__t_a9a36ce89c9dde209b70735a253164a98}{th\_flags} & \hyperlink{kmp_8h_a998dac1657d541e97aca13c92bbf8757}{TQF\_TASKQ\_TASK});
+1877 
+1878     \textcolor{comment}{/*  not supposed to call \_\_kmpc\_taskq\_task if it's already enqueued  */}
+1879     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT} (queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} == NULL);
+1880 
+1881     \textcolor{comment}{/* dequeue taskq thunk from curr\_thunk stack */}
+1882     tq->tq\_curr\_thunk[tid] = thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk};
+1883     thunk->\hyperlink{structkmpc__thunk__t_a1aeaa8d80dfb3e836624ae5ad492036d}{th\_encl\_thunk} = NULL;
+1884 
+1885     \hyperlink{kmp__debug_8h_a9beca5fc42b7135f2db6f79ea929ce6d}{KF\_DUMP}( 200, \_\_kmp\_dump\_thunk\_stack( tq->tq\_curr\_thunk[tid], global\_tid ));
+1886 
+1887     thunk->\hyperlink{structkmpc__thunk__t_a6e987faf085a9ed1272495eea346c483}{th\_status} = \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};
+1888 
+1889     \hyperlink{kmp__os_8h_ab19ae0836bf2f1ac24e5cfc97c6d7d41}{KMP\_MB}();  \textcolor{comment}{/*  flush thunk->th\_status before taskq\_task enqueued to avoid race condition  */}
+1890 
+1891     \textcolor{comment}{/*  enqueue taskq\_task in thunk into special slot in queue     */}
+1892     \textcolor{comment}{/* GEH - probably don't need to lock taskq slot since only one */}
+1893     \textcolor{comment}{/*       thread enqueues & already a lock set at dequeue point */}
+1894 
+1895     queue->\hyperlink{structkmpc__task__queue__t_a65ea724ea74e733bbae58fd1bb7511a6}{tq\_taskq\_slot} = thunk;
+1896 
+1897     \hyperlink{kmp__debug_8h_a1094ea740e17fb9a92c845f6d08b3a10}{KE\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_taskq\_task return (%d)\(\backslash\)n"}, global\_tid));
+1898 \}
+\end{DoxyCode}
+\hypertarget{kmp__taskq_8c_a3c92fbf19170f125cfa7425fd96778e7}{\index{kmp\-\_\-taskq.\-c@{kmp\-\_\-taskq.\-c}!in\-\_\-parallel\-\_\-context@{in\-\_\-parallel\-\_\-context}}
+\index{in\-\_\-parallel\-\_\-context@{in\-\_\-parallel\-\_\-context}!kmp_taskq.c@{kmp\-\_\-taskq.\-c}}
+\subsubsection[{in\-\_\-parallel\-\_\-context}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} in\-\_\-parallel\-\_\-context (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-team\-\_\-t} $\ast$}]{team}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__taskq_8c_a3c92fbf19170f125cfa7425fd96778e7}
+
+
+Definition at line 35 of file kmp\-\_\-taskq.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-taskq().
+
+
+\begin{DoxyCode}
+36 \{
+37     \textcolor{keywordflow}{return} ! team -> t.t\_serialized;
+38 \}
+\end{DoxyCode}

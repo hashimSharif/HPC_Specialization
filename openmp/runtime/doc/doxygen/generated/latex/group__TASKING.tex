@@ -4,9 +4,9 @@
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-kmp\-\_\-int32 \hyperlink{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-task\-\_\-t $\ast$new\-\_\-task, kmp\-\_\-int32 ndeps, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$noalias\-\_\-dep\-\_\-list)
+kmp\-\_\-int32 \hyperlink{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, \hyperlink{group__BASIC__TYPES_ga2783514e154e897944132a3ba6ed8789}{kmp\-\_\-task\-\_\-t} $\ast$new\-\_\-task, kmp\-\_\-int32 ndeps, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$noalias\-\_\-dep\-\_\-list)
 \item 
-void \hyperlink{group__TASKING_gab53273918f995639450c4dcbed02df88}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-int32 ndeps, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$noalias\-\_\-dep\-\_\-list)
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{group__TASKING_gab53273918f995639450c4dcbed02df88}{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc\-\_\-ref, kmp\-\_\-int32 gtid, kmp\-\_\-int32 ndeps, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$dep\-\_\-list, kmp\-\_\-int32 ndeps\-\_\-noalias, \hyperlink{kmp_8h_a5a3e923c826c972a9ebb1254d39f4286}{kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$noalias\-\_\-dep\-\_\-list)
 \end{DoxyCompactItemize}
 
 
@@ -20,11 +20,11 @@ These functions support tasking constructs.
 \begin{DoxyParamCaption}
 \item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref, }
 \item[{kmp\-\_\-int32}]{gtid, }
-\item[{kmp\-\_\-task\-\_\-t $\ast$}]{new\-\_\-task, }
+\item[{{\bf kmp\-\_\-task\-\_\-t} $\ast$}]{new\-\_\-task, }
 \item[{kmp\-\_\-int32}]{ndeps, }
-\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{dep\-\_\-list, }
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{dep\-\_\-list, }
 \item[{kmp\-\_\-int32}]{ndeps\-\_\-noalias, }
-\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{noalias\-\_\-dep\-\_\-list}
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{noalias\-\_\-dep\-\_\-list}
 \end{DoxyParamCaption}
 )}}\label{group__TASKING_ga8b2a95073f7a4a81055899ee6a93ecee}
 
@@ -51,16 +51,124 @@ Schedule a non-\/thread-\/switchable task with dependences for execution
 
 Definition at line 424 of file kmp\-\_\-taskdeps.\-cpp.
 
+
+\begin{DoxyCode}
+427 \{
+428 
+429     \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * new\_taskdata = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(new\_task);
+430     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_task\_with\_deps(enter): T#%d loc=%p task=%p\(\backslash\)n"},
+431                   gtid, loc\_ref, new\_taskdata ) );
+432 
+433     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ];
+434     \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * current\_task = thread->th.th\_current\_task;
+435 
+436 \textcolor{preprocessor}{#if OMPT\_SUPPORT && OMPT\_TRACE}
+437 \textcolor{preprocessor}{}    \textcolor{comment}{/* OMPT grab all dependences if requested by the tool */}
+438     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} && ndeps+ndeps\_noalias > 0 &&
+439         \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_task\_dependences))
+440         \{
+441         kmp\_int32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+442 
+443         new\_taskdata->ompt\_task\_info.ndeps = ndeps+ndeps\_noalias;
+444         new\_taskdata->ompt\_task\_info.deps = (ompt\_task\_dependence\_t *)
+445           KMP\_OMPT\_DEPS\_ALLOC(thread,
+446              (ndeps+ndeps\_noalias)*\textcolor{keyword}{sizeof}(ompt\_task\_dependence\_t));
+447 
+448         \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}(new\_taskdata->ompt\_task\_info.deps != NULL);
+449 
+450         \textcolor{keywordflow}{for} (i = 0; i < ndeps; i++)
+451         \{
+452             new\_taskdata->ompt\_task\_info.deps[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].variable\_addr =
+453               (\textcolor{keywordtype}{void}*) dep\_list[i].base\_addr;
+454             \textcolor{keywordflow}{if} (dep\_list[i].flags.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in} && dep\_list[i].\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out})
+455                 new\_taskdata->ompt\_task\_info.deps[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].dependence\_flags =
+456                   ompt\_task\_dependence\_type\_inout;
+457             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dep\_list[i].flags.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out})
+458                 new\_taskdata->ompt\_task\_info.deps[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].dependence\_flags =
+459                   ompt\_task\_dependence\_type\_out;
+460             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dep\_list[i].flags.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in})
+461                 new\_taskdata->ompt\_task\_info.deps[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].dependence\_flags =
+462                   ompt\_task\_dependence\_type\_in;
+463         \}
+464         \textcolor{keywordflow}{for} (i = 0; i < ndeps\_noalias; i++)
+465         \{
+466             new\_taskdata->ompt\_task\_info.deps[ndeps+\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].variable\_addr =
+467               (\textcolor{keywordtype}{void}*) noalias\_dep\_list[i].base\_addr;
+468             \textcolor{keywordflow}{if} (noalias\_dep\_list[i].flags.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in} && noalias\_dep\_list[i].\hyperlink{structkmp__depend__info_aa36eee45c425e2a66beb059660c9fb63}{flags}.
+      \hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out})
+469                 new\_taskdata->ompt\_task\_info.deps[ndeps+\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].dependence\_flags =
+470                   ompt\_task\_dependence\_type\_inout;
+471             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (noalias\_dep\_list[i].flags.\hyperlink{structkmp__depend__info_ad2f4d34c0d6aa127073c9e21a5041244}{out})
+472                 new\_taskdata->ompt\_task\_info.deps[ndeps+\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].dependence\_flags =
+473                   ompt\_task\_dependence\_type\_out;
+474             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (noalias\_dep\_list[i].flags.\hyperlink{structkmp__depend__info_a65b239cf11dd7d59dc86eb9ab5f6e414}{in})
+475                 new\_taskdata->ompt\_task\_info.deps[ndeps+\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].dependence\_flags =
+476                   ompt\_task\_dependence\_type\_in;
+477         \}
+478     \}
+479 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* OMPT\_SUPPORT && OMPT\_TRACE */}\textcolor{preprocessor}{}
+480 \textcolor{preprocessor}{}
+481     \textcolor{keywordtype}{bool} serial = current\_task->\hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_a69abf7c2ecf0b7284861a90c7ac0cfe1}{team\_serial} || current\_task->
+      \hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_a68f882661553dde50d4ccc2e472e9f05}{tasking\_ser} || current\_task->\hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_adc49b76236bc45b6c68457f8e81230b7}{final};
+482 \textcolor{preprocessor}{#if OMP\_41\_ENABLED}
+483 \textcolor{preprocessor}{}    serial = serial && !(new\_taskdata->\hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.proxy == \hyperlink{kmp_8h_a09ec98eec6915a3858e6146869f27a50}{TASK\_PROXY});
+484 \textcolor{preprocessor}{#endif}
+485 \textcolor{preprocessor}{}
+486     \textcolor{keywordflow}{if} ( !serial && ( ndeps > 0 || ndeps\_noalias > 0 )) \{
+487         \textcolor{comment}{/* if no dependencies have been tracked yet, create the dependence hash */}
+488         \textcolor{keywordflow}{if} ( current\_task->\hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash} == NULL )
+489             current\_task->\hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash} = \hyperlink{kmp__taskdeps_8cpp_a0d86f5a20b0781cca078b6a2c4d6ba53}{\_\_kmp\_dephash\_create}(thread, 
+      current\_task);
+490 
+491 \textcolor{preprocessor}{#if USE\_FAST\_MEMORY}
+492 \textcolor{preprocessor}{}        \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *node = (\hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *) 
+      \hyperlink{kmp_8h_a2adbf8a689a0e42c899bde3d997ac1c0}{\_\_kmp\_fast\_allocate}(thread,\textcolor{keyword}{sizeof}(\hyperlink{unionkmp__depnode}{kmp\_depnode\_t}));
+493 \textcolor{preprocessor}{#else}
+494 \textcolor{preprocessor}{}        \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *node = (\hyperlink{unionkmp__depnode}{kmp\_depnode\_t} *) 
+      \hyperlink{kmp_8h_a83a0d4c2333a2ee3931cba6b12e0d5a6}{\_\_kmp\_thread\_malloc}(thread,\textcolor{keyword}{sizeof}(\hyperlink{unionkmp__depnode}{kmp\_depnode\_t}));
+495 \textcolor{preprocessor}{#endif}
+496 \textcolor{preprocessor}{}
+497         \hyperlink{kmp__taskdeps_8cpp_a071ab81c9fcbb82f0d78b38e814a5cbb}{\_\_kmp\_init\_node}(node);
+498         new\_taskdata->\hyperlink{structkmp__taskdata_a877878bd557ba3bdc7749e531cb845b3}{td\_depnode} = node;
+499 
+500         \textcolor{keywordflow}{if} ( \hyperlink{kmp__taskdeps_8cpp_aa9a60ae78b4c85746fef2074b08dbb65}{\_\_kmp\_check\_deps}( gtid, node, new\_task, current\_task->
+      \hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash}, \hyperlink{kmp__taskdeps_8cpp_aa585999671d92d06e72ff64b02d7741b}{NO\_DEP\_BARRIER},
+501                                ndeps, dep\_list, ndeps\_noalias,noalias\_dep\_list ) ) \{
+502             \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_task\_with\_deps(exit): T#%d task had blocking dependencies: "}
+503                   \textcolor{stringliteral}{"loc=%p task=%p, return: TASK\_CURRENT\_NOT\_QUEUED\(\backslash\)n"}, gtid, loc\_ref,
+504                   new\_taskdata ) );
+505             \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a5acf257816ecbf4dd8fa709c0506a4da}{TASK\_CURRENT\_NOT\_QUEUED};
+506         \}
+507     \} \textcolor{keywordflow}{else} \{
+508 \textcolor{preprocessor}{#if OMP\_41\_ENABLED}
+509 \textcolor{preprocessor}{}        \hyperlink{unionkmp__task__team}{kmp\_task\_team\_t} * task\_team = thread->th.th\_task\_team;
+510         \textcolor{keywordflow}{if} ( task\_team && task\_team->\hyperlink{unionkmp__task__team_a18728e49ce76f29250a4be77cd7a2ff4}{tt}.tt\_found\_proxy\_tasks )
+511            \hyperlink{group__TASKING_gab53273918f995639450c4dcbed02df88}{\_\_kmpc\_omp\_wait\_deps} ( loc\_ref, gtid, ndeps, dep\_list, ndeps\_noalias, 
+      noalias\_dep\_list );
+512         \textcolor{keywordflow}{else}
+513 \textcolor{preprocessor}{#endif}
+514 \textcolor{preprocessor}{}           \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_task\_with\_deps(exit): T#%d ignored dependencies for task
+       (serialized)"}
+515                            \textcolor{stringliteral}{"loc=%p task=%p\(\backslash\)n"}, gtid, loc\_ref, new\_taskdata ) );
+516     \}
+517 
+518     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_task\_with\_deps(exit): T#%d task had no blocking dependencies : "}
+519                   \textcolor{stringliteral}{"loc=%p task=%p, transferring to \_\_kmpc\_omp\_task\(\backslash\)n"}, gtid, loc\_ref,
+520                   new\_taskdata ) );
+521 
+522     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a20ebccf65c2c8bd7217807c714a98b11}{\_\_kmpc\_omp\_task}(loc\_ref,gtid,new\_task);
+523 \}
+\end{DoxyCode}
 \hypertarget{group__TASKING_gab53273918f995639450c4dcbed02df88}{\index{Tasking support@{Tasking support}!\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps@{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}}
 \index{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps@{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}!Tasking support@{Tasking support}}
-\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps (
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps (
 \begin{DoxyParamCaption}
 \item[{{\bf ident\-\_\-t} $\ast$}]{loc\-\_\-ref, }
 \item[{kmp\-\_\-int32}]{gtid, }
 \item[{kmp\-\_\-int32}]{ndeps, }
-\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{dep\-\_\-list, }
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{dep\-\_\-list, }
 \item[{kmp\-\_\-int32}]{ndeps\-\_\-noalias, }
-\item[{kmp\-\_\-depend\-\_\-info\-\_\-t $\ast$}]{noalias\-\_\-dep\-\_\-list}
+\item[{{\bf kmp\-\_\-depend\-\_\-info\-\_\-t} $\ast$}]{noalias\-\_\-dep\-\_\-list}
 \end{DoxyParamCaption}
 )}}\label{group__TASKING_gab53273918f995639450c4dcbed02df88}
 
@@ -86,3 +194,57 @@ Definition at line 537 of file kmp\-\_\-taskdeps.\-cpp.
 
 Referenced by \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps().
 
+
+\begin{DoxyCode}
+539 \{
+540     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_wait\_deps(enter): T#%d loc=%p\(\backslash\)n"}, gtid, loc\_ref) );
+541 
+542     \textcolor{keywordflow}{if} ( ndeps == 0 && ndeps\_noalias == 0 ) \{
+543         \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_wait\_deps(exit): T#%d has no dependencies to wait upon : loc=%p\(\backslash\)n
+      "}, gtid, loc\_ref) );
+544         \textcolor{keywordflow}{return};
+545     \}
+546 
+547     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ];
+548     \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} * current\_task = thread->th.th\_current\_task;
+549 
+550     \textcolor{comment}{// We can return immediately as:}
+551     \textcolor{comment}{//   - dependences are not computed in serial teams (except if we have proxy tasks)}
+552     \textcolor{comment}{//   - if the dephash is not yet created it means we have nothing to wait for}
+553     \textcolor{keywordtype}{bool} ignore = current\_task->\hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_a69abf7c2ecf0b7284861a90c7ac0cfe1}{team\_serial} || current\_task->
+      \hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_a68f882661553dde50d4ccc2e472e9f05}{tasking\_ser} || current\_task->\hyperlink{structkmp__taskdata_aa6380b6723d2482345a1e6cffcd15e9f}{td\_flags}.\hyperlink{structkmp__tasking__flags_adc49b76236bc45b6c68457f8e81230b7}{final};
+554 \textcolor{preprocessor}{#if OMP\_41\_ENABLED}
+555 \textcolor{preprocessor}{}    ignore = ignore && thread->th.th\_task\_team->tt.tt\_found\_proxy\_tasks == \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+556 \textcolor{preprocessor}{#endif}
+557 \textcolor{preprocessor}{}    ignore = ignore || current\_task->\hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash} == NULL;
+558 
+559     \textcolor{keywordflow}{if} ( ignore ) \{
+560         \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_wait\_deps(exit): T#%d has no blocking dependencies : loc=%p\(\backslash\)n"}, 
+      gtid, loc\_ref) );
+561         \textcolor{keywordflow}{return};
+562     \}
+563 
+564     \hyperlink{unionkmp__depnode}{kmp\_depnode\_t} node;
+565     \hyperlink{kmp__taskdeps_8cpp_a071ab81c9fcbb82f0d78b38e814a5cbb}{\_\_kmp\_init\_node}(&node);
+566 
+567     \textcolor{keywordflow}{if} (!\hyperlink{kmp__taskdeps_8cpp_aa9a60ae78b4c85746fef2074b08dbb65}{\_\_kmp\_check\_deps}( gtid, &node, NULL, current\_task->
+      \hyperlink{structkmp__taskdata_a428a82593aa88b9d2420390cdee239d8}{td\_dephash}, \hyperlink{kmp__taskdeps_8cpp_a5641cef54853049ed2dabd0143ecbd86}{DEP\_BARRIER},
+568                            ndeps, dep\_list, ndeps\_noalias, noalias\_dep\_list )) \{
+569         \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_wait\_deps(exit): T#%d has no blocking dependencies : loc=%p\(\backslash\)n"}, 
+      gtid, loc\_ref) );
+570         \textcolor{keywordflow}{return};
+571     \}
+572 
+573     \textcolor{keywordtype}{int} thread\_finished = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+574     \hyperlink{classkmp__flag__32}{kmp\_flag\_32} flag((\textcolor{keyword}{volatile} kmp\_uint32 *)&(node.\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a1b12c30275179b5b16a90959858f2969}{npredecessors}), 0U);
+575     \textcolor{keywordflow}{while} ( node.\hyperlink{unionkmp__depnode_aad9c3578bf502dba0af949b9f8bf02f7}{dn}.\hyperlink{structkmp__base__depnode_a1b12c30275179b5b16a90959858f2969}{npredecessors} > 0 ) \{
+576         flag.execute\_tasks(thread, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, &thread\_finished,
+577 #\textcolor{keywordflow}{if} USE\_ITT\_BUILD
+578                            NULL,
+579 #endif
+580                            \hyperlink{kmp_8h_a8fed3df0b84562bb900b41b72dd88033}{\_\_kmp\_task\_stealing\_constraint} );
+581     \}
+582 
+583     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(10, (\textcolor{stringliteral}{"\_\_kmpc\_omp\_wait\_deps(exit): T#%d finished waiting : loc=%p\(\backslash\)n"}, gtid, loc\_ref) );
+584 \}
+\end{DoxyCode}
