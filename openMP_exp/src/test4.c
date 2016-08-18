@@ -16,6 +16,16 @@ void parallel_func()
   for(i = 0; i < size; i++){
     randomNumbers[i] = rand() % size;  
   }
+   
+  #pragma omp parallel for
+  for(i = 0; i < size; i++){
+    randomNumbers[i] = rand() % size;  
+  }
+   
+  #pragma omp parallel for
+  for(i = 0; i < size; i++){
+    randomNumbers[i] = rand() % size;  
+  }
 }
 
 
@@ -25,6 +35,9 @@ int main()
   for(int i = 0; i < reps; i++)
     parallel_func();
 
-  printf("\n\n\n Random Number generation completed\n\n\n");
+  printf("\n\n\n Multiple paralel regions \n\n\n");
   return 0; 
 }
+
+
+
