@@ -1,0 +1,184 @@
+\hypertarget{kmp__utility_8c}{\section{kmp\-\_\-utility.\-c File Reference}
+\label{kmp__utility_8c}\index{kmp\-\_\-utility.\-c@{kmp\-\_\-utility.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-wrapper\-\_\-getpid.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-str.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$float.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__utility_8c_afc15d9a1c303ba7a0f0054a5a73a4cb8}{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name} (char $\ast$buffer, size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__utility_8c_ae78ec0630bbeda7824df545e08719d34}{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name} (char $\ast$result, size\-\_\-t rlen, char $\ast$pattern)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}{unknown} = \char`\"{}unknown\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__utility_8c_ae78ec0630bbeda7824df545e08719d34}{\index{kmp\-\_\-utility.\-c@{kmp\-\_\-utility.\-c}!\-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name}}
+\index{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name}!kmp_utility.c@{kmp\-\_\-utility.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{result, }
+\item[{size\-\_\-t}]{rlen, }
+\item[{char $\ast$}]{pattern}
+\end{DoxyParamCaption}
+)}}\label{kmp__utility_8c_ae78ec0630bbeda7824df545e08719d34}
+
+
+Definition at line 332 of file kmp\-\_\-utility.\-c.
+
+
+\begin{DoxyCode}
+333 \{
+334     \textcolor{keywordtype}{char}        *pos = result, *end = result + rlen - 1;
+335     \textcolor{keywordtype}{char}         buffer[256];
+336     \textcolor{keywordtype}{int}          default\_cpu\_width = 1;
+337     \textcolor{keywordtype}{int}          snp\_result;
+338 
+339     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(rlen > 0);
+340     *end = 0;
+341     \{
+342         \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+343         \textcolor{keywordflow}{for}(i = \hyperlink{kmp_8h_a3469a7dffedccf219ec6b8a0e4ec8ed2}{\_\_kmp\_xproc}; i >= 10; i /= 10, ++default\_cpu\_width);
+344     \}
+345 
+346     \textcolor{keywordflow}{if} (pattern != NULL) \{
+347         \textcolor{keywordflow}{while} (*pattern != \textcolor{charliteral}{'\(\backslash\)0'} && pos < end) \{
+348             \textcolor{keywordflow}{if} (*pattern != \textcolor{charliteral}{'%'}) \{
+349                 *pos++ = *pattern++;
+350             \} \textcolor{keywordflow}{else} \{
+351                 \textcolor{keywordtype}{char} *old\_pattern = pattern;
+352                 \textcolor{keywordtype}{int} width = 1;
+353                 \textcolor{keywordtype}{int} cpu\_width = default\_cpu\_width;
+354 
+355                 ++pattern;
+356 
+357                 \textcolor{keywordflow}{if} (*pattern >= \textcolor{charliteral}{'0'} && *pattern <= \textcolor{charliteral}{'9'}) \{
+358                     width = 0;
+359                     \textcolor{keywordflow}{do} \{
+360                         width = (width * 10) + *pattern++ - \textcolor{charliteral}{'0'};
+361                     \} \textcolor{keywordflow}{while} (*pattern >= \textcolor{charliteral}{'0'} && *pattern <= \textcolor{charliteral}{'9'});
+362                     \textcolor{keywordflow}{if} (width < 0 || width > 1024)
+363                         width = 1;
+364 
+365                     cpu\_width = width;
+366                 \}
+367 
+368                 \textcolor{keywordflow}{switch} (*pattern) \{
+369                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'H'}:
+370                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+371                     \{
+372                         \hyperlink{kmp__utility_8c_afc15d9a1c303ba7a0f0054a5a73a4cb8}{\_\_kmp\_expand\_host\_name}( buffer, \textcolor{keyword}{sizeof}( buffer ) );
+373                         \hyperlink{kmp__safe__c__api_8h_aaffd79ca83bda59bc57750db3bb8bd28}{KMP\_STRNCPY}( pos,  buffer, end - pos + 1);
+374                         \textcolor{keywordflow}{if}(*end == 0) \{
+375                             \textcolor{keywordflow}{while} ( *pos )
+376                                 ++pos;
+377                             ++pattern;
+378                         \} \textcolor{keywordflow}{else}
+379                             pos = end;
+380                     \}
+381                     \textcolor{keywordflow}{break};
+382                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'P'}:
+383                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'p'}:
+384                     \{
+385                         snp\_result = \hyperlink{kmp__safe__c__api_8h_a69d5e0c1eb5568cc66b5faf64a772617}{KMP\_SNPRINTF}( pos, end - pos + 1, \textcolor{stringliteral}{"%0*d"}, cpu\_width, 
+      \hyperlink{kmp_8h_ae1cbb4cacdc7604067520251592308db}{\_\_kmp\_dflt\_team\_nth} );
+386                         \textcolor{keywordflow}{if}(snp\_result >= 0 && snp\_result <= end - pos) \{
+387                             \textcolor{keywordflow}{while} ( *pos )
+388                                 ++pos;
+389                             ++pattern;
+390                         \} \textcolor{keywordflow}{else}
+391                             pos = end;
+392                     \}
+393                     \textcolor{keywordflow}{break};
+394                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'I'}:
+395                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+396                     \{
+397                         pid\_t \textcolor{keywordtype}{id} = getpid();
+398                         snp\_result = \hyperlink{kmp__safe__c__api_8h_a69d5e0c1eb5568cc66b5faf64a772617}{KMP\_SNPRINTF}( pos, end - pos + 1, \textcolor{stringliteral}{"%0*d"}, width, \textcolor{keywordtype}{id} );
+399                         \textcolor{keywordflow}{if}(snp\_result >= 0 && snp\_result <= end - pos) \{
+400                             \textcolor{keywordflow}{while} ( *pos )
+401                                 ++pos;
+402                             ++pattern;
+403                         \} \textcolor{keywordflow}{else}
+404                             pos = end;
+405                         \textcolor{keywordflow}{break};
+406                     \}
+407                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'%'}:
+408                     \{
+409                         *pos++ = \textcolor{charliteral}{'%'};
+410                         ++pattern;
+411                         \textcolor{keywordflow}{break};
+412                     \}
+413                 \textcolor{keywordflow}{default}:
+414                     \{
+415                         *pos++ = \textcolor{charliteral}{'%'};
+416                         pattern = old\_pattern + 1;
+417                         \textcolor{keywordflow}{break};
+418                     \}
+419                 \}
+420             \}
+421         \}
+422         \textcolor{comment}{/* TODO: How do we get rid of this? */}
+423         \textcolor{keywordflow}{if}(*pattern != \textcolor{charliteral}{'\(\backslash\)0'})
+424             \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( FileNameTooLong );
+425     \}
+426 
+427     *pos = \textcolor{charliteral}{'\(\backslash\)0'};
+428 \}
+\end{DoxyCode}
+\hypertarget{kmp__utility_8c_afc15d9a1c303ba7a0f0054a5a73a4cb8}{\index{kmp\-\_\-utility.\-c@{kmp\-\_\-utility.\-c}!\-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name}}
+\index{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name}!kmp_utility.c@{kmp\-\_\-utility.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buffer, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{kmp__utility_8c_afc15d9a1c303ba7a0f0054a5a73a4cb8}
+
+
+Definition at line 305 of file kmp\-\_\-utility.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name().
+
+
+\begin{DoxyCode}
+306 \{
+307     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} >= \textcolor{keyword}{sizeof}(\hyperlink{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}{unknown}));
+308 \textcolor{preprocessor}{#if KMP\_OS\_WINDOWS}
+309 \textcolor{preprocessor}{}    \{
+310         DWORD   \hyperlink{ittnotify__static_8h_a110bd9ede250f97ce56d81bb3c7b171d}{s} = \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size};
+311 
+312         \textcolor{keywordflow}{if} (! GetComputerNameA( buffer, & s ))
+313             \hyperlink{kmp__safe__c__api_8h_a56e348ecf429c2c9583d4e4a02eeeb76}{KMP\_STRCPY\_S}( buffer, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, \hyperlink{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}{unknown} );
+314     \}
+315 \textcolor{preprocessor}{#else}
+316 \textcolor{preprocessor}{}    buffer[\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} - 2] = 0;
+317     \textcolor{keywordflow}{if} (gethostname( buffer, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} ) || buffer[\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} - 2] != 0)
+318         \hyperlink{kmp__safe__c__api_8h_a56e348ecf429c2c9583d4e4a02eeeb76}{KMP\_STRCPY\_S}( buffer, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, \hyperlink{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}{unknown} );
+319 \textcolor{preprocessor}{#endif}
+320 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}{\index{kmp\-\_\-utility.\-c@{kmp\-\_\-utility.\-c}!unknown@{unknown}}
+\index{unknown@{unknown}!kmp_utility.c@{kmp\-\_\-utility.\-c}}
+\subsubsection[{unknown}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ unknown = \char`\"{}unknown\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}
+
+
+Definition at line 25 of file kmp\-\_\-utility.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-expand\-\_\-host\-\_\-name().
+

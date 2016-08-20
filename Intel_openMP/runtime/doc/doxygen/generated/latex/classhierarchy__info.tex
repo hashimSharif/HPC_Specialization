@@ -1,0 +1,435 @@
+\hypertarget{classhierarchy__info}{\section{hierarchy\-\_\-info Class Reference}
+\label{classhierarchy__info}\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-affinity.\-h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1}{init\-\_\-status} \{ \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1a62492b533e6c2a820622602a0291dede}{initialized} =0, 
+\hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ac0a8e5f501a8d2ecb151b0d46d71add8}{not\-\_\-initialized} =1, 
+\hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ad3f87952fafc2375cad49ce25e04351c}{initializing} =2
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classhierarchy__info_ab7d03fbfa83490719f2819e2e8149231}{derive\-Levels} (\hyperlink{classAddrUnsPair}{Addr\-Uns\-Pair} $\ast$adr2os, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} num\-\_\-addrs)
+\item 
+\hyperlink{classhierarchy__info_a0d804a7dc9dae10488df076742c06420}{hierarchy\-\_\-info} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classhierarchy__info_a6bd94261d14cd3644006557a49cd4a11}{fini} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classhierarchy__info_a812ad40d00a154a8ecdee9e9daa546a5}{init} (\hyperlink{classAddrUnsPair}{Addr\-Uns\-Pair} $\ast$adr2os, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} num\-\_\-addrs)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classhierarchy__info_a85116254d0daac14aa741e3cdb213f8b}{resize} (kmp\-\_\-uint32 nproc)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+kmp\-\_\-uint32 \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{max\-Levels}
+\item 
+kmp\-\_\-uint32 \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}
+\item 
+kmp\-\_\-uint32 \hyperlink{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{base\-\_\-num\-\_\-threads}
+\item 
+volatile kmp\-\_\-int8 \hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized}
+\item 
+volatile kmp\-\_\-int8 \hyperlink{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{resizing}
+\item 
+kmp\-\_\-uint32 $\ast$ \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{num\-Per\-Level}
+\item 
+kmp\-\_\-uint32 $\ast$ \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skip\-Per\-Level}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const kmp\-\_\-uint32 \hyperlink{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{max\-Leaves} =4
+\item 
+static const kmp\-\_\-uint32 \hyperlink{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}{min\-Branch} =4
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A structure for holding machine-\/specific hierarchy info to be computed once at init. This structure represents a mapping of threads to the actual machine hierarchy, or to our best guess at what the hierarchy might be, for the purpose of performing an efficient barrier. In the worst case, when there is no machine hierarchy information, it produces a tree suitable for a barrier, similar to the tree used in the hyper barrier. 
+
+Definition at line 146 of file kmp\-\_\-affinity.\-h.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!init\-\_\-status@{init\-\_\-status}}
+\index{init\-\_\-status@{init\-\_\-status}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{init\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf hierarchy\-\_\-info\-::init\-\_\-status}}}\label{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{initialized@{initialized}!hierarchy\-\_\-info@{hierarchy\-\_\-info}}\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!initialized@{initialized}}\item[{\em 
+\hypertarget{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1a62492b533e6c2a820622602a0291dede}{initialized}\label{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1a62492b533e6c2a820622602a0291dede}
+}]\index{not\-\_\-initialized@{not\-\_\-initialized}!hierarchy\-\_\-info@{hierarchy\-\_\-info}}\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!not\-\_\-initialized@{not\-\_\-initialized}}\item[{\em 
+\hypertarget{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ac0a8e5f501a8d2ecb151b0d46d71add8}{not\-\_\-initialized}\label{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ac0a8e5f501a8d2ecb151b0d46d71add8}
+}]\index{initializing@{initializing}!hierarchy\-\_\-info@{hierarchy\-\_\-info}}\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!initializing@{initializing}}\item[{\em 
+\hypertarget{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ad3f87952fafc2375cad49ce25e04351c}{initializing}\label{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ad3f87952fafc2375cad49ce25e04351c}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 163 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+163 \{ \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1a62492b533e6c2a820622602a0291dede}{initialized}=0, \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ac0a8e5f501a8d2ecb151b0d46d71add8}{not\_initialized}=1, \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ad3f87952fafc2375cad49ce25e04351c}{initializing}=2 \};
+\end{DoxyCode}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classhierarchy__info_a0d804a7dc9dae10488df076742c06420}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!hierarchy\-\_\-info@{hierarchy\-\_\-info}}
+\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{hierarchy\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}hierarchy\-\_\-info\-::hierarchy\-\_\-info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classhierarchy__info_a0d804a7dc9dae10488df076742c06420}
+
+
+Definition at line 187 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+187 : \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}(7), \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}(1), \hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized}(
+      \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ac0a8e5f501a8d2ecb151b0d46d71add8}{not\_initialized}), \hyperlink{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{resizing}(0) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classhierarchy__info_ab7d03fbfa83490719f2819e2e8149231}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!derive\-Levels@{derive\-Levels}}
+\index{derive\-Levels@{derive\-Levels}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{derive\-Levels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} hierarchy\-\_\-info\-::derive\-Levels (
+\begin{DoxyParamCaption}
+\item[{{\bf Addr\-Uns\-Pair} $\ast$}]{adr2os, }
+\item[{{\bf int}}]{num\-\_\-addrs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classhierarchy__info_ab7d03fbfa83490719f2819e2e8149231}
+
+
+Definition at line 173 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by init().
+
+
+\begin{DoxyCode}
+173                                                           \{
+174         \textcolor{keywordtype}{int} hier\_depth = adr2os[0].\hyperlink{classAddrUnsPair_a982f64b113d22417f89b279ec24f097e}{first}.\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth};
+175         \textcolor{keywordtype}{int} level = 0;
+176         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=hier\_depth-1; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}>=0; --\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+177             \textcolor{keywordtype}{int} max = -1;
+178             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j=0; j<num\_addrs; ++j) \{
+179                 \textcolor{keywordtype}{int} \hyperlink{structshared__common_aa54da923f39ba340f472b4a62205b967}{next} = adr2os[j].\hyperlink{classAddrUnsPair_a982f64b113d22417f89b279ec24f097e}{first}.\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+180                 \textcolor{keywordflow}{if} (next > max) max = \hyperlink{structshared__common_aa54da923f39ba340f472b4a62205b967}{next};
+181             \}
+182             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[level] = max+1;
+183             ++level;
+184         \}
+185     \}
+\end{DoxyCode}
+\hypertarget{classhierarchy__info_a6bd94261d14cd3644006557a49cd4a11}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!fini@{fini}}
+\index{fini@{fini}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{fini}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} hierarchy\-\_\-info\-::fini (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classhierarchy__info_a6bd94261d14cd3644006557a49cd4a11}
+
+
+Definition at line 189 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-hierarchy().
+
+
+\begin{DoxyCode}
+189 \{ \textcolor{keywordflow}{if} (!\hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized} && \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}) \hyperlink{kmp_8h_a052396231429341ba56a7c1ceacbaa2f}{\_\_kmp\_free}(
+      \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}); \}
+\end{DoxyCode}
+\hypertarget{classhierarchy__info_a812ad40d00a154a8ecdee9e9daa546a5}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!init@{init}}
+\index{init@{init}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} hierarchy\-\_\-info\-::init (
+\begin{DoxyParamCaption}
+\item[{{\bf Addr\-Uns\-Pair} $\ast$}]{adr2os, }
+\item[{{\bf int}}]{num\-\_\-addrs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classhierarchy__info_a812ad40d00a154a8ecdee9e9daa546a5}
+
+
+Definition at line 191 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy().
+
+
+\begin{DoxyCode}
+192     \{
+193         kmp\_int8 bool\_result = \hyperlink{kmp__os_8h_a595d26e973de7e2012d0c93da326d08e}{KMP\_COMPARE\_AND\_STORE\_ACQ8}(&
+      \hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized}, \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ac0a8e5f501a8d2ecb151b0d46d71add8}{not\_initialized}, \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1ad3f87952fafc2375cad49ce25e04351c}{initializing});
+194         \textcolor{keywordflow}{if} (bool\_result == 0) \{ \textcolor{comment}{// Wait for initialization}
+195             \textcolor{keywordflow}{while} (\hyperlink{kmp__os_8h_a33c84284b0f734b18cd53b0166240fcc}{TCR\_1}(\hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized}) != \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1a62492b533e6c2a820622602a0291dede}{initialized}) 
+      \hyperlink{kmp_8h_a0ae7084deafcd923a77e45e93058c459}{KMP\_CPU\_PAUSE}();
+196             \textcolor{keywordflow}{return};
+197         \}
+198         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(bool\_result==1);
+199 
+200         \textcolor{comment}{/* Added explicit initialization of the data fields here to prevent usage of dirty value}
+201 \textcolor{comment}{           observed when static library is re-initialized multiple times (e.g. when}
+202 \textcolor{comment}{           non-OpenMP thread repeatedly launches/joins thread that uses OpenMP). */}
+203         \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth} = 1;
+204         \hyperlink{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{resizing} = 0;
+205         \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels} = 7;
+206         \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel} = (kmp\_uint32 *)\hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}(
+      \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}*2*\textcolor{keyword}{sizeof}(kmp\_uint32));
+207         \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel} = &(\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}]);
+208         \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<\hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{ \textcolor{comment}{// init numPerLevel[*] to 1 item per level}
+209             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 1;
+210             \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 1;
+211         \}
+212 
+213         \textcolor{comment}{// Sort table by physical ID}
+214         \textcolor{keywordflow}{if} (adr2os) \{
+215             qsort(adr2os, num\_addrs, \textcolor{keyword}{sizeof}(*adr2os), 
+      \hyperlink{kmp__affinity_8h_adc724fec24e25e4ded8a920781f80574}{\_\_kmp\_affinity\_cmp\_Address\_labels});
+216             \hyperlink{classhierarchy__info_ab7d03fbfa83490719f2819e2e8149231}{deriveLevels}(adr2os, num\_addrs);
+217         \}
+218         \textcolor{keywordflow}{else} \{
+219             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[0] = \hyperlink{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{maxLeaves};
+220             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[1] = num\_addrs/\hyperlink{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{maxLeaves};
+221             \textcolor{keywordflow}{if} (num\_addrs%\hyperlink{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{maxLeaves}) \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[1]++;
+222         \}
+223 
+224         \hyperlink{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{base\_num\_threads} = num\_addrs;
+225         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=maxLevels-1; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}>=0; --\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \textcolor{comment}{// count non-empty levels to get depth}
+226             \textcolor{keywordflow}{if} (\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] != 1 || \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth} > 1) \textcolor{comment}{// only count one top-level '1'}
+227                 \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}++;
+228 
+229         kmp\_uint32 branch = \hyperlink{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}{minBranch};
+230         \textcolor{keywordflow}{if} (\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[0] == 1) branch = num\_addrs/\hyperlink{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{maxLeaves};
+231         \textcolor{keywordflow}{if} (branch<\hyperlink{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}{minBranch}) branch=\hyperlink{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}{minBranch};
+232         \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}=0; \hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}<\hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}-1; ++\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}) \{ \textcolor{comment}{// optimize hierarchy width}
+233             \textcolor{keywordflow}{while} (\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}] > branch || (\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}==0 && \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[
+      \hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}]>\hyperlink{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{maxLeaves})) \{ \textcolor{comment}{// max 4 on level 0!}
+234                 \textcolor{keywordflow}{if} (\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}] & 1) \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}]++;
+235                 \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}] = \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{ittnotify__static_8h_a6b8793c3e5dd8bb67b04141713a65d2d}{d}] >> 1;
+236                 \textcolor{keywordflow}{if} (\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[d+1] == 1) depth++;
+237                 \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[d+1] = \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[d+1] << 1;
+238             \}
+239             \textcolor{keywordflow}{if}(\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[0] == 1) \{
+240                 branch = branch >> 1;
+241                 \textcolor{keywordflow}{if} (branch<4) branch = \hyperlink{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}{minBranch};
+242             \}
+243         \}
+244 
+245         \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=1; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<\hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+246             \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}-1] * 
+      \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}-1];
+247         \textcolor{comment}{// Fill in hierarchy in the case of oversubscription}
+248         \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=depth; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<\hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+249             \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 2*\hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}-1];
+250 
+251         \hyperlink{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{uninitialized} = \hyperlink{classhierarchy__info_a72afd05b52405fca73987c898caaf5b1a62492b533e6c2a820622602a0291dede}{initialized}; \textcolor{comment}{// One writer}
+252 
+253     \}
+\end{DoxyCode}
+\hypertarget{classhierarchy__info_a85116254d0daac14aa741e3cdb213f8b}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!resize@{resize}}
+\index{resize@{resize}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{resize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} hierarchy\-\_\-info\-::resize (
+\begin{DoxyParamCaption}
+\item[{kmp\-\_\-uint32}]{nproc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classhierarchy__info_a85116254d0daac14aa741e3cdb213f8b}
+
+
+Definition at line 256 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy().
+
+
+\begin{DoxyCode}
+257     \{
+258         kmp\_int8 bool\_result = \hyperlink{kmp__os_8h_a595d26e973de7e2012d0c93da326d08e}{KMP\_COMPARE\_AND\_STORE\_ACQ8}(&
+      \hyperlink{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{resizing}, 0, 1);
+259         \textcolor{keywordflow}{while} (bool\_result == 0) \{ \textcolor{comment}{// someone else is trying to resize}
+260             \hyperlink{kmp_8h_a0ae7084deafcd923a77e45e93058c459}{KMP\_CPU\_PAUSE}();
+261             \textcolor{keywordflow}{if} (nproc <= \hyperlink{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{base\_num\_threads})  \textcolor{comment}{// happy with other thread's resize}
+262                 \textcolor{keywordflow}{return};
+263             \textcolor{keywordflow}{else} \textcolor{comment}{// try to resize}
+264                 bool\_result = \hyperlink{kmp__os_8h_a595d26e973de7e2012d0c93da326d08e}{KMP\_COMPARE\_AND\_STORE\_ACQ8}(&
+      \hyperlink{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{resizing}, 0, 1);
+265         \}
+266         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(bool\_result!=0);
+267         \textcolor{keywordflow}{if} (nproc <= \hyperlink{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{base\_num\_threads}) \textcolor{keywordflow}{return}; \textcolor{comment}{// happy with other thread's resize}
+268 
+269         \textcolor{comment}{// Calculate new maxLevels}
+270         kmp\_uint32 old\_sz = \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}-1];
+271         kmp\_uint32 incs = 0, old\_maxLevels = \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels};
+272         \textcolor{comment}{// First see if old maxLevels is enough to contain new size}
+273         \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=\hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}; i<maxLevels && nproc>old\_sz; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{
+274             \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 2*\hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}-1];
+275             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}-1] *= 2;
+276             old\_sz *= 2;
+277             \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}++;
+278         \}
+279         \textcolor{keywordflow}{if} (nproc > old\_sz) \{ \textcolor{comment}{// Not enough space, need to expand hierarchy}
+280             \textcolor{keywordflow}{while} (nproc > old\_sz) \{
+281                 old\_sz *=2;
+282                 incs++;
+283                 \hyperlink{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{depth}++;
+284             \}
+285             \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels} += incs;
+286 
+287             \textcolor{comment}{// Resize arrays}
+288             kmp\_uint32 *old\_numPerLevel = \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel};
+289             kmp\_uint32 *old\_skipPerLevel = \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel};
+290             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel} = \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel} = NULL;
+291             \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel} = (kmp\_uint32 *)\hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}(
+      \hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}*2*\textcolor{keyword}{sizeof}(kmp\_uint32));
+292             \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel} = &(\hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}]);
+293 
+294             \textcolor{comment}{// Copy old elements from old arrays}
+295             \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<old\_maxLevels; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{ \textcolor{comment}{// init numPerLevel[*] to 1 item per level}
+296                 \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = old\_numPerLevel[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+297                 \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = old\_skipPerLevel[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}];
+298             \}
+299 
+300             \textcolor{comment}{// Init new elements in arrays to 1}
+301             \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=old\_maxLevels; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<\hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}) \{ \textcolor{comment}{// init numPerLevel[*] to 1
+       item per level}
+302                 \hyperlink{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{numPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 1;
+303                 \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 1;
+304             \}
+305 
+306             \textcolor{comment}{// Free old arrays}
+307             \hyperlink{kmp_8h_a052396231429341ba56a7c1ceacbaa2f}{\_\_kmp\_free}(old\_numPerLevel);
+308         \}
+309 
+310         \textcolor{comment}{// Fill in oversubscription levels of hierarchy}
+311         \textcolor{keywordflow}{for} (kmp\_uint32 \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=old\_maxLevels; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<\hyperlink{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{maxLevels}; ++\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i})
+312             \hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] = 2*\hyperlink{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{skipPerLevel}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}-1];
+313 
+314         \hyperlink{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{base\_num\_threads} = nproc;
+315         \hyperlink{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{resizing} = 0; \textcolor{comment}{// One writer}
+316 
+317     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!base\-\_\-num\-\_\-threads@{base\-\_\-num\-\_\-threads}}
+\index{base\-\_\-num\-\_\-threads@{base\-\_\-num\-\_\-threads}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{base\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 hierarchy\-\_\-info\-::base\-\_\-num\-\_\-threads}}\label{classhierarchy__info_a9055a443e8da4aefcfef1b5f1fd43b42}
+
+
+Definition at line 162 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy(), init(), and resize().
+
+\hypertarget{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!depth@{depth}}
+\index{depth@{depth}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{depth}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 hierarchy\-\_\-info\-::depth}}\label{classhierarchy__info_aeebcad75a7d471e1b1fd37aab6216f22}
+This is specifically the depth of the machine configuration hierarchy, in terms of the number of levels along the longest path from root to any leaf. It corresponds to the number of entries in num\-Per\-Level if we exclude all but one trailing 1. 
+
+Definition at line 161 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy(), init(), and resize().
+
+\hypertarget{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!max\-Leaves@{max\-Leaves}}
+\index{max\-Leaves@{max\-Leaves}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{max\-Leaves}]{\setlength{\rightskip}{0pt plus 5cm}const kmp\-\_\-uint32 hierarchy\-\_\-info\-::max\-Leaves =4\hspace{0.3cm}{\ttfamily [static]}}}\label{classhierarchy__info_a4122e10b5d763f2ca3f13076f836ddfe}
+Good default values for number of leaves and branching factor, given no affinity information. Behaves a bit like hyper barrier. 
+
+Definition at line 150 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by init().
+
+\hypertarget{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!max\-Levels@{max\-Levels}}
+\index{max\-Levels@{max\-Levels}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{max\-Levels}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 hierarchy\-\_\-info\-::max\-Levels}}\label{classhierarchy__info_aafbad4b89a239ea459aaef1ab4908aba}
+Number of levels in the hierarchy. Typical levels are threads/core, cores/package or socket, packages/node, nodes/machine, etc. We don't want to get specific with nomenclature. When the machine is oversubscribed we add levels to duplicate the hierarchy, doubling the thread capacity of the hierarchy each time we add a level. 
+
+Definition at line 156 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by init(), and resize().
+
+\hypertarget{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!min\-Branch@{min\-Branch}}
+\index{min\-Branch@{min\-Branch}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{min\-Branch}]{\setlength{\rightskip}{0pt plus 5cm}const kmp\-\_\-uint32 hierarchy\-\_\-info\-::min\-Branch =4\hspace{0.3cm}{\ttfamily [static]}}}\label{classhierarchy__info_afe34e439673297d9ac44c43722c042f0}
+
+
+Definition at line 151 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by init().
+
+\hypertarget{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!num\-Per\-Level@{num\-Per\-Level}}
+\index{num\-Per\-Level@{num\-Per\-Level}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{num\-Per\-Level}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32$\ast$ hierarchy\-\_\-info\-::num\-Per\-Level}}\label{classhierarchy__info_a12fc455d853883d91e3a19567aaac3fe}
+Level 0 corresponds to leaves. num\-Per\-Level\mbox{[}i\mbox{]} is the number of children the parent of a node at level i has. For example, if we have a machine with 4 packages, 4 cores/package and 2 H\-T per core, then num\-Per\-Level = \{2, 4, 4, 1, 1\}. All empty levels are set to 1. 
+
+Definition at line 170 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy(), derive\-Levels(), fini(), init(), and resize().
+
+\hypertarget{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!resizing@{resizing}}
+\index{resizing@{resizing}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{resizing}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-int8 hierarchy\-\_\-info\-::resizing}}\label{classhierarchy__info_afa2edd0b49e3c69a50f3bbebfbd4ad77}
+
+
+Definition at line 165 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by init(), and resize().
+
+\hypertarget{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!skip\-Per\-Level@{skip\-Per\-Level}}
+\index{skip\-Per\-Level@{skip\-Per\-Level}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{skip\-Per\-Level}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32$\ast$ hierarchy\-\_\-info\-::skip\-Per\-Level}}\label{classhierarchy__info_a80259c2cd48bb476b3eea860723e7fa8}
+
+
+Definition at line 171 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy(), init(), and resize().
+
+\hypertarget{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}{\index{hierarchy\-\_\-info@{hierarchy\-\_\-info}!uninitialized@{uninitialized}}
+\index{uninitialized@{uninitialized}!hierarchy_info@{hierarchy\-\_\-info}}
+\subsubsection[{uninitialized}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-int8 hierarchy\-\_\-info\-::uninitialized}}\label{classhierarchy__info_a93f1e8f2ed894dc2477e5feb22d24c2c}
+
+
+Definition at line 164 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-hierarchy(), fini(), and init().
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__affinity_8h}{kmp\-\_\-affinity.\-h}\end{DoxyCompactItemize}

@@ -1,0 +1,1222 @@
+\hypertarget{kmp__str_8c}{\section{kmp\-\_\-str.\-c File Reference}
+\label{kmp__str_8c}\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp\-\_\-str.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T}(b)
+\item 
+\#define \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args}~\-\_\-args
+\item 
+\#define \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\-\_\-case}(ch, exp)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a21bd96f2dd936102c0ce078371b59b4b}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a0f0c848a0f1eb9354dcd0ffce444c875}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a2c39530d3027990beb57232bac8bd2be}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a683399047568b106a23ef86647b9b586}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_aa416521c464ca08391dc521aca3b3d98}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer, char const $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a7a6151b8e746f68350625cb1dee9deb6}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer, char const $\ast$format, va\-\_\-list \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_af8b966bd492c7bb30a7554d7eeb8fa09}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buffer, char const $\ast$format,...)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_afaa8c2aab6d622c9ac4de1b555bb8276}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size} (\hyperlink{kmp__str_8h_ad0930d6b2f11dfebd20aa98300324137}{kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$buf, size\-\_\-t \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a08309100698560440b675f739311e717}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init} (\hyperlink{kmp__str_8h_a57b726bc025a7e36c2f2ec223145219e}{kmp\-\_\-str\-\_\-fname\-\_\-t} $\ast$fname, char const $\ast$path)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a1fc8a2e88f0906c584d85131188a76a8}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free} (\hyperlink{kmp__str_8h_a57b726bc025a7e36c2f2ec223145219e}{kmp\-\_\-str\-\_\-fname\-\_\-t} $\ast$fname)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__str_8c_a7778965d80c1b7cdb8084dcad13a0242}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match} (\hyperlink{kmp__str_8h_a57b726bc025a7e36c2f2ec223145219e}{kmp\-\_\-str\-\_\-fname\-\_\-t} const $\ast$fname, char const $\ast$pattern)
+\item 
+\hyperlink{kmp__str_8h_ac55fa696e52d3751ddaac27ec4dfcb5f}{kmp\-\_\-str\-\_\-loc\-\_\-t} \hyperlink{kmp__str_8c_ac2574a4e4edede90eb9760a316906b39}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init} (char const $\ast$psource, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} init\-\_\-fname)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_aab8c2f8026281698b07283fb20645a8f}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free} (\hyperlink{kmp__str_8h_ac55fa696e52d3751ddaac27ec4dfcb5f}{kmp\-\_\-str\-\_\-loc\-\_\-t} $\ast$loc)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__str_8c_a33a7210f797779325bb7f06c499b7973}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf} (char const $\ast$lhs, char const $\ast$rhs)
+\item 
+char $\ast$ \hyperlink{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-format} (char const $\ast$format,...)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a701e3d316cb77f886f2132477b20a413}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-free} (char const $\ast$$\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match} (char const $\ast$target, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len}, char const $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__str_8c_af4d2e35c93b79090cace08593b665a2b}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false} (char const $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__str_8c_a8cd4e13706553ea42292e282a0ced826}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true} (char const $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a22a26a90da6259ff17d607d3ec164f74}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-replace} (char $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, char search\-\_\-for, char replace\-\_\-with)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-split} (char $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, char delim, char $\ast$$\ast$\hyperlink{ittnotify__static_8h_ac73017ec329810f133ecdb16b66e5208}{head}, char $\ast$$\ast$\hyperlink{ittnotify__static_8h_a7205a2ef1da3b41743f40e66ffb8a1be}{tail})
+\item 
+char $\ast$ \hyperlink{kmp__str_8c_a08f9617493c1f84e965707cd6b944ac0}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-token} (char $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, char const $\ast$delim, char $\ast$$\ast$buf)
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__str_8c_a0801b295a01b1329b87accc67703d17f}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int} (char const $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, char sentinel)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a0bb10b740cfacdb0934295785450f869}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size} (char const $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, size\-\_\-t $\ast$out, size\-\_\-t dfactor, char const $\ast$$\ast$error)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__str_8c_a09a52f8438e60f3d72f6eac2024e4fbc}{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint} (char const $\ast$\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, kmp\-\_\-uint64 $\ast$out, char const $\ast$$\ast$error)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-case@{\-\_\-case}}
+\index{\-\_\-case@{\-\_\-case}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-case}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-case(
+\begin{DoxyParamCaption}
+\item[{}]{ch, }
+\item[{}]{exp}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{case} ch :                                       \(\backslash\)
+        case ch - ( \textcolor{charliteral}{'a'} - \textcolor{charliteral}{'A'} ) : \{                     \(\backslash\)
+            size\_t shift = (exp) * 10;                  \(\backslash\)
+            ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};                                       \(\backslash\)
+            if ( shift < \textcolor{keyword}{sizeof}( \textcolor{keywordtype}{size\_t} ) * 8 ) \{       \(\backslash\)
+                factor = (size\_t)( 1 ) << shift;        \(\backslash\)
+            \} \textcolor{keywordflow}{else} \{                                    \(\backslash\)
+                overflow = 1;                           \(\backslash\)
+            \};                                          \(\backslash\)
+        \} \textcolor{keywordflow}{break};
+\end{DoxyCode}
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size().
+
+\hypertarget{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!args@{args}}
+\index{args@{args}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{args}]{\setlength{\rightskip}{0pt plus 5cm}\#define args~\-\_\-args}}\label{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}
+
+
+Referenced by \-\_\-\-\_\-itt\-\_\-report\-\_\-error(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-msg(), \-\_\-\-\_\-kmp\-\_\-msg\-\_\-format(), \-\_\-\-\_\-kmp\-\_\-read\-\_\-from\-\_\-file(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-format().
+
+\hypertarget{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T@{K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T}}
+\index{K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T@{K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-S\-T\-R\-\_\-\-B\-U\-F\-\_\-\-I\-N\-V\-A\-R\-I\-A\-N\-T(
+\begin{DoxyParamCaption}
+\item[{}]{b}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\{                                                                                             
+      \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{        KMP\_DEBUG\_ASSERT}( (b)->\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL );                                   
+                        \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{        KMP\_DEBUG\_ASSERT}( (b)->\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} >= \textcolor{keyword}{sizeof}( (b)->bulk ) );                  
+                         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{        KMP\_DEBUG\_ASSERT}( (b)->\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} % \textcolor{keyword}{sizeof}( (b)->bulk ) == 0 );              
+                         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{        KMP\_DEBUG\_ASSERT}( (\textcolor{keywordtype}{unsigned})(b)->used < (b)->
+      \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} );                                      \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{        KMP\_DEBUG\_ASSERT}( (b)->\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} == \textcolor{keyword}{sizeof}( (b)->bulk ) ? (b)->
+      \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} == & (b)->bulk[ 0 ] : 1 );  \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{        KMP\_DEBUG\_ASSERT}( (b)->\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} > \textcolor{keyword}{sizeof}( (b)->bulk ) ? (b)->
+      \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != & (b)->bulk[ 0 ] : 1 );   \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 70 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__str_8c_aa416521c464ca08391dc521aca3b3d98}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer, }
+\item[{char const $\ast$}]{str, }
+\item[{{\bf int}}]{len}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_aa416521c464ca08391dc521aca3b3d98}
+
+
+Definition at line 167 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-msg(), and \-\_\-\-\_\-kmp\-\_\-msg\-\_\-format().
+
+
+\begin{DoxyCode}
+171   \{
+172     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+173     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL );
+174     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} >= 0 );
+175     \hyperlink{kmp__str_8c_a0f0c848a0f1eb9354dcd0ffce444c875}{\_\_kmp\_str\_buf\_reserve}( buffer, buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} + \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} + 1 );
+176     \hyperlink{kmp__safe__c__api_8h_ab63a75e8bb537bb3ae55c05d0a3b7ca0}{KMP\_MEMCPY}( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} + buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used}, \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} );
+177     buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str}[ buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} + \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} ] = 0;
+178     buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} += \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len};
+179     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+180 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_cat}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a21bd96f2dd936102c0ce078371b59b4b}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-clear (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a21bd96f2dd936102c0ce078371b59b4b}
+
+
+Definition at line 81 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+
+\begin{DoxyCode}
+83   \{
+84     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+85     \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} > 0 ) \{
+86         buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} = 0;
+87         buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str}[ 0 ] = 0;
+88     \}; \textcolor{comment}{// if}
+89     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+90 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_clear}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a2c39530d3027990beb57232bac8bd2be}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-detach (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a2c39530d3027990beb57232bac8bd2be}
+
+
+Definition at line 133 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-msg\-\_\-format().
+
+
+\begin{DoxyCode}
+135   \{
+136 
+137     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+138 
+139     \textcolor{comment}{// If internal bulk is used, allocate memory and copy it.}
+140     \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} <= \textcolor{keyword}{sizeof}( buffer->\hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk} ) ) \{
+141         buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( buffer->
+      \hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} );
+142         \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} == NULL ) \{
+143                 \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+144         \}; \textcolor{comment}{// if}
+145         \hyperlink{kmp__safe__c__api_8h_abbf1dc5ebfe437e02858f8a119d8377d}{KMP\_MEMCPY\_S}( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str}, buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size}, buffer->\hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk}, buffer->
+      \hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} + 1 );
+146     \}; \textcolor{comment}{// if}
+147 
+148 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_detach}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a683399047568b106a23ef86647b9b586}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a683399047568b106a23ef86647b9b586}
+
+
+Definition at line 152 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2(), \-\_\-\-\_\-kmp\-\_\-msg(), \-\_\-\-\_\-kmp\-\_\-pragma(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-int(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-size(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-num\-\_\-threads(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads().
+
+
+\begin{DoxyCode}
+154   \{
+155     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+156     \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} > \textcolor{keyword}{sizeof}( buffer->\hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk} ) ) \{
+157         \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} );
+158     \}; \textcolor{comment}{// if}
+159     buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str}  = buffer->\hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk};
+160     buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} = \textcolor{keyword}{sizeof}( buffer->\hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk} );
+161     buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} = 0;
+162     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+163 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_free}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_af8b966bd492c7bb30a7554d7eeb8fa09}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer, }
+\item[{char const $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_af8b966bd492c7bb30a7554d7eeb8fa09}
+
+
+Definition at line 250 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-print(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2(), \-\_\-\-\_\-kmp\-\_\-i18n\-\_\-dump\-\_\-catalog(), \-\_\-\-\_\-kmp\-\_\-pragma(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-int(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-branch\-\_\-bit(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-pattern(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-bool(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-cpuinfo\-\_\-file(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-force\-\_\-reduction(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-int(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-kmp\-\_\-dynamic\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-monitor\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-proc\-\_\-bind(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-size(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-str(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-uint64(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+
+\begin{DoxyCode}
+254   \{
+255 
+256     va\_list \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};
+257     va\_start( args, format );
+258     \hyperlink{kmp__str_8c_a7a6151b8e746f68350625cb1dee9deb6}{\_\_kmp\_str\_buf\_vprint}( buffer, format, args );
+259     va\_end( args );
+260 
+261 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_print}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_afaa8c2aab6d622c9ac4de1b555bb8276}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print\-\_\-size (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buf, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_afaa8c2aab6d622c9ac4de1b555bb8276}
+
+
+Definition at line 270 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-size(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-monitor\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-size(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-stacksize().
+
+
+\begin{DoxyCode}
+273   \{
+274 
+275     \textcolor{keywordtype}{char} \textcolor{keyword}{const} * names[] = \{ \textcolor{stringliteral}{""}, \textcolor{stringliteral}{"k"}, \textcolor{stringliteral}{"M"}, \textcolor{stringliteral}{"G"}, \textcolor{stringliteral}{"T"}, \textcolor{stringliteral}{"P"}, \textcolor{stringliteral}{"E"}, \textcolor{stringliteral}{"Z"}, \textcolor{stringliteral}{"Y"} \};
+276     \textcolor{keywordtype}{int} \textcolor{keyword}{const}    units   = \textcolor{keyword}{sizeof}( names ) / \textcolor{keyword}{sizeof}( \textcolor{keywordtype}{char} \textcolor{keyword}{const} * );
+277     \textcolor{keywordtype}{int}          u       = 0;
+278     \textcolor{keywordflow}{if} ( \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} > 0 ) \{
+279         \textcolor{keywordflow}{while} ( ( \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} % 1024 == 0 ) && ( u + 1 < units ) ) \{
+280             \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} = \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} / 1024;
+281             ++ u;
+282         \}; \textcolor{comment}{// while}
+283     \}; \textcolor{comment}{// if}
+284 
+285     \hyperlink{kmp__str_8c_af8b966bd492c7bb30a7554d7eeb8fa09}{\_\_kmp\_str\_buf\_print}( buf, \textcolor{stringliteral}{"%"} KMP\_SIZE\_T\_SPEC \textcolor{stringliteral}{"%s"}, \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}, names[ u ] );
+286 
+287 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_print\_size}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a0f0c848a0f1eb9354dcd0ffce444c875}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-reserve (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer, }
+\item[{{\bf int}}]{size}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a0f0c848a0f1eb9354dcd0ffce444c875}
+
+
+Definition at line 94 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-cat(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint().
+
+
+\begin{DoxyCode}
+97   \{
+98 
+99     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+100     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} >= 0 );
+101 
+102     \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} < (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})\hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size} ) \{
+103 
+104         \textcolor{comment}{// Calculate buffer size.}
+105         \textcolor{keywordflow}{do} \{
+106             buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} *= 2;
+107         \} \textcolor{keywordflow}{while} ( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} < (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})size );
+108 
+109         \textcolor{comment}{// Enlarge buffer.}
+110         \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} == & buffer->\hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk}[ 0 ] ) \{
+111             buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( buffer->
+      \hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} );
+112             \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} == NULL ) \{
+113                 \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+114             \}; \textcolor{comment}{// if}
+115             \hyperlink{kmp__safe__c__api_8h_abbf1dc5ebfe437e02858f8a119d8377d}{KMP\_MEMCPY\_S}( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str}, buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size}, buffer->
+      \hyperlink{structkmp__str__buf_aa9c6640efa6111c3af8199a64fb58e27}{bulk}, buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} + 1 );
+116         \} \textcolor{keywordflow}{else} \{
+117             buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a2a583866f3681a8c3f13222deec51af4}{KMP\_INTERNAL\_REALLOC}( buffer->
+      \hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str}, buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} );
+118             \textcolor{keywordflow}{if} ( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} == NULL ) \{
+119                 \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+120             \}; \textcolor{comment}{// if}
+121         \}; \textcolor{comment}{// if}
+122 
+123     \}; \textcolor{comment}{// if}
+124 
+125     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} > 0 );
+126     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} >= (\textcolor{keywordtype}{unsigned})size );
+127     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+128 
+129 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_reserve}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a7a6151b8e746f68350625cb1dee9deb6}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-vprint (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-buf\-\_\-t} $\ast$}]{buffer, }
+\item[{char const $\ast$}]{format, }
+\item[{va\-\_\-list}]{args}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a7a6151b8e746f68350625cb1dee9deb6}
+
+
+Definition at line 184 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-msg\-\_\-format(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-buf\-\_\-print(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+
+\begin{DoxyCode}
+188   \{
+189 
+190     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+191 
+192     \textcolor{keywordflow}{for} ( ; ; ) \{
+193 
+194         \textcolor{keywordtype}{int} \textcolor{keyword}{const} free = buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} - buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used};
+195         \textcolor{keywordtype}{int}       rc;
+196         \textcolor{keywordtype}{int}       \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size};
+197 
+198         \textcolor{comment}{// Try to format string.}
+199         \{
+200             \textcolor{comment}{/*}
+201 \textcolor{comment}{                On Linux* OS Intel(R) 64, vsnprintf() modifies args argument, so vsnprintf() crashes if it}
+202 \textcolor{comment}{                is called for the second time with the same args. To prevent the crash, we have to}
+203 \textcolor{comment}{                pass a fresh intact copy of args to vsnprintf() on each iteration.}
+204 \textcolor{comment}{}
+205 \textcolor{comment}{                Unfortunately, standard va\_copy() macro is not available on Windows* OS. However, it}
+206 \textcolor{comment}{                seems vsnprintf() does not modify args argument on Windows* OS.}
+207 \textcolor{comment}{            */}
+208 
+209 \textcolor{preprocessor}{            #if ! KMP\_OS\_WINDOWS}
+210 \textcolor{preprocessor}{}                va\_list \_args;
+211                 \_\_va\_copy( \_args, \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args} );  \textcolor{comment}{// Make copy of args.}
+212 \textcolor{preprocessor}{                #define args \_args         // Substitute args with its copy, \_args.}
+213 \textcolor{preprocessor}{}\textcolor{preprocessor}{            #endif // KMP\_OS\_WINDOWS}
+214 \textcolor{preprocessor}{}            rc = \hyperlink{kmp__safe__c__api_8h_a237c79a38f4ed1c10f2a1283e0cd9321}{KMP\_VSNPRINTF}( buffer->\hyperlink{structkmp__str__buf_ac87d13b209cb66e1747bf327dddad2bf}{str} + buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used}, free, format, 
+      \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args} );
+215 \textcolor{preprocessor}{            #if ! KMP\_OS\_WINDOWS}
+216 \textcolor{preprocessor}{}\textcolor{preprocessor}{                #undef args                // Remove substitution.}
+217 \textcolor{preprocessor}{}                va\_end( \_args );
+218 \textcolor{preprocessor}{            #endif // KMP\_OS\_WINDOWS}
+219 \textcolor{preprocessor}{}        \}
+220 
+221         \textcolor{comment}{// No errors, string has been formatted.}
+222         \textcolor{keywordflow}{if} ( rc >= 0 && rc < free ) \{
+223             buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} += rc;
+224             \textcolor{keywordflow}{break};
+225         \}; \textcolor{comment}{// if}
+226 
+227         \textcolor{comment}{// Error occurred, buffer is too small.}
+228         \textcolor{keywordflow}{if} ( rc >= 0 ) \{
+229             \textcolor{comment}{// C99-conforming implementation of vsnprintf returns required buffer size.}
+230             size = buffer->\hyperlink{structkmp__str__buf_aac402122dd4496ecde0715de265d96b0}{used} + rc + 1;
+231         \} \textcolor{keywordflow}{else} \{
+232             \textcolor{comment}{// Older implementations just return -1. Double buffer size.}
+233             size = buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} * 2;
+234         \}; \textcolor{comment}{// if}
+235 
+236         \textcolor{comment}{// Enlarge buffer.}
+237         \hyperlink{kmp__str_8c_a0f0c848a0f1eb9354dcd0ffce444c875}{\_\_kmp\_str\_buf\_reserve}( buffer, size );
+238 
+239         \textcolor{comment}{// And try again.}
+240 
+241     \}; \textcolor{comment}{// forever}
+242 
+243     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( buffer->\hyperlink{structkmp__str__buf_ac6d2fa14f64844ce2113b7d3d3b8d82a}{size} > 0 );
+244     \hyperlink{kmp__str_8c_a39f3ea926d831ee2088be60876d4a944}{KMP\_STR\_BUF\_INVARIANT}( buffer );
+245 
+246 \} \textcolor{comment}{// \_\_kmp\_str\_buf\_vprint}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a33a7210f797779325bb7f06c499b7973}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-str\-\_\-eqf (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{lhs, }
+\item[{char const $\ast$}]{rhs}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a33a7210f797779325bb7f06c499b7973}
+
+
+Definition at line 439 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match().
+
+
+\begin{DoxyCode}
+442   \{
+443     \textcolor{keywordtype}{int} result;
+444 \textcolor{preprocessor}{    #if KMP\_OS\_WINDOWS}
+445 \textcolor{preprocessor}{}        result = ( \_stricmp( lhs, rhs ) == 0 );
+446 \textcolor{preprocessor}{    #else}
+447 \textcolor{preprocessor}{}        result = ( strcmp( lhs, rhs ) == 0 );
+448 \textcolor{preprocessor}{    #endif}
+449 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} result;
+450 \} \textcolor{comment}{// \_\_kmp\_str\_eqf}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a1fc8a2e88f0906c584d85131188a76a8}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-fname\-\_\-t} $\ast$}]{fname}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a1fc8a2e88f0906c584d85131188a76a8}
+
+
+Definition at line 326 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free().
+
+
+\begin{DoxyCode}
+328   \{
+329     \hyperlink{kmp__str_8c_a701e3d316cb77f886f2132477b20a413}{\_\_kmp\_str\_free}( (\textcolor{keywordtype}{char} \textcolor{keyword}{const} **)( & fname->\hyperlink{structkmp__str__fname_a513f711d0851cc50629dbd7bcd9b4ccd}{path} ) );
+330     \hyperlink{kmp__str_8c_a701e3d316cb77f886f2132477b20a413}{\_\_kmp\_str\_free}( (\textcolor{keywordtype}{char} \textcolor{keyword}{const} **)( & fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir}  ) );
+331     \hyperlink{kmp__str_8c_a701e3d316cb77f886f2132477b20a413}{\_\_kmp\_str\_free}( (\textcolor{keywordtype}{char} \textcolor{keyword}{const} **)( & fname->\hyperlink{structkmp__str__fname_a1a36034cd5e0ae79404d0f0d05c3ae69}{base} ) );
+332 \} \textcolor{comment}{// kmp\_str\_fname\_free}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a08309100698560440b675f739311e717}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-fname\-\_\-t} $\ast$}]{fname, }
+\item[{char const $\ast$}]{path}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a08309100698560440b675f739311e717}
+
+
+Definition at line 291 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init().
+
+
+\begin{DoxyCode}
+294   \{
+295 
+296     fname->\hyperlink{structkmp__str__fname_a513f711d0851cc50629dbd7bcd9b4ccd}{path} = NULL;
+297     fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir}  = NULL;
+298     fname->\hyperlink{structkmp__str__fname_a1a36034cd5e0ae79404d0f0d05c3ae69}{base} = NULL;
+299 
+300     \textcolor{keywordflow}{if} ( path != NULL ) \{
+301         \textcolor{keywordtype}{char} * slash = NULL;    \textcolor{comment}{// Pointer to the last character of dir.}
+302         \textcolor{keywordtype}{char} * base  = NULL;    \textcolor{comment}{// Pointer to the beginning of basename.}
+303         fname->\hyperlink{structkmp__str__fname_a513f711d0851cc50629dbd7bcd9b4ccd}{path} = \hyperlink{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\_\_kmp\_str\_format}( \textcolor{stringliteral}{"%s"}, path );
+304             \textcolor{comment}{// Original code used strdup() function to copy a string, but on Windows* OS Intel(R) 64 it}
+305             \textcolor{comment}{// causes assertioon id debug heap, so I had to replace strdup with \_\_kmp\_str\_format().}
+306         \textcolor{keywordflow}{if} ( \hyperlink{kmp__platform_8h_a2f83e9196e077cc3cf8ec514a0996cdd}{KMP\_OS\_WINDOWS} ) \{
+307             \hyperlink{kmp__str_8c_a22a26a90da6259ff17d607d3ec164f74}{\_\_kmp\_str\_replace}( fname->\hyperlink{structkmp__str__fname_a513f711d0851cc50629dbd7bcd9b4ccd}{path}, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}, \textcolor{charliteral}{'/'} );
+308         \}; \textcolor{comment}{// if}
+309         fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir} = \hyperlink{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\_\_kmp\_str\_format}( \textcolor{stringliteral}{"%s"}, fname->\hyperlink{structkmp__str__fname_a513f711d0851cc50629dbd7bcd9b4ccd}{path} );
+310         slash = strrchr( fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir}, \textcolor{charliteral}{'/'} );
+311         \textcolor{keywordflow}{if} ( \hyperlink{kmp__platform_8h_a2f83e9196e077cc3cf8ec514a0996cdd}{KMP\_OS\_WINDOWS} && slash == NULL ) \{           \textcolor{comment}{// On Windows* OS, if slash not
+       found,}
+312             \textcolor{keywordtype}{char} first = \hyperlink{kmp__str_8h_ad4771ad2e5dd6a87c83ecf879b7985de}{TOLOWER}( fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir}[ 0 ] );     \textcolor{comment}{// look for drive.}
+313             \textcolor{keywordflow}{if} ( \textcolor{charliteral}{'a'} <= first && first <= 'z' && fname->dir[ 1 ] == \textcolor{charliteral}{':'} ) \{
+314                 slash = & fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir}[ 1 ];
+315             \}; \textcolor{comment}{// if}
+316         \}; \textcolor{comment}{// if}
+317         base = ( slash == NULL ? fname->\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir} : slash + 1 );
+318         fname->\hyperlink{structkmp__str__fname_a1a36034cd5e0ae79404d0f0d05c3ae69}{base} = \hyperlink{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\_\_kmp\_str\_format}( \textcolor{stringliteral}{"%s"}, base );    \textcolor{comment}{// Copy basename}
+319         * base = 0;                    \textcolor{comment}{// and truncate dir.}
+320     \}; \textcolor{comment}{// if}
+321 
+322 \} \textcolor{comment}{// kmp\_str\_fname\_init}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a7778965d80c1b7cdb8084dcad13a0242}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-match (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-fname\-\_\-t} const $\ast$}]{fname, }
+\item[{char const $\ast$}]{pattern}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a7778965d80c1b7cdb8084dcad13a0242}
+
+
+Definition at line 336 of file kmp\-\_\-str.\-c.
+
+
+\begin{DoxyCode}
+339   \{
+340 
+341     \textcolor{keywordtype}{int} dir\_match  = 1;
+342     \textcolor{keywordtype}{int} base\_match = 1;
+343 
+344     \textcolor{keywordflow}{if} ( pattern != NULL ) \{
+345         \hyperlink{structkmp__str__fname}{kmp\_str\_fname\_t} ptrn;
+346         \hyperlink{kmp__str_8c_a08309100698560440b675f739311e717}{\_\_kmp\_str\_fname\_init}( & ptrn, pattern );
+347         dir\_match =
+348             strcmp( ptrn.\hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir}, \textcolor{stringliteral}{"*/"} ) == 0
+349             ||
+350             ( fname->dir != NULL && \hyperlink{kmp__str_8c_a33a7210f797779325bb7f06c499b7973}{\_\_kmp\_str\_eqf}( fname->dir, ptrn.
+      \hyperlink{structkmp__str__fname_a5f67b7b74f3c8ee34b6a9cc6b2fc9e91}{dir} ) );
+351         base\_match =
+352             strcmp( ptrn.\hyperlink{structkmp__str__fname_a1a36034cd5e0ae79404d0f0d05c3ae69}{base}, \textcolor{stringliteral}{"*"} ) == 0
+353             ||
+354             ( fname->base != NULL && \hyperlink{kmp__str_8c_a33a7210f797779325bb7f06c499b7973}{\_\_kmp\_str\_eqf}( fname->base, ptrn.
+      \hyperlink{structkmp__str__fname_a1a36034cd5e0ae79404d0f0d05c3ae69}{base} ) );
+355         \hyperlink{kmp__str_8c_a1fc8a2e88f0906c584d85131188a76a8}{\_\_kmp\_str\_fname\_free}( & ptrn );
+356     \}; \textcolor{comment}{// if}
+357 
+358     \textcolor{keywordflow}{return} dir\_match && base\_match;
+359 
+360 \} \textcolor{comment}{// \_\_kmp\_str\_fname\_match}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-format@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-format}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-format@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-format}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-format}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \-\_\-\-\_\-kmp\-\_\-str\-\_\-format (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}
+
+
+Definition at line 484 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-deo(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-finish(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-next(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-get\-\_\-bounds(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-is\-\_\-address\-\_\-mapped(), \-\_\-\-\_\-kmp\-\_\-msg\-\_\-error\-\_\-mesg(), \-\_\-\-\_\-kmp\-\_\-reg\-\_\-status\-\_\-name(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-team\-\_\-static\-\_\-init(), and sys\-\_\-error().
+
+
+\begin{DoxyCode}
+487   \{
+488 
+489     va\_list \hyperlink{kmp__str_8c_acd08a6295eccfeb30c79985f047e4be5}{args};
+490     \textcolor{keywordtype}{int}     \hyperlink{ittnotify__static_8h_a5a1daa0c1d342747e3884fa54fc64fb1}{size}   = 512;
+491     \textcolor{keywordtype}{char} *  buffer = NULL;
+492     \textcolor{keywordtype}{int}     rc;
+493 
+494     \textcolor{comment}{// Allocate buffer.}
+495     buffer = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a0a16596f72c0f2e9d5283364775c9e6c}{KMP\_INTERNAL\_MALLOC}( size );
+496     \textcolor{keywordflow}{if} ( buffer == NULL ) \{
+497         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+498     \}; \textcolor{comment}{// if}
+499 
+500     \textcolor{keywordflow}{for} ( ; ; ) \{
+501 
+502         \textcolor{comment}{// Try to format string.}
+503         va\_start( args, format );
+504         rc = \hyperlink{kmp__safe__c__api_8h_a237c79a38f4ed1c10f2a1283e0cd9321}{KMP\_VSNPRINTF}( buffer, size, format, args );
+505         va\_end( args );
+506 
+507         \textcolor{comment}{// No errors, string has been formatted.}
+508         \textcolor{keywordflow}{if} ( rc >= 0 && rc < size ) \{
+509             \textcolor{keywordflow}{break};
+510         \}; \textcolor{comment}{// if}
+511 
+512         \textcolor{comment}{// Error occurred, buffer is too small.}
+513         \textcolor{keywordflow}{if} ( rc >= 0 ) \{
+514             \textcolor{comment}{// C99-conforming implementation of vsnprintf returns required buffer size.}
+515             size = rc + 1;
+516         \} \textcolor{keywordflow}{else} \{
+517             \textcolor{comment}{// Older implementations just return -1.}
+518             size = size * 2;
+519         \}; \textcolor{comment}{// if}
+520 
+521         \textcolor{comment}{// Enlarge buffer and try again.}
+522         buffer = (\textcolor{keywordtype}{char} *) \hyperlink{kmp_8h_a2a583866f3681a8c3f13222deec51af4}{KMP\_INTERNAL\_REALLOC}( buffer, size );
+523         \textcolor{keywordflow}{if} ( buffer == NULL ) \{
+524             \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}( MemoryAllocFailed );
+525         \}; \textcolor{comment}{// if}
+526 
+527     \}; \textcolor{comment}{// forever}
+528 
+529     \textcolor{keywordflow}{return} buffer;
+530 
+531 \} \textcolor{comment}{// func \_\_kmp\_str\_format}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a701e3d316cb77f886f2132477b20a413}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-free}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$$\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a701e3d316cb77f886f2132477b20a413}
+
+
+Definition at line 535 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-deo(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-finish(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-next(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-get\-\_\-bounds(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-free(), and \-\_\-\-\_\-kmp\-\_\-team\-\_\-static\-\_\-init().
+
+
+\begin{DoxyCode}
+537   \{
+538     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL );
+539     \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( (\textcolor{keywordtype}{void} *) * \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} );
+540     * \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} = NULL;
+541 \} \textcolor{comment}{// func \_\_kmp\_str\_free}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_aab8c2f8026281698b07283fb20645a8f}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf kmp\-\_\-str\-\_\-loc\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_aab8c2f8026281698b07283fb20645a8f}
+
+
+Definition at line 419 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-user\-\_\-locks().
+
+
+\begin{DoxyCode}
+421   \{
+422     \hyperlink{kmp__str_8c_a1fc8a2e88f0906c584d85131188a76a8}{\_\_kmp\_str\_fname\_free}( & loc->\hyperlink{structkmp__str__loc_a3c120d9ac1b6a294b7ff5e6015b9021f}{fname} );
+423     \hyperlink{kmp_8h_ac9035c424aa6f5daac89143f720e3848}{KMP\_INTERNAL\_FREE}( loc->\hyperlink{structkmp__str__loc_a8e863268403c45a0ddec49f8245b2157}{\_bulk} );
+424     loc->\hyperlink{structkmp__str__loc_a8e863268403c45a0ddec49f8245b2157}{\_bulk} = NULL;
+425     loc->\hyperlink{structkmp__str__loc_a58c65f1c3edba40b585cc6b00525e9e2}{file}  = NULL;
+426     loc->\hyperlink{structkmp__str__loc_a92f2014d7206fbd45d62f1095fb9e575}{func}  = NULL;
+427 \} \textcolor{comment}{// kmp\_str\_loc\_free}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_ac2574a4e4edede90eb9760a316906b39}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-str\-\_\-loc\-\_\-t} \-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{psource, }
+\item[{{\bf int}}]{init\-\_\-fname}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_ac2574a4e4edede90eb9760a316906b39}
+
+
+Definition at line 364 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-user\-\_\-locks().
+
+
+\begin{DoxyCode}
+367   \{
+368 
+369     \hyperlink{structkmp__str__loc}{kmp\_str\_loc\_t} loc;
+370 
+371     loc.\hyperlink{structkmp__str__loc_a8e863268403c45a0ddec49f8245b2157}{\_bulk} = NULL;
+372     loc.\hyperlink{structkmp__str__loc_a58c65f1c3edba40b585cc6b00525e9e2}{file}  = NULL;
+373     loc.\hyperlink{structkmp__str__loc_a92f2014d7206fbd45d62f1095fb9e575}{func}  = NULL;
+374     loc.\hyperlink{structkmp__str__loc_a225be91d4582b0393c41f1fbfdbea683}{line}  = 0;
+375     loc.\hyperlink{structkmp__str__loc_aaee918129e8140c986d4381f85d3c6ce}{col}   = 0;
+376 
+377     \textcolor{keywordflow}{if} ( psource != NULL ) \{
+378 
+379         \textcolor{keywordtype}{char} * \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}   = NULL;
+380         \textcolor{keywordtype}{char} * dummy = NULL;
+381         \textcolor{keywordtype}{char} * line  = NULL;
+382         \textcolor{keywordtype}{char} * col   = NULL;
+383 
+384         \textcolor{comment}{// Copy psource to keep it intact.}
+385         loc.\hyperlink{structkmp__str__loc_a8e863268403c45a0ddec49f8245b2157}{\_bulk} = \hyperlink{kmp__str_8c_ac396f8f8ac717893794e30821c1ec12e}{\_\_kmp\_str\_format}( \textcolor{stringliteral}{"%s"}, psource );
+386 
+387         \textcolor{comment}{// Parse psource string: ";file;func;line;col;;"}
+388         str = loc.\hyperlink{structkmp__str__loc_a8e863268403c45a0ddec49f8245b2157}{\_bulk};
+389         \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( str, \textcolor{charliteral}{';'}, & dummy,    & str );
+390         \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( str, \textcolor{charliteral}{';'}, & loc.\hyperlink{structkmp__str__loc_a58c65f1c3edba40b585cc6b00525e9e2}{file}, & str );
+391         \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( str, \textcolor{charliteral}{';'}, & loc.\hyperlink{structkmp__str__loc_a92f2014d7206fbd45d62f1095fb9e575}{func}, & str );
+392         \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( str, \textcolor{charliteral}{';'}, & line,     & str );
+393         \hyperlink{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\_\_kmp\_str\_split}( str, \textcolor{charliteral}{';'}, & col,      & str );
+394 
+395         \textcolor{comment}{// Convert line and col into numberic values.}
+396         \textcolor{keywordflow}{if} ( line != NULL ) \{
+397             loc.\hyperlink{structkmp__str__loc_a225be91d4582b0393c41f1fbfdbea683}{line} = atoi( line );
+398             \textcolor{keywordflow}{if} ( loc.\hyperlink{structkmp__str__loc_a225be91d4582b0393c41f1fbfdbea683}{line} < 0 ) \{
+399                 loc.\hyperlink{structkmp__str__loc_a225be91d4582b0393c41f1fbfdbea683}{line} = 0;
+400             \}; \textcolor{comment}{// if}
+401         \}; \textcolor{comment}{// if}
+402         \textcolor{keywordflow}{if} ( col != NULL ) \{
+403             loc.\hyperlink{structkmp__str__loc_aaee918129e8140c986d4381f85d3c6ce}{col} = atoi( col );
+404             \textcolor{keywordflow}{if} ( loc.\hyperlink{structkmp__str__loc_aaee918129e8140c986d4381f85d3c6ce}{col} < 0 ) \{
+405                 loc.\hyperlink{structkmp__str__loc_aaee918129e8140c986d4381f85d3c6ce}{col} = 0;
+406             \}; \textcolor{comment}{// if}
+407         \}; \textcolor{comment}{// if}
+408 
+409     \}; \textcolor{comment}{// if}
+410 
+411     \hyperlink{kmp__str_8c_a08309100698560440b675f739311e717}{\_\_kmp\_str\_fname\_init}( & loc.\hyperlink{structkmp__str__loc_a3c120d9ac1b6a294b7ff5e6015b9021f}{fname}, init\_fname ? loc.
+      \hyperlink{structkmp__str__loc_a58c65f1c3edba40b585cc6b00525e9e2}{file} : NULL );
+412 
+413     \textcolor{keywordflow}{return} loc;
+414 
+415 \} \textcolor{comment}{// kmp\_str\_loc\_init}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-match@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-str\-\_\-match (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{target, }
+\item[{{\bf int}}]{len, }
+\item[{char const $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}
+
+
+Definition at line 550 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-convert\-\_\-to\-\_\-milliseconds(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-pattern(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-force\-\_\-reduction(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-kmp\-\_\-dynamic\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-lock\-\_\-kind(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-display\-\_\-env(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-storage\-\_\-map(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-wait\-\_\-policy(), \-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true().
+
+
+\begin{DoxyCode}
+554   \{
+555     \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+556     \textcolor{keywordflow}{if} ( target == NULL || \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} == NULL ) \{
+557         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+558     \}; \textcolor{comment}{// if}
+559     \textcolor{keywordflow}{for} ( i = 0; target[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}] && \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}]; ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ) \{
+560         \textcolor{keywordflow}{if} ( \hyperlink{kmp__str_8h_ad4771ad2e5dd6a87c83ecf879b7985de}{TOLOWER}( target[i] ) != \hyperlink{kmp__str_8h_ad4771ad2e5dd6a87c83ecf879b7985de}{TOLOWER}( data[i] ) ) \{
+561             \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+562         \}; \textcolor{comment}{// if}
+563     \}; \textcolor{comment}{// for i}
+564     \textcolor{keywordflow}{return} ( ( \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} > 0 ) ? i >= \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} : ( ! target[i] && ( \hyperlink{ittnotify__static_8h_a607b6bb4c1ebd6e828c6a54ec9bd1411}{len} || ! data[i] ) ) );
+565 \} \textcolor{comment}{// \_\_kmp\_str\_match}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_af4d2e35c93b79090cace08593b665a2b}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-false (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_af4d2e35c93b79090cace08593b665a2b}
+
+
+Definition at line 569 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-ignore\-\_\-mppbeg(), \-\_\-\-\_\-kmp\-\_\-ignore\-\_\-mppend(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-bool().
+
+
+\begin{DoxyCode}
+569                                            \{
+570     \textcolor{keywordtype}{int} result =
+571         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"false"},   1, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+572         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"off"},     2, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+573         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"0"},       1, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+574         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{".false."}, 2, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+575         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{".f."},     2, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+576         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"no"},      1, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} );
+577     \textcolor{keywordflow}{return} result;
+578 \} \textcolor{comment}{// \_\_kmp\_str\_match\_false}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a8cd4e13706553ea42292e282a0ced826}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-str\-\_\-match\-\_\-true (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a8cd4e13706553ea42292e282a0ced826}
+
+
+Definition at line 582 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-bool(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::init().
+
+
+\begin{DoxyCode}
+582                                           \{
+583     \textcolor{keywordtype}{int} result =
+584         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"true"},   1, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+585         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"on"},     2, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+586         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"1"},      1, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+587         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{".true."}, 2, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+588         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{".t."},    2, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} ) ||
+589         \hyperlink{kmp__str_8c_a428f3947f9602b2225f18c3f3eacd811}{\_\_kmp\_str\_match}( \textcolor{stringliteral}{"yes"},    1, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data} );
+590     \textcolor{keywordflow}{return} result;
+591 \} \textcolor{comment}{// \_\_kmp\_str\_match\_true}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a22a26a90da6259ff17d607d3ec164f74}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-replace@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-replace}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-replace@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-replace}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-replace}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-replace (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char}]{search\-\_\-for, }
+\item[{char}]{replace\-\_\-with}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a22a26a90da6259ff17d607d3ec164f74}
+
+
+Definition at line 594 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-str\-\_\-fname\-\_\-init().
+
+
+\begin{DoxyCode}
+598   \{
+599 
+600     \textcolor{keywordtype}{char} * found = NULL;
+601 
+602     found = strchr( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, search\_for );
+603     \textcolor{keywordflow}{while} ( found ) \{
+604         * found = replace\_with;
+605         found = strchr( found + 1, search\_for );
+606     \}; \textcolor{comment}{// while}
+607 
+608 \} \textcolor{comment}{// \_\_kmp\_str\_replace}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-split@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-split}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-split@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-split}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-split}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-split (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char}]{delim, }
+\item[{char $\ast$$\ast$}]{head, }
+\item[{char $\ast$$\ast$}]{tail}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a1ffb8c903bb1f2a7c2a93913a1e63920}
+
+
+Definition at line 612 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string(), \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-unix(), \-\_\-\-\_\-kmp\-\_\-pragma(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup(), and \-\_\-\-\_\-kmp\-\_\-str\-\_\-loc\-\_\-init().
+
+
+\begin{DoxyCode}
+617   \{
+618     \textcolor{keywordtype}{char} * \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h} = \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str};
+619     \textcolor{keywordtype}{char} * t = NULL;
+620     \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL ) \{
+621         \textcolor{keywordtype}{char} * ptr = strchr( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, delim );
+622         \textcolor{keywordflow}{if} ( ptr != NULL ) \{
+623             * ptr  = 0;
+624             t = ptr + 1;
+625         \}; \textcolor{comment}{// if}
+626     \}; \textcolor{comment}{// if}
+627     \textcolor{keywordflow}{if} ( \hyperlink{ittnotify__static_8h_ac73017ec329810f133ecdb16b66e5208}{head} != NULL ) \{
+628         * \hyperlink{ittnotify__static_8h_ac73017ec329810f133ecdb16b66e5208}{head} = \hyperlink{ittnotify__static_8h_a9de23e959c2bd79e141842a0025bfef1}{h};
+629     \}; \textcolor{comment}{// if}
+630     \textcolor{keywordflow}{if} ( \hyperlink{ittnotify__static_8h_a7205a2ef1da3b41743f40e66ffb8a1be}{tail} != NULL ) \{
+631         * \hyperlink{ittnotify__static_8h_a7205a2ef1da3b41743f40e66ffb8a1be}{tail} = t;
+632     \}; \textcolor{comment}{// if}
+633 \} \textcolor{comment}{// \_\_kmp\_str\_split}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a0801b295a01b1329b87accc67703d17f}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-int (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{str, }
+\item[{char}]{sentinel}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a0801b295a01b1329b87accc67703d17f}
+
+
+Definition at line 668 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-parse\-\_\-nested\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-place\-\_\-threads(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-proc\-\_\-bind().
+
+
+\begin{DoxyCode}
+671   \{
+672     \textcolor{keywordtype}{int} result, factor;
+673     \textcolor{keywordtype}{char} \textcolor{keyword}{const} * t;
+674 
+675     result = 0;
+676 
+677     \textcolor{keywordflow}{for} (t = \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}; *t != \textcolor{charliteral}{'\(\backslash\)0'}; ++t) \{
+678         \textcolor{keywordflow}{if} (*t < '0' || *t > \textcolor{charliteral}{'9'})
+679             \textcolor{keywordflow}{break};
+680         result = (result * 10) + (*t - \textcolor{charliteral}{'0'});
+681     \}
+682 
+683     \textcolor{keywordflow}{switch} (*t) \{
+684     \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)0'}:          \textcolor{comment}{/* the current default for no suffix is bytes */}
+685         factor = 1;
+686         \textcolor{keywordflow}{break};
+687     \textcolor{keywordflow}{case} \textcolor{charliteral}{'b'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'B'}: \textcolor{comment}{/* bytes */}
+688         ++t;
+689         factor = 1;
+690         \textcolor{keywordflow}{break};
+691     \textcolor{keywordflow}{case} \textcolor{charliteral}{'k'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'K'}: \textcolor{comment}{/* kilo-bytes */}
+692         ++t;
+693         factor = 1024;
+694         \textcolor{keywordflow}{break};
+695     \textcolor{keywordflow}{case} \textcolor{charliteral}{'m'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'M'}: \textcolor{comment}{/* mega-bytes */}
+696         ++t;
+697         factor = (1024 * 1024);
+698         \textcolor{keywordflow}{break};
+699     \textcolor{keywordflow}{default}:
+700         \textcolor{keywordflow}{if}(*t != sentinel)
+701             \textcolor{keywordflow}{return} (-1);
+702         t = \textcolor{stringliteral}{""};
+703         factor = 1;
+704     \}
+705 
+706     \textcolor{keywordflow}{if} (result > (INT\_MAX / factor))
+707         result = INT\_MAX;
+708     \textcolor{keywordflow}{else}
+709         result *= factor;
+710 
+711     \textcolor{keywordflow}{return} (*t != 0 ? 0 : result);
+712 
+713 \} \textcolor{comment}{// \_\_kmp\_str\_to\_int}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a0bb10b740cfacdb0934295785450f869}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-size (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{str, }
+\item[{size\-\_\-t $\ast$}]{out, }
+\item[{size\-\_\-t}]{dfactor, }
+\item[{char const $\ast$$\ast$}]{error}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a0bb10b740cfacdb0934295785450f869}
+
+
+Definition at line 725 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-size().
+
+
+\begin{DoxyCode}
+730   \{
+731 
+732     \textcolor{keywordtype}{size\_t} value    = 0;
+733     \textcolor{keywordtype}{size\_t} factor   = 0;
+734     \textcolor{keywordtype}{int}    overflow = 0;
+735     \textcolor{keywordtype}{int}    \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}        = 0;
+736     \textcolor{keywordtype}{int}    digit;
+737 
+738 
+739     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL );
+740 
+741     \textcolor{comment}{// Skip spaces.}
+742     \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{' '} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'\(\backslash\)t'}) \{
+743         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+744     \}; \textcolor{comment}{// while}
+745 
+746     \textcolor{comment}{// Parse number.}
+747     \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] < \textcolor{charliteral}{'0'} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] > \textcolor{charliteral}{'9'} ) \{
+748         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( NotANumber );
+749         \textcolor{keywordflow}{return};
+750     \}; \textcolor{comment}{// if}
+751     \textcolor{keywordflow}{do} \{
+752         digit = \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ] - \textcolor{charliteral}{'0'};
+753         overflow = overflow || ( value > ( \hyperlink{kmp__os_8h_a2946e9f5701c22f4038024f9040d33ff}{KMP\_SIZE\_T\_MAX} - digit ) / 10 );
+754         value = ( value * 10 ) + digit;
+755         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+756     \} \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] >= \textcolor{charliteral}{'0'} && \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] <= \textcolor{charliteral}{'9'} );
+757 
+758     \textcolor{comment}{// Skip spaces.}
+759     \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{' '} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'\(\backslash\)t'} ) \{
+760         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+761     \}; \textcolor{comment}{// while}
+762 
+763     \textcolor{comment}{// Parse unit.}
+764 \textcolor{preprocessor}{    #define \_case( ch, exp )                            \(\backslash\)}
+765 \textcolor{preprocessor}{        case ch :                                       \(\backslash\)}
+766 \textcolor{preprocessor}{        case ch - ( 'a' - 'A' ) : \{                     \(\backslash\)}
+767 \textcolor{preprocessor}{            size\_t shift = (exp) * 10;                  \(\backslash\)}
+768 \textcolor{preprocessor}{            ++ i;                                       \(\backslash\)}
+769 \textcolor{preprocessor}{            if ( shift < sizeof( size\_t ) * 8 ) \{       \(\backslash\)}
+770 \textcolor{preprocessor}{                factor = (size\_t)( 1 ) << shift;        \(\backslash\)}
+771 \textcolor{preprocessor}{            \} else \{                                    \(\backslash\)}
+772 \textcolor{preprocessor}{                overflow = 1;                           \(\backslash\)}
+773 \textcolor{preprocessor}{            \};                                          \(\backslash\)}
+774 \textcolor{preprocessor}{        \} break;}
+775 \textcolor{preprocessor}{}    \textcolor{keywordflow}{switch} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] ) \{
+776         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'k'}, 1 ); \textcolor{comment}{// Kilo}
+777         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'m'}, 2 ); \textcolor{comment}{// Mega}
+778         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'g'}, 3 ); \textcolor{comment}{// Giga}
+779         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'t'}, 4 ); \textcolor{comment}{// Tera}
+780         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'p'}, 5 ); \textcolor{comment}{// Peta}
+781         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'e'}, 6 ); \textcolor{comment}{// Exa}
+782         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'z'}, 7 ); \textcolor{comment}{// Zetta}
+783         \hyperlink{kmp__str_8c_a2d8bbe550916f2986768c04da0944b13}{\_case}( \textcolor{charliteral}{'y'}, 8 ); \textcolor{comment}{// Yotta}
+784         \textcolor{comment}{// Oops. No more units...}
+785     \}; \textcolor{comment}{// switch}
+786 \textcolor{preprocessor}{    #undef \_case}
+787 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'b'} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'B'} ) \{    \textcolor{comment}{// Skip optional "b".}
+788         \textcolor{keywordflow}{if} ( factor == 0 ) \{
+789             factor = 1;
+790         \}
+791         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+792     \}; \textcolor{comment}{// if}
+793     \textcolor{keywordflow}{if} ( ! ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{' '} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'\(\backslash\)t'} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == 0 ) ) \{ \textcolor{comment}{// Bad unit}
+794         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( BadUnit );
+795         \textcolor{keywordflow}{return};
+796     \}; \textcolor{comment}{// if}
+797 
+798     \textcolor{keywordflow}{if} ( factor == 0 ) \{
+799         factor = dfactor;
+800     \}
+801 
+802     \textcolor{comment}{// Apply factor.}
+803     overflow = overflow || ( value > ( \hyperlink{kmp__os_8h_a2946e9f5701c22f4038024f9040d33ff}{KMP\_SIZE\_T\_MAX} / factor ) );
+804     value *= factor;
+805 
+806     \textcolor{comment}{// Skip spaces.}
+807     \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{' '} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'\(\backslash\)t'} ) \{
+808         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+809     \}; \textcolor{comment}{// while}
+810 
+811     \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] != 0 ) \{
+812         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( IllegalCharacters );
+813         \textcolor{keywordflow}{return};
+814     \}; \textcolor{comment}{// if}
+815 
+816     \textcolor{keywordflow}{if} ( overflow ) \{
+817         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( ValueTooLarge );
+818         * out = \hyperlink{kmp__os_8h_a2946e9f5701c22f4038024f9040d33ff}{KMP\_SIZE\_T\_MAX};
+819         \textcolor{keywordflow}{return};
+820     \}; \textcolor{comment}{// if}
+821 
+822     * error = NULL;
+823     * out = value;
+824 
+825 \} \textcolor{comment}{// \_\_kmp\_str\_to\_size}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a09a52f8438e60f3d72f6eac2024e4fbc}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-str\-\_\-to\-\_\-uint (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{str, }
+\item[{kmp\-\_\-uint64 $\ast$}]{out, }
+\item[{char const $\ast$$\ast$}]{error}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a09a52f8438e60f3d72f6eac2024e4fbc}
+
+
+Definition at line 829 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-int().
+
+
+\begin{DoxyCode}
+833   \{
+834 
+835     \textcolor{keywordtype}{size\_t} value    = 0;
+836     \textcolor{keywordtype}{int}    overflow = 0;
+837     \textcolor{keywordtype}{int}    \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}        = 0;
+838     \textcolor{keywordtype}{int}    digit;
+839 
+840 
+841     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL );
+842 
+843     \textcolor{comment}{// Skip spaces.}
+844     \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{' '} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'\(\backslash\)t'} ) \{
+845         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+846     \}; \textcolor{comment}{// while}
+847 
+848     \textcolor{comment}{// Parse number.}
+849     \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] < \textcolor{charliteral}{'0'} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] > \textcolor{charliteral}{'9'} ) \{
+850         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( NotANumber );
+851         \textcolor{keywordflow}{return};
+852     \}; \textcolor{comment}{// if}
+853     \textcolor{keywordflow}{do} \{
+854         digit = \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i} ] - \textcolor{charliteral}{'0'};
+855         overflow = overflow || ( value > ( \hyperlink{kmp__os_8h_a2946e9f5701c22f4038024f9040d33ff}{KMP\_SIZE\_T\_MAX} - digit ) / 10 );
+856         value = ( value * 10 ) + digit;
+857         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+858     \} \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] >= \textcolor{charliteral}{'0'} && \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] <= \textcolor{charliteral}{'9'} );
+859 
+860     \textcolor{comment}{// Skip spaces.}
+861     \textcolor{keywordflow}{while} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{' '} || \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] == \textcolor{charliteral}{'\(\backslash\)t'} ) \{
+862         ++ \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+863     \}; \textcolor{comment}{// while}
+864 
+865     \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}[ i ] != 0 ) \{
+866         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( IllegalCharacters );
+867         \textcolor{keywordflow}{return};
+868     \}; \textcolor{comment}{// if}
+869 
+870     \textcolor{keywordflow}{if} ( overflow ) \{
+871         * error = \hyperlink{kmp__i18n_8h_a99e697f5e6a8c6c430205fd93ce557b8}{KMP\_I18N\_STR}( ValueTooLarge );
+872         * out = (kmp\_uint64) -1;
+873         \textcolor{keywordflow}{return};
+874     \}; \textcolor{comment}{// if}
+875 
+876     * error = NULL;
+877     * out = value;
+878 
+879 \} \textcolor{comment}{// \_\_kmp\_str\_to\_unit}
+\end{DoxyCode}
+\hypertarget{kmp__str_8c_a08f9617493c1f84e965707cd6b944ac0}{\index{kmp\-\_\-str.\-c@{kmp\-\_\-str.\-c}!\-\_\-\-\_\-kmp\-\_\-str\-\_\-token@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-token}}
+\index{\-\_\-\-\_\-kmp\-\_\-str\-\_\-token@{\-\_\-\-\_\-kmp\-\_\-str\-\_\-token}!kmp_str.c@{kmp\-\_\-str.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-str\-\_\-token}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \-\_\-\-\_\-kmp\-\_\-str\-\_\-token (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{char const $\ast$}]{delim, }
+\item[{char $\ast$$\ast$}]{buf}
+\end{DoxyParamCaption}
+)}}\label{kmp__str_8c_a08f9617493c1f84e965707cd6b944ac0}
+
+
+Definition at line 639 of file kmp\-\_\-str.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-\-\_\-kmp\-\_\-env\-\_\-blk\-\_\-parse\-\_\-string().
+
+
+\begin{DoxyCode}
+643   \{
+644     \textcolor{keywordtype}{char} * token = NULL;
+645 \textcolor{preprocessor}{    #if KMP\_OS\_WINDOWS}
+646 \textcolor{preprocessor}{}        \textcolor{comment}{// On Windows* OS there is no strtok\_r() function. Let us implement it.}
+647         \textcolor{keywordflow}{if} ( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} != NULL ) \{
+648             * buf = \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str};                       \textcolor{comment}{// First call, initialize buf.}
+649         \}; \textcolor{comment}{// if}
+650         * buf += strspn( * buf, delim );       \textcolor{comment}{// Skip leading delimiters.}
+651         \textcolor{keywordflow}{if} ( ** buf != 0 ) \{                   \textcolor{comment}{// Rest of the string is not yet empty.}
+652             token = * buf;                     \textcolor{comment}{// Use it as result.}
+653             * buf += strcspn( * buf, delim );  \textcolor{comment}{// Skip non-delimiters.}
+654             \textcolor{keywordflow}{if} ( ** buf != 0 ) \{               \textcolor{comment}{// Rest of the string is not yet empty.}
+655                 ** buf = 0;                    \textcolor{comment}{// Terminate token here.}
+656                 * buf += 1;                    \textcolor{comment}{// Advance buf to start with the next token next time.}
+657             \}; \textcolor{comment}{// if}
+658         \}; \textcolor{comment}{// if}
+659 \textcolor{preprocessor}{    #else}
+660 \textcolor{preprocessor}{}        \textcolor{comment}{// On Linux* OS and OS X*, strtok\_r() is available. Let us use it.}
+661         token = strtok\_r( \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, delim, buf );
+662 \textcolor{preprocessor}{    #endif}
+663 \textcolor{preprocessor}{}    \textcolor{keywordflow}{return} token;
+664 \}; \textcolor{comment}{// \_\_kmp\_str\_token}
+\end{DoxyCode}

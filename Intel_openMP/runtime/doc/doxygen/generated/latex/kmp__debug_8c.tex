@@ -1,0 +1,104 @@
+\hypertarget{kmp__debug_8c}{\section{kmp\-\_\-debug.\-c File Reference}
+\label{kmp__debug_8c}\index{kmp\-\_\-debug.\-c@{kmp\-\_\-debug.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-debug.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-i18n.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-io.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__debug_8c_abc0fff3ce483291392c4f333ef605c74}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf} (char const $\ast$format,...)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__debug_8c_a051d40c547de052d7beccac6cc20479a}{\-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__debug_8c_abc0fff3ce483291392c4f333ef605c74}{\index{kmp\-\_\-debug.\-c@{kmp\-\_\-debug.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf}!kmp_debug.c@{kmp\-\_\-debug.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-printf (
+\begin{DoxyParamCaption}
+\item[{char const $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{kmp__debug_8c_abc0fff3ce483291392c4f333ef605c74}
+
+
+Definition at line 35 of file kmp\-\_\-debug.\-c.
+
+
+\begin{DoxyCode}
+36 \{
+37     va\_list ap;
+38     va\_start( ap, format );
+39 
+40     \hyperlink{kmp__io_8c_a1d4c137bf5adc9e0d804be83a75294cf}{\_\_kmp\_vprintf}( \hyperlink{kmp__io_8h_ad5c7b251dd2d5c33df5f3ac1e706730eac430a76c55aa8cd34020bd29e6f75ee1}{kmp\_err}, format, ap );
+41 
+42     va\_end( ap );
+43 \}
+\end{DoxyCode}
+\hypertarget{kmp__debug_8c_a051d40c547de052d7beccac6cc20479a}{\index{kmp\-\_\-debug.\-c@{kmp\-\_\-debug.\-c}!\-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer@{\-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer}}
+\index{\-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer@{\-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer}!kmp_debug.c@{kmp\-\_\-debug.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} \-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__debug_8c_a051d40c547de052d7beccac6cc20479a}
+
+
+Definition at line 100 of file kmp\-\_\-debug.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-abort\-\_\-process(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), and \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread().
+
+
+\begin{DoxyCode}
+101 \{
+102     \textcolor{keywordflow}{if} ( \hyperlink{kmp_8h_a9c021e6b9664954bec9619b71887de10}{\_\_kmp\_debug\_buffer} != NULL ) \{
+103         \textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+104         \textcolor{keywordtype}{int} dc = \hyperlink{kmp_8h_a832f394827c510f674ba2b717a9f6de4}{\_\_kmp\_debug\_count};
+105         \textcolor{keywordtype}{char} *db = & \hyperlink{kmp_8h_a9c021e6b9664954bec9619b71887de10}{\_\_kmp\_debug\_buffer}[ (dc % 
+      \hyperlink{kmp_8h_a0735976fdd89bd352bc81e0dafca8651}{\_\_kmp\_debug\_buf\_lines}) * \hyperlink{kmp_8h_a52cf78ff49c260f119ddb2eee6ad9fa7}{\_\_kmp\_debug\_buf\_chars} ];
+106         \textcolor{keywordtype}{char} *db\_end = & \hyperlink{kmp_8h_a9c021e6b9664954bec9619b71887de10}{\_\_kmp\_debug\_buffer}[ 
+      \hyperlink{kmp_8h_a0735976fdd89bd352bc81e0dafca8651}{\_\_kmp\_debug\_buf\_lines} * \hyperlink{kmp_8h_a52cf78ff49c260f119ddb2eee6ad9fa7}{\_\_kmp\_debug\_buf\_chars} ];
+107         \textcolor{keywordtype}{char} *db2;
+108 
+109         \hyperlink{kmp__lock_8h_a85412da5c0d085bde951a77690cf1f74}{\_\_kmp\_acquire\_bootstrap\_lock}( & 
+      \hyperlink{kmp__io_8c_a49e60c011739f46589bb4fae4ad737cc}{\_\_kmp\_stdio\_lock} );
+110         \hyperlink{kmp__io_8c_adfa9239ad26934b69d751b190582b5a7}{\_\_kmp\_printf\_no\_lock}( \textcolor{stringliteral}{"\(\backslash\)nStart dump of debugging buffer (entry=%d):\(\backslash\)n"},
+111                  dc % \hyperlink{kmp_8h_a0735976fdd89bd352bc81e0dafca8651}{\_\_kmp\_debug\_buf\_lines} );
+112 
+113         \textcolor{keywordflow}{for} ( i = 0; i < \hyperlink{kmp_8h_a0735976fdd89bd352bc81e0dafca8651}{\_\_kmp\_debug\_buf\_lines}; i++ ) \{
+114 
+115             \textcolor{keywordflow}{if} ( *db != \textcolor{charliteral}{'\(\backslash\)0'} ) \{
+116                 \textcolor{comment}{/* Fix up where no carriage return before string termination char */}
+117                 \textcolor{keywordflow}{for} ( db2 = db + 1; db2 < db + \hyperlink{kmp_8h_a52cf78ff49c260f119ddb2eee6ad9fa7}{\_\_kmp\_debug\_buf\_chars} - 1; db2 ++) \{
+118                     \textcolor{keywordflow}{if} ( *db2 == \textcolor{charliteral}{'\(\backslash\)0'} ) \{
+119                         \textcolor{keywordflow}{if} ( *(db2-1) != \textcolor{charliteral}{'\(\backslash\)n'} ) \{ *db2 = \textcolor{charliteral}{'\(\backslash\)n'}; *(db2+1) = \textcolor{charliteral}{'\(\backslash\)0'}; \}
+120                         \textcolor{keywordflow}{break};
+121                     \}
+122                 \}
+123                 \textcolor{comment}{/* Handle case at end by shortening the printed message by one char if necessary */}
+124                 \textcolor{keywordflow}{if} ( db2 == db + \_\_kmp\_debug\_buf\_chars - 1 &&
+125                      *db2 == \textcolor{charliteral}{'\(\backslash\)0'} && *(db2-1) != \textcolor{charliteral}{'\(\backslash\)n'} ) \{
+126                     *(db2-1) = \textcolor{charliteral}{'\(\backslash\)n'};
+127                 \}
+128 
+129                 \hyperlink{kmp__io_8c_adfa9239ad26934b69d751b190582b5a7}{\_\_kmp\_printf\_no\_lock}( \textcolor{stringliteral}{"%4d: %.*s"}, i, \_\_kmp\_debug\_buf\_chars, db );
+130                 *db = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* only let it print once! */}
+131             \}
+132 
+133             db += \hyperlink{kmp_8h_a52cf78ff49c260f119ddb2eee6ad9fa7}{\_\_kmp\_debug\_buf\_chars};
+134             \textcolor{keywordflow}{if} ( db >= db\_end )
+135                 db = \hyperlink{kmp_8h_a9c021e6b9664954bec9619b71887de10}{\_\_kmp\_debug\_buffer};
+136         \}
+137 
+138         \hyperlink{kmp__io_8c_adfa9239ad26934b69d751b190582b5a7}{\_\_kmp\_printf\_no\_lock}( \textcolor{stringliteral}{"End dump of debugging buffer (entry=%d).\(\backslash\)n\(\backslash\)n"},
+139                  ( dc+i-1 ) % \_\_kmp\_debug\_buf\_lines );
+140         \hyperlink{kmp__lock_8h_a058b93e191c678dfe3e0b98bee82ff9b}{\_\_kmp\_release\_bootstrap\_lock}( & 
+      \hyperlink{kmp__io_8c_a49e60c011739f46589bb4fae4ad737cc}{\_\_kmp\_stdio\_lock} );
+141     \}
+142 \}
+\end{DoxyCode}

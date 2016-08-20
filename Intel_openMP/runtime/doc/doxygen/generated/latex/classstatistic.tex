@@ -1,0 +1,443 @@
+\hypertarget{classstatistic}{\section{statistic Class Reference}
+\label{classstatistic}\index{statistic@{statistic}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-stats.\-h$>$}
+
+Inheritance diagram for statistic\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classstatistic}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classstatistic_a3f28cad0a4699e3f2db3892b5556f4e7}{statistic} ()
+\item 
+\hyperlink{classstatistic_a7ecb0612ab65607ae253b91c5664b756}{statistic} (\hyperlink{classstatistic}{statistic} const \&o)
+\item 
+double \hyperlink{classstatistic_a74842a553de28750096653e8bf9386d6}{get\-Min} () const 
+\item 
+double \hyperlink{classstatistic_a57044354c7454db661f485186bde339f}{get\-Mean} () const 
+\item 
+double \hyperlink{classstatistic_a3b196abb4776e04468138ddfe0b65acd}{get\-Max} () const 
+\item 
+uint64\-\_\-t \hyperlink{classstatistic_a9c5688424edb33f3a107ca94a6170f08}{get\-Count} () const 
+\item 
+double \hyperlink{classstatistic_ae90ab239948f240f5fae1d57305196b2}{get\-S\-D} () const 
+\item 
+double \hyperlink{classstatistic_a4dc72cbd2d3940ecc55a98cbdac91963}{get\-Total} () const 
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classstatistic_a5b3a1c2c7c270ef3e6bc077304f57ee1}{reset} ()
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classstatistic_a608058fd5fac27c72c6019c607f38688}{add\-Sample} (double sample)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classstatistic_aee49a269c79947670f53f68e24c7d1c9}{scale} (double factor)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{classstatistic_add0a3834ecd055e70f48db00df747aea}{scale\-Down} (double f)
+\item 
+\hyperlink{classstatistic}{statistic} \& \hyperlink{classstatistic_a7fb2040e35a0550e8a7cd0317e326c53}{operator+=} (\hyperlink{classstatistic}{statistic} const \&other)
+\item 
+std\-::string \hyperlink{classstatistic_a82803f1000193073e46079faf078458d}{format} (char unit, bool total=false) const 
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{min\-Val}
+\item 
+double \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{max\-Val}
+\item 
+double \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{mean\-Val}
+\item 
+double \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}
+\item 
+uint64\-\_\-t \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sample\-Count}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 230 of file kmp\-\_\-stats.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classstatistic_a3f28cad0a4699e3f2db3892b5556f4e7}{\index{statistic@{statistic}!statistic@{statistic}}
+\index{statistic@{statistic}!statistic@{statistic}}
+\subsubsection[{statistic}]{\setlength{\rightskip}{0pt plus 5cm}statistic\-::statistic (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a3f28cad0a4699e3f2db3892b5556f4e7}
+
+
+Definition at line 239 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+239 \{ \hyperlink{classstatistic_a5b3a1c2c7c270ef3e6bc077304f57ee1}{reset}(); \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a7ecb0612ab65607ae253b91c5664b756}{\index{statistic@{statistic}!statistic@{statistic}}
+\index{statistic@{statistic}!statistic@{statistic}}
+\subsubsection[{statistic}]{\setlength{\rightskip}{0pt plus 5cm}statistic\-::statistic (
+\begin{DoxyParamCaption}
+\item[{{\bf statistic} const \&}]{o}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a7ecb0612ab65607ae253b91c5664b756}
+
+
+Definition at line 240 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+240 : \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal}(o.minVal), \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal}(o.maxVal), \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}(o.meanVal), \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}(o.m2), 
+      \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount}(o.sampleCount) \{\}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classstatistic_a608058fd5fac27c72c6019c607f38688}{\index{statistic@{statistic}!add\-Sample@{add\-Sample}}
+\index{add\-Sample@{add\-Sample}!statistic@{statistic}}
+\subsubsection[{add\-Sample}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} statistic\-::add\-Sample (
+\begin{DoxyParamCaption}
+\item[{double}]{sample}
+\end{DoxyParamCaption}
+)}}\label{classstatistic_a608058fd5fac27c72c6019c607f38688}
+
+
+Definition at line 79 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats(), and explicit\-Timer\-::stop().
+
+
+\begin{DoxyCode}
+80 \{
+81     \textcolor{keywordtype}{double} delta = sample - \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal};
+82 
+83     \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} = \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} + 1;
+84     meanVal     = meanVal + delta/\hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount};
+85     \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}          = \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2} + delta*(sample - \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal});
+86 
+87     \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal} = \hyperlink{ittnotify__static_8c_ac6afabdc09a49a433ee19d8a9486056d}{std::min}(minVal, sample);
+88     \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal} = std::max(\hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal}, sample);
+89 \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a82803f1000193073e46079faf078458d}{\index{statistic@{statistic}!format@{format}}
+\index{format@{format}!statistic@{statistic}}
+\subsubsection[{format}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string statistic\-::format (
+\begin{DoxyParamCaption}
+\item[{char}]{unit, }
+\item[{bool}]{total = {\ttfamily false}}
+\end{DoxyParamCaption}
+) const}}\label{classstatistic_a82803f1000193073e46079faf078458d}
+
+
+Definition at line 130 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Counter\-Stats(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Timer\-Stats().
+
+
+\begin{DoxyCode}
+131 \{
+132     std::string result = \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(\hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount},9,\textcolor{charliteral}{' '});
+133     
+134     \textcolor{keywordflow}{if} (\hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} == 0)
+135     \{
+136         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(0.0, 9, unit);
+137         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(0.0, 9, unit);
+138         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(0.0, 9, unit);
+139         \textcolor{keywordflow}{if} (total)
+140             result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(0.0, 9, unit);
+141         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(0.0, 9, unit);
+142     \}
+143     \textcolor{keywordflow}{else}
+144     \{
+145         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(\hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal},  9, unit);
+146         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(\hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}, 9, unit);
+147         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(\hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal},  9, unit);
+148         \textcolor{keywordflow}{if} (total)
+149             result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(\hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}*
+      \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount}, 9, unit);
+150         result = result + std::string(\textcolor{stringliteral}{", "}) + \hyperlink{kmp__stats__timing_8cpp_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(\hyperlink{classstatistic_ae90ab239948f240f5fae1d57305196b2}{getSD}(), 9, unit);
+151     \}
+152     \textcolor{keywordflow}{return} result;
+153 \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a9c5688424edb33f3a107ca94a6170f08}{\index{statistic@{statistic}!get\-Count@{get\-Count}}
+\index{get\-Count@{get\-Count}!statistic@{statistic}}
+\subsubsection[{get\-Count}]{\setlength{\rightskip}{0pt plus 5cm}uint64\-\_\-t statistic\-::get\-Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a9c5688424edb33f3a107ca94a6170f08}
+
+
+Definition at line 245 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+245 \{ \textcolor{keywordflow}{return} \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount}; \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a3b196abb4776e04468138ddfe0b65acd}{\index{statistic@{statistic}!get\-Max@{get\-Max}}
+\index{get\-Max@{get\-Max}!statistic@{statistic}}
+\subsubsection[{get\-Max}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::get\-Max (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a3b196abb4776e04468138ddfe0b65acd}
+
+
+Definition at line 244 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+244 \{ \textcolor{keywordflow}{return} \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal}; \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a57044354c7454db661f485186bde339f}{\index{statistic@{statistic}!get\-Mean@{get\-Mean}}
+\index{get\-Mean@{get\-Mean}!statistic@{statistic}}
+\subsubsection[{get\-Mean}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::get\-Mean (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a57044354c7454db661f485186bde339f}
+
+
+Definition at line 243 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+243 \{ \textcolor{keywordflow}{return} \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}; \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a74842a553de28750096653e8bf9386d6}{\index{statistic@{statistic}!get\-Min@{get\-Min}}
+\index{get\-Min@{get\-Min}!statistic@{statistic}}
+\subsubsection[{get\-Min}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::get\-Min (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a74842a553de28750096653e8bf9386d6}
+
+
+Definition at line 242 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+242 \{ \textcolor{keywordflow}{return} \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal}; \}
+\end{DoxyCode}
+\hypertarget{classstatistic_ae90ab239948f240f5fae1d57305196b2}{\index{statistic@{statistic}!get\-S\-D@{get\-S\-D}}
+\index{get\-S\-D@{get\-S\-D}!statistic@{statistic}}
+\subsubsection[{get\-S\-D}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::get\-S\-D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_ae90ab239948f240f5fae1d57305196b2}
+
+
+Definition at line 246 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by format().
+
+
+\begin{DoxyCode}
+246 \{ \textcolor{keywordflow}{return} sqrt(\hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}/\hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount}); \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a4dc72cbd2d3940ecc55a98cbdac91963}{\index{statistic@{statistic}!get\-Total@{get\-Total}}
+\index{get\-Total@{get\-Total}!statistic@{statistic}}
+\subsubsection[{get\-Total}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::get\-Total (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a4dc72cbd2d3940ecc55a98cbdac91963}
+
+
+Definition at line 247 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats().
+
+
+\begin{DoxyCode}
+247 \{ \textcolor{keywordflow}{return} \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount}*\hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}; \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a7fb2040e35a0550e8a7cd0317e326c53}{\index{statistic@{statistic}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!statistic@{statistic}}
+\subsubsection[{operator+=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf statistic} \& statistic\-::operator+= (
+\begin{DoxyParamCaption}
+\item[{{\bf statistic} const \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classstatistic_a7fb2040e35a0550e8a7cd0317e326c53}
+
+
+Definition at line 91 of file kmp\-\_\-stats.\-cpp.
+
+
+\begin{DoxyCode}
+92 \{
+93     \textcolor{keywordflow}{if} (\hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} == 0)
+94     \{
+95         *\textcolor{keyword}{this} = other;
+96         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};
+97     \}
+98 
+99     uint64\_t newSampleCount = \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} + other.sampleCount;
+100     \textcolor{keywordtype}{double} dnsc  = double(newSampleCount);
+101     \textcolor{keywordtype}{double} dsc   = double(\hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount});
+102     \textcolor{keywordtype}{double} dscBydnsc = dsc/dnsc;
+103     \textcolor{keywordtype}{double} dosc  = double(other.sampleCount);
+104     \textcolor{keywordtype}{double} delta = other.meanVal - \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal};
+105 
+106     \textcolor{comment}{// Try to order these calculations to avoid overflows.}
+107     \textcolor{comment}{// If this were Fortran, then the compiler would not be able to re-order over brackets.}
+108     \textcolor{comment}{// In C++ it may be legal to do that (we certainly hope it doesn't, and CC+ Programming Language 2nd
+       edition}
+109     \textcolor{comment}{// suggests it shouldn't, since it says that exploitation of associativity can only be made if the
+       operation}
+110     \textcolor{comment}{// really is associative (which floating addition isn't...)).}
+111     \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}     = \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}*dscBydnsc + other.meanVal*(1-dscBydnsc);
+112     \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}          = \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2} + other.m2 + dscBydnsc*dosc*delta*delta;
+113     \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal}      = \hyperlink{ittnotify__static_8c_ac6afabdc09a49a433ee19d8a9486056d}{std::min} (\hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal}, other.minVal);
+114     \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal}      = std::max (\hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal}, other.maxVal);
+115     \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} = newSampleCount;
+116 
+117 
+118     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};
+119 \}
+\end{DoxyCode}
+\hypertarget{classstatistic_a5b3a1c2c7c270ef3e6bc077304f57ee1}{\index{statistic@{statistic}!reset@{reset}}
+\index{reset@{reset}!statistic@{statistic}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} statistic\-::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_a5b3a1c2c7c270ef3e6bc077304f57ee1}
+
+
+Definition at line 249 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by statistic().
+
+
+\begin{DoxyCode}
+250     \{
+251         \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal} =  std::numeric\_limits<double>::max();
+252         \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal} = -std::numeric\_limits<double>::max();
+253         \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}= 0.0;
+254         \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}     = 0.0;
+255         \hyperlink{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{sampleCount} = 0;
+256     \}
+\end{DoxyCode}
+\hypertarget{classstatistic_aee49a269c79947670f53f68e24c7d1c9}{\index{statistic@{statistic}!scale@{scale}}
+\index{scale@{scale}!statistic@{statistic}}
+\subsubsection[{scale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} statistic\-::scale (
+\begin{DoxyParamCaption}
+\item[{double}]{factor}
+\end{DoxyParamCaption}
+)}}\label{classstatistic_aee49a269c79947670f53f68e24c7d1c9}
+
+
+Definition at line 121 of file kmp\-\_\-stats.\-cpp.
+
+
+
+Referenced by scale\-Down().
+
+
+\begin{DoxyCode}
+122 \{
+123     \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal} = \hyperlink{classstatistic_acc6389ee86b103a599905e63222463cc}{minVal}*factor;
+124     \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal} = \hyperlink{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{maxVal}*factor;
+125     \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}= \hyperlink{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{meanVal}*factor;
+126     \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}     = \hyperlink{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{m2}*factor*factor;
+127     \textcolor{keywordflow}{return};
+128 \}
+\end{DoxyCode}
+\hypertarget{classstatistic_add0a3834ecd055e70f48db00df747aea}{\index{statistic@{statistic}!scale\-Down@{scale\-Down}}
+\index{scale\-Down@{scale\-Down}!statistic@{statistic}}
+\subsubsection[{scale\-Down}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} statistic\-::scale\-Down (
+\begin{DoxyParamCaption}
+\item[{double}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classstatistic_add0a3834ecd055e70f48db00df747aea}
+
+
+Definition at line 259 of file kmp\-\_\-stats.\-h.
+
+
+\begin{DoxyCode}
+259 \{ \hyperlink{classstatistic_aee49a269c79947670f53f68e24c7d1c9}{scale} (1./f); \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classstatistic_aebbd60d54ac69333572267817c6fcdd9}{\index{statistic@{statistic}!m2@{m2}}
+\index{m2@{m2}!statistic@{statistic}}
+\subsubsection[{m2}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::m2\hspace{0.3cm}{\ttfamily [private]}}}\label{classstatistic_aebbd60d54ac69333572267817c6fcdd9}
+
+
+Definition at line 235 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by add\-Sample(), get\-S\-D(), operator+=(), reset(), and scale().
+
+\hypertarget{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}{\index{statistic@{statistic}!max\-Val@{max\-Val}}
+\index{max\-Val@{max\-Val}!statistic@{statistic}}
+\subsubsection[{max\-Val}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::max\-Val\hspace{0.3cm}{\ttfamily [private]}}}\label{classstatistic_a4d776fbd2f21d0900ab76a02b82dd9ff}
+
+
+Definition at line 233 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by add\-Sample(), format(), get\-Max(), operator+=(), reset(), and scale().
+
+\hypertarget{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}{\index{statistic@{statistic}!mean\-Val@{mean\-Val}}
+\index{mean\-Val@{mean\-Val}!statistic@{statistic}}
+\subsubsection[{mean\-Val}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::mean\-Val\hspace{0.3cm}{\ttfamily [private]}}}\label{classstatistic_ae1bd63c1e77867dd3c995344e377e8ea}
+
+
+Definition at line 234 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by add\-Sample(), format(), get\-Mean(), get\-Total(), operator+=(), reset(), and scale().
+
+\hypertarget{classstatistic_acc6389ee86b103a599905e63222463cc}{\index{statistic@{statistic}!min\-Val@{min\-Val}}
+\index{min\-Val@{min\-Val}!statistic@{statistic}}
+\subsubsection[{min\-Val}]{\setlength{\rightskip}{0pt plus 5cm}double statistic\-::min\-Val\hspace{0.3cm}{\ttfamily [private]}}}\label{classstatistic_acc6389ee86b103a599905e63222463cc}
+
+
+Definition at line 232 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by add\-Sample(), format(), get\-Min(), operator+=(), reset(), and scale().
+
+\hypertarget{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}{\index{statistic@{statistic}!sample\-Count@{sample\-Count}}
+\index{sample\-Count@{sample\-Count}!statistic@{statistic}}
+\subsubsection[{sample\-Count}]{\setlength{\rightskip}{0pt plus 5cm}uint64\-\_\-t statistic\-::sample\-Count\hspace{0.3cm}{\ttfamily [private]}}}\label{classstatistic_a0e548b7b46e603d290a3b2be7cfde18d}
+
+
+Definition at line 236 of file kmp\-\_\-stats.\-h.
+
+
+
+Referenced by add\-Sample(), format(), get\-Count(), get\-S\-D(), get\-Total(), operator+=(), and reset().
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__stats_8h}{kmp\-\_\-stats.\-h}\item 
+\hyperlink{kmp__stats_8cpp}{kmp\-\_\-stats.\-cpp}\end{DoxyCompactItemize}

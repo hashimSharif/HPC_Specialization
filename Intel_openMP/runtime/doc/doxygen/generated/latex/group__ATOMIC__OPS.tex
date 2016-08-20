@@ -1,0 +1,543 @@
+\hypertarget{group__ATOMIC__OPS}{\section{Atomic Operations}
+\label{group__ATOMIC__OPS}\index{Atomic Operations@{Atomic Operations}}
+}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{group__ATOMIC__OPS_ga934bb88de29998410569745b7fd2c2e6}{\-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode} = 1
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+These functions are used for implementing the many different varieties of atomic operations.
+
+The compiler is at liberty to inline atomic operations that are naturally supported by the target architecture. For instance on I\-A-\/32 architecture an atomic like this can be inlined 
+\begin{DoxyCode}
+\textcolor{keyword}{static} \textcolor{keywordtype}{int} s = 0;
+\textcolor{preprocessor}{#pragma omp atomic}
+\textcolor{preprocessor}{    s++;}
+\end{DoxyCode}
+ using the single instruction\-: {\ttfamily lock; incl s}
+
+However the runtime does provide entrypoints for these operations to support compilers that choose not to inline them. (For instance, {\ttfamily \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-fixed4\-\_\-add} could be used to perform the increment above.)
+
+The names of the functions are encoded by using the data type name and the operation name, as in these tables.
+
+\begin{TabularC}{2}
+\hline
+\rowcolor{lightgray}{\bf Data Type }&{\bf Data type encoding  }\\\cline{1-2}
+int8\-\_\-t &{\ttfamily fixed1} \\\cline{1-2}
+uint8\-\_\-t &{\ttfamily fixed1u} \\\cline{1-2}
+int16\-\_\-t &{\ttfamily fixed2} \\\cline{1-2}
+uint16\-\_\-t &{\ttfamily fixed2u} \\\cline{1-2}
+int32\-\_\-t &{\ttfamily fixed4} \\\cline{1-2}
+uint32\-\_\-t &{\ttfamily fixed4u} \\\cline{1-2}
+int32\-\_\-t &{\ttfamily fixed8} \\\cline{1-2}
+uint32\-\_\-t &{\ttfamily fixed8u} \\\cline{1-2}
+float &{\ttfamily float4} \\\cline{1-2}
+double &{\ttfamily float8} \\\cline{1-2}
+float 10 (8087 eighty bit float) &{\ttfamily float10} \\\cline{1-2}
+complex$<$float$>$ &{\ttfamily cmplx4} \\\cline{1-2}
+complex$<$double$>$ &{\ttfamily cmplx8} \\\cline{1-2}
+complex$<$float10$>$ &{\ttfamily cmplx10} \\\cline{1-2}
+\end{TabularC}
+\par
+
+
+\begin{TabularC}{2}
+\hline
+\rowcolor{lightgray}{\bf Operation }&{\bf Operation encoding  }\\\cline{1-2}
++ &add \\\cline{1-2}
+-\/ &sub \\\cline{1-2}
+$\ast$ &mul \\\cline{1-2}
+/ &div \\\cline{1-2}
+\& &andb \\\cline{1-2}
+$<$$<$ &shl \\\cline{1-2}
+$>$$>$ &shr \\\cline{1-2}
+$|$ &orb \\\cline{1-2}
+$^\wedge$ &xor \\\cline{1-2}
+\&\& &andl \\\cline{1-2}
+$|$$|$ &orl \\\cline{1-2}
+maximum &max \\\cline{1-2}
+minimum &min \\\cline{1-2}
+.eqv. &eqv \\\cline{1-2}
+.neqv. &neqv \\\cline{1-2}
+\end{TabularC}
+\par
+ For non-\/commutative operations, {\ttfamily \-\_\-rev} can also be added for the reversed operation. For the functions that capture the result, the suffix {\ttfamily \-\_\-cpt} is added.
+
+\subsection*{Update Functions }
+
+The general form of an atomic function that just performs an update (without a {\ttfamily capture}) 
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} \_\_kmpc\_atomic\_<datatype>\_<operation>( \hyperlink{structident}{ident\_t} *id\_ref, \textcolor{keywordtype}{int} gtid, TYPE * lhs, TYPE rhs );
+\end{DoxyCode}
+ 
+\begin{DoxyParams}{Parameters}
+{\em ident\-\_\-t} & a pointer to source location \\
+\hline
+{\em gtid} & the global thread id \\
+\hline
+{\em lhs} & a pointer to the left operand \\
+\hline
+{\em rhs} & the right operand\\
+\hline
+\end{DoxyParams}
+\subsection*{{\ttfamily capture} functions }
+
+The capture functions perform an atomic update and return a result, which is either the value before the capture, or that after. They take an additional argument to determine which result is returned. Their general form is therefore 
+\begin{DoxyCode}
+TYPE \_\_kmpc\_atomic\_<datatype>\_<operation>\_cpt( \hyperlink{structident}{ident\_t} *id\_ref, \textcolor{keywordtype}{int} gtid, TYPE * lhs, TYPE rhs, \textcolor{keywordtype}{int} 
+      flag );
+\end{DoxyCode}
+ 
+\begin{DoxyParams}{Parameters}
+{\em ident\-\_\-t} & a pointer to source location \\
+\hline
+{\em gtid} & the global thread id \\
+\hline
+{\em lhs} & a pointer to the left operand \\
+\hline
+{\em rhs} & the right operand \\
+\hline
+{\em flag} & one if the result is to be captured {\itshape after} the operation, zero if captured {\itshape before}.\\
+\hline
+\end{DoxyParams}
+The one set of exceptions to this is the {\ttfamily complex$<$float$>$} type where the value is not returned, rather an extra argument pointer is passed.
+
+They look like 
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} \_\_kmpc\_atomic\_cmplx4\_<op>\_cpt(  \hyperlink{structident}{ident\_t} *id\_ref, \textcolor{keywordtype}{int} gtid, 
+      \hyperlink{kmp__atomic_8h_ad8a8cb75fe83ea104b69764b8d14ece6}{kmp\_cmplx32} * lhs, \hyperlink{kmp__atomic_8h_ad8a8cb75fe83ea104b69764b8d14ece6}{kmp\_cmplx32} rhs, \hyperlink{kmp__atomic_8h_ad8a8cb75fe83ea104b69764b8d14ece6}{kmp\_cmplx32} * out, \textcolor{keywordtype}{int} flag );
+\end{DoxyCode}
+
+
+\subsection*{Read and Write Operations }
+
+The Open\-M\-P$^{\mbox{$\ast$}}$  standard now supports atomic operations that simply ensure that the value is read or written atomically, with no modification performed. In many cases on I\-A-\/32 architecture these operations can be inlined since the architecture guarantees that no tearing occurs on aligned objects accessed with a single memory operation of up to 64 bits in size.
+
+The general form of the read operations is 
+\begin{DoxyCode}
+TYPE \_\_kmpc\_atomic\_<type>\_rd ( \hyperlink{structident}{ident\_t} *id\_ref, \textcolor{keywordtype}{int} gtid, TYPE * loc );
+\end{DoxyCode}
+
+
+For the write operations the form is 
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} \_\_kmpc\_atomic\_<type>\_wr ( \hyperlink{structident}{ident\_t} *id\_ref, \textcolor{keywordtype}{int} gtid, TYPE * lhs, TYPE rhs );
+\end{DoxyCode}
+
+
+\subsection*{Full list of functions }
+
+This leads to the generation of 376 atomic functions, as follows.
+
+\subsubsection*{Functons for integers }
+
+There are versions here for integers of size 1,2,4 and 8 bytes both signed and unsigned (where that matters). 
+\begin{DoxyCode}
+\hyperlink{kmp__atomic_8h_a95740b35a6142a3795821e04a3203037}{\_\_kmpc\_atomic\_fixed1\_add}
+\_\_kmpc\_atomic\_fixed1\_add\_cpt
+\_\_kmpc\_atomic\_fixed1\_add\_fp
+\hyperlink{kmp__atomic_8h_a8a3946fc7bd2e3e0f8cc6564f61dea6e}{\_\_kmpc\_atomic\_fixed1\_andb}
+\_\_kmpc\_atomic\_fixed1\_andb\_cpt
+\hyperlink{kmp__atomic_8h_af5a5916109cdfb27a59e26f211c94910}{\_\_kmpc\_atomic\_fixed1\_andl}
+\_\_kmpc\_atomic\_fixed1\_andl\_cpt
+\hyperlink{kmp__atomic_8h_ae0cae3c153642500cd7778b9b9cef0c1}{\_\_kmpc\_atomic\_fixed1\_div}
+\_\_kmpc\_atomic\_fixed1\_div\_cpt
+\_\_kmpc\_atomic\_fixed1\_div\_cpt\_rev
+\hyperlink{kmp__atomic_8h_ab73acb4e17255c5ed203fdf19d1ddbce}{\_\_kmpc\_atomic\_fixed1\_div\_float8}
+\_\_kmpc\_atomic\_fixed1\_div\_fp
+\_\_kmpc\_atomic\_fixed1\_div\_rev
+\hyperlink{kmp__atomic_8h_aba067df5aa37ab348898ef5dd6327f0c}{\_\_kmpc\_atomic\_fixed1\_eqv}
+\_\_kmpc\_atomic\_fixed1\_eqv\_cpt
+\hyperlink{kmp__atomic_8h_ab5cedbc082714698a47a8989ae727b63}{\_\_kmpc\_atomic\_fixed1\_max}
+\_\_kmpc\_atomic\_fixed1\_max\_cpt
+\hyperlink{kmp__atomic_8h_ac4dd20089ab2dda56bc8fadaee38981b}{\_\_kmpc\_atomic\_fixed1\_min}
+\_\_kmpc\_atomic\_fixed1\_min\_cpt
+\hyperlink{kmp__atomic_8h_a698c90f980b78656865b9f43e451ea6c}{\_\_kmpc\_atomic\_fixed1\_mul}
+\_\_kmpc\_atomic\_fixed1\_mul\_cpt
+\hyperlink{kmp__atomic_8h_a015565a1ba1a189ca50eca182b697359}{\_\_kmpc\_atomic\_fixed1\_mul\_float8}
+\_\_kmpc\_atomic\_fixed1\_mul\_fp
+\hyperlink{kmp__atomic_8h_a3a42fae93ba0eb180ea2e368154f2051}{\_\_kmpc\_atomic\_fixed1\_neqv}
+\_\_kmpc\_atomic\_fixed1\_neqv\_cpt
+\hyperlink{kmp__atomic_8h_a0312064bedbffd386a42e3899aec07bd}{\_\_kmpc\_atomic\_fixed1\_orb}
+\_\_kmpc\_atomic\_fixed1\_orb\_cpt
+\hyperlink{kmp__atomic_8h_ad636f7a8e31d520815645133e5a95101}{\_\_kmpc\_atomic\_fixed1\_orl}
+\_\_kmpc\_atomic\_fixed1\_orl\_cpt
+\_\_kmpc\_atomic\_fixed1\_rd
+\hyperlink{kmp__atomic_8h_aaf12441595e83e82cafb1ab5b47d77f8}{\_\_kmpc\_atomic\_fixed1\_shl}
+\_\_kmpc\_atomic\_fixed1\_shl\_cpt
+\_\_kmpc\_atomic\_fixed1\_shl\_cpt\_rev
+\_\_kmpc\_atomic\_fixed1\_shl\_rev
+\hyperlink{kmp__atomic_8h_a482eeace06964d2edefcc77e1c637e7c}{\_\_kmpc\_atomic\_fixed1\_shr}
+\_\_kmpc\_atomic\_fixed1\_shr\_cpt
+\_\_kmpc\_atomic\_fixed1\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed1\_shr\_rev
+\hyperlink{kmp__atomic_8h_ac55f0017cd1948e589d5079aa31747fb}{\_\_kmpc\_atomic\_fixed1\_sub}
+\_\_kmpc\_atomic\_fixed1\_sub\_cpt
+\_\_kmpc\_atomic\_fixed1\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_fixed1\_sub\_fp
+\_\_kmpc\_atomic\_fixed1\_sub\_rev
+\_\_kmpc\_atomic\_fixed1\_swp
+\_\_kmpc\_atomic\_fixed1\_wr
+\hyperlink{kmp__atomic_8h_ab69e9a4da2388f5bcde98fc33431b1cb}{\_\_kmpc\_atomic\_fixed1\_xor}
+\_\_kmpc\_atomic\_fixed1\_xor\_cpt
+\hyperlink{kmp__atomic_8h_ae42139bdc5ff48a8baebf15b79e6085d}{\_\_kmpc\_atomic\_fixed1u\_div}
+\_\_kmpc\_atomic\_fixed1u\_div\_cpt
+\_\_kmpc\_atomic\_fixed1u\_div\_cpt\_rev
+\_\_kmpc\_atomic\_fixed1u\_div\_fp
+\_\_kmpc\_atomic\_fixed1u\_div\_rev
+\hyperlink{kmp__atomic_8h_a27a54184b3c961c53c3ec582fae6ecda}{\_\_kmpc\_atomic\_fixed1u\_shr}
+\_\_kmpc\_atomic\_fixed1u\_shr\_cpt
+\_\_kmpc\_atomic\_fixed1u\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed1u\_shr\_rev
+\hyperlink{kmp__atomic_8h_a8922a9c7fb8b0684741b633adba11eb0}{\_\_kmpc\_atomic\_fixed2\_add}
+\_\_kmpc\_atomic\_fixed2\_add\_cpt
+\_\_kmpc\_atomic\_fixed2\_add\_fp
+\hyperlink{kmp__atomic_8h_ae8b650c32279fbd16de9f49ce71a4339}{\_\_kmpc\_atomic\_fixed2\_andb}
+\_\_kmpc\_atomic\_fixed2\_andb\_cpt
+\hyperlink{kmp__atomic_8h_a7017f5946a18b163d9292d45e33c3d90}{\_\_kmpc\_atomic\_fixed2\_andl}
+\_\_kmpc\_atomic\_fixed2\_andl\_cpt
+\hyperlink{kmp__atomic_8h_ae2603ed2b5dd46b4412e4339ef8be8e8}{\_\_kmpc\_atomic\_fixed2\_div}
+\_\_kmpc\_atomic\_fixed2\_div\_cpt
+\_\_kmpc\_atomic\_fixed2\_div\_cpt\_rev
+\hyperlink{kmp__atomic_8h_a37fb2522ebc4076453e37c6f35f99ace}{\_\_kmpc\_atomic\_fixed2\_div\_float8}
+\_\_kmpc\_atomic\_fixed2\_div\_fp
+\_\_kmpc\_atomic\_fixed2\_div\_rev
+\hyperlink{kmp__atomic_8h_ac8a265db8602aa1f49cf7ef07fa5b667}{\_\_kmpc\_atomic\_fixed2\_eqv}
+\_\_kmpc\_atomic\_fixed2\_eqv\_cpt
+\hyperlink{kmp__atomic_8h_ad7f3d9ba4489f7d60569fb0e3720d90d}{\_\_kmpc\_atomic\_fixed2\_max}
+\_\_kmpc\_atomic\_fixed2\_max\_cpt
+\hyperlink{kmp__atomic_8h_a6681658a7fd2e1bc17692fb0b61e6175}{\_\_kmpc\_atomic\_fixed2\_min}
+\_\_kmpc\_atomic\_fixed2\_min\_cpt
+\hyperlink{kmp__atomic_8h_ad2ad655a2fc82c0d6a98e4103c822b80}{\_\_kmpc\_atomic\_fixed2\_mul}
+\_\_kmpc\_atomic\_fixed2\_mul\_cpt
+\hyperlink{kmp__atomic_8h_af6016b314f1b1dcc329cd6cada04116a}{\_\_kmpc\_atomic\_fixed2\_mul\_float8}
+\_\_kmpc\_atomic\_fixed2\_mul\_fp
+\hyperlink{kmp__atomic_8h_addb8ad0faa5d0bfc65fd70b1b049e657}{\_\_kmpc\_atomic\_fixed2\_neqv}
+\_\_kmpc\_atomic\_fixed2\_neqv\_cpt
+\hyperlink{kmp__atomic_8h_aa3890e69748eb405442ce3a859c18619}{\_\_kmpc\_atomic\_fixed2\_orb}
+\_\_kmpc\_atomic\_fixed2\_orb\_cpt
+\hyperlink{kmp__atomic_8h_a70f73269a0248db0b5f4bbdde5b501b5}{\_\_kmpc\_atomic\_fixed2\_orl}
+\_\_kmpc\_atomic\_fixed2\_orl\_cpt
+\_\_kmpc\_atomic\_fixed2\_rd
+\hyperlink{kmp__atomic_8h_a3236d271fb109db4b1153b133c99c187}{\_\_kmpc\_atomic\_fixed2\_shl}
+\_\_kmpc\_atomic\_fixed2\_shl\_cpt
+\_\_kmpc\_atomic\_fixed2\_shl\_cpt\_rev
+\_\_kmpc\_atomic\_fixed2\_shl\_rev
+\hyperlink{kmp__atomic_8h_a2f1085184a229e72ad013d9c30aa0ce7}{\_\_kmpc\_atomic\_fixed2\_shr}
+\_\_kmpc\_atomic\_fixed2\_shr\_cpt
+\_\_kmpc\_atomic\_fixed2\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed2\_shr\_rev
+\hyperlink{kmp__atomic_8h_ac890aceacafc0bc0fd673d5107fe5226}{\_\_kmpc\_atomic\_fixed2\_sub}
+\_\_kmpc\_atomic\_fixed2\_sub\_cpt
+\_\_kmpc\_atomic\_fixed2\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_fixed2\_sub\_fp
+\_\_kmpc\_atomic\_fixed2\_sub\_rev
+\_\_kmpc\_atomic\_fixed2\_swp
+\_\_kmpc\_atomic\_fixed2\_wr
+\hyperlink{kmp__atomic_8h_ae5aaefafa4c78317b55ab12e1493ea63}{\_\_kmpc\_atomic\_fixed2\_xor}
+\_\_kmpc\_atomic\_fixed2\_xor\_cpt
+\hyperlink{kmp__atomic_8h_aee13e51d32f819381cbba00c3b26b607}{\_\_kmpc\_atomic\_fixed2u\_div}
+\_\_kmpc\_atomic\_fixed2u\_div\_cpt
+\_\_kmpc\_atomic\_fixed2u\_div\_cpt\_rev
+\_\_kmpc\_atomic\_fixed2u\_div\_fp
+\_\_kmpc\_atomic\_fixed2u\_div\_rev
+\hyperlink{kmp__atomic_8h_ad984775f5efdce37aac6fa29c25ae4c1}{\_\_kmpc\_atomic\_fixed2u\_shr}
+\_\_kmpc\_atomic\_fixed2u\_shr\_cpt
+\_\_kmpc\_atomic\_fixed2u\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed2u\_shr\_rev
+\hyperlink{kmp__atomic_8h_af3d1bb6747eb9ae36458f5aee2b41d17}{\_\_kmpc\_atomic\_fixed4\_add}
+\_\_kmpc\_atomic\_fixed4\_add\_cpt
+\_\_kmpc\_atomic\_fixed4\_add\_fp
+\hyperlink{kmp__atomic_8h_a2b0ca2e58dd7582202438dd90cae9056}{\_\_kmpc\_atomic\_fixed4\_andb}
+\_\_kmpc\_atomic\_fixed4\_andb\_cpt
+\hyperlink{kmp__atomic_8h_a14731c60b5778b62db6a852f1ebb2a6a}{\_\_kmpc\_atomic\_fixed4\_andl}
+\_\_kmpc\_atomic\_fixed4\_andl\_cpt
+\hyperlink{kmp__atomic_8h_aa79d19da90b26da64f6ee2753816c6f7}{\_\_kmpc\_atomic\_fixed4\_div}
+\_\_kmpc\_atomic\_fixed4\_div\_cpt
+\_\_kmpc\_atomic\_fixed4\_div\_cpt\_rev
+\hyperlink{kmp__atomic_8h_a8c0c50f04317dcb0334f598e2e5a5468}{\_\_kmpc\_atomic\_fixed4\_div\_float8}
+\_\_kmpc\_atomic\_fixed4\_div\_fp
+\_\_kmpc\_atomic\_fixed4\_div\_rev
+\hyperlink{kmp__atomic_8h_a0e6bf41dcfa99396fef9df16b3dbeb0e}{\_\_kmpc\_atomic\_fixed4\_eqv}
+\_\_kmpc\_atomic\_fixed4\_eqv\_cpt
+\hyperlink{kmp__atomic_8h_a30a769d5b309a9ac57db52b90fa35aa1}{\_\_kmpc\_atomic\_fixed4\_max}
+\_\_kmpc\_atomic\_fixed4\_max\_cpt
+\hyperlink{kmp__atomic_8h_a94966285e25b05a35096394b1f59ce01}{\_\_kmpc\_atomic\_fixed4\_min}
+\_\_kmpc\_atomic\_fixed4\_min\_cpt
+\hyperlink{kmp__atomic_8h_a3f90f415a8f9969747412d8fb2f58bd2}{\_\_kmpc\_atomic\_fixed4\_mul}
+\_\_kmpc\_atomic\_fixed4\_mul\_cpt
+\hyperlink{kmp__atomic_8h_ac39427607cd7b0954c284101bee94caa}{\_\_kmpc\_atomic\_fixed4\_mul\_float8}
+\_\_kmpc\_atomic\_fixed4\_mul\_fp
+\hyperlink{kmp__atomic_8h_a5f2288f05f2dac7bc06820cede332834}{\_\_kmpc\_atomic\_fixed4\_neqv}
+\_\_kmpc\_atomic\_fixed4\_neqv\_cpt
+\hyperlink{kmp__atomic_8h_a519579d278b4ad80ddcfe3d6a280f996}{\_\_kmpc\_atomic\_fixed4\_orb}
+\_\_kmpc\_atomic\_fixed4\_orb\_cpt
+\hyperlink{kmp__atomic_8h_a1db253710493d1721db2465a55c8421f}{\_\_kmpc\_atomic\_fixed4\_orl}
+\_\_kmpc\_atomic\_fixed4\_orl\_cpt
+\_\_kmpc\_atomic\_fixed4\_rd
+\hyperlink{kmp__atomic_8h_ae77d94bfe3312a003fdfb1072e097f31}{\_\_kmpc\_atomic\_fixed4\_shl}
+\_\_kmpc\_atomic\_fixed4\_shl\_cpt
+\_\_kmpc\_atomic\_fixed4\_shl\_cpt\_rev
+\_\_kmpc\_atomic\_fixed4\_shl\_rev
+\hyperlink{kmp__atomic_8h_a6bd55b80cac511e482403f856c166c4e}{\_\_kmpc\_atomic\_fixed4\_shr}
+\_\_kmpc\_atomic\_fixed4\_shr\_cpt
+\_\_kmpc\_atomic\_fixed4\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed4\_shr\_rev
+\hyperlink{kmp__atomic_8h_a892f03ec5ebc2a98432d6a95573264ae}{\_\_kmpc\_atomic\_fixed4\_sub}
+\_\_kmpc\_atomic\_fixed4\_sub\_cpt
+\_\_kmpc\_atomic\_fixed4\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_fixed4\_sub\_fp
+\_\_kmpc\_atomic\_fixed4\_sub\_rev
+\_\_kmpc\_atomic\_fixed4\_swp
+\_\_kmpc\_atomic\_fixed4\_wr
+\hyperlink{kmp__atomic_8h_ac360976e328e1ffb921c8c4eb28afb29}{\_\_kmpc\_atomic\_fixed4\_xor}
+\_\_kmpc\_atomic\_fixed4\_xor\_cpt
+\hyperlink{kmp__atomic_8h_a286022c4f10fd528c19538febc7750a7}{\_\_kmpc\_atomic\_fixed4u\_div}
+\_\_kmpc\_atomic\_fixed4u\_div\_cpt
+\_\_kmpc\_atomic\_fixed4u\_div\_cpt\_rev
+\_\_kmpc\_atomic\_fixed4u\_div\_fp
+\_\_kmpc\_atomic\_fixed4u\_div\_rev
+\hyperlink{kmp__atomic_8h_a420d2da3519e75855a1f8b0f1fe8a7c2}{\_\_kmpc\_atomic\_fixed4u\_shr}
+\_\_kmpc\_atomic\_fixed4u\_shr\_cpt
+\_\_kmpc\_atomic\_fixed4u\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed4u\_shr\_rev
+\hyperlink{kmp__atomic_8h_aafd282554e5b424314426ff86fa424f0}{\_\_kmpc\_atomic\_fixed8\_add}
+\_\_kmpc\_atomic\_fixed8\_add\_cpt
+\_\_kmpc\_atomic\_fixed8\_add\_fp
+\hyperlink{kmp__atomic_8h_a130ecd6b1b9fc357a2b9a3528c33d4e7}{\_\_kmpc\_atomic\_fixed8\_andb}
+\_\_kmpc\_atomic\_fixed8\_andb\_cpt
+\hyperlink{kmp__atomic_8h_a4c157dcf6502a6dac67b84134b0dbb8f}{\_\_kmpc\_atomic\_fixed8\_andl}
+\_\_kmpc\_atomic\_fixed8\_andl\_cpt
+\hyperlink{kmp__atomic_8h_ab5315ca10b987c2749fd67c7cbbba4a8}{\_\_kmpc\_atomic\_fixed8\_div}
+\_\_kmpc\_atomic\_fixed8\_div\_cpt
+\_\_kmpc\_atomic\_fixed8\_div\_cpt\_rev
+\hyperlink{kmp__atomic_8h_aff060723e3c3d7497c9ef40bae1f22c1}{\_\_kmpc\_atomic\_fixed8\_div\_float8}
+\_\_kmpc\_atomic\_fixed8\_div\_fp
+\_\_kmpc\_atomic\_fixed8\_div\_rev
+\hyperlink{kmp__atomic_8h_a59130dbc730a9f722bcb329089a2ad01}{\_\_kmpc\_atomic\_fixed8\_eqv}
+\_\_kmpc\_atomic\_fixed8\_eqv\_cpt
+\hyperlink{kmp__atomic_8h_a84d84daec8f1d227b69876ce37174343}{\_\_kmpc\_atomic\_fixed8\_max}
+\_\_kmpc\_atomic\_fixed8\_max\_cpt
+\hyperlink{kmp__atomic_8h_a1943a1522545338a453bb57f8081ee99}{\_\_kmpc\_atomic\_fixed8\_min}
+\_\_kmpc\_atomic\_fixed8\_min\_cpt
+\hyperlink{kmp__atomic_8h_af49b13c11c3c994857f64886f2760f7e}{\_\_kmpc\_atomic\_fixed8\_mul}
+\_\_kmpc\_atomic\_fixed8\_mul\_cpt
+\hyperlink{kmp__atomic_8h_a4e74b2701825780b4cc6ec0b7828c395}{\_\_kmpc\_atomic\_fixed8\_mul\_float8}
+\_\_kmpc\_atomic\_fixed8\_mul\_fp
+\hyperlink{kmp__atomic_8h_a0027ddb9639bceaf5f5e85a41e719624}{\_\_kmpc\_atomic\_fixed8\_neqv}
+\_\_kmpc\_atomic\_fixed8\_neqv\_cpt
+\hyperlink{kmp__atomic_8h_a7a22eea6f822219e0efa4e4879a0127a}{\_\_kmpc\_atomic\_fixed8\_orb}
+\_\_kmpc\_atomic\_fixed8\_orb\_cpt
+\hyperlink{kmp__atomic_8h_ad40cc22147d89d3892f7631ee2177a34}{\_\_kmpc\_atomic\_fixed8\_orl}
+\_\_kmpc\_atomic\_fixed8\_orl\_cpt
+\_\_kmpc\_atomic\_fixed8\_rd
+\hyperlink{kmp__atomic_8h_a8ca3bee7ae9322aa7e1b2187b2d7782f}{\_\_kmpc\_atomic\_fixed8\_shl}
+\_\_kmpc\_atomic\_fixed8\_shl\_cpt
+\_\_kmpc\_atomic\_fixed8\_shl\_cpt\_rev
+\_\_kmpc\_atomic\_fixed8\_shl\_rev
+\hyperlink{kmp__atomic_8h_ae836ff943a8fe23b1ccba852becaf121}{\_\_kmpc\_atomic\_fixed8\_shr}
+\_\_kmpc\_atomic\_fixed8\_shr\_cpt
+\_\_kmpc\_atomic\_fixed8\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed8\_shr\_rev
+\hyperlink{kmp__atomic_8h_ab7a80feb604c27c37689bfbaebefc720}{\_\_kmpc\_atomic\_fixed8\_sub}
+\_\_kmpc\_atomic\_fixed8\_sub\_cpt
+\_\_kmpc\_atomic\_fixed8\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_fixed8\_sub\_fp
+\_\_kmpc\_atomic\_fixed8\_sub\_rev
+\_\_kmpc\_atomic\_fixed8\_swp
+\_\_kmpc\_atomic\_fixed8\_wr
+\hyperlink{kmp__atomic_8h_a5462c195fb7b57c2348aba92593cc1eb}{\_\_kmpc\_atomic\_fixed8\_xor}
+\_\_kmpc\_atomic\_fixed8\_xor\_cpt
+\hyperlink{kmp__atomic_8h_a969d2072905d38235df1f18a995b5468}{\_\_kmpc\_atomic\_fixed8u\_div}
+\_\_kmpc\_atomic\_fixed8u\_div\_cpt
+\_\_kmpc\_atomic\_fixed8u\_div\_cpt\_rev
+\_\_kmpc\_atomic\_fixed8u\_div\_fp
+\_\_kmpc\_atomic\_fixed8u\_div\_rev
+\hyperlink{kmp__atomic_8h_a4b2cc40d5a9e65c04db1c2e1e50b58b8}{\_\_kmpc\_atomic\_fixed8u\_shr}
+\_\_kmpc\_atomic\_fixed8u\_shr\_cpt
+\_\_kmpc\_atomic\_fixed8u\_shr\_cpt\_rev
+\_\_kmpc\_atomic\_fixed8u\_shr\_rev
+\end{DoxyCode}
+
+
+\subsubsection*{Functions for floating point }
+
+There are versions here for floating point numbers of size 4, 8, 10 and 16 bytes. (Ten byte floats are used by X87, but are now rare). 
+\begin{DoxyCode}
+\hyperlink{kmp__atomic_8h_a486e892588a8765e61a869c39abce441}{\_\_kmpc\_atomic\_float4\_add}
+\_\_kmpc\_atomic\_float4\_add\_cpt
+\hyperlink{kmp__atomic_8h_a59632da2a647b4c6f8590f5bd0d80613}{\_\_kmpc\_atomic\_float4\_add\_float8}
+\_\_kmpc\_atomic\_float4\_add\_fp
+\hyperlink{kmp__atomic_8h_aed85e1b7130f883d993cdab037efc51d}{\_\_kmpc\_atomic\_float4\_div}
+\_\_kmpc\_atomic\_float4\_div\_cpt
+\_\_kmpc\_atomic\_float4\_div\_cpt\_rev
+\hyperlink{kmp__atomic_8h_a8d63a56b5f7abc38a0b6dfaa315d60bc}{\_\_kmpc\_atomic\_float4\_div\_float8}
+\_\_kmpc\_atomic\_float4\_div\_fp
+\_\_kmpc\_atomic\_float4\_div\_rev
+\hyperlink{kmp__atomic_8h_adb68ad8ccf01bd41f130bc38260454a6}{\_\_kmpc\_atomic\_float4\_max}
+\_\_kmpc\_atomic\_float4\_max\_cpt
+\hyperlink{kmp__atomic_8h_a416c90256aa4d78b48ccef7ced47b9af}{\_\_kmpc\_atomic\_float4\_min}
+\_\_kmpc\_atomic\_float4\_min\_cpt
+\hyperlink{kmp__atomic_8h_afddefd621f62ee0ec603031a6a83def4}{\_\_kmpc\_atomic\_float4\_mul}
+\_\_kmpc\_atomic\_float4\_mul\_cpt
+\hyperlink{kmp__atomic_8h_aa152347bbdc07e4959a9a2a6fc6c6904}{\_\_kmpc\_atomic\_float4\_mul\_float8}
+\_\_kmpc\_atomic\_float4\_mul\_fp
+\_\_kmpc\_atomic\_float4\_rd
+\hyperlink{kmp__atomic_8h_a12d9b6940ecaeba04d2b6648f57ca4fb}{\_\_kmpc\_atomic\_float4\_sub}
+\_\_kmpc\_atomic\_float4\_sub\_cpt
+\_\_kmpc\_atomic\_float4\_sub\_cpt\_rev
+\hyperlink{kmp__atomic_8h_a8fb8b665be66e153854ae703a187f3a3}{\_\_kmpc\_atomic\_float4\_sub\_float8}
+\_\_kmpc\_atomic\_float4\_sub\_fp
+\_\_kmpc\_atomic\_float4\_sub\_rev
+\_\_kmpc\_atomic\_float4\_swp
+\_\_kmpc\_atomic\_float4\_wr
+\hyperlink{kmp__atomic_8h_ae0b0c600fb7be900dd1c2adff396c4f9}{\_\_kmpc\_atomic\_float8\_add}
+\_\_kmpc\_atomic\_float8\_add\_cpt
+\_\_kmpc\_atomic\_float8\_add\_fp
+\hyperlink{kmp__atomic_8h_a2bfec17c472e75bf4dd06351e128863d}{\_\_kmpc\_atomic\_float8\_div}
+\_\_kmpc\_atomic\_float8\_div\_cpt
+\_\_kmpc\_atomic\_float8\_div\_cpt\_rev
+\_\_kmpc\_atomic\_float8\_div\_fp
+\_\_kmpc\_atomic\_float8\_div\_rev
+\hyperlink{kmp__atomic_8h_a1ca40ba475fbc83850dd49246b7663ae}{\_\_kmpc\_atomic\_float8\_max}
+\_\_kmpc\_atomic\_float8\_max\_cpt
+\hyperlink{kmp__atomic_8h_a4447c48168cbb3409a96be59f6bdce26}{\_\_kmpc\_atomic\_float8\_min}
+\_\_kmpc\_atomic\_float8\_min\_cpt
+\hyperlink{kmp__atomic_8h_a7307faed059b9e1fadcbb6402524d260}{\_\_kmpc\_atomic\_float8\_mul}
+\_\_kmpc\_atomic\_float8\_mul\_cpt
+\_\_kmpc\_atomic\_float8\_mul\_fp
+\_\_kmpc\_atomic\_float8\_rd
+\hyperlink{kmp__atomic_8h_a51c989b18ff1a9d09281a00451fdf0b4}{\_\_kmpc\_atomic\_float8\_sub}
+\_\_kmpc\_atomic\_float8\_sub\_cpt
+\_\_kmpc\_atomic\_float8\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_float8\_sub\_fp
+\_\_kmpc\_atomic\_float8\_sub\_rev
+\_\_kmpc\_atomic\_float8\_swp
+\_\_kmpc\_atomic\_float8\_wr
+\hyperlink{kmp__atomic_8h_a9f441825b60fdbf38b4f584e93908ddb}{\_\_kmpc\_atomic\_float10\_add}
+\_\_kmpc\_atomic\_float10\_add\_cpt
+\_\_kmpc\_atomic\_float10\_add\_fp
+\hyperlink{kmp__atomic_8h_aeb5254f5f5c849948bcd4a7307291f42}{\_\_kmpc\_atomic\_float10\_div}
+\_\_kmpc\_atomic\_float10\_div\_cpt
+\_\_kmpc\_atomic\_float10\_div\_cpt\_rev
+\_\_kmpc\_atomic\_float10\_div\_fp
+\_\_kmpc\_atomic\_float10\_div\_rev
+\hyperlink{kmp__atomic_8h_a1129729ff46010b600cf2dc55870fd8b}{\_\_kmpc\_atomic\_float10\_mul}
+\_\_kmpc\_atomic\_float10\_mul\_cpt
+\_\_kmpc\_atomic\_float10\_mul\_fp
+\_\_kmpc\_atomic\_float10\_rd
+\hyperlink{kmp__atomic_8h_a3453a5d1175a6e6445848cf2eb038069}{\_\_kmpc\_atomic\_float10\_sub}
+\_\_kmpc\_atomic\_float10\_sub\_cpt
+\_\_kmpc\_atomic\_float10\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_float10\_sub\_fp
+\_\_kmpc\_atomic\_float10\_sub\_rev
+\_\_kmpc\_atomic\_float10\_swp
+\_\_kmpc\_atomic\_float10\_wr
+\_\_kmpc\_atomic\_float16\_add
+\_\_kmpc\_atomic\_float16\_add\_cpt
+\_\_kmpc\_atomic\_float16\_div
+\_\_kmpc\_atomic\_float16\_div\_cpt
+\_\_kmpc\_atomic\_float16\_div\_cpt\_rev
+\_\_kmpc\_atomic\_float16\_div\_rev
+\_\_kmpc\_atomic\_float16\_max
+\_\_kmpc\_atomic\_float16\_max\_cpt
+\_\_kmpc\_atomic\_float16\_min
+\_\_kmpc\_atomic\_float16\_min\_cpt
+\_\_kmpc\_atomic\_float16\_mul
+\_\_kmpc\_atomic\_float16\_mul\_cpt
+\_\_kmpc\_atomic\_float16\_rd
+\_\_kmpc\_atomic\_float16\_sub
+\_\_kmpc\_atomic\_float16\_sub\_cpt
+\_\_kmpc\_atomic\_float16\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_float16\_sub\_rev
+\_\_kmpc\_atomic\_float16\_swp
+\_\_kmpc\_atomic\_float16\_wr
+\end{DoxyCode}
+
+
+\subsubsection*{Functions for Complex types }
+
+Functions for complex types whose component floating point variables are of size 4,8,10 or 16 bytes. The names here are based on the size of the component float, {\itshape not} the size of the complex type. So {\ttfamily \-\_\-\-\_\-kmpc\-\_\-atomc\-\_\-cmplx8\-\_\-add} is an operation on a {\ttfamily complex$<$double$>$} or {\ttfamily complex(kind=8)}, {\itshape not} {\ttfamily complex$<$float$>$}.
+
+
+\begin{DoxyCode}
+\hyperlink{kmp__atomic_8h_af98f89feb10c6c893e3824520f0f99ca}{\_\_kmpc\_atomic\_cmplx4\_add}
+\hyperlink{kmp__atomic_8h_a37f581a0a5f0888b0f165d1df796bbbe}{\_\_kmpc\_atomic\_cmplx4\_add\_cmplx8}
+\_\_kmpc\_atomic\_cmplx4\_add\_cpt
+\hyperlink{kmp__atomic_8h_a5f586bffee841cd1f958dc82b04a428b}{\_\_kmpc\_atomic\_cmplx4\_div}
+\hyperlink{kmp__atomic_8h_a3f9c5cf4e414356f394ab3107e9203ca}{\_\_kmpc\_atomic\_cmplx4\_div\_cmplx8}
+\_\_kmpc\_atomic\_cmplx4\_div\_cpt
+\_\_kmpc\_atomic\_cmplx4\_div\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx4\_div\_rev
+\hyperlink{kmp__atomic_8h_a79d14b7237fa5d2bef895a81ae9192fc}{\_\_kmpc\_atomic\_cmplx4\_mul}
+\hyperlink{kmp__atomic_8h_a62b78b4224f85c804e62e19fe67cdac1}{\_\_kmpc\_atomic\_cmplx4\_mul\_cmplx8}
+\_\_kmpc\_atomic\_cmplx4\_mul\_cpt
+\_\_kmpc\_atomic\_cmplx4\_rd
+\hyperlink{kmp__atomic_8h_ae96b5b6426cd308b3e848af809db6ebd}{\_\_kmpc\_atomic\_cmplx4\_sub}
+\hyperlink{kmp__atomic_8h_a34cf9c863b698c629b696995cea5a329}{\_\_kmpc\_atomic\_cmplx4\_sub\_cmplx8}
+\_\_kmpc\_atomic\_cmplx4\_sub\_cpt
+\_\_kmpc\_atomic\_cmplx4\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx4\_sub\_rev
+\_\_kmpc\_atomic\_cmplx4\_swp
+\_\_kmpc\_atomic\_cmplx4\_wr
+\hyperlink{kmp__atomic_8h_a825ab42a68834efa72914936f503a96e}{\_\_kmpc\_atomic\_cmplx8\_add}
+\_\_kmpc\_atomic\_cmplx8\_add\_cpt
+\hyperlink{kmp__atomic_8h_a812608a83f9629ddbacbfce7672c773b}{\_\_kmpc\_atomic\_cmplx8\_div}
+\_\_kmpc\_atomic\_cmplx8\_div\_cpt
+\_\_kmpc\_atomic\_cmplx8\_div\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx8\_div\_rev
+\hyperlink{kmp__atomic_8h_a166d7055eeedf15f0d49facdf5dc1559}{\_\_kmpc\_atomic\_cmplx8\_mul}
+\_\_kmpc\_atomic\_cmplx8\_mul\_cpt
+\_\_kmpc\_atomic\_cmplx8\_rd
+\hyperlink{kmp__atomic_8h_a97e114222415ef9d6a208f64e40ef87a}{\_\_kmpc\_atomic\_cmplx8\_sub}
+\_\_kmpc\_atomic\_cmplx8\_sub\_cpt
+\_\_kmpc\_atomic\_cmplx8\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx8\_sub\_rev
+\_\_kmpc\_atomic\_cmplx8\_swp
+\_\_kmpc\_atomic\_cmplx8\_wr
+\hyperlink{kmp__atomic_8h_a68ad2469bd6169d30dac85fd2cb4f93f}{\_\_kmpc\_atomic\_cmplx10\_add}
+\_\_kmpc\_atomic\_cmplx10\_add\_cpt
+\hyperlink{kmp__atomic_8h_a69470d00192095533b6f04530c514342}{\_\_kmpc\_atomic\_cmplx10\_div}
+\_\_kmpc\_atomic\_cmplx10\_div\_cpt
+\_\_kmpc\_atomic\_cmplx10\_div\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx10\_div\_rev
+\hyperlink{kmp__atomic_8h_afe8a6526935f9433ffa89ab525fe3675}{\_\_kmpc\_atomic\_cmplx10\_mul}
+\_\_kmpc\_atomic\_cmplx10\_mul\_cpt
+\_\_kmpc\_atomic\_cmplx10\_rd
+\hyperlink{kmp__atomic_8h_a61d175b6d9a0fdfa184b02a47f0165b1}{\_\_kmpc\_atomic\_cmplx10\_sub}
+\_\_kmpc\_atomic\_cmplx10\_sub\_cpt
+\_\_kmpc\_atomic\_cmplx10\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx10\_sub\_rev
+\_\_kmpc\_atomic\_cmplx10\_swp
+\_\_kmpc\_atomic\_cmplx10\_wr
+\_\_kmpc\_atomic\_cmplx16\_add
+\_\_kmpc\_atomic\_cmplx16\_add\_cpt
+\_\_kmpc\_atomic\_cmplx16\_div
+\_\_kmpc\_atomic\_cmplx16\_div\_cpt
+\_\_kmpc\_atomic\_cmplx16\_div\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx16\_div\_rev
+\_\_kmpc\_atomic\_cmplx16\_mul
+\_\_kmpc\_atomic\_cmplx16\_mul\_cpt
+\_\_kmpc\_atomic\_cmplx16\_rd
+\_\_kmpc\_atomic\_cmplx16\_sub
+\_\_kmpc\_atomic\_cmplx16\_sub\_cpt
+\_\_kmpc\_atomic\_cmplx16\_sub\_cpt\_rev
+\_\_kmpc\_atomic\_cmplx16\_swp
+\_\_kmpc\_atomic\_cmplx16\_wr
+\end{DoxyCode}
+ 
+
+\subsection{Variable Documentation}
+\hypertarget{group__ATOMIC__OPS_ga934bb88de29998410569745b7fd2c2e6}{\index{Atomic Operations@{Atomic Operations}!\-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode}}
+\index{\-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode}!Atomic Operations@{Atomic Operations}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-atomic\-\_\-mode = 1}}\label{group__ATOMIC__OPS_ga934bb88de29998410569745b7fd2c2e6}
+
+
+Definition at line 544 of file kmp\-\_\-atomic.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-atomic\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-atomic\-\_\-mode(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-10(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-16(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-2(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-20(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-32(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-4(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-8(), and A\-T\-O\-M\-I\-C\-\_\-\-F\-I\-X\-E\-D\-\_\-\-A\-D\-D().
+

@@ -1,0 +1,20 @@
+The I\-T\-T A\-P\-I is used to annotate a user's program with additional information that can be used by correctness and performance tools. The user inserts calls in their program. Those calls generate information that is collected at runtime, and used by Intel(\-R) Threading Tools.\hypertarget{index_API}{}\section{Concepts}\label{index_API}
+The following general concepts are used throughout the A\-P\-I.\hypertarget{index_Unicode}{}\subsection{Support}\label{index_Unicode}
+Many A\-P\-I functions take character string arguments. On Windows, there are two versions of each such function. The function name is suffixed by W if Unicode support is enabled, and by A otherwise. Any A\-P\-I function that takes a character string argument adheres to this convention.\hypertarget{index_Conditional}{}\subsection{Compilation}\label{index_Conditional}
+Many users prefer having an option to modify I\-T\-T A\-P\-I code when linking it inside their runtimes. I\-T\-T A\-P\-I header file provides a mechanism to replace I\-T\-T A\-P\-I function names inside your code with empty strings. To do this, define the macros I\-N\-T\-E\-L\-\_\-\-N\-O\-\_\-\-I\-T\-T\-N\-O\-T\-I\-F\-Y\-\_\-\-A\-P\-I during compilation and remove the static library from the linker script.\hypertarget{index_Domains}{}\subsection{Domains}\label{index_Domains}
+\mbox{[}see domains\mbox{]} Domains provide a way to separate notification for different modules or libraries in a program. Domains are specified by dotted character strings, e.\-g. T\-B\-B.\-Internal.\-Control.
+
+A mechanism (to be specified) is provided to enable and disable domains. By default, all domains are enabled. \hypertarget{index_Named}{}\subsection{Entities and Instances}\label{index_Named}
+Named entities (frames, regions, tasks, and markers) communicate information about the program to the analysis tools. A named entity often refers to a section of program code, or to some set of logical concepts that the programmer wants to group together.
+
+Named entities relate to the programmer's static view of the program. When the program actually executes, many instances of a given named entity may be created.
+
+The A\-P\-I annotations denote instances of named entities. The actual named entities are displayed using the analysis tools. In other words, the named entities come into existence when instances are created.
+
+Instances of named entities may have instance identifiers (I\-Ds). Some A\-P\-I calls use instance identifiers to create relationships between different instances of named entities. Other A\-P\-I calls associate data with instances of named entities.
+
+Some named entities must always have instance I\-Ds. In particular, regions and frames always have I\-Ds. Task and markers need I\-Ds only if the I\-D is needed in another A\-P\-I call (such as adding a relation or metadata).
+
+The lifetime of instance I\-Ds is distinct from the lifetime of instances. This allows various relationships to be specified separate from the actual execution of instances. This flexibility comes at the expense of extra A\-P\-I calls.
+
+The same I\-D may not be reused for different instances, unless a previous \mbox{[}ref\mbox{]} \-\_\-\-\_\-itt\-\_\-id\-\_\-destroy call for that I\-D has been issued. 

@@ -1,0 +1,116 @@
+\hypertarget{structkmp__base__ticket__lock}{\section{kmp\-\_\-base\-\_\-ticket\-\_\-lock Struct Reference}
+\label{structkmp__base__ticket__lock}\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+}
+
+
+{\ttfamily \#include $<$kmp\-\_\-lock.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+volatile union \hyperlink{unionkmp__ticket__lock}{kmp\-\_\-ticket\-\_\-lock} $\ast$ \hyperlink{structkmp__base__ticket__lock_a2dc1ea0be551259b6aa4854628562e0d}{initialized}
+\item 
+\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} const $\ast$ \hyperlink{structkmp__base__ticket__lock_a0dba998d5ca5ad3494098a70ee5d067e}{location}
+\item 
+volatile kmp\-\_\-uint32 \hyperlink{structkmp__base__ticket__lock_a5d8979535f7e42b2ab96100564315a98}{next\-\_\-ticket}
+\item 
+volatile kmp\-\_\-uint32 \hyperlink{structkmp__base__ticket__lock_af2e1b640be5026e8bbe7b1ed7d1b341e}{now\-\_\-serving}
+\item 
+volatile kmp\-\_\-int32 \hyperlink{structkmp__base__ticket__lock_a24b62af42d72540c62cfbca970895539}{owner\-\_\-id}
+\item 
+kmp\-\_\-int32 \hyperlink{structkmp__base__ticket__lock_a647923086ea397dda0c5d9351cb16835}{depth\-\_\-locked}
+\item 
+\hyperlink{kmp__lock_8h_aa9a2d4f195809e8574655b5eda034db7}{kmp\-\_\-lock\-\_\-flags\-\_\-t} \hyperlink{structkmp__base__ticket__lock_a2de50496ac13d01017bc079a5bcf09ff}{flags}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 236 of file kmp\-\_\-lock.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structkmp__base__ticket__lock_a647923086ea397dda0c5d9351cb16835}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!depth\-\_\-locked@{depth\-\_\-locked}}
+\index{depth\-\_\-locked@{depth\-\_\-locked}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{depth\-\_\-locked}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::depth\-\_\-locked}}\label{structkmp__base__ticket__lock_a647923086ea397dda0c5d9351cb16835}
+
+
+Definition at line 243 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-nested\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-nested\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-is\-\_\-ticket\-\_\-lock\-\_\-nestable(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-nested\-\_\-ticket\-\_\-lock(), and \-\_\-\-\_\-kmp\-\_\-test\-\_\-nested\-\_\-ticket\-\_\-lock().
+
+\hypertarget{structkmp__base__ticket__lock_a2de50496ac13d01017bc079a5bcf09ff}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!flags@{flags}}
+\index{flags@{flags}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{flags}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-lock\-\_\-flags\-\_\-t} kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::flags}}\label{structkmp__base__ticket__lock_a2de50496ac13d01017bc079a5bcf09ff}
+
+
+Definition at line 244 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-ticket\-\_\-lock\-\_\-flags(), and \-\_\-\-\_\-kmp\-\_\-set\-\_\-ticket\-\_\-lock\-\_\-flags().
+
+\hypertarget{structkmp__base__ticket__lock_a2dc1ea0be551259b6aa4854628562e0d}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!initialized@{initialized}}
+\index{initialized@{initialized}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{initialized}]{\setlength{\rightskip}{0pt plus 5cm}volatile union {\bf kmp\-\_\-ticket\-\_\-lock}$\ast$ kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::initialized}}\label{structkmp__base__ticket__lock_a2dc1ea0be551259b6aa4854628562e0d}
+
+
+Definition at line 238 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-nested\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-is\-\_\-ticket\-\_\-lock\-\_\-initialized(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-nested\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-test\-\_\-nested\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), and \-\_\-\-\_\-kmp\-\_\-test\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks().
+
+\hypertarget{structkmp__base__ticket__lock_a0dba998d5ca5ad3494098a70ee5d067e}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!location@{location}}
+\index{location@{location}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{location}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ident\-\_\-t} const$\ast$ kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::location}}\label{structkmp__base__ticket__lock_a0dba998d5ca5ad3494098a70ee5d067e}
+
+
+Definition at line 239 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-ticket\-\_\-lock\-\_\-location(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-ticket\-\_\-lock(), and \-\_\-\-\_\-kmp\-\_\-set\-\_\-ticket\-\_\-lock\-\_\-location().
+
+\hypertarget{structkmp__base__ticket__lock_a5d8979535f7e42b2ab96100564315a98}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!next\-\_\-ticket@{next\-\_\-ticket}}
+\index{next\-\_\-ticket@{next\-\_\-ticket}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{next\-\_\-ticket}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-uint32 kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::next\-\_\-ticket}}\label{structkmp__base__ticket__lock_a5d8979535f7e42b2ab96100564315a98}
+
+
+Definition at line 240 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-ticket\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-ticket\-\_\-lock(), and \-\_\-\-\_\-kmp\-\_\-test\-\_\-ticket\-\_\-lock().
+
+\hypertarget{structkmp__base__ticket__lock_af2e1b640be5026e8bbe7b1ed7d1b341e}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!now\-\_\-serving@{now\-\_\-serving}}
+\index{now\-\_\-serving@{now\-\_\-serving}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{now\-\_\-serving}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-uint32 kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::now\-\_\-serving}}\label{structkmp__base__ticket__lock_af2e1b640be5026e8bbe7b1ed7d1b341e}
+
+
+Definition at line 241 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-ticket\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-ticket\-\_\-lock(), and \-\_\-\-\_\-kmp\-\_\-test\-\_\-ticket\-\_\-lock().
+
+\hypertarget{structkmp__base__ticket__lock_a24b62af42d72540c62cfbca970895539}{\index{kmp\-\_\-base\-\_\-ticket\-\_\-lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}!owner\-\_\-id@{owner\-\_\-id}}
+\index{owner\-\_\-id@{owner\-\_\-id}!kmp_base_ticket_lock@{kmp\-\_\-base\-\_\-ticket\-\_\-lock}}
+\subsubsection[{owner\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-int32 kmp\-\_\-base\-\_\-ticket\-\_\-lock\-::owner\-\_\-id}}\label{structkmp__base__ticket__lock_a24b62af42d72540c62cfbca970895539}
+
+
+Definition at line 242 of file kmp\-\_\-lock.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-nested\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-destroy\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-ticket\-\_\-lock\-\_\-owner(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-nested\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks(), \-\_\-\-\_\-kmp\-\_\-test\-\_\-nested\-\_\-ticket\-\_\-lock(), and \-\_\-\-\_\-kmp\-\_\-test\-\_\-ticket\-\_\-lock\-\_\-with\-\_\-checks().
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__lock_8h}{kmp\-\_\-lock.\-h}\end{DoxyCompactItemize}

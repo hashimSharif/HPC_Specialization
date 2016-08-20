@@ -1,0 +1,107 @@
+\hypertarget{kmp__affinity_8h}{\section{kmp\-\_\-affinity.\-h File Reference}
+\label{kmp__affinity_8h}\index{kmp\-\_\-affinity.\-h@{kmp\-\_\-affinity.\-h}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classAddress}{Address}
+\item 
+class \hyperlink{classAddrUnsPair}{Addr\-Uns\-Pair}
+\item 
+class \hyperlink{classhierarchy__info}{hierarchy\-\_\-info}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__affinity_8h_adc724fec24e25e4ded8a920781f80574}{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels} (const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$a, const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$b)
+\item 
+static \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__affinity_8h_af1b423f6e47a5e79412a0829d548ed4e}{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num} (const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$a, const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$b)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__affinity_8h_af1b423f6e47a5e79412a0829d548ed4e}{\index{kmp\-\_\-affinity.\-h@{kmp\-\_\-affinity.\-h}!\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num}}
+\index{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num}!kmp_affinity.h@{kmp\-\_\-affinity.\-h}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__affinity_8h_af1b423f6e47a5e79412a0829d548ed4e}
+
+
+Definition at line 116 of file kmp\-\_\-affinity.\-h.
+
+
+\begin{DoxyCode}
+117 \{
+118     \textcolor{keyword}{const} \hyperlink{classAddress}{Address} *aa = (\textcolor{keyword}{const} \hyperlink{classAddress}{Address} *)&(((\hyperlink{classAddrUnsPair}{AddrUnsPair} *)a)
+119       ->first);
+120     \textcolor{keyword}{const} \hyperlink{classAddress}{Address} *bb = (\textcolor{keyword}{const} \hyperlink{classAddress}{Address} *)&(((\hyperlink{classAddrUnsPair}{AddrUnsPair} *)b)
+121       ->first);
+122     \textcolor{keywordtype}{unsigned} depth = aa->\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth};
+123     \textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+124     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(depth == bb->\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth});
+125     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}((\textcolor{keywordtype}{unsigned})\hyperlink{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}{\_\_kmp\_affinity\_compact} <= depth);
+126     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(\hyperlink{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}{\_\_kmp\_affinity\_compact} >= 0);
+127     \textcolor{keywordflow}{for} (i = 0; i < (unsigned)\hyperlink{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}{\_\_kmp\_affinity\_compact}; i++) \{
+128         \textcolor{keywordtype}{int} j = depth - i - 1;
+129         \textcolor{keywordflow}{if} (aa->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j] < bb->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j]) \textcolor{keywordflow}{return} -1;
+130         \textcolor{keywordflow}{if} (aa->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j] > bb->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j]) \textcolor{keywordflow}{return} 1;
+131     \}
+132     \textcolor{keywordflow}{for} (; i < depth; i++) \{
+133         \textcolor{keywordtype}{int} j = i - \hyperlink{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}{\_\_kmp\_affinity\_compact};
+134         \textcolor{keywordflow}{if} (aa->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j] < bb->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j]) \textcolor{keywordflow}{return} -1;
+135         \textcolor{keywordflow}{if} (aa->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j] > bb->\hyperlink{classAddress_aae88cf413f1d90429d34a23387a8fe81}{childNums}[j]) \textcolor{keywordflow}{return} 1;
+136     \}
+137     \textcolor{keywordflow}{return} 0;
+138 \}
+\end{DoxyCode}
+\hypertarget{kmp__affinity_8h_adc724fec24e25e4ded8a920781f80574}{\index{kmp\-\_\-affinity.\-h@{kmp\-\_\-affinity.\-h}!\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels}}
+\index{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels}!kmp_affinity.h@{kmp\-\_\-affinity.\-h}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int} \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-labels (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__affinity_8h_adc724fec24e25e4ded8a920781f80574}
+
+
+Definition at line 98 of file kmp\-\_\-affinity.\-h.
+
+
+
+Referenced by hierarchy\-\_\-info\-::init().
+
+
+\begin{DoxyCode}
+99 \{
+100     \textcolor{keyword}{const} \hyperlink{classAddress}{Address} *aa = (\textcolor{keyword}{const} \hyperlink{classAddress}{Address} *)&(((\hyperlink{classAddrUnsPair}{AddrUnsPair} *)a)
+101       ->first);
+102     \textcolor{keyword}{const} \hyperlink{classAddress}{Address} *bb = (\textcolor{keyword}{const} \hyperlink{classAddress}{Address} *)&(((\hyperlink{classAddrUnsPair}{AddrUnsPair} *)b)
+103       ->first);
+104     \textcolor{keywordtype}{unsigned} depth = aa->\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth};
+105     \textcolor{keywordtype}{unsigned} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i};
+106     \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(depth == bb->\hyperlink{classAddress_a1adef13df4b328813a1bf4b92c56ee10}{depth});
+107     \textcolor{keywordflow}{for} (i  = 0; i < depth; i++) \{
+108         \textcolor{keywordflow}{if} (aa->\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[i] < bb->\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[i]) \textcolor{keywordflow}{return} -1;
+109         \textcolor{keywordflow}{if} (aa->\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[i] > bb->\hyperlink{classAddress_a0a5fc0038932317cd8f46d802850996a}{labels}[i]) \textcolor{keywordflow}{return} 1;
+110     \}
+111     \textcolor{keywordflow}{return} 0;
+112 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}{\index{kmp\-\_\-affinity.\-h@{kmp\-\_\-affinity.\-h}!\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact}}
+\index{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact}!kmp_affinity.h@{kmp\-\_\-affinity.\-h}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-compact}}\label{kmp__affinity_8h_a3f4047d39931b2e0ef0511385216ccfc}
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-cmp\-\_\-\-Address\-\_\-child\-\_\-num(), and \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize().
+

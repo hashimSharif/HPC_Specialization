@@ -1,0 +1,300 @@
+\hypertarget{ompt-internal_8h}{\section{ompt-\/internal.h File Reference}
+\label{ompt-internal_8h}\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}}
+}
+{\ttfamily \#include \char`\"{}ompt.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ompt-\/event-\/specific.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structompt__callbacks__s}{ompt\-\_\-callbacks\-\_\-s}
+\item 
+struct \hyperlink{structompt__task__info__t}{ompt\-\_\-task\-\_\-info\-\_\-t}
+\item 
+struct \hyperlink{structompt__team__info__t}{ompt\-\_\-team\-\_\-info\-\_\-t}
+\item 
+struct \hyperlink{structompt__lw__taskteam__s}{ompt\-\_\-lw\-\_\-taskteam\-\_\-s}
+\item 
+struct \hyperlink{structompt__parallel__info__s}{ompt\-\_\-parallel\-\_\-info\-\_\-s}
+\item 
+struct \hyperlink{structompt__thread__info__t}{ompt\-\_\-thread\-\_\-info\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ompt-internal_8h_a4e561a0866f90ea0738fae3c0a70d066}{O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N}~1
+\item 
+\#define \hyperlink{ompt-internal_8h_a38f674d2e88b164fc8720e326d39fb15}{\-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N}~extern \char`\"{}C\char`\"{}
+\item 
+\#define \hyperlink{ompt-internal_8h_a0afe14fdda6f1478f12e6dd2e754e3af}{O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R}(\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x})~((\hyperlink{ittnotify__static_8h_a25eb27b280775b27a5ddc4d1673225aa}{x} == \hyperlink{kmp_8h_a49ed6f7454c18058b488af399cadd8e0a58c5bad04e427f0063bb39d20405a18c}{fork\-\_\-context\-\_\-gnu}) ? ompt\-\_\-invoker\-\_\-program \-: ompt\-\_\-invoker\-\_\-runtime)
+\item 
+\#define \hyperlink{ompt-internal_8h_aba7498009c87caa172c81113aee899e8}{ompt\-\_\-callback}(e)~e \#\# \-\_\-callback
+\item 
+\#define \hyperlink{ompt-internal_8h_a2fad586727e2dd81c1aa1dd101fc22f6}{ompt\-\_\-event\-\_\-macro}(\hyperlink{ittnotify__static_8h_a67bfbc8333e927ea068b74b6176097f2}{event}, callback, eventid)~callback \hyperlink{ompt-internal_8h_aba7498009c87caa172c81113aee899e8}{ompt\-\_\-callback}(\hyperlink{ittnotify__static_8h_a67bfbc8333e927ea068b74b6176097f2}{event});
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structompt__callbacks__s}{ompt\-\_\-callbacks\-\_\-s} \hyperlink{ompt-internal_8h_a7d8ca0a286bcf8192b571a8916082fa6}{ompt\-\_\-callbacks\-\_\-t}
+\item 
+typedef struct \hyperlink{structompt__lw__taskteam__s}{ompt\-\_\-lw\-\_\-taskteam\-\_\-s} \hyperlink{ompt-internal_8h_a9efdb170346e988130296a7bb0cb861c}{ompt\-\_\-lw\-\_\-taskteam\-\_\-t}
+\item 
+typedef struct \hyperlink{structompt__parallel__info__s}{ompt\-\_\-parallel\-\_\-info\-\_\-s} \hyperlink{ompt-internal_8h_a53c904221793d45e78848f5ae77d5a60}{ompt\-\_\-parallel\-\_\-info\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-internal_8h_a4debaede8205553ba62eeefc633877a0}{ompt\-\_\-pre\-\_\-init} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-internal_8h_a477b2e3a5d4861223163b164c3c6da41}{ompt\-\_\-post\-\_\-init} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{ompt-internal_8h_afcbc1227f787921097c068d7374b1c20}{ompt\-\_\-fini} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ompt-internal_8h_a7d8ca0a286bcf8192b571a8916082fa6}{ompt\-\_\-callbacks\-\_\-t} \hyperlink{ompt-internal_8h_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\-\_\-callbacks}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{ompt-internal_8h_a966b31b6d05f79f5495f8d8e71732f68}{ompt\-\_\-enabled}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{ompt-internal_8h_a38f674d2e88b164fc8720e326d39fb15}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!\-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N@{\-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N}}
+\index{\-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N@{\-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{\-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-O\-M\-P\-\_\-\-E\-X\-T\-E\-R\-N~extern \char`\"{}C\char`\"{}}}\label{ompt-internal_8h_a38f674d2e88b164fc8720e326d39fb15}
+
+
+Definition at line 9 of file ompt-\/internal.\-h.
+
+\hypertarget{ompt-internal_8h_aba7498009c87caa172c81113aee899e8}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-callback@{ompt\-\_\-callback}}
+\index{ompt\-\_\-callback@{ompt\-\_\-callback}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-callback(
+\begin{DoxyParamCaption}
+\item[{}]{e}
+\end{DoxyParamCaption}
+)~e \#\# \-\_\-callback}}\label{ompt-internal_8h_aba7498009c87caa172c81113aee899e8}
+
+
+Definition at line 15 of file ompt-\/internal.\-h.
+
+\hypertarget{ompt-internal_8h_a2fad586727e2dd81c1aa1dd101fc22f6}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-event\-\_\-macro@{ompt\-\_\-event\-\_\-macro}}
+\index{ompt\-\_\-event\-\_\-macro@{ompt\-\_\-event\-\_\-macro}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-event\-\_\-macro}]{\setlength{\rightskip}{0pt plus 5cm}\#define ompt\-\_\-event\-\_\-macro(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf event}, }
+\item[{}]{callback, }
+\item[{}]{eventid}
+\end{DoxyParamCaption}
+)~callback {\bf ompt\-\_\-callback}({\bf event});}}\label{ompt-internal_8h_a2fad586727e2dd81c1aa1dd101fc22f6}
+
+
+Definition at line 19 of file ompt-\/internal.\-h.
+
+\hypertarget{ompt-internal_8h_a0afe14fdda6f1478f12e6dd2e754e3af}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R@{O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R}}
+\index{O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R@{O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-M\-P\-T\-\_\-\-I\-N\-V\-O\-K\-E\-R(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~(({\bf x} == {\bf fork\-\_\-context\-\_\-gnu}) ? ompt\-\_\-invoker\-\_\-program \-: ompt\-\_\-invoker\-\_\-runtime)}}\label{ompt-internal_8h_a0afe14fdda6f1478f12e6dd2e754e3af}
+
+
+Definition at line 11 of file ompt-\/internal.\-h.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D().
+
+\hypertarget{ompt-internal_8h_a4e561a0866f90ea0738fae3c0a70d066}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N@{O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N}}
+\index{O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N@{O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-M\-P\-T\-\_\-\-V\-E\-R\-S\-I\-O\-N~1}}\label{ompt-internal_8h_a4e561a0866f90ea0738fae3c0a70d066}
+
+
+Definition at line 7 of file ompt-\/internal.\-h.
+
+
+
+Referenced by ompt\-\_\-get\-\_\-ompt\-\_\-version(), and ompt\-\_\-post\-\_\-init().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{ompt-internal_8h_a7d8ca0a286bcf8192b571a8916082fa6}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-callbacks\-\_\-t@{ompt\-\_\-callbacks\-\_\-t}}
+\index{ompt\-\_\-callbacks\-\_\-t@{ompt\-\_\-callbacks\-\_\-t}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-callbacks\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ompt\-\_\-callbacks\-\_\-s}  {\bf ompt\-\_\-callbacks\-\_\-t}}}\label{ompt-internal_8h_a7d8ca0a286bcf8192b571a8916082fa6}
+\hypertarget{ompt-internal_8h_a9efdb170346e988130296a7bb0cb861c}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-lw\-\_\-taskteam\-\_\-t@{ompt\-\_\-lw\-\_\-taskteam\-\_\-t}}
+\index{ompt\-\_\-lw\-\_\-taskteam\-\_\-t@{ompt\-\_\-lw\-\_\-taskteam\-\_\-t}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-lw\-\_\-taskteam\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ompt\-\_\-lw\-\_\-taskteam\-\_\-s}  {\bf ompt\-\_\-lw\-\_\-taskteam\-\_\-t}}}\label{ompt-internal_8h_a9efdb170346e988130296a7bb0cb861c}
+\hypertarget{ompt-internal_8h_a53c904221793d45e78848f5ae77d5a60}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-parallel\-\_\-info\-\_\-t@{ompt\-\_\-parallel\-\_\-info\-\_\-t}}
+\index{ompt\-\_\-parallel\-\_\-info\-\_\-t@{ompt\-\_\-parallel\-\_\-info\-\_\-t}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-parallel\-\_\-info\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ompt\-\_\-parallel\-\_\-info\-\_\-s}  {\bf ompt\-\_\-parallel\-\_\-info\-\_\-t}}}\label{ompt-internal_8h_a53c904221793d45e78848f5ae77d5a60}
+
+
+\subsection{Function Documentation}
+\hypertarget{ompt-internal_8h_afcbc1227f787921097c068d7374b1c20}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-fini@{ompt\-\_\-fini}}
+\index{ompt\-\_\-fini@{ompt\-\_\-fini}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-fini}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompt\-\_\-fini (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{ompt-internal_8h_afcbc1227f787921097c068d7374b1c20}
+
+
+Definition at line 267 of file ompt-\/general.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end().
+
+
+\begin{DoxyCode}
+268 \{
+269     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+270         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_runtime\_shutdown)) \{
+271             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_runtime\_shutdown)();
+272         \}
+273     \}
+274 
+275     \hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} = 0;
+276 \}
+\end{DoxyCode}
+\hypertarget{ompt-internal_8h_a477b2e3a5d4861223163b164c3c6da41}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-post\-\_\-init@{ompt\-\_\-post\-\_\-init}}
+\index{ompt\-\_\-post\-\_\-init@{ompt\-\_\-post\-\_\-init}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-post\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompt\-\_\-post\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{ompt-internal_8h_a477b2e3a5d4861223163b164c3c6da41}
+
+
+Definition at line 235 of file ompt-\/general.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+
+\begin{DoxyCode}
+236 \{
+237     \textcolor{comment}{//--------------------------------------------------}
+238     \textcolor{comment}{// Execute the post-initialization logic only once.}
+239     \textcolor{comment}{//--------------------------------------------------}
+240     \textcolor{keyword}{static} \textcolor{keywordtype}{int} ompt\_post\_initialized = 0;
+241 
+242     \textcolor{keywordflow}{if} (ompt\_post\_initialized) \textcolor{keywordflow}{return};
+243 
+244     ompt\_post\_initialized = 1;
+245 
+246     \textcolor{comment}{//--------------------------------------------------}
+247     \textcolor{comment}{// Initialize the tool if so indicated.}
+248     \textcolor{comment}{//--------------------------------------------------}
+249     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+250         \hyperlink{ompt-general_8c_abffbd160d0e3b772a9252976be687844}{ompt\_initialize\_fn}(\hyperlink{ompt-general_8c_a7d3f217c9de3e9699cd44e98e590e9bc}{ompt\_fn\_lookup}, 
+      \hyperlink{ompt-specific_8h_adea507da3b254586f65079dd92c5048b}{ompt\_get\_runtime\_version}(), 
+251                            \hyperlink{ompt-internal_8h_a4e561a0866f90ea0738fae3c0a70d066}{OMPT\_VERSION});
+252 
+253         \hyperlink{ompt-specific_8h_aba08ad17c82d2eea9f877a3ec41e4987}{ompt\_thread\_t} *root\_thread = \hyperlink{ompt-specific_8h_ae3f900aeae1828089c356b1db2be6fee}{ompt\_get\_thread}();
+254 
+255         \hyperlink{ompt-specific_8h_a1e85c69bf0473ba8ab8bd3229cd7dd85}{ompt\_set\_thread\_state}(root\_thread, ompt\_state\_overhead);
+256 
+257         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_thread\_begin)) \{
+258             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_thread\_begin)
+259                 (ompt\_thread\_initial, \hyperlink{ompt-general_8c_a5de912de40e00ac60886cd6495209a8b}{ompt\_get\_thread\_id}());
+260         \}
+261 
+262         \hyperlink{ompt-specific_8h_a1e85c69bf0473ba8ab8bd3229cd7dd85}{ompt\_set\_thread\_state}(root\_thread, ompt\_state\_work\_serial);
+263     \}
+264 \}
+\end{DoxyCode}
+\hypertarget{ompt-internal_8h_a4debaede8205553ba62eeefc633877a0}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-pre\-\_\-init@{ompt\-\_\-pre\-\_\-init}}
+\index{ompt\-\_\-pre\-\_\-init@{ompt\-\_\-pre\-\_\-init}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-pre\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} ompt\-\_\-pre\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{ompt-internal_8h_a4debaede8205553ba62eeefc633877a0}
+
+
+Definition at line 183 of file ompt-\/general.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+
+\begin{DoxyCode}
+184 \{
+185     \textcolor{comment}{//--------------------------------------------------}
+186     \textcolor{comment}{// Execute the pre-initialization logic only once.}
+187     \textcolor{comment}{//--------------------------------------------------}
+188     \textcolor{keyword}{static} \textcolor{keywordtype}{int} ompt\_pre\_initialized = 0;
+189 
+190     \textcolor{keywordflow}{if} (ompt\_pre\_initialized) \textcolor{keywordflow}{return};
+191 
+192     ompt\_pre\_initialized = 1;
+193 
+194     \textcolor{comment}{//--------------------------------------------------}
+195     \textcolor{comment}{// Use a tool iff a tool is enabled and available.}
+196     \textcolor{comment}{//--------------------------------------------------}
+197     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *ompt\_env\_var = getenv(\textcolor{stringliteral}{"OMP\_TOOL"});
+198     \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150}{tool\_setting\_e} tool\_setting = \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150a1779489eca2c49f635fcfab7266ef80f}{omp\_tool\_error};
+199 
+200     \textcolor{keywordflow}{if} (!ompt\_env\_var  || !strcmp(ompt\_env\_var, \textcolor{stringliteral}{""}))
+201         tool\_setting = \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150abe3b1ebe5606a3de4251e2db7740c2de}{omp\_tool\_unset};
+202     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{ompt-specific_8h_a38712776a3564cf1f0deca5df0733a97}{OMPT\_STR\_MATCH}(ompt\_env\_var, \textcolor{stringliteral}{"disabled"}))
+203         tool\_setting = \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150acde951fd07e4a6b885afb8598632ea73}{omp\_tool\_disabled};
+204     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{ompt-specific_8h_a38712776a3564cf1f0deca5df0733a97}{OMPT\_STR\_MATCH}(ompt\_env\_var, \textcolor{stringliteral}{"enabled"}))
+205         tool\_setting = \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150a5fb54a43c51391a74611e52e8dd7d5b9}{omp\_tool\_enabled};
+206 
+207 \textcolor{preprocessor}{#if OMPT\_DEBUG}
+208 \textcolor{preprocessor}{}    printf(\textcolor{stringliteral}{"ompt\_pre\_init(): tool\_setting = %d\(\backslash\)n"}, tool\_setting);
+209 \textcolor{preprocessor}{#endif}
+210 \textcolor{preprocessor}{}    \textcolor{keywordflow}{switch}(tool\_setting) \{
+211     \textcolor{keywordflow}{case} \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150acde951fd07e4a6b885afb8598632ea73}{omp\_tool\_disabled}:
+212         \textcolor{keywordflow}{break};
+213 
+214     \textcolor{keywordflow}{case} \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150abe3b1ebe5606a3de4251e2db7740c2de}{omp\_tool\_unset}:
+215     \textcolor{keywordflow}{case} \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150a5fb54a43c51391a74611e52e8dd7d5b9}{omp\_tool\_enabled}:
+216         \hyperlink{ompt-general_8c_abffbd160d0e3b772a9252976be687844}{ompt\_initialize\_fn} = ompt\_tool();
+217         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_abffbd160d0e3b772a9252976be687844}{ompt\_initialize\_fn}) \{
+218             \hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} = 1;
+219         \}
+220         \textcolor{keywordflow}{break};
+221 
+222     \textcolor{keywordflow}{case} \hyperlink{ompt-general_8c_ab0b313a63028003b4a1588cc33930150a1779489eca2c49f635fcfab7266ef80f}{omp\_tool\_error}:
+223         fprintf(stderr,
+224             \textcolor{stringliteral}{"Warning: OMP\_TOOL has invalid value \(\backslash\)"%s\(\backslash\)".\(\backslash\)n"}
+225             \textcolor{stringliteral}{"  legal values are (NULL,\(\backslash\)"\(\backslash\)",\(\backslash\)"disabled\(\backslash\)","}
+226             \textcolor{stringliteral}{"\(\backslash\)"enabled\(\backslash\)").\(\backslash\)n"}, ompt\_env\_var);
+227         \textcolor{keywordflow}{break};
+228     \}
+229 \textcolor{preprocessor}{#if OMPT\_DEBUG}
+230 \textcolor{preprocessor}{}    printf(\textcolor{stringliteral}{"ompt\_pre\_init(): ompt\_enabled = %d\(\backslash\)n"}, \hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled});
+231 \textcolor{preprocessor}{#endif}
+232 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{ompt-internal_8h_a84a29d89cef82c7c38e1ee1f70ec994f}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-callbacks@{ompt\-\_\-callbacks}}
+\index{ompt\-\_\-callbacks@{ompt\-\_\-callbacks}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-callbacks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ompt\-\_\-callbacks\-\_\-t} ompt\-\_\-callbacks}}\label{ompt-internal_8h_a84a29d89cef82c7c38e1ee1f70ec994f}
+
+
+Definition at line 76 of file ompt-\/general.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-atomic\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task\-\_\-func(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-dxo(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-atomic\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-reset\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-finish(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-start(), \-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template(), \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-critical(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-single(), \-\_\-\-\_\-kmpc\-\_\-for\-\_\-static\-\_\-fini(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskwait(), \-\_\-\-\_\-kmpc\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-single(), \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-ompt\-\_\-thread\-\_\-begin(), \-\_\-\-\_\-ompt\-\_\-thread\-\_\-end(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D().
+
+\hypertarget{ompt-internal_8h_a966b31b6d05f79f5495f8d8e71732f68}{\index{ompt-\/internal.\-h@{ompt-\/internal.\-h}!ompt\-\_\-enabled@{ompt\-\_\-enabled}}
+\index{ompt\-\_\-enabled@{ompt\-\_\-enabled}!ompt-internal.h@{ompt-\/internal.\-h}}
+\subsubsection[{ompt\-\_\-enabled}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} ompt\-\_\-enabled}}\label{ompt-internal_8h_a966b31b6d05f79f5495f8d8e71732f68}
+
+
+Definition at line 68 of file ompt-\/general.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-atomic\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-queuing\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task\-\_\-func(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-omp\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-dxo(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-atomic\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-reset\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-finish(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-start(), \-\_\-\-\_\-kmp\-\_\-track\-\_\-dependence(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template(), \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-destroy\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-critical(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-single(), \-\_\-\-\_\-kmpc\-\_\-for\-\_\-static\-\_\-fini(), \-\_\-\-\_\-kmpc\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmpc\-\_\-fork\-\_\-teams(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskwait(), \-\_\-\-\_\-kmpc\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-set\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-single(), \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-nest\-\_\-lock(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T(), ompt\-\_\-control(), ompt\-\_\-fini(), ompt\-\_\-post\-\_\-init(), ompt\-\_\-pre\-\_\-init(), and P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T().
+

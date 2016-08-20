@@ -1,0 +1,197 @@
+\hypertarget{kmp__stats__timing_8h}{\section{kmp\-\_\-stats\-\_\-timing.\-h File Reference}
+\label{kmp__stats__timing_8h}\index{kmp\-\_\-stats\-\_\-timing.\-h@{kmp\-\_\-stats\-\_\-timing.\-h}}
+}
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$limits$>$}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-os.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classtsc__tick__count}{tsc\-\_\-tick\-\_\-count}
+\item 
+class \hyperlink{classtsc__tick__count_1_1tsc__interval__t}{tsc\-\_\-tick\-\_\-count\-::tsc\-\_\-interval\-\_\-t}
+\item 
+class \hyperlink{classtimePair}{time\-Pair}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtsc__tick__count_1_1tsc__interval__t}{tsc\-\_\-tick\-\_\-count\-::tsc\-\_\-interval\-\_\-t} \hyperlink{kmp__stats__timing_8h_ae40e121006d71e9031defe4198b49508}{operator-\/} (const \hyperlink{classtsc__tick__count}{tsc\-\_\-tick\-\_\-count} t1, const \hyperlink{classtsc__tick__count}{tsc\-\_\-tick\-\_\-count} t0)
+\item 
+std\-::string \hyperlink{kmp__stats__timing_8h_af5ae50375ca14e4c793765e7acadb6f0}{format\-S\-I} (double interval, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} width, char unit)
+\item 
+std\-::string \hyperlink{kmp__stats__timing_8h_a6089894c590ef2d4b18fec1241a30f17}{format\-Seconds} (double interval, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} width)
+\item 
+std\-::string \hyperlink{kmp__stats__timing_8h_a28257da2f2ab3f46faa9bcdc05612f00}{format\-Ticks} (double interval, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} width)
+\item 
+\hyperlink{classtsc__tick__count_1_1tsc__interval__t}{tsc\-\_\-tick\-\_\-count\-::tsc\-\_\-interval\-\_\-t} \hyperlink{kmp__stats__timing_8h_ac9e45bd235f68cb7f98907c81d54c336}{compute\-Last\-In\-Last\-Out\-Interval} (\hyperlink{classtimePair}{time\-Pair} $\ast$times, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} n\-Times)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Access to real time clock and timers. 
+
+Definition in file \hyperlink{kmp__stats__timing_8h_source}{kmp\-\_\-stats\-\_\-timing.\-h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__stats__timing_8h_ac9e45bd235f68cb7f98907c81d54c336}{\index{kmp\-\_\-stats\-\_\-timing.\-h@{kmp\-\_\-stats\-\_\-timing.\-h}!compute\-Last\-In\-Last\-Out\-Interval@{compute\-Last\-In\-Last\-Out\-Interval}}
+\index{compute\-Last\-In\-Last\-Out\-Interval@{compute\-Last\-In\-Last\-Out\-Interval}!kmp_stats_timing.h@{kmp\-\_\-stats\-\_\-timing.\-h}}
+\subsubsection[{compute\-Last\-In\-Last\-Out\-Interval}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tsc\-\_\-tick\-\_\-count\-::tsc\-\_\-interval\-\_\-t} compute\-Last\-In\-Last\-Out\-Interval (
+\begin{DoxyParamCaption}
+\item[{{\bf time\-Pair} $\ast$}]{times, }
+\item[{{\bf int}}]{n\-Times}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats__timing_8h_ac9e45bd235f68cb7f98907c81d54c336}
+
+
+Definition at line 146 of file kmp\-\_\-stats\-\_\-timing.\-cpp.
+
+
+\begin{DoxyCode}
+147 \{
+148     \hyperlink{classtimePair}{timePair} lastTimes = times[0];
+149     \hyperlink{classtsc__tick__count}{tsc\_tick\_count} * startp = lastTimes.\hyperlink{classtimePair_ace8f5405c26695c59b3f1db21caf8d08}{get\_startp}();
+150     \hyperlink{classtsc__tick__count}{tsc\_tick\_count} * endp   = lastTimes.\hyperlink{classtimePair_acd98701ab5237691ab90ab5eebe4c98d}{get\_endp}();
+151 
+152     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=1; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<nTimes; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++)
+153     \{
+154        (*startp) = startp->\hyperlink{classtsc__tick__count_a1ed40b9912bb3ba1e671f0cf5d68678e}{later}(times[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].get\_start());
+155        (*endp)   = endp->\hyperlink{classtsc__tick__count_a1ed40b9912bb3ba1e671f0cf5d68678e}{later}  (times[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].get\_end());
+156     \}
+157 
+158     \textcolor{keywordflow}{return} lastTimes.\hyperlink{classtimePair_ab3171fe115bf35513f8caf0105db7f6c}{duration}();
+159 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats__timing_8h_a6089894c590ef2d4b18fec1241a30f17}{\index{kmp\-\_\-stats\-\_\-timing.\-h@{kmp\-\_\-stats\-\_\-timing.\-h}!format\-Seconds@{format\-Seconds}}
+\index{format\-Seconds@{format\-Seconds}!kmp_stats_timing.h@{kmp\-\_\-stats\-\_\-timing.\-h}}
+\subsubsection[{format\-Seconds}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string format\-Seconds (
+\begin{DoxyParamCaption}
+\item[{double}]{interval, }
+\item[{{\bf int}}]{width}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{kmp__stats__timing_8h_a6089894c590ef2d4b18fec1241a30f17}
+
+
+Definition at line 86 of file kmp\-\_\-stats\-\_\-timing.\-h.
+
+
+\begin{DoxyCode}
+87 \{
+88     \textcolor{keywordflow}{return} \hyperlink{kmp__stats__timing_8h_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(interval, width, \textcolor{charliteral}{'S'});
+89 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats__timing_8h_af5ae50375ca14e4c793765e7acadb6f0}{\index{kmp\-\_\-stats\-\_\-timing.\-h@{kmp\-\_\-stats\-\_\-timing.\-h}!format\-S\-I@{format\-S\-I}}
+\index{format\-S\-I@{format\-S\-I}!kmp_stats_timing.h@{kmp\-\_\-stats\-\_\-timing.\-h}}
+\subsubsection[{format\-S\-I}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string format\-S\-I (
+\begin{DoxyParamCaption}
+\item[{double}]{interval, }
+\item[{{\bf int}}]{width, }
+\item[{char}]{unit}
+\end{DoxyParamCaption}
+)}}\label{kmp__stats__timing_8h_af5ae50375ca14e4c793765e7acadb6f0}
+
+
+Definition at line 91 of file kmp\-\_\-stats\-\_\-timing.\-cpp.
+
+
+
+Referenced by statistic\-::format(), format\-Seconds(), format\-Ticks(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Counters(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Header\-Info().
+
+
+\begin{DoxyCode}
+92 \{
+93     std::stringstream os;
+94 
+95     \textcolor{keywordflow}{if} (\hyperlink{kmp__stats__timing_8cpp_a0d112b6193f6fc97c84b0ac42fa7fe0c}{useSI})
+96     \{
+97         \textcolor{comment}{// Preserve accuracy for small numbers, since we only multiply and the positive powers}
+98         \textcolor{comment}{// of ten are precisely representable. }
+99         \textcolor{keyword}{static} \textcolor{keyword}{struct }\{ \textcolor{keywordtype}{double} scale; \textcolor{keywordtype}{char} prefix; \} ranges[] = \{
+100             \{1.e12,\textcolor{charliteral}{'f'}\},
+101             \{1.e9, \textcolor{charliteral}{'p'}\},
+102             \{1.e6, \textcolor{charliteral}{'n'}\},
+103             \{1.e3, \textcolor{charliteral}{'u'}\},
+104             \{1.0,  \textcolor{charliteral}{'m'}\},
+105             \{1.e-3,\textcolor{charliteral}{' '}\},
+106             \{1.e-6,\textcolor{charliteral}{'k'}\},
+107             \{1.e-9,\textcolor{charliteral}{'M'}\},
+108             \{1.e-12,\textcolor{charliteral}{'G'}\},
+109             \{1.e-15,\textcolor{charliteral}{'T'}\},
+110             \{1.e-18,\textcolor{charliteral}{'P'}\},
+111             \{1.e-21,\textcolor{charliteral}{'E'}\},
+112             \{1.e-24,\textcolor{charliteral}{'Z'}\},
+113             \{1.e-27,\textcolor{charliteral}{'Y'}\}
+114         \};
+115         
+116         \textcolor{keywordflow}{if} (interval == 0.0)
+117         \{
+118             os << std::setw(width-3) << std::right << \textcolor{stringliteral}{"0.00"} << std::setw(3) << unit;
+119             \textcolor{keywordflow}{return} os.str();
+120         \}
+121 
+122         \textcolor{keywordtype}{bool} negative = \textcolor{keyword}{false};
+123         \textcolor{keywordflow}{if} (interval < 0.0)
+124         \{
+125             negative = \textcolor{keyword}{true};
+126             interval = -interval;
+127         \}
+128         
+129         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}=0; \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}<(\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int})(\textcolor{keyword}{sizeof}(ranges)/\textcolor{keyword}{sizeof}(ranges[0])); \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}++)
+130         \{
+131             \textcolor{keywordflow}{if} (interval*ranges[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].scale < 1.e0)
+132             \{
+133                 interval = interval * 1000.e0 * ranges[\hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].scale;
+134                 os << std::fixed << std::setprecision(2) << std::setw(width-3) << std::right << 
+135                     (negative ? -interval : interval) << std::setw(2) << ranges[
+      \hyperlink{kmp__stub_8c_a08582ce460e3d5e1cf0b7fea017d608e}{i}].prefix << std::setw(1) << unit;
+136 
+137                 \textcolor{keywordflow}{return} os.str();
+138             \}
+139         \}
+140     \}
+141     os << std::setprecision(2) << std::fixed << std::right << std::setw(width-3) << interval << std::setw(3
+      ) << unit;
+142 
+143     \textcolor{keywordflow}{return} os.str();
+144 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats__timing_8h_a28257da2f2ab3f46faa9bcdc05612f00}{\index{kmp\-\_\-stats\-\_\-timing.\-h@{kmp\-\_\-stats\-\_\-timing.\-h}!format\-Ticks@{format\-Ticks}}
+\index{format\-Ticks@{format\-Ticks}!kmp_stats_timing.h@{kmp\-\_\-stats\-\_\-timing.\-h}}
+\subsubsection[{format\-Ticks}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string format\-Ticks (
+\begin{DoxyParamCaption}
+\item[{double}]{interval, }
+\item[{{\bf int}}]{width}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{kmp__stats__timing_8h_a28257da2f2ab3f46faa9bcdc05612f00}
+
+
+Definition at line 91 of file kmp\-\_\-stats\-\_\-timing.\-h.
+
+
+\begin{DoxyCode}
+92 \{
+93     \textcolor{keywordflow}{return} \hyperlink{kmp__stats__timing_8h_af5ae50375ca14e4c793765e7acadb6f0}{formatSI}(interval, width, \textcolor{charliteral}{'T'});
+94 \}
+\end{DoxyCode}
+\hypertarget{kmp__stats__timing_8h_ae40e121006d71e9031defe4198b49508}{\index{kmp\-\_\-stats\-\_\-timing.\-h@{kmp\-\_\-stats\-\_\-timing.\-h}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!kmp_stats_timing.h@{kmp\-\_\-stats\-\_\-timing.\-h}}
+\subsubsection[{operator-\/}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tsc\-\_\-tick\-\_\-count\-::tsc\-\_\-interval\-\_\-t} operator-\/ (
+\begin{DoxyParamCaption}
+\item[{const {\bf tsc\-\_\-tick\-\_\-count}}]{t1, }
+\item[{const {\bf tsc\-\_\-tick\-\_\-count}}]{t0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{kmp__stats__timing_8h_ae40e121006d71e9031defe4198b49508}
+
+
+Definition at line 72 of file kmp\-\_\-stats\-\_\-timing.\-h.
+
+
+\begin{DoxyCode}
+73 \{
+74     \textcolor{keywordflow}{return} \hyperlink{classtsc__tick__count_1_1tsc__interval__t}{tsc\_tick\_count::tsc\_interval\_t}( t1.
+      \hyperlink{classtsc__tick__count_ad3811672b7ec785fc23a9e33a33c9c84}{my\_count}-t0.\hyperlink{classtsc__tick__count_ad3811672b7ec785fc23a9e33a33c9c84}{my\_count} );
+75 \}
+\end{DoxyCode}

@@ -1,0 +1,2035 @@
+\hypertarget{kmp__gsupport_8c}{\section{kmp\-\_\-gsupport.\-c File Reference}
+\label{kmp__gsupport_8c}\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-atomic.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-ftn\-\_\-os.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{M\-K\-L\-O\-C}(loc, routine)~static \hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} (loc) = \{0, \hyperlink{group__BASIC__TYPES_ga50e3ecb5eb8d70f437a84a8b2bc9e88f}{K\-M\-P\-\_\-\-I\-D\-E\-N\-T\-\_\-\-K\-M\-P\-C}, 0, 0, \char`\"{};unknown;\hyperlink{kmp__utility_8c_a959f1b3400d960b334bfebd27dc4e21f}{unknown};0;0;;\char`\"{} \};
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T}~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-init\-\_\-8
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-fini\-\_\-chunk\-\_\-8
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T}~\hyperlink{group__WORK__SHARING_gad49ead8c4196b726b6f04d4b1d53d01d}{\-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-next\-\_\-8}
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a8bf04ba227ad9a704bc5222be0d49a5e}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L}~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-init\-\_\-8u
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-fini\-\_\-chunk\-\_\-8u
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a8a1dd6d77c8ea25cb18d703079c1f7cc}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}~\hyperlink{group__WORK__SHARING_gab1eac772e1ef6ddc3a8512c00a4e78be}{\-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-next\-\_\-8u}
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a742aa696685e5abe9c8ecf0afaa2fb1c}{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}(func, schedule)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a85dee8a615d59ce664a3bd8a6817f1d4}{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T}(func, schedule)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a17969a4e6b33f91a187cbc4ff7c606ff}{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}(func, fini\-\_\-code)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_aa3a460e12a76b333efde6432f1b5e9d1}{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}(func, schedule)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_ac84d96cafd9e3480758b9607b63192b5}{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}(func, schedule)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_ac025ecb36fa3bac0021670dde10b3c1b}{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}(func, fini\-\_\-code)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a771b4ff1105e8df76c4d65af887fbc44}{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}(func, schedule, ompt\-\_\-pre, ompt\-\_\-post)
+\item 
+\#define \hyperlink{kmp__gsupport_8c_ac602364a2be0864f88f1f945971929f4}{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E}()
+\item 
+\#define \hyperlink{kmp__gsupport_8c_afbe808cc913abbf9bcebfcbe35d65885}{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T}()
+\item 
+\#define \hyperlink{kmp__gsupport_8c_a4afd24d7b676b831e4094b9d5b1866a1}{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P}(func, schedule)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_aeda68f7b2abfa6b176e9b479f315c662}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_addfc71b7b5b0b39ff1078d5377b02a06}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a9cc08f7e18fab00b4de06d251d57cebc}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a1015f72b0fe1faca54802ee0c2c7cdef}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$pptr)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_afa3bd47fb2bb3325c305bfcaf93c4270}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$pptr)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ac0b1de93408487ebcbf99ab7810f8986}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a29d6eedfb70dfdee5851e1a88ae5d12a}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ae907dd1067b5d1013c6780966e8e9475}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a8eaded5afea3dbb230984ba411ce2b50}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_aa08b6543697574c81544f0620b8627ae}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ab56c691cc53a72d1954f7b9147fdedca}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a10334add12c0673b7473667b1a9ee3ac}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__gsupport_8c_a650066ce97a45906cae6e5b0a8ee5c6c}{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$gtid, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$npr, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data})
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__gsupport_8c_ac161ad38af9e2565382e6a38c693ac5b}{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$gtid, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} $\ast$npr, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, unsigned num\-\_\-threads, \hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, enum \hyperlink{group__WORK__SHARING_gadcaf200537aaa0218a60c398438f81be}{sched\-\_\-type} schedule, long start, long end, long incr, long chunk\-\_\-size)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$unwrapped\-\_\-task)(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{kmp__os_8h_a390eabec74d95ed005fb6979992598c8}{microtask\-\_\-t} wrapper, \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} argc,...)
+\item 
+static \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc, kmp\-\_\-int32 gtid, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$))
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a2814b1fbdf146631f0f51ed27767acea}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, unsigned num\-\_\-threads)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_abb9cc0403374162970e62cf66e7911a4}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{kmp__gsupport_8c_ad9bd1268e3c66e2b82a216fba7102a98}{L\-O\-O\-P\-\_\-\-N\-E\-X\-T} (\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a4dbe3e6193610332fc796d9a5c6f93df}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-T\-I\-C\-\_\-\-N\-E\-X\-T}),\{\hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}(\&loc, gtid);\})
+\item 
+\hyperlink{kmp__gsupport_8c_af59e8f83bb8b0a705e47ab2cd0f485fb}{L\-O\-O\-P\-\_\-\-N\-E\-X\-T} (\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a163afcdf7f026fd9dfe739fd284852fc}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-G\-U\-I\-D\-E\-D\-\_\-\-N\-E\-X\-T}),\{\hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}(\&loc, gtid);\})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ad63f3a4f2da003b35ddbc0d465c9419e}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a7b7b3c87fca694ace6c7697c4d50a01c}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{kmp__gsupport_8c_a6dff535fcf19f0a91e753319c3996bc8}{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L} (\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a461ddd2247b7ef7869b47c7405d9ed5c}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-U\-L\-L\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-T\-I\-C\-\_\-\-N\-E\-X\-T}),\{\hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}(\&loc, gtid);\})
+\item 
+\hyperlink{kmp__gsupport_8c_a7500c102718535d5a62012e9417753a4}{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L} (\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a1e56c3ded5d407afd77d08b2f1d20a98}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-U\-L\-L\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-G\-U\-I\-D\-E\-D\-\_\-\-N\-E\-X\-T}),\{\hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}(\&loc, gtid);\})
+\item 
+\hyperlink{kmp__gsupport_8c_a1ad8dc305e2f45b1b0c3c45caa2f4822}{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a0eb0f3d8e846982203f6078a562489f5}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-T\-I\-C\-\_\-\-S\-T\-A\-R\-T}), \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea2a987351b9605b918693a17d4dd90772}{kmp\-\_\-sch\-\_\-static}, P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T((\hyperlink{kmp__ftn__os_8h_a13486ff663cb08fdb257eeeca3be0639}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T}) \hyperlink{kmp__gsupport_8c_ac602364a2be0864f88f1f945971929f4}{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E}, \hyperlink{kmp__gsupport_8c_afbe808cc913abbf9bcebfcbe35d65885}{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_aa74c80ebb0a0eb64bcd229556ab2cd8e}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+unsigned \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a93ed2d6bf5afa4c6453320a4285132a8}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T} (unsigned \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count})
+\item 
+unsigned \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a3dafe578e19bd21eba7e4060bf2e0bd6}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a3aeb69357a594b349099585a7313b173}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, unsigned num\-\_\-threads, unsigned \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ae9b40b53f2324e1200cb4e58dfd6fa8f}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a9958d6762003d363e366a7416d95e839}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a653adc8cfd38b093192b5fee6eda9fa7}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a8ea26d6a9f53092f9d6c5db78bb5d02c}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, unsigned num\-\_\-threads, unsigned \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} flags)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a9d9659af608b2688bf01a0f394a2fbcd}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, unsigned num\-\_\-threads, unsigned \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count}, unsigned flags)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a610482e3b93f2c7979d27b755b6c5751}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_af297d0658ec21d57d6f54b6f4321bddf}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+static kmp\-\_\-int32 \hyperlink{kmp__gsupport_8c_a1c14c12d3f8c148aca348705938ceea0}{\-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} gomp\-\_\-kind)
+\item 
+bool \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a2a7a38c650459e7aef4f58c9590f052c}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} which)
+\item 
+bool \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a0c4c2612e6c91c2312ef6627d3ff47e3}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+bool \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_aea0c81d77b1045e8703e73876ee4bdb2}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} which, bool do\-\_\-cancel)
+\item 
+bool \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ab50ca6c812f87f906ae6cd8f76097cd1}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+bool \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a2a733261a2f59f36b1ff130422163a18}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_aaa29c0cccc3b8e6d7fa7bd6c30f3e354}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} device, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void}($\ast$\hyperlink{ittnotify__static_8h_a4da9f78418848eb6658704b4e8aa4aa7}{fn})(\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$), const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$openmp\-\_\-target, size\-\_\-t mapnum, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$hostaddrs, size\-\_\-t $\ast$sizes, unsigned char $\ast$kinds)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_ae13a4f29998e16ba227023d27becf261}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} device, const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$openmp\-\_\-target, size\-\_\-t mapnum, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$hostaddrs, size\-\_\-t $\ast$sizes, unsigned char $\ast$kinds)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_adf82c71447f8262ab59d319017afb383}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A} (\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_acd57fefac4961a74264e409998e077b1}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E} (\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} device, const \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$openmp\-\_\-target, size\-\_\-t mapnum, \hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} $\ast$$\ast$hostaddrs, size\-\_\-t $\ast$sizes, unsigned char $\ast$kinds)
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}() \hyperlink{kmp__gsupport_8c_a0267e389a665f5febe11482ebf466b7a}{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S} (unsigned \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} num\-\_\-teams, unsigned \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} thread\-\_\-limit)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\-\_\-critical\-\_\-name} $\ast$ \hyperlink{kmp__gsupport_8c_ac009b39cb58dcc66959cd28a2e5c06b8}{\-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}}
+\index{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-fini\-\_\-chunk\-\_\-8}}\label{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}
+
+
+Definition at line 234 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by L\-O\-O\-P\-\_\-\-N\-E\-X\-T().
+
+\hypertarget{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}}
+\index{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-fini\-\_\-chunk\-\_\-8u}}\label{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}
+
+
+Definition at line 239 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L().
+
+\hypertarget{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T}}
+\index{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-init\-\_\-8}}\label{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}
+
+
+Definition at line 233 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T().
+
+\hypertarget{kmp__gsupport_8c_a8bf04ba227ad9a704bc5222be0d49a5e}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L}}
+\index{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-I\-N\-I\-T\-\_\-\-U\-L\-L~\-\_\-\-\_\-kmp\-\_\-aux\-\_\-dispatch\-\_\-init\-\_\-8u}}\label{kmp__gsupport_8c_a8bf04ba227ad9a704bc5222be0d49a5e}
+
+
+Definition at line 238 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T}}
+\index{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T~{\bf \-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-next\-\_\-8}}}\label{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}
+
+
+Definition at line 235 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T().
+
+\hypertarget{kmp__gsupport_8c_a8a1dd6d77c8ea25cb18d703079c1f7cc}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}}
+\index{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L~{\bf \-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-next\-\_\-8u}}}\label{kmp__gsupport_8c_a8a1dd6d77c8ea25cb18d703079c1f7cc}
+
+
+Definition at line 240 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_a17969a4e6b33f91a187cbc4ff7c606ff}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-N\-E\-X\-T@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}}
+\index{L\-O\-O\-P\-\_\-\-N\-E\-X\-T@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-O\-P\-\_\-\-N\-E\-X\-T(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{fini\-\_\-code}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a17969a4e6b33f91a187cbc4ff7c606ff}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} func(\textcolor{keywordtype}{long} *p\_lb, \textcolor{keywordtype}{long} *p\_ub)                                         \(\backslash\)
+    \{                                                                        \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                          \(\backslash\)
+        long stride;                                                         \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();                                         
+      \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{\(\backslash\)}
+\hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{        MKLOC}(loc, #func);                                                   
+      \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{": T#%d\(\backslash\)n"}, gtid));                             \(\backslash\)
+                                                                             \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{\(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{        fini\_code                                                            \(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{        status} = \hyperlink{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{KMP\_DISPATCH\_NEXT}(&loc, gtid, NULL, (
+      \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)p\_lb,        \(\backslash\)
+          (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)p\_ub, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)&stride);                              \(\backslash\)
+        if (status) \{                                                        \(\backslash\)
+            *p\_ub += (stride > 0) ? 1 : -1;                                  \(\backslash\)
+        \}                                                                    \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{                                                                             \(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{" exit: T#%d, *p\_lb 0x%lx, *p\_ub 0x%lx, stride 0x%lx, "}  \(\backslash\)
+          \textcolor{stringliteral}{"returning %d\(\backslash\)n"}, gtid, *p\_lb, *p\_ub, stride, status));            \(\backslash\)
+        return \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                       \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 666 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_ac025ecb36fa3bac0021670dde10b3c1b}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}}
+\index{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{fini\-\_\-code}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ac025ecb36fa3bac0021670dde10b3c1b}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} func(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} *p\_lb, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} *p\_ub)             \(\backslash\)
+    \{                                                                        \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                          \(\backslash\)
+        long \textcolor{keywordtype}{long} stride;                                                    \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();                                         
+      \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{\(\backslash\)}
+\hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{        MKLOC}(loc, #func);                                                   
+      \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{": T#%d\(\backslash\)n"}, gtid));                             \(\backslash\)
+                                                                             \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{\(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{        fini\_code                                                            \(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{        status} = \hyperlink{kmp__gsupport_8c_a8a1dd6d77c8ea25cb18d703079c1f7cc}{KMP\_DISPATCH\_NEXT\_ULL}(&loc, gtid, NULL, (kmp\_uint64 *)
+      p\_lb, \(\backslash\)
+          (kmp\_uint64 *)p\_ub, (kmp\_int64 *)&stride);                         \(\backslash\)
+        if (status) \{                                                        \(\backslash\)
+            *p\_ub += (stride > 0) ? 1 : -1;                                  \(\backslash\)
+        \}                                                                    \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{                                                                             \(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{" exit: T#%d, *p\_lb 0x%llx, *p\_ub 0x%llx, stride 0x%llx, "} \(\backslash\)
+          \textcolor{stringliteral}{"returning %d\(\backslash\)n"}, gtid, *p\_lb, *p\_ub, stride, status));            \(\backslash\)
+        return \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                       \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 806 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_a85dee8a615d59ce664a3bd8a6817f1d4}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T@{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T}}
+\index{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T@{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{schedule}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a85dee8a615d59ce664a3bd8a6817f1d4}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} func (\textcolor{keywordtype}{long} lb, \textcolor{keywordtype}{long} ub, \textcolor{keywordtype}{long} \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, \textcolor{keywordtype}{long} *p\_lb, \textcolor{keywordtype}{long} *p\_ub)            \(\backslash\)
+    \{                                                                        \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                          \(\backslash\)
+        long stride;                                                         \(\backslash\)
+        long chunk\_sz = 0;                                                   \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();                                       
+      \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{\(\backslash\)}
+\hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{        MKLOC}(loc, #func);                                                   
+      \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{": T#%d, lb 0x%lx, ub 0x%lx, str 0x%lx, chunk\_sz %d\(\backslash\)n"},  \(\backslash\)
+          gtid, lb, ub, \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, chunk\_sz ));                                    \(\backslash\)
+                                                                             \(\backslash\)
+        if ((\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} > 0) ? (lb < ub) : (lb > ub)) \{                             
+      \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{\(\backslash\)}
+\hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{            KMP\_DISPATCH\_INIT}(&loc, gtid, (schedule), lb,                    \(\backslash\)
+              (\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} > 0) ? (ub - 1) : (ub + 1), \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, chunk\_sz, \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});         
+      \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{\(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{            status} = \hyperlink{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{KMP\_DISPATCH\_NEXT}(&loc, gtid, NULL, (
+      \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)p\_lb,    \(\backslash\)
+              (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)p\_ub, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)&stride);                          \(\backslash\)
+            if (status) \{                                                    \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{                KMP\_DEBUG\_ASSERT}(stride == \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str});                        
+           \(\backslash\)
+                *p\_ub += (\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} > 0) ? 1 : -1;                                 \(\backslash\)
+            \}                                                                \(\backslash\)
+        \}                                                                    \(\backslash\)
+        else \{                                                               \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{\(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{            status} = 0;                                                      \(\backslash\)
+        \}                                                                    \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{                                                                             \(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{" exit: T#%d, *p\_lb 0x%lx, *p\_ub 0x%lx, returning %d\(\backslash\)n"}, \(\backslash\)
+          gtid, *p\_lb, *p\_ub, status));                                      \(\backslash\)
+        return \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                       \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 635 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_ac84d96cafd9e3480758b9607b63192b5}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}}
+\index{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-O\-P\-\_\-\-R\-U\-N\-T\-I\-M\-E\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{schedule}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ac84d96cafd9e3480758b9607b63192b5}
+
+
+Definition at line 771 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_a742aa696685e5abe9c8ecf0afaa2fb1c}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T@{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}}
+\index{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T@{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{schedule}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a742aa696685e5abe9c8ecf0afaa2fb1c}
+{\bfseries Value\-:}
+\begin{DoxyCode}
+\textcolor{keywordtype}{int} func (\textcolor{keywordtype}{long} lb, \textcolor{keywordtype}{long} ub, \textcolor{keywordtype}{long} \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, \textcolor{keywordtype}{long} chunk\_sz, \textcolor{keywordtype}{long} *p\_lb,         \(\backslash\)
+      \textcolor{keywordtype}{long} *p\_ub)                                                            \(\backslash\)
+    \{                                                                        \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                          \(\backslash\)
+        long stride;                                                         \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{\(\backslash\)}
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{        int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();                                       
+      \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{\(\backslash\)}
+\hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{        MKLOC}(loc, #func);                                                   
+      \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{": T#%d, lb 0x%lx, ub 0x%lx, str 0x%lx, chunk\_sz 0x%lx\(\backslash\)n"},  \(\backslash\)
+          gtid, lb, ub, \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, chunk\_sz ));                                    \(\backslash\)
+                                                                             \(\backslash\)
+        if ((\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} > 0) ? (lb < ub) : (lb > ub)) \{                             
+      \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{\(\backslash\)}
+\hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{            KMP\_DISPATCH\_INIT}(&loc, gtid, (schedule), lb,                    \(\backslash\)
+              (\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} > 0) ? (ub - 1) : (ub + 1), \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str}, chunk\_sz,                \(\backslash\)
+              (schedule) != \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea2a987351b9605b918693a17d4dd90772}{kmp\_sch\_static});                                 
+      \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{\(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{            status} = \hyperlink{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{KMP\_DISPATCH\_NEXT}(&loc, gtid, NULL, (
+      \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)p\_lb,    \(\backslash\)
+              (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)p\_ub, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} *)&stride);                          \(\backslash\)
+            if (status) \{                                                    \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{                KMP\_DEBUG\_ASSERT}(stride == \hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str});                        
+           \(\backslash\)
+                *p\_ub += (\hyperlink{kmp__ftn__os_8h_a8269f97b2652fc717949a982d7b4f02a}{str} > 0) ? 1 : -1;                                 \(\backslash\)
+            \}                                                                \(\backslash\)
+        \}                                                                    \(\backslash\)
+        else \{                                                               \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{\(\backslash\)}
+\hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{            status} = 0;                                                      \(\backslash\)
+        \}                                                                    \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{\(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{                                                                             \(\backslash\)}
+\hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{        KA\_TRACE}(20, ( #func \textcolor{stringliteral}{" exit: T#%d, *p\_lb 0x%lx, *p\_ub 0x%lx, returning %d\(\backslash\)n"}, \(\backslash\)
+          gtid, *p\_lb, *p\_ub, status));                                      \(\backslash\)
+        return \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};                                                       \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 603 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_aa3a460e12a76b333efde6432f1b5e9d1}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}}
+\index{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T\-\_\-\-U\-L\-L(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{schedule}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_aa3a460e12a76b333efde6432f1b5e9d1}
+
+
+Definition at line 736 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!M\-K\-L\-O\-C@{M\-K\-L\-O\-C}}
+\index{M\-K\-L\-O\-C@{M\-K\-L\-O\-C}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{M\-K\-L\-O\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\-K\-L\-O\-C(
+\begin{DoxyParamCaption}
+\item[{}]{loc, }
+\item[{}]{routine}
+\end{DoxyParamCaption}
+)~static {\bf ident\-\_\-t} (loc) = \{0, {\bf K\-M\-P\-\_\-\-I\-D\-E\-N\-T\-\_\-\-K\-M\-P\-C}, 0, 0, \char`\"{};unknown;{\bf unknown};0;0;;\char`\"{} \};}}\label{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}
+
+
+Definition at line 27 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T(), and P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T().
+
+\hypertarget{kmp__gsupport_8c_afbe808cc913abbf9bcebfcbe35d65885}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T@{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T}}
+\index{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T@{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_afbe808cc913abbf9bcebfcbe35d65885}
+
+
+Definition at line 911 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_ac602364a2be0864f88f1f945971929f4}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E@{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E}}
+\index{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E@{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ac602364a2be0864f88f1f945971929f4}
+
+
+Definition at line 909 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_a4afd24d7b676b831e4094b9d5b1866a1}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P@{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P}}
+\index{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P@{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{schedule}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a4afd24d7b676b831e4094b9d5b1866a1}
+
+
+Definition at line 1216 of file kmp\-\_\-gsupport.\-c.
+
+\hypertarget{kmp__gsupport_8c_a771b4ff1105e8df76c4d65af887fbc44}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T@{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}}
+\index{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T@{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T(
+\begin{DoxyParamCaption}
+\item[{}]{func, }
+\item[{}]{schedule, }
+\item[{}]{ompt\-\_\-pre, }
+\item[{}]{ompt\-\_\-post}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a771b4ff1105e8df76c4d65af887fbc44}
+
+
+Definition at line 857 of file kmp\-\_\-gsupport.\-c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call}}
+\index{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{{\bf int}}]{gtid, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{unwrapped\-\_\-task, }
+\item[{{\bf microtask\-\_\-t}}]{wrapper, }
+\item[{{\bf int}}]{argc, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}
+
+
+Definition at line 339 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T().
+
+
+\begin{DoxyCode}
+340 \{
+341     \textcolor{keywordtype}{int} rc;
+342     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid];
+343     \hyperlink{unionkmp__team}{kmp\_team\_t} *team = thr->th.th\_team;
+344     \textcolor{keywordtype}{int} tid = \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}(gtid);
+345 
+346     va\_list ap;
+347     va\_start(ap, argc);
+348 
+349     rc = \hyperlink{kmp_8h_afa300d153a7fea1038d2cdc72db06498}{\_\_kmp\_fork\_call}(loc, gtid, \hyperlink{kmp_8h_a49ed6f7454c18058b488af399cadd8e0a58c5bad04e427f0063bb39d20405a18c}{fork\_context\_gnu}, argc,
+350 #\textcolor{keywordflow}{if} OMPT\_SUPPORT
+351       \hyperlink{kmp__os_8h_aaa9e2fb88f003bd3a22795aadf723e53}{VOLATILE\_CAST}(\textcolor{keywordtype}{void} *) unwrapped\_task,
+352 #endif
+353       wrapper, \hyperlink{kmp_8h_ac3c18dacc189c300ca06e4ab033fc211}{\_\_kmp\_invoke\_task\_func},
+354 #\textcolor{keywordflow}{if} (\hyperlink{kmp__platform_8h_a4bbc822bf311c981aab5b1704c1566ab}{KMP\_ARCH\_X86\_64} || KMP\_ARCH\_ARM || \hyperlink{kmp__platform_8h_ac8a9f5686f72dd943400cd0e44eea79e}{KMP\_ARCH\_AARCH64}) && 
+      \hyperlink{kmp__platform_8h_a08355ecda6b7d50d12e62476c0727cba}{KMP\_OS\_LINUX}
+355       &ap
+356 #\textcolor{keywordflow}{else}
+357       ap
+358 #endif
+359       );
+360 
+361     va\_end(ap);
+362 
+363     \textcolor{keywordflow}{if} (rc) \{
+364         \hyperlink{kmp_8h_a2b2e7087eea1ede7973094294abaac82}{\_\_kmp\_run\_before\_invoked\_task}(gtid, tid, thr, team);
+365     \}
+366 
+367 \textcolor{preprocessor}{#if OMPT\_SUPPORT }
+368 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+369 \textcolor{preprocessor}{#if OMPT\_TRACE}
+370 \textcolor{preprocessor}{}        \hyperlink{structompt__team__info__t}{ompt\_team\_info\_t} *team\_info = \hyperlink{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\_\_ompt\_get\_teaminfo}(0, NULL);
+371         \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *task\_info = \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(0);
+372 
+373         \textcolor{comment}{// implicit task callback}
+374         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_implicit\_task\_begin)) \{
+375             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_implicit\_task\_begin)(
+376                 team\_info->\hyperlink{structompt__team__info__t_aea8969d8ca37577c35b466c675a7a241}{parallel\_id}, task\_info->\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id});
+377         \}
+378 \textcolor{preprocessor}{#endif}
+379 \textcolor{preprocessor}{}        thr->th.ompt\_thread\_info.state = ompt\_state\_work\_parallel;
+380     \}
+381 \textcolor{preprocessor}{#endif}
+382 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a650066ce97a45906cae6e5b0a8ee5c6c}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper}}
+\index{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper (
+\begin{DoxyParamCaption}
+\item[{{\bf int} $\ast$}]{gtid, }
+\item[{{\bf int} $\ast$}]{npr, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__gsupport_8c_a650066ce97a45906cae6e5b0a8ee5c6c}
+
+
+Definition at line 251 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T().
+
+
+\begin{DoxyCode}
+253 \{
+254 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+255 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr;
+256     ompt\_frame\_t *ompt\_frame;
+257     ompt\_state\_t enclosing\_state;
+258 
+259     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+260         \textcolor{comment}{// get pointer to thread data structure}
+261         thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[*gtid];
+262 
+263         \textcolor{comment}{// save enclosing task state; set current state for task}
+264         enclosing\_state = thr->th.ompt\_thread\_info.state;
+265         thr->th.ompt\_thread\_info.state = ompt\_state\_work\_parallel;
+266 
+267         \textcolor{comment}{// set task frame}
+268         ompt\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(0);
+269         ompt\_frame->exit\_runtime\_frame = \_\_builtin\_frame\_address(0);
+270     \}
+271 \textcolor{preprocessor}{#endif}
+272 \textcolor{preprocessor}{}
+273     \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}(\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+274 
+275 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+276 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+277         \textcolor{comment}{// clear task frame}
+278         ompt\_frame->exit\_runtime\_frame = NULL;
+279 
+280         \textcolor{comment}{// restore enclosing state}
+281         thr->th.ompt\_thread\_info.state = enclosing\_state;
+282     \}
+283 \textcolor{preprocessor}{#endif}
+284 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ac161ad38af9e2565382e6a38c693ac5b}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper}}
+\index{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper (
+\begin{DoxyParamCaption}
+\item[{{\bf int} $\ast$}]{gtid, }
+\item[{{\bf int} $\ast$}]{npr, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task, }
+\item[{{\bf void} $\ast$}]{data, }
+\item[{unsigned}]{num\-\_\-threads, }
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{enum {\bf sched\-\_\-type}}]{schedule, }
+\item[{long}]{start, }
+\item[{long}]{end, }
+\item[{long}]{incr, }
+\item[{long}]{chunk\-\_\-size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__gsupport_8c_ac161ad38af9e2565382e6a38c693ac5b}
+
+
+Definition at line 291 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T().
+
+
+\begin{DoxyCode}
+294 \{
+295     \textcolor{comment}{//}
+296     \textcolor{comment}{// Intialize the loop worksharing construct.}
+297     \textcolor{comment}{//}
+298     \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{KMP\_DISPATCH\_INIT}(loc, *gtid, schedule, start, end, incr, chunk\_size,
+299       schedule != \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea2a987351b9605b918693a17d4dd90772}{kmp\_sch\_static});
+300 
+301 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+302 \textcolor{preprocessor}{}    \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr;
+303     ompt\_frame\_t *ompt\_frame;
+304     ompt\_state\_t enclosing\_state;
+305 
+306     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+307         thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[*gtid];
+308         \textcolor{comment}{// save enclosing task state; set current state for task}
+309         enclosing\_state = thr->th.ompt\_thread\_info.state;
+310         thr->th.ompt\_thread\_info.state = ompt\_state\_work\_parallel;
+311 
+312         \textcolor{comment}{// set task frame}
+313         ompt\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(0);
+314         ompt\_frame->exit\_runtime\_frame = \_\_builtin\_frame\_address(0);
+315     \}
+316 \textcolor{preprocessor}{#endif}
+317 \textcolor{preprocessor}{}
+318     \textcolor{comment}{//}
+319     \textcolor{comment}{// Now invoke the microtask.}
+320     \textcolor{comment}{//}
+321     \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}(\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+322 
+323 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+324 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+325         \textcolor{comment}{// clear task frame}
+326         ompt\_frame->exit\_runtime\_frame = NULL;
+327 
+328         \textcolor{comment}{// reset enclosing state}
+329         thr->th.ompt\_thread\_info.state = enclosing\_state;
+330     \}
+331 \textcolor{preprocessor}{#endif}
+332 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel}}
+\index{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel@{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc, }
+\item[{kmp\-\_\-int32}]{gtid, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}
+
+
+Definition at line 385 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T().
+
+
+\begin{DoxyCode}
+386 \{
+387 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+388 \textcolor{preprocessor}{}    ompt\_parallel\_id\_t ompt\_parallel\_id;
+389     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+390         \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *task\_info = \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(0);
+391         task\_info->\hyperlink{structompt__task__info__t_ab4b3a1c10b649c40015c133ea25fc3ae}{frame}.exit\_runtime\_frame = NULL;
+392 
+393         ompt\_parallel\_id = \hyperlink{ompt-specific_8c_a541d97d3f1e1d09a459326dd60c630ce}{\_\_ompt\_parallel\_id\_new}(gtid);
+394 
+395         \textcolor{comment}{// parallel region callback}
+396         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_parallel\_begin)) \{
+397             \textcolor{keywordtype}{int} team\_size = 1;
+398             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_parallel\_begin)(
+399                 task\_info->\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id}, &task\_info->\hyperlink{structompt__task__info__t_ab4b3a1c10b649c40015c133ea25fc3ae}{frame}, ompt\_parallel\_id,
+400                 team\_size, (\textcolor{keywordtype}{void} *) \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task},
+401                 \hyperlink{ompt-internal_8h_a0afe14fdda6f1478f12e6dd2e754e3af}{OMPT\_INVOKER}(\hyperlink{kmp_8h_a49ed6f7454c18058b488af399cadd8e0a58c5bad04e427f0063bb39d20405a18c}{fork\_context\_gnu}));
+402         \}
+403     \}
+404 \textcolor{preprocessor}{#endif}
+405 \textcolor{preprocessor}{}
+406     \hyperlink{kmp_8h_ae2668589b9fe28c0a1e48b02a09c3c05}{\_\_kmp\_serialized\_parallel}(loc, gtid);
+407 
+408 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+409 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+410         \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid];
+411 
+412         ompt\_task\_id\_t my\_ompt\_task\_id = \hyperlink{ompt-specific_8c_a00dc76b44da40dee97e27a16c472e0ca}{\_\_ompt\_task\_id\_new}(gtid);
+413 
+414         \textcolor{comment}{// set up lightweight task}
+415         \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *lwt = (\hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *)
+416             \hyperlink{kmp_8h_aa6a69b47037dcffbfc5dba21a4a64d85}{\_\_kmp\_allocate}(\textcolor{keyword}{sizeof}(\hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t}));
+417         \hyperlink{ompt-specific_8c_aa3b1a660dbaf7d2a72732e1eebc4d3db}{\_\_ompt\_lw\_taskteam\_init}(lwt, thr, gtid, (\textcolor{keywordtype}{void} *) 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}, ompt\_parallel\_id);
+418         lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id} = my\_ompt\_task\_id;
+419         lwt->\hyperlink{structompt__lw__taskteam__s_aef7e0a0307d5b34644ddaa0cc7e9ba46}{ompt\_task\_info}.\hyperlink{structompt__task__info__t_ab4b3a1c10b649c40015c133ea25fc3ae}{frame}.exit\_runtime\_frame = 0;
+420         \hyperlink{ompt-specific_8c_a3272fe5fad9706e746997b6c6aa55458}{\_\_ompt\_lw\_taskteam\_link}(lwt, thr);
+421 
+422 \textcolor{preprocessor}{#if OMPT\_TRACE}
+423 \textcolor{preprocessor}{}        \textcolor{comment}{// implicit task callback}
+424         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_implicit\_task\_begin)) \{
+425             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_implicit\_task\_begin)(
+426                 ompt\_parallel\_id, my\_ompt\_task\_id);
+427         \}
+428         thr->th.ompt\_thread\_info.state = ompt\_state\_work\_parallel;
+429 \textcolor{preprocessor}{#endif}
+430 \textcolor{preprocessor}{}    \}
+431 \textcolor{preprocessor}{#endif}
+432 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a1c14c12d3f8c148aca348705938ceea0}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!\-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind@{\-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind}}
+\index{\-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind@{\-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind}]{\setlength{\rightskip}{0pt plus 5cm}static kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-gomp\-\_\-to\-\_\-omp\-\_\-cancellation\-\_\-kind (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{gomp\-\_\-kind}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{kmp__gsupport_8c_a1c14c12d3f8c148aca348705938ceea0}
+
+
+Definition at line 1283 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T().
+
+
+\begin{DoxyCode}
+1283                                                              \{
+1284     kmp\_int32 cncl\_kind = 0;
+1285     \textcolor{keywordflow}{switch}(gomp\_kind) \{
+1286       \textcolor{keywordflow}{case} 1:
+1287         cncl\_kind = \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea1045e4eac24d7f88e6d33eccf0306f2b}{cancel\_parallel};
+1288         \textcolor{keywordflow}{break};
+1289       \textcolor{keywordflow}{case} 2:
+1290         cncl\_kind = \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfeada4da4664c4bbf94fb131afd4ffd8103}{cancel\_loop};
+1291         \textcolor{keywordflow}{break};
+1292       \textcolor{keywordflow}{case} 4:
+1293         cncl\_kind = \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea9b90a503fb3a137363ac89ecef5d2bb0}{cancel\_sections};
+1294         \textcolor{keywordflow}{break};
+1295       \textcolor{keywordflow}{case} 8:
+1296         cncl\_kind = \hyperlink{kmp_8h_a7346f2e741ade19c05b63e57099c7cfea73957fef18a0edabb0c00e633a8271d8}{cancel\_taskgroup};
+1297         \textcolor{keywordflow}{break};
+1298     \}
+1299     \textcolor{keywordflow}{return} cncl\_kind;
+1300 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a29d6eedfb70dfdee5851e1a88ae5d12a}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a29d6eedfb70dfdee5851e1a88ae5d12a}
+
+
+Definition at line 120 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+121 \{
+122     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+123     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_atomic\_start: T#%d\(\backslash\)n"}, gtid));
+124     \hyperlink{kmp__atomic_8h_afacb1baa28f835a1e7111a011becef8b}{\_\_kmp\_release\_atomic\_lock}(&\hyperlink{kmp__atomic_8c_a917d5d190ec8786b54a79e041d2f916a}{\_\_kmp\_atomic\_lock}, gtid);
+125 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ac0b1de93408487ebcbf99ab7810f8986}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-A\-T\-O\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ac0b1de93408487ebcbf99ab7810f8986}
+
+
+Definition at line 106 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+107 \{
+108     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+109     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_atomic\_start: T#%d\(\backslash\)n"}, gtid));
+110 
+111 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+112 \textcolor{preprocessor}{}    \hyperlink{ompt-specific_8c_a0d15ff86baf709cfb2701472bf0acf8b}{\_\_ompt\_thread\_assign\_wait\_id}(0);
+113 \textcolor{preprocessor}{#endif}
+114 \textcolor{preprocessor}{}
+115     \hyperlink{kmp__atomic_8h_ac1be0a9c351089f703c564012b5d4b2f}{\_\_kmp\_acquire\_atomic\_lock}(&\hyperlink{kmp__atomic_8c_a917d5d190ec8786b54a79e041d2f916a}{\_\_kmp\_atomic\_lock}, gtid);
+116 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_aeda68f7b2abfa6b176e9b479f315c662}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_aeda68f7b2abfa6b176e9b479f315c662}
+
+
+Definition at line 33 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+34 \{
+35     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+36     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_barrier"});
+37     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_barrier: T#%d\(\backslash\)n"}, gtid));
+38     \hyperlink{group__SYNCHRONIZATION_ga84b2ebeef737395dddd8ef446c071760}{\_\_kmpc\_barrier}(&loc, gtid);
+39 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a0c4c2612e6c91c2312ef6627d3ff47e3}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a0c4c2612e6c91c2312ef6627d3ff47e3}
+
+
+Definition at line 1318 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1319 \{
+1320     \textcolor{keywordflow}{if}(\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+1321         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(NoGompCancellation);
+1322     \}
+1323     \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(NoGompCancellation);
+1324     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1325     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_barrier\_cancel"});
+1326     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_barrier\_cancel: T#%d\(\backslash\)n"}, gtid));
+1327 
+1328     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a04e465fc7082c9a0061a4cc4e958976f}{\_\_kmpc\_cancel\_barrier}(&loc, gtid);
+1329 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_aea0c81d77b1045e8703e73876ee4bdb2}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{which, }
+\item[{bool}]{do\-\_\-cancel}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_aea0c81d77b1045e8703e73876ee4bdb2}
+
+
+Definition at line 1332 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1333 \{
+1334     \textcolor{keywordflow}{if}(\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+1335         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(NoGompCancellation);
+1336     \} \textcolor{keywordflow}{else} \{
+1337         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1338     \}
+1339 
+1340     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1341     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_cancel"});
+1342     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_cancel: T#%d\(\backslash\)n"}, gtid));
+1343 
+1344     kmp\_int32 cncl\_kind = \hyperlink{kmp__gsupport_8c_a1c14c12d3f8c148aca348705938ceea0}{\_\_kmp\_gomp\_to\_omp\_cancellation\_kind}(which);
+1345 
+1346     \textcolor{keywordflow}{if}(do\_cancel == \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) \{
+1347         \textcolor{keywordflow}{return} \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__gsupport_8c_a2a7a38c650459e7aef4f58c9590f052c}{KMP\_API\_NAME\_GOMP\_CANCELLATION\_POINT})(
+      which);
+1348     \} \textcolor{keywordflow}{else} \{
+1349         \textcolor{keywordflow}{return} \hyperlink{kmp_8h_ab093577459ebc72eecd045496232dae2}{\_\_kmpc\_cancel}(&loc, gtid, cncl\_kind);
+1350     \}
+1351 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a2a7a38c650459e7aef4f58c9590f052c}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{which}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a2a7a38c650459e7aef4f58c9590f052c}
+
+
+Definition at line 1303 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L().
+
+
+\begin{DoxyCode}
+1304 \{
+1305     \textcolor{keywordflow}{if}(\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+1306         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(NoGompCancellation);
+1307     \}
+1308     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1309     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_cancellation\_point"});
+1310     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_cancellation\_point: T#%d\(\backslash\)n"}, gtid));
+1311 
+1312     kmp\_int32 cncl\_kind = \hyperlink{kmp__gsupport_8c_a1c14c12d3f8c148aca348705938ceea0}{\_\_kmp\_gomp\_to\_omp\_cancellation\_kind}(which);
+1313 
+1314     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_ad3103650aa1062bbcaa8680b90434e28}{\_\_kmpc\_cancellationpoint}(&loc, gtid, cncl\_kind);
+1315 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a9cc08f7e18fab00b4de06d251d57cebc}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a9cc08f7e18fab00b4de06d251d57cebc}
+
+
+Definition at line 70 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+71 \{
+72     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+73     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_critical\_end"});
+74     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_critical\_end: T#%d\(\backslash\)n"}, gtid));
+75     \hyperlink{group__WORK__SHARING_ga134f0e9d82a69403d9e167dbbf7ae731}{\_\_kmpc\_end\_critical}(&loc, gtid, 
+      \hyperlink{kmp__gsupport_8c_ac009b39cb58dcc66959cd28a2e5c06b8}{\_\_kmp\_unnamed\_critical\_addr});
+76 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_afa3bd47fb2bb3325c305bfcaf93c4270}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$$\ast$}]{pptr}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_afa3bd47fb2bb3325c305bfcaf93c4270}
+
+
+Definition at line 90 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+91 \{
+92     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+93     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_critical\_name\_end"});
+94     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_critical\_name\_end: T#%d\(\backslash\)n"}, gtid));
+95     \hyperlink{group__WORK__SHARING_ga134f0e9d82a69403d9e167dbbf7ae731}{\_\_kmpc\_end\_critical}(&loc, gtid, (\hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\_critical\_name} *)pptr);
+96 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a1015f72b0fe1faca54802ee0c2c7cdef}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-N\-A\-M\-E\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$$\ast$}]{pptr}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a1015f72b0fe1faca54802ee0c2c7cdef}
+
+
+Definition at line 80 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+81 \{
+82     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+83     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_critical\_name\_start"});
+84     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_critical\_name\_start: T#%d\(\backslash\)n"}, gtid));
+85     \hyperlink{group__WORK__SHARING_gafc4e7d07089576fe946c42777ef191cc}{\_\_kmpc\_critical}(&loc, gtid, (\hyperlink{kmp_8h_ac3fc9c92929f696709b178ffe0854839}{kmp\_critical\_name} *)pptr);
+86 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_addfc71b7b5b0b39ff1078d5377b02a06}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-R\-I\-T\-I\-C\-A\-L\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_addfc71b7b5b0b39ff1078d5377b02a06}
+
+
+Definition at line 60 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+61 \{
+62     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+63     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_critical\_start"});
+64     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_critical\_start: T#%d\(\backslash\)n"}, gtid));
+65     \hyperlink{group__WORK__SHARING_gafc4e7d07089576fe946c42777ef191cc}{\_\_kmpc\_critical}(&loc, gtid, \hyperlink{kmp__gsupport_8c_ac009b39cb58dcc66959cd28a2e5c06b8}{\_\_kmp\_unnamed\_critical\_addr});
+66 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ad63f3a4f2da003b35ddbc0d465c9419e}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ad63f3a4f2da003b35ddbc0d465c9419e}
+
+
+Definition at line 712 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+713 \{
+714     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+715     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_loop\_end: T#%d\(\backslash\)n"}, gtid))
+716 
+717     \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}(\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, NULL, NULL);
+718 
+719     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, ("GOMP\_loop\_end exit: T\textcolor{preprocessor}{#%d\(\backslash\)n", gtid))}
+720 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a2a733261a2f59f36b1ff130422163a18}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a2a733261a2f59f36b1ff130422163a18}
+
+
+Definition at line 1367 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1368 \{
+1369     \textcolor{keywordflow}{if}(\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+1370         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(NoGompCancellation);
+1371     \}
+1372     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1373     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_loop\_end\_cancel"});
+1374     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_loop\_end\_cancel: T#%d\(\backslash\)n"}, gtid));
+1375 
+1376     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a04e465fc7082c9a0061a4cc4e958976f}{\_\_kmpc\_cancel\_barrier}(&loc, gtid);
+1377 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a7b7b3c87fca694ace6c7697c4d50a01c}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a7b7b3c87fca694ace6c7697c4d50a01c}
+
+
+Definition at line 724 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+725 \{
+726     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_loop\_end\_nowait: T#%d\(\backslash\)n"}, \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}()))
+727 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a10334add12c0673b7473667b1a9ee3ac}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a10334add12c0673b7473667b1a9ee3ac}
+
+
+Definition at line 212 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+213 \{
+214     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+215     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_ordered\_end"});
+216     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_ordered\_start: T#%d\(\backslash\)n"}, gtid));
+217     \hyperlink{group__WORK__SHARING_ga06dfab09153c455fcaa609e97846b0d5}{\_\_kmpc\_end\_ordered}(&loc, gtid);
+218 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ab56c691cc53a72d1954f7b9147fdedca}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ab56c691cc53a72d1954f7b9147fdedca}
+
+
+Definition at line 202 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+203 \{
+204     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+205     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_ordered\_start"});
+206     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_ordered\_start: T#%d\(\backslash\)n"}, gtid));
+207     \hyperlink{group__WORK__SHARING_gada4a8fc8b0a17d3109acdeaf2c9443ea}{\_\_kmpc\_ordered}(&loc, gtid);
+208 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a8ea26d6a9f53092f9d6c5db78bb5d02c}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task, }
+\item[{{\bf void} $\ast$}]{data, }
+\item[{unsigned}]{num\-\_\-threads, }
+\item[{unsigned {\bf int}}]{flags}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a8ea26d6a9f53092f9d6c5db78bb5d02c}
+
+
+Definition at line 1162 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1163 \{
+1164     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+1165     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_parallel"});
+1166     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel: T#%d\(\backslash\)n"}, gtid));
+1167 
+1168     \textcolor{keywordflow}{if} (\hyperlink{group__DEPRECATED_ga27292e41af4c26e0bdf45b12b1f76d5a}{\_\_kmpc\_ok\_to\_fork}(&loc) && (num\_threads != 1)) \{
+1169         \textcolor{keywordflow}{if} (num\_threads != 0) \{
+1170             \hyperlink{kmp_8h_a5566c62260a489d12940e22f834ccda1}{\_\_kmp\_push\_num\_threads}(&loc, gtid, num\_threads);
+1171         \}
+1172         \textcolor{keywordflow}{if}(flags != 0) \{
+1173             \hyperlink{kmp_8h_abaf4b010de81892f2d8e8946959f7595}{\_\_kmp\_push\_proc\_bind}(&loc, gtid, (
+      \hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241}{kmp\_proc\_bind\_t})flags);
+1174         \}
+1175         \hyperlink{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}{\_\_kmp\_GOMP\_fork\_call}(&loc, gtid, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task},
+1176           (\hyperlink{kmp__os_8h_a390eabec74d95ed005fb6979992598c8}{microtask\_t})\hyperlink{kmp__gsupport_8c_a650066ce97a45906cae6e5b0a8ee5c6c}{\_\_kmp\_GOMP\_microtask\_wrapper}, 2, 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+1177     \}
+1178     \textcolor{keywordflow}{else} \{
+1179         \hyperlink{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}{\_\_kmp\_GOMP\_serialized\_parallel}(&loc, gtid, 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task});
+1180     \}
+1181     \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}(\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+1182     \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__gsupport_8c_abb9cc0403374162970e62cf66e7911a4}{KMP\_API\_NAME\_GOMP\_PARALLEL\_END})();
+1183 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_abb9cc0403374162970e62cf66e7911a4}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_abb9cc0403374162970e62cf66e7911a4}
+
+
+Definition at line 472 of file kmp\-\_\-gsupport.\-c.
+
+
+
+Referenced by K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S().
+
+
+\begin{DoxyCode}
+473 \{
+474     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+475     \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thr;
+476 
+477     thr = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[gtid];
+478 
+479     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_parallel\_end"});
+480     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel\_end: T#%d\(\backslash\)n"}, gtid));
+481 
+482 
+483 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+484 \textcolor{preprocessor}{}    ompt\_parallel\_id\_t parallel\_id;
+485     ompt\_frame\_t *ompt\_frame = NULL;
+486 
+487     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+488         \hyperlink{structompt__team__info__t}{ompt\_team\_info\_t} *team\_info = \hyperlink{ompt-specific_8c_a89edd4fa7a424dfc144f73cedde5116c}{\_\_ompt\_get\_teaminfo}(0, NULL);
+489         parallel\_id = team\_info->\hyperlink{structompt__team__info__t_aea8969d8ca37577c35b466c675a7a241}{parallel\_id};
+490 
+491         \textcolor{comment}{// Record that we re-entered the runtime system in the implicit}
+492         \textcolor{comment}{// task frame representing the parallel region. }
+493         ompt\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(0);
+494         ompt\_frame->reenter\_runtime\_frame = \_\_builtin\_frame\_address(0);
+495 
+496 \textcolor{preprocessor}{#if OMPT\_TRACE}
+497 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled} &&
+498             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_implicit\_task\_end)) \{
+499             \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *task\_info = \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(0);
+500             \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_implicit\_task\_end)(
+501                 parallel\_id, task\_info->\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id});
+502         \}
+503 \textcolor{preprocessor}{#endif}
+504 \textcolor{preprocessor}{}
+505         \textcolor{comment}{// unlink if necessary. no-op if there is not a lightweight task.}
+506         \hyperlink{structompt__lw__taskteam__s}{ompt\_lw\_taskteam\_t} *lwt = \hyperlink{ompt-specific_8c_a08e5e3e94237b2bf04a271d942936eef}{\_\_ompt\_lw\_taskteam\_unlink}(thr)
+      ;
+507         \textcolor{comment}{// GOMP allocates/frees lwt since it can't be kept on the stack}
+508         \textcolor{keywordflow}{if} (lwt) \{ 
+509            \hyperlink{kmp_8h_a052396231429341ba56a7c1ceacbaa2f}{\_\_kmp\_free}(lwt);
+510      
+511 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+512 \textcolor{preprocessor}{}           \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+513               \textcolor{comment}{// Since a lightweight task was destroyed, make sure that the}
+514               \textcolor{comment}{// remaining deepest task knows the stack frame where the runtime }
+515               \textcolor{comment}{// was reentered.}
+516               ompt\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(0);
+517               ompt\_frame->reenter\_runtime\_frame = \_\_builtin\_frame\_address(0);
+518            \}
+519 \textcolor{preprocessor}{#endif}
+520 \textcolor{preprocessor}{}        \}
+521     \}
+522 \textcolor{preprocessor}{#endif}
+523 \textcolor{preprocessor}{}
+524     \textcolor{keywordflow}{if} (! thr->th.th\_team->t.t\_serialized) \{
+525         \hyperlink{kmp_8h_a99118650304b0dbf1c8fc131d3a60d5f}{\_\_kmp\_run\_after\_invoked\_task}(gtid, 
+      \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}(gtid), thr,
+526           thr->th.th\_team);
+527 
+528 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+529 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+530           \textcolor{comment}{// Set reenter frame in parent task, which will become current task}
+531           \textcolor{comment}{// in the midst of join. This is needed before the end\_parallel callback.}
+532           ompt\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(1);
+533           ompt\_frame->reenter\_runtime\_frame = \_\_builtin\_frame\_address(0);
+534         \}
+535 \textcolor{preprocessor}{#endif}
+536 \textcolor{preprocessor}{}
+537         \hyperlink{kmp_8h_af45697be4d0911858cc91b3aa826d7bf}{\_\_kmp\_join\_call}(&loc, gtid
+538 #\textcolor{keywordflow}{if} OMPT\_SUPPORT
+539             , \hyperlink{kmp_8h_a49ed6f7454c18058b488af399cadd8e0a58c5bad04e427f0063bb39d20405a18c}{fork\_context\_gnu}
+540 #endif
+541         );
+542 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+543 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+544           ompt\_frame->reenter\_runtime\_frame = NULL;
+545         \}
+546 \textcolor{preprocessor}{#endif}
+547 \textcolor{preprocessor}{}    \}
+548     \textcolor{keywordflow}{else} \{
+549         \hyperlink{group__PARALLEL_gac341818e68b06d910111e4cf08bb54dd}{\_\_kmpc\_end\_serialized\_parallel}(&loc, gtid);
+550 
+551 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+552 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+553             \textcolor{comment}{// Record that we re-entered the runtime system in the frame that }
+554             \textcolor{comment}{// created the parallel region.}
+555             ompt\_frame->reenter\_runtime\_frame = \_\_builtin\_frame\_address(0);
+556 
+557             \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_parallel\_end)) \{
+558                 \hyperlink{structompt__task__info__t}{ompt\_task\_info\_t} *task\_info = 
+      \hyperlink{ompt-specific_8c_a31168da811886ba5fef353af949900b3}{\_\_ompt\_get\_taskinfo}(0);
+559                 \hyperlink{ompt-general_8c_a84a29d89cef82c7c38e1ee1f70ec994f}{ompt\_callbacks}.ompt\_callback(ompt\_event\_parallel\_end)(
+560                     parallel\_id, task\_info->\hyperlink{structompt__task__info__t_a9b45ec47bd1086973892108a3a71e6fe}{task\_id}, 
+561                     \hyperlink{ompt-internal_8h_a0afe14fdda6f1478f12e6dd2e754e3af}{OMPT\_INVOKER}(\hyperlink{kmp_8h_a49ed6f7454c18058b488af399cadd8e0a58c5bad04e427f0063bb39d20405a18c}{fork\_context\_gnu}));
+562             \}
+563 
+564             ompt\_frame->reenter\_runtime\_frame = NULL;
+565 
+566             thr->th.ompt\_thread\_info.state =
+567                 (((thr->th.th\_team)->t.t\_serialized) ?
+568                 ompt\_state\_work\_serial : ompt\_state\_work\_parallel);
+569         \}
+570 \textcolor{preprocessor}{#endif}
+571 \textcolor{preprocessor}{}    \}
+572 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a9d9659af608b2688bf01a0f394a2fbcd}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S (
+\begin{DoxyParamCaption}
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task, }
+\item[{{\bf void} $\ast$}]{data, }
+\item[{unsigned}]{num\-\_\-threads, }
+\item[{unsigned}]{count, }
+\item[{unsigned}]{flags}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a9d9659af608b2688bf01a0f394a2fbcd}
+
+
+Definition at line 1186 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1188 \{
+1189     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+1190     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_parallel\_sections"});
+1191     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel\_sections: T#%d\(\backslash\)n"}, gtid));
+1192 
+1193     \textcolor{keywordflow}{if} (\hyperlink{group__DEPRECATED_ga27292e41af4c26e0bdf45b12b1f76d5a}{\_\_kmpc\_ok\_to\_fork}(&loc) && (num\_threads != 1)) \{
+1194         \textcolor{keywordflow}{if} (num\_threads != 0) \{
+1195             \hyperlink{kmp_8h_a5566c62260a489d12940e22f834ccda1}{\_\_kmp\_push\_num\_threads}(&loc, gtid, num\_threads);
+1196         \}
+1197         \textcolor{keywordflow}{if}(flags != 0) \{
+1198             \hyperlink{kmp_8h_abaf4b010de81892f2d8e8946959f7595}{\_\_kmp\_push\_proc\_bind}(&loc, gtid, (
+      \hyperlink{kmp_8h_ae587debf3f0331e4f824daa05f47a241}{kmp\_proc\_bind\_t})flags);
+1199         \}
+1200         \hyperlink{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}{\_\_kmp\_GOMP\_fork\_call}(&loc, gtid, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task},
+1201           (\hyperlink{kmp__os_8h_a390eabec74d95ed005fb6979992598c8}{microtask\_t})\hyperlink{kmp__gsupport_8c_ac161ad38af9e2565382e6a38c693ac5b}{\_\_kmp\_GOMP\_parallel\_microtask\_wrapper}
+      , 9, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data},
+1202           num\_threads, &loc, \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81beae094bd7e7136ed99324ed078105e20fa}{kmp\_nm\_dynamic\_chunked}, (
+      \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})1,
+1203           (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})\hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count}, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})1, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})1);
+1204     \}
+1205     \textcolor{keywordflow}{else} \{
+1206         \hyperlink{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}{\_\_kmp\_GOMP\_serialized\_parallel}(&loc, gtid, 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task});
+1207     \}
+1208 
+1209     \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{KMP\_DISPATCH\_INIT}(&loc, gtid, \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81beae094bd7e7136ed99324ed078105e20fa}{kmp\_nm\_dynamic\_chunked}, 1, count, 
+      1, 1, \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1210 
+1211     \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}(\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+1212     \hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__gsupport_8c_abb9cc0403374162970e62cf66e7911a4}{KMP\_API\_NAME\_GOMP\_PARALLEL\_END})();
+1213     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel\_sections exit: T#%d\(\backslash\)n"}, gtid));
+1214 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a3aeb69357a594b349099585a7313b173}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task, }
+\item[{{\bf void} $\ast$}]{data, }
+\item[{unsigned}]{num\-\_\-threads, }
+\item[{unsigned}]{count}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a3aeb69357a594b349099585a7313b173}
+
+
+Definition at line 1091 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1093 \{
+1094     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+1095 
+1096 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+1097 \textcolor{preprocessor}{}    ompt\_frame\_t *parent\_frame;
+1098 
+1099     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+1100         parent\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(0);
+1101         parent\_frame->reenter\_runtime\_frame = \_\_builtin\_frame\_address(0);
+1102     \}
+1103 \textcolor{preprocessor}{#endif}
+1104 \textcolor{preprocessor}{}
+1105     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_parallel\_sections\_start"});
+1106     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel\_sections\_start: T#%d\(\backslash\)n"}, gtid));
+1107 
+1108     \textcolor{keywordflow}{if} (\hyperlink{group__DEPRECATED_ga27292e41af4c26e0bdf45b12b1f76d5a}{\_\_kmpc\_ok\_to\_fork}(&loc) && (num\_threads != 1)) \{
+1109         \textcolor{keywordflow}{if} (num\_threads != 0) \{
+1110             \hyperlink{kmp_8h_a5566c62260a489d12940e22f834ccda1}{\_\_kmp\_push\_num\_threads}(&loc, gtid, num\_threads);
+1111         \}
+1112         \hyperlink{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}{\_\_kmp\_GOMP\_fork\_call}(&loc, gtid, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task},
+1113           (\hyperlink{kmp__os_8h_a390eabec74d95ed005fb6979992598c8}{microtask\_t})\hyperlink{kmp__gsupport_8c_ac161ad38af9e2565382e6a38c693ac5b}{\_\_kmp\_GOMP\_parallel\_microtask\_wrapper}
+      , 9, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data},
+1114           num\_threads, &loc, \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81beae094bd7e7136ed99324ed078105e20fa}{kmp\_nm\_dynamic\_chunked}, (
+      \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})1,
+1115           (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})\hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count}, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})1, (\hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int})1);
+1116     \}
+1117     \textcolor{keywordflow}{else} \{
+1118         \hyperlink{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}{\_\_kmp\_GOMP\_serialized\_parallel}(&loc, gtid, 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task});
+1119     \}
+1120 
+1121 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+1122 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+1123         parent\_frame->reenter\_runtime\_frame = NULL;
+1124     \}
+1125 \textcolor{preprocessor}{#endif}
+1126 \textcolor{preprocessor}{}
+1127     \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{KMP\_DISPATCH\_INIT}(&loc, gtid, \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81beae094bd7e7136ed99324ed078105e20fa}{kmp\_nm\_dynamic\_chunked}, 1, count, 
+      1, 1, \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1128 
+1129     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel\_sections\_start exit: T#%d\(\backslash\)n"}, gtid));
+1130 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a2814b1fbdf146631f0f51ed27767acea}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{task, }
+\item[{{\bf void} $\ast$}]{data, }
+\item[{unsigned}]{num\-\_\-threads}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a2814b1fbdf146631f0f51ed27767acea}
+
+
+Definition at line 436 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+437 \{
+438     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+439 
+440 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+441 \textcolor{preprocessor}{}    ompt\_frame\_t *parent\_frame;
+442 
+443     \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+444         parent\_frame = \hyperlink{ompt-specific_8c_af8e9ca4aa0c4492074f01f5c67f6da51}{\_\_ompt\_get\_task\_frame\_internal}(0);
+445         parent\_frame->reenter\_runtime\_frame = \_\_builtin\_frame\_address(0);
+446     \}
+447 \textcolor{preprocessor}{#endif}
+448 \textcolor{preprocessor}{}
+449     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_parallel\_start"});
+450     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_parallel\_start: T#%d\(\backslash\)n"}, gtid));
+451 
+452     \textcolor{keywordflow}{if} (\hyperlink{group__DEPRECATED_ga27292e41af4c26e0bdf45b12b1f76d5a}{\_\_kmpc\_ok\_to\_fork}(&loc) && (num\_threads != 1)) \{
+453         \textcolor{keywordflow}{if} (num\_threads != 0) \{
+454             \hyperlink{kmp_8h_a5566c62260a489d12940e22f834ccda1}{\_\_kmp\_push\_num\_threads}(&loc, gtid, num\_threads);
+455         \}
+456         \hyperlink{kmp__gsupport_8c_a8c228e95c41695c4afc26b6faee5c776}{\_\_kmp\_GOMP\_fork\_call}(&loc, gtid, \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task},
+457           (\hyperlink{kmp__os_8h_a390eabec74d95ed005fb6979992598c8}{microtask\_t})\hyperlink{kmp__gsupport_8c_a650066ce97a45906cae6e5b0a8ee5c6c}{\_\_kmp\_GOMP\_microtask\_wrapper}, 2, 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+458     \}
+459     \textcolor{keywordflow}{else} \{
+460         \hyperlink{kmp__gsupport_8c_a392d224e8085e044615821cfb718a520}{\_\_kmp\_GOMP\_serialized\_parallel}(&loc, gtid, 
+      \hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task});
+461     \}
+462 
+463 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+464 \textcolor{preprocessor}{}    \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+465         parent\_frame->reenter\_runtime\_frame = NULL;
+466     \}
+467 \textcolor{preprocessor}{#endif}
+468 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ae9b40b53f2324e1200cb4e58dfd6fa8f}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ae9b40b53f2324e1200cb4e58dfd6fa8f}
+
+
+Definition at line 1134 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1135 \{
+1136     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1137     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_end: T#%d\(\backslash\)n"}, gtid))
+1138 
+1139     \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}(\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, NULL, NULL);
+1140 
+1141     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, ("GOMP\_sections\_end exit: T\textcolor{preprocessor}{#%d\(\backslash\)n", gtid))}
+1142 \textcolor{preprocessor}{}\}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ab50ca6c812f87f906ae6cd8f76097cd1}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ab50ca6c812f87f906ae6cd8f76097cd1}
+
+
+Definition at line 1354 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1355 \{
+1356     \textcolor{keywordflow}{if}(\hyperlink{kmp_8h_a44033de9713edf20b0c77706153df1d2}{\_\_kmp\_omp\_cancellation}) \{
+1357         \hyperlink{kmp__i18n_8h_aaa06fec585285ef7883baea41bfd948f}{KMP\_FATAL}(NoGompCancellation);
+1358     \}
+1359     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1360     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_sections\_end\_cancel"});
+1361     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_end\_cancel: T#%d\(\backslash\)n"}, gtid));
+1362 
+1363     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a04e465fc7082c9a0061a4cc4e958976f}{\_\_kmpc\_cancel\_barrier}(&loc, gtid);
+1364 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a9958d6762003d363e366a7416d95e839}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-N\-O\-W\-A\-I\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a9958d6762003d363e366a7416d95e839}
+
+
+Definition at line 1146 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1147 \{
+1148     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_end\_nowait: T#%d\(\backslash\)n"}, \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}()))
+1149 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a3dafe578e19bd21eba7e4060bf2e0bd6}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-N\-E\-X\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a3dafe578e19bd21eba7e4060bf2e0bd6}
+
+
+Definition at line 1066 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1067 \{
+1068     \textcolor{keywordtype}{int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};
+1069     \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} lb, ub, stride;
+1070     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1071     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_sections\_next"});
+1072     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_next: T#%d\(\backslash\)n"}, gtid));
+1073 
+1074     status = \hyperlink{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{KMP\_DISPATCH\_NEXT}(&loc, gtid, NULL, &lb, &ub, &stride);
+1075     \textcolor{keywordflow}{if} (status) \{
+1076         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(stride == 1);
+1077         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(lb > 0);
+1078         \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}(lb == ub);
+1079     \}
+1080     \textcolor{keywordflow}{else} \{
+1081         lb = 0;
+1082     \}
+1083 
+1084     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_next exit: T#%d returning %u\(\backslash\)n"}, gtid,
+1085       (\textcolor{keywordtype}{unsigned})lb));
+1086     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{unsigned})lb;
+1087 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a93ed2d6bf5afa4c6453320a4285132a8}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{count}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a93ed2d6bf5afa4c6453320a4285132a8}
+
+
+Definition at line 1039 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1040 \{
+1041     \textcolor{keywordtype}{int} \hyperlink{kmp__i18n_8c_a43c2a109a79fef7e46a0836cdac679ff}{status};
+1042     \hyperlink{kmp__os_8h_ac9a328de59a88510e5ad674ab2ab8c1d}{kmp\_int} lb, ub, stride;
+1043     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+1044     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_sections\_start"});
+1045     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_start: T#%d\(\backslash\)n"}, gtid));
+1046 
+1047     \hyperlink{kmp__gsupport_8c_a94a2d99ddef43ca7a504a84162f25d5a}{KMP\_DISPATCH\_INIT}(&loc, gtid, \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81beae094bd7e7136ed99324ed078105e20fa}{kmp\_nm\_dynamic\_chunked}, 1, 
+      \hyperlink{ittnotify__static_8h_a9da14338c9c3be6f21c41cf4ec79eaf1}{count}, 1, 1, \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1048 
+1049     status = \hyperlink{kmp__gsupport_8c_a70910ed0486919990dda01e029659aa3}{KMP\_DISPATCH\_NEXT}(&loc, gtid, NULL, &lb, &ub, &stride);
+1050     \textcolor{keywordflow}{if} (status) \{
+1051         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(stride == 1);
+1052         \hyperlink{kmp__debug_8h_ad766efc30e33e28634691088e80cdf08}{KMP\_DEBUG\_ASSERT}(lb > 0);
+1053         \hyperlink{kmp__debug_8h_a5323a368e8ba273b17c46906dd9ec78c}{KMP\_ASSERT}(lb == ub);
+1054     \}
+1055     \textcolor{keywordflow}{else} \{
+1056         lb = 0;
+1057     \}
+1058 
+1059     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_sections\_start exit: T#%d returning %u\(\backslash\)n"}, gtid,
+1060       (\textcolor{keywordtype}{unsigned})lb));
+1061     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{unsigned})lb;
+1062 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_aa08b6543697574c81544f0620b8627ae}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_aa08b6543697574c81544f0620b8627ae}
+
+
+Definition at line 183 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+184 \{
+185     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+186     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_single\_copy\_end: T#%d\(\backslash\)n"}, gtid));
+187 
+188     \textcolor{comment}{//}
+189     \textcolor{comment}{// Set the copyprivate data pointer fo the team, then hit the barrier}
+190     \textcolor{comment}{// so that the other threads will continue on and read it.  Hit another}
+191     \textcolor{comment}{// barrier before continuing, so that the know that the copyprivate}
+192     \textcolor{comment}{// data pointer has been propagated to all threads before trying to}
+193     \textcolor{comment}{// reuse the t\_copypriv\_data field.}
+194     \textcolor{comment}{//}
+195     \hyperlink{kmp_8h_a44712b8a86bcc5e3bd49981e5bb3ce6c}{\_\_kmp\_team\_from\_gtid}(gtid)->t.t\_copypriv\_data = \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data};
+196     \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}(\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, NULL, NULL);
+197     \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}(\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, NULL, NULL);
+198 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a8eaded5afea3dbb230984ba411ce2b50}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a8eaded5afea3dbb230984ba411ce2b50}
+
+
+Definition at line 148 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+149 \{
+150     \textcolor{keywordtype}{void} *retval;
+151     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+152     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_single\_copy\_start"});
+153     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_single\_copy\_start: T#%d\(\backslash\)n"}, gtid));
+154 
+155     \textcolor{keywordflow}{if} (! \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_aa23ece0d05f38387c8a8441aaad368df}{\_\_kmp\_init\_parallel}))
+156         \hyperlink{kmp_8h_a9c18846c648d84276b9dd5a1d650ab04}{\_\_kmp\_parallel\_initialize}();
+157 
+158     \textcolor{comment}{//}
+159     \textcolor{comment}{// If this is the first thread to enter, return NULL.  The generated}
+160     \textcolor{comment}{// code will then call GOMP\_single\_copy\_end() for this thread only,}
+161     \textcolor{comment}{// with the copyprivate data pointer as an argument.}
+162     \textcolor{comment}{//}
+163     \textcolor{keywordflow}{if} (\hyperlink{kmp_8h_a7c462a6cf8fc9d4a238c3b21234754ea}{\_\_kmp\_enter\_single}(gtid, &loc, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}))
+164         \textcolor{keywordflow}{return} NULL;
+165 
+166     \textcolor{comment}{//}
+167     \textcolor{comment}{// Wait for the first thread to set the copyprivate data pointer,}
+168     \textcolor{comment}{// and for all other threads to reach this point.}
+169     \textcolor{comment}{//}
+170     \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}(\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, NULL, NULL);
+171 
+172     \textcolor{comment}{//}
+173     \textcolor{comment}{// Retrieve the value of the copyprivate data point, and wait for all}
+174     \textcolor{comment}{// threads to do likewise, then return.}
+175     \textcolor{comment}{//}
+176     retval = \hyperlink{kmp_8h_a44712b8a86bcc5e3bd49981e5bb3ce6c}{\_\_kmp\_team\_from\_gtid}(gtid)->t.t\_copypriv\_data;
+177     \hyperlink{kmp_8h_a2db240b744f3af1eb8413df50dbe6118}{\_\_kmp\_barrier}(\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfa364ac8fcf1df87a7d5793a693f2e4051}{bs\_plain\_barrier}, gtid, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, NULL, NULL);
+178     \textcolor{keywordflow}{return} retval;
+179 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ae907dd1067b5d1013c6780966e8e9475}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ae907dd1067b5d1013c6780966e8e9475}
+
+
+Definition at line 129 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+130 \{
+131     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+132     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_single\_start"});
+133     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_single\_start: T#%d\(\backslash\)n"}, gtid));
+134 
+135     \textcolor{keywordflow}{if} (! \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_aa23ece0d05f38387c8a8441aaad368df}{\_\_kmp\_init\_parallel}))
+136         \hyperlink{kmp_8h_a9c18846c648d84276b9dd5a1d650ab04}{\_\_kmp\_parallel\_initialize}();
+137 
+138     \textcolor{comment}{//}
+139     \textcolor{comment}{// 3rd parameter == FALSE prevents kmp\_enter\_single from pushing a}
+140     \textcolor{comment}{// workshare when USE\_CHECKS is defined.  We need to avoid the push,}
+141     \textcolor{comment}{// as there is no corresponding GOMP\_single\_end() call.}
+142     \textcolor{comment}{//}
+143     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_a7c462a6cf8fc9d4a238c3b21234754ea}{\_\_kmp\_enter\_single}(gtid, &loc, \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+144 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_aaa29c0cccc3b8e6d7fa7bd6c30f3e354}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{device, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{fn, }
+\item[{const {\bf void} $\ast$}]{openmp\-\_\-target, }
+\item[{size\-\_\-t}]{mapnum, }
+\item[{{\bf void} $\ast$$\ast$}]{hostaddrs, }
+\item[{size\-\_\-t $\ast$}]{sizes, }
+\item[{unsigned char $\ast$}]{kinds}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_aaa29c0cccc3b8e6d7fa7bd6c30f3e354}
+
+
+Definition at line 1381 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1383 \{
+1384     \textcolor{keywordflow}{return};
+1385 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ae13a4f29998e16ba227023d27becf261}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-D\-A\-T\-A (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{device, }
+\item[{const {\bf void} $\ast$}]{openmp\-\_\-target, }
+\item[{size\-\_\-t}]{mapnum, }
+\item[{{\bf void} $\ast$$\ast$}]{hostaddrs, }
+\item[{size\-\_\-t $\ast$}]{sizes, }
+\item[{unsigned char $\ast$}]{kinds}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ae13a4f29998e16ba227023d27becf261}
+
+
+Definition at line 1388 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1390 \{
+1391     \textcolor{keywordflow}{return};
+1392 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_adf82c71447f8262ab59d319017afb383}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-E\-N\-D\-\_\-\-D\-A\-T\-A (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_adf82c71447f8262ab59d319017afb383}
+
+
+Definition at line 1395 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1396 \{
+1397     \textcolor{keywordflow}{return};
+1398 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_acd57fefac4961a74264e409998e077b1}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-R\-G\-E\-T\-\_\-\-U\-P\-D\-A\-T\-E (
+\begin{DoxyParamCaption}
+\item[{{\bf int}}]{device, }
+\item[{const {\bf void} $\ast$}]{openmp\-\_\-target, }
+\item[{size\-\_\-t}]{mapnum, }
+\item[{{\bf void} $\ast$$\ast$}]{hostaddrs, }
+\item[{size\-\_\-t $\ast$}]{sizes, }
+\item[{unsigned char $\ast$}]{kinds}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_acd57fefac4961a74264e409998e077b1}
+
+
+Definition at line 1401 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1403 \{
+1404     \textcolor{keywordflow}{return};
+1405 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_af297d0658ec21d57d6f54b6f4321bddf}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-E\-N\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_af297d0658ec21d57d6f54b6f4321bddf}
+
+
+Definition at line 1269 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1270 \{
+1271     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1272     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_taskgroup\_end"});
+1273     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_taskgroup\_end: T#%d\(\backslash\)n"}, gtid));
+1274 
+1275     \hyperlink{kmp_8h_a8799247c7eacbd74c7f79dff05991173}{\_\_kmpc\_end\_taskgroup}(&loc, gtid);
+1276 
+1277     \textcolor{keywordflow}{return};
+1278 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a610482e3b93f2c7979d27b755b6c5751}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-G\-R\-O\-U\-P\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a610482e3b93f2c7979d27b755b6c5751}
+
+
+Definition at line 1257 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1258 \{
+1259     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}();
+1260     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_taskgroup\_start"});
+1261     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_taskgroup\_start: T#%d\(\backslash\)n"}, gtid));
+1262 
+1263     \hyperlink{kmp_8h_ab8aefbd591b0ed14a3f7866c1f096fe4}{\_\_kmpc\_taskgroup}(&loc, gtid);
+1264 
+1265     \textcolor{keywordflow}{return};
+1266 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_aa74c80ebb0a0eb64bcd229556ab2cd8e}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-W\-A\-I\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_aa74c80ebb0a0eb64bcd229556ab2cd8e}
+
+
+Definition at line 1012 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1013 \{
+1014     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_taskwait"});
+1015     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+1016 
+1017     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_taskwait: T#%d\(\backslash\)n"}, gtid));
+1018 
+1019     \hyperlink{kmp_8h_a80d0b06bceb49e5111849f8828989ab1}{\_\_kmpc\_omp\_taskwait}(&loc, gtid);
+1020 
+1021     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_taskwait exit: T#%d\(\backslash\)n"}, gtid));
+1022 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a653adc8cfd38b093192b5fee6eda9fa7}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-A\-S\-K\-Y\-I\-E\-L\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a653adc8cfd38b093192b5fee6eda9fa7}
+
+
+Definition at line 1153 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1154 \{
+1155     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_taskyield: T#%d\(\backslash\)n"}, \hyperlink{kmp_8h_ad9b4e1a8a911f57a29a75f7536e5200c}{\_\_kmp\_get\_gtid}()))
+1156     return;
+1157 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a0267e389a665f5febe11482ebf466b7a}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S}}
+\index{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S@{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xexpand}() K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-T\-E\-A\-M\-S (
+\begin{DoxyParamCaption}
+\item[{unsigned {\bf int}}]{num\-\_\-teams, }
+\item[{unsigned {\bf int}}]{thread\-\_\-limit}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a0267e389a665f5febe11482ebf466b7a}
+
+
+Definition at line 1408 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+1409 \{
+1410     \textcolor{keywordflow}{return};
+1411 \}
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_ad9bd1268e3c66e2b82a216fba7102a98}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-N\-E\-X\-T@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}}
+\index{L\-O\-O\-P\-\_\-\-N\-E\-X\-T@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}]{\setlength{\rightskip}{0pt plus 5cm}L\-O\-O\-P\-\_\-\-N\-E\-X\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf xexpand}({\bf K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-T\-I\-C\-\_\-\-N\-E\-X\-T})}]{, }
+\item[{\{{\bf K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}(\&loc, gtid);\}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_ad9bd1268e3c66e2b82a216fba7102a98}
+
+
+Definition at line 698 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+699     \{ \hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{KMP\_DISPATCH\_FINI\_CHUNK}(&loc, gtid); \})
+700 \hyperlink{kmp__gsupport_8c_a742aa696685e5abe9c8ecf0afaa2fb1c}{LOOP\_START}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a708b2ceca149607a62b40332b76f5ebb}{KMP\_API\_NAME\_GOMP\_LOOP\_ORDERED\_DYNAMIC\_START}
+      ), \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea2d8d045432c29059a5dbe9ad3b853218}{kmp\_ord\_dynamic\_chunked})
+701 \hyperlink{kmp__gsupport_8c_a17969a4e6b33f91a187cbc4ff7c606ff}{LOOP\_NEXT}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a46323f9a4599ad961a0c5d6797fdcbe8}{KMP\_API\_NAME\_GOMP\_LOOP\_ORDERED\_DYNAMIC\_NEXT}
+      ), \(\backslash\)
+702     \{ \hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{KMP\_DISPATCH\_FINI\_CHUNK}(&loc, gtid); \})
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_af59e8f83bb8b0a705e47ab2cd0f485fb}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-N\-E\-X\-T@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}}
+\index{L\-O\-O\-P\-\_\-\-N\-E\-X\-T@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-N\-E\-X\-T}]{\setlength{\rightskip}{0pt plus 5cm}L\-O\-O\-P\-\_\-\-N\-E\-X\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf xexpand}({\bf K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-G\-U\-I\-D\-E\-D\-\_\-\-N\-E\-X\-T})}]{, }
+\item[{\{{\bf K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K}(\&loc, gtid);\}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_af59e8f83bb8b0a705e47ab2cd0f485fb}
+
+
+Definition at line 704 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+705     \{ \hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{KMP\_DISPATCH\_FINI\_CHUNK}(&loc, gtid); \})
+706 \hyperlink{kmp__gsupport_8c_a85dee8a615d59ce664a3bd8a6817f1d4}{LOOP\_RUNTIME\_START}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(
+      \hyperlink{kmp__ftn__os_8h_ada32018ee99eda8343bd525eeffb0ad2}{KMP\_API\_NAME\_GOMP\_LOOP\_ORDERED\_RUNTIME\_START}), 
+      \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea31be8b2b08f5b04fe684afe82d40978a}{kmp\_ord\_runtime})
+707 \hyperlink{kmp__gsupport_8c_a17969a4e6b33f91a187cbc4ff7c606ff}{LOOP\_NEXT}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(\hyperlink{kmp__ftn__os_8h_a99010e8ce80252f778e17fa2d6ed0723}{KMP\_API\_NAME\_GOMP\_LOOP\_ORDERED\_RUNTIME\_NEXT}
+      ), \(\backslash\)
+708     \{ \hyperlink{kmp__gsupport_8c_a66e72f8c6f00ea0996bf1e5cd056c9cf}{KMP\_DISPATCH\_FINI\_CHUNK}(&loc, gtid); \})
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a6dff535fcf19f0a91e753319c3996bc8}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}}
+\index{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf xexpand}({\bf K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-U\-L\-L\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-S\-T\-A\-T\-I\-C\-\_\-\-N\-E\-X\-T})}]{, }
+\item[{\{{\bf K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}(\&loc, gtid);\}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a6dff535fcf19f0a91e753319c3996bc8}
+
+
+Definition at line 838 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+839     \{ \hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{KMP\_DISPATCH\_FINI\_CHUNK\_ULL}(&loc, gtid); \})
+840 \hyperlink{kmp__gsupport_8c_aa3a460e12a76b333efde6432f1b5e9d1}{LOOP\_START\_ULL}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(
+      \hyperlink{kmp__ftn__os_8h_a957672d4d2419084c27ac2682395c0dc}{KMP\_API\_NAME\_GOMP\_LOOP\_ULL\_ORDERED\_DYNAMIC\_START}), 
+      \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea2d8d045432c29059a5dbe9ad3b853218}{kmp\_ord\_dynamic\_chunked})
+841 \hyperlink{kmp__gsupport_8c_ac025ecb36fa3bac0021670dde10b3c1b}{LOOP\_NEXT\_ULL}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(
+      \hyperlink{kmp__ftn__os_8h_ab16bac44a62ecaec246a56f570acfec2}{KMP\_API\_NAME\_GOMP\_LOOP\_ULL\_ORDERED\_DYNAMIC\_NEXT}), \(\backslash\)
+842     \{ \hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{KMP\_DISPATCH\_FINI\_CHUNK\_ULL}(&loc, gtid); \})
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a7500c102718535d5a62012e9417753a4}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}}
+\index{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L@{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}L\-O\-O\-P\-\_\-\-N\-E\-X\-T\-\_\-\-U\-L\-L (
+\begin{DoxyParamCaption}
+\item[{{\bf xexpand}({\bf K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-U\-L\-L\-\_\-\-O\-R\-D\-E\-R\-E\-D\-\_\-\-G\-U\-I\-D\-E\-D\-\_\-\-N\-E\-X\-T})}]{, }
+\item[{\{{\bf K\-M\-P\-\_\-\-D\-I\-S\-P\-A\-T\-C\-H\-\_\-\-F\-I\-N\-I\-\_\-\-C\-H\-U\-N\-K\-\_\-\-U\-L\-L}(\&loc, gtid);\}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a7500c102718535d5a62012e9417753a4}
+
+
+Definition at line 844 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+845     \{ \hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{KMP\_DISPATCH\_FINI\_CHUNK\_ULL}(&loc, gtid); \})
+846 \hyperlink{kmp__gsupport_8c_ac84d96cafd9e3480758b9607b63192b5}{LOOP\_RUNTIME\_START\_ULL}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(
+      \hyperlink{kmp__ftn__os_8h_abf969515147da6e4151fc5fb1be4b307}{KMP\_API\_NAME\_GOMP\_LOOP\_ULL\_ORDERED\_RUNTIME\_START}), 
+      \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea31be8b2b08f5b04fe684afe82d40978a}{kmp\_ord\_runtime})
+847 \hyperlink{kmp__gsupport_8c_ac025ecb36fa3bac0021670dde10b3c1b}{LOOP\_NEXT\_ULL}(\hyperlink{kmp__ftn__os_8h_a96af3efaf897a3c5635d95bd7fafd07f}{xexpand}(
+      \hyperlink{kmp__ftn__os_8h_ab7d7263865668a6ce99f57ed6f563f93}{KMP\_API\_NAME\_GOMP\_LOOP\_ULL\_ORDERED\_RUNTIME\_NEXT}), \(\backslash\)
+848     \{ \hyperlink{kmp__gsupport_8c_a432fa15cfd4699d9f302cfa93f6eee3f}{KMP\_DISPATCH\_FINI\_CHUNK\_ULL}(&loc, gtid); \})
+\end{DoxyCode}
+\hypertarget{kmp__gsupport_8c_a1ad8dc305e2f45b1b0c3c45caa2f4822}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T@{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}}
+\index{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T@{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T (
+\begin{DoxyParamCaption}
+\item[{{\bf xexpand}({\bf K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-T\-I\-C\-\_\-\-S\-T\-A\-R\-T})}]{, }
+\item[{{\bf kmp\-\_\-sch\-\_\-static}}]{, }
+\item[{P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T(({\bf K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-\_\-\-S\-T\-A\-R\-T})}]{O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-R\-E, }
+\item[{{\bf O\-M\-P\-T\-\_\-\-L\-O\-O\-P\-\_\-\-P\-O\-S\-T}}]{}
+\end{DoxyParamCaption}
+)}}\label{kmp__gsupport_8c_a1ad8dc305e2f45b1b0c3c45caa2f4822}
+
+
+Definition at line 916 of file kmp\-\_\-gsupport.\-c.
+
+
+\begin{DoxyCode}
+933 \{
+934     \hyperlink{kmp__gsupport_8c_aa7894b0a88f4bfd6891f6e7b1c5bda5c}{MKLOC}(loc, \textcolor{stringliteral}{"GOMP\_task"});
+935     \textcolor{keywordtype}{int} gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+936     kmp\_int32 flags = 0;
+937     \hyperlink{structkmp__tasking__flags}{kmp\_tasking\_flags\_t} *input\_flags = (\hyperlink{structkmp__tasking__flags}{kmp\_tasking\_flags\_t} *) & 
+      flags;
+938 
+939     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_task: T#%d\(\backslash\)n"}, gtid));
+940 
+941     \textcolor{comment}{// The low-order bit is the "tied" flag}
+942     \textcolor{keywordflow}{if} (gomp\_flags & 1) \{
+943         input\_flags->\hyperlink{structkmp__tasking__flags_a896a40bab626e74a4824539d1605d176}{tiedness} = 1;
+944     \}
+945     \textcolor{comment}{// The second low-order bit is the "final" flag}
+946     \textcolor{keywordflow}{if} (gomp\_flags & 2) \{
+947         input\_flags->\hyperlink{structkmp__tasking__flags_adc49b76236bc45b6c68457f8e81230b7}{final} = 1;
+948     \}
+949     input\_flags->\hyperlink{structkmp__tasking__flags_a6e26667bc33ef72a60338aaf00497f3a}{native} = 1;
+950     \textcolor{comment}{// \_\_kmp\_task\_alloc() sets up all other flags}
+951 
+952     \textcolor{keywordflow}{if} (! if\_cond) \{
+953         arg\_size = 0;
+954     \}
+955 
+956     \hyperlink{structkmp__task}{kmp\_task\_t} *\hyperlink{ittnotify__static_8h_aed9673d42c4239c5498e39aad80df904}{task} = \hyperlink{kmp_8h_a7a0441f3fc01669f2f7f2c2954f77bdb}{\_\_kmp\_task\_alloc}(&loc, gtid, input\_flags,
+957       \textcolor{keyword}{sizeof}(\hyperlink{structkmp__task}{kmp\_task\_t}), arg\_size ? arg\_size + arg\_align - 1 : 0,
+958       (\hyperlink{group__BASIC__TYPES_ga76e21422ff9984d9bafd0b36277ae115}{kmp\_routine\_entry\_t})func);
+959 
+960     \textcolor{keywordflow}{if} (arg\_size > 0) \{
+961         \textcolor{keywordflow}{if} (arg\_align > 0) \{
+962             task->\hyperlink{structkmp__task_ad0e726e6cc9b1f0200ef55def8edb2da}{shareds} = (\textcolor{keywordtype}{void} *)((((\textcolor{keywordtype}{size\_t})task->\hyperlink{structkmp__task_ad0e726e6cc9b1f0200ef55def8edb2da}{shareds})
+963               + arg\_align - 1) / arg\_align * arg\_align);
+964         \}
+965         \textcolor{comment}{//else error??}
+966 
+967         \textcolor{keywordflow}{if} (copy\_func) \{
+968             (*copy\_func)(task->\hyperlink{structkmp__task_ad0e726e6cc9b1f0200ef55def8edb2da}{shareds}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+969         \}
+970         \textcolor{keywordflow}{else} \{
+971             \hyperlink{kmp__safe__c__api_8h_ab63a75e8bb537bb3ae55c05d0a3b7ca0}{KMP\_MEMCPY}(task->\hyperlink{structkmp__task_ad0e726e6cc9b1f0200ef55def8edb2da}{shareds}, \hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data}, arg\_size);
+972         \}
+973     \}
+974 
+975     \textcolor{keywordflow}{if} (if\_cond) \{
+976         \hyperlink{kmp_8h_a20ebccf65c2c8bd7217807c714a98b11}{\_\_kmpc\_omp\_task}(&loc, gtid, task);
+977     \}
+978     \textcolor{keywordflow}{else} \{
+979 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+980 \textcolor{preprocessor}{}        \hyperlink{structompt__thread__info__t}{ompt\_thread\_info\_t} oldInfo;
+981         \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\_info\_t} *thread;
+982         \hyperlink{structkmp__taskdata}{kmp\_taskdata\_t} *taskdata;
+983         \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+984             \textcolor{comment}{// Store the threads states and restore them after the task}
+985             thread = \hyperlink{kmp_8h_a8ba907eb5a2568ff55a49a1504cd3624}{\_\_kmp\_threads}[ gtid ];
+986             taskdata = \hyperlink{kmp_8h_a7996bdfd391438365a93a3c7fba1c440}{KMP\_TASK\_TO\_TASKDATA}(task);
+987             oldInfo = thread->th.ompt\_thread\_info;
+988             thread->th.ompt\_thread\_info.\hyperlink{structompt__thread__info__t_a8655f45d3e0fe40c28f0a49076a560c3}{wait\_id} = 0;
+989             thread->th.ompt\_thread\_info.state = ompt\_state\_work\_parallel;
+990             taskdata->ompt\_task\_info.frame.exit\_runtime\_frame =
+991                 \_\_builtin\_frame\_address(0);
+992         \}
+993 \textcolor{preprocessor}{#endif}
+994 \textcolor{preprocessor}{}
+995         \hyperlink{kmp_8h_a91e0b52a3e985ce86ad4919c8159bc57}{\_\_kmpc\_omp\_task\_begin\_if0}(&loc, gtid, task);
+996         func(\hyperlink{ittnotify__static_8h_ae4b7aa9cddc8e1ade7c67ed7e338b18f}{data});
+997         \hyperlink{kmp_8h_a76fd152d7a00547cbb96823d4fe287ed}{\_\_kmpc\_omp\_task\_complete\_if0}(&loc, gtid, task);
+998 
+999 \textcolor{preprocessor}{#if OMPT\_SUPPORT}
+1000 \textcolor{preprocessor}{}        \textcolor{keywordflow}{if} (\hyperlink{ompt-general_8c_a966b31b6d05f79f5495f8d8e71732f68}{ompt\_enabled}) \{
+1001             thread->th.ompt\_thread\_info = oldInfo;
+1002             taskdata->ompt\_task\_info.frame.exit\_runtime\_frame = 0;
+1003         \}
+1004 \textcolor{preprocessor}{#endif}
+1005 \textcolor{preprocessor}{}    \}
+1006 
+1007     \hyperlink{kmp__debug_8h_a21d51f37cb197aca5ffe737531678830}{KA\_TRACE}(20, (\textcolor{stringliteral}{"GOMP\_task exit: T#%d\(\backslash\)n"}, gtid));
+1008 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__gsupport_8c_ac009b39cb58dcc66959cd28a2e5c06b8}{\index{kmp\-\_\-gsupport.\-c@{kmp\-\_\-gsupport.\-c}!\-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr@{\-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr}}
+\index{\-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr@{\-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr}!kmp_gsupport.c@{kmp\-\_\-gsupport.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-critical\-\_\-name}$\ast$ \-\_\-\-\_\-kmp\-\_\-unnamed\-\_\-critical\-\_\-addr}}\label{kmp__gsupport_8c_ac009b39cb58dcc66959cd28a2e5c06b8}

@@ -1,0 +1,169 @@
+\hypertarget{group__THREAD__STATES}{\section{Thread Information}
+\label{group__THREAD__STATES}\index{Thread Information@{Thread Information}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga39488769ed881a75703495759c0f109f}{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga127cc7161bbef3ccd2446a9405973192}{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga9a981e3dcd9264c2cf5bd8a8cc6f16af}{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_gadcc691c6c7695988deba68a2de817a66}{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\item 
+kmp\-\_\-int32 \hyperlink{group__THREAD__STATES_ga5c4aad6e2e289283e9c58031f7c4e228}{\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel} (\hyperlink{group__BASIC__TYPES_ga690fda6b92f039a72db263c6b4394ddb}{ident\-\_\-t} $\ast$loc)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+These functions return information about the currently executing thread. 
+
+\subsection{Function Documentation}
+\hypertarget{group__THREAD__STATES_gadcc691c6c7695988deba68a2de817a66}{\index{Thread Information@{Thread Information}!\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads}}
+\index{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads}!Thread Information@{Thread Information}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-bound\-\_\-num\-\_\-threads (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__THREAD__STATES_gadcc691c6c7695988deba68a2de817a66}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & Source location information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of threads in the innermost active parallel construct. 
+\end{DoxyReturn}
+
+
+Definition at line 147 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-N\-U\-M\-\_\-\-T\-H\-R\-E\-A\-D\-S().
+
+
+\begin{DoxyCode}
+148 \{
+149     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_bound\_num\_threads: called\(\backslash\)n"} ) );
+150 
+151     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_ab5c65087a44197c3b69cd133df0d6f85}{\_\_kmp\_entry\_thread}() -> th.th\_team -> t.t\_nproc;
+152 \}
+\end{DoxyCode}
+\hypertarget{group__THREAD__STATES_ga9a981e3dcd9264c2cf5bd8a8cc6f16af}{\index{Thread Information@{Thread Information}!\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num@{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num}}
+\index{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num@{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num}!Thread Information@{Thread Information}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-bound\-\_\-thread\-\_\-num (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__THREAD__STATES_ga9a981e3dcd9264c2cf5bd8a8cc6f16af}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & Source location information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The thread number of the calling thread in the innermost active parallel construct. 
+\end{DoxyReturn}
+
+
+Definition at line 135 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+136 \{
+137     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_bound\_thread\_num: called\(\backslash\)n"} ) );
+138     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_afb8f84fff9682417eb1c484ffbfdc6ee}{\_\_kmp\_tid\_from\_gtid}( \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}() );
+139 \}
+\end{DoxyCode}
+\hypertarget{group__THREAD__STATES_ga127cc7161bbef3ccd2446a9405973192}{\index{Thread Information@{Thread Information}!\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads}}
+\index{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads@{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads}!Thread Information@{Thread Information}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__THREAD__STATES_ga127cc7161bbef3ccd2446a9405973192}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & Source location information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of threads under control of the Open\-M\-P$^{\mbox{$\ast$}}$  runtime
+\end{DoxyReturn}
+This function can be called in any context. It returns the total number of threads under the control of the Open\-M\-P runtime. That is not a number that can be determined by any Open\-M\-P standard calls, since the library may be called from more than one non-\/\-Open\-M\-P thread, and this reflects the total over all such calls. Similarly the runtime maintains underlying threads even when they are not active (since the cost of creating and destroying O\-S threads is high), this call counts all such threads even if they are not waiting for work. 
+
+Definition at line 121 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+122 \{
+123     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_global\_num\_threads: num\_threads = %d\(\backslash\)n"}, 
+      \hyperlink{kmp_8h_a774ce85ac109df119feaca45ed4e69b1}{\_\_kmp\_nth} ) );
+124 
+125     \textcolor{keywordflow}{return} \hyperlink{kmp__os_8h_acd6256e4afba32d90997235fc0a38a74}{TCR\_4}(\hyperlink{kmp_8h_a774ce85ac109df119feaca45ed4e69b1}{\_\_kmp\_nth});
+126 \}
+\end{DoxyCode}
+\hypertarget{group__THREAD__STATES_ga39488769ed881a75703495759c0f109f}{\index{Thread Information@{Thread Information}!\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num@{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num}}
+\index{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num@{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num}!Thread Information@{Thread Information}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-global\-\_\-thread\-\_\-num (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__THREAD__STATES_ga39488769ed881a75703495759c0f109f}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & Source location information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The global thread index of the active thread.
+\end{DoxyReturn}
+This function can be called in any context.
+
+If the runtime has ony been entered at the outermost level from a single (necessarily non-\/\-Open\-M\-P$^{\mbox{$\ast$}}$ ) thread, then the thread number is that which would be returned by omp\-\_\-get\-\_\-thread\-\_\-num() in the outermost active parallel construct. (Or zero if there is no active parallel construct, since the master thread is necessarily thread zero).
+
+If multiple non-\/\-Open\-M\-P threads all enter an Open\-M\-P construct then this will be a unique thread identifier among all the threads created by the Open\-M\-P runtime (but the value cannote be defined in terms of Open\-M\-P thread ids returned by omp\-\_\-get\-\_\-thread\-\_\-num()). 
+
+Definition at line 98 of file kmp\-\_\-csupport.\-c.
+
+
+\begin{DoxyCode}
+99 \{
+100     kmp\_int32 gtid = \hyperlink{kmp_8h_a5d1e6d7c35de87705193f11d65457229}{\_\_kmp\_entry\_gtid}();
+101 
+102     \hyperlink{kmp__debug_8h_ab49eefbf8c74cfe98a90ce7ec8864add}{KC\_TRACE}( 10, (\textcolor{stringliteral}{"\_\_kmpc\_global\_thread\_num: T#%d\(\backslash\)n"}, gtid ) );
+103 
+104     \textcolor{keywordflow}{return} gtid;
+105 \}
+\end{DoxyCode}
+\hypertarget{group__THREAD__STATES_ga5c4aad6e2e289283e9c58031f7c4e228}{\index{Thread Information@{Thread Information}!\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel@{\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel}}
+\index{\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel@{\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel}!Thread Information@{Thread Information}}
+\subsubsection[{\-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmpc\-\_\-in\-\_\-parallel (
+\begin{DoxyParamCaption}
+\item[{{\bf ident\-\_\-t} $\ast$}]{loc}
+\end{DoxyParamCaption}
+)}}\label{group__THREAD__STATES_ga5c4aad6e2e289283e9c58031f7c4e228}
+
+\begin{DoxyParams}{Parameters}
+{\em loc} & Source location information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if this thread is executing inside an active parallel region, zero if not. 
+\end{DoxyReturn}
+
+
+Definition at line 225 of file kmp\-\_\-csupport.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmpc\-\_\-fork\-\_\-call().
+
+
+\begin{DoxyCode}
+226 \{
+227     \textcolor{keywordflow}{return} \hyperlink{kmp_8h_ab5c65087a44197c3b69cd133df0d6f85}{\_\_kmp\_entry\_thread}() -> th.th\_root -> r.r\_active;
+228 \}
+\end{DoxyCode}

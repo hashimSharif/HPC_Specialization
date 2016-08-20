@@ -1,0 +1,178 @@
+\hypertarget{group__frames}{\section{Frames}
+\label{group__frames}\index{Frames@{Frames}}
+}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__frames_ga0f3e51aaf74b13975eec5f29533cc442}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create}~\hyperlink{group__frames_ga8b106f002c9f1ed6e17d5833e8200ff0}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A}
+\item 
+\#define \hyperlink{group__frames_ga45e4c9f633e550e222d510aef5616283}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr}~\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A\-\_\-ptr
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \-\_\-\-\_\-itt\-\_\-frame\-\_\-t $\ast$ \hyperlink{group__frames_gad1b74516ce88dc28bff032244625c7c2}{\-\_\-\-\_\-itt\-\_\-frame}
+\begin{DoxyCompactList}\small\item\em opaque structure for frame identification \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__frames_ga093acc1a6ba76656835ddf17776d7ff3}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3} (const \-\_\-\-\_\-itt\-\_\-domain $\ast$\hyperlink{ittnotify__static_8h_ae4bc3459cfd348603d57d87ede15591b}{domain}, \-\_\-\-\_\-itt\-\_\-id $\ast$\hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id})
+\begin{DoxyCompactList}\small\item\em Begin a frame instance. Successive calls to \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin with the same I\-D are ignored until a call to \-\_\-\-\_\-itt\-\_\-frame\-\_\-end with the same I\-D. \end{DoxyCompactList}\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__frames_ga04806851f8db36359587c111defde4e3}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3} (const \-\_\-\-\_\-itt\-\_\-domain $\ast$\hyperlink{ittnotify__static_8h_ae4bc3459cfd348603d57d87ede15591b}{domain}, \-\_\-\-\_\-itt\-\_\-id $\ast$\hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id})
+\begin{DoxyCompactList}\small\item\em End a frame instance. The first call to \-\_\-\-\_\-itt\-\_\-frame\-\_\-end with a given I\-D ends the frame. Successive calls with the same I\-D are ignored, as are calls that do not have a matching \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin call. \end{DoxyCompactList}\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__frames_ga18b8adc466f67480f699e5caa1889b81}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3} (const \-\_\-\-\_\-itt\-\_\-domain $\ast$\hyperlink{ittnotify__static_8h_ae4bc3459cfd348603d57d87ede15591b}{domain}, \-\_\-\-\_\-itt\-\_\-id $\ast$\hyperlink{ittnotify__static_8h_a9ebeaf6e841ab2e3ed2f92a8850e0c3d}{id}, \hyperlink{ittnotify__static_8h_a4ebf58a692bfd3554b6b888095ea5b64}{\-\_\-\-\_\-itt\-\_\-timestamp} begin, \hyperlink{ittnotify__static_8h_a4ebf58a692bfd3554b6b888095ea5b64}{\-\_\-\-\_\-itt\-\_\-timestamp} end)
+\begin{DoxyCompactList}\small\item\em Submits a frame instance. Successive calls to \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin or \-\_\-\-\_\-itt\-\_\-frame\-\_\-submit with the same I\-D are ignored until a call to \-\_\-\-\_\-itt\-\_\-frame\-\_\-end or \-\_\-\-\_\-itt\-\_\-frame\-\_\-submit with the same I\-D. Passing special \-\_\-\-\_\-itt\-\_\-timestamp\-\_\-none value as \char`\"{}end\char`\"{} argument means take the current timestamp as the end timestamp. \end{DoxyCompactList}\item 
+\hyperlink{group__frames_gad1b74516ce88dc28bff032244625c7c2}{\-\_\-\-\_\-itt\-\_\-frame} I\-T\-T\-A\-P\-I \hyperlink{group__frames_ga8b106f002c9f1ed6e17d5833e8200ff0}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A} (const char $\ast$\hyperlink{ittnotify__static_8h_ae4bc3459cfd348603d57d87ede15591b}{domain})
+\begin{DoxyCompactList}\small\item\em Create a global frame with given domain. \end{DoxyCompactList}\item 
+\hyperlink{group__frames_gad1b74516ce88dc28bff032244625c7c2}{\-\_\-\-\_\-itt\-\_\-frame} I\-T\-T\-A\-P\-I \hyperlink{group__frames_gafced67ce3fdb934507bafaedca2c4ed4}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W} (const wchar\-\_\-t $\ast$\hyperlink{ittnotify__static_8h_ae4bc3459cfd348603d57d87ede15591b}{domain})
+\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__frames_ga270e37da31aa32c8e2fbd0b71247e774}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin} (\hyperlink{group__frames_gad1b74516ce88dc28bff032244625c7c2}{\-\_\-\-\_\-itt\-\_\-frame} \hyperlink{ittnotify__static_8h_af16c2c7e1ae3ca168c49206b9609496b}{frame})
+\begin{DoxyCompactList}\small\item\em Record an frame begin occurrence. \end{DoxyCompactList}\item 
+\hyperlink{ittnotify__static_8h_af941d56e55e3c5465135b60c4d6343ed}{void} I\-T\-T\-A\-P\-I \hyperlink{group__frames_ga2f91556b78eae2fc509127af8db2aba5}{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end} (\hyperlink{group__frames_gad1b74516ce88dc28bff032244625c7c2}{\-\_\-\-\_\-itt\-\_\-frame} \hyperlink{ittnotify__static_8h_af16c2c7e1ae3ca168c49206b9609496b}{frame})
+\begin{DoxyCompactList}\small\item\em Record an frame end occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Frames are similar to regions, but are intended to be easier to use and to implement. In particular\-:
+\begin{DoxyItemize}
+\item Frames always represent periods of elapsed time
+\item By default, frames have no nesting relationships
+\end{DoxyItemize}
+
+Frames group 
+
+\subsection{Macro Definition Documentation}
+\hypertarget{group__frames_ga0f3e51aaf74b13975eec5f29533cc442}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-create@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-itt\-\_\-frame\-\_\-create~{\bf \-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A}}}\label{group__frames_ga0f3e51aaf74b13975eec5f29533cc442}
+
+
+Definition at line 895 of file legacy/ittnotify.\-h.
+
+\hypertarget{group__frames_ga45e4c9f633e550e222d510aef5616283}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}\#define \-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-\_\-ptr~\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A\-\_\-ptr}}\label{group__frames_ga45e4c9f633e550e222d510aef5616283}
+
+
+Definition at line 896 of file legacy/ittnotify.\-h.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{group__frames_gad1b74516ce88dc28bff032244625c7c2}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame@{\-\_\-\-\_\-itt\-\_\-frame}}
+\index{\-\_\-\-\_\-itt\-\_\-frame@{\-\_\-\-\_\-itt\-\_\-frame}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct \-\_\-\-\_\-itt\-\_\-frame\-\_\-t$\ast$ {\bf \-\_\-\-\_\-itt\-\_\-frame}}}\label{group__frames_gad1b74516ce88dc28bff032244625c7c2}
+
+
+opaque structure for frame identification 
+
+
+
+Definition at line 883 of file legacy/ittnotify.\-h.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{group__frames_ga270e37da31aa32c8e2fbd0b71247e774}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin (
+\begin{DoxyParamCaption}
+\item[{{\bf \-\_\-\-\_\-itt\-\_\-frame}}]{frame}
+\end{DoxyParamCaption}
+)}}\label{group__frames_ga270e37da31aa32c8e2fbd0b71247e774}
+
+
+Record an frame begin occurrence. 
+
+\hypertarget{group__frames_ga093acc1a6ba76656835ddf17776d7ff3}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin\-\_\-v3 (
+\begin{DoxyParamCaption}
+\item[{const \-\_\-\-\_\-itt\-\_\-domain $\ast$}]{domain, }
+\item[{\-\_\-\-\_\-itt\-\_\-id $\ast$}]{id}
+\end{DoxyParamCaption}
+)}}\label{group__frames_ga093acc1a6ba76656835ddf17776d7ff3}
+
+
+Begin a frame instance. Successive calls to \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin with the same I\-D are ignored until a call to \-\_\-\-\_\-itt\-\_\-frame\-\_\-end with the same I\-D. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em domain} & The domain for this frame instance \\
+\hline
+\mbox{\tt in}  & {\em id} & The instance I\-D for this frame instance or N\-U\-L\-L \\
+\hline
+\end{DoxyParams}
+\hypertarget{group__frames_ga8b106f002c9f1ed6e17d5833e8200ff0}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-frame} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-A (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{domain}
+\end{DoxyParamCaption}
+)}}\label{group__frames_ga8b106f002c9f1ed6e17d5833e8200ff0}
+
+
+Create a global frame with given domain. 
+
+\hypertarget{group__frames_gafced67ce3fdb934507bafaedca2c4ed4}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-\_\-\-\_\-itt\-\_\-frame} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-create\-W (
+\begin{DoxyParamCaption}
+\item[{const wchar\-\_\-t $\ast$}]{domain}
+\end{DoxyParamCaption}
+)}}\label{group__frames_gafced67ce3fdb934507bafaedca2c4ed4}
+\hypertarget{group__frames_ga2f91556b78eae2fc509127af8db2aba5}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-end@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-end (
+\begin{DoxyParamCaption}
+\item[{{\bf \-\_\-\-\_\-itt\-\_\-frame}}]{frame}
+\end{DoxyParamCaption}
+)}}\label{group__frames_ga2f91556b78eae2fc509127af8db2aba5}
+
+
+Record an frame end occurrence. 
+
+\hypertarget{group__frames_ga04806851f8db36359587c111defde4e3}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-end\-\_\-v3 (
+\begin{DoxyParamCaption}
+\item[{const \-\_\-\-\_\-itt\-\_\-domain $\ast$}]{domain, }
+\item[{\-\_\-\-\_\-itt\-\_\-id $\ast$}]{id}
+\end{DoxyParamCaption}
+)}}\label{group__frames_ga04806851f8db36359587c111defde4e3}
+
+
+End a frame instance. The first call to \-\_\-\-\_\-itt\-\_\-frame\-\_\-end with a given I\-D ends the frame. Successive calls with the same I\-D are ignored, as are calls that do not have a matching \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em domain} & The domain for this frame instance \\
+\hline
+\mbox{\tt in}  & {\em id} & The instance I\-D for this frame instance or N\-U\-L\-L for current \\
+\hline
+\end{DoxyParams}
+\hypertarget{group__frames_ga18b8adc466f67480f699e5caa1889b81}{\index{Frames@{Frames}!\-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3}}
+\index{\-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3@{\-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3}!Frames@{Frames}}
+\subsubsection[{\-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} I\-T\-T\-A\-P\-I \-\_\-\-\_\-itt\-\_\-frame\-\_\-submit\-\_\-v3 (
+\begin{DoxyParamCaption}
+\item[{const \-\_\-\-\_\-itt\-\_\-domain $\ast$}]{domain, }
+\item[{\-\_\-\-\_\-itt\-\_\-id $\ast$}]{id, }
+\item[{{\bf \-\_\-\-\_\-itt\-\_\-timestamp}}]{begin, }
+\item[{{\bf \-\_\-\-\_\-itt\-\_\-timestamp}}]{end}
+\end{DoxyParamCaption}
+)}}\label{group__frames_ga18b8adc466f67480f699e5caa1889b81}
+
+
+Submits a frame instance. Successive calls to \-\_\-\-\_\-itt\-\_\-frame\-\_\-begin or \-\_\-\-\_\-itt\-\_\-frame\-\_\-submit with the same I\-D are ignored until a call to \-\_\-\-\_\-itt\-\_\-frame\-\_\-end or \-\_\-\-\_\-itt\-\_\-frame\-\_\-submit with the same I\-D. Passing special \-\_\-\-\_\-itt\-\_\-timestamp\-\_\-none value as \char`\"{}end\char`\"{} argument means take the current timestamp as the end timestamp. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em domain} & The domain for this frame instance \\
+\hline
+\mbox{\tt in}  & {\em id} & The instance I\-D for this frame instance or N\-U\-L\-L \\
+\hline
+\mbox{\tt in}  & {\em begin} & Timestamp of the beginning of the frame \\
+\hline
+\mbox{\tt in}  & {\em end} & Timestamp of the end of the frame \\
+\hline
+\end{DoxyParams}

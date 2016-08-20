@@ -1,0 +1,1737 @@
+\hypertarget{kmp__global_8c}{\section{kmp\-\_\-global.\-c File Reference}
+\label{kmp__global_8c}\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}}
+}
+{\ttfamily \#include \char`\"{}kmp.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}kmp\-\_\-stats.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kmp__global_8c_ad098027f983e61b37fb367d7d402a93d}{K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T} (sizeof(\hyperlink{kmp_8h_aae6caf584826156e4957a68682e38420}{kmp\-\_\-tasking\-\_\-flags\-\_\-t})==4)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+kmp\-\_\-key\-\_\-t \hyperlink{kmp__global_8c_aae367e473107cb756f7f123b70d62efd}{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key}
+\item 
+\hyperlink{kmp_8h_a8005a40f2bc6af653f4339d249a43b71}{kmp\-\_\-cpuinfo\-\_\-t} \hyperlink{kmp__global_8c_a9f43d4488c8be0593700cc5b778726b9}{\-\_\-\-\_\-kmp\-\_\-cpuinfo} = \{ 0 \}
+\item 
+\hyperlink{kmp__lock_8h_ad7fed30e73035fc66ab6d2c83d310853}{kmp\-\_\-tas\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_a42262d8acf08f12f7bea6affc1673068}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock}
+\item 
+\hyperlink{classkmp__stats__list}{kmp\-\_\-stats\-\_\-list} \hyperlink{kmp__global_8c_a4ce412fd3335747984f4b5d8fa62cb98}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}
+\item 
+\-\_\-\-\_\-thread \hyperlink{classkmp__stats__list}{kmp\-\_\-stats\-\_\-list} $\ast$ \hyperlink{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr} = \&\hyperlink{kmp__stats_8h_a4ce412fd3335747984f4b5d8fa62cb98}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}
+\item 
+\hyperlink{classtsc__tick__count}{tsc\-\_\-tick\-\_\-count} \hyperlink{kmp__global_8c_a12d1cf26d9330e0eb6361b6d67086d1d}{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time}
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aee22cd19970207e05e9c86cc0a802f9c}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-serial} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a3f91f5b94048484e40c6caeb66c60f27}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a5f3438a34f9250663bc10f78b727dc1a}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a70576d967f407af9d2ecb6174c1c7add}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-middle} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aa23ece0d05f38387c8a8441aaad368df}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a7837f92b7bc9827769108bb115d180e8}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor} = 0
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a06dca6ee024848d88e7a69d5df512e65}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{kmp_8h_adb5fd7c36b70bcab329eed0e6bf1d606}{kmp\-\_\-cached\-\_\-addr\-\_\-t} $\ast$ \hyperlink{kmp__global_8c_a4ffa887cdb59674790ac14ee4a8228e9}{\-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list} = N\-U\-L\-L
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aa28d33ebc755e1adc54173c659eebbea}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-counter} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ae8940c05c34b3e38e04f31833d386e23}{\-\_\-\-\_\-kmp\-\_\-root\-\_\-counter} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a0db70dba44885cb5eb238fd59b4d638f}{\-\_\-\-\_\-kmp\-\_\-version} = 0
+\item 
+volatile kmp\-\_\-uint32 \hyperlink{kmp__global_8c_ae54fb6f980befd598183b193778b1ebe}{\-\_\-\-\_\-kmp\-\_\-team\-\_\-counter} = 0
+\item 
+volatile kmp\-\_\-uint32 \hyperlink{kmp__global_8c_aa22088a01662800b75e94de1a362c846}{\-\_\-\-\_\-kmp\-\_\-task\-\_\-counter} = 0
+\item 
+unsigned \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a5d0398f98db50249d9b8104439e25bc1}{\-\_\-\-\_\-kmp\-\_\-init\-\_\-wait} = \hyperlink{kmp_8h_a172b988703bc7e92ad59154b14b75b90}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-I\-N\-I\-T\-\_\-\-W\-A\-I\-T}
+\item 
+unsigned \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ac2c0e8f924a1107cce8578fc2575a78f}{\-\_\-\-\_\-kmp\-\_\-next\-\_\-wait} = \hyperlink{kmp_8h_a2f2889bbebc2c51d5eeaefafe0fe2bb9}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-N\-E\-X\-T\-\_\-\-W\-A\-I\-T}
+\item 
+size\-\_\-t \hyperlink{kmp__global_8c_a4524fc3a41e208a6cf6d7cad17f028c7}{\-\_\-\-\_\-kmp\-\_\-stksize} = \hyperlink{kmp_8h_a6c7fa39148ea938d84c2f61895b7009c}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-T\-K\-S\-I\-Z\-E}
+\item 
+size\-\_\-t \hyperlink{kmp__global_8c_a0dfe083716c706c3b8ea872623fad7c7}{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize} = 0
+\item 
+size\-\_\-t \hyperlink{kmp__global_8c_ac841e4743aeceae5d3667bc8511ba1c4}{\-\_\-\-\_\-kmp\-\_\-stkoffset} = \hyperlink{kmp_8h_aa2d94b4b030102c047ed611fb8b5523f}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-T\-K\-O\-F\-F\-S\-E\-T}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ae050c01c40fb4f54e398dc3a81947198}{\-\_\-\-\_\-kmp\-\_\-stkpadding} = \hyperlink{kmp_8h_aedef09b1f6d5fecbb4f1b0f547b13a7f}{K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-S\-T\-K\-P\-A\-D\-D\-I\-N\-G}
+\item 
+size\-\_\-t \hyperlink{kmp__global_8c_ac8b6597684f6c3c7f7092d622b644a09}{\-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr} = \hyperlink{kmp_8h_ad7146d645ae5fbadcf947325e86013dc}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-M\-A\-L\-L\-O\-C\-\_\-\-P\-O\-O\-L\-\_\-\-I\-N\-C\-R}
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_a90e02ca424e161330968a57a4a32aac3}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt} = 2
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_a91e1f9349fc66c9d57c42dac864c2b3e}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt} = 2
+\item 
+\hyperlink{kmp_8h_add4de32b020292af0be1da65018d5278}{kmp\-\_\-bar\-\_\-pat\-\_\-e} \hyperlink{kmp__global_8c_a357649c60bc8891ff3620bc4ae3ebb7a}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt} = \hyperlink{kmp_8h_afa95b644d435d20b66b1b5a7302dd86aa301aaf7389da0cc47584a5d09fb902a6}{bp\-\_\-linear\-\_\-bar}
+\item 
+\hyperlink{kmp_8h_add4de32b020292af0be1da65018d5278}{kmp\-\_\-bar\-\_\-pat\-\_\-e} \hyperlink{kmp__global_8c_a056af5d363fdcd03f1dc329e6c13ab6e}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt} = \hyperlink{kmp_8h_afa95b644d435d20b66b1b5a7302dd86aa301aaf7389da0cc47584a5d09fb902a6}{bp\-\_\-linear\-\_\-bar}
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_ac686c46b38f93904467b30f15ec1c15e}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ 0 \}
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_a80498c680499eb06d890901bada7c2ca}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ 0 \}
+\item 
+\hyperlink{kmp_8h_add4de32b020292af0be1da65018d5278}{kmp\-\_\-bar\-\_\-pat\-\_\-e} \hyperlink{kmp__global_8c_a3919081570d178345aff3877da7dbd8a}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ \hyperlink{kmp_8h_afa95b644d435d20b66b1b5a7302dd86aa301aaf7389da0cc47584a5d09fb902a6}{bp\-\_\-linear\-\_\-bar} \}
+\item 
+\hyperlink{kmp_8h_add4de32b020292af0be1da65018d5278}{kmp\-\_\-bar\-\_\-pat\-\_\-e} \hyperlink{kmp__global_8c_af980683a0ac054a7630c0a49fddd9202}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ \hyperlink{kmp_8h_afa95b644d435d20b66b1b5a7302dd86aa301aaf7389da0cc47584a5d09fb902a6}{bp\-\_\-linear\-\_\-bar} \}
+\item 
+char const $\ast$ \hyperlink{kmp__global_8c_ab6f1e43b397750a5a83c2a4e761ae3c5}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]}
+\item 
+char const $\ast$ \hyperlink{kmp__global_8c_ae38772c425a2911b8ac5aa644d13d5e2}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]}
+\item 
+char const $\ast$ \hyperlink{kmp__global_8c_a26233e3022a97bb22661988651a4443a}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name} \mbox{[}\hyperlink{kmp_8h_ad0f7c21f2f1d446087ef5714eb0fd8cfaab77402926ed27b4683d9f72f0c369ed}{bs\-\_\-last\-\_\-barrier}\mbox{]}
+\item 
+char const $\ast$ \hyperlink{kmp__global_8c_a275b386c5e8d4cb9dacbc1066e71f00e}{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name} \mbox{[}\hyperlink{kmp_8h_afa95b644d435d20b66b1b5a7302dd86aaade5afa0d3dec15eb59f436d0f45f174}{bp\-\_\-last\-\_\-bar}\mbox{]} = \{\char`\"{}linear\char`\"{},\char`\"{}tree\char`\"{},\char`\"{}hyper\char`\"{},\char`\"{}hierarchical\char`\"{}\}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a751b027998c243606344ae8d5360e69f}{\-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified} = 0
+\item 
+size\-\_\-t \hyperlink{kmp__global_8c_a1ac4cb4725fc46b0396c162e8f568299}{\-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc} = \hyperlink{kmp__os_8h_a86194c659a2d795e5f5949d293ae4661}{C\-A\-C\-H\-E\-\_\-\-L\-I\-N\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a06223e20c3936db72421888ea9ae6912}{\-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings} = \hyperlink{kmp__os_8h_a73d4f0dfc65917c280dcb4c1b5f8448da35bfaee1f6c415987f3bb2c28f4f590b}{kmp\-\_\-warnings\-\_\-low}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a7467cd4fe436813f2f8b023ad137e384}{\-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a3469a7dffedccf219ec6b8a0e4ec8ed2}{\-\_\-\-\_\-kmp\-\_\-xproc} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_adc73a89e0c77c9b0a3233f9fde48a5b2}{\-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc} = 0
+\item 
+size\-\_\-t \hyperlink{kmp__global_8c_ac11734b715f1e9aec17fc0eda9cba87c}{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize} = \hyperlink{kmp_8h_ac103fc3a7e2b0639661b18ec3d0c5243}{K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-S\-T\-K\-S\-I\-Z\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aa34f380bb9845773e26d2f6f894cfd26}{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth} = \hyperlink{kmp_8h_a39c5ef60c2d07e928adebba0d2598a1f}{K\-M\-P\-\_\-\-M\-A\-X\-\_\-\-N\-T\-H}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a4d084c7a33d676bae3980e69345e8adf}{\-\_\-\-\_\-kmp\-\_\-max\-\_\-nth} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_acae0af8cf6e8a8367b389986b372ab0a}{\-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ae1cbb4cacdc7604067520251592308db}{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a276ff01bccbaef288bb657d70b097b11}{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aaab3768311811ffdcd85f5a55bef2318}{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a644251d4c84b1f4f3e9e40b666ea0de5}{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a97777d7313012bbad5f5e4e897489172}{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a337fac6e4af9a3e783d5f4e39e5bfcde}{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels} = \hyperlink{kmp_8h_af28f3dc11a5e484f732177a048fbecc9}{K\-M\-P\-\_\-\-M\-A\-X\-\_\-\-A\-C\-T\-I\-V\-E\-\_\-\-L\-E\-V\-E\-L\-S\-\_\-\-L\-I\-M\-I\-T}
+\item 
+enum \hyperlink{kmp_8h_aee0cf894df4706d555a64e6d5b51599d}{library\-\_\-type} \hyperlink{kmp__global_8c_aa8f77de14d1515a05937d68622e74d61}{\-\_\-\-\_\-kmp\-\_\-library} = \hyperlink{kmp_8h_aee0cf894df4706d555a64e6d5b51599da40a2483fd7173ff1a02155ac19b4f1f0}{library\-\_\-none}
+\item 
+enum \hyperlink{group__WORK__SHARING_gadcaf200537aaa0218a60c398438f81be}{sched\-\_\-type} \hyperlink{kmp__global_8c_a8c039a5dbf8b1d50c8809face611f8e6}{\-\_\-\-\_\-kmp\-\_\-sched} = \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea317dd63053ef79e3b3cea2ce2b676b38}{kmp\-\_\-sch\-\_\-default}
+\item 
+enum \hyperlink{group__WORK__SHARING_gadcaf200537aaa0218a60c398438f81be}{sched\-\_\-type} \hyperlink{kmp__global_8c_a7520297e68a11d20d86df78cf53442c1}{\-\_\-\-\_\-kmp\-\_\-static} = \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea67c1b7c70c012361c0218269ac063606}{kmp\-\_\-sch\-\_\-static\-\_\-greedy}
+\item 
+enum \hyperlink{group__WORK__SHARING_gadcaf200537aaa0218a60c398438f81be}{sched\-\_\-type} \hyperlink{kmp__global_8c_ad5661902aa5eb6cb8644cc0e3f559a8c}{\-\_\-\-\_\-kmp\-\_\-guided} = \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81beaa6177807dac327b1240c43ab9f2d1f12}{kmp\-\_\-sch\-\_\-guided\-\_\-iterative\-\_\-chunked}
+\item 
+enum \hyperlink{group__WORK__SHARING_gadcaf200537aaa0218a60c398438f81be}{sched\-\_\-type} \hyperlink{kmp__global_8c_a6055149352f6c46415bdfdf68a950f33}{\-\_\-\-\_\-kmp\-\_\-auto} = \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea569ad1692047e89645f19bca3f2c26af}{kmp\-\_\-sch\-\_\-guided\-\_\-analytical\-\_\-chunked}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a3b56e2e90e1539c0b794e4137724bc1c}{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime} = \hyperlink{kmp_8h_aa5e42269dea39eadc7ce509a5d343aa7}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a1171057a79f5a42e26d0bd84f6cd707b}{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups} = \hyperlink{kmp_8h_ac11c406e77d4d7fba9ac49f522eb2246}{K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-M\-O\-N\-I\-T\-O\-R\-\_\-\-W\-A\-K\-E\-U\-P\-S}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a317b8269abca72565ca88f1784dee86b}{\-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals} = \hyperlink{kmp_8h_aa921a5e9487d76bf909f643dfac692c0}{K\-M\-P\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L\-S\-\_\-\-F\-R\-O\-M\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E}( \hyperlink{kmp_8h_aa5e42269dea39eadc7ce509a5d343aa7}{K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E}, \hyperlink{kmp_8h_ac11c406e77d4d7fba9ac49f522eb2246}{K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-M\-O\-N\-I\-T\-O\-R\-\_\-\-W\-A\-K\-E\-U\-P\-S} )
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a4e654b862068cfd131f0c5cd9afcca26}{\-\_\-\-\_\-kmp\-\_\-chunk} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a09a41e3c9214c88c4a08c0a12ef022d8}{\-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ae8d713bc264db1f092c97ca94f3b82bc}{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a5c671e87df31e6aad0b217b0d4ab2bad}{\-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode} = \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{T\-R\-U\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_afce1a0df7f7512062fd0494459776dae}{\-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min} = I\-N\-T\-\_\-\-M\-A\-X
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_accf8ef4eee3a81c4bd08d1cd90893aee}{\-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp} = \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{T\-R\-U\-E}
+\item 
+\hyperlink{structkmp__nested__nthreads__t}{kmp\-\_\-nested\-\_\-nthreads\-\_\-t} \hyperlink{kmp__global_8c_a4bb4b8763f9bcb453e89051a1580b77e}{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth} = \{ N\-U\-L\-L, 0, 0 \}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a61d0f3a9162659dc28619166a276a00a}{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a109eb986c34030a5eb186e88abd5b9ea}{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a44033de9713edf20b0c77706153df1d2}{\-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+enum \hyperlink{group__WORK__SHARING_gadcaf200537aaa0218a60c398438f81be}{sched\-\_\-type} \hyperlink{kmp__global_8c_a308aa70b679e0aa1d7c27a5cc38dde65}{\-\_\-\-\_\-kmp\-\_\-sch\-\_\-map} \mbox{[}\hyperlink{kmp_8h_ac150ec15d3fa59f49e4bf27425bc27c3a0fc3032f6ec554a40e86e24849c2a5f5}{kmp\-\_\-sched\-\_\-upper}-\/\hyperlink{kmp_8h_ac150ec15d3fa59f49e4bf27425bc27c3a6be48ebc642e0d94eb4f501c40602ba7}{kmp\-\_\-sched\-\_\-lower\-\_\-ext}+\hyperlink{kmp_8h_ac150ec15d3fa59f49e4bf27425bc27c3a301ce7173fe03762194df14262323de7}{kmp\-\_\-sched\-\_\-upper\-\_\-std}-\/\hyperlink{kmp_8h_ac150ec15d3fa59f49e4bf27425bc27c3a223d28a39916e347a9036845fe68a9b6}{kmp\-\_\-sched\-\_\-lower}-\/2\mbox{]}
+\item 
+\hyperlink{structkmp__nested__proc__bind__t}{kmp\-\_\-nested\-\_\-proc\-\_\-bind\-\_\-t} \hyperlink{kmp__global_8c_a47bc631a510ddd8aa5b20d3525499a4a}{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind} = \{ N\-U\-L\-L, 0, 0 \}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a7be6534f3e4eb7afd9b58bd343e6a214}{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ae605f67e5a66b2ca27da5dcd9c625f30}{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a0e52a4058a39a695f03b75616d67cfce}{\-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ac65d2f4b8f37ccf1def371957a20e681}{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aff177db4ec33ce10b3ff5f835ba15290}{\-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_abbc9a8bcd49754dea176a2b0269e2ea2}{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core} = 0
+\item 
+\hyperlink{kmp_8h_a5bd54cee325956e36fc9647282bc34ff}{kmp\-\_\-tasking\-\_\-mode\-\_\-t} \hyperlink{kmp__global_8c_a39e87c52fb75a615c2564a822a013a5a}{\-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode} = \hyperlink{kmp_8h_aad1bdfbfac136cfd92611bcee79ca3f2ac2529646fad02f49ff61ec4c50287a5d}{tskm\-\_\-task\-\_\-teams}
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__global_8c_a8fed3df0b84562bb900b41b72dd88033}{\-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint} = 1
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aacc3bb748c0b09ecc54f0793eeafdd3c}{\-\_\-\-\_\-kmp\-\_\-settings} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a7ca8380dd04faadb926b10e293bc16be}{\-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok} = 0
+\item 
+\hyperlink{kmp_8h_a79cdcd03cc0f2498719630411d56ef84}{P\-A\-C\-K\-E\-D\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D\-\_\-\-T} \hyperlink{kmp__global_8c_adace11dc9ef1b5659751c0a61c6c19df}{\-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method} = \hyperlink{kmp_8h_aef090e4cbee673db380b81f6deb8e306adc8ac26b122d8da0aee453f08def59fc}{reduction\-\_\-method\-\_\-not\-\_\-defined}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_abca125007034141e74c232322e3421c3}{\-\_\-\-\_\-kmp\-\_\-determ\-\_\-red} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a34cced9aee5b6e711fe55d15363aa6d4}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a0735976fdd89bd352bc81e0dafca8651}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines} = \hyperlink{kmp_8h_af53c89c022e8d34669e982ae1527b054}{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-B\-U\-F\-\_\-\-L\-I\-N\-E\-S\-\_\-\-I\-N\-I\-T}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a52cf78ff49c260f119ddb2eee6ad9fa7}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars} = \hyperlink{kmp_8h_a63bfbfde86a84c3e8b38cb83de3602fa}{K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-B\-U\-F\-\_\-\-C\-H\-A\-R\-S\-\_\-\-I\-N\-I\-T}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_af7b1e2e7ddb0c01af120208451d2bef0}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+char $\ast$ \hyperlink{kmp__global_8c_a9c021e6b9664954bec9619b71887de10}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer} = N\-U\-L\-L
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a832f394827c510f674ba2b717a9f6de4}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-count} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_acc1c08b74c770dbc82f1c98516971dbc}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a9ebbdbe73e3d15e7a0b23ce875f3dac9}{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a7513189068c7dbf2f2141b26489e2c12}{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a37e967c6d96b5301870f4b9318c79ec6}{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a926160e3034cba452f28f9af6c365348}{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork} = \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{T\-R\-U\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_aa56458030afaa3f7694bb7b2890da1a9}{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified} = \hyperlink{kmp_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{T\-R\-U\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a22796d02a11d8a46ff7abcad147b3aab}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_afa33d0664a4c46cd1affefab89548901}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ae9dc63a459d6298c06e135fd762e4a46}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a1fb9c08cc2354fc7c06fdc807ca497b3}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ac398590dff99b626dc7bb581c26a2e1a}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a5caf27b26a61e30dbb9cdfb3211dcbb1}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a45cb359b55a6b7cbd66e26f4983195f2}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-checks} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ab4062d4f566c901230e51490a8819ba0}{\-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check} = \hyperlink{kmp_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\-A\-L\-S\-E}
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_a94701cc75584d33909a7fff0a10ab4ec}{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-init} = K\-M\-P\-\_\-\-I\-N\-I\-T\-\_\-\-W\-A\-I\-T
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_aff2e16dbbb59075fda04901384651176}{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-next} = K\-M\-P\-\_\-\-N\-E\-X\-T\-\_\-\-W\-A\-I\-T
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_ad41fbe82f9fadf0aaf70237d90bc6146}{\-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on} = 1
+\item 
+kmp\-\_\-uint32 \hyperlink{kmp__global_8c_aecb28724e6731cb1d8402a9725574cfa}{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle} = 1
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__global_8c_ab056e2418f59f84020b2e7be6378d37d}{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count} = 10
+\item 
+kmp\-\_\-int32 \hyperlink{kmp__global_8c_a6b243e407a71238e44adac9cc5248739}{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count} = 1
+\item 
+\hyperlink{kmp__os_8h_a6830c178a3906c25cd0138d8365db070}{K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$$\ast$ \hyperlink{kmp__global_8c_a90f61e035ac299853fda087d99e00510}{\-\_\-\-\_\-kmp\-\_\-threads} = N\-U\-L\-L
+\item 
+\hyperlink{kmp_8h_a59e316f709f2c4317309755daa824d7e}{kmp\-\_\-root\-\_\-t} $\ast$$\ast$ \hyperlink{kmp__global_8c_aa55bed3b4f4c286e5dd1f23ccda86c65}{\-\_\-\-\_\-kmp\-\_\-root} = N\-U\-L\-L
+\item 
+\hyperlink{kmp__os_8h_a6830c178a3906c25cd0138d8365db070}{K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a930fb728641e217db6e0da97874c8333}{\-\_\-\-\_\-kmp\-\_\-nth} = 0
+\item 
+volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a521a7c7af6217ee75a79b5abd627779c}{\-\_\-\-\_\-kmp\-\_\-all\-\_\-nth} = 0
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ab77f7a31d04d2d654e78546530b71ab9}{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth} = 0
+\item 
+volatile \hyperlink{kmp_8h_a194859801fe16b326efe34501a37c30a}{kmp\-\_\-info\-\_\-t} $\ast$ \hyperlink{kmp__global_8c_a3cab107cb6b7391dc221c14353ec6350}{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool} = N\-U\-L\-L
+\item 
+volatile \hyperlink{kmp_8h_a95f7a64bda9b774add6c27c4a7b2a143}{kmp\-\_\-team\-\_\-t} $\ast$ \hyperlink{kmp__global_8c_a04811f0174c4d50bd75362cfc85a83f7}{\-\_\-\-\_\-kmp\-\_\-team\-\_\-pool} = N\-U\-L\-L
+\item 
+\hyperlink{kmp__os_8h_a6830c178a3906c25cd0138d8365db070}{K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} volatile \hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_add23be43585771c05605eb809a554b49}{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth} = 0
+\item 
+\hyperlink{kmp__os_8h_a6830c178a3906c25cd0138d8365db070}{K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} \hyperlink{kmp_8h_ad6e9c6c00cb8e1d7337bf075307fd623}{kmp\-\_\-global\-\_\-t} \hyperlink{kmp__global_8c_a1ce5edc905bfbbc2ff7833d2310178f6}{\-\_\-\-\_\-kmp\-\_\-global} = \{\{ 0 \}\}
+\item 
+\hyperlink{kmp__os_8h_a6830c178a3906c25cd0138d8365db070}{K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} \\*
+\hyperlink{kmp__lock_8h_a480dc901a9c2be2a41f0ab8c381e94a7}{kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_af47e8ed0577d4f26c84cdaeda29f40e3}{\-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock} = \hyperlink{kmp__lock_8h_af85df20d1de9792c1ca66289d6922b51}{K\-M\-P\-\_\-\-B\-O\-O\-T\-S\-T\-R\-A\-P\-\_\-\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}( \-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock )
+\item 
+\hyperlink{kmp__lock_8h_a480dc901a9c2be2a41f0ab8c381e94a7}{kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_a7f54ac3466c74a71cd89ecb3af8c9956}{\-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock}
+\item 
+\hyperlink{kmp__lock_8h_a480dc901a9c2be2a41f0ab8c381e94a7}{kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_a883c44544832e75b58d897fc0c690142}{\-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock}
+\item 
+\hyperlink{kmp__lock_8h_a480dc901a9c2be2a41f0ab8c381e94a7}{kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_ae898939654132601bc5cd26774d899fc}{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock}
+\item 
+\hyperlink{kmp__lock_8h_a480dc901a9c2be2a41f0ab8c381e94a7}{kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_a2105d949d5809163eef882ebdb896be0}{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock}
+\item 
+\hyperlink{kmp__lock_8h_ad1928c8c2d45f7848000a372ec4fde54}{kmp\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_a56af8af84b1717817c3abe69ecc8cc18}{\-\_\-\-\_\-kmp\-\_\-global\-\_\-lock}
+\item 
+\hyperlink{kmp__lock_8h_afddb88c8dc45b091f6a602c7b4193a6c}{kmp\-\_\-queuing\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_aa37969d4f501219d1233a226240cd33e}{\-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock}
+\item 
+\hyperlink{kmp__lock_8h_ad1928c8c2d45f7848000a372ec4fde54}{kmp\-\_\-lock\-\_\-t} \hyperlink{kmp__global_8c_a1dab06350e4637b725288d9bb536724f}{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock}
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_a2384c33c1d9b261ecec27d612bd558b1}{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library} = 1
+\item 
+\hyperlink{ittnotify__static_8h_a8b8dcd723308a8cb5d84277c7a3fff70}{int} \hyperlink{kmp__global_8c_ac563ceddf9a4101b29f16e3fad4c5240}{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library} = 1
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kmp__global_8c_ad098027f983e61b37fb367d7d402a93d}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T@{K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T}}
+\index{K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T@{K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}K\-M\-P\-\_\-\-B\-U\-I\-L\-D\-\_\-\-A\-S\-S\-E\-R\-T (
+\begin{DoxyParamCaption}
+\item[{sizeof({\bf kmp\-\_\-tasking\-\_\-flags\-\_\-t})}]{ = {\ttfamily =4}}
+\end{DoxyParamCaption}
+)}}\label{kmp__global_8c_ad098027f983e61b37fb367d7d402a93d}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kmp__global_8c_a09a41e3c9214c88c4a08c0a12ef022d8}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay@{\-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay}}
+\index{\-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay@{\-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-abort\-\_\-delay = 0}}\label{kmp__global_8c_a09a41e3c9214c88c4a08c0a12ef022d8}
+
+
+Definition at line 150 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-abort\-\_\-delay(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-abort\-\_\-delay().
+
+\hypertarget{kmp__global_8c_a5c671e87df31e6aad0b217b0d4ab2bad}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode}}
+\index{\-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-adjust\-\_\-gtid\-\_\-mode = {\bf T\-R\-U\-E}}}\label{kmp__global_8c_a5c671e87df31e6aad0b217b0d4ab2bad}
+
+
+Definition at line 159 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-gtid\-\_\-mode(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-gtid\-\_\-mode().
+
+\hypertarget{kmp__global_8c_a7be6534f3e4eb7afd9b58bd343e6a214}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places}}
+\index{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places@{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-affinity\-\_\-num\-\_\-places = 0}}\label{kmp__global_8c_a7be6534f3e4eb7afd9b58bd343e6a214}
+
+
+Definition at line 252 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_a1ac4cb4725fc46b0396c162e8f568299}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc@{\-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc}}
+\index{\-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc@{\-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmp\-\_\-align\-\_\-alloc = {\bf C\-A\-C\-H\-E\-\_\-\-L\-I\-N\-E}}}\label{kmp__global_8c_a1ac4cb4725fc46b0396c162e8f568299}
+
+
+Definition at line 113 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-\-\_\-kmp\-\_\-allocate(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-align\-\_\-alloc(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-align\-\_\-alloc().
+
+\hypertarget{kmp__global_8c_a521a7c7af6217ee75a79b5abd627779c}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-all\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-all\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-all\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-all\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-all\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-all\-\_\-nth = 0}}\label{kmp__global_8c_a521a7c7af6217ee75a79b5abd627779c}
+
+
+Definition at line 366 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), and \-\_\-\-\_\-kmp\-\_\-register\-\_\-root().
+
+\hypertarget{kmp__global_8c_a751b027998c243606344ae8d5360e69f}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified@{\-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified}}
+\index{\-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified@{\-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-all\-Threads\-Specified = 0}}\label{kmp__global_8c_a751b027998c243606344ae8d5360e69f}
+
+
+Definition at line 112 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threadprivate(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threads().
+
+\hypertarget{kmp__global_8c_a6055149352f6c46415bdfdf68a950f33}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-auto@{\-\_\-\-\_\-kmp\-\_\-auto}}
+\index{\-\_\-\-\_\-kmp\-\_\-auto@{\-\_\-\-\_\-kmp\-\_\-auto}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-auto}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf sched\-\_\-type} \-\_\-\-\_\-kmp\-\_\-auto = {\bf kmp\-\_\-sch\-\_\-guided\-\_\-analytical\-\_\-chunked}}}\label{kmp__global_8c_a6055149352f6c46415bdfdf68a950f33}
+
+
+Definition at line 139 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init().
+
+\hypertarget{kmp__global_8c_adc73a89e0c77c9b0a3233f9fde48a5b2}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc@{\-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc}}
+\index{\-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc@{\-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-avail\-\_\-proc = 0}}\label{kmp__global_8c_adc73a89e0c77c9b0a3233f9fde48a5b2}
+
+
+Definition at line 119 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-drdpa\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-queuing\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-tas\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-num\-\_\-teams(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-common(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-tas\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-to\-\_\-unref\-\_\-task\-\_\-teams(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-yield(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-yield\-\_\-4(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-N\-U\-M\-\_\-\-P\-R\-O\-C\-S().
+
+\hypertarget{kmp__global_8c_ab6f1e43b397750a5a83c2a4e761ae3c5}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-branch\-\_\-bit\-\_\-env\-\_\-name\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]}}}\label{kmp__global_8c_ab6f1e43b397750a5a83c2a4e761ae3c5}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+=
+                            \{ \textcolor{stringliteral}{"KMP\_PLAIN\_BARRIER"}, \textcolor{stringliteral}{"KMP\_FORKJOIN\_BARRIER"}
+
+                                    , \textcolor{stringliteral}{"KMP\_REDUCTION\_BARRIER"}
+
+                            \}
+\end{DoxyCode}
+
+
+Definition at line 92 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-branch\-\_\-bit().
+
+\hypertarget{kmp__global_8c_a90e02ca424e161330968a57a4a32aac3}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-bb\-\_\-dflt = 2}}\label{kmp__global_8c_a90e02ca424e161330968a57a4a32aac3}
+
+
+Definition at line 78 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit().
+
+\hypertarget{kmp__global_8c_ac686c46b38f93904467b30f15ec1c15e}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-branch\-\_\-bits\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ 0 \}}}\label{kmp__global_8c_ac686c46b38f93904467b30f15ec1c15e}
+
+
+Definition at line 88 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-hyper\-\_\-barrier\-\_\-gather(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-branch\-\_\-bit(), and \-\_\-\-\_\-kmp\-\_\-tree\-\_\-barrier\-\_\-gather().
+
+\hypertarget{kmp__global_8c_a357649c60bc8891ff3620bc4ae3ebb7a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bar\-\_\-pat\-\_\-e} \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pat\-\_\-dflt = {\bf bp\-\_\-linear\-\_\-bar}}}\label{kmp__global_8c_a357649c60bc8891ff3620bc4ae3ebb7a}
+
+
+Definition at line 85 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_a3919081570d178345aff3877da7dbd8a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bar\-\_\-pat\-\_\-e} \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-gather\-\_\-pattern\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ {\bf bp\-\_\-linear\-\_\-bar} \}}}\label{kmp__global_8c_a3919081570d178345aff3877da7dbd8a}
+
+
+Definition at line 90 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-pattern(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-pattern().
+
+\hypertarget{kmp__global_8c_ae38772c425a2911b8ac5aa644d13d5e2}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-env\-\_\-name\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]}}}\label{kmp__global_8c_ae38772c425a2911b8ac5aa644d13d5e2}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+=
+                            \{ \textcolor{stringliteral}{"KMP\_PLAIN\_BARRIER\_PATTERN"}, \textcolor{stringliteral}{"KMP\_FORKJOIN\_BARRIER\_PATTERN"}
+
+                                    , \textcolor{stringliteral}{"KMP\_REDUCTION\_BARRIER\_PATTERN"}
+
+                            \}
+\end{DoxyCode}
+
+
+Definition at line 98 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-pattern(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-pattern().
+
+\hypertarget{kmp__global_8c_a275b386c5e8d4cb9dacbc1066e71f00e}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-pattern\-\_\-name\mbox{[}{\bf bp\-\_\-last\-\_\-bar}\mbox{]} = \{\char`\"{}linear\char`\"{},\char`\"{}tree\char`\"{},\char`\"{}hyper\char`\"{},\char`\"{}hierarchical\char`\"{}\}}}\label{kmp__global_8c_a275b386c5e8d4cb9dacbc1066e71f00e}
+
+
+Definition at line 110 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-pattern(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-pattern().
+
+\hypertarget{kmp__global_8c_a91e1f9349fc66c9d57c42dac864c2b3e}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-bb\-\_\-dflt = 2}}\label{kmp__global_8c_a91e1f9349fc66c9d57c42dac864c2b3e}
+
+
+Definition at line 79 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit().
+
+\hypertarget{kmp__global_8c_a80498c680499eb06d890901bada7c2ca}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-branch\-\_\-bits\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ 0 \}}}\label{kmp__global_8c_a80498c680499eb06d890901bada7c2ca}
+
+
+Definition at line 89 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-end\-\_\-split\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-hyper\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-branch\-\_\-bit(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-branch\-\_\-bit(), and \-\_\-\-\_\-kmp\-\_\-tree\-\_\-barrier\-\_\-release().
+
+\hypertarget{kmp__global_8c_a056af5d363fdcd03f1dc329e6c13ab6e}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bar\-\_\-pat\-\_\-e} \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pat\-\_\-dflt = {\bf bp\-\_\-linear\-\_\-bar}}}\label{kmp__global_8c_a056af5d363fdcd03f1dc329e6c13ab6e}
+
+
+Definition at line 86 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_af980683a0ac054a7630c0a49fddd9202}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bar\-\_\-pat\-\_\-e} \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-release\-\_\-pattern\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]} = \{ {\bf bp\-\_\-linear\-\_\-bar} \}}}\label{kmp__global_8c_af980683a0ac054a7630c0a49fddd9202}
+
+
+Definition at line 91 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-end\-\_\-split\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-barrier\-\_\-pattern(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-barrier\-\_\-pattern().
+
+\hypertarget{kmp__global_8c_a26233e3022a97bb22661988651a4443a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name}}
+\index{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name@{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ \-\_\-\-\_\-kmp\-\_\-barrier\-\_\-type\-\_\-name\mbox{[}{\bf bs\-\_\-last\-\_\-barrier}\mbox{]}}}\label{kmp__global_8c_a26233e3022a97bb22661988651a4443a}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+=
+                            \{ \textcolor{stringliteral}{"plain"}, \textcolor{stringliteral}{"forkjoin"}
+
+                                    , \textcolor{stringliteral}{"reduction"}
+
+                            \}
+\end{DoxyCode}
+
+
+Definition at line 104 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1().
+
+\hypertarget{kmp__global_8c_a317b8269abca72565ca88f1784dee86b}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals@{\-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals}}
+\index{\-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals@{\-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-bt\-\_\-intervals = {\bf K\-M\-P\-\_\-\-I\-N\-T\-E\-R\-V\-A\-L\-S\-\_\-\-F\-R\-O\-M\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E}( {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E}, {\bf K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-M\-O\-N\-I\-T\-O\-R\-\_\-\-W\-A\-K\-E\-U\-P\-S} )}}\label{kmp__global_8c_a317b8269abca72565ca88f1784dee86b}
+
+
+Definition at line 142 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-blocktime().
+
+\hypertarget{kmp__global_8c_a4e654b862068cfd131f0c5cd9afcca26}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-chunk@{\-\_\-\-\_\-kmp\-\_\-chunk}}
+\index{\-\_\-\-\_\-kmp\-\_\-chunk@{\-\_\-\-\_\-kmp\-\_\-chunk}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-chunk}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-chunk = 0}}\label{kmp__global_8c_a4e654b862068cfd131f0c5cd9afcca26}
+
+
+Definition at line 149 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-schedule\-\_\-global(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-schedule(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-schedule().
+
+\hypertarget{kmp__global_8c_a9f43d4488c8be0593700cc5b778726b9}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-cpuinfo@{\-\_\-\-\_\-kmp\-\_\-cpuinfo}}
+\index{\-\_\-\-\_\-kmp\-\_\-cpuinfo@{\-\_\-\-\_\-kmp\-\_\-cpuinfo}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-cpuinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-cpuinfo\-\_\-t} \-\_\-\-\_\-kmp\-\_\-cpuinfo = \{ 0 \}}}\label{kmp__global_8c_a9f43d4488c8be0593700cc5b778726b9}
+
+
+Definition at line 20 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-lock\-\_\-kind(), \-\_\-\-\_\-kmpc\-\_\-flush(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Header\-Info().
+
+\hypertarget{kmp__global_8c_a34cced9aee5b6e711fe55d15363aa6d4}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a34cced9aee5b6e711fe55d15363aa6d4}
+
+
+Definition at line 300 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-abort\-\_\-process(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_af7b1e2e7ddb0c01af120208451d2bef0}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-atomic = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_af7b1e2e7ddb0c01af120208451d2bef0}
+
+
+Definition at line 303 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_a52cf78ff49c260f119ddb2eee6ad9fa7}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-chars = {\bf K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-B\-U\-F\-\_\-\-C\-H\-A\-R\-S\-\_\-\-I\-N\-I\-T}}}\label{kmp__global_8c_a52cf78ff49c260f119ddb2eee6ad9fa7}
+
+
+Definition at line 302 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_a0735976fdd89bd352bc81e0dafca8651}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-lines = {\bf K\-M\-P\-\_\-\-D\-E\-B\-U\-G\-\_\-\-B\-U\-F\-\_\-\-L\-I\-N\-E\-S\-\_\-\-I\-N\-I\-T}}}\label{kmp__global_8c_a0735976fdd89bd352bc81e0dafca8651}
+
+
+Definition at line 301 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_acc1c08b74c770dbc82f1c98516971dbc}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-buf\-\_\-warn\-\_\-chars = 0}}\label{kmp__global_8c_acc1c08b74c770dbc82f1c98516971dbc}
+
+
+Definition at line 307 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_a9c021e6b9664954bec9619b71887de10}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \-\_\-\-\_\-kmp\-\_\-debug\-\_\-buffer = N\-U\-L\-L}}\label{kmp__global_8c_a9c021e6b9664954bec9619b71887de10}
+
+
+Definition at line 305 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_a832f394827c510f674ba2b717a9f6de4}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-count@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-count}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-count@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-count}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-count = 0}}\label{kmp__global_8c_a832f394827c510f674ba2b717a9f6de4}
+
+
+Definition at line 306 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dump\-\_\-debug\-\_\-buffer(), and \-\_\-\-\_\-kmp\-\_\-vprintf().
+
+\hypertarget{kmp__global_8c_a1dab06350e4637b725288d9bb536724f}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-debug\-\_\-lock}}\label{kmp__global_8c_a1dab06350e4637b725288d9bb536724f}
+
+
+Definition at line 418 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_abca125007034141e74c232322e3421c3}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-determ\-\_\-red@{\-\_\-\-\_\-kmp\-\_\-determ\-\_\-red}}
+\index{\-\_\-\-\_\-kmp\-\_\-determ\-\_\-red@{\-\_\-\-\_\-kmp\-\_\-determ\-\_\-red}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-determ\-\_\-red}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-determ\-\_\-red = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_abca125007034141e74c232322e3421c3}
+
+
+Definition at line 287 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-force\-\_\-reduction(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-force\-\_\-reduction().
+
+\hypertarget{kmp__global_8c_a3b56e2e90e1539c0b794e4137724bc1c}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime}}
+\index{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-dflt\-\_\-blocktime = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E}}}\label{kmp__global_8c_a3b56e2e90e1539c0b794e4137724bc1c}
+
+
+Definition at line 140 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-enable\-\_\-tasking(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-tasks\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-hierarchical\-\_\-barrier\-\_\-gather(), \-\_\-\-\_\-kmp\-\_\-hierarchical\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-blocktime(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-blocktime(), \-\_\-\-\_\-kmp\-\_\-suspend\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-to\-\_\-unref\-\_\-task\-\_\-teams(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E(), and kmp\-\_\-flag\-\_\-oncore\-::internal\-\_\-release().
+
+\hypertarget{kmp__global_8c_a337fac6e4af9a3e783d5f4e39e5bfcde}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels}}
+\index{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-dflt\-\_\-max\-\_\-active\-\_\-levels = {\bf K\-M\-P\-\_\-\-M\-A\-X\-\_\-\-A\-C\-T\-I\-V\-E\-\_\-\-L\-E\-V\-E\-L\-S\-\_\-\-L\-I\-M\-I\-T}}}\label{kmp__global_8c_a337fac6e4af9a3e783d5f4e39e5bfcde}
+
+
+Definition at line 129 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-max\-\_\-active\-\_\-levels(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-max\-\_\-active\-\_\-levels().
+
+\hypertarget{kmp__global_8c_a97777d7313012bbad5f5e4e897489172}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested}}
+\index{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-dflt\-\_\-nested = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a97777d7313012bbad5f5e4e897489172}
+
+
+Definition at line 128 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-nested(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-nested().
+
+\hypertarget{kmp__global_8c_ae1cbb4cacdc7604067520251592308db}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth = 0}}\label{kmp__global_8c_ae1cbb4cacdc7604067520251592308db}
+
+
+Definition at line 124 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-num\-\_\-threads(), and \-\_\-\-\_\-kmp\-\_\-user\-\_\-set\-\_\-library().
+
+\hypertarget{kmp__global_8c_a276ff01bccbaef288bb657d70b097b11}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub}}
+\index{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub@{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-dflt\-\_\-team\-\_\-nth\-\_\-ub = 0}}\label{kmp__global_8c_a276ff01bccbaef288bb657d70b097b11}
+
+
+Definition at line 125 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-num\-\_\-threads(), and \-\_\-\-\_\-kmp\-\_\-user\-\_\-set\-\_\-library().
+
+\hypertarget{kmp__global_8c_aa37969d4f501219d1233a226240cd33e}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-queuing\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-lock}}\label{kmp__global_8c_aa37969d4f501219d1233a226240cd33e}
+
+
+Definition at line 416 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_a61d0f3a9162659dc28619166a276a00a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-display\-\_\-env@{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env}}
+\index{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env@{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-display\-\_\-env = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a61d0f3a9162659dc28619166a276a00a}
+
+
+Definition at line 193 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-defaults(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-display\-\_\-env(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-display\-\_\-env().
+
+\hypertarget{kmp__global_8c_a109eb986c34030a5eb186e88abd5b9ea}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose@{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose}}
+\index{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose@{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-display\-\_\-env\-\_\-verbose = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a109eb986c34030a5eb186e88abd5b9ea}
+
+
+Definition at line 194 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-defaults(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-print\-\_\-2(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-display\-\_\-env(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-display\-\_\-env().
+
+\hypertarget{kmp__global_8c_a7ca8380dd04faadb926b10e293bc16be}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok@{\-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok}}
+\index{\-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok@{\-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-duplicate\-\_\-library\-\_\-ok = 0}}\label{kmp__global_8c_a7ca8380dd04faadb926b10e293bc16be}
+
+
+Definition at line 281 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-register\-\_\-library\-\_\-startup(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-duplicate\-\_\-lib\-\_\-ok(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-duplicate\-\_\-lib\-\_\-ok().
+
+\hypertarget{kmp__global_8c_a1fb9c08cc2354fc7c06fdc807ca497b3}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-all\-\_\-threads = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a1fb9c08cc2354fc7c06fdc807ca497b3}
+
+
+Definition at line 330 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_a5caf27b26a61e30dbb9cdfb3211dcbb1}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-blocktime = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a5caf27b26a61e30dbb9cdfb3211dcbb1}
+
+
+Definition at line 332 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-blocktime().
+
+\hypertarget{kmp__global_8c_a45cb359b55a6b7cbd66e26f4983195f2}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-checks@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-checks}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-checks@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-checks}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-checks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-checks = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a45cb359b55a6b7cbd66e26f4983195f2}
+
+
+Definition at line 333 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-check\-\_\-stack\-\_\-overlap(), and \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_a22796d02a11d8a46ff7abcad147b3aab}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-chunk = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a22796d02a11d8a46ff7abcad147b3aab}
+
+
+Definition at line 327 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-schedule().
+
+\hypertarget{kmp__global_8c_ab4062d4f566c901230e51490a8819ba0}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-consistency\-\_\-check = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_ab4062d4f566c901230e51490a8819ba0}
+
+
+Definition at line 334 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-user\-\_\-locks(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-deo(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-deo\-\_\-error(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-dxo(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-dxo\-\_\-error(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-next(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-get\-\_\-bounds(), \-\_\-\-\_\-kmp\-\_\-end\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block(), \-\_\-\-\_\-kmp\-\_\-enter\-\_\-critical\-\_\-section\-\_\-reduce\-\_\-block(), \-\_\-\-\_\-kmp\-\_\-enter\-\_\-single(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-task\-\_\-from\-\_\-queue(), \-\_\-\-\_\-kmp\-\_\-exit\-\_\-single(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-taskq(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-lookup\-\_\-user\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-deo(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-dxo(), \-\_\-\-\_\-kmp\-\_\-print\-\_\-version\-\_\-1(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-run\-\_\-after\-\_\-invoked\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-run\-\_\-before\-\_\-invoked\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-user\-\_\-lock\-\_\-vptrs(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-consistency\-\_\-check(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-consistency\-\_\-check(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo(), \-\_\-\-\_\-kmp\-\_\-team\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmpc\-\_\-barrier(), \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait(), \-\_\-\-\_\-kmpc\-\_\-copyprivate(), \-\_\-\-\_\-kmpc\-\_\-critical(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-critical(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce\-\_\-nowait(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-for\-\_\-static\-\_\-fini(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-reduce(), \-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait(), \-\_\-\-\_\-kmpc\-\_\-set\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-test\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-unset\-\_\-lock(), and F\-T\-N\-\_\-\-D\-E\-S\-T\-R\-O\-Y\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-S\-K().
+
+\hypertarget{kmp__global_8c_ac398590dff99b626dc7bb581c26a2e1a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-all\-\_\-threads = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_ac398590dff99b626dc7bb581c26a2e1a}
+
+
+Definition at line 331 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_ae9dc63a459d6298c06e135fd762e4a46}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-omp\-\_\-stksize = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_ae9dc63a459d6298c06e135fd762e4a46}
+
+
+Definition at line 329 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_afa33d0664a4c46cd1affefab89548901}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize}}
+\index{\-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-env\-\_\-stksize = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_afa33d0664a4c46cd1affefab89548901}
+
+
+Definition at line 328 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-stacksize().
+
+\hypertarget{kmp__global_8c_a883c44544832e75b58d897fc0c690142}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-exit\-\_\-lock}}\label{kmp__global_8c_a883c44544832e75b58d897fc0c690142}
+
+
+Definition at line 409 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-abort\-\_\-process(), and \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_adace11dc9ef1b5659751c0a61c6c19df}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method@{\-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method}}
+\index{\-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method@{\-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\-A\-C\-K\-E\-D\-\_\-\-R\-E\-D\-U\-C\-T\-I\-O\-N\-\_\-\-M\-E\-T\-H\-O\-D\-\_\-\-T} \-\_\-\-\_\-kmp\-\_\-force\-\_\-reduction\-\_\-method = {\bf reduction\-\_\-method\-\_\-not\-\_\-defined}}}\label{kmp__global_8c_adace11dc9ef1b5659751c0a61c6c19df}
+
+
+Definition at line 286 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-determine\-\_\-reduction\-\_\-method(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-force\-\_\-reduction(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-force\-\_\-reduction().
+
+\hypertarget{kmp__global_8c_accf8ef4eee3a81c4bd08d1cd90893aee}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp@{\-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp}}
+\index{\-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp@{\-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-foreign\-\_\-tp = {\bf T\-R\-U\-E}}}\label{kmp__global_8c_accf8ef4eee3a81c4bd08d1cd90893aee}
+
+
+Definition at line 169 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-foreign\-\_\-threads\-\_\-threadprivate(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-foreign\-\_\-threads\-\_\-threadprivate(), \-\_\-\-\_\-kmpc\-\_\-threadprivate(), and kmp\-\_\-threadprivate\-\_\-insert().
+
+\hypertarget{kmp__global_8c_a7f54ac3466c74a71cd89ecb3af8c9956}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-forkjoin\-\_\-lock}}\label{kmp__global_8c_a7f54ac3466c74a71cd89ecb3af8c9956}
+
+
+Definition at line 408 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-num\-\_\-threads(), and \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-root\-\_\-current\-\_\-thread().
+
+\hypertarget{kmp__global_8c_a06223e20c3936db72421888ea9ae6912}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings@{\-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings}}
+\index{\-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings@{\-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-generate\-\_\-warnings = {\bf kmp\-\_\-warnings\-\_\-low}}}\label{kmp__global_8c_a06223e20c3936db72421888ea9ae6912}
+
+
+Definition at line 116 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-msg(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-warnings(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-warnings(), \-\_\-\-\_\-kmp\-\_\-warn(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-W\-A\-R\-N\-I\-N\-G\-S\-\_\-\-O\-F\-F(), and F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-W\-A\-R\-N\-I\-N\-G\-S\-\_\-\-O\-N().
+
+\hypertarget{kmp__global_8c_a1ce5edc905bfbbc2ff7833d2310178f6}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-global@{\-\_\-\-\_\-kmp\-\_\-global}}
+\index{\-\_\-\-\_\-kmp\-\_\-global@{\-\_\-\-\_\-kmp\-\_\-global}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-global}]{\setlength{\rightskip}{0pt plus 5cm}{\bf K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} {\bf kmp\-\_\-global\-\_\-t} \-\_\-\-\_\-kmp\-\_\-global = \{\{ 0 \}\}}}\label{kmp__global_8c_a1ce5edc905bfbbc2ff7833d2310178f6}
+
+
+Definition at line 377 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-abort\-\_\-process(), \-\_\-\-\_\-kmp\-\_\-aux\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-hierarchical\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-hyper\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-linear\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-kmp\-\_\-dynamic\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-dynamic(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-kmp\-\_\-dynamic\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-dynamic(), \-\_\-\-\_\-kmp\-\_\-tasking\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-tree\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-root\-\_\-current\-\_\-thread(), and \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template().
+
+\hypertarget{kmp__global_8c_a56af8af84b1717817c3abe69ecc8cc18}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-global\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-global\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-global\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-global\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-global\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-global\-\_\-lock}}\label{kmp__global_8c_a56af8af84b1717817c3abe69ecc8cc18}
+
+
+Definition at line 414 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-user\-\_\-lock\-\_\-allocate(), \-\_\-\-\_\-kmp\-\_\-user\-\_\-lock\-\_\-free(), \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached(), kmp\-\_\-threadprivate\-\_\-insert(), and kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data().
+
+\hypertarget{kmp__global_8c_ae8d713bc264db1f092c97ca94f3b82bc}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode}}
+\index{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-gtid\-\_\-mode = 0}}\label{kmp__global_8c_ae8d713bc264db1f092c97ca94f3b82bc}
+
+
+Definition at line 158 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id\-\_\-reg(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-gtid\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-gtid\-\_\-mode(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-N\-U\-M().
+
+\hypertarget{kmp__global_8c_aae367e473107cb756f7f123b70d62efd}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key@{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key}}
+\index{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key@{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-key\-\_\-t \-\_\-\-\_\-kmp\-\_\-gtid\-\_\-threadprivate\-\_\-key}}\label{kmp__global_8c_aae367e473107cb756f7f123b70d62efd}
+
+
+Definition at line 18 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-gtid\-\_\-get\-\_\-specific(), \-\_\-\-\_\-kmp\-\_\-gtid\-\_\-set\-\_\-specific(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-destroy(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-N\-U\-M().
+
+\hypertarget{kmp__global_8c_ad5661902aa5eb6cb8644cc0e3f559a8c}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-guided@{\-\_\-\-\_\-kmp\-\_\-guided}}
+\index{\-\_\-\-\_\-kmp\-\_\-guided@{\-\_\-\-\_\-kmp\-\_\-guided}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-guided}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf sched\-\_\-type} \-\_\-\-\_\-kmp\-\_\-guided = {\bf kmp\-\_\-sch\-\_\-guided\-\_\-iterative\-\_\-chunked}}}\label{kmp__global_8c_ad5661902aa5eb6cb8644cc0e3f559a8c}
+
+
+Definition at line 138 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-schedule\-\_\-global(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-schedule(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-schedule().
+
+\hypertarget{kmp__global_8c_a5f3438a34f9250663bc10f78b727dc1a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-common@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-common = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a5f3438a34f9250663bc10f78b727dc1a}
+
+
+Definition at line 46 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end().
+
+\hypertarget{kmp__global_8c_aa28d33ebc755e1adc54173c659eebbea}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-counter}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-counter}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-counter = 0}}\label{kmp__global_8c_aa28d33ebc755e1adc54173c659eebbea}
+
+
+Definition at line 55 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_a3f91f5b94048484e40c6caeb66c60f27}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-gtid = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a3f91f5b94048484e40c6caeb66c60f27}
+
+
+Definition at line 45 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-resume\-\_\-monitor(), and \-\_\-\-\_\-kmp\-\_\-resume\-\_\-template().
+
+\hypertarget{kmp__global_8c_a70576d967f407af9d2ecb6174c1c7add}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-middle@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-middle}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-middle@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-middle}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-middle}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-middle = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a70576d967f407af9d2ecb6174c1c7add}
+
+
+Definition at line 47 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-num\-\_\-teams(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), F\-T\-N\-\_\-\-C\-R\-E\-A\-T\-E\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-S\-K(), F\-T\-N\-\_\-\-D\-E\-S\-T\-R\-O\-Y\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-S\-K(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-S\-K\-\_\-\-P\-R\-O\-C(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-X\-\_\-\-P\-R\-O\-C(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-M\-A\-X\-\_\-\-T\-H\-R\-E\-A\-D\-S(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-N\-U\-M\-\_\-\-P\-R\-O\-C\-S(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y(), F\-T\-N\-\_\-\-S\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-S\-K\-\_\-\-P\-R\-O\-C(), F\-T\-N\-\_\-\-U\-N\-S\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-S\-K\-\_\-\-P\-R\-O\-C(), kmpc\-\_\-get\-\_\-affinity\-\_\-mask\-\_\-proc(), kmpc\-\_\-set\-\_\-affinity\-\_\-mask\-\_\-proc(), and kmpc\-\_\-unset\-\_\-affinity\-\_\-mask\-\_\-proc().
+
+\hypertarget{kmp__global_8c_a7837f92b7bc9827769108bb115d180e8}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-monitor = 0}}\label{kmp__global_8c_a7837f92b7bc9827769108bb115d180e8}
+
+
+Definition at line 49 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), and \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor().
+
+\hypertarget{kmp__global_8c_aa23ece0d05f38387c8a8441aaad368df}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-parallel = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_aa23ece0d05f38387c8a8441aaad368df}
+
+
+Definition at line 48 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-enter\-\_\-single(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-reinitialize\-\_\-team(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-setup\-\_\-icv\-\_\-copy(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-kmp\-\_\-dynamic\-\_\-mode(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-cancellation(), \-\_\-\-\_\-kmpc\-\_\-barrier(), \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmpc\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskyield(), \-\_\-\-\_\-kmpc\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-reduce(), \-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-N\-U\-M(), F\-T\-N\-\_\-\-I\-N\-\_\-\-F\-I\-N\-A\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-C\-O\-P\-Y\-\_\-\-S\-T\-A\-R\-T(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-\_\-\-S\-T\-A\-R\-T().
+
+\hypertarget{kmp__global_8c_aee22cd19970207e05e9c86cc0a802f9c}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-serial@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-serial}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-serial@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-serial}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-serial}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-serial = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_aee22cd19970207e05e9c86cc0a802f9c}
+
+
+Definition at line 44 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-defaults(), \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id\-\_\-reg(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-max\-\_\-active\-\_\-levels(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-team\-\_\-size(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-root\-\_\-current\-\_\-thread(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-10(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-16(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-20(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-32(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-4(), \-\_\-\-\_\-kmpc\-\_\-atomic\-\_\-8(), \-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-init\-\_\-4(), \-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-init\-\_\-4u(), \-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-init\-\_\-8(), \-\_\-\-\_\-kmpc\-\_\-dispatch\-\_\-init\-\_\-8u(), \-\_\-\-\_\-kmpc\-\_\-dist\-\_\-dispatch\-\_\-init\-\_\-4(), \-\_\-\-\_\-kmpc\-\_\-dist\-\_\-dispatch\-\_\-init\-\_\-4u(), \-\_\-\-\_\-kmpc\-\_\-dist\-\_\-dispatch\-\_\-init\-\_\-8(), \-\_\-\-\_\-kmpc\-\_\-dist\-\_\-dispatch\-\_\-init\-\_\-8u(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-init\-\_\-nest\-\_\-lock(), \-\_\-\-\_\-kmpc\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmpc\-\_\-team\-\_\-static\-\_\-init\-\_\-4(), \-\_\-\-\_\-kmpc\-\_\-team\-\_\-static\-\_\-init\-\_\-4u(), \-\_\-\-\_\-kmpc\-\_\-team\-\_\-static\-\_\-init\-\_\-8(), \-\_\-\-\_\-kmpc\-\_\-team\-\_\-static\-\_\-init\-\_\-8u(), \-\_\-\-\_\-kmpc\-\_\-threadprivate(), A\-T\-O\-M\-I\-C\-\_\-\-F\-I\-X\-E\-D\-\_\-\-A\-D\-D(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-N\-U\-M\-\_\-\-K\-N\-O\-W\-N\-\_\-\-T\-H\-R\-E\-A\-D\-S(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E\-\_\-\-S(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-L\-I\-M\-I\-T(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-W\-T\-I\-C\-K(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-W\-T\-I\-M\-E(), and kmpc\-\_\-free().
+
+\hypertarget{kmp__global_8c_a06dca6ee024848d88e7a69d5df512e65}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-user\-\_\-locks = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a06dca6ee024848d88e7a69d5df512e65}
+
+
+Definition at line 50 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-cleanup\-\_\-user\-\_\-locks(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-lock\-\_\-kind().
+
+\hypertarget{kmp__global_8c_a5d0398f98db50249d9b8104439e25bc1}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-init\-\_\-wait@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-wait}}
+\index{\-\_\-\-\_\-kmp\-\_\-init\-\_\-wait@{\-\_\-\-\_\-kmp\-\_\-init\-\_\-wait}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-init\-\_\-wait}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf int} \-\_\-\-\_\-kmp\-\_\-init\-\_\-wait = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-I\-N\-I\-T\-\_\-\-W\-A\-I\-T}}}\label{kmp__global_8c_a5d0398f98db50249d9b8104439e25bc1}
+
+
+Definition at line 62 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-init\-\_\-wait(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-init\-\_\-wait().
+
+\hypertarget{kmp__global_8c_af47e8ed0577d4f26c84cdaeda29f40e3}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} {\bf kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock = {\bf K\-M\-P\-\_\-\-B\-O\-O\-T\-S\-T\-R\-A\-P\-\_\-\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}( \-\_\-\-\_\-kmp\-\_\-initz\-\_\-lock )}}\label{kmp__global_8c_af47e8ed0577d4f26c84cdaeda29f40e3}
+
+
+Definition at line 407 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id\-\_\-reg(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_aa8f77de14d1515a05937d68622e74d61}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-library@{\-\_\-\-\_\-kmp\-\_\-library}}
+\index{\-\_\-\-\_\-kmp\-\_\-library@{\-\_\-\-\_\-kmp\-\_\-library}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf library\-\_\-type} \-\_\-\-\_\-kmp\-\_\-library = {\bf library\-\_\-none}}}\label{kmp__global_8c_aa8f77de14d1515a05937d68622e74d61}
+
+
+Definition at line 135 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-tasks\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-wait\-\_\-policy(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-wait\-\_\-policy(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-L\-I\-B\-R\-A\-R\-Y().
+
+\hypertarget{kmp__global_8c_ac8b6597684f6c3c7f7092d622b644a09}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr@{\-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr}}
+\index{\-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr@{\-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmp\-\_\-malloc\-\_\-pool\-\_\-incr = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-M\-A\-L\-L\-O\-C\-\_\-\-P\-O\-O\-L\-\_\-\-I\-N\-C\-R}}}\label{kmp__global_8c_ac8b6597684f6c3c7f7092d622b644a09}
+
+
+Definition at line 70 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-bget(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-malloc\-\_\-pool\-\_\-incr(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-malloc\-\_\-pool\-\_\-incr().
+
+\hypertarget{kmp__global_8c_a4d084c7a33d676bae3980e69345e8adf}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-max\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-max\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-max\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-max\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-max\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-max\-\_\-nth = 0}}\label{kmp__global_8c_a4d084c7a33d676bae3980e69345e8adf}
+
+
+Definition at line 122 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-default\-\_\-tp\-\_\-capacity(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-initial\-\_\-threads\-\_\-capacity(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-num\-\_\-teams(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threadprivate(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-all\-\_\-threads(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-L\-I\-M\-I\-T().
+
+\hypertarget{kmp__global_8c_ae898939654132601bc5cd26774d899fc}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-monitor\-\_\-lock}}\label{kmp__global_8c_ae898939654132601bc5cd26774d899fc}
+
+
+Definition at line 410 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end().
+
+\hypertarget{kmp__global_8c_a0dfe083716c706c3b8ea872623fad7c7}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize}}
+\index{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmp\-\_\-monitor\-\_\-stksize = 0}}\label{kmp__global_8c_a0dfe083716c706c3b8ea872623fad7c7}
+
+
+Definition at line 66 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-create\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-monitor\-\_\-stacksize(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-monitor\-\_\-stacksize().
+
+\hypertarget{kmp__global_8c_a1171057a79f5a42e26d0bd84f6cd707b}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups@{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups}}
+\index{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups@{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-monitor\-\_\-wakeups = {\bf K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-M\-O\-N\-I\-T\-O\-R\-\_\-\-W\-A\-K\-E\-U\-P\-S}}}\label{kmp__global_8c_a1171057a79f5a42e26d0bd84f6cd707b}
+
+
+Definition at line 141 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-blocktime(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-blocktime().
+
+\hypertarget{kmp__global_8c_a926160e3034cba452f28f9af6c365348}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork@{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork}}
+\index{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork@{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork = {\bf T\-R\-U\-E}}}\label{kmp__global_8c_a926160e3034cba452f28f9af6c365348}
+
+
+Definition at line 324 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-register\-\_\-atfork(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-init\-\_\-at\-\_\-fork().
+
+\hypertarget{kmp__global_8c_aa56458030afaa3f7694bb7b2890da1a9}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified@{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified}}
+\index{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified@{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-need\-\_\-register\-\_\-atfork\-\_\-specified = {\bf T\-R\-U\-E}}}\label{kmp__global_8c_aa56458030afaa3f7694bb7b2890da1a9}
+
+
+Definition at line 325 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-init\-\_\-at\-\_\-fork(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-init\-\_\-at\-\_\-fork().
+
+\hypertarget{kmp__global_8c_a4bb4b8763f9bcb453e89051a1580b77e}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-nested\-\_\-nthreads\-\_\-t} \-\_\-\-\_\-kmp\-\_\-nested\-\_\-nth = \{ N\-U\-L\-L, 0, 0 \}}}\label{kmp__global_8c_a4bb4b8763f9bcb453e89051a1580b77e}
+
+
+Definition at line 180 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-num\-\_\-threads(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-num\-\_\-threads().
+
+\hypertarget{kmp__global_8c_a47bc631a510ddd8aa5b20d3525499a4a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind}}
+\index{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind@{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-nested\-\_\-proc\-\_\-bind\-\_\-t} \-\_\-\-\_\-kmp\-\_\-nested\-\_\-proc\-\_\-bind = \{ N\-U\-L\-L, 0, 0 \}}}\label{kmp__global_8c_a47bc631a510ddd8aa5b20d3525499a4a}
+
+
+Definition at line 251 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-icvs(), \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-proc\-\_\-bind(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-proc\-\_\-bind().
+
+\hypertarget{kmp__global_8c_ac2c0e8f924a1107cce8578fc2575a78f}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-next\-\_\-wait@{\-\_\-\-\_\-kmp\-\_\-next\-\_\-wait}}
+\index{\-\_\-\-\_\-kmp\-\_\-next\-\_\-wait@{\-\_\-\-\_\-kmp\-\_\-next\-\_\-wait}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-next\-\_\-wait}]{\setlength{\rightskip}{0pt plus 5cm}unsigned {\bf int} \-\_\-\-\_\-kmp\-\_\-next\-\_\-wait = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-N\-E\-X\-T\-\_\-\-W\-A\-I\-T}}}\label{kmp__global_8c_ac2c0e8f924a1107cce8578fc2575a78f}
+
+
+Definition at line 63 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-next\-\_\-wait(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-next\-\_\-wait().
+
+\hypertarget{kmp__global_8c_a930fb728641e217db6e0da97874c8333}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-nth = 0}}\label{kmp__global_8c_a930fb728641e217db6e0da97874c8333}
+
+
+Definition at line 365 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-drdpa\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-queuing\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-tas\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-common(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-tas\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-reset\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-to\-\_\-unref\-\_\-task\-\_\-teams(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-yield(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-yield\-\_\-4(), \-\_\-\-\_\-kmpc\-\_\-global\-\_\-num\-\_\-threads(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-N\-U\-M\-\_\-\-K\-N\-O\-W\-N\-\_\-\-T\-H\-R\-E\-A\-D\-S().
+
+\hypertarget{kmp__global_8c_a44033de9713edf20b0c77706153df1d2}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation@{\-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation}}
+\index{\-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation@{\-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-omp\-\_\-cancellation = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a44033de9713edf20b0c77706153df1d2}
+
+
+Definition at line 195 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-cancellation\-\_\-status(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-cancellation(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-cancellation(), \-\_\-\-\_\-kmpc\-\_\-cancel(), \-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier(), \-\_\-\-\_\-kmpc\-\_\-cancellationpoint(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-B\-A\-R\-R\-I\-E\-R\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-C\-A\-N\-C\-E\-L\-L\-A\-T\-I\-O\-N\-\_\-\-P\-O\-I\-N\-T(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-L\-O\-O\-P\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L(), and K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-S\-E\-C\-T\-I\-O\-N\-S\-\_\-\-E\-N\-D\-\_\-\-C\-A\-N\-C\-E\-L().
+
+\hypertarget{kmp__global_8c_aff177db4ec33ce10b3ff5f835ba15290}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset}}
+\index{\-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-place\-\_\-core\-\_\-offset = 0}}\label{kmp__global_8c_aff177db4ec33ce10b3ff5f835ba15290}
+
+
+Definition at line 258 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads().
+
+\hypertarget{kmp__global_8c_ac65d2f4b8f37ccf1def371957a20e681}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores}}
+\index{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-cores = 0}}\label{kmp__global_8c_ac65d2f4b8f37ccf1def371957a20e681}
+
+
+Definition at line 257 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads().
+
+\hypertarget{kmp__global_8c_ae605f67e5a66b2ca27da5dcd9c625f30}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets}}
+\index{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-sockets = 0}}\label{kmp__global_8c_ae605f67e5a66b2ca27da5dcd9c625f30}
+
+
+Definition at line 255 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads().
+
+\hypertarget{kmp__global_8c_abbc9a8bcd49754dea176a2b0269e2ea2}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core}}
+\index{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-place\-\_\-num\-\_\-threads\-\_\-per\-\_\-core = 0}}\label{kmp__global_8c_abbc9a8bcd49754dea176a2b0269e2ea2}
+
+
+Definition at line 259 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads().
+
+\hypertarget{kmp__global_8c_a0e52a4058a39a695f03b75616d67cfce}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset}}
+\index{\-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset@{\-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-place\-\_\-socket\-\_\-offset = 0}}\label{kmp__global_8c_a0e52a4058a39a695f03b75616d67cfce}
+
+
+Definition at line 256 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-place\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-place\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-place\-\_\-threads().
+
+\hypertarget{kmp__global_8c_a7467cd4fe436813f2f8b023ad137e384}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn@{\-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn}}
+\index{\-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn@{\-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-warn = 0}}\label{kmp__global_8c_a7467cd4fe436813f2f8b023ad137e384}
+
+
+Definition at line 117 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-push\-\_\-num\-\_\-teams(), and \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads().
+
+\hypertarget{kmp__global_8c_aa55bed3b4f4c286e5dd1f23ccda86c65}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-root@{\-\_\-\-\_\-kmp\-\_\-root}}
+\index{\-\_\-\-\_\-kmp\-\_\-root@{\-\_\-\-\_\-kmp\-\_\-root}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-root}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-root\-\_\-t}$\ast$$\ast$ \-\_\-\-\_\-kmp\-\_\-root = N\-U\-L\-L}}\label{kmp__global_8c_aa55bed3b4f4c286e5dd1f23ccda86c65}
+
+
+Definition at line 361 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-library(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), and \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-root\-\_\-current\-\_\-thread().
+
+\hypertarget{kmp__global_8c_ae8940c05c34b3e38e04f31833d386e23}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-root\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-root\-\_\-counter}}
+\index{\-\_\-\-\_\-kmp\-\_\-root\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-root\-\_\-counter}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-root\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-root\-\_\-counter = 0}}\label{kmp__global_8c_ae8940c05c34b3e38e04f31833d386e23}
+
+
+Definition at line 56 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-register\-\_\-root().
+
+\hypertarget{kmp__global_8c_a308aa70b679e0aa1d7c27a5cc38dde65}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-sch\-\_\-map@{\-\_\-\-\_\-kmp\-\_\-sch\-\_\-map}}
+\index{\-\_\-\-\_\-kmp\-\_\-sch\-\_\-map@{\-\_\-\-\_\-kmp\-\_\-sch\-\_\-map}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-sch\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf sched\-\_\-type} \-\_\-\-\_\-kmp\-\_\-sch\-\_\-map\mbox{[}{\bf kmp\-\_\-sched\-\_\-upper}-\/{\bf kmp\-\_\-sched\-\_\-lower\-\_\-ext}+{\bf kmp\-\_\-sched\-\_\-upper\-\_\-std}-\/{\bf kmp\-\_\-sched\-\_\-lower}-\/2\mbox{]}}}\label{kmp__global_8c_a308aa70b679e0aa1d7c27a5cc38dde65}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea8521b598e4c2014936813c104adfab4b}{kmp\_sch\_static\_chunked},     
+    \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea55ec779ed16f7959a24e65feadcbdbeb}{kmp\_sch\_dynamic\_chunked},    
+    \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea52b66fc7ba82beb3d6fbdb82a6ef045d}{kmp\_sch\_guided\_chunked},     
+    \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea270b6b98ec2f9ec4832f7a59b0a0d532}{kmp\_sch\_auto},               
+    \hyperlink{group__WORK__SHARING_ggadcaf200537aaa0218a60c398438f81bea904631666318a8490fc48df394616dbd}{kmp\_sch\_trapezoidal}         
+                                
+                                
+\}
+\end{DoxyCode}
+
+
+Definition at line 199 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-set\-\_\-schedule().
+
+\hypertarget{kmp__global_8c_a8c039a5dbf8b1d50c8809face611f8e6}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-sched@{\-\_\-\-\_\-kmp\-\_\-sched}}
+\index{\-\_\-\-\_\-kmp\-\_\-sched@{\-\_\-\-\_\-kmp\-\_\-sched}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-sched}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf sched\-\_\-type} \-\_\-\-\_\-kmp\-\_\-sched = {\bf kmp\-\_\-sch\-\_\-default}}}\label{kmp__global_8c_a8c039a5dbf8b1d50c8809face611f8e6}
+
+
+Definition at line 136 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-get\-\_\-schedule\-\_\-global(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-schedule(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-omp\-\_\-schedule().
+
+\hypertarget{kmp__global_8c_aacc3bb748c0b09ecc54f0793eeafdd3c}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-settings@{\-\_\-\-\_\-kmp\-\_\-settings}}
+\index{\-\_\-\-\_\-kmp\-\_\-settings@{\-\_\-\-\_\-kmp\-\_\-settings}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-settings}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-settings = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_aacc3bb748c0b09ecc54f0793eeafdd3c}
+
+
+Definition at line 280 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-defaults(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-settings(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-settings().
+
+\hypertarget{kmp__global_8c_a7520297e68a11d20d86df78cf53442c1}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-static@{\-\_\-\-\_\-kmp\-\_\-static}}
+\index{\-\_\-\-\_\-kmp\-\_\-static@{\-\_\-\-\_\-kmp\-\_\-static}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-static}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf sched\-\_\-type} \-\_\-\-\_\-kmp\-\_\-static = {\bf kmp\-\_\-sch\-\_\-static\-\_\-greedy}}}\label{kmp__global_8c_a7520297e68a11d20d86df78cf53442c1}
+
+
+Definition at line 137 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-get\-\_\-bounds(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-schedule\-\_\-global(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-omp\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-schedule(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-schedule().
+
+\hypertarget{kmp__global_8c_a4ce412fd3335747984f4b5d8fa62cb98}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}}
+\index{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-stats\-\_\-list} \-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}}\label{kmp__global_8c_a4ce412fd3335747984f4b5d8fa62cb98}
+
+
+Definition at line 28 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-reset\-\_\-stats(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::output\-Stats(), kmp\-\_\-stats\-\_\-output\-\_\-module\-::print\-Ploticus\-File(), and kmp\-\_\-stats\-\_\-output\-\_\-module\-::windup\-Explicit\-Timers().
+
+\hypertarget{kmp__global_8c_a42262d8acf08f12f7bea6affc1673068}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-tas\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-stats\-\_\-lock}}\label{kmp__global_8c_a42262d8acf08f12f7bea6affc1673068}
+
+
+Definition at line 25 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), and \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_a12d1cf26d9330e0eb6361b6d67086d1d}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time}}
+\index{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tsc\-\_\-tick\-\_\-count} \-\_\-\-\_\-kmp\-\_\-stats\-\_\-start\-\_\-time}}\label{kmp__global_8c_a12d1cf26d9330e0eb6361b6d67086d1d}
+
+
+Definition at line 34 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), and explicit\-Timer\-::stop().
+
+\hypertarget{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr}}
+\index{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr@{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-thread {\bf kmp\-\_\-stats\-\_\-list}$\ast$ \-\_\-\-\_\-kmp\-\_\-stats\-\_\-thread\-\_\-ptr = \&{\bf \-\_\-\-\_\-kmp\-\_\-stats\-\_\-list}}}\label{kmp__global_8c_ae8b6bdb1368ab875fdb8322ba2de5803}
+
+
+Definition at line 31 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-worker(), explicit\-Timer\-::start(), and explicit\-Timer\-::stop().
+
+\hypertarget{kmp__global_8c_ac841e4743aeceae5d3667bc8511ba1c4}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stkoffset@{\-\_\-\-\_\-kmp\-\_\-stkoffset}}
+\index{\-\_\-\-\_\-kmp\-\_\-stkoffset@{\-\_\-\-\_\-kmp\-\_\-stkoffset}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stkoffset}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmp\-\_\-stkoffset = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-T\-K\-O\-F\-F\-S\-E\-T}}}\label{kmp__global_8c_ac841e4743aeceae5d3667bc8511ba1c4}
+
+
+Definition at line 67 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-stackoffset(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-stackoffset().
+
+\hypertarget{kmp__global_8c_ae050c01c40fb4f54e398dc3a81947198}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stkpadding@{\-\_\-\-\_\-kmp\-\_\-stkpadding}}
+\index{\-\_\-\-\_\-kmp\-\_\-stkpadding@{\-\_\-\-\_\-kmp\-\_\-stkpadding}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stkpadding}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-stkpadding = {\bf K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-S\-T\-K\-P\-A\-D\-D\-I\-N\-G}}}\label{kmp__global_8c_ae050c01c40fb4f54e398dc3a81947198}
+
+
+Definition at line 68 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-stackpad(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-stackpad().
+
+\hypertarget{kmp__global_8c_a4524fc3a41e208a6cf6d7cad17f028c7}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-stksize}}
+\index{\-\_\-\-\_\-kmp\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-stksize}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-stksize}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmp\-\_\-stksize = {\bf K\-M\-P\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-T\-K\-S\-I\-Z\-E}}}\label{kmp__global_8c_a4524fc3a41e208a6cf6d7cad17f028c7}
+
+
+Definition at line 65 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-worker(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-stacksize(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-S\-T\-A\-C\-K\-S\-I\-Z\-E\-\_\-\-S().
+
+\hypertarget{kmp__global_8c_a9ebbdbe73e3d15e7a0b23ce875f3dac9}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map@{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map}}
+\index{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map@{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-storage\-\_\-map = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a9ebbdbe73e3d15e7a0b23ce875f3dac9}
+
+
+Definition at line 320 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-alloc\-\_\-argv\-\_\-entries(), \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-team(), \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-check\-\_\-stack\-\_\-overlap(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-initialize\-\_\-info(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-storage\-\_\-map(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-storage\-\_\-map().
+
+\hypertarget{kmp__global_8c_a7513189068c7dbf2f2141b26489e2c12}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose@{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose}}
+\index{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose@{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a7513189068c7dbf2f2141b26489e2c12}
+
+
+Definition at line 321 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-print\-\_\-storage\-\_\-map\-\_\-gtid(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-storage\-\_\-map(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-storage\-\_\-map().
+
+\hypertarget{kmp__global_8c_a37e967c6d96b5301870f4b9318c79ec6}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified@{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified}}
+\index{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified@{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-storage\-\_\-map\-\_\-verbose\-\_\-specified = {\bf F\-A\-L\-S\-E}}}\label{kmp__global_8c_a37e967c6d96b5301870f4b9318c79ec6}
+
+
+Definition at line 322 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-storage\-\_\-map(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-storage\-\_\-map().
+
+\hypertarget{kmp__global_8c_aa34f380bb9845773e26d2f6f894cfd26}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-sys\-\_\-max\-\_\-nth = {\bf K\-M\-P\-\_\-\-M\-A\-X\-\_\-\-N\-T\-H}}}\label{kmp__global_8c_aa34f380bb9845773e26d2f6f894cfd26}
+
+
+Definition at line 121 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-parse\-\_\-nested\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threads().
+
+\hypertarget{kmp__global_8c_ac11734b715f1e9aec17fc0eda9cba87c}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize}}
+\index{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize@{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t \-\_\-\-\_\-kmp\-\_\-sys\-\_\-min\-\_\-stksize = {\bf K\-M\-P\-\_\-\-M\-I\-N\-\_\-\-S\-T\-K\-S\-I\-Z\-E}}}\label{kmp__global_8c_ac11734b715f1e9aec17fc0eda9cba87c}
+
+
+Definition at line 120 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-aux\-\_\-set\-\_\-stacksize(), \-\_\-\-\_\-kmp\-\_\-create\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-monitor\-\_\-stacksize(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-stacksize().
+
+\hypertarget{kmp__global_8c_aa22088a01662800b75e94de1a362c846}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-task\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-task\-\_\-counter}}
+\index{\-\_\-\-\_\-kmp\-\_\-task\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-task\-\_\-counter}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-task\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-task\-\_\-counter = 0}}\label{kmp__global_8c_aa22088a01662800b75e94de1a362c846}
+
+
+Definition at line 60 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_a8fed3df0b84562bb900b41b72dd88033}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint@{\-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint}}
+\index{\-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint@{\-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-task\-\_\-stealing\-\_\-constraint = 1}}\label{kmp__global_8c_a8fed3df0b84562bb900b41b72dd88033}
+
+
+Definition at line 274 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-task\-\_\-stealing(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-task\-\_\-stealing(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskgroup(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskwait(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskyield(), and \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps().
+
+\hypertarget{kmp__global_8c_a39e87c52fb75a615c2564a822a013a5a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode}}
+\index{\-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode@{\-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-tasking\-\_\-mode\-\_\-t} \-\_\-\-\_\-kmp\-\_\-tasking\-\_\-mode = {\bf tskm\-\_\-task\-\_\-teams}}}\label{kmp__global_8c_a39e87c52fb75a615c2564a822a013a5a}
+
+
+Definition at line 261 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-team(), \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-enable\-\_\-tasking(), \-\_\-\-\_\-kmp\-\_\-end\-\_\-split\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-tasks\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-team(), \-\_\-\-\_\-kmp\-\_\-init\-\_\-implicit\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-remove\-\_\-my\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-reset\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-steal\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-tasking(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-tasking(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-alloc(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-team\-\_\-setup(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-team\-\_\-sync(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-team\-\_\-wait(), \-\_\-\-\_\-kmp\-\_\-tasking\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskgroup(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskwait(), and \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskyield().
+
+\hypertarget{kmp__global_8c_ae54fb6f980befd598183b193778b1ebe}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-team\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-team\-\_\-counter}}
+\index{\-\_\-\-\_\-kmp\-\_\-team\-\_\-counter@{\-\_\-\-\_\-kmp\-\_\-team\-\_\-counter}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-team\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}volatile kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-team\-\_\-counter = 0}}\label{kmp__global_8c_ae54fb6f980befd598183b193778b1ebe}
+
+
+Definition at line 59 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_a04811f0174c4d50bd75362cfc85a83f7}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-team\-\_\-pool@{\-\_\-\-\_\-kmp\-\_\-team\-\_\-pool}}
+\index{\-\_\-\-\_\-kmp\-\_\-team\-\_\-pool@{\-\_\-\-\_\-kmp\-\_\-team\-\_\-pool}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-team\-\_\-pool}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf kmp\-\_\-team\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-team\-\_\-pool = N\-U\-L\-L}}\label{kmp__global_8c_a04811f0174c4d50bd75362cfc85a83f7}
+
+
+Definition at line 369 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-team(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-team(), and \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end().
+
+\hypertarget{kmp__global_8c_a3cab107cb6b7391dc221c14353ec6350}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool@{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool}}
+\index{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool@{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool}]{\setlength{\rightskip}{0pt plus 5cm}volatile {\bf kmp\-\_\-info\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool = N\-U\-L\-L}}\label{kmp__global_8c_a3cab107cb6b7391dc221c14353ec6350}
+
+
+Definition at line 368 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), and \-\_\-\-\_\-kmp\-\_\-wait\-\_\-to\-\_\-unref\-\_\-task\-\_\-teams().
+
+\hypertarget{kmp__global_8c_add23be43585771c05605eb809a554b49}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} volatile {\bf int} \-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-active\-\_\-nth = 0}}\label{kmp__global_8c_add23be43585771c05605eb809a554b49}
+
+
+Definition at line 372 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-suspend\-\_\-template(), and \-\_\-\-\_\-kmp\-\_\-wait\-\_\-template().
+
+\hypertarget{kmp__global_8c_ab77f7a31d04d2d654e78546530b71ab9}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth}}
+\index{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth@{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-thread\-\_\-pool\-\_\-nth = 0}}\label{kmp__global_8c_ab77f7a31d04d2d654e78546530b71ab9}
+
+
+Definition at line 367 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-free\-\_\-thread(), and \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread().
+
+\hypertarget{kmp__global_8c_a4ffa887cdb59674790ac14ee4a8228e9}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list@{\-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list}}
+\index{\-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list@{\-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-cached\-\_\-addr\-\_\-t}$\ast$ \-\_\-\-\_\-kmp\-\_\-threadpriv\-\_\-cache\-\_\-list = N\-U\-L\-L}}\label{kmp__global_8c_a4ffa887cdb59674790ac14ee4a8228e9}
+
+
+Definition at line 53 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-atfork\-\_\-child(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize(), and \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached().
+
+\hypertarget{kmp__global_8c_a90f61e035ac299853fda087d99e00510}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-threads@{\-\_\-\-\_\-kmp\-\_\-threads}}
+\index{\-\_\-\-\_\-kmp\-\_\-threads@{\-\_\-\-\_\-kmp\-\_\-threads}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf K\-M\-P\-\_\-\-A\-L\-I\-G\-N\-\_\-\-C\-A\-C\-H\-E} {\bf kmp\-\_\-info\-\_\-t}$\ast$$\ast$ \-\_\-\-\_\-kmp\-\_\-threads = N\-U\-L\-L}}\label{kmp__global_8c_a90f61e035ac299853fda087d99e00510}
+
+
+Definition at line 360 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-check\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-check\-\_\-stack\-\_\-overlap(), \-\_\-\-\_\-kmp\-\_\-check\-\_\-sync(), \-\_\-\-\_\-kmp\-\_\-check\-\_\-workshare(), \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-destroy\-\_\-gtid(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-deo(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-deo\-\_\-error(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-dxo(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-dxo\-\_\-error(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-finish(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dispatch\-\_\-next(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-dist\-\_\-get\-\_\-bounds(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-end\-\_\-split\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-enter\-\_\-single(), \-\_\-\-\_\-kmp\-\_\-execute\-\_\-tasks\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-for\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-ancestor\-\_\-thread\-\_\-num(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-max\-\_\-active\-\_\-levels(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-team\-\_\-size(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-microtask\-\_\-wrapper(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-parallel\-\_\-microtask\-\_\-wrapper(), \-\_\-\-\_\-kmp\-\_\-\-G\-O\-M\-P\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-hierarchical\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-hyper\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-begin(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-fork(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-join(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-task\-\_\-func(), \-\_\-\-\_\-kmp\-\_\-invoke\-\_\-teams\-\_\-master(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-barrier(), \-\_\-\-\_\-kmp\-\_\-join\-\_\-call(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-linear\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-omp\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-deo(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-dxo(), \-\_\-\-\_\-kmp\-\_\-pop\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-pop\-\_\-sync(), \-\_\-\-\_\-kmp\-\_\-pop\-\_\-workshare(), \-\_\-\-\_\-kmp\-\_\-process\-\_\-deps(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-num\-\_\-teams(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-proc\-\_\-bind(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-sync(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-push\-\_\-workshare(), \-\_\-\-\_\-kmp\-\_\-reap\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-deps(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-resume\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-max\-\_\-active\-\_\-levels(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-num\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-set\-\_\-schedule(), \-\_\-\-\_\-kmp\-\_\-steal\-\_\-task(), \-\_\-\-\_\-kmp\-\_\-suspend\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-alloc(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-finish(), \-\_\-\-\_\-kmp\-\_\-task\-\_\-start(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-eo(), \-\_\-\-\_\-kmp\-\_\-taskq\-\_\-xo(), \-\_\-\-\_\-kmp\-\_\-team\-\_\-static\-\_\-init(), \-\_\-\-\_\-kmp\-\_\-teams\-\_\-master(), \-\_\-\-\_\-kmp\-\_\-terminate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-tree\-\_\-barrier\-\_\-release(), \-\_\-\-\_\-kmp\-\_\-unregister\-\_\-root\-\_\-current\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-user\-\_\-set\-\_\-library(), \-\_\-\-\_\-kmpc\-\_\-barrier(), \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-barrier\-\_\-master\-\_\-nowait(), \-\_\-\-\_\-kmpc\-\_\-cancel(), \-\_\-\-\_\-kmpc\-\_\-cancel\-\_\-barrier(), \-\_\-\-\_\-kmpc\-\_\-cancellationpoint(), \-\_\-\-\_\-kmpc\-\_\-copyprivate(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-reduce(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-serialized\-\_\-parallel(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-single(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskgroup(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-end\-\_\-taskq\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-for\-\_\-static\-\_\-fini(), \-\_\-\-\_\-kmpc\-\_\-fork\-\_\-call(), \-\_\-\-\_\-kmpc\-\_\-fork\-\_\-teams(), \-\_\-\-\_\-kmpc\-\_\-master(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-begin\-\_\-if0(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-parts(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-task\-\_\-with\-\_\-deps(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskwait(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-taskyield(), \-\_\-\-\_\-kmpc\-\_\-omp\-\_\-wait\-\_\-deps(), \-\_\-\-\_\-kmpc\-\_\-ordered(), \-\_\-\-\_\-kmpc\-\_\-reduce(), \-\_\-\-\_\-kmpc\-\_\-reduce\-\_\-nowait(), \-\_\-\-\_\-kmpc\-\_\-single(), \-\_\-\-\_\-kmpc\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-task\-\_\-buffer(), \-\_\-\-\_\-kmpc\-\_\-taskgroup(), \-\_\-\-\_\-kmpc\-\_\-taskq(), \-\_\-\-\_\-kmpc\-\_\-taskq\-\_\-task(), \-\_\-\-\_\-kmpc\-\_\-threadprivate(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-B\-L\-O\-C\-K\-T\-I\-M\-E(), F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-M\-A\-X\-\_\-\-T\-H\-R\-E\-A\-D\-S(), K\-M\-P\-\_\-\-A\-P\-I\-\_\-\-N\-A\-M\-E\-\_\-\-G\-O\-M\-P\-\_\-\-P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-E\-N\-D(), kmp\-\_\-threadprivate\-\_\-insert(), kmp\-\_\-threadprivate\-\_\-insert\-\_\-private\-\_\-data(), and P\-A\-R\-A\-L\-L\-E\-L\-\_\-\-L\-O\-O\-P\-\_\-\-S\-T\-A\-R\-T().
+
+\hypertarget{kmp__global_8c_acae0af8cf6e8a8367b389986b372ab0a}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity@{\-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity}}
+\index{\-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity@{\-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-threads\-\_\-capacity = 0}}\label{kmp__global_8c_acae0af8cf6e8a8367b389986b372ab0a}
+
+
+Definition at line 123 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-check\-\_\-stack\-\_\-overlap(), \-\_\-\-\_\-kmp\-\_\-cleanup(), \-\_\-\-\_\-kmp\-\_\-common\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-get\-\_\-global\-\_\-thread\-\_\-id(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end(), \-\_\-\-\_\-kmp\-\_\-internal\-\_\-end\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), and \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads().
+
+\hypertarget{kmp__global_8c_afce1a0df7f7512062fd0494459776dae}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min@{\-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min}}
+\index{\-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min@{\-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-tls\-\_\-gtid\-\_\-min = I\-N\-T\-\_\-\-M\-A\-X}}\label{kmp__global_8c_afce1a0df7f7512062fd0494459776dae}
+
+
+Definition at line 168 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-allocate\-\_\-thread(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), and \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize().
+
+\hypertarget{kmp__global_8c_a644251d4c84b1f4f3e9e40b666ea0de5}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached@{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached}}
+\index{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached@{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached = 0}}\label{kmp__global_8c_a644251d4c84b1f4f3e9e40b666ea0de5}
+
+
+Definition at line 127 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached().
+
+\hypertarget{kmp__global_8c_a2105d949d5809163eef882ebdb896be0}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock}}
+\index{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock@{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf kmp\-\_\-bootstrap\-\_\-lock\-\_\-t} \-\_\-\-\_\-kmp\-\_\-tp\-\_\-cached\-\_\-lock}}\label{kmp__global_8c_a2105d949d5809163eef882ebdb896be0}
+
+
+Definition at line 411 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), and \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached().
+
+\hypertarget{kmp__global_8c_aaab3768311811ffdcd85f5a55bef2318}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity@{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity}}
+\index{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity@{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-tp\-\_\-capacity = 0}}\label{kmp__global_8c_aaab3768311811ffdcd85f5a55bef2318}
+
+
+Definition at line 126 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-register\-\_\-root(), \-\_\-\-\_\-kmp\-\_\-reserve\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threadprivate(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-all\-\_\-threadprivate(), and \-\_\-\-\_\-kmpc\-\_\-threadprivate\-\_\-cached().
+
+\hypertarget{kmp__global_8c_a0db70dba44885cb5eb238fd59b4d638f}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-version@{\-\_\-\-\_\-kmp\-\_\-version}}
+\index{\-\_\-\-\_\-kmp\-\_\-version@{\-\_\-\-\_\-kmp\-\_\-version}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-version = 0}}\label{kmp__global_8c_a0db70dba44885cb5eb238fd59b4d638f}
+
+
+Definition at line 57 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-env\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-parallel\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-version(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-print\-\_\-version().
+
+\hypertarget{kmp__global_8c_a3469a7dffedccf219ec6b8a0e4ec8ed2}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-xproc@{\-\_\-\-\_\-kmp\-\_\-xproc}}
+\index{\-\_\-\-\_\-kmp\-\_\-xproc@{\-\_\-\-\_\-kmp\-\_\-xproc}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-xproc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-\_\-kmp\-\_\-xproc = 0}}\label{kmp__global_8c_a3469a7dffedccf219ec6b8a0e4ec8ed2}
+
+
+Definition at line 118 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-drdpa\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-queuing\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-acquire\-\_\-tas\-\_\-lock\-\_\-timed\-\_\-template(), \-\_\-\-\_\-kmp\-\_\-default\-\_\-tp\-\_\-capacity(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-middle\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-do\-\_\-serial\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-expand\-\_\-file\-\_\-name(), \-\_\-\-\_\-kmp\-\_\-initial\-\_\-threads\-\_\-capacity(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-tas\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-release\-\_\-ticket\-\_\-lock(), \-\_\-\-\_\-kmp\-\_\-runtime\-\_\-initialize(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-all\-\_\-threads(), \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-num\-\_\-threads(), and F\-T\-N\-\_\-\-G\-E\-T\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y\-\_\-\-M\-A\-X\-\_\-\-P\-R\-O\-C().
+
+\hypertarget{kmp__global_8c_aecb28724e6731cb1d8402a9725574cfa}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle}}
+\index{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-yield\-\_\-cycle = 1}}\label{kmp__global_8c_aecb28724e6731cb1d8402a9725574cfa}
+
+
+Definition at line 342 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor().
+
+\hypertarget{kmp__global_8c_a94701cc75584d33909a7fff0a10ab4ec}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-yield\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-init}}
+\index{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-init@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-init}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-yield\-\_\-init = K\-M\-P\-\_\-\-I\-N\-I\-T\-\_\-\-W\-A\-I\-T}}\label{kmp__global_8c_a94701cc75584d33909a7fff0a10ab4ec}
+
+
+Definition at line 336 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-change\-\_\-library(), and \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-init\-\_\-wait().
+
+\hypertarget{kmp__global_8c_aff2e16dbbb59075fda04901384651176}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-yield\-\_\-next@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-next}}
+\index{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-next@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-next}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-next}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-yield\-\_\-next = K\-M\-P\-\_\-\-N\-E\-X\-T\-\_\-\-W\-A\-I\-T}}\label{kmp__global_8c_aff2e16dbbb59075fda04901384651176}
+
+
+Definition at line 337 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-stg\-\_\-parse\-\_\-next\-\_\-wait().
+
+\hypertarget{kmp__global_8c_a6b243e407a71238e44adac9cc5248739}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count}}
+\index{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-yield\-\_\-off\-\_\-count = 1}}\label{kmp__global_8c_a6b243e407a71238e44adac9cc5248739}
+
+
+Definition at line 345 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor().
+
+\hypertarget{kmp__global_8c_ab056e2418f59f84020b2e7be6378d37d}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count}}
+\index{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count@{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-int32 \-\_\-\-\_\-kmp\-\_\-yield\-\_\-on\-\_\-count = 10}}\label{kmp__global_8c_ab056e2418f59f84020b2e7be6378d37d}
+
+
+Definition at line 344 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor().
+
+\hypertarget{kmp__global_8c_ad41fbe82f9fadf0aaf70237d90bc6146}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on@{\-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on}}
+\index{\-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on@{\-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on}]{\setlength{\rightskip}{0pt plus 5cm}kmp\-\_\-uint32 \-\_\-\-\_\-kmp\-\_\-yielding\-\_\-on = 1}}\label{kmp__global_8c_ad41fbe82f9fadf0aaf70237d90bc6146}
+
+
+Definition at line 338 of file kmp\-\_\-global.\-c.
+
+
+
+Referenced by \-\_\-\-\_\-kmp\-\_\-launch\-\_\-monitor(), and \-\_\-\-\_\-kmp\-\_\-yield().
+
+\hypertarget{kmp__global_8c_a2384c33c1d9b261ecec27d612bd558b1}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library@{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library}}
+\index{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library@{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-exactly\-\_\-one\-\_\-\-Open\-M\-P\-\_\-library = 1}}\label{kmp__global_8c_a2384c33c1d9b261ecec27d612bd558b1}
+
+
+Definition at line 468 of file kmp\-\_\-global.\-c.
+
+\hypertarget{kmp__global_8c_ac563ceddf9a4101b29f16e3fad4c5240}{\index{kmp\-\_\-global.\-c@{kmp\-\_\-global.\-c}!\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library@{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library}}
+\index{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library@{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library}!kmp_global.c@{kmp\-\_\-global.\-c}}
+\subsubsection[{\-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int} \-\_\-\-You\-\_\-must\-\_\-link\-\_\-with\-\_\-\-Intel\-\_\-\-Open\-M\-P\-\_\-library = 1}}\label{kmp__global_8c_ac563ceddf9a4101b29f16e3fad4c5240}
+
+
+Definition at line 469 of file kmp\-\_\-global.\-c.
+

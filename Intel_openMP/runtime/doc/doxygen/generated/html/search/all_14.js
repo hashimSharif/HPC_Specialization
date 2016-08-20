@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['u',['u',['../structdispatch__private__info.html#add5d0eaadae18cc00b471cbb7a147c3e',1,'dispatch_private_info::u()'],['../structdispatch__shared__info.html#a16b262849d490d72d9bad8b991fa6bb5',1,'dispatch_shared_info::u()'],['../structdispatch__private__info__template.html#af9721ce0273cf9cfe4674af244007e7b',1,'dispatch_private_info_template::u()'],['../structdispatch__shared__info__template.html#addc37a0a7602f461c2be5840b5fbea23',1,'dispatch_shared_info_template::u()']]],
+  ['ub',['ub',['../structdispatch__private__info32.html#a2f5539b2d4b0802837e6b4efcf40e339',1,'dispatch_private_info32::ub()'],['../structdispatch__private__info64.html#a9395a2882f09adccf68ab36b7c797e82',1,'dispatch_private_info64::ub()'],['../structdispatch__private__infoXX__template.html#a243c57f29d939bdbec44f77b55bc18e5',1,'dispatch_private_infoXX_template::ub()']]],
+  ['uchar',['uchar',['../kmp__atomic_8c.html#a65f85814a8290f9797005d3b28e7e5fc',1,'kmp_atomic.c']]],
+  ['uninitialized',['uninitialized',['../classhierarchy__info.html#a93f1e8f2ed894dc2477e5feb22d24c2c',1,'hierarchy_info']]],
+  ['uniqueprocess',['UniqueProcess',['../structCLIENT__ID.html#a49bc0496fea8ea6523f4eb37fb739a89',1,'CLIENT_ID']]],
+  ['uniquethread',['UniqueThread',['../structCLIENT__ID.html#af4423c30ef34cc546bbc23a7c783e6e3',1,'CLIENT_ID']]],
+  ['unknown',['unknown',['../kmp__utility_8c.html#a959f1b3400d960b334bfebd27dc4e21f',1,'kmp_utility.c']]],
+  ['unpack_5freduction_5fbarrier',['UNPACK_REDUCTION_BARRIER',['../kmp_8h.html#a1ccb73b52bdd6146311ed40707c69b9a',1,'kmp.h']]],
+  ['unpack_5freduction_5fmethod',['UNPACK_REDUCTION_METHOD',['../kmp_8h.html#adf242ec06fd9610c9a1f689aa3184cdf',1,'kmp.h']]],
+  ['unset_5fsleeping',['unset_sleeping',['../classkmp__basic__flag.html#a6867e3744945bc7dd573c65684695a22',1,'kmp_basic_flag::unset_sleeping()'],['../classkmp__flag__oncore.html#ab49b33119f15328b5c3b558fc3a938ce',1,'kmp_flag_oncore::unset_sleeping()']]],
+  ['updatehwfpcontrol',['updateHWFPControl',['../kmp__runtime_8c.html#a6ae754850170a17b0f3e266e802051ab',1,'kmp_runtime.c']]],
+  ['use_5fchecks_5fcommon',['USE_CHECKS_COMMON',['../kmp__threadprivate_8c.html#a5530e58b7e1260ccae00318a157393b9',1,'kmp_threadprivate.c']]],
+  ['use_5fcmp_5fxchg_5ffor_5fbget',['USE_CMP_XCHG_FOR_BGET',['../kmp_8h.html#a2297964ad022fdf72fd9170dbe004230',1,'kmp.h']]],
+  ['use_5fcmpxchg_5ffix',['USE_CMPXCHG_FIX',['../kmp__os_8h.html#aff02cb23c8cedde602e9db8bf1141a6d',1,'kmp_os.h']]],
+  ['use_5ffast_5fmemory',['USE_FAST_MEMORY',['../kmp_8h.html#aef3d576b7d43a6fae94f6075de65ba0f',1,'kmp.h']]],
+  ['use_5fitt_5fbuild_5farg',['USE_ITT_BUILD_ARG',['../kmp__itt_8h.html#ac31864b9b5b30f5dcac5ab285ee97ae0',1,'kmp_itt.h']]],
+  ['use_5fnested_5fhot_5farg',['USE_NESTED_HOT_ARG',['../kmp_8h.html#ab3e2e42ffa2d2b5db652aba5ea0851e0',1,'kmp.h']]],
+  ['use_5foncore_5fbarrier',['use_oncore_barrier',['../structkmp__bstate.html#a76d7182b9224f9a340803e0f9de877da',1,'kmp_bstate']]],
+  ['use_5fsysfs_5finfo',['USE_SYSFS_INFO',['../kmp__os_8h.html#a79e1f9f1479ded0689da9d5af55048b3',1,'kmp_os.h']]],
+  ['used',['used',['../structkmp__nested__proc__bind__t.html#a4ab1e74b13e91c54a0ff105c9d7db9f6',1,'kmp_nested_proc_bind_t::used()'],['../structkmp__nested__nthreads__t.html#aa7837e3819e8a02eb1fafcc4ff890939',1,'kmp_nested_nthreads_t::used()'],['../structkmp__lock__table.html#a92f49bd4acf0bbe4548629b8010bcc3b',1,'kmp_lock_table::used()'],['../structkmp__str__buf.html#aac402122dd4496ecde0715de265d96b0',1,'kmp_str_buf::used()']]],
+  ['user_20visible_20functions',['User visible functions',['../group__USER.html',1,'']]],
+  ['usertime',['UserTime',['../structSYSTEM__THREAD.html#a184e75552dfdee4dff101e7157fd490e',1,'SYSTEM_THREAD::UserTime()'],['../structSYSTEM__PROCESS__INFORMATION.html#a712c9a7874855d5480cdc3254e637d64',1,'SYSTEM_PROCESS_INFORMATION::UserTime()']]],
+  ['usesi',['useSI',['../kmp__stats__timing_8cpp.html#a0d112b6193f6fc97c84b0ac42fa7fe0c',1,'kmp_stats_timing.cpp']]],
+  ['ushort',['ushort',['../kmp__atomic_8c.html#ab95f123a6c9bcfee6a343170ef8c5f69',1,'kmp_atomic.c']]],
+  ['ut',['UT',['../structdispatch__private__infoXX__template.html#a36c3bad85f8de302d9d6692f5e365adc',1,'dispatch_private_infoXX_template']]]
+];
