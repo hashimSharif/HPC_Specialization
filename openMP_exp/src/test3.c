@@ -21,7 +21,10 @@ void parallel_func()
 
 int main()
 {
-  parallel_func();
+  int reps = 1000;
+  for(int i = 0; i < reps; i++)
+    parallel_func();
+
   printf("\n\n\n Random Number generation completed\n\n\n");
   return 0; 
 }

@@ -102,6 +102,25 @@ Entities and Instances</h2>
 <p>Some named entities must always have instance IDs. In particular, regions and frames always have IDs. Task and markers need IDs only if the ID is needed in another API call (such as adding a relation or metadata).</p>
 <p>The lifetime of instance IDs is distinct from the lifetime of instances. This allows various relationships to be specified separate from the actual execution of instances. This flexibility comes at the expense of extra API calls.</p>
 <p>The same ID may not be reused for different instances, unless a previous [ref] __itt_id_destroy call for that ID has been issued. </p>
+
+
+<h2><a class="anchor" id="Analysis"></a>
+* Code Workflow </h2>
+<p> 
+
+1) The interface to the intel runtime for invoking a parallel region is the routine <a href="./group__PARALLEL.html#gac2b7cc2fa78dde5381bcf00cfc48d124"> __kmpc_fork_call </a> </br> </br>
+2) <a href="./group__PARALLEL.html#gac2b7cc2fa78dde5381bcf00cfc48d124"> __kmpc_fork_call </a> in turn invokes <a href = "./kmp_8h.html#afa300d153a7fea1038d2cdc72db06498" >  __kmp_fork_call </a> to create the parallel region dynamically </br> </br>
+3) <a href = "./kmp_8h.html#afa300d153a7fea1038d2cdc72db06498"> __kmp_fork_call </a> in its first invocation, creates a thread pool (default size; specified by OMP_NUM_THREADS). In further invocations it leverages the existing thread pool </br> </br>
+
+4) Particularly N - 1 instances of <a href = "./z__Linux__util_8c.html#a100bbf4669165114bff15c8fd381af02"> __kmp_launch_worker </a> is invoked to create the thread pool if already does not exist. One thread is reserved for the openMP master thread. The master sets up the worker threads, monitor threads and distributes work among the worker threads. the master thread has an Thread ID 0 </br></br> 
+
+5) <a href = "./kmp_8h.html#ac88c1daa6b7e9e9b51a3a1510dca73ca"> __kmp_launch_thread </a> in turn calls the <a href= "./kmp__runtime_8c.html#aea1108b093169cef205a6766bdfa5a40">  __kmp_fork_barrier </a> method. This function waits for the master thread to signal the workers, once the internal control variables (including the worksharing data) is propagated to the workers. The signalling and the ICV propagation is also done in the <a href= "./kmp__runtime_8c.html#aea1108b093169cef205a6766bdfa5a40"> __kmp_fork_barrier </a> method in a switch for the master thread (threadID == 0). It must be noted that threads go to wait state with call to "kmp_suspend_64" which in turn calls "pthread_cond_wait", while the master thread signals the corresponding condition variable with the call to "kmp_resume_64" which in turn calls "pthread_cond_signal". It is worth mentioning that the calls to "kmp_resume_64" and "kmp_suspend_64" are made indirectly through "release" and "wait" methods of "kmp_flag_64" </br> </br>
+6) Once threads have been signalled to proceed at the "fork_barrier", the parallel region code is executed by the call to "kmp_invoke_task_func" that in turn calls "kmp_invoke_microtask"</br> </br>
+7) As the parallel region code is executed, each thread waits for the implied global barrier at the end of each openMP parallel region (synchronization). The barrier is executed by the "kmp_join_barrier" routine. Specifically the master thread does a pthread_cond_wait for each worker thread in a loop while each thread notifies the master of reaching the barrier with the call to pthread_cond_signal </br> </br> 
+8) It is important to note that the code in launch_thread including calls to "kmp_fork_barrier", "kmp_invoke_task_func" and "kmp_join_barrier" are executed in a loop. Once a thread pool is done with the parallel region, it waits at the fork barrier to be signalled by the master with a new parallel task. </br> </br>
+
+
+
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
