@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<!DOCTYPE HPCToolkitExperiment [
+<!-- ******************************************************************** -->
+<!-- HPCToolkit Experiment DTD						  -->
+<!-- Version 2.0							  -->
+<!-- ******************************************************************** -->
+<!ELEMENT HPCToolkitExperiment (Header, (SecCallPathProfile|SecFlatProfile)*)>
+<!ATTLIST HPCToolkitExperiment
+	  version CDATA #REQUIRED>
+
+  <!-- ****************************************************************** -->
+
+  <!-- Info/NV: flexible name-value pairs: (n)ame; (t)ype; (v)alue -->
+  <!ELEMENT Info (NV*)>
+  <!ATTLIST Info
+	    n CDATA #IMPLIED>
+  <!ELEMENT NV EMPTY>
+  <!ATTLIST NV
+	    n CDATA #REQUIRED
+	    t CDATA #IMPLIED
+	    v CDATA #REQUIRED>
+
+  <!-- ****************************************************************** -->
+  <!-- Header								  -->
+  <!-- ****************************************************************** -->
+  <!ELEMENT Header (Info*)>
+  <!ATTLIST Header
+	    n CDATA #REQUIRED>
+
+  <!-- ****************************************************************** -->
+  <!-- Section Header							  -->
+  <!-- ****************************************************************** -->
+  <!ELEMENT SecHeader (MetricTable?, MetricDBTable?, TraceDBTable?, LoadModuleTable?, FileTable?, ProcedureTable?, Info*)>
+
+    <!-- MetricTable: -->
+    <!ELEMENT MetricTable (Metric)*>
+
+    <!-- Metric: (i)d; (n)ame -->
+    <!--   (v)alue-type: transient type of values -->
+    <!--   (t)ype: persistent type of metric -->
+    <!--   fmt: format; show; -->
+    <!ELEMENT Metric (MetricFormula*, Info?)>
+    <!ATTLIST Metric
+	      i            CDATA #REQUIRED
+	      n            CDATA #REQUIRED
+	      v            (raw|final|derived-incr|derived) "raw"
+	      t            (inclusive|exclusive|nil) "nil"
+	      partner      CDATA #IMPLIED
+	      fmt          CDATA #IMPLIED
+	      show         (1|0) "1"
+	      show-percent (1|0) "1">
+
+    <!-- MetricFormula represents derived metrics: (t)ype; (frm): formula -->
+    <!ELEMENT MetricFormula (Info?)>
+    <!ATTLIST MetricFormula
+	      t   (combine|finalize) "finalize"
+	      i   CDATA #IMPLIED
+	      frm CDATA #REQUIRED>
+
+    <!-- Metric data, used in sections: (n)ame [from Metric]; (v)alue -->
+    <!ELEMENT M EMPTY>
+    <!ATTLIST M
+	      n CDATA #REQUIRED
+	      v CDATA #REQUIRED>
+
+    <!-- MetricDBTable: -->
+    <!ELEMENT MetricDBTable (MetricDB)*>
+
+    <!-- MetricDB: (i)d; (n)ame -->
+    <!--   db-glob:        file glob describing files in metric db -->
+    <!--   db-id:          id within metric db -->
+    <!--   db-num-metrics: number of metrics in db -->
+    <!--   db-header-sz:   size (in bytes) of a db file header -->
+    <!ELEMENT MetricDB EMPTY>
+    <!ATTLIST MetricDB
+	      i              CDATA #REQUIRED
+	      n              CDATA #REQUIRED
+	      db-glob        CDATA #IMPLIED
+	      db-id          CDATA #IMPLIED
+	      db-num-metrics CDATA #IMPLIED
+	      db-header-sz   CDATA #IMPLIED>
+
+    <!-- TraceDBTable: -->
+    <!ELEMENT TraceDBTable (TraceDB)>
+
+    <!-- TraceDB: (i)d -->
+    <!--   db-min-time: min beginning time stamp (global) -->
+    <!--   db-max-time: max ending time stamp (global) -->
+    <!ELEMENT TraceDB EMPTY>
+    <!ATTLIST TraceDB
+	      i            CDATA #REQUIRED
+	      db-glob      CDATA #IMPLIED
+	      db-min-time  CDATA #IMPLIED
+	      db-max-time  CDATA #IMPLIED
+	      db-header-sz CDATA #IMPLIED>
+
+    <!-- LoadModuleTable assigns a short name to a load module -->
+    <!ELEMENT LoadModuleTable (LoadModule)*>
+
+    <!ELEMENT LoadModule (Info?)>
+    <!ATTLIST LoadModule
+	      i CDATA #REQUIRED
+	      n CDATA #REQUIRED>
+
+    <!-- FileTable assigns a short name to a file -->
+    <!ELEMENT FileTable (File)*>
+
+    <!ELEMENT File (Info?)>
+    <!ATTLIST File
+	      i CDATA #REQUIRED
+	      n CDATA #REQUIRED>
+
+    <!-- ProcedureTable assigns a short name to a procedure -->
+    <!ELEMENT ProcedureTable (Procedure)*>
+
+    <!ELEMENT Procedure (Info?)>
+    <!ATTLIST Procedure
+	      i CDATA #REQUIRED
+	      n CDATA #REQUIRED>
+
+  <!-- ****************************************************************** -->
+  <!-- Section: Call path profile					  -->
+  <!-- ****************************************************************** -->
+  <!ELEMENT SecCallPathProfile (SecHeader, SecCallPathProfileData)>
+  <!ATTLIST SecCallPathProfile
+	    i CDATA #REQUIRED
+	    n CDATA #REQUIRED>
+
+    <!ELEMENT SecCallPathProfileData (PF|M)*>
+      <!-- Procedure frame -->
+      <!--   (i)d: unique identifier for cross referencing -->
+      <!--   (s)tatic scope id -->
+      <!--   (n)ame: a string or an id in ProcedureTable -->
+      <!--   (lm) load module: a string or an id in LoadModuleTable -->
+      <!--   (f)ile name: a string or an id in LoadModuleTable -->
+      <!--   (l)ine range: "beg-end" (inclusive range) -->
+      <!--   (a)lien: whether frame is alien to enclosing P -->
+      <!--   (v)ma-range-set: "{[beg-end), [beg-end)...}" -->
+      <!ELEMENT PF (PF|Pr|L|C|S|M)*>
+      <!ATTLIST PF
+		i  CDATA #IMPLIED
+		s  CDATA #IMPLIED
+		n  CDATA #REQUIRED
+		lm CDATA #IMPLIED
+		f  CDATA #IMPLIED
+		l  CDATA #IMPLIED
+		v  CDATA #IMPLIED>
+      <!-- Procedure (static): GOAL: replace with 'P' -->
+      <!ELEMENT Pr (Pr|L|C|S|M)*>
+      <!ATTLIST Pr
+                i  CDATA #IMPLIED
+		s  CDATA #IMPLIED
+                n  CDATA #REQUIRED
+		lm CDATA #IMPLIED
+		f  CDATA #IMPLIED
+                l  CDATA #IMPLIED
+		a  (1|0) "0"
+		v  CDATA #IMPLIED>
+      <!-- Callsite (a special StatementRange) -->
+      <!ELEMENT C (PF|M)*>
+      <!ATTLIST C
+		i CDATA #IMPLIED
+		s CDATA #IMPLIED
+		l CDATA #IMPLIED
+		v CDATA #IMPLIED>
+
+  <!-- ****************************************************************** -->
+  <!-- Section: Flat profile						  -->
+  <!-- ****************************************************************** -->
+  <!ELEMENT SecFlatProfile (SecHeader, SecFlatProfileData)>
+  <!ATTLIST SecFlatProfile
+	    i CDATA #REQUIRED
+	    n CDATA #REQUIRED>
+
+    <!ELEMENT SecFlatProfileData (LM|M)*>
+      <!-- Load module: (i)d; (n)ame; (v)ma-range-set -->
+      <!ELEMENT LM (F|P|M)*>
+      <!ATTLIST LM
+                i CDATA #IMPLIED
+                n CDATA #REQUIRED
+		v CDATA #IMPLIED>
+      <!-- File -->
+      <!ELEMENT F (P|L|S|M)*>
+      <!ATTLIST F
+                i CDATA #IMPLIED
+                n CDATA #REQUIRED>
+      <!-- Procedure (Note 1) -->
+      <!ELEMENT P (P|A|L|S|C|M)*>
+      <!ATTLIST P
+                i CDATA #IMPLIED
+                n CDATA #REQUIRED
+                l CDATA #IMPLIED
+		v CDATA #IMPLIED>
+      <!-- Alien (Note 1) -->
+      <!ELEMENT A (A|L|S|C|M)*>
+      <!ATTLIST A
+                i CDATA #IMPLIED
+                f CDATA #IMPLIED
+                n CDATA #IMPLIED
+                l CDATA #IMPLIED
+		v CDATA #IMPLIED>
+      <!-- Loop (Note 1,2) -->
+      <!ELEMENT L (A|Pr|L|S|C|M)*>
+      <!ATTLIST L
+		i CDATA #IMPLIED
+		s CDATA #IMPLIED
+		l CDATA #IMPLIED
+	        f CDATA #IMPLIED
+		v CDATA #IMPLIED>
+      <!-- Statement (Note 2) -->
+      <!--   (it): trace record identifier -->
+      <!ELEMENT S (S|M)*>
+      <!ATTLIST S
+		i  CDATA #IMPLIED
+		it CDATA #IMPLIED
+		s  CDATA #IMPLIED
+		l  CDATA #IMPLIED
+		v  CDATA #IMPLIED>
+      <!-- Note 1: Contained Cs may not contain PFs -->
+      <!-- Note 2: The 's' attribute is not used for flat profiles -->
+]>
+<HPCToolkitExperiment version="2.0">
+<Header n="test8">
+  <Info/>
+</Header>
+<SecCallPathProfile i="0" n="test8">
+<SecHeader>
+  <MetricTable>
+    <Metric i="26" n="WALLCLOCK (usec):Sum (I)" v="derived-incr" t="inclusive" partner="27" show="1" show-percent="1">
+      <MetricFormula t="combine" frm="sum($26, $26)"/>
+      <MetricFormula t="finalize" frm="$26"/>
+      <Info><NV n="units" v="events"/></Info>
+    </Metric>
+    <Metric i="27" n="WALLCLOCK (usec):Sum (E)" v="derived-incr" t="exclusive" partner="26" show="1" show-percent="1">
+      <MetricFormula t="combine" frm="sum($27, $27)"/>
+      <MetricFormula t="finalize" frm="$27"/>
+      <Info><NV n="units" v="events"/></Info>
+    </Metric>
+  </MetricTable>
+  <MetricDBTable>
+  </MetricDBTable>
+  <TraceDBTable>
+    <TraceDB i="0" db-glob="*.hpctrace" db-min-time="1472095119594988" db-max-time="1472095119823083" db-header-sz="32"/>
+  </TraceDBTable>
+  <LoadModuleTable>
+    <LoadModule i="2" n="/global/u2/h/hashim/GitLab/ALLVM/openMP_exp/build/test8"/>
+  </LoadModuleTable>
+  <FileTable>
+    <File i="58759" n="/usr/src/packages/BUILD/glibc-2.11.3/nptl/../nptl/sysdeps/unix/sysv/linux/x86_64/lowlevellock.S"/>
+    <File i="59077" n="/usr/src/packages/BUILD/glibc-2.11.3/nptl/../nptl/sysdeps/unix/sysv/linux/x86_64/pthread_cond_signal.S"/>
+    <File i="59482" n="/usr/src/packages/BUILD/glibc-2.11.3/nptl/../nptl/sysdeps/unix/sysv/linux/x86_64/pthread_cond_wait.S"/>
+    <File i="61352" n="/usr/src/packages/BUILD/glibc-2.11.3/nptl/pthread_mutex_unlock.c"/>
+    <File i="63119" n="/usr/src/packages/BUILD/glibc-2.11.3/posix/../sysdeps/unix/syscall-template.S"/>
+    <File i="85109" n="kmp_barrier.o"/>
+    <File i="92404" n="z_Linux_util.o"/>
+    <File i="92514" n="~unknown-file~"/>
+    <File i="95866" n=""/>
+    <File i="97106" n=""/>
+  </FileTable>
+  <ProcedureTable>
+    <Procedure i="58891" n="__lll_unlock_wake"/>
+    <Procedure i="59078" n="pthread_cond_signal"/>
+    <Procedure i="59080" n="__pthread_cond_signal"/>
+    <Procedure i="59483" n="__pthread_cond_wait"/>
+    <Procedure i="61433" n="_L_unlock_553"/>
+    <Procedure i="63139" n="sched_yield"/>
+    <Procedure i="63141" n="__sched_yield"/>
+    <Procedure i="85180" n="__kmp_hyper_barrier_release(barrier_type, kmp_info*, int, int, int, void*)"/>
+    <Procedure i="92472" n="__kmp_launch_worker(void*)"/>
+    <Procedure i="95141" n="__kmp_fork_barrier(int, int)"/>
+    <Procedure i="95865" n="__kmp_launch_thread"/>
+    <Procedure i="96742" n="__kmp_resume_64"/>
+    <Procedure i="97104" n="__kmp_suspend_64"/>
+  </ProcedureTable>
+  <Info/>
+</SecHeader>
+<SecCallPathProfileData>
+<M n="26" v="852798"/>
+<PF i="2" s="92472" l="0" lm="2" f="92404" n="92472">
+<M n="26" v="852798"/>
+<C i="3" s="92487" l="0">
+<M n="26" v="852798"/>
+<PF i="4" s="95865" l="0" lm="2" f="92514" n="95865">
+<M n="26" v="852798"/>
+<L i="5" s="95866" l="0" f="95866">
+<M n="26" v="852798"/>
+<C i="6" s="95868" l="0">
+<M n="26" v="852798"/>
+<PF i="7" s="95141" l="0" lm="2" f="92514" n="95141">
+<M n="26" v="852798"/>
+<C i="8" s="95157" l="0">
+<M n="26" v="852798"/>
+<PF i="9" s="85180" l="0" lm="2" f="85109" n="85180">
+<M n="26" v="852798"/><M n="27" v="270836"/>
+<L i="10" s="85181" l="0" f="85109">
+<M n="26" v="852798"/>
+<C i="11" s="85182" l="0">
+<M n="26" v="253002"/>
+<PF i="12" s="63139" l="82" lm="2" f="63119" n="63139">
+<M n="26" v="253002"/><M n="27" v="253002"/>
+<Pr i="13" s="63141" l="82" lm="2" f="63119" n="63141" a="1">
+<M n="26" v="253002"/><M n="27" v="253002"/>
+<S i="14" s="63142" l="82" it="141">
+<M n="26" v="253002"/><M n="27" v="253002"/>
+</S>
+</Pr>
+</PF>
+</C>
+<C i="15" s="85184" l="0">
+<M n="26" v="325001"/>
+<PF i="16" s="97104" l="0" lm="2" f="92514" n="97104">
+<M n="26" v="325001"/>
+<L i="17" s="97106" l="0" f="97106">
+<M n="26" v="133001"/>
+<C i="18" s="97108" l="0">
+<M n="26" v="133001"/>
+<PF i="19" s="59483" l="50" lm="2" f="59482" n="59483">
+<M n="26" v="133001"/><M n="27" v="133001"/>
+<S i="20" s="59484" l="50" it="127"/>
+<L i="21" s="59536" l="274" f="59482">
+<M n="26" v="133001"/><M n="27" v="133001"/>
+<S i="22" s="59565" l="183">
+<M n="26" v="133001"/><M n="27" v="133001"/>
+</S>
+</L>
+</PF>
+</C>
+</L>
+<C i="23" s="97112" l="0">
+<M n="26" v="192000"/>
+<PF i="24" s="61433" l="290" lm="2" f="61352" n="61433">
+<M n="26" v="192000"/>
+<C i="25" s="61435" l="290">
+<M n="26" v="192000"/>
+<PF i="26" s="58891" l="353" lm="2" f="58759" n="58891">
+<M n="26" v="192000"/><M n="27" v="192000"/>
+<S i="27" s="58892" l="353" it="171"/>
+<S i="28" s="58899" l="366">
+<M n="26" v="192000"/><M n="27" v="192000"/>
+</S>
+</PF>
+</C>
+</PF>
+</C>
+</PF>
+</C>
+<L i="29" s="85185" l="0" f="85109">
+<M n="26" v="274795"/>
+<L i="30" s="85186" l="0" f="85109">
+<M n="26" v="274795"/><M n="27" v="270836"/>
+<S i="31" s="85187" l="0" it="153">
+<M n="26" v="270836"/><M n="27" v="270836"/>
+</S>
+<C i="32" s="85188" l="0">
+<M n="26" v="3959"/>
+<PF i="33" s="96742" l="0" lm="2" f="92514" n="96742">
+<M n="26" v="3959"/>
+<C i="34" s="96747" l="0">
+<M n="26" v="3959"/>
+<PF i="35" s="59078" l="38" lm="2" f="59077" n="59078">
+<M n="26" v="3959"/><M n="27" v="3959"/>
+<Pr i="36" s="59080" l="38" lm="2" f="59077" n="59080" a="1">
+<M n="26" v="3959"/><M n="27" v="3959"/>
+<S i="37" s="59081" l="38" it="179"/>
+<S i="38" s="59106" l="89">
+<M n="26" v="3959"/><M n="27" v="3959"/>
+</S>
+</Pr>
+</PF>
+</C>
+</PF>
+</C>
+</L>
+</L>
+</L>
+</PF>
+</C>
+</PF>
+</C>
+</L>
+</PF>
+</C>
+</PF>
+</SecCallPathProfileData>
+</SecCallPathProfile>
+</HPCToolkitExperiment>
