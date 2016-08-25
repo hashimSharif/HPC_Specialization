@@ -2,11 +2,11 @@
 
 module load hpctoolkit
 
-EXP=exp6
+EXP=exp8
 rm -r databases/$EXP/database*
 rm -r prof/$EXP/test*
 
-tests=( 8 9 )
+tests=( 8 9 10 )
 if [[ $1 == "build" ]] ;
 then
   for test_num in "${tests[@]}"
@@ -24,7 +24,7 @@ do
   do 
     echo $thread_num , $test_num
     export OMP_NUM_THREADS=$thread_num
-    srun -n 1 hpcrun -o prof/$EXP/test${test_num}_${thread_num} --trace -e WALLCLOCK@1  ./build/test${test_num}
+    srun -n 1 hpcrun -o prof/$EXP/test${test_num}_${thread_num} --trace -e  REALTIME@1  ./build/test${test_num}
     hpcprof -S hpcstruct/test${test_num}.hpcstruct  prof/$EXP/test${test_num}_${thread_num} -o databases/$EXP/database_test${test_num}_${thread_num}
   done
 done
