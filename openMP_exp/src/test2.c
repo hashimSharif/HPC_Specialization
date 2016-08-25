@@ -1,4 +1,6 @@
 
+// Strong scaling
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -33,7 +35,7 @@ int main()
 {
   int i;
   int num_failed = 0;
-  int REPETITIONS = 1000;
+  int REPETITIONS = 10000;
 
   for(i = 0; i < REPETITIONS; i++) {
     if(!test_omp_parallel_private()) {

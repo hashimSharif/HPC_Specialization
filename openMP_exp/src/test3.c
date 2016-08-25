@@ -1,4 +1,6 @@
 
+// Strong scaling
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -21,7 +23,7 @@ void parallel_func()
 
 int main()
 {
-  int reps = 1000;
+  int reps = 10000;
   for(int i = 0; i < reps; i++)
     parallel_func();
 

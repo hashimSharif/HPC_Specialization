@@ -1,8 +1,10 @@
+
+// Weak scaling
+
 // RUN: %libomp-compile-and-run
 #include <stdio.h>
 #include <math.h>
-#include "omp_testsuite.h"
-#include "omp_my_sleep.h"
+
 
 int test_omp_task()
 {
@@ -14,6 +16,7 @@ int test_omp_task()
     #pragma omp single
     {
       for (i = 0; i < NUM_TASKS; i++) {
+
         /* First we have to store the value of the loop index in a new variable
          * which will be private for each task because otherwise it will be overwritten
          * if the execution of the task takes longer than the time which is needed to 
@@ -23,7 +26,6 @@ int test_omp_task()
         myi = i;
         #pragma omp task
         {
-          my_sleep (SLEEPTIME);
           tids[myi] = omp_get_thread_num();
         } /* end of omp task */
       } /* end of for */
@@ -42,8 +44,9 @@ int main()
 {
   int i;
   int num_failed=0;
-
-  for(i = 0; i < REPETITIONS; i++) {
+  int reps = 10000;
+ 
+  for(i = 0; i < reps; i++) {
     if(!test_omp_task()) {
       num_failed++;
     }

@@ -1,9 +1,7 @@
 // RUN: %libomp-compile-and-run
-
-// Description: Strong scaling example
-
 #include <stdio.h>
 #include <math.h>
+#include "omp_testsuite.h"
 
 /*! Utility function to spend some time in a loop */
 static void do_some_work (void)
@@ -22,9 +20,8 @@ int test_omp_parallel_for_private()
   int i2;
   int known_sum;
 
-  sum = 0;
-  i2 = 0;
-  int LOOPCOUNT = 100000;
+  sum =0;
+  i2=0;
 
   #pragma omp parallel for reduction(+:sum) schedule(static,1) private(i) private(i2)
   for (i=1;i<=LOOPCOUNT;i++)
@@ -42,14 +39,12 @@ int test_omp_parallel_for_private()
 int main()
 {
   int i;
-  int num_failed = 0;
-  int reps = 10000;
+  int num_failed=0;
 
-  for(i = 0; i < reps; i++) {
+  for(i = 0; i < REPETITIONS; i++) {
     if(!test_omp_parallel_for_private()) {
       num_failed++;
     }
   }
   return num_failed;
 }
-
