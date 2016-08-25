@@ -5,11 +5,11 @@
 
 int test_omp_parallel_private()
 {
-  int sum, num_threads,sum1;
+  int sum, num_threads, sum1;
   int known_sum;
-
   sum = 0;
   num_threads = 0;
+
   #pragma omp parallel private(sum1)
   {
     int i;
