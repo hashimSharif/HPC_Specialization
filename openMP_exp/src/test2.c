@@ -17,7 +17,7 @@ int test_omp_parallel_private()
     int i;
     sum1 = 7;
     #pragma omp for 
-    for (i = 1; i < 1000; i++) {
+    for (i = 1; i < 10000; i++) {
       sum1 = sum1 + i;
     }
     #pragma omp critical
@@ -35,7 +35,7 @@ int main()
 {
   int i;
   int num_failed = 0;
-  int REPETITIONS = 10000;
+  int REPETITIONS = 100000;
 
   for(i = 0; i < REPETITIONS; i++) {
     if(!test_omp_parallel_private()) {

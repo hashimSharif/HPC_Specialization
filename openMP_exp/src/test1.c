@@ -6,12 +6,13 @@
 
 
 int main(int argc, char *argv[]) {
-
-  for(int i = 0; i < 10000; i++){
+ 
+  int reps = 1000000;
+  for(int i = 0; i < reps; i++){
  
     #pragma omp parallel default(shared)
     {
-      printf("Hello from thread \n");  
+      int threadNo = omp_get_thread_num();
     }
   }
 

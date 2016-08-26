@@ -43,7 +43,7 @@ int main()
 {
   int i;
   int num_failed = 0;
-  int reps = 1000;
+  int reps = 10000;
 
   for(i = 0; i < reps; i++) {
     if(!test_omp_parallel_for_private()) {
