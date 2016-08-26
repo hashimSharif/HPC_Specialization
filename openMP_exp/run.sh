@@ -2,7 +2,7 @@
 
 module load hpctoolkit
 
-EXP=exp11
+EXP=exp12
 rm -r databases/$EXP/database*
 rm -r prof/$EXP/test*
 
@@ -16,7 +16,7 @@ then
   done  
 fi
 
-thread_nums=( 2 4 8 12 24 )
+thread_nums=( 2 4 6 8 11 18 23 )
 
 for thread_num in "${thread_nums[@]}"
 do
