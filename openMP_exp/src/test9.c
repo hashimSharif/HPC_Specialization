@@ -24,7 +24,7 @@ int test_omp_parallel_for_private()
 
   sum = 0;
   i2 = 0;
-  int LOOPCOUNT = 100000;
+  int LOOPCOUNT = 1000000;
 
   #pragma omp parallel for reduction(+:sum) schedule(static,1) private(i) private(i2)
   for (i=1;i<=LOOPCOUNT;i++)
@@ -43,7 +43,7 @@ int main()
 {
   int i;
   int num_failed = 0;
-  int reps = 10000;
+  int reps = 1000;
 
   for(i = 0; i < reps; i++) {
     if(!test_omp_parallel_for_private()) {

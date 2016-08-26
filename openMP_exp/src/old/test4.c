@@ -4,7 +4,7 @@
 #include <omp.h>
 #include <time.h>
 
-#define size 100000
+#define size 1000000
 
 void parallel_func()
 {  
@@ -31,7 +31,7 @@ void parallel_func()
 
 int main()
 {
-  int reps = 10000;
+  int reps = 1000;
   for(int i = 0; i < reps; i++)
     parallel_func();
 

@@ -47,7 +47,7 @@ int main()
   int i;
   int num_failed=0;
   int reps = 10000;
-  NUM_TASKS = omp_   
+  NUM_TASKS =    
   
   for(i = 0; i < reps; i++) {
     if(!test_omp_task()) {
