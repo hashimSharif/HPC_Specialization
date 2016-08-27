@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <omp.h>
 #include <time.h>
+#include <sys/time.h>
+
 
 int test_omp_parallel_private()
 {
@@ -34,7 +36,11 @@ int test_omp_parallel_private()
 
 int main()
 {
-  clock_t tic = clock();
+
+  struct timeval t1, t2;
+  gettimeofday(&t1, NULL);
+
+  //clock_t tic = clock();
   int i;
   int num_failed = 0;
   int REPETITIONS = 100000;
@@ -45,8 +51,13 @@ int main()
     }
   }
  
-  clock_t toc = clock();  
-  printf("\n time elapsed : %f \n", (double)(toc - tic) / CLOCKS_PER_SEC);
+  gettimeofday(&t2, NULL);
+  double elapsedTime = (t2.tv_sec - t1.tv_sec) * 1000;
+  elapsedTime += (t2.tv_usec - t1.tv_usec) / 1000;
+  printf("elapsed time in ms %f ", elapsedTime);
+
+  //clock_t toc = clock();  
+  //printf("\n time elapsed : %f \n", (double)(toc - tic) / CLOCKS_PER_SEC);
 
   printf("\nNum of tests failed %d \n", num_failed);
   return num_failed;
