@@ -4,13 +4,14 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <sys/time.h>
 
 /*! Utility function to spend some time in a loop */
 static void do_some_work (void)
 {
   int i;
   double sum = 0;
-  for(i = 0; i < 1000; i++){
+  for(i = 0; i < 10; i++){
     sum += sqrt (i);
   }
 }
@@ -35,21 +36,31 @@ int test_omp_parallel_for_private()
     #pragma omp flush
     sum = sum + i2;
   } /*end of for*/
+
   known_sum = (LOOPCOUNT * (LOOPCOUNT + 1)) / 2;
   return (known_sum == sum);
 } /* end of check_parallel_for_private */
 
 int main()
 {
+  struct timeval t1, t2;
+  gettimeofday(&t1, NULL);
+
   int i;
   int num_failed = 0;
-  int reps = 10000;
+  int reps = 1000;
 
   for(i = 0; i < reps; i++) {
     if(!test_omp_parallel_for_private()) {
       num_failed++;
     }
   }
-  return num_failed;
+
+  gettimeofday(&t2, NULL);
+  double elapsedTime = (t2.tv_sec - t1.tv_sec) * 1000;
+  elapsedTime += (t2.tv_usec - t1.tv_usec) / 1000;
+  printf("elapsed time in ms %f ", elapsedTime);
+  
+  return 0;
 }
 

@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <sys/time.h>
 #include <time.h>
+#include <ctime>
 
-#define size 1000000
+#define size 10000000
 
 void parallel_func()
 {  
@@ -23,10 +25,17 @@ void parallel_func()
 
 int main()
 {
-  int reps = 1000;
+  struct timeval t1, t2;
+  gettimeofday(&t1, NULL);
+
+  int reps = 100;
   for(int i = 0; i < reps; i++)
     parallel_func();
 
-  printf("\n\n\n Random Number generation completed\n\n\n");
+  gettimeofday(&t2, NULL);
+  double elapsedTime = (t2.tv_sec - t1.tv_sec) * 1000;
+  elapsedTime += (t2.tv_usec - t1.tv_usec) / 1000;
+  printf("elapsed time in ms %f ", elapsedTime);
+   
   return 0; 
 }
