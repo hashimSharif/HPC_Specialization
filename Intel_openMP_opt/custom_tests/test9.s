@@ -1,5 +1,5 @@
 	.text
-	.file	"test9.c"
+	.file	"custom_tests/test9.c"
 	.globl	test_omp_parallel_for_private
 	.align	16, 0x90
 	.type	test_omp_parallel_for_private,@function
@@ -25,8 +25,8 @@ test_omp_parallel_for_private:          # @test_omp_parallel_for_private
 	movl	$1000, -20(%rbp)        # imm = 0x3E8
 	movq	%rax, %rdx
 	movb	$0, %al
-	callq	__kmpc_fork_call2
-	callq   __kmpc_fork_call_end
+	callq	__kmpc_fork_call
+	movabsq	$.L.str.1, %rdi
 	movl	$2, %esi
 	movl	-20(%rbp), %r9d
 	movl	-20(%rbp), %r10d
@@ -36,11 +36,16 @@ test_omp_parallel_for_private:          # @test_omp_parallel_for_private
 	cltd
 	idivl	%esi
 	movl	%eax, -16(%rbp)
-	movl	-16(%rbp), %eax
-	cmpl	-4(%rbp), %eax
+	movl	-16(%rbp), %esi
+	movb	$0, %al
+	callq	printf
+	movl	-16(%rbp), %esi
+	cmpl	-4(%rbp), %esi
 	sete	%r11b
 	andb	$1, %r11b
-	movzbl	%r11b, %eax
+	movzbl	%r11b, %esi
+	movl	%eax, -24(%rbp)         # 4-byte Spill
+	movl	%esi, %eax
 	addq	$32, %rsp
 	popq	%rbp
 	retq
@@ -304,10 +309,10 @@ main:                                   # @main
 	movq	%rsp, %rbp
 .Ltmp14:
 	.cfi_def_cfa_register %rbp
-	subq	$16, %rsp
+	subq	$32, %rsp
 	movl	$0, -4(%rbp)
 	movl	$0, -12(%rbp)
-	movl	$1, -16(%rbp)
+	movl	$2, -16(%rbp)
 	movl	$0, -8(%rbp)
 .LBB4_1:                                # =>This Inner Loop Header: Depth=1
 	movl	-8(%rbp), %eax
@@ -322,15 +327,18 @@ main:                                   # @main
 	addl	$1, %eax
 	movl	%eax, -12(%rbp)
 .LBB4_4:                                #   in Loop: Header=BB4_1 Depth=1
-	jmp	.LBB4_5
-.LBB4_5:                                #   in Loop: Header=BB4_1 Depth=1
+	movabsq	$.L.str.2, %rdi
+	movb	$0, %al
+	callq	printf
+	movl	%eax, -20(%rbp)         # 4-byte Spill
+# BB#5:                                 #   in Loop: Header=BB4_1 Depth=1
 	movl	-8(%rbp), %eax
 	addl	$1, %eax
 	movl	%eax, -8(%rbp)
 	jmp	.LBB4_1
 .LBB4_6:
 	xorl	%eax, %eax
-	addq	$16, %rsp
+	addq	$32, %rsp
 	popq	%rbp
 	retq
 .Lfunc_end4:
@@ -365,6 +373,17 @@ main:                                   # @main
 	.long	0                       # 0x0
 	.quad	.L.str
 	.size	.L__unnamed_2, 24
+
+	.type	.L.str.1,@object        # @.str.1
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.L.str.1:
+	.asciz	"##### The known sum is %d"
+	.size	.L.str.1, 26
+
+	.type	.L.str.2,@object        # @.str.2
+.L.str.2:
+	.asciz	"\n------------------\n"
+	.size	.L.str.2, 21
 
 
 	.ident	"clang version 3.8.0-svn262614-1~exp1 (branches/release_38)"

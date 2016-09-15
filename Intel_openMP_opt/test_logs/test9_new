@@ -1,0 +1,81 @@
+kmp_fork_call2 called --------------------- *** ----------- 
+
+-GTID_1=0---- master before signalling any children calling internal fork --- 
+
+ master calling its FORK BARRIER 
+-GTID_2=0--- * --- _kmp_fork_barrier call from *kmpc_fork_call_end* --- * --- 
+** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ *** A child thread is released with gtid  4
+** Releasing child from tid 4
+ ** Releasing child from tid 4
+ ** Releasing child from tid 4
+ *** A child thread is released with gtid  1
+*** A child thread is released with gtid  2
+*** A child thread is released with gtid  3
+*** A child thread is released with gtid  5
+*** A child thread is released with gtid  6
+*** A child thread is released with gtid  7
+** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+  $$$$ microtask called by parent $$$$$ 
+*** A child thread is released with gtid  2
+** Releasing child from tid 2
+ *** A child thread is released with gtid  3
+*** A child thread is released with gtid  1
+*** A child thread is released with gtid  4
+** Releasing child from tid 4
+ ** Releasing child from tid 4
+ *** A child thread is released with gtid  5
+*** A child thread is released with gtid  6
+** Releasing child from tid 6
+ *** A child thread is released with gtid  7
+##### The known sum is 500500
+------------------
+kmp_fork_call2 called --------------------- *** ----------- 
+
+-GTID_1=0---- master before signalling any children calling internal fork --- 
+
+ master calling its FORK BARRIER 
+-GTID_2=0--- * --- _kmp_fork_barrier call from *kmpc_fork_call_end* --- * --- 
+** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ *** A child thread is released with gtid  3
+*** A child thread is released with gtid  2
+*** A child thread is released with gtid  1
+*** A child thread is released with gtid  4
+** Releasing child from tid 4
+ ** Releasing child from tid 4
+ ** Releasing child from tid 4
+ *** A child thread is released with gtid  6
+*** A child thread is released with gtid  5
+*** A child thread is released with gtid  7
+** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+  $$$$ microtask called by parent $$$$$ 
+*** A child thread is released with gtid  2
+** Releasing child from tid 2
+ *** A child thread is released with gtid  3
+*** A child thread is released with gtid  1
+*** A child thread is released with gtid  4
+** Releasing child from tid 4
+ ** Releasing child from tid 4
+ *** A child thread is released with gtid  5
+*** A child thread is released with gtid  6
+** Releasing child from tid 6
+ *** A child thread is released with gtid  7
+##### The known sum is 500500
+------------------
+*** A child thread is released with gtid  1
+*** A child thread is released with gtid  2
+*** A child thread is released with gtid  3
+*** A child thread is released with gtid  4
+*** A child thread is released with gtid  5
+*** A child thread is released with gtid  6
+*** A child thread is released with gtid  7
