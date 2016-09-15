@@ -1,0 +1,143 @@
+Performing C SOURCE FILE Test LIBOMP_HAVE_MMIC_FLAG failed with the following output:
+Change Dir: /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec4113927436/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4113927436.dir/build.make CMakeFiles/cmTryCompileExec4113927436.dir/build
+make[1]: Entering directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4113927436.dir/src.c.o
+/usr/bin/clang   -DLIBOMP_HAVE_MMIC_FLAG -mmic   -mmic -o CMakeFiles/cmTryCompileExec4113927436.dir/src.c.o   -c /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/src.c
+clang: error: unknown argument: '-mmic'
+clang: error: unknown argument: '-mmic'
+make[1]: Leaving directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+make[1]: *** [CMakeFiles/cmTryCompileExec4113927436.dir/src.c.o] Error 1
+make: *** [cmTryCompileExec4113927436/fast] Error 2
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test LIBOMP_HAVE_M32_FLAG failed with the following output:
+Change Dir: /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec546988477/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec546988477.dir/build.make CMakeFiles/cmTryCompileExec546988477.dir/build
+make[1]: Entering directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec546988477.dir/src.c.o
+/usr/bin/clang   -DLIBOMP_HAVE_M32_FLAG -m32   -m32 -o CMakeFiles/cmTryCompileExec546988477.dir/src.c.o   -c /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec546988477
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec546988477.dir/link.txt --verbose=1
+/usr/bin/clang   -DLIBOMP_HAVE_M32_FLAG -m32    CMakeFiles/cmTryCompileExec546988477.dir/src.c.o  -o cmTryCompileExec546988477 -rdynamic 
+/usr/bin/ld: cannot find crt1.o: No such file or directory
+/usr/bin/ld: cannot find crti.o: No such file or directory
+/usr/bin/ld: cannot find crtbegin.o: No such file or directory
+/usr/bin/ld: cannot find -lgcc
+/usr/bin/ld: cannot find -lgcc_s
+/usr/bin/ld: cannot find -lc
+/usr/bin/ld: cannot find -lgcc
+/usr/bin/ld: cannot find -lgcc_s
+/usr/bin/ld: cannot find crtend.o: No such file or directory
+/usr/bin/ld: cannot find crtn.o: No such file or directory
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: Leaving directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec546988477] Error 1
+make: *** [cmTryCompileExec546988477/fast] Error 2
+
+Source file was:
+int main(void) { return 0; }
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1170652207/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1170652207.dir/build.make CMakeFiles/cmTryCompileExec1170652207.dir/build
+make[1]: Entering directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1170652207.dir/CheckSymbolExists.c.o
+/usr/bin/clang    -o CMakeFiles/cmTryCompileExec1170652207.dir/CheckSymbolExists.c.o   -c /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec1170652207
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1170652207.dir/link.txt --verbose=1
+/usr/bin/clang       CMakeFiles/cmTryCompileExec1170652207.dir/CheckSymbolExists.c.o  -o cmTryCompileExec1170652207 -rdynamic 
+CMakeFiles/cmTryCompileExec1170652207.dir/CheckSymbolExists.c.o: In function `main':
+/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:(.text+0x19): undefined reference to `pthread_create'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: Leaving directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec1170652207] Error 1
+make: *** [cmTryCompileExec1170652207/fast] Error 2
+
+File /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1087723896/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1087723896.dir/build.make CMakeFiles/cmTryCompileExec1087723896.dir/build
+make[1]: Entering directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1087723896.dir/CheckFunctionExists.c.o
+/usr/bin/clang   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec1087723896.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1087723896
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1087723896.dir/link.txt --verbose=1
+/usr/bin/clang   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec1087723896.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1087723896 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: Leaving directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec1087723896] Error 1
+make: *** [cmTryCompileExec1087723896/fast] Error 2
+
+
+Determining if files windows.h;psapi.h exist failed with the following output:
+Change Dir: /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3028177172/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3028177172.dir/build.make CMakeFiles/cmTryCompileExec3028177172.dir/build
+make[1]: Entering directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3028177172.dir/CheckIncludeFiles.c.o
+/usr/bin/clang    -o CMakeFiles/cmTryCompileExec3028177172.dir/CheckIncludeFiles.c.o   -c /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:10: fatal error: 'windows.h' file not found
+#include <windows.h>
+         ^
+1 error generated.
+make[1]: Leaving directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+make[1]: *** [CMakeFiles/cmTryCompileExec3028177172.dir/CheckIncludeFiles.c.o] Error 1
+make: *** [cmTryCompileExec3028177172/fast] Error 2
+
+Source:
+/* */
+#include <windows.h>
+#include <psapi.h>
+
+
+int main(){return 0;}
+
+Determining if the function EnumProcessModules exists in the psapi failed with the following output:
+Change Dir: /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec4236190412/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4236190412.dir/build.make CMakeFiles/cmTryCompileExec4236190412.dir/build
+make[1]: Entering directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4236190412.dir/CheckFunctionExists.c.o
+/usr/bin/clang   -DCHECK_FUNCTION_EXISTS=EnumProcessModules   -o CMakeFiles/cmTryCompileExec4236190412.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4236190412
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4236190412.dir/link.txt --verbose=1
+/usr/bin/clang   -DCHECK_FUNCTION_EXISTS=EnumProcessModules    CMakeFiles/cmTryCompileExec4236190412.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4236190412 -rdynamic -lpsapi 
+/usr/bin/ld: cannot find -lpsapi
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: Leaving directory `/home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec4236190412] Error 1
+make: *** [cmTryCompileExec4236190412/fast] Error 2
+
+
