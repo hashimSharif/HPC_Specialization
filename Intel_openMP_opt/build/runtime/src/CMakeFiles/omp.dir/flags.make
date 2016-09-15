@@ -3,11 +3,11 @@
 
 # compile C with /usr/bin/clang
 # compile CXX with /usr/bin/clang++
-C_FLAGS = -O3 -DNDEBUG -fPIC -I/home/hashim/Phd_Sem4/software/openmp/build/runtime/src -I/home/hashim/Phd_Sem4/software/openmp/runtime/src -I/home/hashim/Phd_Sem4/software/openmp/runtime/src/i18n -I/home/hashim/Phd_Sem4/software/openmp/runtime/src/include/45 -I/home/hashim/Phd_Sem4/software/openmp/runtime/src/thirdparty/ittnotify    -D _GNU_SOURCE -D _REENTRANT
+C_FLAGS = -O3 -DNDEBUG -fPIC -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/i18n -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/include/45 -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/thirdparty/ittnotify    -D _GNU_SOURCE -D _REENTRANT
 
 C_DEFINES = -Domp_EXPORTS
 
-CXX_FLAGS = -O3 -DNDEBUG -fPIC -I/home/hashim/Phd_Sem4/software/openmp/build/runtime/src -I/home/hashim/Phd_Sem4/software/openmp/runtime/src -I/home/hashim/Phd_Sem4/software/openmp/runtime/src/i18n -I/home/hashim/Phd_Sem4/software/openmp/runtime/src/include/45 -I/home/hashim/Phd_Sem4/software/openmp/runtime/src/thirdparty/ittnotify    -D _GNU_SOURCE -D _REENTRANT
+CXX_FLAGS = -O3 -DNDEBUG -fPIC -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/i18n -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/include/45 -I/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/thirdparty/ittnotify    -D _GNU_SOURCE -D _REENTRANT
 
 CXX_DEFINES = -Domp_EXPORTS
 

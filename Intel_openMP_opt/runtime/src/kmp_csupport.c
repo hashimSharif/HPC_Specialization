@@ -350,11 +350,10 @@ __kmpc_fork_call(ident_t *loc, kmp_int32 argc, kmpc_micro microtask, ...)
 }
 
 
-static int previousGtid;
 
 
 void
-__kmpc_fork_call2(ident_t *loc, kmp_int32 argc, kmpc_micro microtask, ...)
+__kmpc_fork_call_start(ident_t *loc, kmp_int32 argc, kmpc_micro microtask, ...)
 {
   
   printf("kmp_fork_call2 called --------------------- *** ----------- \n\n"); 

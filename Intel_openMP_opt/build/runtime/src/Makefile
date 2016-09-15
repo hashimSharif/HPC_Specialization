@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/software/openmp
+CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/software/openmp/build
+CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -110,14 +110,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/CMakeFiles/progress.marks
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles 0
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/CMakeFiles/progress.marks
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/clean
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,22 +126,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/preinstall
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/preinstall
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-micro-tests.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-micro-tests.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-micro-tests.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-micro-tests.dir/rule
 
 # Convenience name for target.
@@ -150,12 +150,12 @@ libomp-micro-tests: runtime/src/CMakeFiles/libomp-micro-tests.dir/rule
 
 # fast build rule for target.
 libomp-micro-tests/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-micro-tests.dir/build.make runtime/src/CMakeFiles/libomp-micro-tests.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-micro-tests.dir/build.make runtime/src/CMakeFiles/libomp-micro-tests.dir/build
 .PHONY : libomp-micro-tests/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-needed-headers.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-needed-headers.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-needed-headers.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-needed-headers.dir/rule
 
 # Convenience name for target.
@@ -164,12 +164,12 @@ libomp-needed-headers: runtime/src/CMakeFiles/libomp-needed-headers.dir/rule
 
 # fast build rule for target.
 libomp-needed-headers/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-needed-headers.dir/build.make runtime/src/CMakeFiles/libomp-needed-headers.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-needed-headers.dir/build.make runtime/src/CMakeFiles/libomp-needed-headers.dir/build
 .PHONY : libomp-needed-headers/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-test-deps.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-deps.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-deps.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-test-deps.dir/rule
 
 # Convenience name for target.
@@ -178,12 +178,12 @@ libomp-test-deps: runtime/src/CMakeFiles/libomp-test-deps.dir/rule
 
 # fast build rule for target.
 libomp-test-deps/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-deps.dir/build.make runtime/src/CMakeFiles/libomp-test-deps.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-deps.dir/build.make runtime/src/CMakeFiles/libomp-test-deps.dir/build
 .PHONY : libomp-test-deps/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-test-execstack.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-execstack.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-execstack.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-test-execstack.dir/rule
 
 # Convenience name for target.
@@ -192,12 +192,12 @@ libomp-test-execstack: runtime/src/CMakeFiles/libomp-test-execstack.dir/rule
 
 # fast build rule for target.
 libomp-test-execstack/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-execstack.dir/build.make runtime/src/CMakeFiles/libomp-test-execstack.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-execstack.dir/build.make runtime/src/CMakeFiles/libomp-test-execstack.dir/build
 .PHONY : libomp-test-execstack/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-test-instr.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-instr.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-instr.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-test-instr.dir/rule
 
 # Convenience name for target.
@@ -206,12 +206,12 @@ libomp-test-instr: runtime/src/CMakeFiles/libomp-test-instr.dir/rule
 
 # fast build rule for target.
 libomp-test-instr/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-instr.dir/build.make runtime/src/CMakeFiles/libomp-test-instr.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-instr.dir/build.make runtime/src/CMakeFiles/libomp-test-instr.dir/build
 .PHONY : libomp-test-instr/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-test-relo.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-relo.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-relo.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-test-relo.dir/rule
 
 # Convenience name for target.
@@ -220,12 +220,12 @@ libomp-test-relo: runtime/src/CMakeFiles/libomp-test-relo.dir/rule
 
 # fast build rule for target.
 libomp-test-relo/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-relo.dir/build.make runtime/src/CMakeFiles/libomp-test-relo.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-relo.dir/build.make runtime/src/CMakeFiles/libomp-test-relo.dir/build
 .PHONY : libomp-test-relo/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/libomp-test-touch.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-touch.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/libomp-test-touch.dir/rule
 .PHONY : runtime/src/CMakeFiles/libomp-test-touch.dir/rule
 
 # Convenience name for target.
@@ -234,12 +234,12 @@ libomp-test-touch: runtime/src/CMakeFiles/libomp-test-touch.dir/rule
 
 # fast build rule for target.
 libomp-test-touch/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-touch.dir/build.make runtime/src/CMakeFiles/libomp-test-touch.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/libomp-test-touch.dir/build.make runtime/src/CMakeFiles/libomp-test-touch.dir/build
 .PHONY : libomp-test-touch/fast
 
 # Convenience name for target.
 runtime/src/CMakeFiles/omp.dir/rule:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/omp.dir/rule
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f CMakeFiles/Makefile2 runtime/src/CMakeFiles/omp.dir/rule
 .PHONY : runtime/src/CMakeFiles/omp.dir/rule
 
 # Convenience name for target.
@@ -248,7 +248,7 @@ omp: runtime/src/CMakeFiles/omp.dir/rule
 
 # fast build rule for target.
 omp/fast:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/build
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/build
 .PHONY : omp/fast
 
 kmp_affinity.o: kmp_affinity.cpp.o
@@ -256,7 +256,7 @@ kmp_affinity.o: kmp_affinity.cpp.o
 
 # target to build an object file
 kmp_affinity.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_affinity.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_affinity.cpp.o
 .PHONY : kmp_affinity.cpp.o
 
 kmp_affinity.i: kmp_affinity.cpp.i
@@ -264,7 +264,7 @@ kmp_affinity.i: kmp_affinity.cpp.i
 
 # target to preprocess a source file
 kmp_affinity.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_affinity.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_affinity.cpp.i
 .PHONY : kmp_affinity.cpp.i
 
 kmp_affinity.s: kmp_affinity.cpp.s
@@ -272,7 +272,7 @@ kmp_affinity.s: kmp_affinity.cpp.s
 
 # target to generate assembly for a file
 kmp_affinity.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_affinity.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_affinity.cpp.s
 .PHONY : kmp_affinity.cpp.s
 
 kmp_alloc.o: kmp_alloc.c.o
@@ -280,7 +280,7 @@ kmp_alloc.o: kmp_alloc.c.o
 
 # target to build an object file
 kmp_alloc.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_alloc.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_alloc.c.o
 .PHONY : kmp_alloc.c.o
 
 kmp_alloc.i: kmp_alloc.c.i
@@ -288,7 +288,7 @@ kmp_alloc.i: kmp_alloc.c.i
 
 # target to preprocess a source file
 kmp_alloc.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_alloc.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_alloc.c.i
 .PHONY : kmp_alloc.c.i
 
 kmp_alloc.s: kmp_alloc.c.s
@@ -296,7 +296,7 @@ kmp_alloc.s: kmp_alloc.c.s
 
 # target to generate assembly for a file
 kmp_alloc.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_alloc.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_alloc.c.s
 .PHONY : kmp_alloc.c.s
 
 kmp_atomic.o: kmp_atomic.c.o
@@ -304,7 +304,7 @@ kmp_atomic.o: kmp_atomic.c.o
 
 # target to build an object file
 kmp_atomic.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_atomic.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_atomic.c.o
 .PHONY : kmp_atomic.c.o
 
 kmp_atomic.i: kmp_atomic.c.i
@@ -312,7 +312,7 @@ kmp_atomic.i: kmp_atomic.c.i
 
 # target to preprocess a source file
 kmp_atomic.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_atomic.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_atomic.c.i
 .PHONY : kmp_atomic.c.i
 
 kmp_atomic.s: kmp_atomic.c.s
@@ -320,7 +320,7 @@ kmp_atomic.s: kmp_atomic.c.s
 
 # target to generate assembly for a file
 kmp_atomic.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_atomic.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_atomic.c.s
 .PHONY : kmp_atomic.c.s
 
 kmp_barrier.o: kmp_barrier.cpp.o
@@ -328,7 +328,7 @@ kmp_barrier.o: kmp_barrier.cpp.o
 
 # target to build an object file
 kmp_barrier.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_barrier.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_barrier.cpp.o
 .PHONY : kmp_barrier.cpp.o
 
 kmp_barrier.i: kmp_barrier.cpp.i
@@ -336,7 +336,7 @@ kmp_barrier.i: kmp_barrier.cpp.i
 
 # target to preprocess a source file
 kmp_barrier.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_barrier.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_barrier.cpp.i
 .PHONY : kmp_barrier.cpp.i
 
 kmp_barrier.s: kmp_barrier.cpp.s
@@ -344,7 +344,7 @@ kmp_barrier.s: kmp_barrier.cpp.s
 
 # target to generate assembly for a file
 kmp_barrier.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_barrier.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_barrier.cpp.s
 .PHONY : kmp_barrier.cpp.s
 
 kmp_cancel.o: kmp_cancel.cpp.o
@@ -352,7 +352,7 @@ kmp_cancel.o: kmp_cancel.cpp.o
 
 # target to build an object file
 kmp_cancel.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_cancel.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_cancel.cpp.o
 .PHONY : kmp_cancel.cpp.o
 
 kmp_cancel.i: kmp_cancel.cpp.i
@@ -360,7 +360,7 @@ kmp_cancel.i: kmp_cancel.cpp.i
 
 # target to preprocess a source file
 kmp_cancel.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_cancel.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_cancel.cpp.i
 .PHONY : kmp_cancel.cpp.i
 
 kmp_cancel.s: kmp_cancel.cpp.s
@@ -368,7 +368,7 @@ kmp_cancel.s: kmp_cancel.cpp.s
 
 # target to generate assembly for a file
 kmp_cancel.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_cancel.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_cancel.cpp.s
 .PHONY : kmp_cancel.cpp.s
 
 kmp_csupport.o: kmp_csupport.c.o
@@ -376,7 +376,7 @@ kmp_csupport.o: kmp_csupport.c.o
 
 # target to build an object file
 kmp_csupport.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_csupport.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_csupport.c.o
 .PHONY : kmp_csupport.c.o
 
 kmp_csupport.i: kmp_csupport.c.i
@@ -384,7 +384,7 @@ kmp_csupport.i: kmp_csupport.c.i
 
 # target to preprocess a source file
 kmp_csupport.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_csupport.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_csupport.c.i
 .PHONY : kmp_csupport.c.i
 
 kmp_csupport.s: kmp_csupport.c.s
@@ -392,7 +392,7 @@ kmp_csupport.s: kmp_csupport.c.s
 
 # target to generate assembly for a file
 kmp_csupport.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_csupport.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_csupport.c.s
 .PHONY : kmp_csupport.c.s
 
 kmp_debug.o: kmp_debug.c.o
@@ -400,7 +400,7 @@ kmp_debug.o: kmp_debug.c.o
 
 # target to build an object file
 kmp_debug.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_debug.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_debug.c.o
 .PHONY : kmp_debug.c.o
 
 kmp_debug.i: kmp_debug.c.i
@@ -408,7 +408,7 @@ kmp_debug.i: kmp_debug.c.i
 
 # target to preprocess a source file
 kmp_debug.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_debug.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_debug.c.i
 .PHONY : kmp_debug.c.i
 
 kmp_debug.s: kmp_debug.c.s
@@ -416,7 +416,7 @@ kmp_debug.s: kmp_debug.c.s
 
 # target to generate assembly for a file
 kmp_debug.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_debug.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_debug.c.s
 .PHONY : kmp_debug.c.s
 
 kmp_dispatch.o: kmp_dispatch.cpp.o
@@ -424,7 +424,7 @@ kmp_dispatch.o: kmp_dispatch.cpp.o
 
 # target to build an object file
 kmp_dispatch.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_dispatch.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_dispatch.cpp.o
 .PHONY : kmp_dispatch.cpp.o
 
 kmp_dispatch.i: kmp_dispatch.cpp.i
@@ -432,7 +432,7 @@ kmp_dispatch.i: kmp_dispatch.cpp.i
 
 # target to preprocess a source file
 kmp_dispatch.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_dispatch.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_dispatch.cpp.i
 .PHONY : kmp_dispatch.cpp.i
 
 kmp_dispatch.s: kmp_dispatch.cpp.s
@@ -440,7 +440,7 @@ kmp_dispatch.s: kmp_dispatch.cpp.s
 
 # target to generate assembly for a file
 kmp_dispatch.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_dispatch.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_dispatch.cpp.s
 .PHONY : kmp_dispatch.cpp.s
 
 kmp_environment.o: kmp_environment.c.o
@@ -448,7 +448,7 @@ kmp_environment.o: kmp_environment.c.o
 
 # target to build an object file
 kmp_environment.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_environment.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_environment.c.o
 .PHONY : kmp_environment.c.o
 
 kmp_environment.i: kmp_environment.c.i
@@ -456,7 +456,7 @@ kmp_environment.i: kmp_environment.c.i
 
 # target to preprocess a source file
 kmp_environment.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_environment.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_environment.c.i
 .PHONY : kmp_environment.c.i
 
 kmp_environment.s: kmp_environment.c.s
@@ -464,7 +464,7 @@ kmp_environment.s: kmp_environment.c.s
 
 # target to generate assembly for a file
 kmp_environment.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_environment.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_environment.c.s
 .PHONY : kmp_environment.c.s
 
 kmp_error.o: kmp_error.c.o
@@ -472,7 +472,7 @@ kmp_error.o: kmp_error.c.o
 
 # target to build an object file
 kmp_error.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_error.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_error.c.o
 .PHONY : kmp_error.c.o
 
 kmp_error.i: kmp_error.c.i
@@ -480,7 +480,7 @@ kmp_error.i: kmp_error.c.i
 
 # target to preprocess a source file
 kmp_error.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_error.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_error.c.i
 .PHONY : kmp_error.c.i
 
 kmp_error.s: kmp_error.c.s
@@ -488,7 +488,7 @@ kmp_error.s: kmp_error.c.s
 
 # target to generate assembly for a file
 kmp_error.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_error.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_error.c.s
 .PHONY : kmp_error.c.s
 
 kmp_ftn_cdecl.o: kmp_ftn_cdecl.c.o
@@ -496,7 +496,7 @@ kmp_ftn_cdecl.o: kmp_ftn_cdecl.c.o
 
 # target to build an object file
 kmp_ftn_cdecl.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_cdecl.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_cdecl.c.o
 .PHONY : kmp_ftn_cdecl.c.o
 
 kmp_ftn_cdecl.i: kmp_ftn_cdecl.c.i
@@ -504,7 +504,7 @@ kmp_ftn_cdecl.i: kmp_ftn_cdecl.c.i
 
 # target to preprocess a source file
 kmp_ftn_cdecl.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_cdecl.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_cdecl.c.i
 .PHONY : kmp_ftn_cdecl.c.i
 
 kmp_ftn_cdecl.s: kmp_ftn_cdecl.c.s
@@ -512,7 +512,7 @@ kmp_ftn_cdecl.s: kmp_ftn_cdecl.c.s
 
 # target to generate assembly for a file
 kmp_ftn_cdecl.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_cdecl.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_cdecl.c.s
 .PHONY : kmp_ftn_cdecl.c.s
 
 kmp_ftn_extra.o: kmp_ftn_extra.c.o
@@ -520,7 +520,7 @@ kmp_ftn_extra.o: kmp_ftn_extra.c.o
 
 # target to build an object file
 kmp_ftn_extra.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_extra.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_extra.c.o
 .PHONY : kmp_ftn_extra.c.o
 
 kmp_ftn_extra.i: kmp_ftn_extra.c.i
@@ -528,7 +528,7 @@ kmp_ftn_extra.i: kmp_ftn_extra.c.i
 
 # target to preprocess a source file
 kmp_ftn_extra.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_extra.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_extra.c.i
 .PHONY : kmp_ftn_extra.c.i
 
 kmp_ftn_extra.s: kmp_ftn_extra.c.s
@@ -536,7 +536,7 @@ kmp_ftn_extra.s: kmp_ftn_extra.c.s
 
 # target to generate assembly for a file
 kmp_ftn_extra.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_extra.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_ftn_extra.c.s
 .PHONY : kmp_ftn_extra.c.s
 
 kmp_global.o: kmp_global.c.o
@@ -544,7 +544,7 @@ kmp_global.o: kmp_global.c.o
 
 # target to build an object file
 kmp_global.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_global.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_global.c.o
 .PHONY : kmp_global.c.o
 
 kmp_global.i: kmp_global.c.i
@@ -552,7 +552,7 @@ kmp_global.i: kmp_global.c.i
 
 # target to preprocess a source file
 kmp_global.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_global.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_global.c.i
 .PHONY : kmp_global.c.i
 
 kmp_global.s: kmp_global.c.s
@@ -560,7 +560,7 @@ kmp_global.s: kmp_global.c.s
 
 # target to generate assembly for a file
 kmp_global.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_global.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_global.c.s
 .PHONY : kmp_global.c.s
 
 kmp_gsupport.o: kmp_gsupport.c.o
@@ -568,7 +568,7 @@ kmp_gsupport.o: kmp_gsupport.c.o
 
 # target to build an object file
 kmp_gsupport.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_gsupport.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_gsupport.c.o
 .PHONY : kmp_gsupport.c.o
 
 kmp_gsupport.i: kmp_gsupport.c.i
@@ -576,7 +576,7 @@ kmp_gsupport.i: kmp_gsupport.c.i
 
 # target to preprocess a source file
 kmp_gsupport.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_gsupport.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_gsupport.c.i
 .PHONY : kmp_gsupport.c.i
 
 kmp_gsupport.s: kmp_gsupport.c.s
@@ -584,7 +584,7 @@ kmp_gsupport.s: kmp_gsupport.c.s
 
 # target to generate assembly for a file
 kmp_gsupport.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_gsupport.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_gsupport.c.s
 .PHONY : kmp_gsupport.c.s
 
 kmp_i18n.o: kmp_i18n.c.o
@@ -592,7 +592,7 @@ kmp_i18n.o: kmp_i18n.c.o
 
 # target to build an object file
 kmp_i18n.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_i18n.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_i18n.c.o
 .PHONY : kmp_i18n.c.o
 
 kmp_i18n.i: kmp_i18n.c.i
@@ -600,7 +600,7 @@ kmp_i18n.i: kmp_i18n.c.i
 
 # target to preprocess a source file
 kmp_i18n.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_i18n.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_i18n.c.i
 .PHONY : kmp_i18n.c.i
 
 kmp_i18n.s: kmp_i18n.c.s
@@ -608,7 +608,7 @@ kmp_i18n.s: kmp_i18n.c.s
 
 # target to generate assembly for a file
 kmp_i18n.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_i18n.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_i18n.c.s
 .PHONY : kmp_i18n.c.s
 
 kmp_io.o: kmp_io.c.o
@@ -616,7 +616,7 @@ kmp_io.o: kmp_io.c.o
 
 # target to build an object file
 kmp_io.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_io.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_io.c.o
 .PHONY : kmp_io.c.o
 
 kmp_io.i: kmp_io.c.i
@@ -624,7 +624,7 @@ kmp_io.i: kmp_io.c.i
 
 # target to preprocess a source file
 kmp_io.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_io.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_io.c.i
 .PHONY : kmp_io.c.i
 
 kmp_io.s: kmp_io.c.s
@@ -632,7 +632,7 @@ kmp_io.s: kmp_io.c.s
 
 # target to generate assembly for a file
 kmp_io.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_io.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_io.c.s
 .PHONY : kmp_io.c.s
 
 kmp_itt.o: kmp_itt.c.o
@@ -640,7 +640,7 @@ kmp_itt.o: kmp_itt.c.o
 
 # target to build an object file
 kmp_itt.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_itt.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_itt.c.o
 .PHONY : kmp_itt.c.o
 
 kmp_itt.i: kmp_itt.c.i
@@ -648,7 +648,7 @@ kmp_itt.i: kmp_itt.c.i
 
 # target to preprocess a source file
 kmp_itt.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_itt.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_itt.c.i
 .PHONY : kmp_itt.c.i
 
 kmp_itt.s: kmp_itt.c.s
@@ -656,7 +656,7 @@ kmp_itt.s: kmp_itt.c.s
 
 # target to generate assembly for a file
 kmp_itt.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_itt.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_itt.c.s
 .PHONY : kmp_itt.c.s
 
 kmp_lock.o: kmp_lock.cpp.o
@@ -664,7 +664,7 @@ kmp_lock.o: kmp_lock.cpp.o
 
 # target to build an object file
 kmp_lock.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_lock.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_lock.cpp.o
 .PHONY : kmp_lock.cpp.o
 
 kmp_lock.i: kmp_lock.cpp.i
@@ -672,7 +672,7 @@ kmp_lock.i: kmp_lock.cpp.i
 
 # target to preprocess a source file
 kmp_lock.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_lock.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_lock.cpp.i
 .PHONY : kmp_lock.cpp.i
 
 kmp_lock.s: kmp_lock.cpp.s
@@ -680,7 +680,7 @@ kmp_lock.s: kmp_lock.cpp.s
 
 # target to generate assembly for a file
 kmp_lock.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_lock.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_lock.cpp.s
 .PHONY : kmp_lock.cpp.s
 
 kmp_runtime.o: kmp_runtime.c.o
@@ -688,7 +688,7 @@ kmp_runtime.o: kmp_runtime.c.o
 
 # target to build an object file
 kmp_runtime.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_runtime.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_runtime.c.o
 .PHONY : kmp_runtime.c.o
 
 kmp_runtime.i: kmp_runtime.c.i
@@ -696,7 +696,7 @@ kmp_runtime.i: kmp_runtime.c.i
 
 # target to preprocess a source file
 kmp_runtime.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_runtime.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_runtime.c.i
 .PHONY : kmp_runtime.c.i
 
 kmp_runtime.s: kmp_runtime.c.s
@@ -704,7 +704,7 @@ kmp_runtime.s: kmp_runtime.c.s
 
 # target to generate assembly for a file
 kmp_runtime.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_runtime.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_runtime.c.s
 .PHONY : kmp_runtime.c.s
 
 kmp_sched.o: kmp_sched.cpp.o
@@ -712,7 +712,7 @@ kmp_sched.o: kmp_sched.cpp.o
 
 # target to build an object file
 kmp_sched.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_sched.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_sched.cpp.o
 .PHONY : kmp_sched.cpp.o
 
 kmp_sched.i: kmp_sched.cpp.i
@@ -720,7 +720,7 @@ kmp_sched.i: kmp_sched.cpp.i
 
 # target to preprocess a source file
 kmp_sched.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_sched.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_sched.cpp.i
 .PHONY : kmp_sched.cpp.i
 
 kmp_sched.s: kmp_sched.cpp.s
@@ -728,7 +728,7 @@ kmp_sched.s: kmp_sched.cpp.s
 
 # target to generate assembly for a file
 kmp_sched.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_sched.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_sched.cpp.s
 .PHONY : kmp_sched.cpp.s
 
 kmp_settings.o: kmp_settings.c.o
@@ -736,7 +736,7 @@ kmp_settings.o: kmp_settings.c.o
 
 # target to build an object file
 kmp_settings.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_settings.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_settings.c.o
 .PHONY : kmp_settings.c.o
 
 kmp_settings.i: kmp_settings.c.i
@@ -744,7 +744,7 @@ kmp_settings.i: kmp_settings.c.i
 
 # target to preprocess a source file
 kmp_settings.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_settings.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_settings.c.i
 .PHONY : kmp_settings.c.i
 
 kmp_settings.s: kmp_settings.c.s
@@ -752,7 +752,7 @@ kmp_settings.s: kmp_settings.c.s
 
 # target to generate assembly for a file
 kmp_settings.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_settings.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_settings.c.s
 .PHONY : kmp_settings.c.s
 
 kmp_str.o: kmp_str.c.o
@@ -760,7 +760,7 @@ kmp_str.o: kmp_str.c.o
 
 # target to build an object file
 kmp_str.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_str.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_str.c.o
 .PHONY : kmp_str.c.o
 
 kmp_str.i: kmp_str.c.i
@@ -768,7 +768,7 @@ kmp_str.i: kmp_str.c.i
 
 # target to preprocess a source file
 kmp_str.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_str.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_str.c.i
 .PHONY : kmp_str.c.i
 
 kmp_str.s: kmp_str.c.s
@@ -776,7 +776,7 @@ kmp_str.s: kmp_str.c.s
 
 # target to generate assembly for a file
 kmp_str.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_str.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_str.c.s
 .PHONY : kmp_str.c.s
 
 kmp_taskdeps.o: kmp_taskdeps.cpp.o
@@ -784,7 +784,7 @@ kmp_taskdeps.o: kmp_taskdeps.cpp.o
 
 # target to build an object file
 kmp_taskdeps.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskdeps.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskdeps.cpp.o
 .PHONY : kmp_taskdeps.cpp.o
 
 kmp_taskdeps.i: kmp_taskdeps.cpp.i
@@ -792,7 +792,7 @@ kmp_taskdeps.i: kmp_taskdeps.cpp.i
 
 # target to preprocess a source file
 kmp_taskdeps.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskdeps.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskdeps.cpp.i
 .PHONY : kmp_taskdeps.cpp.i
 
 kmp_taskdeps.s: kmp_taskdeps.cpp.s
@@ -800,7 +800,7 @@ kmp_taskdeps.s: kmp_taskdeps.cpp.s
 
 # target to generate assembly for a file
 kmp_taskdeps.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskdeps.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskdeps.cpp.s
 .PHONY : kmp_taskdeps.cpp.s
 
 kmp_tasking.o: kmp_tasking.c.o
@@ -808,7 +808,7 @@ kmp_tasking.o: kmp_tasking.c.o
 
 # target to build an object file
 kmp_tasking.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_tasking.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_tasking.c.o
 .PHONY : kmp_tasking.c.o
 
 kmp_tasking.i: kmp_tasking.c.i
@@ -816,7 +816,7 @@ kmp_tasking.i: kmp_tasking.c.i
 
 # target to preprocess a source file
 kmp_tasking.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_tasking.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_tasking.c.i
 .PHONY : kmp_tasking.c.i
 
 kmp_tasking.s: kmp_tasking.c.s
@@ -824,7 +824,7 @@ kmp_tasking.s: kmp_tasking.c.s
 
 # target to generate assembly for a file
 kmp_tasking.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_tasking.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_tasking.c.s
 .PHONY : kmp_tasking.c.s
 
 kmp_taskq.o: kmp_taskq.c.o
@@ -832,7 +832,7 @@ kmp_taskq.o: kmp_taskq.c.o
 
 # target to build an object file
 kmp_taskq.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskq.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskq.c.o
 .PHONY : kmp_taskq.c.o
 
 kmp_taskq.i: kmp_taskq.c.i
@@ -840,7 +840,7 @@ kmp_taskq.i: kmp_taskq.c.i
 
 # target to preprocess a source file
 kmp_taskq.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskq.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskq.c.i
 .PHONY : kmp_taskq.c.i
 
 kmp_taskq.s: kmp_taskq.c.s
@@ -848,7 +848,7 @@ kmp_taskq.s: kmp_taskq.c.s
 
 # target to generate assembly for a file
 kmp_taskq.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskq.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_taskq.c.s
 .PHONY : kmp_taskq.c.s
 
 kmp_threadprivate.o: kmp_threadprivate.c.o
@@ -856,7 +856,7 @@ kmp_threadprivate.o: kmp_threadprivate.c.o
 
 # target to build an object file
 kmp_threadprivate.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_threadprivate.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_threadprivate.c.o
 .PHONY : kmp_threadprivate.c.o
 
 kmp_threadprivate.i: kmp_threadprivate.c.i
@@ -864,7 +864,7 @@ kmp_threadprivate.i: kmp_threadprivate.c.i
 
 # target to preprocess a source file
 kmp_threadprivate.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_threadprivate.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_threadprivate.c.i
 .PHONY : kmp_threadprivate.c.i
 
 kmp_threadprivate.s: kmp_threadprivate.c.s
@@ -872,7 +872,7 @@ kmp_threadprivate.s: kmp_threadprivate.c.s
 
 # target to generate assembly for a file
 kmp_threadprivate.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_threadprivate.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_threadprivate.c.s
 .PHONY : kmp_threadprivate.c.s
 
 kmp_utility.o: kmp_utility.c.o
@@ -880,7 +880,7 @@ kmp_utility.o: kmp_utility.c.o
 
 # target to build an object file
 kmp_utility.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_utility.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_utility.c.o
 .PHONY : kmp_utility.c.o
 
 kmp_utility.i: kmp_utility.c.i
@@ -888,7 +888,7 @@ kmp_utility.i: kmp_utility.c.i
 
 # target to preprocess a source file
 kmp_utility.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_utility.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_utility.c.i
 .PHONY : kmp_utility.c.i
 
 kmp_utility.s: kmp_utility.c.s
@@ -896,7 +896,7 @@ kmp_utility.s: kmp_utility.c.s
 
 # target to generate assembly for a file
 kmp_utility.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_utility.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_utility.c.s
 .PHONY : kmp_utility.c.s
 
 kmp_version.o: kmp_version.c.o
@@ -904,7 +904,7 @@ kmp_version.o: kmp_version.c.o
 
 # target to build an object file
 kmp_version.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_version.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_version.c.o
 .PHONY : kmp_version.c.o
 
 kmp_version.i: kmp_version.c.i
@@ -912,7 +912,7 @@ kmp_version.i: kmp_version.c.i
 
 # target to preprocess a source file
 kmp_version.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_version.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_version.c.i
 .PHONY : kmp_version.c.i
 
 kmp_version.s: kmp_version.c.s
@@ -920,7 +920,7 @@ kmp_version.s: kmp_version.c.s
 
 # target to generate assembly for a file
 kmp_version.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_version.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_version.c.s
 .PHONY : kmp_version.c.s
 
 kmp_wait_release.o: kmp_wait_release.cpp.o
@@ -928,7 +928,7 @@ kmp_wait_release.o: kmp_wait_release.cpp.o
 
 # target to build an object file
 kmp_wait_release.cpp.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_wait_release.cpp.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_wait_release.cpp.o
 .PHONY : kmp_wait_release.cpp.o
 
 kmp_wait_release.i: kmp_wait_release.cpp.i
@@ -936,7 +936,7 @@ kmp_wait_release.i: kmp_wait_release.cpp.i
 
 # target to preprocess a source file
 kmp_wait_release.cpp.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_wait_release.cpp.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_wait_release.cpp.i
 .PHONY : kmp_wait_release.cpp.i
 
 kmp_wait_release.s: kmp_wait_release.cpp.s
@@ -944,7 +944,7 @@ kmp_wait_release.s: kmp_wait_release.cpp.s
 
 # target to generate assembly for a file
 kmp_wait_release.cpp.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_wait_release.cpp.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/kmp_wait_release.cpp.s
 .PHONY : kmp_wait_release.cpp.s
 
 thirdparty/ittnotify/ittnotify_static.o: thirdparty/ittnotify/ittnotify_static.c.o
@@ -952,7 +952,7 @@ thirdparty/ittnotify/ittnotify_static.o: thirdparty/ittnotify/ittnotify_static.c
 
 # target to build an object file
 thirdparty/ittnotify/ittnotify_static.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.o
 .PHONY : thirdparty/ittnotify/ittnotify_static.c.o
 
 thirdparty/ittnotify/ittnotify_static.i: thirdparty/ittnotify/ittnotify_static.c.i
@@ -960,7 +960,7 @@ thirdparty/ittnotify/ittnotify_static.i: thirdparty/ittnotify/ittnotify_static.c
 
 # target to preprocess a source file
 thirdparty/ittnotify/ittnotify_static.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.i
 .PHONY : thirdparty/ittnotify/ittnotify_static.c.i
 
 thirdparty/ittnotify/ittnotify_static.s: thirdparty/ittnotify/ittnotify_static.c.s
@@ -968,7 +968,7 @@ thirdparty/ittnotify/ittnotify_static.s: thirdparty/ittnotify/ittnotify_static.c
 
 # target to generate assembly for a file
 thirdparty/ittnotify/ittnotify_static.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/thirdparty/ittnotify/ittnotify_static.c.s
 .PHONY : thirdparty/ittnotify/ittnotify_static.c.s
 
 z_Linux_asm.o: z_Linux_asm.s.o
@@ -976,7 +976,7 @@ z_Linux_asm.o: z_Linux_asm.s.o
 
 # target to build an object file
 z_Linux_asm.s.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_asm.s.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_asm.s.o
 .PHONY : z_Linux_asm.s.o
 
 z_Linux_asm.i: z_Linux_asm.s.i
@@ -984,7 +984,7 @@ z_Linux_asm.i: z_Linux_asm.s.i
 
 # target to preprocess a source file
 z_Linux_asm.s.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_asm.s.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_asm.s.i
 .PHONY : z_Linux_asm.s.i
 
 z_Linux_asm.s: z_Linux_asm.s.s
@@ -992,7 +992,7 @@ z_Linux_asm.s: z_Linux_asm.s.s
 
 # target to generate assembly for a file
 z_Linux_asm.s.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_asm.s.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_asm.s.s
 .PHONY : z_Linux_asm.s.s
 
 z_Linux_util.o: z_Linux_util.c.o
@@ -1000,7 +1000,7 @@ z_Linux_util.o: z_Linux_util.c.o
 
 # target to build an object file
 z_Linux_util.c.o:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_util.c.o
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_util.c.o
 .PHONY : z_Linux_util.c.o
 
 z_Linux_util.i: z_Linux_util.c.i
@@ -1008,7 +1008,7 @@ z_Linux_util.i: z_Linux_util.c.i
 
 # target to preprocess a source file
 z_Linux_util.c.i:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_util.c.i
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_util.c.i
 .PHONY : z_Linux_util.c.i
 
 z_Linux_util.s: z_Linux_util.c.s
@@ -1016,7 +1016,7 @@ z_Linux_util.s: z_Linux_util.c.s
 
 # target to generate assembly for a file
 z_Linux_util.c.s:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_util.c.s
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(MAKE) -f runtime/src/CMakeFiles/omp.dir/build.make runtime/src/CMakeFiles/omp.dir/z_Linux_util.c.s
 .PHONY : z_Linux_util.c.s
 
 # Help Target
@@ -1146,6 +1146,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -25,7 +25,7 @@ test_omp_parallel_for_private:          # @test_omp_parallel_for_private
 	movl	$1000, -20(%rbp)        # imm = 0x3E8
 	movq	%rax, %rdx
 	movb	$0, %al
-	callq	__kmpc_fork_call2
+	callq	__kmpc_fork_call_start
 	callq   __kmpc_fork_call_end
 	movabsq	$.L.str.1, %rdi
 	movl	$2, %esi

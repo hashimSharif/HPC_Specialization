@@ -1,4 +1,4 @@
-# Install script for directory: /home/hashim/Phd_Sem4/software/openmp/runtime/src
+# Install script for directory: /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libomp.so"
          RPATH "")
   ENDIF()
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/hashim/Phd_Sem4/software/openmp/build/runtime/src/libomp.so")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/libomp.so")
   IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libomp.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libomp.so")
     IF(CMAKE_INSTALL_DO_STRIP)
@@ -61,6 +61,6 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE FILE FILES "/home/hashim/Phd_Sem4/software/openmp/build/runtime/src/omp.h")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE FILE FILES "/home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/omp.h")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

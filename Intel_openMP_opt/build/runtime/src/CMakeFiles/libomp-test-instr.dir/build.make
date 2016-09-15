@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/software/openmp
+CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/software/openmp/build
+CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build
 
 # Utility rule file for libomp-test-instr.
 
@@ -49,11 +49,11 @@ runtime/src/CMakeFiles/libomp-test-instr: runtime/src/test-instr/.success
 
 runtime/src/test-instr/.success: runtime/src/libomp.so
 runtime/src/test-instr/.success: ../runtime/tools/check-instruction-set.pl
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating test-instr/.success"
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/cmake -E make_directory /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/test-instr
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/perl /home/hashim/Phd_Sem4/software/openmp/runtime/tools/check-instruction-set.pl --os=lin --arch=32e --show --mic-arch=knc /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/libomp.so
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/cmake -E touch test-instr/.success
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/cmake -E make_directory /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/test-instr
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/perl /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/tools/check-instruction-set.pl --os=lin --arch=32e --show --mic-arch=knc /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/libomp.so
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/cmake -E touch test-instr/.success
 
 libomp-test-instr: runtime/src/CMakeFiles/libomp-test-instr
 libomp-test-instr: runtime/src/test-instr/.success
@@ -65,10 +65,10 @@ runtime/src/CMakeFiles/libomp-test-instr.dir/build: libomp-test-instr
 .PHONY : runtime/src/CMakeFiles/libomp-test-instr.dir/build
 
 runtime/src/CMakeFiles/libomp-test-instr.dir/clean:
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-test-instr.dir/cmake_clean.cmake
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-test-instr.dir/cmake_clean.cmake
 .PHONY : runtime/src/CMakeFiles/libomp-test-instr.dir/clean
 
 runtime/src/CMakeFiles/libomp-test-instr.dir/depend:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/software/openmp /home/hashim/Phd_Sem4/software/openmp/runtime/src /home/hashim/Phd_Sem4/software/openmp/build /home/hashim/Phd_Sem4/software/openmp/build/runtime/src /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/CMakeFiles/libomp-test-instr.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/CMakeFiles/libomp-test-instr.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : runtime/src/CMakeFiles/libomp-test-instr.dir/depend
 

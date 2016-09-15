@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/software/openmp
+CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/software/openmp/build
+CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build
 
 # Utility rule file for libomp-needed-headers.
 
@@ -50,15 +50,15 @@ runtime/src/CMakeFiles/libomp-needed-headers: runtime/src/kmp_i18n_default.inc
 
 runtime/src/kmp_i18n_id.inc: ../runtime/src/i18n/en_US.txt
 runtime/src/kmp_i18n_id.inc: ../runtime/tools/message-converter.pl
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating kmp_i18n_id.inc"
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/perl /home/hashim/Phd_Sem4/software/openmp/runtime/tools/message-converter.pl --os=lin --prefix=kmp_i18n --enum=kmp_i18n_id.inc /home/hashim/Phd_Sem4/software/openmp/runtime/src/i18n/en_US.txt
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/perl /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/tools/message-converter.pl --os=lin --prefix=kmp_i18n --enum=kmp_i18n_id.inc /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/i18n/en_US.txt
 
 runtime/src/kmp_i18n_default.inc: ../runtime/src/i18n/en_US.txt
 runtime/src/kmp_i18n_default.inc: ../runtime/tools/message-converter.pl
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating kmp_i18n_default.inc"
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/perl /home/hashim/Phd_Sem4/software/openmp/runtime/tools/message-converter.pl --os=lin --prefix=kmp_i18n --default=kmp_i18n_default.inc /home/hashim/Phd_Sem4/software/openmp/runtime/src/i18n/en_US.txt
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/perl /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/tools/message-converter.pl --os=lin --prefix=kmp_i18n --default=kmp_i18n_default.inc /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src/i18n/en_US.txt
 
 libomp-needed-headers: runtime/src/CMakeFiles/libomp-needed-headers
 libomp-needed-headers: runtime/src/kmp_i18n_id.inc
@@ -71,10 +71,10 @@ runtime/src/CMakeFiles/libomp-needed-headers.dir/build: libomp-needed-headers
 .PHONY : runtime/src/CMakeFiles/libomp-needed-headers.dir/build
 
 runtime/src/CMakeFiles/libomp-needed-headers.dir/clean:
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-needed-headers.dir/cmake_clean.cmake
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-needed-headers.dir/cmake_clean.cmake
 .PHONY : runtime/src/CMakeFiles/libomp-needed-headers.dir/clean
 
 runtime/src/CMakeFiles/libomp-needed-headers.dir/depend:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/software/openmp /home/hashim/Phd_Sem4/software/openmp/runtime/src /home/hashim/Phd_Sem4/software/openmp/build /home/hashim/Phd_Sem4/software/openmp/build/runtime/src /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/CMakeFiles/libomp-needed-headers.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/CMakeFiles/libomp-needed-headers.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : runtime/src/CMakeFiles/libomp-needed-headers.dir/depend
 

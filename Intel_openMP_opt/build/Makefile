@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/software/openmp
+CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/software/openmp/build
+CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -110,9 +110,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

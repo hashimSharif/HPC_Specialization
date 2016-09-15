@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/software/openmp
+CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/software/openmp/build
+CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build
 
 # Utility rule file for libomp-test-relo.
 
@@ -48,12 +48,12 @@ include runtime/src/CMakeFiles/libomp-test-relo.dir/progress.make
 runtime/src/CMakeFiles/libomp-test-relo: runtime/src/test-relo/.success
 
 runtime/src/test-relo/.success: runtime/src/libomp.so
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/software/openmp/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating test-relo/.success, test-relo/readelf.log"
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/cmake -E make_directory /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/test-relo
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && readelf -d /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/libomp.so > test-relo/readelf.log
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && grep -e TEXTREL test-relo/readelf.log ; test $$? -eq 1
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && /usr/bin/cmake -E touch test-relo/.success
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/cmake -E make_directory /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/test-relo
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && readelf -d /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/libomp.so > test-relo/readelf.log
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && grep -e TEXTREL test-relo/readelf.log ; test $$? -eq 1
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && /usr/bin/cmake -E touch test-relo/.success
 
 runtime/src/test-relo/readelf.log: runtime/src/test-relo/.success
 
@@ -68,10 +68,10 @@ runtime/src/CMakeFiles/libomp-test-relo.dir/build: libomp-test-relo
 .PHONY : runtime/src/CMakeFiles/libomp-test-relo.dir/build
 
 runtime/src/CMakeFiles/libomp-test-relo.dir/clean:
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-test-relo.dir/cmake_clean.cmake
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-test-relo.dir/cmake_clean.cmake
 .PHONY : runtime/src/CMakeFiles/libomp-test-relo.dir/clean
 
 runtime/src/CMakeFiles/libomp-test-relo.dir/depend:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/software/openmp /home/hashim/Phd_Sem4/software/openmp/runtime/src /home/hashim/Phd_Sem4/software/openmp/build /home/hashim/Phd_Sem4/software/openmp/build/runtime/src /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/CMakeFiles/libomp-test-relo.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/CMakeFiles/libomp-test-relo.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : runtime/src/CMakeFiles/libomp-test-relo.dir/depend
 

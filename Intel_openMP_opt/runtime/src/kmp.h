@@ -3437,8 +3437,8 @@ KMP_EXPORT kmp_int32  __kmpc_bound_num_threads  ( ident_t * );
 
 KMP_EXPORT kmp_int32  __kmpc_ok_to_fork     ( ident_t * );
 KMP_EXPORT void   __kmpc_fork_call          ( ident_t *, kmp_int32 nargs, kmpc_micro microtask, ... );
-KMP_EXPORT void   __kmpc_fork_call2          ( ident_t *, kmp_int32 nargs, kmpc_micro microtask, ... );
-KMP_EXPORT void   __kmpc_fork_call_end       ( );
+KMP_EXPORT void   __kmpc_fork_call_start    ( ident_t *, kmp_int32 nargs, kmpc_micro microtask, ... );
+KMP_EXPORT void   __kmpc_fork_call_end      ( );
 
 
 KMP_EXPORT void   __kmpc_serialized_parallel     ( ident_t *, kmp_int32 global_tid );

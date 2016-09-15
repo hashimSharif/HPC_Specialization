@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/software/openmp
+CMAKE_SOURCE_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/software/openmp/build
+CMAKE_BINARY_DIR = /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build
 
 # Utility rule file for libomp-micro-tests.
 
@@ -56,10 +56,10 @@ runtime/src/CMakeFiles/libomp-micro-tests.dir/build: libomp-micro-tests
 .PHONY : runtime/src/CMakeFiles/libomp-micro-tests.dir/build
 
 runtime/src/CMakeFiles/libomp-micro-tests.dir/clean:
-	cd /home/hashim/Phd_Sem4/software/openmp/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-micro-tests.dir/cmake_clean.cmake
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src && $(CMAKE_COMMAND) -P CMakeFiles/libomp-micro-tests.dir/cmake_clean.cmake
 .PHONY : runtime/src/CMakeFiles/libomp-micro-tests.dir/clean
 
 runtime/src/CMakeFiles/libomp-micro-tests.dir/depend:
-	cd /home/hashim/Phd_Sem4/software/openmp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/software/openmp /home/hashim/Phd_Sem4/software/openmp/runtime/src /home/hashim/Phd_Sem4/software/openmp/build /home/hashim/Phd_Sem4/software/openmp/build/runtime/src /home/hashim/Phd_Sem4/software/openmp/build/runtime/src/CMakeFiles/libomp-micro-tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/build/runtime/src/CMakeFiles/libomp-micro-tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : runtime/src/CMakeFiles/libomp-micro-tests.dir/depend
 

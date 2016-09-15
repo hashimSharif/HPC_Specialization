@@ -1,4 +1,4 @@
-# Install script for directory: /home/hashim/Phd_Sem4/software/openmp/runtime/test
+# Install script for directory: /home/hashim/Phd_Sem4/Research/Github/HPC_Specialization/Intel_openMP_opt/runtime/test
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

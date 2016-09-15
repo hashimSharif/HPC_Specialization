@@ -49,7 +49,7 @@ endif()
 
 
 set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "c")
-set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/lib/gcc/x86_64-linux-gnu/4.8;/usr/lib/x86_64-linux-gnu;/lib/x86_64-linux-gnu;/lib64;/usr/lib;/usr/lib/llvm-3.8/lib;/lib")
+set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/lib/gcc/x86_64-linux-gnu/4.8;/usr/lib/x86_64-linux-gnu;/lib/x86_64-linux-gnu;/lib64;/usr/lib;/usr/lib/llvm-3.8/lib;/lib;/home/hashim/Phd_Sem4/software/openmp/build/runtime/src")
 set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")
 
 
