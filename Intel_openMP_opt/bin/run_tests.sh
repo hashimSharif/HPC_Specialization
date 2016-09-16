@@ -3,13 +3,14 @@
 
 # set LD_LIBRARY PATH for clang to link to the openMP runtime dynamically
 work_dir=$( pwd )
+export C_INCLUDE_PATH=$work_dir/build/runtime/src/:$C_INCLUDE_PATH
 export LD_LIBRARY_PATH=$work_dir/build/runtime/src/:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$work_dir/build/runtime/src/:$LIBRARY_PATH
 export OMP_NUM_THREADS=8 # setting default for number of openMP threads per parallel region
 echo $LD_LIBRARY_PATH
 
-tests=( test9_new test9 )
-sources=( test9 )
+tests=( omp_for_reduction_opt omp_for_reduction hello_opt hello )
+sources=( omp_for_reduction hello )
 
 # build the source to assembly modules
 if [[ $1 == "build-as" ]] ;
