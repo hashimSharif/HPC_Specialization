@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author : Hashim Sharif
 
 # set LD_LIBRARY PATH for clang to link to the openMP runtime dynamically
 work_dir=$( pwd )
@@ -10,6 +11,7 @@ echo $LD_LIBRARY_PATH
 tests=( test9_new test9 )
 sources=( test9 )
 
+# build the source to assembly modules
 if [[ $1 == "build-as" ]] ;
 then
     for source in "${sources[@]}"
@@ -18,6 +20,7 @@ then
     done  
 fi
 
+# build the assembly modules and run the tests - saving output under /test_logs
 if [[ $1 == "build" ]] ;
 then
     for test in "${tests[@]}"
@@ -31,7 +34,7 @@ then
     do
 	for test in "${tests[@]}"
 	do 
-	    echo $thread_count , $test
+	    echo $thread_count, $test
 	    export OMP_NUM_THREADS=$thread_count
 	    ./custom_tests/$test |& tee test_logs/$test
 	done
