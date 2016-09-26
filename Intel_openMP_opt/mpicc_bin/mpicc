@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# Copyright (C) 2003-2015 Intel Corporation.  All Rights Reserved.
+# 
+# The source code contained or described herein and all documents
+# related to the source code ("Material") are owned by Intel Corporation
+# or its suppliers or licensors.  Title to the Material remains with
+# Intel Corporation or its suppliers and licensors.  The Material is
+# protected by worldwide copyright and trade secret laws and treaty
+# provisions.  No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed, or
+# disclosed in any way without Intel's prior express written permission.
+# 
+# No license under any patent, copyright, trade secret or other
+# intellectual property right is granted to or conferred upon you by
+# disclosure or delivery of the Materials, either expressly, by
+# implication, inducement, estoppel or otherwise.  Any license under
+# such intellectual property rights must be express and approved by
+# Intel in writing.
+#
+
+default_compiler_name="gcc"
+
+#------------------------------------------------------------------------------ 
+# Print mini-help if started without parameters
+if [ -z "$1" ] ; then
+    echo "This script invokes an appropriate specialized C MPI compiler driver."
+    echo "The following ways (priority order) can be used for changing default" 
+    echo "compiler name (${default_compiler_name:?}):"
+    echo "   1. Command line option:  -cc=<compiler_name>"
+    echo "   2. Environment variable: I_MPI_CC (current value '$I_MPI_CC')"
+    echo "   3. Environment variable: MPICH_CC (current value '$MPICH_CC')"
+    exit 0
+fi
+
+#------------------------------------------------------------------------------ 
+dir=`dirname $0`
+compiler_name=${I_MPI_CC:-${MPICH_CC:-${default_compiler_name:?}}}
+
+for arg in "$@" ; do
+    case $arg in 
+        -cc=*)
+        compiler_name=`echo A$arg | sed -e 's/A-cc=//g'`
+        ;;
+    esac
+done
+
+compiler_short_name=`basename ${compiler_name:?}`
+compiler_short_name="${compiler_short_name##*-}"
+
+opt_args=""
+if [ $# -eq 1 -a "$1" = "-v" ] ; then
+    opt_args="-nolinkage"
+fi
+
+if [ x"$opt_args" == x"" ]; then
+    case "${compiler_short_name}" in
+	icc)    $dir/mpiicc -cc=$compiler_name "$@" ;;
+	cc|gcc|clang) $dir/mpigcc -cc=$compiler_name "$@" ;;
+	mpicc)  $dir/mpigcc "$@" ;;    
+	*)  
+    	    echo "Error: unsupported compiler name '$compiler_name'."
+    	    echo "Check -cc=<compiler_name> command line option and I_MPI_CC='$I_MPI_CC' and MPICH_CC='$MPICH_CC' variables."; 
+    	    exit 1 ;;
+    esac
+else
+    case "${compiler_short_name}" in
+	icc)    $dir/mpiicc -cc=$compiler_name "$@" $opt_args ;;
+	cc|gcc|clang) $dir/mpigcc -cc=$compiler_name "$@" $opt_args ;;
+	mpicc)  $dir/mpigcc "$@" $opt_args ;;    
+	*)  
+    	    echo "Error: unsupported compiler name '$compiler_name'."
+    	    echo "Check -cc=<compiler_name> command line option and I_MPI_CC='$I_MPI_CC' and MPICH_CC='$MPICH_CC' variables."; 
+    	    exit 1 ;;
+    esac
+fi
