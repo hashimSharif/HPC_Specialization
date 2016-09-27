@@ -52,19 +52,10 @@ then
   do
     llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
     mpicc -cc=clang custom_tests/bc/${test}.bc -o custom_tests/bin/${test} -fopenmp
-    mpirun -n 2 custom_tests/bin/${test} &> custom_tests/logs/${test}.log
+    mpirun -n 8 -ppn 1 custom_tests/bin/${test} &> custom_tests/logs/${test}.log
   done
 fi
 
-
-#mpicc -cc=clang -c -emit-llvm custom_tests/MPI_waitall.c -o custom_tests/MPI_waitall_clang.bc -fopenmp
-#mpicc -cc=clang custom_tests/MPI_waitall_clang.bc -o custom_tests/MPI_waitall_clang -fopenmp
-#mpirun -n 2 custom_tests/MPI_waitall_clang
-
-# Build and execute with the mpic wrappers
-
-#mpicc -cc=clang custom_tests/MPI_waitall.c -o custom_tests/MPI_waitall_clang -fopenmp
-#mpirun -n 2 custom_tests/MPI_waitall_clang
 
 
 #CC -S custom_tests/MPI_waitall.c -o custom_tests/MPI_waitall.s -openmp
