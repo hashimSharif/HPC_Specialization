@@ -1,0 +1,912 @@
+# mark_description "Intel(R) C++ Intel(R) 64 Compiler XE for applications running on Intel(R) 64, Version 15.0.1.133 Build 20141";
+# mark_description "023";
+# mark_description "-I/opt/cray/mpt/7.4.1/gni/sma/include -I/opt/cray/libsci/16.07.1/INTEL/15.0/x86_64/include -I/opt/cray/mpt/7";
+# mark_description ".4.1/gni/mpich-intel/15.0/include -I/opt/cray/rca/1.0.0-2.0502.57212.2.56.ari/include -I/opt/cray/alps/5.2.3";
+# mark_description "-2.0502.9295.14.14.ari/include -I/opt/cray/xpmem/0.1-2.0502.57015.1.15.ari/include -I/opt/cray/gni-headers/4";
+# mark_description ".0-1.0502.10317.9.2.ari/include -I/opt/cray/dmapp/7.0.1-1.0502.10246.8.47.ari/include -I/opt/cray/pmi/5.0.10";
+# mark_description "-1.0000.11050.0.0.ari/include -I/opt/cray/ugni/6.0-1.0502.10245.9.9.ari/include -I/opt/cray/udreg/2.3.2-1.05";
+# mark_description "02.9889.2.20.ari/include -I/usr/local/include -I/opt/cray/wlm_detect/1.0-1.0502.57063.1.1.ari/include -I/opt";
+# mark_description "/cray/krca/1.0.0-2.0502.57202.2.45.ari/include -I/opt/cray-hss-devel/7.2.0/include -xCORE-AVX-I -static -D__";
+# mark_description "CRAYXC -D__CRAY_IVYBRIDGE -D__CRAYXT_COMPUTE_LINUX_TARGET -S -o custom_tests/MPI_waitall.s -openmp";
+	.file "MPI_waitall.c"
+	.text
+..TXTST0:
+# -- Begin  main, L_main_79__par_loop0_2.0, L_main_79__tree_reduce0_2.1
+	.text
+# mark_begin;
+       .align    16,0x90
+	.globl main
+main:
+# parameter 1: %edi
+# parameter 2: %rsi
+..B1.1:                         # Preds ..B1.0
+..___tag_value_main.1:                                          #21.34
+        pushq     %rbp                                          #21.34
+..___tag_value_main.3:                                          #
+        movq      %rsp, %rbp                                    #21.34
+..___tag_value_main.4:                                          #
+        andq      $-128, %rsp                                   #21.34
+        subq      $384, %rsp                                    #21.34
+        movl      %edi, 320(%rsp)                               #21.34
+        movl      $3, %edi                                      #21.34
+        movq      %rsi, 312(%rsp)                               #21.34
+        movl      $104446, %esi                                 #21.34
+        movq      %rbx, 264(%rsp)                               #21.34
+        movq      %r15, 232(%rsp)                               #21.34
+        movq      %r14, 240(%rsp)                               #21.34
+        movq      %r13, 248(%rsp)                               #21.34
+        movq      %r12, 256(%rsp)                               #21.34
+        call      __intel_new_feature_proc_init                 #21.34
+..___tag_value_main.6:                                          #
+                                # LOE
+..B1.65:                        # Preds ..B1.1
+        vstmxcsr  (%rsp)                                        #21.34
+        movl      $.2.3_2_kmpc_loc_struct_pack.1, %edi          #21.34
+        xorl      %esi, %esi                                    #21.34
+        orl       $32832, (%rsp)                                #21.34
+        xorl      %eax, %eax                                    #21.34
+        vldmxcsr  (%rsp)                                        #21.34
+..___tag_value_main.11:                                         #21.34
+        call      __kmpc_begin                                  #21.34
+..___tag_value_main.12:                                         #
+                                # LOE
+..B1.2:                         # Preds ..B1.65
+        lea       320(%rsp), %rdi                               #30.3
+        lea       312(%rsp), %rsi                               #30.3
+..___tag_value_main.13:                                         #30.3
+        call      MPI_Init                                      #30.3
+..___tag_value_main.14:                                         #
+                                # LOE
+..B1.3:                         # Preds ..B1.2
+        movl      $1140850688, %edi                             #31.3
+        lea       332(%rsp), %rsi                               #31.3
+..___tag_value_main.15:                                         #31.3
+        call      MPI_Comm_size                                 #31.3
+..___tag_value_main.16:                                         #
+                                # LOE
+..B1.4:                         # Preds ..B1.3
+        movl      $1140850688, %edi                             #32.3
+        lea       324(%rsp), %rsi                               #32.3
+..___tag_value_main.17:                                         #32.3
+        call      MPI_Comm_rank                                 #32.3
+..___tag_value_main.18:                                         #
+                                # LOE
+..B1.5:                         # Preds ..B1.4
+        movl      332(%rsp), %ebx                               #35.7
+        lea       -2(%rbx), %eax                                #35.10
+        cmpl      $6, %eax                                      #35.10
+        jbe       ..B1.10       # Prob 50%                      #35.10
+                                # LOE ebx
+..B1.6:                         # Preds ..B1.5
+        cmpl      $0, 324(%rsp)                                 #36.15
+        jne       ..B1.8        # Prob 78%                      #36.15
+                                # LOE
+..B1.7:                         # Preds ..B1.6
+        movl      $.L_2__STRING.0, %edi                         #37.7
+        movl      $8, %esi                                      #37.7
+        xorl      %eax, %eax                                    #37.7
+..___tag_value_main.19:                                         #37.7
+        call      printf                                        #37.7
+..___tag_value_main.20:                                         #
+                                # LOE
+..B1.8:                         # Preds ..B1.42 ..B1.70 ..B1.37 ..B1.7 ..B1.6
+                                #      
+..___tag_value_main.21:                                         #39.5
+        call      MPI_Finalize                                  #39.5
+..___tag_value_main.22:                                         #
+                                # LOE
+..B1.9:                         # Preds ..B1.8
+        xorl      %edi, %edi                                    #40.5
+        call      exit                                          #40.5
+                                # LOE
+..B1.10:                        # Preds ..B1.5
+        movl      324(%rsp), %esi                               #43.7
+        movl      %esi, 328(%rsp)                               #43.3
+        testl     %esi, %esi                                    #45.13
+        jne       ..B1.39       # Prob 50%                      #45.13
+                                # LOE ebx esi
+..B1.11:                        # Preds ..B1.10
+        movl      $.L_2__STRING.1, %edi                         #47.5
+        xorl      %eax, %eax                                    #47.5
+..___tag_value_main.23:                                         #47.5
+        call      printf                                        #47.5
+..___tag_value_main.24:                                         #
+                                # LOE ebx
+..B1.12:                        # Preds ..B1.11
+        movl      $1, %r13d                                     #49.10
+        lea       204(%rsp), %r12                               #49.12
+        cmpl      $1, %ebx                                      #49.17
+        jle       ..B1.18       # Prob 10%                      #49.17
+                                # LOE r12 ebx r13d
+..B1.14:                        # Preds ..B1.12 ..B1.16
+        movl      $.L_2__STRING.2, %edi                         #50.7
+        movl      %r13d, %edx                                   #50.7
+        xorl      %eax, %eax                                    #50.7
+        movl      324(%rsp), %esi                               #50.7
+..___tag_value_main.25:                                         #50.7
+        call      printf                                        #50.7
+..___tag_value_main.26:                                         #
+                                # LOE r12 r13d
+..B1.15:                        # Preds ..B1.14
+        addq      $-16, %rsp                                    #51.7
+        movl      $1, %esi                                      #51.7
+        movl      $1275069445, %edx                             #51.7
+        lea       344(%rsp), %rdi                               #51.7
+        movl      %r13d, %ecx                                   #51.7
+        movl      $42, %r8d                                     #51.7
+        movl      $1140850688, %r9d                             #51.7
+        movq      %r12, (%rsp)                                  #51.7
+..___tag_value_main.27:                                         #51.7
+        call      MPI_Isend                                     #51.7
+..___tag_value_main.28:                                         #
+                                # LOE r12 r13d
+..B1.66:                        # Preds ..B1.15
+        addq      $16, %rsp                                     #51.7
+                                # LOE r12 r13d
+..B1.16:                        # Preds ..B1.66
+        incl      %r13d                                         #49.21
+        addq      $4, %r12                                      #49.21
+        movl      332(%rsp), %ebx                               #49.17
+        cmpl      %ebx, %r13d                                   #49.17
+        jl        ..B1.14       # Prob 82%                      #49.17
+                                # LOE r12 ebx r13d
+..B1.18:                        # Preds ..B1.16 ..B1.12
+        decl      %ebx                                          #58.5
+        lea       204(%rsp), %rsi                               #58.5
+        movl      %ebx, %edi                                    #58.5
+        lea       28(%rsp), %rdx                                #58.5
+..___tag_value_main.29:                                         #58.5
+        call      MPI_Waitall                                   #58.5
+..___tag_value_main.30:                                         #
+                                # LOE
+..B1.19:                        # Preds ..B1.18
+        movl      $.L_2__STRING.3, %edi                         #60.5
+        xorl      %eax, %eax                                    #60.5
+        movl      324(%rsp), %esi                               #60.5
+..___tag_value_main.31:                                         #60.5
+        call      printf                                        #60.5
+..___tag_value_main.32:                                         #
+                                # LOE
+..B1.20:                        # Preds ..B1.19
+        movl      332(%rsp), %edi                               #62.19
+        movl      $1, %r14d                                     #62.10
+        movl      $4, %r13d                                     #62.10
+        cmpl      $1, %edi                                      #62.19
+        jle       ..B1.25       # Prob 10%                      #62.19
+                                # LOE r13 r14 edi
+..B1.21:                        # Preds ..B1.20
+        lea       272(%rsp), %r12                               #63.7
+        lea       168(%rsp), %rbx                               #63.7
+                                # LOE rbx r12 r13 r14
+..B1.22:                        # Preds ..B1.23 ..B1.21
+        addq      $-16, %rsp                                    #63.7
+        lea       (%r12,%r13), %rdi                             #63.7
+        movl      $1, %esi                                      #63.7
+        movl      $1275069445, %edx                             #63.7
+        movl      $-2, %ecx                                     #63.7
+        movl      $42, %r8d                                     #63.7
+        movl      $1140850688, %r9d                             #63.7
+        lea       (%rbx,%r13), %rax                             #63.7
+        movq      %rax, (%rsp)                                  #63.7
+..___tag_value_main.33:                                         #63.7
+        call      MPI_Irecv                                     #63.7
+..___tag_value_main.34:                                         #
+                                # LOE rbx r12 r13 r14
+..B1.67:                        # Preds ..B1.22
+        addq      $16, %rsp                                     #63.7
+                                # LOE rbx r12 r13 r14
+..B1.23:                        # Preds ..B1.67
+        movl      332(%rsp), %edi                               #62.19
+        incq      %r14                                          #62.23
+        movslq    %edi, %rdi                                    #62.5
+        addq      $4, %r13                                      #62.23
+        cmpq      %rdi, %r14                                    #62.19
+        jl        ..B1.22       # Prob 87%                      #62.19
+                                # LOE rbx r12 r13 r14 edi
+..B1.25:                        # Preds ..B1.23 ..B1.20
+        decl      %edi                                          #69.5
+        lea       172(%rsp), %rsi                               #69.5
+        lea       28(%rsp), %rdx                                #69.5
+..___tag_value_main.35:                                         #69.5
+        call      MPI_Waitall                                   #69.5
+..___tag_value_main.36:                                         #
+                                # LOE
+..B1.26:                        # Preds ..B1.25
+        movslq    332(%rsp), %rbx                               #72.17
+        movl      $1, %r12d                                     #72.10
+        movl      324(%rsp), %r13d                              #73.65
+        cmpq      $1, %rbx                                      #72.17
+        jle       ..B1.31       # Prob 10%                      #72.17
+                                # LOE rbx r12 r13d
+..B1.28:                        # Preds ..B1.26 ..B1.29
+        movl      $.L_2__STRING.4, %edi                         #73.7
+        movl      %r13d, %esi                                   #73.7
+        xorl      %eax, %eax                                    #73.7
+        movl      272(%rsp,%r12,4), %edx                        #73.7
+..___tag_value_main.37:                                         #73.7
+        call      printf                                        #73.7
+..___tag_value_main.38:                                         #
+                                # LOE rbx r12 r13d
+..B1.29:                        # Preds ..B1.28
+        incq      %r12                                          #72.21
+        cmpq      %rbx, %r12                                    #72.17
+        jl        ..B1.28       # Prob 87%                      #72.17
+                                # LOE rbx r12 r13d
+..B1.31:                        # Preds ..B1.29 ..B1.26
+        movl      $.L_2__STRING.5, %edi                         #75.5
+        movl      %r13d, %esi                                   #75.5
+        xorl      %eax, %eax                                    #75.5
+..___tag_value_main.39:                                         #75.5
+        call      printf                                        #75.5
+..___tag_value_main.40:                                         #
+                                # LOE
+..B1.32:                        # Preds ..B1.31
+        movl      $.2.3_2_kmpc_loc_struct_pack.12, %edi         #79.5
+        movl      $0, 304(%rsp)                                 #78.13
+        call      __kmpc_global_thread_num                      #79.5
+                                # LOE eax
+..B1.69:                        # Preds ..B1.32
+        movl      %eax, 308(%rsp)                               #79.5
+        movl      $.2.3_2_kmpc_loc_struct_pack.21, %edi         #79.5
+        xorl      %eax, %eax                                    #79.5
+        movl      $1, .2.3_2__kmpc_chunk_pack_.19(%rip)         #79.5
+..___tag_value_main.41:                                         #79.5
+        call      __kmpc_ok_to_fork                             #79.5
+..___tag_value_main.42:                                         #
+                                # LOE eax
+..B1.33:                        # Preds ..B1.69
+        testl     %eax, %eax                                    #79.5
+        je        ..B1.35       # Prob 50%                      #79.5
+                                # LOE
+..B1.34:                        # Preds ..B1.33
+        addq      $-16, %rsp                                    #79.5
+        movl      $L_main_79__par_loop0_2.0, %edx               #79.5
+        movl      $.2.3_2__kmpc_chunk_pack_.19, %r9d            #79.5
+        lea       320(%rsp), %rax                               #79.5
+        movl      $.2.3_2_kmpc_loc_struct_pack.21, %edi         #79.5
+        lea       16(%rsp), %rcx                                #79.5
+        movl      $4, %esi                                      #79.5
+        lea       4(%rcx), %r8                                  #79.5
+        movq      %rax, (%rsp)                                  #79.5
+        xorl      %eax, %eax                                    #79.5
+..___tag_value_main.43:                                         #79.5
+        call      __kmpc_fork_call                              #79.5
+..___tag_value_main.44:                                         #
+                                # LOE
+..B1.70:                        # Preds ..B1.34
+        addq      $16, %rsp                                     #79.5
+        jmp       ..B1.8        # Prob 100%                     #79.5
+                                # LOE
+..B1.35:                        # Preds ..B1.33
+        movl      $.2.3_2_kmpc_loc_struct_pack.21, %edi         #79.5
+        xorl      %eax, %eax                                    #79.5
+        movl      308(%rsp), %esi                               #79.5
+..___tag_value_main.45:                                         #79.5
+        call      __kmpc_serialized_parallel                    #79.5
+..___tag_value_main.46:                                         #
+                                # LOE
+..B1.36:                        # Preds ..B1.35
+        movl      $___kmpv_zeromain_0, %esi                     #79.5
+        lea       308(%rsp), %rdi                               #79.5
+        movl      $.2.3_2__kmpc_chunk_pack_.19, %r8d            #79.5
+        lea       (%rsp), %rdx                                  #79.5
+        lea       4(%rdx), %rcx                                 #79.5
+        lea       -4(%rdi), %r9                                 #79.5
+..___tag_value_main.47:                                         #79.5
+        call      L_main_79__par_loop0_2.0                      #79.5
+..___tag_value_main.48:                                         #
+                                # LOE
+..B1.37:                        # Preds ..B1.36
+        movl      $.2.3_2_kmpc_loc_struct_pack.21, %edi         #79.5
+        xorl      %eax, %eax                                    #79.5
+        movl      308(%rsp), %esi                               #79.5
+..___tag_value_main.49:                                         #79.5
+        call      __kmpc_end_serialized_parallel                #79.5
+..___tag_value_main.50:                                         #
+        jmp       ..B1.8        # Prob 100%                     #79.5
+                                # LOE
+..B1.39:                        # Preds ..B1.10
+        addq      $-16, %rsp                                    #87.5
+        movl      $1, %esi                                      #87.5
+        movl      $1275069445, %edx                             #87.5
+        lea       288(%rsp), %rdi                               #87.5
+        xorl      %ecx, %ecx                                    #87.5
+        movl      $42, %r8d                                     #87.5
+        movl      $1140850688, %r9d                             #87.5
+        lea       184(%rsp), %rbx                               #87.5
+        movq      %rbx, (%rsp)                                  #87.5
+..___tag_value_main.51:                                         #87.5
+        call      MPI_Irecv                                     #87.5
+..___tag_value_main.52:                                         #
+                                # LOE rbx
+..B1.71:                        # Preds ..B1.39
+        addq      $16, %rsp                                     #87.5
+                                # LOE rbx
+..B1.40:                        # Preds ..B1.71
+        movq      %rbx, %rdi                                    #88.5
+        lea       8(%rsp), %rsi                                 #88.5
+..___tag_value_main.53:                                         #88.5
+        call      MPI_Wait                                      #88.5
+..___tag_value_main.54:                                         #
+                                # LOE
+..B1.41:                        # Preds ..B1.40
+        addq      $-16, %rsp                                    #90.5
+        movl      $1, %esi                                      #90.5
+        movl      $1275069445, %edx                             #90.5
+        lea       344(%rsp), %rdi                               #90.5
+        xorl      %ecx, %ecx                                    #90.5
+        movl      $42, %r8d                                     #90.5
+        movl      $1140850688, %r9d                             #90.5
+        lea       216(%rsp), %rbx                               #90.5
+        movq      %rbx, (%rsp)                                  #90.5
+..___tag_value_main.55:                                         #90.5
+        call      MPI_Isend                                     #90.5
+..___tag_value_main.56:                                         #
+                                # LOE rbx
+..B1.72:                        # Preds ..B1.41
+        addq      $16, %rsp                                     #90.5
+                                # LOE rbx
+..B1.42:                        # Preds ..B1.72
+        movq      %rbx, %rdi                                    #92.5
+        lea       8(%rsp), %rsi                                 #92.5
+..___tag_value_main.57:                                         #92.5
+        call      MPI_Wait                                      #92.5
+..___tag_value_main.58:                                         #
+        jmp       ..B1.8        # Prob 100%                     #92.5
+..___tag_value_main.59:                                         #
+                                # LOE
+L_main_79__tree_reduce0_2.1:
+# parameter 1: %rdi
+# parameter 2: %rsi
+..B1.45:                        # Preds ..B1.0
+        pushq     %rbp                                          #79.5
+..___tag_value_main.66:                                         #
+        movq      %rsp, %rbp                                    #79.5
+..___tag_value_main.67:                                         #
+        andq      $-128, %rsp                                   #79.5
+        subq      $384, %rsp                                    #79.5
+        movl      (%rsi), %eax                                  #79.5
+        movq      %r15, 232(%rsp)                               #79.5
+        movq      %r14, 240(%rsp)                               #79.5
+        movq      %r13, 248(%rsp)                               #79.5
+        movq      %r12, 256(%rsp)                               #79.5
+        movq      %rbx, 264(%rsp)                               #79.5
+        addl      %eax, (%rdi)                                  #79.5
+        xorl      %eax, %eax                                    #79.5
+        movq      232(%rsp), %r15                               #79.5
+..___tag_value_main.69:                                         #
+        movq      240(%rsp), %r14                               #79.5
+..___tag_value_main.73:                                         #
+        movq      248(%rsp), %r13                               #79.5
+..___tag_value_main.74:                                         #
+        movq      256(%rsp), %r12                               #79.5
+..___tag_value_main.75:                                         #
+        movq      264(%rsp), %rbx                               #79.5
+..___tag_value_main.76:                                         #
+        movq      %rbp, %rsp                                    #79.5
+        popq      %rbp                                          #79.5
+..___tag_value_main.77:                                         #
+        ret                                                     #79.5
+..___tag_value_main.79:                                         #
+                                # LOE
+L_main_79__par_loop0_2.0:
+# parameter 1: %rdi
+# parameter 2: %rsi
+# parameter 3: %rdx
+# parameter 4: %rcx
+# parameter 5: %r8
+# parameter 6: %r9
+..B1.46:                        # Preds ..B1.0
+        pushq     %rbp                                          #79.5
+..___tag_value_main.81:                                         #
+        movq      %rsp, %rbp                                    #79.5
+..___tag_value_main.82:                                         #
+        andq      $-128, %rsp                                   #79.5
+        subq      $384, %rsp                                    #79.5
+        movq      %rbx, 264(%rsp)                               #79.5
+..___tag_value_main.84:                                         #
+        movl      LOOPCOUNT(%rip), %ebx                         #80.10
+        movq      %r12, 256(%rsp)                               #79.5
+        movq      %r15, 232(%rsp)                               #79.5
+        movq      %r14, 240(%rsp)                               #79.5
+        movq      %r13, 248(%rsp)                               #79.5
+..___tag_value_main.85:                                         #
+        movq      %r9, %r13                                     #79.5
+        movl      (%rdi), %r12d                                 #79.5
+        movl      $0, (%rsp)                                    #79.5
+        movl      %ebx, (%rdx)                                  #80.10
+        testl     %ebx, %ebx                                    #81.5
+        jle       ..B1.57       # Prob 10%                      #81.5
+                                # LOE r8 r13 ebx r12d
+..B1.47:                        # Preds ..B1.46
+        movl      $1, %r11d                                     #79.5
+        movl      $.2.3_2_kmpc_loc_struct_pack.21, %edi         #79.5
+        movl      %r11d, 4(%rsp)                                #79.5
+        movl      %r12d, %esi                                   #79.5
+        movl      %ebx, 8(%rsp)                                 #79.5
+        movl      $33, %edx                                     #79.5
+        movl      $0, 12(%rsp)                                  #79.5
+        xorl      %eax, %eax                                    #79.5
+        movl      %r11d, 16(%rsp)                               #79.5
+        addq      $-32, %rsp                                    #79.5
+        movl      (%r8), %r14d                                  #79.5
+        lea       44(%rsp), %rcx                                #79.5
+        lea       36(%rsp), %r8                                 #79.5
+        lea       40(%rsp), %r9                                 #79.5
+        lea       48(%rsp), %r10                                #79.5
+        movq      %r10, (%rsp)                                  #79.5
+        movl      %r11d, 8(%rsp)                                #79.5
+        movl      %r14d, 16(%rsp)                               #79.5
+..___tag_value_main.89:                                         #79.5
+        call      __kmpc_for_static_init_4                      #79.5
+..___tag_value_main.90:                                         #
+                                # LOE r13 ebx r12d
+..B1.73:                        # Preds ..B1.47
+        addq      $32, %rsp                                     #79.5
+                                # LOE r13 ebx r12d
+..B1.48:                        # Preds ..B1.73
+        movl      4(%rsp), %r10d                                #79.5
+        movl      %r10d, %r9d                                   #79.5
+        movl      16(%rsp), %r8d                                #79.5
+        movl      %r8d, %edi                                    #79.5
+        movl      8(%rsp), %eax                                 #79.5
+        negl      %r9d                                          #79.5
+        movl      (%rsp), %ecx                                  #82.8
+        negl      %edi                                          #79.5
+        jmp       ..B1.49       # Prob 100%                     #79.5
+                                # LOE r13 eax ecx ebx edi r8d r9d r10d r12d
+..B1.54:                        # Preds ..B1.53
+        movl      %ecx, (%rsp)                                  #82.2
+        addl      %edi, %r9d                                    #79.5
+        addl      %r8d, %r10d                                   #79.5
+        addl      %r8d, %eax                                    #79.5
+                                # LOE r13 eax ecx ebx edi r8d r9d r10d r12d
+..B1.49:                        # Preds ..B1.54 ..B1.48
+        cmpl      %ebx, %r10d                                   #79.5
+        jg        ..B1.56       # Prob 50%                      #79.5
+                                # LOE r13 eax ecx ebx edi r8d r9d r10d r12d
+..B1.50:                        # Preds ..B1.49
+        cmpl      %ebx, %eax                                    #79.5
+        cmovge    %ebx, %eax                                    #79.5
+        cmpl      %eax, %r10d                                   #81.5
+        jg        ..B1.56       # Prob 50%                      #81.5
+                                # LOE r13 eax ecx ebx edi r8d r9d r10d r12d
+..B1.52:                        # Preds ..B1.50
+        xorl      %r15d, %r15d                                  #79.5
+        lea       1(%rax,%r9), %r14d                            #79.5
+        movl      %r10d, %r11d                                  #79.5
+                                # LOE r13 eax ecx ebx edi r8d r9d r10d r11d r12d r14d r15d
+..B1.53:                        # Preds ..B1.53 ..B1.52
+        incl      %r15d                                         #79.5
+        addl      %r11d, %ecx                                   #79.5
+        incl      %r11d                                         #79.5
+        cmpl      %r14d, %r15d                                  #79.5
+        jb        ..B1.53       # Prob 82%                      #79.5
+        jmp       ..B1.54       # Prob 100%                     #79.5
+                                # LOE r13 eax ecx ebx edi r8d r9d r10d r11d r12d r14d r15d
+..B1.56:                        # Preds ..B1.49 ..B1.50
+        movl      $.2.3_2_kmpc_loc_struct_pack.21, %edi         #79.5
+        movl      %r12d, %esi                                   #79.5
+        xorl      %eax, %eax                                    #79.5
+..___tag_value_main.91:                                         #79.5
+        call      __kmpc_for_static_fini                        #79.5
+..___tag_value_main.92:                                         #
+                                # LOE r13 r12d
+..B1.57:                        # Preds ..B1.56 ..B1.46
+        addq      $-16, %rsp                                    #79.5
+        movl      $.2.3_2_kmpc_loc_struct_pack.52, %ebx         #79.5
+        movl      $L_main_79__tree_reduce0_2.1, %r9d            #79.5
+        lea       16(%rsp), %r8                                 #79.5
+        movq      %rbx, %rdi                                    #79.5
+        movl      %r12d, %esi                                   #79.5
+        xorl      %edx, %edx                                    #79.5
+        incl      %edx                                          #79.5
+        movl      $4, %ecx                                      #79.5
+        xorl      %eax, %eax                                    #79.5
+        movq      $main_kmpc_tree_reduct_lock_0, (%rsp)         #79.5
+..___tag_value_main.93:                                         #79.5
+        call      __kmpc_reduce_nowait                          #79.5
+..___tag_value_main.94:                                         #
+                                # LOE rbx r13 eax r12d
+..B1.74:                        # Preds ..B1.57
+        addq      $16, %rsp                                     #79.5
+                                # LOE rbx r13 eax r12d
+..B1.58:                        # Preds ..B1.74
+        cmpl      $1, %eax                                      #79.5
+        jne       ..B1.60       # Prob 50%                      #79.5
+                                # LOE rbx r13 eax r12d
+..B1.59:                        # Preds ..B1.58
+        movl      (%rsp), %eax                                  #79.5
+        movl      $main_kmpc_tree_reduct_lock_0, %edx           #79.5
+        addl      %eax, (%r13)                                  #79.5
+        movq      %rbx, %rdi                                    #79.5
+        movl      %r12d, %esi                                   #79.5
+        xorl      %eax, %eax                                    #79.5
+..___tag_value_main.95:                                         #79.5
+        call      __kmpc_end_reduce_nowait                      #79.5
+..___tag_value_main.96:                                         #
+        jmp       ..B1.62       # Prob 100%                     #79.5
+                                # LOE
+..B1.60:                        # Preds ..B1.58
+        cmpl      $2, %eax                                      #79.5
+        jne       ..B1.62       # Prob 50%                      #79.5
+                                # LOE rbx r13 r12d
+..B1.61:                        # Preds ..B1.60
+        movq      %rbx, %rdi                                    #79.5
+        movl      %r12d, %esi                                   #79.5
+        movq      %r13, %rdx                                    #79.5
+        xorl      %eax, %eax                                    #79.5
+        movl      (%rsp), %ecx                                  #79.5
+..___tag_value_main.97:                                         #79.5
+        call      __kmpc_atomic_fixed4_add                      #79.5
+..___tag_value_main.98:                                         #
+                                # LOE
+..B1.62:                        # Preds ..B1.59 ..B1.61 ..B1.60
+        xorl      %eax, %eax                                    #79.5
+        movq      232(%rsp), %r15                               #79.5
+..___tag_value_main.99:                                         #
+        movq      240(%rsp), %r14                               #79.5
+..___tag_value_main.100:                                        #
+        movq      248(%rsp), %r13                               #79.5
+..___tag_value_main.101:                                        #
+        movq      256(%rsp), %r12                               #79.5
+..___tag_value_main.102:                                        #
+        movq      264(%rsp), %rbx                               #79.5
+..___tag_value_main.103:                                        #
+        movq      %rbp, %rsp                                    #79.5
+        popq      %rbp                                          #79.5
+..___tag_value_main.104:                                        #
+        ret                                                     #79.5
+        .align    16,0x90
+..___tag_value_main.106:                                        #
+                                # LOE
+# mark_end;
+	.type	main,@function
+	.size	main,.-main
+	.bss
+	.align 4
+	.align 4
+.2.3_2__kmpc_chunk_pack_.19:
+	.type	.2.3_2__kmpc_chunk_pack_.19,@object
+	.size	.2.3_2__kmpc_chunk_pack_.19,4
+	.space 4	# pad
+	.data
+	.align 4
+	.align 4
+.2.3_2_kmpc_loc_struct_pack.1:
+	.long	0
+	.long	2
+	.long	0
+	.long	0
+	.quad	.2.3_2__kmpc_loc_pack.0
+	.align 4
+.2.3_2__kmpc_loc_pack.0:
+	.byte	59
+	.byte	117
+	.byte	110
+	.byte	107
+	.byte	110
+	.byte	111
+	.byte	119
+	.byte	110
+	.byte	59
+	.byte	109
+	.byte	97
+	.byte	105
+	.byte	110
+	.byte	59
+	.byte	50
+	.byte	49
+	.byte	59
+	.byte	50
+	.byte	49
+	.byte	59
+	.byte	59
+	.space 3, 0x00 	# pad
+	.align 4
+.2.3_2_kmpc_loc_struct_pack.12:
+	.long	0
+	.long	2
+	.long	0
+	.long	0
+	.quad	.2.3_2__kmpc_loc_pack.11
+	.align 4
+.2.3_2__kmpc_loc_pack.11:
+	.byte	59
+	.byte	117
+	.byte	110
+	.byte	107
+	.byte	110
+	.byte	111
+	.byte	119
+	.byte	110
+	.byte	59
+	.byte	109
+	.byte	97
+	.byte	105
+	.byte	110
+	.byte	59
+	.byte	55
+	.byte	57
+	.byte	59
+	.byte	55
+	.byte	57
+	.byte	59
+	.byte	59
+	.space 3, 0x00 	# pad
+	.align 4
+.2.3_2_kmpc_loc_struct_pack.21:
+	.long	0
+	.long	2
+	.long	0
+	.long	0
+	.quad	.2.3_2__kmpc_loc_pack.20
+	.align 4
+.2.3_2__kmpc_loc_pack.20:
+	.byte	59
+	.byte	117
+	.byte	110
+	.byte	107
+	.byte	110
+	.byte	111
+	.byte	119
+	.byte	110
+	.byte	59
+	.byte	109
+	.byte	97
+	.byte	105
+	.byte	110
+	.byte	59
+	.byte	55
+	.byte	57
+	.byte	59
+	.byte	56
+	.byte	51
+	.byte	59
+	.byte	59
+	.space 3, 0x00 	# pad
+	.align 4
+.2.3_2_kmpc_loc_struct_pack.52:
+	.long	0
+	.long	18
+	.long	0
+	.long	0
+	.quad	.2.3_2__kmpc_loc_pack.51
+	.align 4
+.2.3_2__kmpc_loc_pack.51:
+	.byte	59
+	.byte	117
+	.byte	110
+	.byte	107
+	.byte	110
+	.byte	111
+	.byte	119
+	.byte	110
+	.byte	59
+	.byte	109
+	.byte	97
+	.byte	105
+	.byte	110
+	.byte	59
+	.byte	55
+	.byte	57
+	.byte	59
+	.byte	55
+	.byte	57
+	.byte	59
+	.byte	59
+	.data
+# -- End  main, L_main_79__par_loop0_2.0, L_main_79__tree_reduce0_2.1
+	.bss
+	.align 4
+___kmpv_zeromain_0:
+	.type	___kmpv_zeromain_0,@object
+	.size	___kmpv_zeromain_0,4
+	.space 4	# pad
+	.data
+	.space 3, 0x00 	# pad
+	.align 4
+	.globl LOOPCOUNT
+LOOPCOUNT:
+	.long	1000
+	.type	LOOPCOUNT,@object
+	.size	LOOPCOUNT,4
+	.section .rodata.str1.4, "aMS",@progbits,1
+	.align 4
+	.align 4
+.L_2__STRING.0:
+	.long	544567129
+	.long	1702257000
+	.long	544175136
+	.long	543519605
+	.long	1814066273
+	.long	544502629
+	.long	1851858994
+	.long	1952522340
+	.long	1936682272
+	.long	1680154740
+	.long	1869770784
+	.long	1936942435
+	.long	684901
+	.type	.L_2__STRING.0,@object
+	.size	.L_2__STRING.0,52
+	.align 4
+.L_2__STRING.1:
+	.long	1668248144
+	.long	544437093
+	.long	1931502629
+	.long	1768189541
+	.long	1948280686
+	.long	1818304623
+	.long	1953439852
+	.long	544367976
+	.long	1668248176
+	.long	1702064997
+	.word	2675
+	.byte	0
+	.type	.L_2__STRING.1,@object
+	.size	.L_2__STRING.1,43
+	.space 1, 0x00 	# pad
+	.align 4
+.L_2__STRING.2:
+	.long	1668248144
+	.long	544437093
+	.long	1931502629
+	.long	1768189541
+	.long	1948280686
+	.long	1680154735
+	.word	10
+	.type	.L_2__STRING.2,@object
+	.size	.L_2__STRING.2,26
+	.space 2, 0x00 	# pad
+	.align 4
+.L_2__STRING.3:
+	.long	1668248144
+	.long	544437093
+	.long	1914725413
+	.long	1768252261
+	.long	1735289206
+	.long	1869768224
+	.long	1818304621
+	.long	1953439852
+	.long	544367976
+	.long	1668248176
+	.long	1702064997
+	.word	2675
+	.byte	0
+	.type	.L_2__STRING.3,@object
+	.size	.L_2__STRING.3,47
+	.space 1, 0x00 	# pad
+	.align 4
+.L_2__STRING.4:
+	.long	1668248144
+	.long	544437093
+	.long	1914725413
+	.long	1768252261
+	.long	543450486
+	.long	1701650529
+	.long	1734439795
+	.long	1919295589
+	.long	1881173359
+	.long	1701015410
+	.long	622883699
+	.word	2660
+	.byte	0
+	.type	.L_2__STRING.4,@object
+	.size	.L_2__STRING.4,47
+	.space 1, 0x00 	# pad
+	.align 4
+.L_2__STRING.5:
+	.long	1668248144
+	.long	544437093
+	.long	1914725413
+	.long	2036621669
+	.word	10
+	.type	.L_2__STRING.5,@object
+	.size	.L_2__STRING.5,18
+	.data
+	.comm main_kmpc_tree_reduct_lock_0,32,8
+	.section .note.GNU-stack, ""
+// -- Begin DWARF2 SEGMENT .eh_frame
+	.section .eh_frame,"a",@progbits
+.eh_frame_seg:
+	.align 8
+	.4byte 0x0000001c
+	.8byte 0x00507a0100000000
+	.4byte 0x09107801
+	.byte 0x00
+	.8byte __gxx_personality_v0
+	.4byte 0x9008070c
+	.2byte 0x0001
+	.byte 0x00
+	.4byte 0x000001ac
+	.4byte 0x00000024
+	.8byte ..___tag_value_main.1
+	.8byte ..___tag_value_main.106-..___tag_value_main.1
+	.2byte 0x0400
+	.4byte ..___tag_value_main.3-..___tag_value_main.1
+	.2byte 0x100e
+	.byte 0x04
+	.4byte ..___tag_value_main.4-..___tag_value_main.3
+	.4byte 0x8610060c
+	.2byte 0x0402
+	.4byte ..___tag_value_main.6-..___tag_value_main.4
+	.8byte 0xff800d1c380e0310
+	.8byte 0xffffff880d1affff
+	.8byte 0x800d1c380e0c1022
+	.8byte 0xffff800d1affffff
+	.8byte 0x0d1c380e0d1022ff
+	.8byte 0xff780d1affffff80
+	.8byte 0x1c380e0e1022ffff
+	.8byte 0x700d1affffff800d
+	.8byte 0x380e0f1022ffffff
+	.8byte 0x0d1affffff800d1c
+	.4byte 0xffffff68
+	.2byte 0x0422
+	.4byte ..___tag_value_main.59-..___tag_value_main.6
+	.4byte 0xcdccc6c3
+	.2byte 0xcfce
+	.byte 0x04
+	.4byte ..___tag_value_main.66-..___tag_value_main.59
+	.4byte 0x0410070c
+	.4byte ..___tag_value_main.67-..___tag_value_main.66
+	.4byte 0x8610060c
+	.2byte 0x0402
+	.4byte ..___tag_value_main.69-..___tag_value_main.67
+	.8byte 0xff800d1c380e0310
+	.8byte 0xffffff880d1affff
+	.8byte 0x800d1c380e0c1022
+	.8byte 0xffff800d1affffff
+	.8byte 0x0d1c380e0d1022ff
+	.8byte 0xff780d1affffff80
+	.8byte 0x1c380e0e1022ffff
+	.8byte 0x700d1affffff800d
+	.4byte 0x22ffffff
+	.byte 0x04
+	.4byte ..___tag_value_main.73-..___tag_value_main.69
+	.2byte 0x04ce
+	.4byte ..___tag_value_main.74-..___tag_value_main.73
+	.2byte 0x04cd
+	.4byte ..___tag_value_main.75-..___tag_value_main.74
+	.2byte 0x04cc
+	.4byte ..___tag_value_main.76-..___tag_value_main.75
+	.2byte 0x04c3
+	.4byte ..___tag_value_main.77-..___tag_value_main.76
+	.4byte 0xc608070c
+	.byte 0x04
+	.4byte ..___tag_value_main.79-..___tag_value_main.77
+	.4byte 0x0410060c
+	.4byte ..___tag_value_main.81-..___tag_value_main.79
+	.4byte 0x0410070c
+	.4byte ..___tag_value_main.82-..___tag_value_main.81
+	.4byte 0x8610060c
+	.2byte 0x0402
+	.4byte ..___tag_value_main.84-..___tag_value_main.82
+	.8byte 0xff800d1c380e0310
+	.8byte 0xffffff880d1affff
+	.2byte 0x0422
+	.4byte ..___tag_value_main.85-..___tag_value_main.84
+	.8byte 0xff800d1c380e0c10
+	.8byte 0xffffff800d1affff
+	.8byte 0x800d1c380e0d1022
+	.8byte 0xffff780d1affffff
+	.8byte 0x0d1c380e0e1022ff
+	.8byte 0xff700d1affffff80
+	.8byte 0x1c380e0f1022ffff
+	.8byte 0x680d1affffff800d
+	.4byte 0x22ffffff
+	.byte 0x04
+	.4byte ..___tag_value_main.99-..___tag_value_main.85
+	.2byte 0x04cf
+	.4byte ..___tag_value_main.100-..___tag_value_main.99
+	.2byte 0x04ce
+	.4byte ..___tag_value_main.101-..___tag_value_main.100
+	.2byte 0x04cd
+	.4byte ..___tag_value_main.102-..___tag_value_main.101
+	.2byte 0x04cc
+	.4byte ..___tag_value_main.103-..___tag_value_main.102
+	.2byte 0x04c3
+	.4byte ..___tag_value_main.104-..___tag_value_main.103
+	.8byte 0x00000000c608070c
+	.byte 0x00
+# End
