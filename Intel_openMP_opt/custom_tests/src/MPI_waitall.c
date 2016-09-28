@@ -15,8 +15,15 @@ Run the program with 'mpiexec -n 6 ./send-nonblocking-waitall'
 #include <stdio.h>
 #include "mpi.h"
 #define MAXPROC 8    /* Max number of procsses */
+#define BUFSIZE 100000
 
 int LOOPCOUNT = 1000;
+
+
+__attribute__((noinline)) void placeHolder(){
+  printf("placeHolder func %d \n", 10);
+}
+
 
 int main(int argc, char* argv[]) {
   int i, x, np, me;
@@ -26,6 +33,7 @@ int main(int argc, char* argv[]) {
   /* Request objects for non-blocking send and receive */
   MPI_Request send_req[MAXPROC], recv_req[MAXPROC];
   int y[MAXPROC];  /* Array to receive values in */
+  int buffer[BUFSIZE];
 
   MPI_Init(&argc, &argv);                /* Initialize */
   MPI_Comm_size(MPI_COMM_WORLD, &np);    /* Get nr of processes */
@@ -48,7 +56,7 @@ int main(int argc, char* argv[]) {
     /* Send a message containing the process id to all other processes */
     for (i=1; i<np; i++) {
       printf("Process %d sending to %d\n", me, i);
-      MPI_Isend(&x, 1, MPI_INT, i, tag, MPI_COMM_WORLD, &send_req[i]);
+      MPI_Isend(&y, 1, MPI_INT, i, tag, MPI_COMM_WORLD, &send_req[i]);
     }
     /* While the messages are delivered, we could do computations here */
 
@@ -60,12 +68,14 @@ int main(int argc, char* argv[]) {
     printf("Process %d receiving from all other processes\n", me);
     /* Receive a message from all other processes */
     for (i=1; i < np; i++) {
-      MPI_Irecv (&y[i], 1, MPI_INT, MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &recv_req[i]);
+      MPI_Irecv (&buffer, BUFSIZE, MPI_INT, MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &recv_req[i]);
     }
     /* While the messages are delivered, we could do computations here */
 
     /* Wait until all messages have been received */
     /* Requests and statuses start from index 1 */ 
+
+    placeHolder();
     MPI_Waitall(np-1, &recv_req[1], &status[1]);
 
     /* Print out one line for each message we received */
@@ -74,7 +84,8 @@ int main(int argc, char* argv[]) {
     }
     printf("Process %d ready\n", me);
     
-    // OPENMP CODE 
+    // OPENMP CODE
+    placeHolder(); 
     int sum = 0;
     #pragma omp parallel for reduction(+:sum) schedule(static,1) private(i)
     for (i=1; i<=LOOPCOUNT; i++)
@@ -87,7 +98,7 @@ int main(int argc, char* argv[]) {
     MPI_Irecv (&y, 1, MPI_INT, 0, tag, MPI_COMM_WORLD, &recv_req[0]);
     MPI_Wait(&recv_req[0], &status[0]);
 
-    MPI_Isend (&x, 1, MPI_INT, 0, tag, MPI_COMM_WORLD, &send_req[0]);
+    MPI_Isend (&buffer, BUFSIZE, MPI_INT, 0, tag, MPI_COMM_WORLD, &send_req[0]);
     /* Lots of computations here */
     MPI_Wait(&send_req[0], &status[0]);
 

@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<!DOCTYPE HPCToolkitStructure [
+<!-- ******************************************************************** -->
+<!-- HPCToolkit Structure DTD                                             -->
+<!-- Version 4.6                                                          -->
+<!-- ******************************************************************** -->
+
+<!ELEMENT HPCToolkitStructure (LM)*>
+<!ATTLIST HPCToolkitStructure
+	version CDATA #REQUIRED
+	i       CDATA #REQUIRED
+	n       CDATA #IMPLIED>
+  <!-- Load module: -->
+  <!--   (i)d: unique identifier for cross referencing -->
+  <!--   (n)ame -->
+  <!--   (l)ine range: "beg-end" (inclusive range) -->
+  <!--   (v)ma-range-set: "{[beg-end), [beg-end)...}" -->
+  <!ELEMENT LM (F|P)*>
+  <!ATTLIST LM
+	i CDATA #REQUIRED
+	n CDATA #REQUIRED
+	v CDATA #IMPLIED>
+  <!-- File: -->
+  <!ELEMENT F (P|L|S)*>
+  <!ATTLIST F
+	i CDATA #REQUIRED
+	n CDATA #REQUIRED>
+  <!-- Procedure: ln=link name (if different than name) -->
+  <!ELEMENT P (P|A|L|S|C)*>
+  <!ATTLIST P
+	i  CDATA #REQUIRED
+	n  CDATA #REQUIRED
+	ln CDATA #IMPLIED
+	l  CDATA #IMPLIED
+	v  CDATA #IMPLIED>
+  <!-- Alien: (f)ilename -->
+  <!ELEMENT A (A|L|S|C)*>
+  <!ATTLIST A
+	i CDATA #REQUIRED
+	f CDATA #IMPLIED
+	n CDATA #IMPLIED
+	l CDATA #IMPLIED
+	v CDATA #IMPLIED>
+  <!-- Loop -->
+  <!ELEMENT L (A|L|S|C)*>
+  <!ATTLIST L
+	i CDATA #REQUIRED
+	l CDATA #REQUIRED
+	f CDATA #IMPLIED
+	v CDATA #IMPLIED>
+  <!-- Statement -->
+  <!ELEMENT S (S)*>
+  <!ATTLIST S
+	i CDATA #REQUIRED
+	l CDATA #REQUIRED
+	v CDATA #IMPLIED>
+  <!-- Callsite (a special Statement) -->
+  <!ELEMENT C EMPTY>
+  <!ATTLIST C
+	i CDATA #REQUIRED
+	l CDATA #REQUIRED
+	v CDATA #IMPLIED>
+]>
+<HPCToolkitStructure i="0" version="4.6" n="">
+<LM i="2" n="/global/u2/h/hashim/Github/HPC_Specialization/Intel_openMP_opt/custom_tests/bin/MPI_waitall" v="{}">
+  <F i="33" n="/global/u2/h/hashim/Github/HPC_Specialization/Intel_openMP_opt/custom_tests/bc/MPI_waitall.bc">
+    <P i="35" n=".omp.reduction.reduction_func" l="0" v="{[0x401350-0x401380)}">
+      <S i="553" l="0" v="{[0x401350-0x401380)}"/>
+    </P>
+    <P i="34" n=".omp_outlined." l="0" v="{[0x401130-0x401350)}">
+      <S i="447" l="0" v="{[0x4011ef-0x4011f4)}"/>
+      <L i="448" l="0" v="{[0x4011f4-0x4011f5)}" f="/global/u2/h/hashim/Github/HPC_Specialization/Intel_openMP_opt/custom_tests/bc/MPI_waitall.bc">
+        <L i="465" l="0" v="{[0x40122e-0x40122f)}" f="/global/u2/h/hashim/Github/HPC_Specialization/Intel_openMP_opt/custom_tests/bc/MPI_waitall.bc">
+          <S i="480" l="0" v="{[0x401130-0x4011ef) [0x4011f4-0x40128b) [0x401290-0x4012cf) [0x4012d4-0x401320) [0x401325-0x401350)}"/>
+        </L>
+      </L>
+      <S i="493" l="0" v="{[0x40128b-0x401290)}"/>
+      <S i="511" l="0" v="{[0x4012cf-0x4012d4)}"/>
+      <S i="533" l="0" v="{[0x401320-0x401325)}"/>
+    </P>
+  </F>
+  <F i="22" n="/usr/src/packages/BUILD/glibc-2.11.3/csu/../sysdeps/x86_64/elf/start.S">
+    <P i="23" n="_start" l="65-116" v="{[0x400bf0-0x400c1c)}">
+      <S i="110" l="0" v="{[0x400c1a-0x400c1c)}"/>
+      <S i="98" l="65" v="{[0x400bf0-0x400bf2)}"/>
+      <S i="99" l="81" v="{[0x400bf2-0x400bf5)}"/>
+      <S i="100" l="83" v="{[0x400bf5-0x400bf6)}"/>
+      <S i="101" l="84" v="{[0x400bf6-0x400bf9)}"/>
+      <S i="102" l="86" v="{[0x400bf9-0x400bfd)}"/>
+      <S i="103" l="88" v="{[0x400bfd-0x400bfe)}"/>
+      <S i="104" l="92" v="{[0x400bfe-0x400bff)}"/>
+      <S i="105" l="106" v="{[0x400bff-0x400c06)}"/>
+      <S i="106" l="107" v="{[0x400c06-0x400c0d)}"/>
+      <S i="107" l="109" v="{[0x400c0d-0x400c14)}"/>
+      <S i="108" l="113" v="{[0x400c14-0x400c19)}"/>
+      <S i="109" l="116" v="{[0x400c19-0x400c1a)}"/>
+    </P>
+  </F>
+  <F i="36" n="/usr/src/packages/BUILD/glibc-2.11.3/csu/elf-init.c">
+    <P i="38" n="__libc_csu_init" l="106-125" v="{[0x401390-0x401420)}">
+      <S i="556" l="0" v="{[0x401419-0x401420)}"/>
+      <S i="570" l="106" v="{[0x401390-0x40139a) [0x4013a8-0x4013c0) [0x4013c3-0x4013c9) [0x4013cd-0x4013d0)}"/>
+      <S i="571" l="120" v="{[0x4013d0-0x4013d5)}"/>
+      <L i="576" l="124" v="{[0x4013e0-0x4013e1)}" f="/usr/src/packages/BUILD/glibc-2.11.3/csu/elf-init.c">
+        <S i="583" l="123" v="{[0x40139a-0x4013a8) [0x4013c0-0x4013c3) [0x4013c9-0x4013cd) [0x4013d5-0x4013e0) [0x4013ed-0x4013f6)}"/>
+        <S i="579" l="124" v="{[0x4013e0-0x4013e9)}"/>
+        <S i="580" l="124" v="{[0x4013e9-0x4013ed)}"/>
+      </L>
+      <S i="591" l="125" v="{[0x4013f6-0x401419)}"/>
+    </P>
+    <P i="37" n="__libc_csu_fini" l="132-140" v="{[0x401380-0x401390)}">
+      <S i="555" l="140" v="{[0x401380-0x401390)}"/>
+    </P>
+  </F>
+  <F i="26" n="crtstuff.c">
+    <P i="39" n="__do_global_ctors_aux" l="0" v="{[0x401420-0x401458)}">
+      <L i="602" l="0" v="{[0x401440-0x401441)}" f="crtstuff.c">
+        <S i="607" l="0" v="{[0x401420-0x401444) [0x401446-0x401458)}"/>
+        <S i="604" l="0" v="{[0x401444-0x401446)}"/>
+      </L>
+    </P>
+    <P i="29" n="__do_global_dtors_aux" l="0" v="{[0x400cb0-0x400d20)}">
+      <L i="170" l="0" v="{[0x400ce8-0x400ce9)}" f="crtstuff.c">
+        <S i="176" l="0" v="{[0x400cb0-0x400cf3) [0x400cfa-0x400d06) [0x400d0b-0x400d20)}"/>
+        <S i="173" l="0" v="{[0x400cf3-0x400cfa)}"/>
+      </L>
+      <S i="177" l="0" v="{[0x400d06-0x400d0b)}"/>
+    </P>
+    <P i="27" n="deregister_tm_clones" l="0" v="{[0x400c40-0x400c70)}">
+      <S i="134" l="0" v="{[0x400c40-0x400c70)}"/>
+    </P>
+    <P i="30" n="frame_dummy" l="0" v="{[0x400d20-0x400d50)}">
+      <S i="195" l="0" v="{[0x400d20-0x400d3d) [0x400d3f-0x400d50)}"/>
+      <S i="192" l="0" v="{[0x400d3d-0x400d3f)}"/>
+    </P>
+    <P i="28" n="register_tm_clones" l="0" v="{[0x400c70-0x400cb0)}">
+      <S i="154" l="0" v="{[0x400c70-0x400cb0)}"/>
+    </P>
+  </F>
+  <F i="24" n="initfini.c">
+    <P i="25" n="call_gmon_start" l="0" v="{[0x400c1c-0x400c40)}">
+      <S i="119" l="0" v="{[0x400c1c-0x400c2c) [0x400c2e-0x400c40)}"/>
+      <S i="117" l="0" v="{[0x400c2c-0x400c2e)}"/>
+    </P>
+  </F>
+  <F i="3" n="~unknown-file~">
+    <P i="19" n="MPI_Comm_rank@plt" l="0" v="{[0x400bc0-0x400bd0)}">
+      <S i="91" l="0" v="{[0x400bc0-0x400bd0)}"/>
+    </P>
+    <P i="14" n="MPI_Comm_size@plt" l="0" v="{[0x400b70-0x400b80)}">
+      <S i="76" l="0" v="{[0x400b70-0x400b80)}"/>
+    </P>
+    <P i="20" n="MPI_Finalize@plt" l="0" v="{[0x400bd0-0x400be0)}">
+      <S i="94" l="0" v="{[0x400bd0-0x400be0)}"/>
+    </P>
+    <P i="13" n="MPI_Init@plt" l="0" v="{[0x400b60-0x400b70)}">
+      <S i="73" l="0" v="{[0x400b60-0x400b70)}"/>
+    </P>
+    <P i="9" n="MPI_Irecv@plt" l="0" v="{[0x400b20-0x400b30)}">
+      <S i="61" l="0" v="{[0x400b20-0x400b30)}"/>
+    </P>
+    <P i="10" n="MPI_Isend@plt" l="0" v="{[0x400b30-0x400b40)}">
+      <S i="64" l="0" v="{[0x400b30-0x400b40)}"/>
+    </P>
+    <P i="16" n="MPI_Wait@plt" l="0" v="{[0x400b90-0x400ba0)}">
+      <S i="82" l="0" v="{[0x400b90-0x400ba0)}"/>
+    </P>
+    <P i="5" n="MPI_Waitall@plt" l="0" v="{[0x400ae0-0x400af0)}">
+      <S i="49" l="0" v="{[0x400ae0-0x400af0)}"/>
+    </P>
+    <P i="7" n="__kmpc_end_reduce_nowait@plt" l="0" v="{[0x400b00-0x400b10)}">
+      <S i="55" l="0" v="{[0x400b00-0x400b10)}"/>
+    </P>
+    <P i="11" n="__kmpc_for_static_fini@plt" l="0" v="{[0x400b40-0x400b50)}">
+      <S i="67" l="0" v="{[0x400b40-0x400b50)}"/>
+    </P>
+    <P i="18" n="__kmpc_for_static_init_4@plt" l="0" v="{[0x400bb0-0x400bc0)}">
+      <S i="88" l="0" v="{[0x400bb0-0x400bc0)}"/>
+    </P>
+    <P i="21" n="__kmpc_fork_call_end@plt" l="0" v="{[0x400be0-0x400bf0)}">
+      <S i="97" l="0" v="{[0x400be0-0x400bf0)}"/>
+    </P>
+    <P i="17" n="__kmpc_fork_call_start@plt" l="0" v="{[0x400ba0-0x400bb0)}">
+      <S i="85" l="0" v="{[0x400ba0-0x400bb0)}"/>
+    </P>
+    <P i="15" n="__kmpc_reduce_nowait@plt" l="0" v="{[0x400b80-0x400b90)}">
+      <S i="79" l="0" v="{[0x400b80-0x400b90)}"/>
+    </P>
+    <P i="12" n="__libc_start_main@plt" l="0" v="{[0x400b50-0x400b60)}">
+      <S i="70" l="0" v="{[0x400b50-0x400b60)}"/>
+    </P>
+    <P i="40" n="_fini" l="0" v="{[0x401458-0x40146e)}">
+      <A i="613" f="initfini.c" n="_real_fini" l="0" v="{}">
+        <S i="612" l="0" v="{[0x401468-0x40146d)}"/>
+        <S i="614" l="0" v="{[0x40146d-0x40146e)}"/>
+      </A>
+      <S i="620" l="0" v="{[0x401458-0x40145d) [0x401462-0x401468)}"/>
+      <S i="617" l="0" v="{[0x40145d-0x401462)}"/>
+    </P>
+    <P i="4" n="_init" l="0" v="{[0x400ab8-0x400ad0)}">
+      <S i="46" l="0" v="{[0x400ab8-0x400abc) [0x400acb-0x400ad0)}"/>
+      <S i="42" l="0" v="{[0x400abc-0x400ac1)}"/>
+      <S i="43" l="0" v="{[0x400ac1-0x400ac6)}"/>
+      <S i="44" l="0" v="{[0x400ac6-0x400acb)}"/>
+    </P>
+    <P i="8" n="exit@plt" l="0" v="{[0x400b10-0x400b20)}">
+      <S i="58" l="0" v="{[0x400b10-0x400b20)}"/>
+    </P>
+    <P i="32" n="main" l="0" v="{[0x400d80-0x401130)}">
+      <S i="220" l="0" v="{[0x400dae-0x400db3)}"/>
+      <S i="224" l="0" v="{[0x400dc2-0x400dc7)}"/>
+      <S i="228" l="0" v="{[0x400dd6-0x400ddb)}"/>
+      <S i="398" l="0" v="{[0x400e10-0x400e15)}"/>
+      <S i="400" l="0" v="{[0x400e1b-0x400e20)}"/>
+      <S i="403" l="0" v="{[0x400e28-0x400e2d)}"/>
+      <S i="241" l="0" v="{[0x400e4c-0x400e51)}"/>
+      <L i="244" l="0" v="{[0x400e5e-0x400e5f) [0x400f3c-0x400f3d) [0x401006-0x401007)}" f="">
+        <S i="349" l="0" v="{[0x400d80-0x400dae) [0x400db3-0x400dc2) [0x400dc7-0x400dd6) [0x400ddb-0x400e10) [0x400e15-0x400e1b) [0x400e20-0x400e28) [0x400e2d-0x400e4c) [0x400e51-0x400e7c) [0x400e81-0x400ed3) [0x400ed8-0x400f10) [0x400f15-0x400f2a) [0x400f2f-0x400f7e) [0x400f83-0x400fc6) [0x400fd0-0x400ff4) [0x400ff9-0x40102c) [0x401031-0x401054) [0x401059-0x40105f) [0x401069-0x401096) [0x40109b-0x4010af) [0x4010b4-0x4010f3) [0x4010f8-0x40110c) [0x401111-0x401117) [0x40111c-0x401124) [0x401129-0x401130)}"/>
+        <S i="252" l="0" v="{[0x400e7c-0x400e81)}"/>
+        <S i="270" l="0" v="{[0x400ed3-0x400ed8)}"/>
+        <S i="308" l="0" v="{[0x400f7e-0x400f83)}"/>
+        <S i="344" l="0" v="{[0x40102c-0x401031)}"/>
+      </L>
+      <S i="285" l="0" v="{[0x400f10-0x400f15)}"/>
+      <S i="290" l="0" v="{[0x400f2a-0x400f2f)}"/>
+      <S i="321" l="0" v="{[0x400fc6-0x400fcb)}"/>
+      <S i="322" l="0" v="{[0x400fcb-0x400fd0)}"/>
+      <S i="332" l="0" v="{[0x400ff4-0x400ff9)}"/>
+      <S i="353" l="0" v="{[0x401054-0x401059)}"/>
+      <S i="355" l="0" v="{[0x40105f-0x401064)}"/>
+      <S i="356" l="0" v="{[0x401064-0x401069)}"/>
+      <S i="366" l="0" v="{[0x401096-0x40109b)}"/>
+      <S i="370" l="0" v="{[0x4010af-0x4010b4)}"/>
+      <S i="383" l="0" v="{[0x4010f3-0x4010f8)}"/>
+      <S i="387" l="0" v="{[0x40110c-0x401111)}"/>
+      <S i="389" l="0" v="{[0x401117-0x40111c)}"/>
+      <S i="392" l="0" v="{[0x401124-0x401129)}"/>
+    </P>
+    <P i="31" n="placeHolder" l="0" v="{[0x400d50-0x400d80)}">
+      <S i="207" l="0" v="{[0x400d50-0x400d69) [0x400d6e-0x400d80)}"/>
+      <S i="203" l="0" v="{[0x400d69-0x400d6e)}"/>
+    </P>
+    <P i="6" n="printf@plt" l="0" v="{[0x400af0-0x400b00)}">
+      <S i="52" l="0" v="{[0x400af0-0x400b00)}"/>
+    </P>
+  </F>
+</LM>
+</HPCToolkitStructure>

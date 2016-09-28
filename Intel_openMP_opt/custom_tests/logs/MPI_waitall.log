@@ -1,0 +1,61 @@
+Process 0 sending to all other processes
+Process 0 sending to 1
+Process 0 sending to 2
+Process 0 sending to 3
+Process 0 sending to 4
+Process 0 sending to 5
+Process 0 sending to 6
+Process 0 sending to 7
+Process 0 receiving from all other processes
+kmp_fork_call2 called --------------------- *** ----------- 
+
+-GTID_1=0---- master before signalling any children calling internal fork --- 
+
+ master calling its FORK BARRIER 
+placeHolder func 10 
+Process 0 received a message from process 0
+Process 0 received a message from process 0
+Process 0 received a message from process 0
+Process 0 received a message from process 0
+Process 0 received a message from process 0
+Process 0 received a message from process 0
+Process 0 received a message from process 0
+Process 0 ready
+placeHolder func 10 
+-GTID_2=0--- * --- _kmp_fork_barrier call from *kmpc_fork_call_end* --- * --- 
+** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ *** A child thread is released with gtid  2
+*** A child thread is released with gtid  4
+** Releasing child from tid 4
+ ** Releasing child from tid 4
+ ** Releasing child from tid 4
+ *** A child thread is released with gtid  5
+*** A child thread is released with gtid  1
+*** A child thread is released with gtid  3
+*** A child thread is released with gtid  7
+*** A child thread is released with gtid  6
+** Releasing child from tid 0
+ ** Releasing child from tid 0
+ ** Releasing child from tid 0
+ *** A child thread is released with gtid  4
+** Releasing child from tid 4
+ *** A child thread is released with gtid  2
+ $$$$ microtask called by parent $$$$$ 
+*** A child thread is released with gtid  6
+** Releasing child from tid 6
+ *** A child thread is released with gtid  7
+** Releasing child from tid 4
+ *** A child thread is released with gtid  1
+** Releasing child from tid 2
+ *** A child thread is released with gtid  5
+*** A child thread is released with gtid  3
+*** A child thread is released with gtid  1
+*** A child thread is released with gtid  2
+*** A child thread is released with gtid  3
+*** A child thread is released with gtid  4
+*** A child thread is released with gtid  5
+*** A child thread is released with gtid  6
+*** A child thread is released with gtid  7
