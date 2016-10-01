@@ -28,6 +28,7 @@ export OMPI_CC=clang
 export OMPI_MPICC=clang
 export OMPI_CXX=clang++
 export MPICH_ASYNC_PROGRESS=1
+export MPICH_MAX_THREAD_SAFETY=multiple
 
 # Add path for modified mpicc wrapper - support for clang enabled
 export PATH=$work_dir/mpicc_bin/:$PATH
@@ -55,7 +56,7 @@ fi
 
 
 metrics="-M thread --force-metric"
-exp="exp5_mpich"
+exp="exp1_mpich2"
 numProcs=2
 
 if [[ $1 == "run" ]] ;
@@ -64,7 +65,7 @@ then
   rm -r custom_tests/databases/$exp
   mkdir custom_tests/prof/$exp
   mkdir custom_tests/databases/$exp
-  tests=( MPI_ping MPI_ping_modified )
+  tests=( MPI_ping_modified  MPI_ping )
   for test in "${tests[@]}"
   do
     llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
