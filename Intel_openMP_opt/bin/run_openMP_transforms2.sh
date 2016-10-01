@@ -66,12 +66,7 @@ then
   do
     llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
     llc custom_tests/bc/${test}.bc -o custom_tests/as/${test}.s
-   
-    #module unload PrgEnv-gnu
-    #module load PrgEnv-intel   # module load llvm loads PrgEnv-gnu
-
     CC -dynamic custom_tests/as/${test}.s -o custom_tests/bin/${test} -openmp
-    echo "compiled ****** "
     hpcstruct custom_tests/bin/${test} -o custom_tests/hpcstruct/${test}.hpcstruct
     srun --ntasks=${numProcs} --ntasks-per-node=1  hpcrun -o custom_tests/prof/${exp}/${test} --trace -e  REALTIME@1000 ./custom_tests/bin/${test} # &> custom_tests/logs/${test}.log
     hpcprof ${metrics} -S custom_tests/hpcstruct/${test}.hpcstruct  custom_tests/prof/${exp}/${test} -o  custom_tests/databases/${exp}/${test}
