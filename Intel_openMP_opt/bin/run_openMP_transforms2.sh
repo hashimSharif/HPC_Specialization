@@ -15,7 +15,10 @@ work_dir=$( pwd )
 export C_INCLUDE_PATH=$work_dir/build/runtime/src/:$C_INCLUDE_PATH
 export LD_LIBRARY_PATH=$work_dir/build/runtime/src/:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$work_dir/build/runtime/src/:$LIBRARY_PATH
-export OMP_NUM_THREADS=8 # setting default for number of openMP threads per parallel region
+
+#openMP variables. setting the thread affinity of each openMP thread to a physical core
+export OMP_NUM_THREADS=20 # setting default for number of openMP threads per parallel region
+export KMP_AFFINITY=verbose,granularity=core,compact,1
 
 # Add paths for clang-3.8 llvm-3.8
 export PATH=~/software/llvm-3.8.0.src/build/Release+Asserts/bin/:$PATH
@@ -52,7 +55,7 @@ fi
 
 
 metrics="-M thread --force-metric"
-exp="exp14"
+exp="exp5_mpich"
 numProcs=2
 
 if [[ $1 == "run" ]] ;
@@ -61,14 +64,14 @@ then
   rm -r custom_tests/databases/$exp
   mkdir custom_tests/prof/$exp
   mkdir custom_tests/databases/$exp
-  tests=( MPI_ping )
+  tests=( MPI_ping MPI_ping_modified )
   for test in "${tests[@]}"
   do
     llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
     llc custom_tests/bc/${test}.bc -o custom_tests/as/${test}.s
     CC -dynamic custom_tests/as/${test}.s -o custom_tests/bin/${test} -openmp
     hpcstruct custom_tests/bin/${test} -o custom_tests/hpcstruct/${test}.hpcstruct
-    srun --ntasks=${numProcs} --ntasks-per-node=1  hpcrun -o custom_tests/prof/${exp}/${test} --trace -e  REALTIME@1000 ./custom_tests/bin/${test} # &> custom_tests/logs/${test}.log
+    srun --ntasks=${numProcs} --ntasks-per-node=1 --cpus-per-task=22  hpcrun -o custom_tests/prof/${exp}/${test} --trace -e  REALTIME@1000 ./custom_tests/bin/${test}  &> custom_tests/logs/${test}.log
     hpcprof ${metrics} -S custom_tests/hpcstruct/${test}.hpcstruct  custom_tests/prof/${exp}/${test} -o  custom_tests/databases/${exp}/${test}
   done
 fi
