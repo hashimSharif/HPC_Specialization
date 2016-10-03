@@ -28,6 +28,7 @@ export OMPI_CC=clang
 export OMPI_MPICC=clang
 export OMPI_CXX=clang++
 export MPICH_ASYNC_PROGRESS=1
+export MPICH_NEMESIS_ASYNC_PROGRESS=1
 export MPICH_MAX_THREAD_SAFETY=multiple
 
 # Add path for modified mpicc wrapper - support for clang enabled
@@ -56,7 +57,7 @@ fi
 
 
 metrics="-M thread --force-metric"
-exp="exp1_mpich2"
+exp="exp6_mpich2"
 numProcs=2
 
 if [[ $1 == "run" ]] ;
