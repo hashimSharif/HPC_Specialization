@@ -66,7 +66,7 @@ if [ x"$opt_args" == x"" ]; then
 else
     case "${compiler_short_name}" in
 	icc)    $dir/mpiicc -cc=$compiler_name "$@" $opt_args ;;
-	cc|gcc|clang) $dir/mpigcc -cc=$compiler_name "$@" $opt_args ;;
+	cc|gcc|clang|wllvm) $dir/mpigcc -cc=$compiler_name "$@" $opt_args ;;
 	mpicc)  $dir/mpigcc "$@" $opt_args ;;    
 	*)  
     	    echo "Error: unsupported compiler name '$compiler_name'."
