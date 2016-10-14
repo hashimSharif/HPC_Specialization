@@ -7,6 +7,7 @@
 # PrgEnv-intel is required to use libomp.so instead of libgomp.so (GNU implementation)
 module load llvm
 module load gcc
+module load hpctoolkit
 module unload PrgEnv-gnu
 module load PrgEnv-intel
 module load impi         # needed for running mpicc with clang - geneting llvm bitcode
@@ -64,21 +65,24 @@ then
   llvm-dis custom_tests/bc/miniGMG.bc -o custom_tests/ll/miniGMG.ll
 fi
 
-experimentNum=5
-logs=( 1 2 3 4 5 6 7 8 9 )
-for logNum in "${logs[@]}"
-do
-  logDir=exp${logNum}_miniGMG${experimentNum}
-  if [[ $1 == "run" ]] ;
-  then
-    mkdir custom_tests/logs/${logDir}
-    tests=( miniGMG_modified  miniGMG )
-    for test in "${tests[@]}"
-    do
-      llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
-      llc custom_tests/bc/${test}.bc -o custom_tests/as/${test}.s
-      CC -O3 -dynamic custom_tests/as/${test}.s -o custom_tests/bin/${test} -openmp
-      srun --ntasks=8 --ntasks-per-node=2 --cpus-per-task=12 ./custom_tests/bin/${test}  3  2 2 2  2 2 2  &> custom_tests/logs/${logDir}/${test}.log
+
+metrics="-M thread --force-metric"
+logs=( 1 2 3 )
+tests=( miniGMG_modified  miniGMG )
+
+if [[ $1 == "run" ]];
+then
+  for test in "${tests[@]}"
+  do
+    llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
+    llc custom_tests/bc/${test}.bc -o custom_tests/as/${test}.s
+    CC -O3 -dynamic custom_tests/as/${test}.s -o custom_tests/bin/${test} -openmp
+    hpcstruct custom_tests/bin/${test} -o custom_tests/hpcstruct/${test}.hpcstruct
+
+    for logNum in "${logs[@]}"
+    do  
+      srun --ntasks=64 --ntasks-per-node=2 --cpus-per-task=12  hpcrun -o  custom_tests/prof/${test}_${logNum} --trace -e REALTIME@1000  ./custom_tests/bin/${test}  6  2 2 2  4 4 4 
+      hpcprof ${metrics} -S custom_tests/hpcstruct/${test}.hpcstruct  custom_tests/prof/${test}_${logNum}  -o  custom_tests/databases/${test}_${logNum}
     done
-  fi
-done
+  done
+fi

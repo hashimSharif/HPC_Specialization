@@ -64,11 +64,12 @@ then
   llvm-dis custom_tests/bc/miniGMG.bc -o custom_tests/ll/miniGMG.ll
 fi
 
-experimentNum=5
-logs=( 1 2 3 4 5 6 7 8 9 )
+
+experimentNum=1
+logs=( 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 )
 for logNum in "${logs[@]}"
 do
-  logDir=exp${logNum}_miniGMG${experimentNum}
+  logDir=exp${logNum}_miniGMG3_${experimentNum}
   if [[ $1 == "run" ]] ;
   then
     mkdir custom_tests/logs/${logDir}
@@ -78,7 +79,7 @@ do
       llvm-as custom_tests/ll/${test}.ll -o custom_tests/bc/${test}.bc
       llc custom_tests/bc/${test}.bc -o custom_tests/as/${test}.s
       CC -O3 -dynamic custom_tests/as/${test}.s -o custom_tests/bin/${test} -openmp
-      srun --ntasks=8 --ntasks-per-node=2 --cpus-per-task=12 ./custom_tests/bin/${test}  3  2 2 2  2 2 2  &> custom_tests/logs/${logDir}/${test}.log
+      srun --ntasks=8 --ntasks-per-node=2 --cpus-per-task=12 ./custom_tests/bin/${test}  6  2 4 8  4 2 1  &> custom_tests/logs/${logDir}/${test}.log
     done
   fi
 done
