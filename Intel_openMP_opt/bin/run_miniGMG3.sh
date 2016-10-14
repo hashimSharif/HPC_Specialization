@@ -57,7 +57,6 @@ if [[ $1 == "build" ]] ;
 then 
   cd custom_tests/src/miniGMG
   mpicc -cc=wllvm -fopenmp -O3 operators.omptask.c bench.c mg.c box.c solver.c  timer.x86.c -D__MPI -D__COLLABORATIVE_THREADING=6 -o miniGMG -lm -lomp
-
   extract-bc miniGMG
   cp miniGMG.bc ../../bc/miniGMG.bc
   cd ../../../
@@ -66,7 +65,11 @@ fi
 
 experimentNum=1
 logs=( 1 2 3 )
-tests=( miniGMG_modified  miniGMG )
+tests=( miniGMG miniGMG_modified )
+procs=( 2 3 4 5 6 )
+boxes=( 2 3 4 5 6 7 )
+boxDim=( 3 4 5 6 7 )
+totalProcs=( 8 27 64 125 216 ) 
 
 if [[ $1 == "run" ]];
 then
@@ -77,10 +80,23 @@ then
     CC -O3 -dynamic custom_tests/as/${test}.s -o custom_tests/bin/${test} -openmp
 
     for logNum in "${logs[@]}"
-    do 
-      logDir=exp${logNum}_miniGMG_new_${experimentNum}
-      mkdir custom_tests/logs/${logDir}    
-      srun --ntasks=64 --ntasks-per-node=2 --cpus-per-task=12 ./custom_tests/bin/${test}  6  2 2 2  4 4 4  &> custom_tests/logs/${logDir}/${test}.log
+    do
+      count=0
+      for proc in "${procs[@]}"
+      do
+        for box in "${boxes[@]}"
+        do 
+          for dim in "${boxDim[@]}"
+          do 
+            logDir=miniGMG_${dim}_${box}_${proc}
+            mkdir custom_tests/logs/${logDir}  
+            echo srun --ntasks=${totalProcs[$count]} --ntasks-per-node=2 --cpus-per-task=12 ./custom_tests/bin/${test}  $dim   $box $box $box  $proc $proc $proc  &> custom_tests/logs/${logDir}/${test}_${logNum}.log
+          done
+            srun --ntasks=${totalProcs[$count]} --ntasks-per-node=2 --cpus-per-task=12 ./custom_tests/bin/${test}  $dim   $box $box $box  $proc $proc $proc  &> custom_tests/logs/${logDir}/${test}_${logNum}.log
+          done
+        done
+        $count=$count+1
+      done  
     done
   done
 fi
